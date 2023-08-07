@@ -111,7 +111,7 @@ function PaymentSettelmentPopUp(props) {
               </div>
             </div>
             <div
-              className="submit-btn mt-20 h-5vh mb-20"
+              className="submit-btn mt-20 h-4vh mb-20 font-14 flex-center"
               onClick={() => handleSubmit()}
             >
               Submit

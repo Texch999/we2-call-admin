@@ -264,6 +264,8 @@ function Settelment() {
       <ConfirmModal
         confirmModal={confirmModal}
         setConfirmModal={setConfirmModal}
+        thankyouModal={thankyouModal}
+        setThankYouModal={setThankYouModal}
       />
     </div>
   );

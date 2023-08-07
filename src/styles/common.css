@@ -88,6 +88,12 @@
 .fw-800 {
   font-weight: 600;
 }
+.h-4vh {
+  height: 4vh;
+}
+.h-10vh {
+  height: 10vh;
+}
 .h-100vh {
   height: 100vh;
 }
@@ -153,6 +159,9 @@
 }
 .clr-yellow {
   color: #fce719 !important;
+}
+.clr-white {
+  color: #ffffff !important;
 }
 .clr-red {
   color: #ff0000 !important;
