@@ -2,14 +2,13 @@ import { Modal } from "antd";
 import React, { useState } from "react";
 import { RiArrowDropDownLine } from "react-icons/ri";
 function PaymentSettelmentPopUp(props) {
-  const { paymentModal, setPaymentModal, setConfirmModal } =
-    props;
+  const { paymentModal, setPaymentModal, setConfirmModal } = props;
   const handleCancel = () => {
     setPaymentModal();
   };
   const handleSubmit = () => {
     setConfirmModal(true);
-    setPaymentModal(false)
+    setPaymentModal(false);
   };
   return (
     <Modal
@@ -23,7 +22,7 @@ function PaymentSettelmentPopUp(props) {
         <div className="flex-column w-80">
           <div className="flex-center w-100 mt-10">
             <img
-              className="w-20 h-5vh"
+              className="w-25 h-25"
               src={process.env.PUBLIC_URL + "./assets/images/payment.png"}
             ></img>
           </div>
@@ -31,11 +30,11 @@ function PaymentSettelmentPopUp(props) {
             Payment Settelment
           </div>
           <div className="flex-row flex-center">
-            <div className="flex-center font-12 flex-row button-date-time h-25p br-15 w-30 mr-5 ml-5 p-5">
+            <div className="flex-center font-12 flex-row button-date-time h-25p br-15 w-40 mr-5 ml-5 p-5">
               <div className="font-12 mr-5">Date </div>
               <div className="font-12">: 27/07/2023</div>
             </div>
-            <div className="flex-center font-12 flex-row button-date-time h-25p br-15 w-30 mr-5 ml-5 p-5">
+            <div className="flex-center font-12 flex-row button-date-time h-25p br-15 w-40 mr-5 ml-5 p-5">
               <div className="font-12 mr-5">Time </div>
               <div className="font-12">: 17:46:00 PM</div>
             </div>
@@ -60,20 +59,20 @@ function PaymentSettelmentPopUp(props) {
               </div>
             </div>
             <div className="d-flex flex-row mt-10 w-100 flex-space-between">
-              <div className="flex-center font-12 w-45 flex-row button-date-time h-25p br-10 p-5 ">
+              <div className="flex-start font-12 w-45 flex-row button-date-time h-25p br-10 p-5 ">
                 {" "}
                 <input
                   type="text"
                   placeholder="balance"
-                  className="login-inputs ml-5"
+                  className="login-inputs ml-5 "
                 ></input>
               </div>
-              <div className="flex-center font-12 w-45 flex-row button-date-time h-25p br-10 p-5">
+              <div className="flex-start font-12 w-45 flex-row button-date-time h-25p br-10 p-5">
                 {" "}
                 <input
                   type="text"
                   placeholder="Net bal"
-                  className="login-inputs ml-5"
+                  className="login-inputs ml-5 "
                 ></input>
               </div>
             </div>

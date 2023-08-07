@@ -11,7 +11,9 @@ function ConfirmModal(props) {
     setThankYouModal(!thankyouModal);
     setConfirmModal(false);
   };
-
+  const handleConfirmPopup = () => {
+    setConfirmModal(false);
+  };
   return (
     <Modal
       open={confirmModal}
@@ -23,7 +25,7 @@ function ConfirmModal(props) {
       <div>
         <div className="w-100 flex-center">
           <img
-            className="w-20 h-10vh"
+            className="w-25 h-25"
             src={process.env.PUBLIC_URL + "./assets/images/question_mark.png"}
           ></img>
         </div>
@@ -33,12 +35,17 @@ function ConfirmModal(props) {
         </div>
         <div className="flex-row flex-space-around w-100 mt-20">
           <button
-            className="submit-btn w-30 h-30p"
+            className="submit-btn w-30 h-50p"
             onClick={() => handleThankyouPopup()}
           >
             yes
           </button>
-          <button className="submit-btn w-30 h-30p">No</button>
+          <button
+            className="submit-btn w-30 h-50p"
+            onClick={() => handleConfirmPopup()}
+          >
+            No
+          </button>
         </div>
       </div>
     </Modal>
