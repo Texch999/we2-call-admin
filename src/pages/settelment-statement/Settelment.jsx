@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import "./styles.css";
 import { Col, Row } from "antd";
 import { FiFileText } from "react-icons/fi";
+import PaymentSettelmentPopUp from "./PaymentSettelmentPopUp";
+import ThankYouPopup from "./ThankYouPopup";
+import ConfirmModal from "./ConfirmModal";
 function Settelment() {
   const SETTELMENT_DETAILS = [
     {
@@ -133,6 +136,12 @@ function Settelment() {
       File: "",
     },
   ];
+  const [paymentModal, setPaymentModal] = useState(false);
+  const handlePaymentModalOpen = () => {
+    setPaymentModal(!paymentModal);
+  };
+  const [thankyouModal, setThankYouModal] = useState(false);
+  const [confirmModal, setConfirmModal] = useState(false);
   return (
     <div className="we-2-call-homepage h-100vh">
       <div className="main-div">
@@ -193,13 +202,15 @@ function Settelment() {
                     <div className="font-12 fw-600">{item.Amount}</div>
                   </Col>
                   <Col span={4}>
-                    {/* {ClientName==="Sri23465" ?"":""} */}
-                    <div className={item.ClientName==="Sri23465"?"font-12 fw-600 clr-red":"font-12 fw-600 clr-green"}>
+                    <div
+                      className={
+                        item.ClientName === "Sri23465"
+                          ? "font-12 fw-600 clr-red"
+                          : "font-12 fw-600 clr-green"
+                      }
+                    >
                       {item.CreditDebit}
                     </div>
-                    {/* <div className="font-12 fw-600 clr-green">
-                      {item.CreditDebit}
-                    </div> */}
                   </Col>
                   <Col span={4}>
                     <div className="font-12 fw-600 clr-green">
@@ -207,7 +218,10 @@ function Settelment() {
                     </div>
                   </Col>
                   <Col span={4}>
-                    <FiFileText className="font-18 fw-600 clr-yellow"></FiFileText>
+                    <FiFileText
+                      className="font-18 fw-600 clr-yellow"
+                      onClick={() => handlePaymentModalOpen()}
+                    ></FiFileText>
                   </Col>
                 </Row>
               </div>
@@ -234,6 +248,23 @@ function Settelment() {
           </div>
         </div>
       </div>
+
+      <PaymentSettelmentPopUp
+        paymentModal={paymentModal}
+        setPaymentModal={setPaymentModal}
+        setThankYouModal={setThankYouModal}
+        thankyouModal={thankyouModal}
+        confirmModal={confirmModal}
+        setConfirmModal={setConfirmModal}
+      />
+      <ThankYouPopup
+        thankyouModal={thankyouModal}
+        setThankYouModal={setThankYouModal}
+      />
+      <ConfirmModal
+        confirmModal={confirmModal}
+        setConfirmModal={setConfirmModal}
+      />
     </div>
   );
 }
