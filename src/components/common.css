@@ -20,11 +20,9 @@
 }
 .header {
   height: 12vh;
-  border: 1px solid red;
 }
 .homepage {
   height: 88vh;
-  border: 1px solid red;
 }
 .flex {
   display: flex;
@@ -53,8 +51,17 @@
   align-items: center;
   justify-content: space-evenly;
 }
+.h-12vh{
+  height: 12vh !important;
+}
+.h-100p {
+  height: 100% !important;
+}
 .w-10 {
   width: 10% !important;
+}
+.w-15 {
+  width: 15% !important;
 }
 .w-20 {
   width: 20% !important;
@@ -91,6 +98,15 @@
 }
 .p-10 {
   padding: 10px !important;
+}
+.ml-5 {
+  margin-left: 5px !important;
+}
+.mr-5 {
+  margin-right: 5px !important;
+}
+.mr-10{
+  margin-right: 10px !important;
 }
 .mt-5 {
   margin-top: 5px !important;
