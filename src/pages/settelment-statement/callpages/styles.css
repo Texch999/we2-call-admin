@@ -1,0 +1,25 @@
+.complete-button {
+  width: 80%;
+  height: 30px;
+  border-radius: 15px;
+  background-color: #04c85e;
+  color: #00143d !important;
+}
+.calendar-button {
+  border-radius: 8px;
+  background-color: #112a5e;
+  width: 100%;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+}
+.rejected-buttons {
+  opacity: 0.8;
+  border-radius: 28px;
+  background-color: #f00;
+  color: #00143d !important;
+  height: 30px;
+  border-radius: 15px;
+}
