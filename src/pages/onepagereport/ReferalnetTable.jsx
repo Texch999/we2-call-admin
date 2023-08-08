@@ -70,13 +70,13 @@ function ReferalnetTable() {
         </div>
         <div className="upcoming-meetings-heading">
           <Row>
-            <Col span={8}>
+            <Col span={5}>
               <div className="font-12 fw-600 flex-start">TOTAL</div>
             </Col>
-            <Col span={4}>
+            <Col span={5}>
               <div className="font-12 fw-600 clr-green">50000000000</div>
             </Col>
-            <Col span={4}>
+            <Col span={5}>
               <div className="font-12 fw-600 clr-green">50000000000</div>
             </Col>
             <Col span={4}>
