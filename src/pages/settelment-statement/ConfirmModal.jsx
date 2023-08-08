@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Modal } from "antd";
 
 function ConfirmModal(props) {
@@ -14,6 +14,7 @@ function ConfirmModal(props) {
   const handleConfirmPopup = () => {
     setConfirmModal(false);
   };
+  const [active,setActive]=useState()
   return (
     <Modal
       open={confirmModal}

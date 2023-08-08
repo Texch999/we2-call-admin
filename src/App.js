@@ -3,20 +3,22 @@ import "./App.css";
 import "../src/styles/common.css";
 import SettelmentStatement from "./pages/settelment-statement/SettelmentStatement";
 import Settelment from "./pages/settelment-statement/Settelment";
-import CallStatement from "./pages/settelment-statement/callpages/CallStatement";
-import CallHistory from "./pages/settelment-statement/callpages/CallHistory";
-import CallSettelment from "./pages/settelment-statement/callpages/CallSettelment";
-import PrivacyPolicy from "./pages/settelment-statement/privacypolicy/PrivacyPolicy";
+import CallStatement from "./pages/callpages/CallStatement";
+import CallHistory from "./pages/callpages/CallHistory";
+import CallSettelment from "./pages/callpages/CallSettelment";
+import PrivacyPolicy from "./pages/privacypolicy/PrivacyPolicy";
+import OnePageReport from "./pages/onepagereport/OnePageReport";
 
 function App() {
   return (
     <div className="App">
-      {/* <SettelmentStatement />
+      <SettelmentStatement />
       <Settelment />
       <CallStatement />
-      <CallHistory/>
-      <CallSettelment/> */}
-      <PrivacyPolicy/>
+      <CallHistory />
+      <CallSettelment />
+      <PrivacyPolicy />
+      <OnePageReport />
     </div>
   );
 }

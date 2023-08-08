@@ -162,6 +162,12 @@
 .mb-10 {
   margin-bottom: 10px !important;
 }
+.mb-5 {
+  margin-bottom: 5px !important;
+}
+.mt-5 {
+  margin-top: 5px !important;
+}
 .mt-10 {
   margin-top: 10px !important;
 }
@@ -200,6 +206,9 @@
 }
 .clr-red {
   color: #ff0000 !important;
+}
+.clr-black {
+  color: #000000 !important;
 }
 .w-95vw {
   width: 9vw !important;

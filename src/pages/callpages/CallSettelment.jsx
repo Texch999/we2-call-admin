@@ -129,11 +129,7 @@ function CallSettelment() {
       status: "Rejected",
     },
   ];
-  const [paymentModal, setPaymentModal] = useState(false);
-  const handlePaymentModalOpen = () => {
-    setPaymentModal(!paymentModal);
-  };
-  const [thankyouModal, setThankYouModal] = useState(false);
+
   const [showUploadScreenshotModal, setShowUploadScreenshotModal] =
     useState(false);
   const handleUploadButton = () => {
