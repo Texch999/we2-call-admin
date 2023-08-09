@@ -8,6 +8,7 @@ import CallHistory from "./pages/callpages/CallHistory";
 import CallSettelment from "./pages/callpages/CallSettelment";
 import PrivacyPolicy from "./pages/privacypolicy/PrivacyPolicy";
 import OnePageReport from "./pages/onepagereport/OnePageReport";
+import MatchStatement from "./pages/matchstatement/MatchStatement";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
       <CallSettelment />
       <PrivacyPolicy />
       <OnePageReport />
+      <MatchStatement />
     </div>
   );
 }
