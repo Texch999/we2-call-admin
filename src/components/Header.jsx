@@ -129,9 +129,10 @@ function Header() {
     setMoreType(name);
     setMoreOpen(false);
   };
-  const handleSelectReports = (name) => {
-    setReportsType(name);
+  const handleSelectReports = (e) => {
+    setReportsType(e.name);
     setReportsOpen(false);
+    console.log(e);
   };
   // const date = moment().format("MMMM DD YYYY");
   const time = Date().toLocaleString();
@@ -188,7 +189,7 @@ function Header() {
                   <div
                     key={index}
                     className="flex-aline-center mt-5"
-                    onClick={() => handleSelectReports(item.name)}
+                    onClick={() => handleSelectReports(item)}
                   >
                     {item.icon}
                     {item.name}
