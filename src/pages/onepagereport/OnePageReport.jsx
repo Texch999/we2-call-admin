@@ -12,7 +12,7 @@ function OnePageReport() {
   };
 
   return (
-    <div className="we-2-call-homepage h-100vh">
+    <div className="homepage">
       <div>
         <div className="font-30 flex-start fw-600">One Page Report</div>
         <div className="flex-start flex-row w-60 mt-20 mb-10">
