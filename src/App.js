@@ -1,26 +1,21 @@
-import logo from "./logo.svg";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
-import "../src/styles/common.css";
-import SettelmentStatement from "./pages/settelment-statement/SettelmentStatement";
-import Settelment from "./pages/settelment-statement/Settelment";
-import CallStatement from "./pages/callpages/CallStatement";
-import CallHistory from "./pages/callpages/CallHistory";
-import CallSettelment from "./pages/callpages/CallSettelment";
-import PrivacyPolicy from "./pages/privacypolicy/PrivacyPolicy";
-import OnePageReport from "./pages/onepagereport/OnePageReport";
-import MatchStatement from "./pages/matchstatement/MatchStatement";
+import Header from "./components/Header";
+import Homepage from "./components/Homepage";
+import MatchEntry from "./pages/MatchEntry/MatchEntry";
+import FancyEntry from "./pages/FancyEntry/FancyEntry";
 
 function App() {
   return (
-    <div className="App">
-      <SettelmentStatement />
-      <Settelment />
-      <CallStatement />
-      <CallHistory />
-      <CallSettelment />
-      <PrivacyPolicy />
-      <OnePageReport />
-      <MatchStatement />
+    <div className="main">
+      <BrowserRouter>
+        <Header />
+        <Routes>
+          <Route path="/" element={<Homepage />} />
+          <Route path="/matchentry" element={<MatchEntry />} />
+          <Route path="/fancyentry" element={<FancyEntry />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
