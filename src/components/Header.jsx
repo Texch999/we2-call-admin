@@ -92,6 +92,9 @@ function Header() {
   const handleMenuItem = (index) => {
     setActiveHead(index);
     {
+      index === 0 && navigate("/");
+    }
+    {
       index === 3 && handleMatchEntry();
     }
     {

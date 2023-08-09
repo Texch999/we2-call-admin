@@ -83,7 +83,7 @@
   max-width: 100%;
 }
 .management-container {
-  height: 40vh !important;
+  height: 55vh !important;
   /* background: red; */
 }
 .scrolling-text {
@@ -99,4 +99,99 @@
   width: 24px;
   height: 22px;
   border-radius: 4px;
+}
+.call-sub-div {
+  background: #634beb !important;
+  height: 100% !important;
+  border-radius: 10px;
+  margin: 7px !important;
+  padding: 7px;
+}
+.sports-management {
+  height: 100% !important;
+  padding: 1.5rem 1.5rem 1.5rem 0.5rem !important;
+}
+.users-management-container {
+  height: 50% !important;
+  background: linear-gradient(to right, #e762e5, #4f64f0);
+  margin: 8px !important;
+  border-radius: 10px !important;
+}
+.sports-management-container {
+  height: 50% !important;
+  background: linear-gradient(to right, rgba(237, 110, 159, 1), #ec8b6b);
+  margin: 8px !important;
+  border-radius: 10px !important;
+}
+.sports-management-img,
+.user-management-img {
+  height: 80%;
+  margin-left: 1.5rem !important;
+}
+.arrow {
+  padding: 0px 10px !important;
+  background: white !important;
+  color: #af5bd4;
+  width: fit-content;
+  border-radius: 20px;
+}
+/* Custom CSS */
+.ant-carousel .slick-dots {
+  bottom: 5px;
+  left: -80% !important;
+}
+
+.ant-carousel .slick-dots li {
+  width: 10px;
+  height: 10px;
+  background-color: #ccc;
+  border-radius: 100%;
+}
+
+.ant-carousel .slick-dots li.slick-active {
+  background-color: #1890ff;
+  width: 10px;
+  height: 10px;
+  border-radius: 100%;
+}
+ant-carousel.scrolling-div {
+  width: 100% !important;
+  height: 100% !important;
+  background: red;
+}
+.clr-red {
+  color: red !important;
+  background-color: yellow;
+}
+.create-meeting-text {
+  font-size: 15px;
+  font-weight: 700;
+  font-family: "Barlow-Regular" !important;
+}
+.meeting-text {
+  font-size: 12px;
+  font-weight: 500;
+  font-family: "Barlow-Regular" !important;
+  line-height: 20px;
+}
+.button-w2c {
+  padding:5px 10px;
+  background: #ffffff;
+  color: #442cca;
+  font-size: 20px;
+  width: fit-content;
+  font-weight:bold;
+  font-family: "Barlow-Regular" !important;
+  border-radius: 0px 20px 20px 20px;
+}
+.call-img{
+  height: 80% !important;
+}
+.upcoming-main-container{
+  height: 70vh !important;
+}
+.upcoming-container{
+  background: yellow;
+  height: 100px !important;
+  /* margin: 10px; */
 }

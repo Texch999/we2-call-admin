@@ -1,10 +1,12 @@
 body {
   background-color: #00143d;
   color: #ffffff;
-  font-family: "Barlow-Medium";
+  height: 100vh;
+  box-sizing: border-box;
+  /* font-family: "Barlow-Medium";
   font-family: "barlow-semibold";
-  font-family: "barlow-regular";
-  font-family: "Barlow-Regular";
+  font-family: "barlow-regular"; */
+  font-family: "Barlow-Regular" !important;
 }
 ::-webkit-scrollbar {
   width: 5px;

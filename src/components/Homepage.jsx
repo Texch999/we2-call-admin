@@ -1,13 +1,16 @@
-import { Col, Row } from "antd";
+import { Col, Grid, Row } from "antd";
+
+import { Carousel } from "antd";
 import React from "react";
+import { BsArrowRight } from "react-icons/bs";
+import ManagementContainer from "../pages/home/ManagementContainer";
+import UpcomingAndSummary from "../pages/home/UpcomingAndSummary";
 
 function Homepage() {
   return (
     <div className="homepage">
-      <Row className="management-container">
-        <Col span={14} className="call-management"></Col>
-        <Col span={10} className="sports-management"></Col>
-      </Row>
+      <ManagementContainer />
+      <UpcomingAndSummary />
     </div>
   );
 }

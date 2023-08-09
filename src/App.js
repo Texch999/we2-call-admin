@@ -7,7 +7,7 @@ import FancyEntry from "./pages/FancyEntry/FancyEntry";
 
 function App() {
   return (
-    <div>
+    <div className="main">
       <BrowserRouter>
         <Header />
         <Routes>
