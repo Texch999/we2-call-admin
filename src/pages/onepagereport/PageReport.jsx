@@ -168,7 +168,7 @@ function PageReport() {
         <div className="upcoming-meetings-heading">
           <Row>
             <Col span={5}>
-              <div className="font-12 fw-600 flex-start">TOTAL</div>
+              <div className="font-12 fw-600 flex-center">TOTAL</div>
             </Col>
             <Col span={5}>
               <div className="font-12 fw-600 clr-green">50000000000</div>
@@ -180,7 +180,7 @@ function PageReport() {
               <div className="font-12 fw-600 clr-green">50000000000</div>
             </Col>
             <Col span={5}>
-              <div className="font-12 fw-600 ">50000000000</div>
+              <div className="font-12 fw-600 clr-green">50000000000</div>
             </Col>
           </Row>
         </div>
