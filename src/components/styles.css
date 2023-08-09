@@ -174,23 +174,24 @@ ant-carousel.scrolling-div {
   line-height: 20px;
 }
 .button-w2c {
-  padding:5px 10px;
+  padding: 5px 10px;
   background: #ffffff;
   color: #442cca;
   font-size: 20px;
   width: fit-content;
-  font-weight:bold;
+  font-weight: bold;
   font-family: "Barlow-Regular" !important;
   border-radius: 0px 20px 20px 20px;
 }
-.call-img{
+.call-img {
   height: 80% !important;
 }
-.upcoming-main-container{
+.upcoming-main-container {
   height: 70vh !important;
+  margin: 1.5rem !important;
 }
-.upcoming-container{
-  background: yellow;
-  height: 100px !important;
-  /* margin: 10px; */
+.upcoming-container {
+  background: #082051;
+  height: 100% !important;
+  border-radius: 10px !important;
 }

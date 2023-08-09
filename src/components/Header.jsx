@@ -48,30 +48,37 @@ function Header() {
     {
       icon: <BiPhoneCall className="mr-10" />,
       name: "Call History",
+      path: "/call-history",
     },
     {
       icon: <FaRegHandshake className="mr-10" />,
       name: "Call Settlement",
+      path: "/call-settelment",
     },
     {
       icon: <FaRegAddressBook className="mr-10" />,
       name: "Call Statement",
+      path: "/call-statement",
     },
     {
       icon: <TbReportSearch className="mr-10" />,
       name: "Match  Statement",
+      path: "/match-statement",
     },
     {
       icon: <TbReport className="mr-10" />,
       name: "One Page Reports",
+      path: "/one-page-report",
     },
     {
       icon: <FaRegHandshake className="mr-10" />,
       name: "Settlement",
+      path: "/settelment",
     },
     {
       icon: <FaHandshake className="mr-10" />,
       name: "Settlement Statement",
+      path: "/settelment-statement",
     },
     {
       icon: <GiArmorUpgrade className="mr-10" />,
@@ -125,13 +132,16 @@ function Header() {
     setMatchEntryOpen(false);
   };
 
-  const handleMore = (name) => {
-    setMoreType(name);
+  const handleMore = (item) => {
+    setMoreType(item.name);
     setMoreOpen(false);
+    // navigate(item.path);
+    console.log(item.path);
   };
-  const handleSelectReports = (name) => {
-    setReportsType(name);
+  const handleSelectReports = (e) => {
+    setReportsType(e.name);
     setReportsOpen(false);
+    navigate(e.path);
   };
   // const date = moment().format("MMMM DD YYYY");
   const time = Date().toLocaleString();
@@ -188,7 +198,7 @@ function Header() {
                   <div
                     key={index}
                     className="flex-aline-center mt-5"
-                    onClick={() => handleSelectReports(item.name)}
+                    onClick={() => handleSelectReports(item)}
                   >
                     {item.icon}
                     {item.name}
@@ -204,7 +214,7 @@ function Header() {
                   <div
                     key={index}
                     className="flex-aline-center mt-5"
-                    onClick={() => handleMore(item.name)}
+                    onClick={() => handleMore(item)}
                   >
                     {item.icon}
                     {item.name}

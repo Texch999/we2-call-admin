@@ -8,6 +8,7 @@ body {
   font-family: "barlow-regular"; */
   font-family: "Barlow-Regular" !important;
 }
+
 ::-webkit-scrollbar {
   width: 5px;
   height: 5px;
