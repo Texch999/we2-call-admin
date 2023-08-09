@@ -22,7 +22,7 @@
   border: solid 2px yellow;
   background-color: #112a5e;
   color: white;
-  height: 30px;
+  height: 20px;
   padding: 10px;
 }
 .deactive-report-button {
@@ -30,6 +30,6 @@
   border: solid 2px rgba(54, 60, 72, 0.5);
   background-color: #112a5e;
   color: white;
-  height: 30px;
+  height: 20px;
   padding: 10px;
 }

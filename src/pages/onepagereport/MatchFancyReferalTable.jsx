@@ -102,9 +102,9 @@ function MatchFancyReferalTable() {
             </Col>
           </Row>
         </div>
-        <div className="meeting-content h-25vh">
+        <div className="meeting-content h-15vh">
           {SETTELMENT_DETAILS?.map((item, index) => (
-            <div className="upcoming-meetings-content" key={index}>
+            <div className="upcoming-meetings-content p-3" key={index}>
               <Row>
                 <Col span={5}>
                   <div className="font-12 fw-600">{item.name}</div>
@@ -168,7 +168,7 @@ function MatchFancyReferalTable() {
             </Col>
           </Row>
         </div>
-        <div className="meeting-content h-25vh">
+        <div className="meeting-content h-15vh">
           {SETTELMENT_DETAILS?.map((item, index) => (
             <div className="upcoming-meetings-content" key={index}>
               <Row>

@@ -102,7 +102,7 @@ function ReferalnetTable() {
             </Col>
           </Row>
         </div>
-        <div className="meeting-content h-25vh">
+        <div className="meeting-content h-15vh">
           {SETTELMENT_DETAILS?.map((item, index) => (
             <div className="upcoming-meetings-content" key={index}>
               <Row>
@@ -128,7 +128,7 @@ function ReferalnetTable() {
         <div className="upcoming-meetings-heading">
           <Row>
             <Col span={5}>
-              <div className="font-12 fw-600 flex-start">TOTAL</div>
+              <div className="font-12 fw-600 flex-center">TOTAL</div>
             </Col>
             <Col span={5}>
               <div className="font-12 fw-600 clr-green">1000000.00</div>
@@ -168,7 +168,7 @@ function ReferalnetTable() {
             </Col>
           </Row>
         </div>
-        <div className="meeting-content h-25vh">
+        <div className="meeting-content h-15vh">
           {SETTELMENT_DETAILS?.map((item, index) => (
             <div className="upcoming-meetings-content" key={index}>
               <Row>
@@ -194,7 +194,7 @@ function ReferalnetTable() {
         <div className="upcoming-meetings-heading">
           <Row>
             <Col span={5}>
-              <div className="font-12 fw-600 flex-start">TOTAL</div>
+              <div className="font-12 fw-600 flex-center">TOTAL</div>
             </Col>
             <Col span={5}>
               <div className="font-12 fw-600 clr-green">1000000.00</div>
