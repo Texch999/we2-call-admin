@@ -18,7 +18,7 @@ function App() {
     <div className="main">
       <BrowserRouter>
         <Header />
-        <Routes>
+        <Routes className="mt-14vh">
           <Route path="/" element={<Homepage />} />
           <Route path="/matchentry" element={<MatchEntry />} />
           <Route path="/fancyentry" element={<FancyEntry />} />
