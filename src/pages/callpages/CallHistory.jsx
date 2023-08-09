@@ -181,7 +181,7 @@ function CallHistory() {
     <div className="homepage">
       <div className="main-div">
         <div className="meetings-container flex-column">
-          <div className="font-30 fw-600 flex-start mb-20 p-10">
+          <div className="font-24 fw-600 flex-start mb-20 p-10 mt-20">
             Call History
           </div>
         </div>

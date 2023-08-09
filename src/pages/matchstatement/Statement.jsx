@@ -160,7 +160,7 @@ function Statement() {
   };
   return (
     <>
-      <div className="flex-row flex-space-around w-100 mb-20">
+      <div className="flex-row flex-space-around w-100 mb-20 mr-10 ml-10">
         <div className="flex-row w-20 ">
           <div className="font-16 flex-start mb-5">From</div>
           <div className="calendar-button w-80">
