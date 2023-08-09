@@ -136,7 +136,7 @@ function CallSettelment() {
     setShowUploadScreenshotModal(true);
   };
   return (
-    <div className="we-2-call-homepage h-100vh">
+    <div className="homepage">
       <div className="main-div">
         <div className="meetings-container flex-column">
           <div className="font-30 fw-600 flex-start mb-20 p-10">
