@@ -187,11 +187,47 @@ ant-carousel.scrolling-div {
   height: 80% !important;
 }
 .upcoming-main-container {
-  height: 70vh !important;
+  height: 60vh !important;
   margin: 1.5rem !important;
 }
 .upcoming-container {
   background: #082051;
   height: 100% !important;
   border-radius: 10px !important;
+}
+.live-heading {
+  font-size: 20px;
+  font-weight: 600px;
+  font-family: "Barlow-Regular" !important;
+}
+.see-all {
+  padding: 5px !important;
+  background: #112e69;
+  border-radius: 5px !important;
+}
+.live-table-head {
+  background: #112e69;
+  padding: 10px 0px !important;
+  border-radius: 5px !important;
+  font-weight: 600;
+}
+.join-button {
+  padding: 5px 10px !important;
+  background: #04c85e;
+  height: fit-content;
+  border-radius: 20px !important;
+}
+.pencil-icon{
+  color: #0992f3;
+  margin-left: 5px !important;
+}
+.table-scroll{
+  height: 220px;
+  overflow-y: scroll;
+}
+.search-input{
+  background: none;
+  outline: none;
+  border: none;
+  width: 60%;
 }

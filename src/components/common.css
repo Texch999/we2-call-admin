@@ -25,6 +25,9 @@
   z-index: 9999;
   background-color: #00143d;
 }
+.m-20{
+  margin: 20px !important;
+}
 .homepage {
   height: 86vh;
   width: 100% !important;
