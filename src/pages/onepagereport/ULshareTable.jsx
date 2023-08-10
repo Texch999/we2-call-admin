@@ -73,7 +73,7 @@ function ULshareTable() {
     <>
       <div className="table-border p-0 mt-10">
         <div className="upcoming-meetings-heading">
-          <Row>
+          <Row className="p-3">
             <Col span={6}>
               <div className="font-12 fw-600">Client Name</div>
             </Col>
@@ -91,7 +91,7 @@ function ULshareTable() {
         <div className="meeting-content h-15vh">
           {SETTELMENT_DETAILS?.map((item, index) => (
             <div className="upcoming-meetings-content p-5" key={index}>
-              <Row>
+              <Row className="p-3">
                 <Col span={6}>
                   <div className="font-12 fw-600">{item.name}</div>
                 </Col>
@@ -109,7 +109,7 @@ function ULshareTable() {
           ))}
         </div>
         <div className="upcoming-meetings-heading">
-          <Row>
+          <Row className="p-3">
             <Col span={6}>
               <div className="font-12 fw-600 flex-center">TOTAL</div>
             </Col>

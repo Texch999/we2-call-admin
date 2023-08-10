@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./styles.css";
 import PageReport from "./PageReport";
 import IndividualPLReport from "./IndividualPLReport";
-import OnePagePopup from "./OnePagePopup";
+
 
 function OnePageReport() {
   const reportList = ["One Page Report", "Individual P/L Report"];

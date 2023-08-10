@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Modal, Col, Row } from "antd";
+import { Modal} from "antd";
 import MatchFancyReferalTable from "./MatchFancyReferalTable";
 import ReferalnetTable from "./ReferalnetTable";
 import ULshareTable from "./ULshareTable";
