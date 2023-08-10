@@ -105,22 +105,21 @@
   height: 100% !important;
   border-radius: 10px;
   margin: 7px !important;
-  padding: 7px;
 }
 .sports-management {
   height: 100% !important;
   padding: 1.5rem 1.5rem 1.5rem 0.5rem !important;
 }
 .users-management-container {
-  height: 50% !important;
+  height: 49% !important;
   background: linear-gradient(to right, #e762e5, #4f64f0);
-  margin: 8px !important;
+  margin: 7px !important;
   border-radius: 10px !important;
 }
 .sports-management-container {
-  height: 50% !important;
+  height: 49% !important;
   background: linear-gradient(to right, rgba(237, 110, 159, 1), #ec8b6b);
-  margin: 8px !important;
+  margin: 7px !important;
   border-radius: 10px !important;
 }
 .sports-management-img,
