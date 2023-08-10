@@ -25,6 +25,7 @@ function OnePageReport() {
                     ? "active-button flex-center w-30 h-40p font-14 clr-green mt-5 mb-5 clr-black fw-600 ml-10 mr-10"
                     : "deactive-button flex-center w-30 h-40p font-14 clr-yelow mt-5 mb-5 clr-white fw-600 ml-10 mr-10"
                 }
+
                 onClick={() => handleReportSelect(index)}
               >
                 {value}
