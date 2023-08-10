@@ -116,8 +116,8 @@ function PageReport() {
     setOpenOnePagePopup(true);
   };
   return (
-    <div>
-      <div className="table-border p-0">
+    <div className="p-15">
+      <div className="table-border">
         <div className="upcoming-meetings-heading">
           <Row>
             <Col span={5}>
