@@ -144,23 +144,25 @@ function Settelment() {
   const [confirmModal, setConfirmModal] = useState(false);
   return (
     <div className="homepage">
-      <div className="main-div">
-        <div className="meetings-container flex-column">
-          <div className="font-24 fw-600 flex-start p-10 mt-20">Settelment</div>
-          <div className="font-14 fw-600 flex-start mb-10 p-5">
+      <div className="main-div p-10">
+        <div className="meetings-container flex-column p-10">
+          <div className="font-24 fw-600 flex-start mt-20 ml-10 mb-10">
+            Settelment
+          </div>
+          <div className="font-14 fw-600 flex-start  ml-10">
             Account Summary
           </div>
         </div>
-        <div className="flex-row flex-space-around w-60">
-          <div className="details-btn w-20 h-5vh br-10 flex-space-around flex-column align-baseline p-5 mr-10 ml-10">
+        <div className="flex-row flex-space-around w-40">
+          <div className="details-btn w-20 h-5vh br-10 flex-space-around flex-column align-baseline p-5">
             <div className="font-12">Total Amount</div>
             <div className="clr-yellow font-12">1000000.00</div>
           </div>
-          <div className="details-btn w-20 h-5vh br-10 flex-space-around flex-column align-baseline p-5  mr-10 ml-10">
+          <div className="details-btn w-20 h-5vh br-10 flex-space-around flex-column align-baseline p-5">
             <div className="font-12">Total Settled Bal C/D</div>
             <div className="clr-yellow font-12">1000000.00</div>
           </div>
-          <div className="details-btn w-20 h-5vh br-10 flex-space-around flex-column align-baseline p-5 mr-10 ml-10">
+          <div className="details-btn w-20 h-5vh br-10 flex-space-around flex-column align-baseline p-5">
             <div className="font-12">Total Balance</div>
             <div className="clr-yellow font-12">1000000.00</div>
           </div>

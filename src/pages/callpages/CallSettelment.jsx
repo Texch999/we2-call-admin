@@ -136,7 +136,7 @@ function CallSettelment() {
   };
   return (
     <div className="homepage">
-      <div className="main-div">
+      <div className="main-div p-15">
         <div className="meetings-container flex-column">
           <div className="font-24 fw-600 flex-start p-10 mt-20">
             Call Settelment

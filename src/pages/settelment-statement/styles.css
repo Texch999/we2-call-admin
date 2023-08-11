@@ -30,6 +30,7 @@
 .details-btn {
   color: #ffffff;
   background-color: #112a5e;
+  border: solid 2px #264990;
 }
 .login-modal .ant-modal-content {
   height: auto !important;

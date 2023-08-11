@@ -20,7 +20,7 @@ function StatementIndividualModal(props) {
     <Modal
       open={openStatementIndividualPopup}
       onCancel={() => handleStatementIndividualClose()}
-      className="login-modal w-100 "
+      className="login-modal w-70"
       centered
       footer={null}
     >
@@ -41,8 +41,8 @@ function StatementIndividualModal(props) {
                   key={index}
                   className={
                     activeStatementIndex === index
-                      ? "details-btn h-20p font-14 w-20 br-40 clr-yellow flex-space-between p-10 flex-row ml-5 mr-5 yellow-border"
-                      : "details-btn h-20p font-14 w-20 br-40 clr-white flex-space-between p-10 flex-row ml-5 mr-5 white-border"
+                      ? "details-btn h-20p font-12 w-20 br-40 clr-yellow flex-space-between p-10 flex-row ml-5 mr-5 yellow-border"
+                      : "details-btn h-20p font-12 w-20 br-40 clr-white flex-space-between p-10 flex-row ml-5 mr-5 white-border"
                   }
                   onClick={() => handleStatementPageSelect(index)}
                 >
