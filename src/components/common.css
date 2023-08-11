@@ -460,10 +460,16 @@
 .yellow-border {
   border: solid 2px yellow;
 }
+.white-border {
+  border: solid 2px #ffffff;
+}
 .mt-14vh {
   margin-top: 14vh !important;
 }
 .mrl-5cent{
   margin-right: 5% !important;
   margin-left: 5% !important;
+}
+.relative-position{
+  position: relative;
 }
