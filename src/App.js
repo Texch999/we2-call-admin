@@ -12,6 +12,7 @@ import OnePagePopup from "./pages/onepagereport/OnePagePopup";
 import OnePageReport from "./pages/onepagereport/OnePageReport";
 import Settelment from "./pages/settelment-statement/Settelment";
 import SettelmentStatement from "./pages/settelment-statement/SettelmentStatement";
+import UserManagement from "./pages/user-management/UserManagement";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
           <Route path="/match-statement" element={<MatchStatement />} />
           <Route path="/one-page-report" element={<OnePageReport />} />
           <Route path="/settelment" element={<Settelment />} />
+          <Route path="/user-management" element={<UserManagement />} />
           <Route
             path="/settelment-statement"
             element={<SettelmentStatement />}

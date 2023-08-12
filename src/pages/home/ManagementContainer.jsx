@@ -2,8 +2,10 @@ import { Col, Row } from "antd";
 import React from "react";
 import { BsArrowRight } from "react-icons/bs";
 import { Images } from "../../images";
+import { useNavigate } from "react-router-dom";
 
 function ManagementContainer() {
+  const navigate = useNavigate();
   const managementType = [
     {
       cssClass: "users-management-container",
@@ -18,6 +20,12 @@ function ManagementContainer() {
       tagline: "Create your match schedule meetings",
     },
   ];
+
+  const handleManagement = (index) => {
+    {
+      index === 0 && navigate("/user-management");
+    }
+  };
   return (
     <Row className="management-container">
       <Col span={14} className="call-management p-1rem h-100p">
@@ -51,11 +59,12 @@ function ManagementContainer() {
                   {item.name}
                   <span className="font-25-bold"> Management</span>
                 </div>
-                <div className="tagline-text">
-                {item.tagline}
-                </div>
+                <div className="tagline-text">{item.tagline}</div>
                 <div className="arrow mt-10 flex-center">
-                  <BsArrowRight className="arrow-icon" />
+                  <BsArrowRight
+                    className="arrow-icon"
+                    onClick={() => handleManagement(index)}
+                  />
                 </div>
               </div>
             </div>

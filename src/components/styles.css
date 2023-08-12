@@ -83,7 +83,7 @@
   max-width: 100%;
 }
 .management-container {
-  height: 55vh ;
+  height: 55vh;
   /* background: red; */
 }
 .scrolling-text {
@@ -231,6 +231,10 @@ ant-carousel.scrolling-div {
   border: none;
   width: 60%;
 }
+.user-management-head {
+  font-size: 20px;
+  font-weight: 600;
+}
 @media screen and (min-width: 700px) and (max-width: 900px) {
   .header-menu {
     font-size: 7px !important;
@@ -246,7 +250,7 @@ ant-carousel.scrolling-div {
     height: 22px;
   }
   .font-25 {
-    font-size: 17px ;
+    font-size: 17px;
   }
   .font-25-bold {
     font-size: 17px;
@@ -263,17 +267,17 @@ ant-carousel.scrolling-div {
   .call-img {
     height: 50%;
   }
-  .management-container{
+  .management-container {
     height: 45vh;
   }
-  .tagline-text{
+  .tagline-text {
     font-size: 8px !important;
   }
-  .live-heading{
+  .live-heading {
     font-size: 15px !important;
   }
-  .table-text{
-    font-size: 10px ;
+  .table-text {
+    font-size: 10px;
   }
 }
 @media screen and (min-width: 901px) and (max-width: 1024px) {
