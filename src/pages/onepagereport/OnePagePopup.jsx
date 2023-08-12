@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Modal, Col, Row } from "antd";
+import { Modal} from "antd";
 import MatchFancyReferalTable from "./MatchFancyReferalTable";
 import ReferalnetTable from "./ReferalnetTable";
 import ULshareTable from "./ULshareTable";
@@ -23,12 +23,12 @@ function OnePagePopup(props) {
     <Modal
       open={openOnepagePopup}
       onCancel={() => handleOnepageClose()}
-      className="login-modal w-70"
+      className="login-modal w-60"
       centered
       footer={null}
     >
       <div>
-        <div className="date-container w-20">Date : 24/07/2023</div>
+        <div className="date-container w-20 font-12">Date : 24/07/2023</div>
         <div className="flex-row flex-space-between w-80 mt-20">
           {reportButtonList.map((value, index) => {
             return (

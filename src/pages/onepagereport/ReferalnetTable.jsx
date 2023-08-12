@@ -84,7 +84,7 @@ function ReferalnetTable() {
     <div>
       <div className="table-border p-0 mt-10">
         <div className="upcoming-meetings-heading">
-          <Row>
+          <Row className="p-3">
             <Col span={5}>
               <div className="font-12 fw-600">Client Name</div>
             </Col>
@@ -102,10 +102,10 @@ function ReferalnetTable() {
             </Col>
           </Row>
         </div>
-        <div className="meeting-content h-25vh">
+        <div className="meeting-content h-15vh">
           {SETTELMENT_DETAILS?.map((item, index) => (
             <div className="upcoming-meetings-content" key={index}>
-              <Row>
+              <Row className="p-3">
                 <Col span={5}>
                   <div className="font-12 fw-600">{item.name}</div>
                 </Col>
@@ -126,9 +126,9 @@ function ReferalnetTable() {
           ))}
         </div>
         <div className="upcoming-meetings-heading">
-          <Row>
+          <Row className="p-3">
             <Col span={5}>
-              <div className="font-12 fw-600 flex-start">TOTAL</div>
+              <div className="font-12 fw-600 flex-center">TOTAL</div>
             </Col>
             <Col span={5}>
               <div className="font-12 fw-600 clr-green">1000000.00</div>
@@ -146,11 +146,11 @@ function ReferalnetTable() {
         </div>
       </div>
       <div className="flex-start font-16 mt-5 mb-5 fw-600">
-      Total - Rf Share = Rf Gross - M Comm = Rf Net
+        Total - Rf Share = Rf Gross - M Comm = Rf Net
       </div>
       <div className="table-border p-0 mt-10">
         <div className="upcoming-meetings-heading">
-          <Row>
+          <Row className="p-3">
             <Col span={5}>
               <div className="font-12 fw-600">Client Name</div>
             </Col>
@@ -168,10 +168,10 @@ function ReferalnetTable() {
             </Col>
           </Row>
         </div>
-        <div className="meeting-content h-25vh">
+        <div className="meeting-content h-15vh">
           {SETTELMENT_DETAILS?.map((item, index) => (
             <div className="upcoming-meetings-content" key={index}>
-              <Row>
+              <Row className="p-3">
                 <Col span={5}>
                   <div className="font-12 fw-600">{item.name}</div>
                 </Col>
@@ -192,9 +192,9 @@ function ReferalnetTable() {
           ))}
         </div>
         <div className="upcoming-meetings-heading">
-          <Row>
+          <Row className="p-3">
             <Col span={5}>
-              <div className="font-12 fw-600 flex-start">TOTAL</div>
+              <div className="font-12 fw-600 flex-center">TOTAL</div>
             </Col>
             <Col span={5}>
               <div className="font-12 fw-600 clr-green">1000000.00</div>

@@ -22,14 +22,17 @@
   border: solid 2px yellow;
   background-color: #112a5e;
   color: white;
-  height: 30px;
-  padding: 10px;
+  height: 20px;
+  padding: 5px;
 }
 .deactive-report-button {
   border-radius: 10px;
   border: solid 2px rgba(54, 60, 72, 0.5);
   background-color: #112a5e;
   color: white;
-  height: 30px;
-  padding: 10px;
+  height: 20px;
+  padding: 5px;
+}
+.hr-line-opacity {
+border: 1px solid rgba(255, 255, 255, 0.1);
 }

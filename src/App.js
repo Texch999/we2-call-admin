@@ -8,7 +8,6 @@ import CallHistory from "./pages/callpages/CallHistory";
 import CallSettelment from "./pages/callpages/CallSettelment";
 import CallStatement from "./pages/callpages/CallStatement";
 import MatchStatement from "./pages/matchstatement/MatchStatement";
-import OnePagePopup from "./pages/onepagereport/OnePagePopup";
 import OnePageReport from "./pages/onepagereport/OnePageReport";
 import Settelment from "./pages/settelment-statement/Settelment";
 import SettelmentStatement from "./pages/settelment-statement/SettelmentStatement";

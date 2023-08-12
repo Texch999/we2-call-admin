@@ -178,27 +178,27 @@ function CallHistory() {
     setdeleteModal(true);
   };
   return (
-    <div className="we-2-call-homepage mt-14vh">
+    <div className="homepage">
       <div className="main-div">
         <div className="meetings-container flex-column">
-          <div className="font-30 fw-600 flex-start mb-20 p-10">
+          <div className="font-24 fw-600 flex-start mt-20">
             Call History
           </div>
         </div>
-        <div className="flex-row flex-space-around w-50 mb-20">
+        <div className="flex-row flex-space-around w-30 mt-20">
           <div className="flex-row w-30">
             <div className="font-12 flex-start">From</div>
-            <div className="calendar-button">
+            <div className="calendar-button h-30p">
               <input className="login-inputs " type="date"></input>
               <FaCalendarAlt
-                className="font-24 fw-600 clr-yellow"
+                className="font-18 fw-600 clr-yellow"
                 onClick={() => handlePaymentModalOpen()}
               ></FaCalendarAlt>
             </div>
           </div>
           <div className="flex-row w-30">
             <div className="font-12 flex-start">To</div>
-            <div className="calendar-button">
+            <div className="calendar-button h-30p">
               <input type="date" className="login-inputs"></input>
               <FaCalendarAlt
                 className="font-24 fw-600 clr-yellow"
@@ -206,9 +206,10 @@ function CallHistory() {
               ></FaCalendarAlt>
             </div>
           </div>
-          <button className="submit-btn w-20 h-50p mt-15">Submit</button>
+          <button className="submit-btn w-20 h-40p mt-15">Submit</button>
         </div>
-        <div className="table-border p-0">
+        <div className="p-20">
+        <div className="table-border">
           <div className="upcoming-meetings-heading">
             <Row>
               <Col span={3}>
@@ -271,6 +272,7 @@ function CallHistory() {
               </div>
             ))}
           </div>
+        </div>
         </div>
       </div>
       <DeletePopup deleteModal={deleteModal} setdeleteModal={setdeleteModal} />

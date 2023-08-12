@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import "./styles.css";
 import { Col, Row } from "antd";
-import { FiFileText } from "react-icons/fi";
 import { MdCloudUpload } from "react-icons/md";
 import { BsFillEyeFill } from "react-icons/bs";
 import UploadScreenshotModal from "./UploadScreenshotModal";
@@ -136,42 +135,42 @@ function CallSettelment() {
     setShowUploadScreenshotModal(true);
   };
   return (
-    <div className="we-2-call-homepage h-100vh">
-      <div className="main-div">
+    <div className="homepage">
+      <div className="main-div p-15">
         <div className="meetings-container flex-column">
-          <div className="font-30 fw-600 flex-start mb-20 p-10">
+          <div className="font-24 fw-600 flex-start p-10 mt-20">
             Call Settelment
           </div>
         </div>
-        <div className="flex-row flex-space-around w-100 mb-20">
-          <div className="details-btn w-30 h-7vh br-10 flex-space-around flex-column align-baseline p-5 mr-10 ml-10">
-            <div className="font-16">Package Charges</div>
-            <div className="clr-yellow">5000</div>
+        <div className="flex-row flex-space-around w-100 mb-20 p-10">
+          <div className="details-btn w-20 h-5vh br-10 flex-space-around flex-column align-baseline p-5 mr-10 ml-10">
+            <div className="font-12">Package Charges</div>
+            <div className="clr-yellow font-12">5000</div>
           </div>
-          <div className="details-btn w-30 h-7vh br-10 flex-space-around flex-column align-baseline p-5  mr-10 ml-10">
-            <div className="font-16">Date Upto</div>
-            <div className="clr-yellow">24/07/2023</div>
+          <div className="details-btn w-20 h-5vh br-10 flex-space-around flex-column align-baseline p-5  mr-10 ml-10">
+            <div className="font-12">Date Upto</div>
+            <div className="clr-yellow font-12">24/07/2023</div>
           </div>
-          <div className="details-btn w-30 h-7vh br-10 flex-space-around flex-column align-baseline p-5 mr-10 ml-10">
-            <div className="font-16">Total Duration</div>
-            <div className="clr-yellow">4h 10m</div>
+          <div className="details-btn w-20 h-5vh br-10 flex-space-around flex-column align-baseline p-5 mr-10 ml-10">
+            <div className="font-12">Total Duration</div>
+            <div className="clr-yellow font-12">4h 10m</div>
           </div>
-          <div className="details-btn w-30 h-7vh br-10 flex-space-around flex-column align-baseline p-5 mr-10 ml-10">
-            <div className="font-16">Total Amount</div>
-            <div className="clr-yellow">5000</div>
+          <div className="details-btn w-20 h-5vh  br-10 flex-space-around flex-column align-baseline p-5 mr-10 ml-10">
+            <div className="font-12">Total Amount</div>
+            <div className="clr-yellow font-12">5000</div>
           </div>
-          <div className="details-btn w-30 h-7vh br-10 flex-space-around flex-column align-baseline p-5  mr-10 ml-10">
-            <div className="font-16">Settled Amount</div>
-            <div className="clr-yellow">5000</div>
+          <div className="details-btn w-20 h-5vh br-10 flex-space-around flex-column align-baseline p-5  mr-10 ml-10">
+            <div className="font-12">Settled Amount</div>
+            <div className="clr-yellow font-12">5000</div>
           </div>
-          <div className="details-btn w-30 h-7vh br-10 flex-space-around flex-column align-baseline p-5 mr-10 ml-10">
-            <div className="font-16">Balance Amount</div>
-            <div className="clr-yellow">0.00</div>
+          <div className="details-btn w-20 h-5vh br-10 flex-space-around flex-column align-baseline p-5 mr-10 ml-10">
+            <div className="font-12">Balance Amount</div>
+            <div className="clr-yellow font-12">0.00</div>
           </div>
         </div>
         <div className="flex-row flex-space-around w-50 mb-20">
           <div className="flex-row w-30">
-            <div className="font-14 flex-start mb-10">Setteled Amount</div>
+            <div className="font-12 flex-start mb-10">Setteled Amount</div>
             <div className="calendar-button">
               <input
                 className="login-inputs "
@@ -193,66 +192,68 @@ function CallSettelment() {
           </div>
           <button className="submit-btn w-20 h-50p mt-15">Submit</button>
         </div>
-        <div className="table-border p-0">
-          <div className="upcoming-meetings-heading">
-            <Row>
-              <Col span={4}>
-                <div className="font-12 fw-600">CREATE DATE</div>
-              </Col>
-              <Col span={4}>
-                <div className="font-12 fw-600">CREATE TIME</div>
-              </Col>
-              <Col span={8}>
-                <div className="font-12 fw-600">SETTELED AMOUNT</div>
-              </Col>
-              <Col span={6}>
-                <div className="font-12 fw-600">STATUS</div>
-              </Col>
-              <Col span={2}>
-                <div className="font-12 fw-600"></div>
-              </Col>
-            </Row>
-          </div>
-          <div className="meeting-content">
-            {SETTELMENT_DETAILS?.map((item, index) => (
-              <div className="upcoming-meetings-content" key={index}>
-                <Row>
-                  <Col span={4}>
-                    <div className="font-12 fw-600">{item.date}</div>
-                  </Col>
-                  <Col span={4}>
-                    <div className="font-12 fw-600">{item.time}</div>
-                  </Col>
-                  <Col span={8}>
-                    <div className="font-12 fw-600">{item.amount}</div>
-                  </Col>
-                  <Col span={6}>
-                    <div className="font-12 fw-600 clr-green">
-                      <button
-                        className={
-                          item.status === "Approved"
-                            ? "complete-button w-50"
-                            : "rejected-buttons w-50"
-                        }
-                      >
-                        {item.status}
-                      </button>
-                      {/* <button className="complete-button w-50">
+        <div className="p-15">
+          <div className="table-border">
+            <div className="upcoming-meetings-heading">
+              <Row>
+                <Col span={4}>
+                  <div className="font-12 fw-600">CREATE DATE</div>
+                </Col>
+                <Col span={4}>
+                  <div className="font-12 fw-600">CREATE TIME</div>
+                </Col>
+                <Col span={8}>
+                  <div className="font-12 fw-600">SETTELED AMOUNT</div>
+                </Col>
+                <Col span={6}>
+                  <div className="font-12 fw-600">STATUS</div>
+                </Col>
+                <Col span={2}>
+                  <div className="font-12 fw-600"></div>
+                </Col>
+              </Row>
+            </div>
+            <div className="meeting-content">
+              {SETTELMENT_DETAILS?.map((item, index) => (
+                <div className="upcoming-meetings-content" key={index}>
+                  <Row>
+                    <Col span={4}>
+                      <div className="font-12 fw-600">{item.date}</div>
+                    </Col>
+                    <Col span={4}>
+                      <div className="font-12 fw-600">{item.time}</div>
+                    </Col>
+                    <Col span={8}>
+                      <div className="font-12 fw-600">{item.amount}</div>
+                    </Col>
+                    <Col span={6}>
+                      <div className="font-12 fw-600 clr-green">
+                        <button
+                          className={
+                            item.status === "Approved"
+                              ? "complete-button w-50"
+                              : "rejected-buttons w-50"
+                          }
+                        >
+                          {item.status}
+                        </button>
+                        {/* <button className="complete-button w-50">
                         {" "}
                         {item.status}
                       </button> */}
-                    </div>
-                  </Col>
+                      </div>
+                    </Col>
 
-                  <Col span={2}>
-                    <BsFillEyeFill
-                      className="font-18 fw-600 clr-yellow"
-                      onClick={() => handleUploadButton()}
-                    ></BsFillEyeFill>
-                  </Col>
-                </Row>
-              </div>
-            ))}
+                    <Col span={2}>
+                      <BsFillEyeFill
+                        className="font-18 fw-600 clr-yellow"
+                        onClick={() => handleUploadButton()}
+                      ></BsFillEyeFill>
+                    </Col>
+                  </Row>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
         <UploadScreenshotModal

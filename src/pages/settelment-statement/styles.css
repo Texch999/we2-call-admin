@@ -8,14 +8,14 @@
 .upcoming-meetings-heading .ant-row {
   border-radius: 5px;
   background-color: #082051;
-  padding: 1rem 8px;
+  padding: 0.5rem 6px;
   text-align: center;
 }
 .upcoming-meetings-content .ant-row {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 15px;
+  padding: 8px;
   text-align: center;
   border-bottom: 1px solid #082051;
 }
@@ -29,8 +29,8 @@
 }
 .details-btn {
   color: #ffffff;
-  border: solid 2px #264990;
   background-color: #112a5e;
+  border: solid 2px #264990;
 }
 .login-modal .ant-modal-content {
   height: auto !important;
