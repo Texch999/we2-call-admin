@@ -29,6 +29,78 @@ function UpcomingAndSummary() {
       userName: "Sri+15",
       status: "Join",
     },
+    {
+      adminRole: "UL",
+      eventName: "Newzelend vs South Africa Oneday 23-06-2023, 12:52:00 PM",
+      userName: "SriAgent",
+      status: "Join",
+    },
+    {
+      adminRole: "Sri-Agent",
+      eventName: "Newzelend vs South Africa Oneday 23-06-2023, 12:52:00 PM",
+      userName: "Sri+15",
+      status: "NotStarted",
+    },
+    {
+      adminRole: "Sai-Agent",
+      eventName: "Newzelend vs South Africa Oneday 23-06-2023, 12:52:00 PM",
+      userName: "Sri+15",
+      status: "Join",
+    },
+    {
+      adminRole: "Sri-Agent",
+      eventName: "Newzelend vs South Africa Oneday 23-06-2023, 12:52:00 PM",
+      userName: "Sri+15",
+      status: "Join",
+    },
+    {
+      adminRole: "UL",
+      eventName: "Newzelend vs South Africa Oneday 23-06-2023, 12:52:00 PM",
+      userName: "SriAgent",
+      status: "Join",
+    },
+    {
+      adminRole: "Sri-Agent",
+      eventName: "Newzelend vs South Africa Oneday 23-06-2023, 12:52:00 PM",
+      userName: "Sri+15",
+      status: "NotStarted",
+    },
+    {
+      adminRole: "Sai-Agent",
+      eventName: "Newzelend vs South Africa Oneday 23-06-2023, 12:52:00 PM",
+      userName: "Sri+15",
+      status: "Join",
+    },
+    {
+      adminRole: "Sri-Agent",
+      eventName: "Newzelend vs South Africa Oneday 23-06-2023, 12:52:00 PM",
+      userName: "Sri+15",
+      status: "Join",
+    },
+    {
+      adminRole: "UL",
+      eventName: "Newzelend vs South Africa Oneday 23-06-2023, 12:52:00 PM",
+      userName: "SriAgent",
+      status: "Join",
+    },
+    {
+      adminRole: "Sri-Agent",
+      eventName: "Newzelend vs South Africa Oneday 23-06-2023, 12:52:00 PM",
+      userName: "Sri+15",
+      status: "NotStarted",
+    },
+    {
+      adminRole: "Sai-Agent",
+      eventName: "Newzelend vs South Africa Oneday 23-06-2023, 12:52:00 PM",
+      userName: "Sri+15",
+      status: "Join",
+    },
+    {
+      adminRole: "Sri-Agent",
+      eventName: "Newzelend vs South Africa Oneday 23-06-2023, 12:52:00 PM",
+      userName: "Sri+15",
+      status: "Join",
+    },
   ];
   const SummaryData = [
     {
@@ -63,24 +135,37 @@ function UpcomingAndSummary() {
           </div>
         </div>
         <Row className="w-90 m-20 live-table-head">
-          <Col span={6}>Adimin</Col>
-          <Col span={9}>User Name</Col>
-          <Col span={5}>User</Col>
-          <Col span={4}> Status</Col>
+          <Col className="table-text" span={6}>
+            Adimin
+          </Col>
+          <Col className="table-text" span={9}>
+            User Name
+          </Col>
+          <Col className="table-text" span={5}>
+            User
+          </Col>
+          <Col className="table-text" span={4}>
+            {" "}
+            Status
+          </Col>
         </Row>
         <div className="w-100 table-scroll">
           {tableContent.map((item, index) => {
             return (
               <Row className="w-90 m-20 live-table-content">
-                <Col span={4}>{item.adminRole}</Col>
-                <Col span={10}>{item.eventName}</Col>
-                <Col span={5} className="ml-10">
+                <Col className="table-text" span={4}>
+                  {item.adminRole}
+                </Col>
+                <Col className="table-text" span={10}>
+                  {item.eventName}
+                </Col>
+                <Col span={5} className="ml-10 table-text">
                   {item.userName}
                   {index !== 0 ? (
                     <PiPencilLineBold className="pencil-icon" />
                   ) : null}
                 </Col>
-                <Col span={4} className="join-button flex-center">
+                <Col span={4} className="join-button flex-center table-text">
                   {" "}
                   {item.status}
                 </Col>
@@ -100,10 +185,10 @@ function UpcomingAndSummary() {
         {SummaryData.map((item, index) => {
           return (
             <Row className="w-90 m-20 live-table-head flex-space-between">
-              <Col span={6} className="ml-10">
+              <Col span={6} className="ml-10 table-text">
                 {item.userRole}
               </Col>
-              <Col span={2}> {item.usersNumber}</Col>
+              <Col span={2} className="table-text"> {item.usersNumber}</Col>
             </Row>
           );
         })}

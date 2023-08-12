@@ -162,12 +162,12 @@
   font-size: 15px !important;
 }
 .font-25 {
-  font-size: 25px !important;
+  font-size: 25px;
   font-family: "Barlow-Regular";
   height: fit-content;
 }
 .font-25-bold {
-  font-size: 25px !important;
+  font-size: 25px;
   font-weight: bold;
   font-family: "Barlow-Regular";
 }

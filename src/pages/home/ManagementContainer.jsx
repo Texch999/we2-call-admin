@@ -51,23 +51,16 @@ function ManagementContainer() {
                   {item.name}
                   <span className="font-25-bold"> Management</span>
                 </div>
+                <div className="tagline-text">
                 {item.tagline}
-                <br />
+                </div>
                 <div className="arrow mt-10 flex-center">
-                  <BsArrowRight className="font-20" />
+                  <BsArrowRight className="arrow-icon" />
                 </div>
               </div>
             </div>
           );
         })}
-
-        {/* <div className="sports-management-container flex-aline-center">
-            <img
-              className="sports-management-img"
-              src={Images.sportManagementIcon}
-            />
-            <div></div>
-          </div> */}
       </Col>
     </Row>
   );

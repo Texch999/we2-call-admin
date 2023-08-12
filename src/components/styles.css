@@ -83,7 +83,7 @@
   max-width: 100%;
 }
 .management-container {
-  height: 55vh !important;
+  height: 55vh ;
   /* background: red; */
 }
 .scrolling-text {
@@ -184,10 +184,10 @@ ant-carousel.scrolling-div {
   border-radius: 0px 20px 20px 20px;
 }
 .call-img {
-  height: 80% !important;
+  height: 80%;
 }
 .upcoming-main-container {
-  height: 60vh !important;
+  height: auto;
   margin: 1.5rem !important;
 }
 .upcoming-container {
@@ -217,17 +217,67 @@ ant-carousel.scrolling-div {
   height: fit-content;
   border-radius: 20px !important;
 }
-.pencil-icon{
+.pencil-icon {
   color: #0992f3;
   margin-left: 5px !important;
 }
-.table-scroll{
+.table-scroll {
   height: 220px;
   overflow-y: scroll;
 }
-.search-input{
+.search-input {
   background: none;
   outline: none;
   border: none;
   width: 60%;
+}
+@media screen and (min-width: 700px) and (max-width: 900px) {
+  .header-menu {
+    font-size: 7px !important;
+  }
+  .header-icons {
+    font-size: 12px;
+    width: 20px;
+    height: 22px;
+  }
+  .header-avatar {
+    font-size: 7px;
+    width: 20px;
+    height: 22px;
+  }
+  .font-25 {
+    font-size: 17px ;
+  }
+  .font-25-bold {
+    font-size: 17px;
+  }
+  .create-meeting-text {
+    font-size: 10px;
+  }
+  .meeting-text {
+    font-size: 7px;
+  }
+  .button-w2c {
+    font-size: 13px;
+  }
+  .call-img {
+    height: 50%;
+  }
+  .management-container{
+    height: 45vh;
+  }
+  .tagline-text{
+    font-size: 8px !important;
+  }
+  .live-heading{
+    font-size: 15px !important;
+  }
+  .table-text{
+    font-size: 10px ;
+  }
+}
+@media screen and (min-width: 901px) and (max-width: 1024px) {
+  .header-menu {
+    font-size: 10px !important;
+  }
 }

@@ -43,10 +43,13 @@ function TopWinners() {
         {winnerData.map((item, index) => {
           return (
             <Row className="w-90 m-20 live-table-head flex-space-between">
-              <Col span={6} className="ml-10">
+              <Col span={6} className="ml-10 table-text">
                 {item.userRole}
               </Col>
-              <Col span={2}> {item.usersNumber}</Col>
+              <Col span={2} className="table-text">
+                {" "}
+                {item.usersNumber}
+              </Col>
             </Row>
           );
         })}
@@ -66,10 +69,13 @@ function TopWinners() {
         {winnerData.map((item, index) => {
           return (
             <Row className="w-90 m-20 live-table-head flex-space-between">
-              <Col span={6} className="ml-10">
+              <Col span={6} className="ml-10 table-text">
                 {item.userRole}
               </Col>
-              <Col span={2}> {item.usersNumber}</Col>
+              <Col span={2} className="table-text">
+                {" "}
+                {item.usersNumber}
+              </Col>
             </Row>
           );
         })}
