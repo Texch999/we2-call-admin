@@ -1,7 +1,7 @@
-import { Modal, Col, Row } from "antd";
+import { Modal} from "antd";
 import React, { useState } from "react";
-import { BiUpArrowCircle, BiDownArrowCircle } from "react-icons/bi";
-import ClientTableData from "./ClientTableData";
+import {  BiDownArrowCircle } from "react-icons/bi";
+
 import ClientPLTable from "./ClientPLTable";
 import RfPlTable from "./RfPlTable";
 function StatementIndividualModal(props) {
@@ -49,8 +49,8 @@ function StatementIndividualModal(props) {
                   <BiDownArrowCircle
                     className={
                       activeStatementIndex === index
-                        ? "font-25 clr-yellow"
-                        : "font-25 clr-white"
+                        ? "font-18 clr-yellow"
+                        : "font-18 clr-white"
                     }
                   />
                   {value}
