@@ -189,7 +189,7 @@ function Statement() {
   };
   const handleMatchesListSelect = (value) => {
     setMatchListDropdown(value);
-    setShowSeriesListDropdown(false);
+    setShowMatchListDropdown(false);
   };
   const [fancyListDropdown, setFancyListDropdown] = useState(false);
   const [showFancyListDropdown, setShowFancyListDropdown] = useState("");
@@ -202,7 +202,7 @@ function Statement() {
   };
   return (
     <>
-      <div className="flex-row flex-space-around mrl-5cent">
+      <div className="flex-row flex-space-around mrl-5cent relative-position">
         <div className="flex-row w-20">
           <div className="font-14 flex-start mb-5">From</div>
           <div className="calendar-button h-5vh w-70">
@@ -233,7 +233,7 @@ function Statement() {
             <div className="font-12">
               {seriesListDropDown ? seriesListDropDown : "Series Name"}
             </div>
-            {showFancyListDropdown ? (
+            {showSeriesListDropdown ? (
               <RiArrowDropUpLine style={{ fontSize: "40px" }} />
             ) : (
               <RiArrowDropDownLine style={{ fontSize: "40px" }} />
@@ -250,7 +250,7 @@ function Statement() {
             <div className="font-12">
               {matchListDropdown ? matchListDropdown : "Matches Name"}
             </div>
-            {showFancyListDropdown ? (
+            {showmatchListDropdown ? (
               <RiArrowDropUpLine style={{ fontSize: "40px" }} />
             ) : (
               <RiArrowDropDownLine style={{ fontSize: "40px" }} />
@@ -266,7 +266,7 @@ function Statement() {
             <div className="font-12">
               {fancyListDropdown ? fancyListDropdown : "Fancy"}
             </div>
-            {showmatchListDropdown ? (
+            {showFancyListDropdown ? (
               <RiArrowDropUpLine style={{ fontSize: "40px" }} />
             ) : (
               <RiArrowDropDownLine style={{ fontSize: "40px" }} />
@@ -307,11 +307,11 @@ function Statement() {
           </div>
         )}
         {showFancyListDropdown && (
-          <div className="select-team-dropdown matches-dropdown w-30-vw font-12">
+          <div className="select-team-dropdown fancy-dropdown w-30-vw font-12">
             {listOfFancys.map((value, index) => {
               return (
                 <div
-                  className="h-30p flex-center mb-5 "
+                  className="h-30p flex-center mb-5"
                   key={index}
                   onClick={() => handleFancysListSelect(value)}
                 >
@@ -322,28 +322,12 @@ function Statement() {
             })}
           </div>
         )}
-        {showSeriesListDropdown && (
-          <div className="select-team-dropdown matches-dropdown w-30-vw font-12">
-            {listOfSeries.map((value, index) => {
-              return (
-                <div
-                  className="h-30p flex-center mb-5 "
-                  key={index}
-                  onClick={() => handleSeriesListSelect(value)}
-                >
-                  {console.log(value)}
-                  {value}
-                </div>
-              );
-            })}
-          </div>
-        )}
         {showClientsListDropdown && (
-          <div className="select-team-dropdown matches-dropdown w-30-vw font-12">
+          <div className="select-team-dropdown clients-dropdown w-30-vw font-12">
             {listOfClients.map((value, index) => {
               return (
                 <div
-                  className="h-30p flex-center mb-5 "
+                  className="h-30p flex-center mb-5"
                   key={index}
                   onClick={() => handleClientsListSelect(value)}
                 >

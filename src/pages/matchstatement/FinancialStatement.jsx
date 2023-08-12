@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { Col, Row } from "antd";
 import { FaCalendarAlt } from "react-icons/fa";
-import { RiArrowDropDownLine } from "react-icons/ri";
 import { AiFillEdit } from "react-icons/ai";
 import "./styles.css";
 import FinancialStatementPopupmain from "./FinancialStatementPopupmain";
+import { RiArrowDropDownLine, RiArrowDropUpLine } from "react-icons/ri";
 
 function FinancialStatement() {
   const SETTELMENT_DETAILS = [
@@ -153,10 +153,33 @@ function FinancialStatement() {
       pl: "50000000",
     },
   ];
-  const [openFinancialoStatementIndividualPopup, setOpenFinancialStatementIndividualPopup] =
-    useState(false);
+  const [
+    openFinancialoStatementIndividualPopup,
+    setOpenFinancialStatementIndividualPopup,
+  ] = useState(false);
   const handleFInancialStatementrIndividualPopup = () => {
     setOpenFinancialStatementIndividualPopup(true);
+  };
+  const listOfMatches = ["demo", "demo", "demo", "demo"];
+  const listOfSeries = ["demo", "demo", "demo", "demo"];
+
+  const [matchListDropdown, setMatchListDropdown] = useState(false);
+  const [showmatchListDropdown, setShowMatchListDropdown] = useState(false);
+  const handleMatchesListDropdown = () => {
+    setShowMatchListDropdown((prev) => !prev);
+  };
+  const handleMatchesListSelect = (value) => {
+    setMatchListDropdown(value);
+    setShowMatchListDropdown(false);
+  };
+  const [seriesListDropDown, setSeriesListDropdown] = useState(false);
+  const [showSeriesListDropdown, setShowSeriesListDropdown] = useState(false);
+  const handleSeriesListDropdown = () => {
+    setShowSeriesListDropdown((prev) => !prev);
+  };
+  const handleSeriesListSelect = (value) => {
+    setSeriesListDropdown(value);
+    setShowSeriesListDropdown(value);
   };
   return (
     <>
@@ -182,23 +205,40 @@ function FinancialStatement() {
         </div>
         <div className="flex-row w-20">
           <div className="font-14 flex-start mb-5">Series Name</div>
-          <div className="calendar-button w-70 flex-space-around">
-            <div className="font-12">Series Name</div>
-            <RiArrowDropDownLine
-              style={{ color: "white", fontSize: "30px" }}
-            ></RiArrowDropDownLine>
+          <div
+            className="calendar-button w-70 flex-space-around"
+            onClick={() => {
+              handleSeriesListDropdown();
+            }}
+          >
+            <div className="font-12">
+              {seriesListDropDown ? seriesListDropDown : "Series Name"}
+            </div>
+            {showSeriesListDropdown ? (
+              <RiArrowDropUpLine style={{ fontSize: "40px" }} />
+            ) : (
+              <RiArrowDropDownLine style={{ fontSize: "40px" }} />
+            )}
           </div>
         </div>
         <div className="flex-row w-25">
           <div className="font-14 flex-start mb-5">Match Name</div>
-          <div className="calendar-button w-70 flex-space-around">
-            <div className="font-12">Match Name</div>
-            <RiArrowDropDownLine
-              style={{ color: "white", fontSize: "30px" }}
-            ></RiArrowDropDownLine>
+          <div
+            className="calendar-button w-70 flex-space-around"
+            onClick={() => handleMatchesListDropdown()}
+          >
+            {" "}
+            <div className="font-12">
+              {matchListDropdown ? matchListDropdown : "Matches Name"}
+            </div>
+            {showmatchListDropdown ? (
+              <RiArrowDropUpLine style={{ fontSize: "40px" }} />
+            ) : (
+              <RiArrowDropDownLine style={{ fontSize: "40px" }} />
+            )}
           </div>
         </div>
-      
+
         <button className="submit-btn w-10 h-50p mt-15">Verify</button>
       </div>
       <div className="hr-line mt-10 mb-10"></div>
@@ -277,8 +317,12 @@ function FinancialStatement() {
       </div>
 
       <FinancialStatementPopupmain
-        openFinancialoStatementIndividualPopup={openFinancialoStatementIndividualPopup}
-        setOpenFinancialStatementIndividualPopup={setOpenFinancialStatementIndividualPopup}
+        openFinancialoStatementIndividualPopup={
+          openFinancialoStatementIndividualPopup
+        }
+        setOpenFinancialStatementIndividualPopup={
+          setOpenFinancialStatementIndividualPopup
+        }
       />
     </>
   );

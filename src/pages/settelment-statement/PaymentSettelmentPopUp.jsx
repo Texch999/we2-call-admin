@@ -59,20 +59,20 @@ function PaymentSettelmentPopUp(props) {
               </div>
             </div>
             <div className="d-flex flex-row mt-10 w-100 flex-space-between">
-              <div className="flex-start font-12 w-45 flex-row button-date-time h-25p br-10 p-5 ">
+              <div className="flex-start font-12 w-45 flex-row button-date-time h-25p br-10 p-5 mr-5">
                 {" "}
                 <input
                   type="text"
                   placeholder="balance"
-                  className="login-inputs ml-5 "
+                  className="login-inputs"
                 ></input>
               </div>
-              <div className="flex-start font-12 w-45 flex-row button-date-time h-25p br-10 p-5">
+              <div className="flex-start font-12 w-45 flex-row button-date-time h-25p br-10 p-5 ml-5">
                 {" "}
                 <input
                   type="text"
                   placeholder="Net bal"
-                  className="login-inputs ml-5 "
+                  className="login-inputs"
                 ></input>
               </div>
             </div>
@@ -85,7 +85,7 @@ function PaymentSettelmentPopUp(props) {
                   alt="User_Icon"
                 />
                 <input
-                  className="login-inputs ml-5"
+                  className="login-inputs"
                   type="text"
                   placeholder="Select Payment Mode"
                 />
@@ -103,14 +103,14 @@ function PaymentSettelmentPopUp(props) {
                   alt="User_Icon"
                 />
                 <input
-                  className="login-inputs ml-5"
+                  className="login-inputs"
                   type="text"
                   placeholder="Enter Amount"
                 />
               </div>
             </div>
             <div
-              className="submit-btn mt-20 h-4vh mb-20 font-14 flex-center"
+              className="submit-btn mt-20 h-4vh mb-20 font-16 flex-center fw-600 w-100 p-5"
               onClick={() => handleSubmit()}
             >
               Submit

@@ -21,7 +21,7 @@
     inset 0px 3px 4px 0 rgba(8, 12, 39, 0.55),
     inset 1.8px 2.4px 172px 0 rgba(44, 53, 116, 0.48);
   border: solid 1px #1b256a;
-  background-color: #0c123e;
+  background-color: #113070;
   border-radius: 10px !important;
   z-index: 99999 !important;
   position: relative;
@@ -35,7 +35,7 @@
     inset 0px 3px 4px 0 rgba(8, 12, 39, 0.55),
     inset 1.8px 2.4px 172px 0 rgba(44, 53, 116, 0.48);
   border: solid 2px #1b256a;
-  background-color: #0c123e;
+  background-color: #082051;
   color: var(--font-color);
   color: var(--font-color);
   font-size: 11px !important;
@@ -49,8 +49,26 @@
   background-color: #0c123e;
 }
 .matches-dropdown {
+    width: 11vw !important;
+    position: absolute;
+    left: 42%;
+    top: 90%;
+}
+.matches-dropdown {
   width: 10vw !important;
   position: absolute;
   left: 43%;
+  top: 28%;
+}
+.fancy-dropdown {
+    width: 8vw !important;
+    position: absolute;
+    left: 58%;
+    top: 28%;
+}
+.clients-dropdown {
+  width: 13vw !important;
+  position: absolute;
+  left: 70%;
   top: 28%;
 }

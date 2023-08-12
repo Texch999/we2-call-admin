@@ -39,16 +39,16 @@ function IndividualPLReport() {
       <hr className="hr-line-opacity" />
       <Row gutter={[16, 16]}>
         <Col xs={12} sm={6} md={4} lg={3}>
-          <Button block>Client</Button>
+          <Button block className="details-btn">Client</Button>
         </Col>
         <Col xs={12} sm={6} md={4} lg={3}>
-          <Button block>Referal</Button>
+          <Button block className="details-btn">Referal</Button>
         </Col>
         <Col xs={12} sm={6} md={6} lg={4}>
-          <Button block>UL Share P/L</Button>
+          <Button block className="details-btn">UL Share P/L</Button>
         </Col>
         <Col xs={12} sm={6} md={6} lg={4}>
-          <Button block>Platform Comm P/L</Button>
+          <Button block className="details-btn">Platform Comm P/L</Button>
         </Col>
       </Row>
       <div>

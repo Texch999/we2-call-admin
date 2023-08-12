@@ -25,7 +25,7 @@
   z-index: 9999;
   background-color: #00143d;
 }
-.m-20{
+.m-20 {
   margin: 20px !important;
 }
 .homepage {
@@ -260,8 +260,6 @@
 }
 .fw-800 {
   font-weight: 600;
-}.h-5vh {
-  height: 5vh;
 }
 .h-4vh {
   height: 4vh;
@@ -427,7 +425,8 @@
 }
 .w-25 {
   width: 25% !important;
-}.w-35 {
+}
+.w-35 {
   width: 35% !important;
 }
 .w-30 {
@@ -469,10 +468,10 @@
 .mt-14vh {
   margin-top: 14vh !important;
 }
-.mrl-5cent{
+.mrl-5cent {
   margin-right: 5% !important;
   margin-left: 5% !important;
 }
-.relative-position{
+.relative-position {
   position: relative;
 }
