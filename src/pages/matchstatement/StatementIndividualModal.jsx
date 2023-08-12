@@ -1,9 +1,9 @@
 import { Modal} from "antd";
 import React, { useState } from "react";
 import {  BiDownArrowCircle } from "react-icons/bi";
-
 import ClientPLTable from "./ClientPLTable";
 import RfPlTable from "./RfPlTable";
+
 function StatementIndividualModal(props) {
   const { openStatementIndividualPopup, setOpenStatementIndividualPopup } =
     props;

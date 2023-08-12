@@ -162,10 +162,48 @@ function Statement() {
   const listOfFancys = ["demo", "demo", "demo", "demo"];
   const listOfSeries = ["demo", "demo", "demo", "demo"];
   const listOfClients = ["demo", "demo", "demo", "demo"];
+
+  const [clientsListDropdown, setClientsListDropdown] = useState(false);
+  const [showClientsListDropdown, setShowClientsListDropdown] = useState(false);
+  const handleClientsListDropdown = () => {
+    setShowClientsListDropdown((prev) => !prev);
+  };
+  const handleClientsListSelect = (value) => {
+    setClientsListDropdown(value);
+    setShowClientsListDropdown(false);
+  };
+  const [seriesListDropDown, setSeriesListDropdown] = useState(false);
+  const [showSeriesListDropdown, setShowSeriesListDropdown] = useState(false);
+  const handleSeriesListDropdown = () => {
+    setShowSeriesListDropdown((prev) => !prev);
+  };
+  const handleSeriesListSelect = (value) => {
+    setSeriesListDropdown(value);
+    setShowSeriesListDropdown(value);
+  };
+
+  const [matchListDropdown, setMatchListDropdown] = useState(false);
+  const [showmatchListDropdown, setShowMatchListDropdown] = useState(false);
+  const handleMatchesListDropdown = () => {
+    setShowMatchListDropdown((prev) => !prev);
+  };
+  const handleMatchesListSelect = (value) => {
+    setMatchListDropdown(value);
+    setShowSeriesListDropdown(false);
+  };
+  const [fancyListDropdown, setFancyListDropdown] = useState(false);
+  const [showFancyListDropdown, setShowFancyListDropdown] = useState("");
+  const handleFancyssListDropdown = () => {
+    setShowFancyListDropdown((prev) => !prev);
+  };
+  const handleFancysListSelect = (value) => {
+    setFancyListDropdown(value);
+    setShowFancyListDropdown(false);
+  };
   return (
     <>
       <div className="flex-row flex-space-around mrl-5cent">
-        <div className="flex-row w-20 ">
+        <div className="flex-row w-20">
           <div className="font-14 flex-start mb-5">From</div>
           <div className="calendar-button h-5vh w-70">
             <div className="font-12">Start Date</div>
@@ -186,41 +224,136 @@ function Statement() {
         </div>
         <div className="flex-row w-20">
           <div className="font-14 flex-start mb-5">Series Name</div>
-          <div className="calendar-button w-70 flex-space-around">
-            <div className="font-12">Series Name</div>
-            <RiArrowDropDownLine
-              style={{ color: "white", fontSize: "30px" }}
-            ></RiArrowDropDownLine>
+          <div
+            className="calendar-button w-70 flex-space-around"
+            onClick={() => {
+              handleSeriesListDropdown();
+            }}
+          >
+            <div className="font-12">
+              {seriesListDropDown ? seriesListDropDown : "Series Name"}
+            </div>
+            {showFancyListDropdown ? (
+              <RiArrowDropUpLine style={{ fontSize: "40px" }} />
+            ) : (
+              <RiArrowDropDownLine style={{ fontSize: "40px" }} />
+            )}
           </div>
         </div>
         <div className="flex-row w-25">
           <div className="font-14 flex-start mb-5">Match Name</div>
-          <div className="calendar-button w-70 flex-space-around">
-            <div className="font-12">Match Name</div>
-            <RiArrowDropDownLine
-              style={{ color: "white", fontSize: "30px" }}
-            ></RiArrowDropDownLine>
+          <div
+            className="calendar-button w-70 flex-space-around"
+            onClick={() => handleMatchesListDropdown()}
+          >
+            {" "}
+            <div className="font-12">
+              {matchListDropdown ? matchListDropdown : "Matches Name"}
+            </div>
+            {showFancyListDropdown ? (
+              <RiArrowDropUpLine style={{ fontSize: "40px" }} />
+            ) : (
+              <RiArrowDropDownLine style={{ fontSize: "40px" }} />
+            )}
           </div>
         </div>
         <div className="flex-row w-20">
           <div className="font-14 flex-start mb-5">Fancy</div>
-          <div className="calendar-button w-70 flex-space-around">
-            <div className="font-12">Fancy</div>
-            <RiArrowDropDownLine
-              style={{ color: "white", fontSize: "30px" }}
-            ></RiArrowDropDownLine>
+          <div
+            className="calendar-button w-70 flex-space-around"
+            onClick={() => handleFancyssListDropdown()}
+          >
+            <div className="font-12">
+              {fancyListDropdown ? fancyListDropdown : "Fancy"}
+            </div>
+            {showmatchListDropdown ? (
+              <RiArrowDropUpLine style={{ fontSize: "40px" }} />
+            ) : (
+              <RiArrowDropDownLine style={{ fontSize: "40px" }} />
+            )}
           </div>
         </div>
         <div className="flex-row w-30">
           <div className="font-14 flex-start mb-5">Client Name</div>
-          <div className="calendar-button w-70 flex-space-around">
-            <div className="font-12">Enter Client</div>
-            <RiArrowDropDownLine
-              style={{ color: "white", fontSize: "30px" }}
-            ></RiArrowDropDownLine>
+          <div
+            className="calendar-button w-70 flex-space-around"
+            onClick={() => handleClientsListDropdown()}
+          >
+            <div className="font-12">
+              {clientsListDropdown ? clientsListDropdown : "Client Name"}
+            </div>
+            {showClientsListDropdown ? (
+              <RiArrowDropUpLine style={{ fontSize: "40px" }} />
+            ) : (
+              <RiArrowDropDownLine style={{ fontSize: "40px" }} />
+            )}
           </div>
         </div>
         <button className="submit-btn w-10 h-50p mt-15">Verify</button>
+        {showmatchListDropdown && (
+          <div className="select-team-dropdown matches-dropdown w-30-vw font-12">
+            {listOfMatches.map((value, index) => {
+              return (
+                <div
+                  className="h-30p flex-center mb-5 "
+                  key={index}
+                  onClick={() => handleMatchesListSelect(value)}
+                >
+                  {console.log(value)}
+                  {value}
+                </div>
+              );
+            })}
+          </div>
+        )}
+        {showFancyListDropdown && (
+          <div className="select-team-dropdown matches-dropdown w-30-vw font-12">
+            {listOfFancys.map((value, index) => {
+              return (
+                <div
+                  className="h-30p flex-center mb-5 "
+                  key={index}
+                  onClick={() => handleFancysListSelect(value)}
+                >
+                  {console.log(value)}
+                  {value}
+                </div>
+              );
+            })}
+          </div>
+        )}
+        {showSeriesListDropdown && (
+          <div className="select-team-dropdown matches-dropdown w-30-vw font-12">
+            {listOfSeries.map((value, index) => {
+              return (
+                <div
+                  className="h-30p flex-center mb-5 "
+                  key={index}
+                  onClick={() => handleSeriesListSelect(value)}
+                >
+                  {console.log(value)}
+                  {value}
+                </div>
+              );
+            })}
+          </div>
+        )}
+        {showClientsListDropdown && (
+          <div className="select-team-dropdown matches-dropdown w-30-vw font-12">
+            {listOfClients.map((value, index) => {
+              return (
+                <div
+                  className="h-30p flex-center mb-5 "
+                  key={index}
+                  onClick={() => handleClientsListSelect(value)}
+                >
+                  {console.log(value)}
+                  {value}
+                </div>
+              );
+            })}
+          </div>
+        )}
       </div>
       <div className="hr-line mt-10 mb-10"></div>
       <div className="p-15">
