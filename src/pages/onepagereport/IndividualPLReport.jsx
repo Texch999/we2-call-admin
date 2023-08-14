@@ -1,73 +1,171 @@
-import { Button, Col, Row, Table } from "antd";
-import React from "react";
+import { Button, Col, Divider, Row, Table } from "antd";
+import React, { useState } from "react";
 
 function IndividualPLReport() {
-  const individualClientColumns = [
+
+  const [individualClientInfo, setIndividualClientData] = useState([]);
+  const [individualClientHeadings, setIndividualClientColumns] = useState([]);
+  const [showData, setShowData] = useState(false);
+  const [clientName, setClientName] = useState("Animesh");
+
+  const clientColumns = [
     { title: "Client Name", dataIndex: "client_name", key: "client_name" },
     { title: "Total P/L", dataIndex: "profit_loss", key: "profit_loss" },
   ];
-  const individualClientHeadings = [
-    { title: "Client Name", dataIndex: "client_name", key: "client_name" },
-    { title: "Total P/L", dataIndex: "profit_loss", key: "profit_loss" },
+  const individualClientColumns = [
+    { title: "Data", dataIndex: "date", key: "date" },
+    { title: "Match Name", dataIndex: "match_name", key: "match_name" },
+    { title: "Win Team", dataIndex: "win_team", key: "win_team" },
+    { title: "Net P/L", dataIndex: "profit_loss", key: "profit_loss" },
+  ];
+  const clientData = [
+    {
+      key: "1",
+      client_name: "Animesh",
+      profit_loss: 10000,
+    },
+    {
+      key: "2",
+      client_name: "Ganesh",
+      profit_loss: 100000,
+    },
+    {
+      key: "3",
+      client_name: "Lokesh",
+      profit_loss: 100000,
+    },
   ];
   const individualClientData = [
     {
       key: "1",
-      client_name: "Animesh",
-      profit_loss: 10000,
+      date: "25-07-2023",
+      match_name: "India vs Sri Lanka",
+      win_team: "India",
+      profit_loss: 50000000.0,
     },
     {
       key: "2",
-      client_name: "Animesh",
-      profit_loss: 100000,
+      date: "25-07-2023",
+      match_name: "India vs Sri Lanka",
+      win_team: "India",
+      profit_loss: 50000000.0,
+    },
+    {
+      key: "3",
+      date: "25-07-2023",
+      match_name: "India vs Sri Lanka",
+      win_team: "India",
+      profit_loss: 50000000.0,
     },
   ];
-  const individualClientInfo = [
+  const referralColumns = [
+    {
+      title: "Referral Name",
+      dataIndex: "referral_name",
+      key: "referral_name",
+    },
+    { title: "Total P/L", dataIndex: "profit_loss", key: "profit_loss" },
+  ];
+  const referralData = [
     {
       key: "1",
-      client_name: "Animesh",
+      referral_name: "Animesh",
       profit_loss: 10000,
     },
     {
       key: "2",
-      client_name: "Animesh",
+      referral_name: "Ganesh",
+      profit_loss: 100000,
+    },
+    {
+      key: "3",
+      referral_name: "Lokesh",
       profit_loss: 100000,
     },
   ];
+    const [mainIndividualData, setMainIndividualData] = useState(clientData);
+  const [mainIndividualColumns, setMainIndividualColumns] =
+    useState(clientColumns);
+  const handleClient = (record) => {
+    if (record.client_name === record.client_name) {
+      setShowData(true);
+      setIndividualClientData(individualClientData);
+      setIndividualClientColumns(individualClientColumns);
+      setClientName(record.client_name);
+    }
+  };
+  const handleIndividualReports = (individualReports) => {
+    if (individualReports === "Client") {
+      setMainIndividualData(clientData);
+      setMainIndividualColumns(clientColumns);
+    } else if (individualReports === "Referal") {
+      setMainIndividualData(referralData);
+      setMainIndividualColumns(referralColumns);
+    }
+  };
   return (
     <div>
       <hr className="hr-line-opacity" />
       <Row gutter={[16, 16]}>
-        <Col xs={12} sm={6} md={4} lg={3}>
+        <Col
+          sm={6}
+          md={4}
+          lg={3}
+          onClick={() => handleIndividualReports("Client")}
+        >
           <Button block>Client</Button>
         </Col>
-        <Col xs={12} sm={6} md={4} lg={3}>
+        <Col
+          sm={6}
+          md={4}
+          lg={3}
+          onClick={() => handleIndividualReports("Referal")}
+        >
           <Button block>Referal</Button>
         </Col>
-        <Col xs={12} sm={6} md={6} lg={4}>
+        <Col
+          sm={6}
+          md={6}
+          lg={4}
+          onClick={() => handleIndividualReports("UL Share P/L")}
+        >
           <Button block>UL Share P/L</Button>
         </Col>
-        <Col xs={12} sm={6} md={6} lg={4}>
+        <Col
+          sm={6}
+          md={6}
+          lg={4}
+          onClick={() => handleIndividualReports("Platform Comm P/L")}
+        >
           <Button block>Platform Comm P/L</Button>
         </Col>
       </Row>
       <div>
         <h3>Client :</h3>
       </div>
-      <Row>
+      <Row gutter={[16, 16]}>
         <Col md={6}>
           <Table
-            dataSource={individualClientData}
-            columns={individualClientColumns}
+            dataSource={mainIndividualData}
+            columns={mainIndividualColumns}
             pagination={false}
+            onRow={(record) => ({
+              onClick: () => handleClient(record),
+            })}
           />
         </Col>
-        <Col md={18}>
-          <Table
-            dataSource={individualClientInfo}
-            columns={individualClientHeadings}
-          />
-        </Col>
+        {showData && (
+          <Col md={18}>
+            <Button size="large">{`${clientName}-10000`}</Button>
+            {/* <Divider /> */}
+
+            <Table
+              dataSource={individualClientInfo}
+              columns={individualClientHeadings}
+              pagination={false}
+            />
+          </Col>
+        )}
       </Row>
     </div>
   );
