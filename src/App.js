@@ -11,6 +11,8 @@ import MatchStatement from "./pages/matchstatement/MatchStatement";
 import OnePageReport from "./pages/onepagereport/OnePageReport";
 import Settelment from "./pages/settelment-statement/Settelment";
 import SettelmentStatement from "./pages/settelment-statement/SettelmentStatement";
+import ToursAndTournaments from "./pages/tours-and-tournaments/ToursAndTournaments";
+import ViewOffers from "./pages/tours-and-tournaments/ViewOffers";
 
 function App() {
   return (
@@ -27,9 +29,14 @@ function App() {
           <Route path="/match-statement" element={<MatchStatement />} />
           <Route path="/one-page-report" element={<OnePageReport />} />
           <Route path="/settelment" element={<Settelment />} />
+          <Route path="/offers" element={<ViewOffers />} />
           <Route
             path="/settelment-statement"
             element={<SettelmentStatement />}
+          />
+          <Route
+            path="/tours-and-tournaments"
+            element={<ToursAndTournaments />}
           />
         </Routes>
       </BrowserRouter>

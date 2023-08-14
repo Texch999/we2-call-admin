@@ -1,6 +1,3 @@
-import { Col, Grid, Row } from "antd";
-
-import { Carousel } from "antd";
 import React from "react";
 import { BsArrowRight } from "react-icons/bs";
 import ManagementContainer from "../pages/home/ManagementContainer";

@@ -105,6 +105,9 @@ function Header() {
       index === 3 && handleMatchEntry();
     }
     {
+      index === 2 && navigate("/tours-and-tournaments");
+    }
+    {
       index === 4 && handleReports();
     }
     {
