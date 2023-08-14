@@ -123,8 +123,11 @@
   border: solid 1px #fce719 !important;
 }
 .meetings-container {
-  padding: 1.5rem 1rem;
+  width: 94%;
+  margin-left: 3%;
+  padding: 1.5rem 0rem;
   height: 10vh;
+  margin-top: 15vh;
 }
 .common-container {
   padding: 1rem;

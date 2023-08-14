@@ -33,7 +33,7 @@ function ToursAndTournaments() {
     setInterestCount(interestCount + 1);
   };
   return (
-    <div className="meetings-container w-95 pad-tb-lr">
+    <div className="meetings-container">
       <Row gutter={[24, 24]}>
         <Col span={14} onClick={() => navigate("/offers")}>
           <Row>
