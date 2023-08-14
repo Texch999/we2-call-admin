@@ -231,7 +231,7 @@ ant-carousel.scrolling-div {
   width: 60%;
 }
 .user-management-head {
-  font-size: 20px;
+  font-size: 1.5rem;
   font-weight: 600;
 }
 @media screen and (min-width: 700px) and (max-width: 900px) {
@@ -283,4 +283,38 @@ ant-carousel.scrolling-div {
   .header-menu {
     font-size: 10px !important;
   }
+}
+.font-1rem {
+  font-size: 2rem;
+  color: #fce719;
+}
+.inputs-user {
+  background: #112a5e;
+  border-radius: 5px;
+  height: 8vh;
+  margin-top: 5px;
+}
+.inputs-user input {
+  background: none;
+  outline: none;
+  border: none;
+  color: #ffffff;
+}
+.input-options .ant-select-selector {
+  background: none !important;
+  outline: none !important;
+  border: none !important;
+  color: #ffffff !important;
+  box-shadow: none !important;
+}
+.input-options .ant-select-selection-placeholder {
+  color: #ffffff !important;
+}
+.button-clr {
+  background: #fce719;
+  color: black;
+  font-weight: 600;
+}
+label{
+  font-weight: 600;
 }

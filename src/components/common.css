@@ -29,9 +29,9 @@
   margin: 20px !important;
 }
 .homepage {
-  height: 86vh;
+  height: 84vh;
   width: 100% !important;
-  margin-top: 14vh !important;
+  margin-top: 16vh !important;
   position: absolute;
   bottom: 0 !important;
   overflow-y: scroll !important;
@@ -413,11 +413,17 @@
 .w-60 {
   width: 60% !important;
 }
+.w-65{
+  width: 65% !important;
+}
 .w-50 {
   width: 50% !important;
 }
 .w-45 {
   width: 45% !important;
+}
+.w-46 {
+  width: 46% !important;
 }
 .w-40 {
   width: 40% !important;
