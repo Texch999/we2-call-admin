@@ -73,3 +73,21 @@
   border: none;
   background-color: #fce719;
 }
+.series-input {
+  border-radius: 10px !important;
+  height: 25px;
+  background-color: #112a5e;
+  outline: none;
+  color: white;
+  padding: 5px;
+  font-size: 12px;
+  margin-top: 10px;
+}
+.series-input::placeholder {
+  color: #fff;
+}
+.payment-icon {
+  color: #fce719;
+  font-size: 20px;
+  padding: 5px;
+}
