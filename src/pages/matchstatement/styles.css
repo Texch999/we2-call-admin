@@ -4,17 +4,13 @@
 }
 .select-team-dropdown,
 .admin-reports-dropdown {
-  box-shadow: 13.6px 21px 27px 0 #020415,
-    inset 0px 3px 4px 0 rgba(8, 12, 39, 0.55),
-    inset 1.8px 2.4px 172px 0 rgba(44, 53, 116, 0.48);
-  border: solid 1px #1b256a;
-  background-color: #0c123e;
-  height: 100px;
-  padding: 5px;
-  border-radius: 5px !important;
-  overflow-y: scroll;
-  z-index: 99999 !important;
-  position: relative;
+    background-color: #113070;
+    height: 100px;
+    padding: 5px;
+    border-radius: 5px !important;
+    overflow-y: scroll;
+    z-index: 99999 !important;
+    position: relative;
 }
 .select-team-dropdown-delete {
   box-shadow: 13.6px 21px 27px 0 #020415,
@@ -49,26 +45,28 @@
   background-color: #0c123e;
 }
 .matches-dropdown {
-    width: 11vw !important;
-    position: absolute;
-    left: 42%;
-    top: 90%;
-}
-.matches-dropdown {
-  width: 10vw !important;
+  width: 11vw !important;
   position: absolute;
-  left: 43%;
-  top: 28%;
+  left: 42%;
+  top: 31%;
 }
-.fancy-dropdown {
+.series-dropdown {
+
     width: 8vw !important;
     position: absolute;
-    left: 58%;
-    top: 28%;
+    left: 30%;
+    top: 31%;
+
+}
+.fancy-dropdown {
+  width: 9vw !important;
+  position: absolute !important;
+  left: 57.5%;
+  top: 31%;
 }
 .clients-dropdown {
   width: 13vw !important;
   position: absolute;
   left: 70%;
-  top: 28%;
+  top: 32%;
 }

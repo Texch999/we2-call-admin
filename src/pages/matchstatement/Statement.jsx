@@ -290,7 +290,8 @@ function Statement() {
           </div>
         </div>
         <button className="submit-btn w-10 h-50p mt-15">Verify</button>
-        {showmatchListDropdown && (
+      </div>
+      {showmatchListDropdown && (
           <div className="select-team-dropdown matches-dropdown w-30-vw font-12">
             {listOfMatches.map((value, index) => {
               return (
@@ -338,7 +339,22 @@ function Statement() {
             })}
           </div>
         )}
-      </div>
+          {showSeriesListDropdown && (
+          <div className="select-team-dropdown series-dropdown w-30-vw font-12">
+            {listOfSeries.map((value, index) => {
+              return (
+                <div
+                  className="h-30p flex-center mb-5"
+                  key={index}
+                  onClick={() => handleSeriesListSelect(value)}
+                >
+                  {console.log(value)}
+                  {value}
+                </div>
+              );
+            })}
+          </div>
+        )}
       <div className="hr-line mt-10 mb-10"></div>
       <div className="p-15">
         <div className="table-border p-0">
