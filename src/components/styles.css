@@ -315,6 +315,28 @@ ant-carousel.scrolling-div {
   color: black;
   font-weight: 600;
 }
-label{
+label {
   font-weight: 600;
+}
+.table-head {
+  background: #082051;
+  height: 8vh;
+  display: flex;
+  align-items: center;
+  border-radius: 10px 10px 0px 0px;
+  font-weight: 600;
+}
+.table-content {
+  height: 8vh;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #082051;
+  border-left: 1px solid #082051;
+  border-right: 1px solid #082051;
+}
+.edit-icons {
+  background: #1a2a39;
+  padding: 8px;
+  color: #fce719;
+  border-radius: 50%;
 }

@@ -7,6 +7,7 @@ import {
   AiOutlineUser,
 } from "react-icons/ai";
 import { BiSolidChevronDown } from "react-icons/bi";
+import UserManagementTable from "./UserManagementTable";
 
 function UserManagement() {
   const ulInputs = [
@@ -37,7 +38,7 @@ function UserManagement() {
                     <input
                       placeholder="Enter"
                       type={item.type}
-                      className="w-90 p-10 "
+                      className="w-90 p-10 h-100"
                     />
                     <AiOutlinePercentage className="font-1rem mr-10" />
                   </div>
@@ -113,7 +114,7 @@ function UserManagement() {
         <Row className="p-10" gutter={[16, 16]}>
           <Col span={13} className="user-inputs flex-space-between">
             <div className="w-50">
-              <label>Select Refferal</label>
+              <label>Location</label>
               <div className="flex-aline-center inputs-user">
                 <input
                   placeholder="Enter"
@@ -123,7 +124,7 @@ function UserManagement() {
               </div>
             </div>
             <div className="w-50 ml-20">
-              <label>Select Refferal</label>
+              <label>Match Risk Limit</label>
               <div className="flex-aline-center inputs-user">
                 <input
                   placeholder="Enter"
@@ -140,6 +141,7 @@ function UserManagement() {
           </Col>
         </Row>
       </div>
+      <UserManagementTable />
     </div>
   );
 }
