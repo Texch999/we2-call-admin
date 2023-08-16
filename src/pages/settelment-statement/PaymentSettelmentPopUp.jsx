@@ -12,7 +12,7 @@ function PaymentSettelmentPopUp(props) {
   };
   const handleSubmit = () => {
     setConfirmModal(true);
-    setPaymentModal(false);
+    setPaymentModal(false); 
   };
   const addPaymentMethods = [
     "NEFT/RTGS",
