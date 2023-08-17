@@ -2,11 +2,11 @@ import { Button, Col, Divider, Row, Table } from "antd";
 import React, { useState } from "react";
 
 function IndividualPLReport() {
-
   const [individualClientInfo, setIndividualClientData] = useState([]);
   const [individualClientHeadings, setIndividualClientColumns] = useState([]);
   const [showData, setShowData] = useState(false);
   const [clientName, setClientName] = useState("Animesh");
+  const [activeButton, setActiveButton] = useState("Client");
 
   const clientColumns = [
     { title: "Client Name", dataIndex: "client_name", key: "client_name" },
@@ -83,7 +83,7 @@ function IndividualPLReport() {
       profit_loss: 100000,
     },
   ];
-    const [mainIndividualData, setMainIndividualData] = useState(clientData);
+  const [mainIndividualData, setMainIndividualData] = useState(clientData);
   const [mainIndividualColumns, setMainIndividualColumns] =
     useState(clientColumns);
   const handleClient = (record) => {
@@ -95,6 +95,7 @@ function IndividualPLReport() {
     }
   };
   const handleIndividualReports = (individualReports) => {
+    setActiveButton(individualReports);
     if (individualReports === "Client") {
       setMainIndividualData(clientData);
       setMainIndividualColumns(clientColumns);
@@ -104,7 +105,7 @@ function IndividualPLReport() {
     }
   };
   return (
-    <div>
+    <div className="main-individual-report-container">
       <hr className="hr-line-opacity" />
       <Row gutter={[16, 16]}>
         <Col
@@ -113,7 +114,14 @@ function IndividualPLReport() {
           lg={3}
           onClick={() => handleIndividualReports("Client")}
         >
-          <Button block>Client</Button>
+          <Button
+            block
+            className={`individual-report-button ${
+              activeButton === "Client" ? "active-button" : "deactive-button"
+            }`}
+          >
+            Client
+          </Button>
         </Col>
         <Col
           sm={6}
@@ -121,7 +129,14 @@ function IndividualPLReport() {
           lg={3}
           onClick={() => handleIndividualReports("Referal")}
         >
-          <Button block>Referal</Button>
+          <Button
+            block
+            className={`individual-report-button ${
+              activeButton === "Referal" ? "active-button" : "deactive-button"
+            }`}
+          >
+            Referal
+          </Button>
         </Col>
         <Col
           sm={6}
@@ -129,7 +144,16 @@ function IndividualPLReport() {
           lg={4}
           onClick={() => handleIndividualReports("UL Share P/L")}
         >
-          <Button block>UL Share P/L</Button>
+          <Button
+            block
+            className={`individual-report-button ${
+              activeButton === "UL Share P/L"
+                ? "active-button"
+                : "deactive-button"
+            }`}
+          >
+            UL Share P/L
+          </Button>
         </Col>
         <Col
           sm={6}
@@ -137,7 +161,16 @@ function IndividualPLReport() {
           lg={4}
           onClick={() => handleIndividualReports("Platform Comm P/L")}
         >
-          <Button block>Platform Comm P/L</Button>
+          <Button
+            block
+            className={`individual-report-button ${
+              activeButton === "Platform Comm P/L"
+                ? "active-button"
+                : "deactive-button"
+            }`}
+          >
+            Platform Comm P/L
+          </Button>
         </Col>
       </Row>
       <div>
@@ -146,6 +179,7 @@ function IndividualPLReport() {
       <Row gutter={[16, 16]}>
         <Col md={6}>
           <Table
+            className="offline-reports-table"
             dataSource={mainIndividualData}
             columns={mainIndividualColumns}
             pagination={false}
@@ -156,10 +190,14 @@ function IndividualPLReport() {
         </Col>
         {showData && (
           <Col md={18}>
-            <Button size="large">{`${clientName}-10000`}</Button>
+            <Button
+              size="large"
+              className="w-100 deactive-button custom-client-button"
+            >{`${clientName}-10000`}</Button>
             {/* <Divider /> */}
 
             <Table
+              className="offline-reports-table"
               dataSource={individualClientInfo}
               columns={individualClientHeadings}
               pagination={false}

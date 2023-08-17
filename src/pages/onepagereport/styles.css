@@ -3,14 +3,17 @@
   background-color: #fce719;
 }
 .deactive-button {
-  border-radius: 8px;
-  background-color: #112a5e;
+  border-radius: 8px !important;
+  background-color: #112a5e !important;
+}
+.main-individual-report-container {
+  padding: 0.5rem;
 }
 .date-container {
   width: 35%;
   border: solid 2px rgba(54, 60, 72, 0.5);
   background-color: #112a5e;
-  color: white;
+  color: #fff;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -21,7 +24,7 @@
   border-radius: 10px;
   border: solid 2px yellow;
   background-color: #112a5e;
-  color: white;
+  color: #fff;
   height: 20px;
   padding: 5px;
 }
@@ -34,5 +37,53 @@
   padding: 5px;
 }
 .hr-line-opacity {
-border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.individual-report-button {
+  height: 40px;
+  color: #fff;
+  outline: none;
+  border: none;
+}
+.offline-reports-table .ant-table {
+  background-color: #00143d;
+  border: solid 2px rgba(255, 255, 255, 0.11);
+}
+.offline-reports-table .ant-table-thead th {
+  background: #082051 !important;
+  border: none;
+  border-bottom: none !important;
+  color: #fff !important;
+}
+.offline-reports-table .ant-table-tbody > tr > td {
+  border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+  color: #fff;
+  padding: 12px 12px;
+}
+.custom-client-button {
+  border: none;
+  text-align: left;
+  color: #fff;
+  margin-bottom: 0.5rem;
+}
+
+.offline-reports-table
+  :where(.css-dev-only-do-not-override-fpg3f5).ant-table-wrapper
+  .ant-table-tbody
+  > tr.ant-table-row:hover
+  > th,
+:where(.css-dev-only-do-not-override-fpg3f5).ant-table-wrapper
+  .ant-table-tbody
+  > tr.ant-table-row:hover
+  > td,
+:where(.css-dev-only-do-not-override-fpg3f5).ant-table-wrapper
+  .ant-table-tbody
+  > tr
+  > th.ant-table-cell-row-hover,
+:where(.css-dev-only-do-not-override-fpg3f5).ant-table-wrapper
+  .ant-table-tbody
+  > tr
+  > td.ant-table-cell-row-hover {
+  background: none;
+  cursor: pointer;
 }
