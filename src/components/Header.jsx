@@ -40,7 +40,11 @@ function Header() {
     moreType,
   ];
   const MatchEntryDropdown = [
-    { icon: <LiaFolderSolid className="mr-10" />, name: "Match Entry" },
+    {
+      icon: <LiaFolderSolid className="mr-10" />,
+      name: "Match Entry",
+      path: "/matchentry",
+    },
     { icon: <AiFillWarning className="mr-10" />, name: "Share Risk" },
   ];
 
@@ -105,6 +109,9 @@ function Header() {
       index === 3 && handleMatchEntry();
     }
     {
+      index === 2 && navigate("/tours-and-tournaments");
+    }
+    {
       index === 4 && handleReports();
     }
     {
@@ -127,9 +134,12 @@ function Header() {
     setReportsOpen(false);
     setMoreOpen((prev) => !prev);
   };
-  const handleSelectMatchEntry = (name) => {
+  const handleSelectMatchEntry = (name, index) => {
     setMatchEntryType(name);
     setMatchEntryOpen(false);
+    {
+      index === 0 && navigate("/matchentry");
+    }
   };
 
   const handleMore = (item) => {
@@ -182,7 +192,7 @@ function Header() {
                   <div
                     key={index}
                     className="flex-align-center mt-5"
-                    onClick={() => handleSelectMatchEntry(item.name)}
+                    onClick={() => handleSelectMatchEntry(item.name, index)}
                   >
                     {item.icon}
                     {item.name}

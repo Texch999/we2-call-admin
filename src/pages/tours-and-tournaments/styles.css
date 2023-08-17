@@ -1,0 +1,343 @@
+/* Media Quiry CSS */
+@media (min-width: 768px) and (max-width: 991px) {
+  .tour-heading-text {
+    font-size: 18px;
+    font-weight: bold;
+    font-family: "Barlow-Regular";
+  }
+  .font-14 {
+    font-size: 10px;
+    font-weight: bold;
+    font-family: "Barlow-Regular";
+  }
+  .font-12 {
+    font-size: 10px;
+    color: #ffffff;
+    font-family: "Barlow-Regular";
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+  .tour-heading-text {
+    font-size: 22px;
+    font-weight: bold;
+    font-family: "Barlow-Regular";
+  }
+  .font-14 {
+    font-size: 14px;
+    font-weight: bold;
+    font-family: "Barlow-Regular";
+  }
+  .font-12 {
+    font-size: 12px;
+    color: #ffffff;
+    font-family: "Barlow-Regular";
+  }
+}
+
+@media (min-width: 1200px) and (max-width: 1919px) {
+  .tour-heading-text {
+    font-size: 30px;
+    font-weight: bold;
+    font-family: "Barlow-Regular";
+  }
+  .font-14 {
+    font-size: 16px;
+    font-weight: bold;
+    font-family: "Barlow-Regular";
+  }
+  .font-12 {
+    font-size: 14px;
+    color: #ffffff;
+    font-family: "Barlow-Regular";
+  }
+}
+
+@media (min-width: 1920px) {
+  .tour-heading-text {
+    font-size: 60px;
+    font-weight: bold;
+    font-family: "Barlow-Regular";
+  }
+  .font-14 {
+    font-size: 30px;
+    font-weight: bold;
+    font-family: "Barlow-Regular";
+  }
+  .font-12 {
+    font-size: 26px;
+    color: #ffffff;
+    font-family: "Barlow-Regular";
+  }
+}
+
+/* Common CSS */
+.take-tour-div {
+  background-image: linear-gradient(to top, #3f5cc2, #5640c6);
+}
+.cricket-tour-div {
+  background-image: linear-gradient(to right, #e762e5, #4f64f0);
+}
+.football-tour-div {
+  background-image: linear-gradient(to bottom, rgba(253, 221, 52, 1), #fe5e02);
+}
+.casino-tour-div {
+  background-image: linear-gradient(to right, rgba(159, 251, 162, 1), #3f8c49);
+}
+.ent-tour-div {
+  background-image: linear-gradient(to right, #64dcf8, #3a68f3);
+}
+/* .suitcase-img-div {
+  background-image: url("/public/assets/airplane_bg.png");
+}
+.cricket-text-div {
+  background-image: url("/public/assets/cricket_wickets.png");
+}
+.football-text-div {
+  background-image: url("/public/assets/football_banner_bg.png");
+}
+.casino-img-div {
+  background-image: url("/public/assets/casino_banner_bg.png");
+}
+.ent-img-div {
+  background-image: url("/public/assets/ent_banner_bg.png");
+} */
+.intrested-div {
+  box-shadow: 0px 2px 15px 0 rgba(66, 42, 202, 0.73);
+}
+.active-clr {
+  background-image: linear-gradient(to top, #ffc843, #ff8f17);
+}
+.casino-btn-clr {
+  background-image: linear-gradient(to top, rgba(181, 100, 217, 1), #ee609c);
+}
+.ent-btn-clr {
+  background-color: #602be7;
+}
+.h-45vh {
+  height: 45vh !important;
+}
+.h-55vh {
+  height: 52vh !important;
+}
+.h-300px {
+  height: 300px !important;
+}
+.font-35 {
+  font-size: 35px;
+  color: #ffffff;
+  font-weight: bolder !important;
+  font-family: "Barlow-Regular";
+}
+.take-tour-div,
+.casino-tour-div,
+.ent-tour-div,
+.cricket-tour-div,
+.football-tour-div {
+  border-radius: 20px;
+  height: 38vh;
+  border: 2px solid #2b3967;
+}
+.tour-content {
+  height: 30vh;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+  justify-content: space-between;
+}
+.pb-15vh {
+  padding-bottom: 15vh;
+}
+.suitcase-img-div,
+.cricket-text-div,
+.football-text-div,
+.casino-img-div,
+.ent-img-div {
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.font-20 {
+  font-size: 20px;
+  color: #ffffff;
+  font-weight: 600;
+  font-family: "Barlow-Regular";
+}
+.font-22 {
+  font-size: 22px;
+  color: #ffffff;
+  font-weight: 600;
+  font-family: "Barlow-Regular";
+}
+.font-25 {
+  font-family: "Barlow-Regular";
+  font-size: 25px;
+  color: #ffffff;
+  font-weight: 600;
+}
+.font-clr-white {
+  color: #ffffff !important;
+}
+.intrested-container,
+.casino-container,
+.ent-container {
+  color: #ffffff;
+  height: 6vh;
+  border-radius: 50px;
+}
+.intrested-container {
+  background-color: #3542b3;
+}
+.casino-container {
+  background-color: #65c16c;
+}
+.ent-container {
+  background-color: #4fa9db;
+}
+.intrested-div,
+.casino-div,
+.ent-div {
+  color: #ffffff;
+  height: 6vh;
+  border-radius: 50px;
+  border: none;
+}
+.cricket-intrested-div {
+  font-size: 12px;
+  font-family: "Barlow-Regular";
+  font-weight: 600;
+  height: 5vh;
+  border-radius: 50px;
+  border: none;
+  color: #ffffff;
+}
+.thumbsup-icon {
+  color: #ffc843 !important;
+}
+.tour-calender-icon {
+  height: 4vh;
+  width: 1.5vw;
+  /* font-size: 14px; */
+  margin-right: 5px;
+}
+.clr-black {
+  color: #000000 !important;
+}
+.discount-image {
+  height: 20px;
+  width: 20px;
+  margin-right: 5px;
+}
+.view-offers-div {
+  padding: 0px 10px;
+  height: 40px;
+  border-radius: 10px;
+}
+.football-image {
+  width: 100%;
+  height: 33vh;
+}
+.suitcase-image {
+  /* width: 75%; */
+  height: 32vh;
+}
+.tour-btn:active {
+  transform: scale(0.95);
+}
+.disable-clr {
+  background-color: gray !important;
+  color: #ffffff !important;
+}
+.bg-black {
+  background: #000000 !important;
+}
+.view-offers-container {
+  padding: 2rem 2rem;
+  margin-top: 15vh;
+}
+.tour-gift-img {
+  height: 250px;
+  width: 250px;
+  margin-top: 100px;
+}
+.mb-10vh {
+  margin-bottom: 10vh;
+}
+.offers-msg-img {
+  width: 25px;
+  height: 25px;
+  padding: 5px;
+  border-radius: 5px;
+  background-color: #112a5e;
+}
+.clickhere-text {
+  line-height: 1.5rem;
+}
+.clickhere-text span {
+  text-decoration: underline;
+  color: #fce719;
+}
+.p-1rem {
+  padding: 1rem;
+}
+.p-2rem {
+  padding: 2rem;
+}
+.pad-tb-lr {
+  padding: 0.5rem 2rem;
+}
+.pad-tb-1rem {
+  padding: 1rem 1rem;
+}
+.line-ht-1rem {
+  line-height: 1.5rem;
+}
+.yellow-clr {
+  color: #fce719 !important;
+}
+.font-30 {
+  font-size: 30px;
+  color: #ffffff;
+  font-weight: 600;
+  font-family: "Barlow-Regular";
+}
+.white-bg {
+  background-color: #fff;
+  opacity: 0.2;
+  padding: 2px;
+}
+.your-users-heading .ant-row {
+  border-radius: 5px;
+  background-color: #082051;
+  padding: 15px;
+  text-align: center;
+}
+.your-users-content .ant-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
+  text-align: center;
+  border: 1px solid #082051;
+}
+.your-admins-content .ant-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  text-align: center;
+  border: 1px solid #082051;
+}
+.user-btn {
+  width: 90%;
+  background: #112a5e;
+  padding: 5px 0px;
+  border-radius: 15px;
+}
+.mr-40per {
+  margin-right: 40%;
+}
+.user-active-btn {
+  color: #fce719 !important;
+  background-color: #293734 !important;
+}
