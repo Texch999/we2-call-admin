@@ -15,7 +15,7 @@ function MessagePopup(props) {
       onCancel={() => handleCancel()}
     >
       <div>
-        <div className="font-18">Message</div>
+        <div className="font-14">Message</div>
         <hr className="hr-line mt-10" />
         <div className="font-12 mt-10">Where does it come from?</div>
         <div className="message-text-div font-10 mt-10 p-8">

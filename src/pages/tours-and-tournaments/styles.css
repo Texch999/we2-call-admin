@@ -3,17 +3,33 @@
   .tour-heading-text {
     font-size: 18px;
     font-weight: bold;
+    color: #ffffff;
     font-family: "Barlow-Regular";
   }
   .font-14 {
     font-size: 10px;
     font-weight: bold;
+    color: #ffffff;
     font-family: "Barlow-Regular";
   }
   .font-12 {
     font-size: 10px;
     color: #ffffff;
     font-family: "Barlow-Regular";
+  }
+  .font-10 {
+    font-size: 10px;
+    color: #ffffff;
+    font-family: "Barlow-Regular";
+  }
+  .all-none::placeholder {
+    font-size: 10px;
+    color: #ffffff;
+  }
+  .date-input {
+    font-size: 10px;
+    color: #ffffff;
+    text-transform: uppercase;
   }
 }
 
@@ -21,11 +37,13 @@
   .tour-heading-text {
     font-size: 22px;
     font-weight: bold;
+    color: #ffffff;
     font-family: "Barlow-Regular";
   }
   .font-14 {
-    font-size: 14px;
+    font-size: 12px;
     font-weight: bold;
+    color: #ffffff;
     font-family: "Barlow-Regular";
   }
   .font-12 {
@@ -33,23 +51,53 @@
     color: #ffffff;
     font-family: "Barlow-Regular";
   }
+  .font-10 {
+    font-size: 10px;
+    color: #ffffff;
+    font-family: "Barlow-Regular";
+  }
+  .all-none::placeholder {
+    font-size: 10px;
+    color: #ffffff;
+  }
+  .date-input {
+    font-size: 10px;
+    color: #ffffff;
+    text-transform: uppercase;
+  }
 }
 
 @media (min-width: 1200px) and (max-width: 1919px) {
   .tour-heading-text {
-    font-size: 30px;
+    font-size: 26px;
     font-weight: bold;
+    color: #ffffff;
     font-family: "Barlow-Regular";
   }
   .font-14 {
-    font-size: 16px;
+    font-size: 14px;
     font-weight: bold;
+    color: #ffffff;
     font-family: "Barlow-Regular";
   }
   .font-12 {
-    font-size: 14px;
+    font-size: 12px;
     color: #ffffff;
     font-family: "Barlow-Regular";
+  }
+  .font-10 {
+    font-size: 12px;
+    color: #ffffff;
+    font-family: "Barlow-Regular";
+  }
+  .all-none::placeholder {
+    font-size: 12px;
+    color: #ffffff;
+  }
+  .date-input {
+    font-size: 12px;
+    color: #ffffff;
+    text-transform: uppercase;
   }
 }
 
@@ -57,17 +105,33 @@
   .tour-heading-text {
     font-size: 60px;
     font-weight: bold;
+    color: #ffffff;
     font-family: "Barlow-Regular";
   }
   .font-14 {
     font-size: 30px;
     font-weight: bold;
+    color: #ffffff;
     font-family: "Barlow-Regular";
   }
   .font-12 {
-    font-size: 26px;
+    font-size: 22px;
     color: #ffffff;
     font-family: "Barlow-Regular";
+  }
+  .font-10 {
+    font-size: 20px;
+    color: #ffffff;
+    font-family: "Barlow-Regular";
+  }
+  .all-none::placeholder {
+    font-size: 20px;
+    color: #ffffff;
+  }
+  .date-input {
+    font-size: 20px;
+    color: #ffffff;
+    text-transform: uppercase;
   }
 }
 
@@ -87,7 +151,7 @@
 .ent-tour-div {
   background-image: linear-gradient(to right, #64dcf8, #3a68f3);
 }
-/* .suitcase-img-div {
+.suitcase-img-div {
   background-image: url("/public/assets/airplane_bg.png");
 }
 .cricket-text-div {
@@ -101,7 +165,7 @@
 }
 .ent-img-div {
   background-image: url("/public/assets/ent_banner_bg.png");
-} */
+}
 .intrested-div {
   box-shadow: 0px 2px 15px 0 rgba(66, 42, 202, 0.73);
 }
@@ -121,7 +185,7 @@
   height: 52vh !important;
 }
 .h-300px {
-  height: 300px !important;
+  height: 38vh !important;
 }
 .font-35 {
   font-size: 35px;
@@ -139,7 +203,7 @@
   border: 2px solid #2b3967;
 }
 .tour-content {
-  height: 30vh;
+  height: 32vh;
   padding: 1rem;
   display: flex;
   flex-direction: column;
