@@ -1,0 +1,16 @@
+tbody {
+  background-color: #082051;
+}
+.row-head {
+  background-color: #082051;
+  border-radius: 15px;
+  height: 50px;
+  color: white;
+}
+.row-body {
+  background-color: #00143d;
+  border-radius: 15px;
+  height: 5vh;
+  overflow: auto;
+  color: white;
+}

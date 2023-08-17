@@ -1,7 +1,12 @@
 import React from "react";
+import Settelment from "../setlment/Settelment";
 
 function HomeContent() {
-  return <div>hi </div>;
+  return (
+    <div>
+      <Settelment />{" "}
+    </div>
+  );
 }
 
 export default HomeContent;
