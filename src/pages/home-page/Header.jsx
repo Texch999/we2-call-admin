@@ -3,8 +3,7 @@ import React from "react";
 function Header() {
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
-      <div className="container-fluid">
-        
+      <div className="container-fluid">       
         <button
           className="navbar-toggler"
           type="button"
