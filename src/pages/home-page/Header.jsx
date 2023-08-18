@@ -6,7 +6,7 @@ function Header() {
     <div>
       <nav className="navbar navbar-expand-lg header-bg">
         <div className="container-fluid">
-          {/* <a className="navbar-brand font-white" href="#">
+          {/* <a className="navbar-brand font-white" href="/">
           Navbar
         </a> */}
           <img src=""></img>
@@ -27,20 +27,20 @@ function Header() {
                 <a
                   className="nav-link active font-white"
                   aria-current="page"
-                  href="#"
+                  href="/"
                 >
                   Home
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="/">
                   Link
                 </a>
               </li>
               <li className="nav-item dropdown">
                 <a
                   className="nav-link dropdown-toggle"
-                  href="#"
+                  href="/"
                   role="button"
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
@@ -49,12 +49,12 @@ function Header() {
                 </a>
                 <ul className="dropdown-menu">
                   <li>
-                    <a className="dropdown-item" href="#">
+                    <a className="dropdown-item" href="/">
                       Action
                     </a>
                   </li>
                   <li>
-                    <a className="dropdown-item" href="#">
+                    <a className="dropdown-item" href="/">
                       Another action
                     </a>
                   </li>
@@ -62,7 +62,7 @@ function Header() {
                     <hr className="dropdown-divider" />
                   </li>
                   <li>
-                    <a className="dropdown-item" href="#">
+                    <a className="dropdown-item" href="/">
                       Something else here
                     </a>
                   </li>
