@@ -125,8 +125,8 @@ function Settelment() {
     },
   ];
   return (
-    <div>
-      <div style={{ fontSize: "30px", color: "black" }}>Settelment</div>
+    <div className="p-4">
+      <div className="heading font-weight-bold">Settelment Statement</div>
       <div>
         {" "}
         <table class="table">

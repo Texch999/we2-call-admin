@@ -1,5 +1,8 @@
-tbody {
-  background-color: #082051;
+.heading {
+  font-size: 40px;
+  color: #ffffff;
+  margin-top: 10px;
+  margin-bottom: 20px;
 }
 .row-head {
   background-color: #082051;
