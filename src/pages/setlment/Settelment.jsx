@@ -152,7 +152,7 @@ function Settelment() {
           </tr>
           {UPCOMING_SETTELMENT_DETAILS.map((item, index) => (
             <>
-              <tr className="row-body">
+              <tr className="row-body" key={index}>
                 <td className="text-center">{item.DateTime}</td>
                 <td className="text-center">{item.ClientName}</td>
                 <td className="text-center">{item.ModeofPayment}</td>

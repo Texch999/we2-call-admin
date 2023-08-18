@@ -6,6 +6,7 @@ import Header from "./pages/home-page/Header";
 import HomeContent from "./pages/home-page/HomeContent";
 import Marquee from "react-fast-marquee";
 import CallManagement from "./pages/call-management/CallManagement";
+import Settelment from "./pages/setlment/Settelment";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomeContent />} />
           <Route path="/call-management" element={<CallManagement />} />
+          <Route path="/settelment-statement" element={<Settelment />} />
         </Routes>
       </BrowserRouter>
     </div>
