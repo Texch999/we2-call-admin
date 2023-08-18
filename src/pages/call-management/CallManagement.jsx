@@ -1,22 +1,9 @@
 import React from "react";
 import { Button, Table } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faEdit } from "@fortawesome/free-solid-svg-icons";
-
-// import { faEdit } from "@fortawesome/free-solid-svg-icons";
+import { MdModeEditOutline } from "react-icons/md";
 
 const CallManagement = () => {
-  const callManagementColumns = [
-    {
-      title: "URS",
-      event_name: "EVENT NAME",
-      date: "START DATE & TIME",
-      user: "USER",
-      status: "STATUS",
-      edit: "",
-    },
-  ];
   const callManagementData = [
     {
       title: "Sriagent",
@@ -60,33 +47,30 @@ const CallManagement = () => {
         <h3>Upcoming Meetings</h3>
         <Table>
           <thead>
-            {callManagementColumns.map((header, index) => (
-              <tr key={index}>
-                <th>{header.title}</th>
-                <th>{header.event_name}</th>
-                <th>{header.date}</th>
-
-                <th>{header.user}</th>
-                <th>{header.status}</th>
-                <th>{header.edit}</th>
-              </tr>
-            ))}
+            <tr>
+              <th>URS</th>
+              <th>EVENT NAME</th>
+              <th>START DATE & TIME</th>
+              <th>USER</th>
+              <th>STATUS</th>
+              <th></th>
+            </tr>
           </thead>
           <tbody>
             {callManagementData.map((data, index) => (
               <tr key={index}>
-                <td>{data.title}</td>
-                <td>{data.event_name}</td>
-                <td>{data.date}</td>
-
-                <td>{data.user}</td>
+                <td>{data?.title}</td>
+                <td>{data?.event_name}</td>
+                <td>{data?.date}</td>
+                <td>{data?.user}</td>
                 <td>
-                  <Button variant="success">{data.status}</Button>
+                  <Button variant="success" className="rounded-pill">
+                    {data?.status}
+                  </Button>
                 </td>
                 <td>
                   <Button type="button" className="rounded-circle">
-                    edit
-                    {/* <FontAwesomeIcon icon={faEdit} className="mr-1" /> */}
+                    <MdModeEditOutline />
                   </Button>
                 </td>
               </tr>
