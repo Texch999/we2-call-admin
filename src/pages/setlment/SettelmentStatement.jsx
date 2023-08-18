@@ -128,40 +128,52 @@ function SettelmentStatement() {
     <div className="p-4">
       <div className="heading font-weight-bold">Settelment Statement</div>
       <div>
-        {" "}
-        <table class="table">
-          <tr className="row-head">
-            <th scope="col" className="text-center">
-              DATE & TIME
-            </th>
-            <th scope="col" className="text-center">
-              CLIENT NAME/ROLE
-            </th>
-            <th scope="col" className="text-center">
-              MODE OF PAYMENT
-            </th>
-            <th scope="col" className="text-center">
-              TILL DAY BALANCE
-            </th>
-            <th scope="col" className="text-center">
-              SETTELED AMOUNT
-            </th>
-            <th scope="col" className="text-center">
-              BALANCE
-            </th>
-          </tr>
+        <table className="table">
+          <thead>
+            <tr>
+              <th scope="col" className="text-center">
+                DATE & TIME
+              </th>
+              <th scope="col" className="text-center">
+                CLIENT NAME/ROLE
+              </th>
+              <th scope="col" className="text-center">
+                MODE OF PAYMENT
+              </th>
+              <th scope="col" className="text-center">
+                TILL DAY BALANCE
+              </th>
+              <th scope="col" className="text-center">
+                SETTELED AMOUNT
+              </th>
+              <th scope="col" className="text-center">
+                BALANCE
+              </th>
+            </tr>
+          </thead>
+
           {UPCOMING_SETTELMENT_DETAILS.map((item, index) => (
-            <>
-              <tr className="row-body" key={index}>
+            <tbody key={index}>
+              <tr>
                 <td className="text-center">{item.DateTime}</td>
                 <td className="text-center">{item.ClientName}</td>
                 <td className="text-center">{item.ModeofPayment}</td>
                 <td className="text-center">{item.dayBalance}</td>
                 <td className="text-center">{item.SettledAmount}</td>
-                <td className="text-center">{item.Balance}</td>
+                <td className="text-center clr-green">{item.Balance}</td>
               </tr>
-            </>
+            </tbody>
           ))}
+          <tfoot>
+            <tr>
+              <th colSpan={4} className="text-center">
+                Total
+              </th>
+              <th colSpan={2} className="text-center clr-green">
+                500000.00
+              </th>
+            </tr>
+          </tfoot>
         </table>
       </div>
     </div>

@@ -4,20 +4,30 @@
   margin-top: 10px;
   margin-bottom: 20px;
 }
-.row-head {
-  background-color: #082051;
-  border-radius: 15px;
-  height: 50px;
-  color: white;
-}
-.row-body {
-  background-color: #00143d;
-  border-radius: 15px;
+th {
   height: 5vh;
-  overflow: auto;
-  color: white;
+  display: table-cell;
+  vertical-align: inherit;
+  font-weight: bold;
+  background-color: #082051 !important;
+  color: white !important;
+  text-align: center;
 }
-.custom-tbody{
-  max-height: 30vh; /* Set your desired height here */
-  overflow-y: auto; 
+td {
+  display: table-cell;
+  vertical-align: inherit;
+  font-weight: bold;
+  height: 5vh;
+  text-align: center;
+  border: none;
+  background: #00143d !important;
+  color: white !important;
+}
+.clr-green {
+  color: #04c85e !important;
+}
+
+.custom-icon {
+  font-size: 30px;
+  color: yellow;
 }

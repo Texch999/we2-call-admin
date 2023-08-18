@@ -6,7 +6,8 @@ import Header from "./pages/home-page/Header";
 import HomeContent from "./pages/home-page/HomeContent";
 import MatchEntry from "./pages/match-entry/MatchEntry";
 import CallManagement from "./pages/call-management/CallManagement";
-import Settelment from "./pages/setlment/SettelmentStatement";
+import SettelmentStatement from "./pages/setlment/SettelmentStatement";
+import Settelment from "./pages/setlment/Settelment";
 
 function App() {
   return (
@@ -17,7 +18,11 @@ function App() {
           <Route path="/" element={<HomeContent />} />
           <Route path="/match-entry" element={<MatchEntry />} />
           <Route path="/call-management" element={<CallManagement />} />
-          <Route path="/settelment-statement" element={<Settelment />} />
+          <Route
+            path="/settelment-statement"
+            element={<SettelmentStatement />}
+          />
+          <Route path="/settelment" element={<Settelment />} />
         </Routes>
       </BrowserRouter>
     </div>
