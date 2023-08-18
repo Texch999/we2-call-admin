@@ -134,7 +134,22 @@ function Settelment() {
   ];
   return (
     <div className="p-4">
-      <div className="heading font-weight-bold">Settelment</div>
+      <div className="xx-large-font mt-2 mb-4">Settelment</div>
+      <div className="large-font mt-1 mb-4">Account Summary</div>
+      <div className="d-flex flex-row justify-content-around mb-4 w-50">
+        <div className="d-flex flex-column settelment-container justify-content-around p-2">
+          <div className="medium-font">Total Amount</div>
+          <div className="clr-yellow medium-font">1000000.00</div>
+        </div>
+        <div className="d-flex flex-column settelment-container justify-content-around p-2">
+          <div className="medium-font">Total Settled Bal C/D</div>
+          <div className="clr-yellow medium-font">1000000.00</div>
+        </div>
+        <div className="d-flex flex-column settelment-container justify-content-around p-2">
+          <div className="medium-font">Total Balance</div>
+          <div className="clr-yellow medium-font">1000000.00</div>
+        </div>
+      </div>
       <div>
         <table className="table">
           <thead>
@@ -162,10 +177,10 @@ function Settelment() {
             <tbody key={index}>
               <tr>
                 <td className="text-center">{item.ClientName}</td>
-                <td className="text-center">{item.RolePosition}</td>
+                <td className="text-center ">{item.RolePosition}</td>
                 <td className="text-center">{item.Amount}</td>
-                <td className="text-center clr-green">{item.CreditDebit}</td>
-                <td className="text-center clr-green">{item.Balance}</td>
+                <td className="text-center clr-green ">{item.CreditDebit}</td>
+                <td className="text-center clr-green ">{item.Balance}</td>
                 <td className="text-center">
                   <AiFillFileText className="custom-icon" />
                 </td>
@@ -174,10 +189,10 @@ function Settelment() {
           ))}
           <tfoot>
             <tr>
-              <th colSpan={4} className="text-center">
+              <th colSpan={4} className="text-center medium-font">
                 Total
               </th>
-              <th colSpan={2} className="text-center">
+              <th colSpan={2} className="text-center medium-font">
                 500000.00
               </th>
             </tr>

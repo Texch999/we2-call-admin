@@ -126,7 +126,7 @@ function SettelmentStatement() {
   ];
   return (
     <div className="p-4">
-      <div className="heading font-weight-bold">Settelment Statement</div>
+      <div className="xx-large-font mb-4">Settelment Statement</div>
       <div>
         <table className="table">
           <thead>
@@ -160,7 +160,7 @@ function SettelmentStatement() {
                 <td className="text-center">{item.ModeofPayment}</td>
                 <td className="text-center">{item.dayBalance}</td>
                 <td className="text-center">{item.SettledAmount}</td>
-                <td className="text-center clr-green">{item.Balance}</td>
+                <td className="text-centert">{item.Balance}</td>
               </tr>
             </tbody>
           ))}
