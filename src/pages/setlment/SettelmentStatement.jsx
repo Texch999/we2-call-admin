@@ -128,7 +128,7 @@ function SettelmentStatement() {
     <div className="p-4">
       <div className="xx-large-font mb-4">Settelment Statement</div>
       <div>
-        <table className="table">
+        <table className="settelment-table">
           <thead>
             <tr>
               <th scope="col" className="text-center">

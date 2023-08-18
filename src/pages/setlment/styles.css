@@ -1,4 +1,12 @@
-th {
+.settelment-table {
+  width: 100%;
+  border: solid 2px rgba(255, 255, 255, 0.11);
+  background-color: var(--table-border-color);
+  border-radius: 8px;
+  --bs-table-color: var(--text-white);
+  --bs-table-bg: var(--table-bg-color);
+}
+.settelment-table th {
   height: 5vh;
   display: table-cell;
   vertical-align: inherit;
@@ -6,14 +14,13 @@ th {
   background-color: #082051 !important;
   color: white !important;
 }
-td {
+.settelment-table tbody > tr td {
   display: table-cell;
   vertical-align: inherit;
-  font-weight: bold;
   height: 4vh;
   text-align: center;
   border: none;
-  background: #00143d !important;
+  background-color: #00143d !important;
   color: white !important;
 }
 .clr-green {
@@ -43,7 +50,7 @@ td {
   .large-font {
     font-size: 16px;
   }
-  .xx-large-font{
+  .xx-large-font {
     font-size: 22px;
   }
 }
@@ -58,7 +65,7 @@ td {
   .large-font {
     font-size: 18px;
   }
-  .xx-large-font{
+  .xx-large-font {
     font-size: 25px;
   }
 }
@@ -73,7 +80,7 @@ td {
   .large-font {
     font-size: 22px;
   }
-  .xx-large-font{
+  .xx-large-font {
     font-size: 30px;
   }
 }
