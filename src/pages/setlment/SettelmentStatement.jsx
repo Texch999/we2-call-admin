@@ -1,7 +1,7 @@
 import React from "react";
 import "./styles.css";
 
-function Settelment() {
+function SettelmentStatement() {
   const UPCOMING_SETTELMENT_DETAILS = [
     {
       DateTime: "27/07/2023, 18:31:00 PM",
@@ -168,4 +168,4 @@ function Settelment() {
   );
 }
 
-export default Settelment;
+export default SettelmentStatement;

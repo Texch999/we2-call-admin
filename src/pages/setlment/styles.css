@@ -17,3 +17,7 @@
   overflow: auto;
   color: white;
 }
+.custom-tbody{
+  max-height: 30vh; /* Set your desired height here */
+  overflow-y: auto; 
+}

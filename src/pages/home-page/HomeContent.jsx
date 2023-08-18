@@ -1,10 +1,10 @@
 import React from "react";
-import Settelment from "../setlment/Settelment";
+import SettelmentStatement from "../setlment/SettelmentStatement";
 
 function HomeContent() {
   return (
     <div>
-      <Settelment />{" "}
+      <SettelmentStatement />{" "}
     </div>
   );
 }
