@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Table } from "react-bootstrap";
+import { Button, Table,Dropdown } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./style.css";
 import { MdModeEditOutline, MdArrowDownward } from "react-icons/md";
@@ -84,15 +84,24 @@ const SuperAdminCallManagement = () => {
                 <td className="text-center">{data?.event_name}</td>
                 <td className="text-center">{data?.date}</td>
                 <td className="text-center">
-                  {data?.user}
-                  <span className="ms-1 user-count-number"> +10 </span>
-                  <Button
-                    type="button"
-                    size="sm"
-                    className="ms-2 text-warning bg-transparent rounded-circle border border-warning arrow-dropdown-icon-button"
-                  >
-                    <MdArrowDownward size={14} />
-                  </Button>
+                  <Dropdown size="lg" className="user-dropdown-toggle">
+                    <Dropdown.Toggle>
+                      {data?.user}{" "}
+                      <span className="ms-1 user-count-number"> +10 </span>
+                      <Button
+                        type="button"
+                        size="sm"
+                        className="ms-2 text-warning bg-transparent rounded-circle border border-warning arrow-dropdown-icon-button"
+                      >
+                        <MdArrowDownward size={14} />
+                      </Button>
+                    </Dropdown.Toggle>
+                    <Dropdown.Menu>
+                      <Dropdown.Item href="#action1">Demo 01</Dropdown.Item>
+                      <Dropdown.Item href="#action2">Lokesh</Dropdown.Item>
+                      <Dropdown.Item href="#action3">Jayanth</Dropdown.Item>
+                    </Dropdown.Menu>
+                  </Dropdown>
                 </td>
                 <td className="text-center">
                   <Button className="rounded-pill meeting-status-button">
