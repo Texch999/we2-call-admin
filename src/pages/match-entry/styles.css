@@ -1,0 +1,27 @@
+.btn-bg {
+  background-color: #112a5e;
+}
+.trophy-icon {
+  color: #eeab05;
+}
+.border-clr {
+  border: 2px solid red;
+}
+.match-scroll-div {
+  width: 92%;
+  margin-left: 4%;
+}
+#scroll-container-btn {
+  display: flex;
+  width: 85%;
+}
+#scroll-container-btn::-webkit-scrollbar {
+  display: none;
+}
+.arrow-icon {
+  color: var(--font-color);
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background-image: linear-gradient(to top, #ff6163, #a806f8);
+}
