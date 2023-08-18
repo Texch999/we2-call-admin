@@ -5,10 +5,10 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "./pages/home-page/Header";
 import HomeContent from "./pages/home-page/HomeContent";
 import MatchEntry from "./pages/match-entry/MatchEntry";
-import CallManagement from "./pages/call-management/CallManagement";
 import SettelmentStatement from "./pages/setlment/SettelmentStatement";
 import SuperAdminCallManagement from "./pages/call-management/SuperAdminCallManagement";
 import Settelment from "./pages/setlment/Settelment";
+import CallManagement from "./pages/call-management/CallManagement";
 
 function App() {
   return (
@@ -24,7 +24,8 @@ function App() {
             element={<SettelmentStatement />}
           />
           <Route path="/settelment" element={<Settelment />} />
-          <Route path="/super-admin-call-management"
+          <Route
+            path="/super-admin-call-management"
             element={<SuperAdminCallManagement />}
           />
           <Route path="/settelment-statement" element={<Settelment />} />
