@@ -4,6 +4,7 @@ import { BiShareAlt } from "react-icons/bi";
 import { Images } from "../../images";
 import { AiFillWarning, AiOutlineSetting } from "react-icons/ai";
 import { CiStickyNote } from "react-icons/ci";
+import "./style.css";
 
 function Header() {
   const matchEntryOptions = [
