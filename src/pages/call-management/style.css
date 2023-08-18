@@ -1,0 +1,10 @@
+.call-management-data {
+  border: solid 2px rgba(255, 255, 255, 0.11);
+  background-color: var(--table-border-color);
+  border-radius: 8px;
+  --bs-table-color: var(--text-white);
+  --bs-table-bg: var(--table-bg-color);
+}
+.call-management-data thead tr th {
+  background-color: #082051;
+}

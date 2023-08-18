@@ -1,6 +1,7 @@
 import React from "react";
 import { Button, Table } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "./style.css";
 import { MdModeEditOutline } from "react-icons/md";
 
 const CallManagement = () => {
@@ -45,7 +46,7 @@ const CallManagement = () => {
       <hr />
       <div>
         <h3>Upcoming Meetings</h3>
-        <Table>
+        <Table className="call-management-data">
           <thead>
             <tr>
               <th>URS</th>
@@ -69,8 +70,11 @@ const CallManagement = () => {
                   </Button>
                 </td>
                 <td>
-                  <Button type="button" className="rounded-circle">
-                    <MdModeEditOutline />
+                  <Button
+                    type="button"
+                    className="bg-secondary text-warning rounded-circle border-0"
+                  >
+                    <MdModeEditOutline size={18} />
                   </Button>
                 </td>
               </tr>
