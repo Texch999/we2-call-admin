@@ -1,7 +1,7 @@
 import React from "react";
 import Marquee from "react-fast-marquee";
-import { Images } from "../../images";
 import { BiShareAlt } from "react-icons/bi";
+import { Images } from "../../images";
 import { AiFillWarning, AiOutlineSetting } from "react-icons/ai";
 import { CiStickyNote } from "react-icons/ci";
 
