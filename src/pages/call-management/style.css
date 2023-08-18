@@ -39,7 +39,7 @@
 }
 .user-dropdown-toggle .dropdown-menu {
   --bs-dropdown-bg: #142f6a;
-  --bs-dropdown-font-size:var(--table-body-font-size);
+  --bs-dropdown-font-size: var(--table-body-font-size);
 }
 .user-dropdown-toggle .dropdown-toggle::after {
   content: none;
@@ -50,7 +50,6 @@
 }
 .user-dropdown-toggle .dropdown-item {
   color: var(--table-text-color);
-
 }
 .active-status-btn {
   --bs-btn-color: #04c85e;
@@ -81,4 +80,23 @@
   --bs-btn-bg: #1a2a39;
   --bs-btn-padding-x: 0.4rem;
   --bs-btn-padding-y: 0.2rem;
+}
+@media screen and (min-width: 1400px) {
+  .meeting-status-button {
+    --bs-btn-font-size: 1.2rem;
+  }
+  .arrow-dropdown-icon-button {
+    --bs-btn-padding-y: 0.3rem;
+    --bs-btn-padding-x: 0.3rem;
+    --bs-btn-font-size: 0.7rem;
+  }
+  .arrow-dropdown-icon-button {
+    --bs-btn-padding-y: 0.3rem;
+    --bs-btn-padding-x: 0.3rem;
+    --bs-btn-font-size: 0.7rem;
+  }
+  .call-management-data thead tr th ,.call-management-data tbody tr td,.active-status-btn,.inactive-status-btn {
+    font-size: var(--table-body-lg-font-size);
+  }
+  
 }
