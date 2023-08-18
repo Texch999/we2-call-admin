@@ -71,7 +71,7 @@ const CallManagement = () => {
         <h4 className="mb-3">Upcoming Meetings</h4>
         <Table responsive="md" className="call-management-data">
           <thead>
-            <tr className="text-center">
+            <tr>
               <th>URS</th>
               <th>EVENT NAME</th>
               <th>START DATE & TIME</th>
@@ -82,7 +82,7 @@ const CallManagement = () => {
           </thead>
           <tbody>
             {upcomingMeetingsData?.map((data, index) => (
-              <tr key={index} className="text-center">
+              <tr key={index}>
                 <td>{data?.title}</td>
                 <td>{data?.event_name}</td>
                 <td>{data?.date}</td>
@@ -130,7 +130,13 @@ const CallManagement = () => {
                 <td>{data?.event_name}</td>
                 <td>{data?.date}</td>
                 <td>
-                  <Button className="rounded-pill w-75">
+                  <Button
+                    className={`rounded-pill w-75 ${
+                      data?.admin_status === "Active"
+                        ? "active-status-btn"
+                        : "inactive-status-btn"
+                    }`}
+                  >
                     {data?.admin_status}
                   </Button>
                 </td>

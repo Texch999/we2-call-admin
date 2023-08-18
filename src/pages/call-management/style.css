@@ -4,9 +4,20 @@
   border-radius: 8px;
   --bs-table-color: var(--text-white);
   --bs-table-bg: var(--table-bg-color);
-
 }
 .call-management-data thead tr th {
   background-color: #082051;
   font-size: var(--table-body-font-size);
+}
+.active-status-btn {
+  --bs-btn-color: #04c85e;
+  --bs-btn-bg: #013844;
+  --bs-btn-border-color: none;
+  --bs-btn-font-weight: 500;
+}
+.inactive-status-btn {
+  --bs-btn-color: #f00;
+  --bs-btn-bg: #331031;
+  --bs-btn-border-color: none;
+  --bs-btn-font-weight: 500;
 }

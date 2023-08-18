@@ -11,15 +11,10 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
---table-text-color {
-  color: #fff;
+:root {
+  --table-text-color: #fff; /* Notice the semicolon here */
+  --table-bg-color: #00143d;
+  --table-heading-bg-color: #082051;
+  --table-body-font-size: 0.8rem;
 }
---table-bg-color {
-  background-color: #00143d;
-}
---table-heading-bg-color {
-  background-color: #082051;
-}
---table-body-font-size {
-  font-size: 0.8rem;
-}
+
