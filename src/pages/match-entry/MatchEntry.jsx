@@ -1,10 +1,15 @@
 import "./styles.css";
 import MatchScroll from "./MatchScroll";
+import MatchPositionTable from "./MatchPositionTable";
 
 function MatchEntry() {
   return (
-    <div className="p-3">
+    <div>
       <MatchScroll />
+      <div className="d-flex">
+      <MatchPositionTable />
+      <MatchPositionTable />
+      </div>
     </div>
   );
 }
