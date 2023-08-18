@@ -1,11 +1,49 @@
 import { PiArrowCircleDownBold } from "react-icons/pi";
-function MatchPositionTable() {
+function MatchPositionTable(props) {
+  const { teamName } = props;
+  const MATCH_POSITION_TABLE_DATA = [
+    {
+      clientName: "Animesh",
+      grossPL: 50000000,
+      cPosition: 50000000,
+      rfPosition: 50000000,
+      ursPosition: 50000000,
+    },
+    {
+      clientName: "Animesh",
+      grossPL: 50000000,
+      cPosition: 50000000,
+      rfPosition: 50000000,
+      ursPosition: 50000000,
+    },
+    {
+      clientName: "Animesh",
+      grossPL: 50000000,
+      cPosition: 50000000,
+      rfPosition: 50000000,
+      ursPosition: 50000000,
+    },
+    {
+      clientName: "Animesh",
+      grossPL: 50000000,
+      cPosition: 50000000,
+      rfPosition: 50000000,
+      ursPosition: 50000000,
+    },
+    {
+      clientName: "Animesh",
+      grossPL: 50000000,
+      cPosition: 50000000,
+      rfPosition: 50000000,
+      ursPosition: 50000000,
+    },
+  ];
   return (
     <div className="p-3 w-50">
-      <div className="row d-flex align-items-center match-position-header p-2 rounded">
+      <div className="row d-flex align-items-center match-position-header p-2 rounded m-1">
         <div className="col-7">
           <div>
-            Match Position - <span className="yellow-clr">IND</span>
+            Match Position - <span className="yellow-clr">{teamName}</span>
           </div>
         </div>
         <div className="col">
@@ -26,7 +64,7 @@ function MatchPositionTable() {
         </div>
       </div>
       <div className="mt-3">
-        <table className="w-100 match-position-table">
+        <table className="w-100 match-position-table text-center">
           <thead>
             <tr>
               <th>CLIENT NAME</th>
@@ -37,20 +75,15 @@ function MatchPositionTable() {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>Animesh</td>
-              <td>50000000.00</td>
-              <td>50000000.00</td>
-              <td>50000000.00</td>
-              <td>50000000.00</td>
-            </tr>
-            <tr>
-              <td>Animesh</td>
-              <td>50000000.00</td>
-              <td>50000000.00</td>
-              <td>50000000.00</td>
-              <td>50000000.00</td>
-            </tr>
+            {MATCH_POSITION_TABLE_DATA?.map((item, index) => (
+              <tr key={index}>
+                <td>{item.clientName}</td>
+                <td>{item.grossPL}</td>
+                <td>{item.cPosition}</td>
+                <td>{item.rfPosition}</td>
+                <td>{item.ursPosition}</td>
+              </tr>
+            ))}
           </tbody>
           <tfoot>
             <tr>

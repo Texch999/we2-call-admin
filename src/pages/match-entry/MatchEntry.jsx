@@ -6,9 +6,9 @@ function MatchEntry() {
   return (
     <div>
       <MatchScroll />
-      <div className="d-flex">
-      <MatchPositionTable />
-      <MatchPositionTable />
+      <div className="d-flex p-3">
+        <MatchPositionTable teamName={"IND"} />
+        <MatchPositionTable teamName={"PAK"} />
       </div>
     </div>
   );

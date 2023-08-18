@@ -1,6 +1,7 @@
 body {
   background-color: #00143d !important;
   color: #ffffff !important;
+  font-family: "Barlow-Regular" !important;
 }
 @font-face {
   font-family: "Barlow-Medium";
