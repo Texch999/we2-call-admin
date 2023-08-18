@@ -2,6 +2,18 @@ body {
   background-color: #00143d !important;
   color: #ffffff !important;
 }
+@font-face {
+  font-family: "Barlow-Medium";
+  src: url("./pages/call-management/Barlow-Medium.ttf");
+}
+@font-face {
+  font-family: "Barlow-Regular";
+  src: url("./pages/call-management/Barlow-Regular.ttf");
+}
+@font-face {
+  font-family: "Barlow-SemiBold";
+  src: url("./pages/call-management/Barlow-SemiBold.ttf");
+}
 .font-white {
   color: #ffffff !important;
 }
@@ -14,4 +26,8 @@ body {
 .marqu-tag {
   background: #fce719;
   color: #080c27;
+}
+.head-image {
+  height: 50% !important;
+  width: 7%;
 }

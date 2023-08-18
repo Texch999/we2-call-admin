@@ -7,6 +7,7 @@ import HomeContent from "./pages/home-page/HomeContent";
 import MatchEntry from "./pages/match-entry/MatchEntry";
 import CallManagement from "./pages/call-management/CallManagement";
 import SettelmentStatement from "./pages/setlment/SettelmentStatement";
+import SuperAdminCallManagement from "./pages/call-management/SuperAdminCallManagement";
 import Settelment from "./pages/setlment/Settelment";
 
 function App() {
@@ -23,6 +24,10 @@ function App() {
             element={<SettelmentStatement />}
           />
           <Route path="/settelment" element={<Settelment />} />
+          <Route path="/super-admin-call-management"
+            element={<SuperAdminCallManagement />}
+          />
+          <Route path="/settelment-statement" element={<Settelment />} />
         </Routes>
       </BrowserRouter>
     </div>

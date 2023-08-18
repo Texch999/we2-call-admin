@@ -1,13 +1,13 @@
 import React from "react";
-import { Button, Table, Dropdown } from "react-bootstrap";
+import { Button, Table,Dropdown } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./style.css";
 import { MdModeEditOutline, MdArrowDownward } from "react-icons/md";
 
-const CallManagement = () => {
+const SuperAdminCallManagement = () => {
   const upcomingMeetingsData = [
     {
-      title: "Sri Agent",
+      title: "Ramkrishna - SA",
       event_name:
         "Newzelend vs South Africa Test Series Newzelend Onquard  Stadium",
       date: "19 July 2023, 10:00:00 PM",
@@ -23,7 +23,7 @@ const CallManagement = () => {
       status: "Join",
     },
     {
-      title: "Sri Agent",
+      title: "Ramkrishna - SA",
       event_name:
         "Newzelend vs South Africa Test Series Newzelend Onquard  Stadium",
       date: "19 July 2023, 10:00:00 PM",
@@ -31,36 +31,36 @@ const CallManagement = () => {
       status: "Join",
     },
   ];
-  const ulNewMeetingsData = [
+  const adminNewMeetingsData = [
     {
-      title: "UL",
       event_name:
         "Newzelend vs South Africa Test Series Newzelend Onquard  Stadium",
       date: "19 July 2023, 10:00:00 PM",
-      user: "Sri Agent",
-      status: "Join",
+      admin_status: "Active",
     },
     {
-      title: "UL",
       event_name:
         "Newzelend vs South Africa Test Series Newzelend Onquard  Stadium",
       date: "19 July 2023, 10:00:00 PM",
-      user: "Sri Agent",
-      status: "Join",
+      admin_status: "In - Active",
     },
     {
-      title: "UL",
       event_name:
         "Newzelend vs South Africa Test Series Newzelend Onquard  Stadium",
       date: "19 July 2023, 10:00:00 PM",
-      user: "Sri Agent",
-      status: "Join",
+      admin_status: "Active",
+    },
+    {
+      event_name:
+        "Newzelend vs South Africa Test Series Newzelend Onquard  Stadium",
+      date: "19 July 2023, 10:00:00 PM",
+      admin_status: "In - Active",
     },
   ];
   return (
     <div className="p-2">
       <div className="d-flex align-items-center justify-content-between">
-        <h5 className="meetings-heading">Call Management</h5>
+        <h5 className="meetings-heading">Super Admin Call Management</h5>
         <Button className="add-new-meetings-button">+ Add New Meetings</Button>
       </div>
       <hr />
@@ -122,31 +122,37 @@ const CallManagement = () => {
         </Table>
       </div>
       <div>
-        <h5 className="mb-3 meetings-heading">UL New Meetings</h5>
+        <h5 className="mb-3 meetings-heading">Admin New Meetings</h5>
         <Table responsive="md" className="call-management-data">
           <thead>
             <tr>
-              <th>UL</th>
-              <th className="text-center">EVENT NAME</th>
-              <th className="text-center">START DATE & TIME</th>
-              <th className="text-center">USER</th>
-              <th className="text-center">STATUS</th>
-              <th className="text-center"></th>
+              <th scope="col" className="w-50">
+                EVENT NAME
+              </th>
+              <th scope="col" className="w-25 text-center">
+                START DATE & TIME
+              </th>
+              <th scope="col" className="w-25 text-center">
+                ADMINS
+              </th>
             </tr>
           </thead>
           <tbody>
-            {ulNewMeetingsData?.map((data, index) => (
+            {adminNewMeetingsData?.map((data, index) => (
               <tr key={index}>
-                <td>{data?.title}</td>
-                <td className="text-center">{data?.event_name}</td>
+                <td>{data?.event_name}</td>
                 <td className="text-center">{data?.date}</td>
-                <td className="text-center">{data?.user}</td>
                 <td className="text-center">
-                  <Button className="rounded-pill meeting-status-button">
-                    {data?.status}
+                  <Button
+                    className={`rounded-pill w-50 ${
+                      data?.admin_status === "Active"
+                        ? "active-status-btn"
+                        : "inactive-status-btn"
+                    }`}
+                  >
+                    {data?.admin_status}
                   </Button>
                 </td>
-                <td>{``}</td>
               </tr>
             ))}
           </tbody>
@@ -156,4 +162,4 @@ const CallManagement = () => {
   );
 };
 
-export default CallManagement;
+export default SuperAdminCallManagement;
