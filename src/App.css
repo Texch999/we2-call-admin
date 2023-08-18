@@ -32,3 +32,6 @@ body {
   height: 50% !important;
   width: 7%;
 }
+.vh-50 {
+  height: 55vh !important;
+}

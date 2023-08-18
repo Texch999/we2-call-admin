@@ -23,4 +23,6 @@ export const Images = {
   chat_icon: "./assets/chat_icon.png",
   LoginUserIcon: "./assets/login_User_Icon.png",
   LoginLockIcon: "./assets/login_Lock_Icon.png",
+  UserManagement: "./assets/user_Management.png",
+  SportManagement:"./assets/sports_management.png",
 };

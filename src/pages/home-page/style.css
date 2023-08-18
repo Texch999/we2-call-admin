@@ -1,0 +1,67 @@
+.call-management {
+  background: #634beb;
+  border-radius: 10px;
+}
+.user-management {
+  background: linear-gradient(to right, #e762e5, #4f64f0);
+  border-radius: 10px;
+}
+.sports-management {
+  background-image: linear-gradient(to top, rgba(237, 110, 159, 1), #ec8b6b);
+  border-radius: 10px;
+}
+.management {
+  display: block;
+}
+.we2-call-button {
+  background: #ffffff;
+  width: fit-content;
+  padding: 0.2rem 1rem;
+  color: black;
+  border-radius: 0px 15px 15px 15px;
+}
+.call-management-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.call-management-image {
+  height: 30vh !important;
+}
+.management-image{
+    height: 17vh ;
+}
+@media (min-width: 576px) /*, (min-width: 768px) */ {
+  .sports-management {
+    width: 49%;
+    height: 100% !important;
+  }
+  .user-management {
+    width: 49%;
+    height: 100% !important;
+  }
+  .management {
+    display: flex;
+    padding: 0% !important;
+    margin-top: 10px;
+    height: 23vh;
+    justify-content: space-between;
+  }
+}
+@media (min-width: 992px) /*, (min-width: 1200px) */ {
+  .sports-management {
+    width: 98%;
+    height: 48% !important;
+  }
+  .user-management {
+    width: 98%;
+    height: 48% !important;
+  }
+  .management {
+    margin: 0;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+}
