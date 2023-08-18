@@ -58,7 +58,7 @@ const CallManagement = () => {
     },
   ];
   return (
-    <div className="p-2">
+    <div className="p-4">
       <div className="d-flex align-items-center justify-content-between">
         <h5 className="meetings-heading">Call Management</h5>
         <Button className="add-new-meetings-button">+ Add New Meetings</Button>
