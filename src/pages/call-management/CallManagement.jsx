@@ -2,7 +2,7 @@ import React from "react";
 import { Button, Table } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./style.css";
-import { MdModeEditOutline } from "react-icons/md";
+import { MdModeEditOutline, MdArrowDownward } from "react-icons/md";
 
 const CallManagement = () => {
   const upcomingMeetingsData = [
@@ -86,7 +86,16 @@ const CallManagement = () => {
                 <td>{data?.title}</td>
                 <td>{data?.event_name}</td>
                 <td>{data?.date}</td>
-                <td>{data?.user}</td>
+                <td>
+                  {data?.user}
+                  <Button
+                    type="button"
+                    size="sm"
+                    className="ms-2 text-warning bg-transparent rounded-circle border border-warning"
+                  >
+                    <MdArrowDownward size={14} />
+                  </Button>
+                </td>
                 <td>
                   <Button variant="success" className="rounded-pill">
                     {data?.status}
