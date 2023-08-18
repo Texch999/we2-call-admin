@@ -1,9 +1,5 @@
-import React from 'react'
-
 function HomeContent() {
-  return (
-    <div>HomeContent</div>
-  )
+  return <div>HomeContent</div>;
 }
 
-export default HomeContent
+export default HomeContent;
