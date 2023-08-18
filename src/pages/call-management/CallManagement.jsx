@@ -64,7 +64,7 @@ const CallManagement = () => {
     <div className="p-2">
       <div className="d-flex align-items-center justify-content-between">
         <h5 className="meetings-heading">Super Admin Call Management</h5>
-        <Button variant="warning">+ Add New Meetings</Button>
+        <Button className="add-new-meetings-button">+ Add New Meetings</Button>
       </div>
       <hr />
       <div>

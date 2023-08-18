@@ -17,6 +17,12 @@
   --bs-table-color: var(--text-white);
   --bs-table-bg: var(--table-bg-color);
 }
+.add-new-meetings-button {
+  --bs-btn-color: #00143d;
+  --bs-btn-bg: #fce719;
+  --bs-btn-border-color: none;
+  --bs-btn-font-weight:600;
+}
 .meetings-heading {
   font-family: "Barlow-SemiBold";
 }
@@ -27,7 +33,6 @@
 }
 
 .call-management-data tbody tr td {
-  background-color: #082051;
   font-size: var(--table-body-font-size);
   font-family: "Barlow-Medium";
 }
