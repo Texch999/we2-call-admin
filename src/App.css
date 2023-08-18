@@ -1,0 +1,21 @@
+body {
+  background-color: #00143d !important;
+  color: #ffffff !important;
+}
+.font-white {
+  color: #ffffff !important;
+}
+.nav-link {
+  color: #ffffff !important;
+}
+.navbar-toggler {
+  background: red !important;
+}
+.marqu-tag {
+  background: #fce719;
+  color: #080c27;
+}
+.head-image{
+    height: 50% !important;
+    width:7%;
+}
