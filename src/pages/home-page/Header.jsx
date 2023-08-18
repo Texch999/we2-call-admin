@@ -18,6 +18,7 @@ function Header() {
     },
   ];
   return (
+    <div>
     <nav className="navbar navbar-expand-lg header-bg">
       <div className="container-fluid">
         <img src={Images.header_logo} className="head-image "></img>
@@ -125,8 +126,16 @@ function Header() {
             <AiOutlineSetting />
           </div>
         </div>
-      </div>
-    </nav>
+        </div>
+      </nav>
+      <Marquee className="marqu-tag">
+        Your privacy is our priority. With end-to-end encryption, you can be
+        sure that your personal messages stay between you and who you send them
+        to. Your privacy is our priority. With end-to-end encryption, you can be
+        sure that your personal messages stay between you and who you send them
+        to.
+      </Marquee>
+    </div>
   );
 }
 

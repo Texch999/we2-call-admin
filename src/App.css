@@ -1,6 +1,19 @@
 body {
   background-color: #00143d !important;
   color: #ffffff !important;
+  font-family: "Barlow-Regular" !important;
+}
+@font-face {
+  font-family: "Barlow-Medium";
+  src: url("./pages/call-management/Barlow-Medium.ttf");
+}
+@font-face {
+  font-family: "Barlow-Regular";
+  src: url("./pages/call-management/Barlow-Regular.ttf");
+}
+@font-face {
+  font-family: "Barlow-SemiBold";
+  src: url("./pages/call-management/Barlow-SemiBold.ttf");
 }
 .font-white {
   color: #ffffff !important;
@@ -22,4 +35,3 @@ body {
 .vh-50 {
   height: 55vh !important;
 }
-
