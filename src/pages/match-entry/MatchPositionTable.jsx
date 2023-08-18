@@ -64,7 +64,7 @@ function MatchPositionTable(props) {
         </div>
       </div>
       <div className="mt-3">
-        <table className="w-100 match-position-table text-center">
+        <table className="w-100 match-position-table text-center medium-font">
           <thead>
             <tr>
               <th>CLIENT NAME</th>
