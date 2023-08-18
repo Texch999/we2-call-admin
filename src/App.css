@@ -15,4 +15,7 @@ body {
   background: #fce719;
   color: #080c27;
 }
-
+.head-image{
+    height: 50% !important;
+    width:7%;
+}
