@@ -1,4 +1,3 @@
-
 .call-management-data {
   border: solid 2px rgba(255, 255, 255, 0.11);
   background-color: var(--table-border-color);
@@ -29,17 +28,29 @@
   color: #fce719;
   font-family: "Barlow-Medium";
 }
-.user-dropdown-toggle{
-  --bs-btn-bg:none;
-  --bs-btn-border-color:none;
-  --bs-btn-font-size:none;
-
+.user-dropdown-toggle .dropdown-toggle {
+  --bs-btn-bg: none;
+  --bs-btn-border-color: none;
+  --bs-btn-font-size: none;
 }
-.user-dropdown-toggle .dropdown-menu{
-  --bs-dropdown-bg:#142f6a;
+.user-dropdown-toggle .btn:hover,
+.user-dropdown-toggle .btn:first-child:active {
+  background-color: none;
+}
+.user-dropdown-toggle .dropdown-menu {
+  --bs-dropdown-bg: #142f6a;
+  --bs-dropdown-font-size:var(--table-body-font-size);
 }
 .user-dropdown-toggle .dropdown-toggle::after {
   content: none;
+}
+.user-dropdown-toggle .dropdown-item:focus,
+.dropdown-item:hover {
+  background-color: var(--bs-dropdown-bg);
+}
+.user-dropdown-toggle .dropdown-item {
+  color: var(--table-text-color);
+
 }
 .active-status-btn {
   --bs-btn-color: #04c85e;
