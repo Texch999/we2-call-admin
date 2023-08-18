@@ -12,9 +12,9 @@ code {
     monospace;
 }
 :root {
-  --table-text-color: #fff; /* Notice the semicolon here */
+  --table-text-color: #fff;
   --table-bg-color: #00143d;
   --table-heading-bg-color: #082051;
+  --table-head-font-size: 0.8rem;
   --table-body-font-size: 0.8rem;
 }
-

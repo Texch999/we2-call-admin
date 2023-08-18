@@ -1,3 +1,15 @@
+@font-face {
+  font-family: "Barlow-Medium";
+  src: url("./Barlow-Medium.ttf");
+}
+@font-face {
+  font-family: "Barlow-Regular";
+  src: url("./Barlow-Regular.ttf");
+}
+@font-face {
+  font-family: "Barlow-SemiBold";
+  src: url("./Barlow-SemiBold.ttf");
+}
 .call-management-data {
   border: solid 2px rgba(255, 255, 255, 0.11);
   background-color: var(--table-border-color);
@@ -5,9 +17,19 @@
   --bs-table-color: var(--text-white);
   --bs-table-bg: var(--table-bg-color);
 }
+.meetings-heading {
+  font-family: "Barlow-SemiBold";
+}
 .call-management-data thead tr th {
   background-color: #082051;
+  font-size: var(--table-head-font-size);
+  font-family: "Barlow-SemiBold";
+}
+
+.call-management-data tbody tr td {
+  background-color: #082051;
   font-size: var(--table-body-font-size);
+  font-family: "Barlow-Medium";
 }
 .active-status-btn {
   --bs-btn-color: #04c85e;
@@ -20,4 +42,20 @@
   --bs-btn-bg: #331031;
   --bs-btn-border-color: none;
   --bs-btn-font-weight: 500;
+}
+.arrow-dropdown-icon-button {
+  --bs-btn-padding-y: 0.1rem;
+  --bs-btn-padding-x: 0.1rem;
+  --bs-btn-font-size: 0.5rem;
+}
+.meeting-status-button {
+  --bs-btn-bg: #04c85e;
+  --bs-btn-font-size: 0.8rem;
+  --bs-btn-font-family: "Barlow-SemiBold";
+  --bs-btn-border-width: none;
+}
+.meetings-edit-button {
+  --bs-btn-bg: #1a2a39;
+  --bs-btn-padding-x: 0.4rem;
+  --bs-btn-padding-y: 0.2rem;
 }

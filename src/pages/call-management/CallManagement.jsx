@@ -63,48 +63,48 @@ const CallManagement = () => {
   return (
     <div className="p-2">
       <div className="d-flex align-items-center justify-content-between">
-        <h4>Call Management</h4>
+        <h5 className="meetings-heading">Super Admin Call Management</h5>
         <Button variant="warning">+ Add New Meetings</Button>
       </div>
       <hr />
       <div>
-        <h4 className="mb-3">Upcoming Meetings</h4>
+        <h5 className="mb-3 meetings-heading">Upcoming Meetings</h5>
         <Table responsive="md" className="call-management-data">
           <thead>
             <tr>
               <th>URS</th>
-              <th>EVENT NAME</th>
-              <th>START DATE & TIME</th>
-              <th>USER</th>
-              <th>STATUS</th>
-              <th></th>
+              <th className="text-center">EVENT NAME</th>
+              <th className="text-center">START DATE & TIME</th>
+              <th className="text-center">USER</th>
+              <th className="text-center">STATUS</th>
+              <th className="text-center"></th>
             </tr>
           </thead>
           <tbody>
             {upcomingMeetingsData?.map((data, index) => (
               <tr key={index}>
                 <td>{data?.title}</td>
-                <td>{data?.event_name}</td>
-                <td>{data?.date}</td>
-                <td>
+                <td className="text-center">{data?.event_name}</td>
+                <td className="text-center">{data?.date}</td>
+                <td className="text-center">
                   {data?.user}
                   <Button
                     type="button"
                     size="sm"
-                    className="ms-2 text-warning bg-transparent rounded-circle border border-warning"
+                    className="ms-2 text-warning bg-transparent rounded-circle border border-warning arrow-dropdown-icon-button"
                   >
                     <MdArrowDownward size={14} />
                   </Button>
                 </td>
-                <td>
-                  <Button variant="success" className="rounded-pill">
+                <td className="text-center">
+                  <Button className="rounded-pill meeting-status-button">
                     {data?.status}
                   </Button>
                 </td>
-                <td>
+                <td className="text-center">
                   <Button
                     type="button"
-                    className="bg-secondary text-warning rounded-circle border-0"
+                    className="text-warning rounded-circle border-0 meetings-edit-button"
                   >
                     <MdModeEditOutline size={18} />
                   </Button>
@@ -115,23 +115,29 @@ const CallManagement = () => {
         </Table>
       </div>
       <div>
-        <h4 className="mb-3">Admin New Meetings</h4>
+        <h5 className="mb-3 meetings-heading">Admin New Meetings</h5>
         <Table responsive="md" className="call-management-data">
           <thead>
             <tr>
-              <th scope="col">EVENT NAME</th>
-              <th scope="col">START DATE & TIME</th>
-              <th scope="col">ADMINS</th>
+              <th scope="col" className="w-50">
+                EVENT NAME
+              </th>
+              <th scope="col" className="w-25 text-center">
+                START DATE & TIME
+              </th>
+              <th scope="col" className="w-25 text-center">
+                ADMINS
+              </th>
             </tr>
           </thead>
           <tbody>
             {adminNewMeetingsData?.map((data, index) => (
               <tr key={index}>
                 <td>{data?.event_name}</td>
-                <td>{data?.date}</td>
-                <td>
+                <td className="text-center">{data?.date}</td>
+                <td className="text-center">
                   <Button
-                    className={`rounded-pill w-75 ${
+                    className={`rounded-pill w-50 ${
                       data?.admin_status === "Active"
                         ? "active-status-btn"
                         : "inactive-status-btn"
