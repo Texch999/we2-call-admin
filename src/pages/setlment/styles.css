@@ -1,4 +1,4 @@
-th {
+/* th {
   height: 5vh;
   display: table-cell;
   vertical-align: inherit;
@@ -15,7 +15,7 @@ td {
   border: none;
   background: #00143d !important;
   color: white !important;
-}
+} */
 .clr-green {
   color: #04c85e !important;
 }
@@ -75,5 +75,31 @@ td {
   }
   .xx-large-font{
     font-size: 30px;
+  }
+}
+.table{
+  width: 100%;
+  background-color: #082051 !important;
+  tbody{
+    height:200px;
+    overflow-y:auto;
+    width: 100%;
+    }
+  thead,tbody,tr,td,th{
+    display:block;
+  }
+  tbody{
+    td{
+      float:left;
+    }
+  }
+  thead {
+    tr{
+      th{
+        float:left;
+        background-color: #082051 !important;
+        border-color:#e67e22;
+      }
+    }
   }
 }
