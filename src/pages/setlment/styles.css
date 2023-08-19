@@ -23,23 +23,59 @@
   border-radius: 8px;
   border: solid 1px #264990;
 }
-/* .settelment-table th {
-th {
-  height: 5vh;
-  display: table-cell;
-  vertical-align: inherit;
-  font-weight: bold;
-  background-color: #082051 !important;
-  color: white !important;
+@media (min-width: 577px) and (max-width: 768px) {
+  .small-font {
+    font-size: 8px;
+  }
+  .medium-font {
+    font-size: 14px;
+  }
+  .large-font {
+    font-size: 16px;
+  }
+  .xx-large-font {
+    font-size: 22px;
+  }
+  .custom-icon {
+    font-size: 10px;
+    color: yellow;
+  }
 }
-.settelment-table tbody > tr td {
-  display: table-cell;
-  vertical-align: inherit;
-  height: 4vh;
-  text-align: center;
-  border: none;
-  background-color: #00143d !important;
-  background: 
-  #082051 !important;
-  color: white !important;
-} */
+
+@media (min-width: 769px) and (max-width: 1200px) {
+  .small-font {
+    font-size: 10px;
+  }
+  .medium-font {
+    font-size: 18px;
+  }
+  .large-font {
+    font-size: 18px;
+  }
+  .xx-large-font {
+    font-size: 25px;
+  }
+  .custom-icon {
+    font-size: 20px;
+    color: yellow;
+  }
+}
+
+@media (min-width: 1201px) {
+  .small-font {
+    font-size: 1p4x;
+  }
+  .medium-font {
+    font-size: 18px;
+  }
+  .large-font {
+    font-size: 22px;
+  }
+  .xx-large-font {
+    font-size: 30px;
+  }
+  .custom-icon {
+    font-size: 30px;
+    color: yellow;
+  }
+}
