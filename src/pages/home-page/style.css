@@ -16,9 +16,9 @@
 .we2-call-button {
   background: #ffffff;
   width: fit-content;
-  padding: 0.2rem 1rem;
+  padding: 0.3rem 2rem;
   color: black;
-  border-radius: 0px 15px 15px 15px;
+  border-radius: 0px 20px 20px 20px;
 }
 .call-management-text {
   display: flex;
@@ -28,8 +28,8 @@
 .call-management-image {
   height: 30vh !important;
 }
-.management-image{
-    height: 17vh ;
+.management-image {
+  height: 17vh;
 }
 @media (min-width: 576px) /*, (min-width: 768px) */ {
   .sports-management {
@@ -64,4 +64,63 @@
     justify-content: space-between;
     align-items: flex-end;
   }
+}
+@media (min-width: 1400px) {
+  h2 {
+    font-size: 3rem;
+  }
+  h5 {
+    font-size: 1.5rem;
+  }
+  p {
+    font-size: 1rem;
+  }
+}
+@media (min-width: 1600px) {
+  h2 {
+    font-size: 4rem;
+  }
+  h5 {
+    font-size: 2rem;
+  }
+  p {
+    font-size: 1.5rem;
+  }
+}
+.meetings-container {
+  height: 100%;
+  width: 100%;
+  background: #082051;
+  border-radius: 10px;
+}
+.scroll-container {
+  height: 85vh;
+  overflow-y: scroll;
+}
+.table-head {
+  background: #112e69;
+}
+.td-class {
+  background: #04c85e;
+  border-radius: 15px !important;
+}
+.not-class {
+  background: #344447;
+  border-radius: 15px !important;
+  color: #fce719;
+}
+.summary-line {
+  background: #112e69;
+  padding: 10px !important;
+  margin-bottom: 0.5rem;
+  justify-content: space-between;
+  border-radius: 5px !important;
+}
+.right-arrow-icon {
+  padding: 3px 20px;
+  background: #ffffff;
+  border-radius: 20px;
+  width: fit-content;
+  color: #af5bd4;
+  font-weight: bold;
 }

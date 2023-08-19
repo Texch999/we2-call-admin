@@ -114,3 +114,6 @@
 .match-position-table tbody > tr > td {
   padding: 8px;
 }
+#home-table-head {
+  background-color: #112e69;
+}

@@ -33,5 +33,12 @@ body {
   width: 7%;
 }
 .vh-50 {
-  height: 55vh !important;
+  height: 60vh !important;
+}
+.vh-70 {
+  height: 65vh !important;
+  overflow: hidden;
+}
+.vh-40 {
+  height: 40vh !important;
 }
