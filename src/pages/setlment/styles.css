@@ -1,4 +1,4 @@
-th {
+/* th {
   height: 5vh;
   display: table-cell;
   vertical-align: inherit;
@@ -13,9 +13,10 @@ td {
   height: 4vh;
   text-align: center;
   border: none;
-  background: #00143d !important;
+  background: 
+  #082051 !important;
   color: white !important;
-}
+} */
 .clr-green {
   color: #04c85e !important;
 }

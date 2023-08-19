@@ -39,13 +39,13 @@ function Header() {
               <a
                 className="nav-link active font-white"
                 aria-current="page"
-                href="/rajinth"
+                href="/"
               >
                 Home
               </a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">
+            <li className="nav-item">
+              <a className="nav-link" href="#">
                 Link
               </a>
             </li>
