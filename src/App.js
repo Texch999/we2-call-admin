@@ -12,6 +12,7 @@ import Settelment from "./pages/setlment/Settelment";
 import CallHistory from "./pages/calling/CallHistory";
 import CallStatement from "./pages/calling/CallStatement";
 import CallSettelment from "./pages/calling/CallSettelment";
+import MatchStatement from "./pages/matchstatement.jsx/MatchStatement";
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
           <Route path="/call-history" element={<CallHistory />} />
           <Route path="/call-statement" element={<CallStatement />} />
           <Route path="/call-settelment" element={<CallSettelment />} />
+          <Route path="/match-statement" element={<MatchStatement />} />
         </Routes>
       </BrowserRouter>
     </div>

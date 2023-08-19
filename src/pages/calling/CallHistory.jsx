@@ -210,7 +210,7 @@ function CallHistory() {
       </div>
       <div>
         <table className="table settelment-table">
-          <thead>
+          <thead className="medium-font">
             <tr>
               <th scope="col" className="text-center">
                 DATE & TIME
@@ -233,7 +233,7 @@ function CallHistory() {
           </thead>
 
           {HISTORY_DETAILS.map((item, index) => (
-            <tbody key={index}>
+            <tbody key={index} className="small-font">
               <tr>
                 <td className="text-center">{item.datetime}</td>
                 <td className="text-center ">{item.title}</td>

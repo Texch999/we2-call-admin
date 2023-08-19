@@ -169,7 +169,9 @@ function CallSettelment() {
         <div>
           <div className="medium-font mb-2">Settelment Amount</div>
           <div className="date-container d-flex justify-content-around align-items-center">
-          <div className="small-font d-flex justify-content-start">Setteled Amount</div>
+            <div className="small-font d-flex justify-content-start">
+              Setteled Amount
+            </div>
           </div>
         </div>
         <div onClick={handleUploadButtonClick}>
