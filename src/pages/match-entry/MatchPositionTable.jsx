@@ -39,26 +39,26 @@ function MatchPositionTable(props) {
     },
   ];
   return (
-    <div className="p-3 w-50">
-      <div className="row d-flex align-items-center match-position-header p-2 rounded m-1">
-        <div className="col-7">
-          <div>
+    <div className="w-50 p-3">
+      <div className="row d-flex align-items-center match-position-bg p-2 rounded m-1">
+        <div className="col-sm-4 col-lg-6">
+          <div className="medium-font">
             Match Position - <span className="yellow-clr">{teamName}</span>
           </div>
         </div>
         <div className="col">
-          <div className="share-text-div d-flex align-items-center justify-content-between p-1">
-            <div>Share</div>
+          <div className="share-bg rounded-pill d-flex align-items-center justify-content-between p-1">
+            <div className="medium-font">Share</div>
             <div>
-              <PiArrowCircleDownBold className="large-font" />
+              <PiArrowCircleDownBold className="d-flex large-font" />
             </div>
           </div>
         </div>
         <div className="col">
-          <div className="share-text-div d-flex align-items-center justify-content-between p-1">
-            <div>Comm</div>
+          <div className="share-bg rounded-pill d-flex align-items-center justify-content-between p-1">
+            <div className="medium-font">Comm</div>
             <div>
-              <PiArrowCircleDownBold className="large-font" />
+              <PiArrowCircleDownBold className="d-flex large-font" />
             </div>
           </div>
         </div>
