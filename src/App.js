@@ -9,6 +9,9 @@ import CallManagement from "./pages/call-management/CallManagement";
 import SettelmentStatement from "./pages/setlment/SettelmentStatement";
 import SuperAdminCallManagement from "./pages/call-management/SuperAdminCallManagement";
 import Settelment from "./pages/setlment/Settelment";
+import CallHistory from "./pages/calling/CallHistory";
+import CallStatement from "./pages/calling/CallStatement";
+import CallSettelment from "./pages/calling/CallSettelment";
 
 function App() {
   return (
@@ -24,10 +27,14 @@ function App() {
             element={<SettelmentStatement />}
           />
           <Route path="/settelment" element={<Settelment />} />
-          <Route path="/super-admin-call-management"
+          <Route
+            path="/super-admin-call-management"
             element={<SuperAdminCallManagement />}
           />
           <Route path="/settelment-statement" element={<Settelment />} />
+          <Route path="/call-history" element={<CallHistory />} />
+          <Route path="/call-statement" element={<CallStatement />} />
+          <Route path="/call-settelment" element={<CallSettelment />} />
         </Routes>
       </BrowserRouter>
     </div>
