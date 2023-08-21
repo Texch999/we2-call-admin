@@ -13,7 +13,8 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import CallHistory from "./pages/calling/CallHistory";
 import CallStatement from "./pages/calling/CallStatement";
 import CallSettelment from "./pages/calling/CallSettelment";
-import MatchStatement from "./pages/matchstatement.jsx/MatchStatement";
+import MatchStatement from "./pages/matchstatement/MatchStatement";
+import ReportPage from "./pages/onepagereport/ReportPage";
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
             <Route path="/call-statement" element={<CallStatement />} />
             <Route path="/call-settelment" element={<CallSettelment />} />
             <Route path="/match-statement" element={<MatchStatement />} />
+            <Route path="/report-page" element={<ReportPage />} />
           </Routes>
         </BrowserRouter>
       </div>

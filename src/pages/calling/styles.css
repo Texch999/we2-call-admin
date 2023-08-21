@@ -40,5 +40,9 @@
   border: solid 1px #264990;
 }
 .settelment-container {
-  width: 10vw !important;
+  width: 15vw !important;
+}
+.matchstatement-container{
+  height: 5vh;
+  width: 12vw;
 }
