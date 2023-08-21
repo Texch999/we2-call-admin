@@ -95,8 +95,11 @@
     --bs-btn-padding-x: 0.3rem;
     --bs-btn-font-size: 0.7rem;
   }
-  .call-management-data thead tr th ,.call-management-data tbody tr td,.active-status-btn,.inactive-status-btn,.call-management-data tfoot tr th {
+  .call-management-data thead tr th,
+  .call-management-data tbody tr td,
+  .active-status-btn,
+  .inactive-status-btn,
+  .call-management-data tfoot tr th {
     font-size: var(--table-body-lg-font-size);
   }
-  
 }
