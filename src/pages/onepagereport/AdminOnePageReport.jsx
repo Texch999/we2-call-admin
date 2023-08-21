@@ -82,7 +82,7 @@ const AdminOnePageReport = () => {
               <th className="text-center">
                 {activeReport === "UL/Platform Comm Report"
                   ? "UL /PLATFORM COMM"
-                  : "UL Share"}
+                  : "UL SHARE"}
               </th>
             </tr>
           </thead>

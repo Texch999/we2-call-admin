@@ -12,11 +12,11 @@
   font-weight: 600;
   border-color: none !important;
 }
-.admin-reports-button:hover,
+/* .admin-reports-button:hover,
 .admin-reports-button:active {
-  background-color: none !important;
-  color: none !important;
-}
+  background-color:var(--color);
+  color: var(--background-color);
+} */
 .active-report-button {
   background-color: #fce719 !important;
   color: #00143d !important;
