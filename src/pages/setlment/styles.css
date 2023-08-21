@@ -52,3 +52,25 @@
     color: yellow;
   }
 }
+.admin-account-summary-container {
+  font-family: "Barlow-SemiBold";
+  border: var(--admin-summary-bs-border-color) !important;
+  background-color: #112a5e;
+  font-size: var(--table-body-font-size);
+}
+.admin-account-summary-container p{
+  margin-bottom: 0;
+}
+.admin-account-summary-container>p{
+  font-size: 0.9rem;
+}
+.call-management-data tfoot tr th{
+  background-color: #082051;
+  font-size: var(--table-head-font-size);
+  font-family: "Barlow-SemiBold";
+}
+.settlement-file-button{
+  --bs-btn-bg: none;
+  --bs-btn-padding-x: 0.4rem;
+  --bs-btn-padding-y: 0.2rem;
+}
