@@ -2,3 +2,20 @@
   opacity: 0.2;
   border: solid 1px #fff;
 }
+.admin-reports-button,
+.all-match-button {
+  --bs-btn-bg: #112a5e;
+  --bs-btn-border-color: none;
+  --bs-btn-font-family: "Barlow-SemiBold";
+  font-weight: 600;
+  border-color: none !important;
+}
+.admin-reports-button:hover,
+.admin-reports-button:active {
+  background-color: none !important;
+  color: none !important;
+}
+.active-report-button {
+  background-color: #fce719 !important;
+  color: #00143d !important;
+}

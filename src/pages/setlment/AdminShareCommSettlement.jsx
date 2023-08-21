@@ -129,8 +129,8 @@ const AdminShareCommSettlement = () => {
           </tbody>
           <tfoot>
             <tr>
-              <th>TOTAL</th>
-              <th className="text-center"></th>
+              <th colSpan={2}>TOTAL</th>
+        
               <th className="text-center clr-green">
                 {adminShareCommSettlementData
                   .reduce((total, data) => total + parseFloat(data?.amount), 0)

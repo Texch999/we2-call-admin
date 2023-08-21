@@ -146,7 +146,7 @@ const CallManagement = () => {
                     {data?.status}
                   </Button>
                 </td>
-                {/* <td>{``}</td> */}
+             
               </tr>
             ))}
           </tbody>
