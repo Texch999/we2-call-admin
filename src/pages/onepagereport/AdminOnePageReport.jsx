@@ -9,7 +9,7 @@ const AdminOnePageReport = () => {
     "Admin One Page Report",
     "UL/Platform Comm Report",
   ];
-  const [activeReport, setActiveReport] = useState(null);
+  const [activeReport, setActiveReport] = useState("Admin One Page Report");
   const adminOnePageReportData = [
     {
       admin_name: "Animesh",
@@ -79,7 +79,11 @@ const AdminOnePageReport = () => {
               <th>ADMINS NAME</th>
               <th className="text-center">ADMINS ROLE</th>
               <th className="text-center">ADMINS NET P/L</th>
-              <th className="text-center">UL SHARE</th>
+              <th className="text-center">
+                {activeReport === "UL/Platform Comm Report"
+                  ? "UL /Platform comm"
+                  : "UL Share"}
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -87,8 +91,12 @@ const AdminOnePageReport = () => {
               <tr key={index}>
                 <td>{data?.admin_name}</td>
                 <td className="text-center">{data?.admin_role}</td>
-                <td className="text-center">{parseFloat(data?.profit_loss).toFixed(2)}</td>
-                <td className="text-center">{parseFloat(data?.ul_share).toFixed(2)}</td>
+                <td className="text-center">
+                  {parseFloat(data?.profit_loss).toFixed(2)}
+                </td>
+                <td className="text-center">
+                  {parseFloat(data?.ul_share).toFixed(2)}
+                </td>
               </tr>
             ))}
           </tbody>

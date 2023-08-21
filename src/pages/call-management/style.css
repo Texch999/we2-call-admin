@@ -99,3 +99,12 @@
     font-size: var(--table-body-lg-font-size);
   }
 }
+@media screen and (min-width: 1900px) {
+  .call-management-data thead tr th,
+  .call-management-data tbody tr td,
+  .active-status-btn,
+  .inactive-status-btn,
+  .call-management-data tfoot tr th {
+    font-size: var(--table-body-xl-font-size);
+  }
+}
