@@ -1,4 +1,5 @@
 import { PiArrowCircleDownBold } from "react-icons/pi";
+import MatchTable from "./MatchTable";
 function MatchPositionTable(props) {
   const { teamName } = props;
   const MATCH_POSITION_TABLE_DATA = [
@@ -28,15 +29,22 @@ function MatchPositionTable(props) {
       grossPL: 50000000,
       cPosition: 50000000,
       rfPosition: 50000000,
-      ursPosition: 50000000,
+      ursPosition: -50000000,
     },
     {
       clientName: "Animesh",
       grossPL: 50000000,
       cPosition: 50000000,
       rfPosition: 50000000,
-      ursPosition: 50000000,
+      ursPosition: -50000000,
     },
+  ];
+  const MATCH_POSITION_HEADER_DATA = [
+    { header: "CLIENT NAME", field: "clientName" },
+    { header: "GROSS PL", field: "grossPL" },
+    { header: "C POSITION", field: "cPosition" },
+    { header: "RF POSITION", field: "rfPosition" },
+    { header: "URS POSITION", field: "ursPosition" },
   ];
   return (
     <div className="w-50 p-3">
@@ -64,37 +72,10 @@ function MatchPositionTable(props) {
         </div>
       </div>
       <div className="mt-3">
-        <table className="w-100 match-position-table text-center medium-font">
-          <thead>
-            <tr>
-              <th>CLIENT NAME</th>
-              <th>GROSS P/L</th>
-              <th>C POSITION</th>
-              <th>RF POSITION</th>
-              <th>URS POSITION</th>
-            </tr>
-          </thead>
-          <tbody>
-            {MATCH_POSITION_TABLE_DATA?.map((item, index) => (
-              <tr key={index}>
-                <td>{item.clientName}</td>
-                <td>{item.grossPL}</td>
-                <td>{item.cPosition}</td>
-                <td>{item.rfPosition}</td>
-                <td>{item.ursPosition}</td>
-              </tr>
-            ))}
-          </tbody>
-          <tfoot>
-            <tr>
-              <th>TOTAL</th>
-              <th>50000000.00</th>
-              <th>50000000.00</th>
-              <th>50000000.00</th>
-              <th>50000000.00</th>
-            </tr>
-          </tfoot>
-        </table>
+        <MatchTable
+          data={MATCH_POSITION_TABLE_DATA}
+          columns={MATCH_POSITION_HEADER_DATA}
+        />
       </div>
     </div>
   );

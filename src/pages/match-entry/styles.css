@@ -117,3 +117,17 @@
 #home-table-head {
   background-color: #112e69;
 }
+.edit-icon {
+  border-radius: 50%;
+  height: 22px;
+  width: 22px;
+  padding: 3px;
+  color: #fce719;
+  background-color: #1a2a39;
+}
+.green-color {
+  color: #04c85e;
+}
+.red-color {
+  color: #f62a3d;
+}

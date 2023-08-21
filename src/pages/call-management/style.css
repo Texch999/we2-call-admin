@@ -39,7 +39,7 @@
 }
 .user-dropdown-toggle .dropdown-menu {
   --bs-dropdown-bg: #142f6a;
-  --bs-dropdown-font-size:var(--table-body-font-size);
+  --bs-dropdown-font-size: var(--table-body-font-size);
 }
 .user-dropdown-toggle .dropdown-toggle::after {
   content: none;
@@ -50,7 +50,6 @@
 }
 .user-dropdown-toggle .dropdown-item {
   color: var(--table-text-color);
-
 }
 .active-status-btn {
   --bs-btn-color: #04c85e;
