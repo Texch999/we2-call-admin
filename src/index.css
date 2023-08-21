@@ -17,4 +17,7 @@ code {
   --table-heading-bg-color: #082051;
   --table-head-font-size: 0.8rem;
   --table-body-font-size: 0.8rem;
+  --table-body-lg-font-size:1.2rem;
+  --admin-summary-bs-border-color:solid 2px #264990;
+  
 }

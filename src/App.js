@@ -15,6 +15,7 @@ import CallStatement from "./pages/calling/CallStatement";
 import CallSettelment from "./pages/calling/CallSettelment";
 import MatchStatement from "./pages/matchstatement/MatchStatement";
 import ReportPage from "./pages/onepagereport/ReportPage";
+import AdminShareCommSettlement from "./pages/setlment/AdminShareCommSettlement";
 
 function App() {
   return (
@@ -41,6 +42,10 @@ function App() {
             <Route path="/call-settelment" element={<CallSettelment />} />
             <Route path="/match-statement" element={<MatchStatement />} />
             <Route path="/report-page" element={<ReportPage />} />
+            <Route
+              path="/admin-share-comm-settlement"
+              element={<AdminShareCommSettlement />}
+            />
           </Routes>
         </BrowserRouter>
       </div>
