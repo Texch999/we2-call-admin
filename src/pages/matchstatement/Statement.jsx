@@ -2,11 +2,7 @@ import React from "react";
 import { FaCalendarAlt } from "react-icons/fa";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import { AiFillEdit } from "react-icons/ai";
-import { Button, Table, Dropdown } from "react-bootstrap";
-import "bootstrap/dist/css/bootstrap.min.css";
-import { MdModeEditOutline, MdArrowDownward } from "react-icons/md";
 import "./styles.css";
-
 function Statement() {
   const STATEMENT_DETAILS = [
     {
@@ -173,26 +169,19 @@ function Statement() {
         </div>
         <div>
           <div className="medium-font mb-2">Series Name</div>
-          <Dropdown>
-            <Dropdown.Toggle
-              id="dropdown-custom-components"
-              className="button-container medium-font p-2
-              "
-            >
+          {/* <div className="statement-container matchstatement-container d-flex justify-content-between align-items-center p-4">
+            <div className="medium-font d-flex justify-content-start placeholder-text ">
               Enter Series Name
-            </Dropdown.Toggle>
-
-            <Dropdown.Menu className="dropdown-item-statement">
-              <Dropdown.Item eventKey="1" className="clr-white small-font">
-                Demo
-              </Dropdown.Item>
-              <Dropdown.Item eventKey="2" className="clr-white small-font">
-                Demo
-              </Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
+            </div>
+            <RiArrowDropDownLine className="custom-icon clr-white" />
+          </div> */}
+          <select name="cars" id="cars">
+            <option value="volvo">Volvo</option>
+            <option value="saab">Saab</option>
+            <option value="mercedes">Mercedes</option>
+            <option value="audi">Audi</option>
+          </select>
         </div>
-
         <div>
           <div className="medium-font mb-2">Match Name</div>
           <div className="statement-container matchstatement-container d-flex justify-content-between align-items-center p-4">
@@ -220,7 +209,7 @@ function Statement() {
             <RiArrowDropDownLine className="custom-icon clr-white" />
           </div>
         </div>
-        <button className="submit-button mt-3 medium-font">Verify</button>
+        <button className="submit-button mt-3 medium-font p-3">Verify</button>
       </div>
       <table className="w-100 match-position-table medium-font">
         <thead>
