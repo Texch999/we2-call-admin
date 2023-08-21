@@ -81,3 +81,30 @@
   --bs-btn-padding-x: 0.4rem;
   --bs-btn-padding-y: 0.2rem;
 }
+@media screen and (min-width: 1400px) {
+  .meeting-status-button {
+    --bs-btn-font-size: 0.9rem;
+  }
+  .arrow-dropdown-icon-button {
+    --bs-btn-padding-y: 0.2rem;
+    --bs-btn-padding-x: 0.2rem;
+    --bs-btn-font-size: 0.6rem;
+  }
+
+  .call-management-data thead tr th,
+  .call-management-data tbody tr td,
+  .active-status-btn,
+  .inactive-status-btn,
+  .call-management-data tfoot tr th {
+    font-size: var(--table-body-lg-font-size);
+  }
+}
+@media screen and (min-width: 1900px) {
+  .call-management-data thead tr th,
+  .call-management-data tbody tr td,
+  .active-status-btn,
+  .inactive-status-btn,
+  .call-management-data tfoot tr th {
+    font-size: var(--table-body-xl-font-size);
+  }
+}

@@ -18,7 +18,7 @@
 .submit-button {
   background-color: yellow;
   color: black;
-  width: auto;
+  width: 10vw;
   height: auto;
   border-radius: 5px;
 }
@@ -26,12 +26,14 @@
   background-color: #04c85e;
   color: green;
   width: 60%;
+  border: none;
 }
 .history-status-reject-button {
-    background-color: #ae0909;
-    color: red;
-    width: 60%;
-  }
+  background-color: #ae0909;
+  color: red;
+  width: 60%;
+  border: none;
+}
 .statement-container {
   width: 20vw;
   height: 7vh;
@@ -41,4 +43,8 @@
 }
 .settelment-container {
   width: 15vw !important;
+}
+.matchstatement-container {
+  height: 5vh;
+  width: 12vw;
 }
