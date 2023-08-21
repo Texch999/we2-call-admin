@@ -24,15 +24,26 @@
   }
 }
 
-@media (min-width: 1201px) {
+@media (min-width: 1201px) and (max-width: 1600px) {
   .small-font {
     font-size: 10px;
   }
   .medium-font {
-    font-size: 14px;
+    font-size: 12px;
   }
   .large-font {
+    font-size: 16px;
+  }
+}
+@media (min-width: 1601px) {
+  .small-font {
+    font-size: 15px;
+  }
+  .medium-font {
     font-size: 18px;
+  }
+  .large-font {
+    font-size: 20px;
   }
 }
 
@@ -116,4 +127,22 @@
 }
 #home-table-head {
   background-color: #112e69;
+}
+.edit-icon {
+  border-radius: 50%;
+  height: 22px;
+  width: 22px;
+  padding: 3px;
+  color: #fce719;
+  background-color: #1a2a39;
+}
+.green-color {
+  color: #04c85e;
+}
+.red-color {
+  color: #f62a3d;
+}
+.w-100vw {
+  width: 100vw;
+  overflow-x: scroll;
 }

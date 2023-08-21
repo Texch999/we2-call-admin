@@ -1,57 +1,57 @@
+import MatchTable from "../match-entry/MatchTable";
 import { PiArrowCircleDownBold } from "react-icons/pi";
-import MatchTable from "./MatchTable";
-function MatchPositionTable(props) {
-  const { teamName } = props;
-  const MATCH_POSITION_TABLE_DATA = [
+
+function FancyResultClientTable() {
+  const FANCY_CLIENT_TABLE_DATA = [
     {
       clientName: "Animesh",
       grossPL: 50000000,
-      cPosition: 50000000,
-      rfPosition: 50000000,
-      ursPosition: 50000000,
+      cNet: 50000000,
+      rfNet: 50000000,
+      netPL: 50000000,
     },
     {
       clientName: "Animesh",
       grossPL: 50000000,
-      cPosition: 50000000,
-      rfPosition: 50000000,
-      ursPosition: 50000000,
+      cNet: 50000000,
+      rfNet: 50000000,
+      netPL: 50000000,
     },
     {
       clientName: "Animesh",
       grossPL: 50000000,
-      cPosition: -50000000,
-      rfPosition: -50000000,
-      ursPosition: 50000000,
+      cNet: -50000000,
+      rfNet: -50000000,
+      netPL: 50000000,
     },
     {
       clientName: "Animesh",
       grossPL: 50000000,
-      cPosition: -50000000,
-      rfPosition: -50000000,
-      ursPosition: 50000000,
+      cNet: 50000000,
+      rfNet: 50000000,
+      netPL: 50000000,
     },
     {
       clientName: "Animesh",
       grossPL: 50000000,
-      cPosition: 50000000,
-      rfPosition: 50000000,
-      ursPosition: 50000000,
+      cNet: 50000000,
+      rfNet: 50000000,
+      netPL: 50000000,
     },
   ];
-  const MATCH_POSITION_HEADER_DATA = [
+  const FANCY_CLIENT_HEADER_DATA = [
     { header: "CLIENT NAME", field: "clientName" },
     { header: "GROSS PL", field: "grossPL" },
-    { header: "C POSITION", field: "cPosition" },
-    { header: "RF POSITION", field: "rfPosition" },
-    { header: "URS POSITION", field: "ursPosition" },
+    { header: "C NET", field: "cNet" },
+    { header: "RF NET", field: "rfNet" },
+    { header: "NET P/L", field: "netPL" },
   ];
   return (
     <div className="w-50 p-3">
       <div className="row d-flex align-items-center match-position-bg p-2 rounded m-1">
         <div className="col-sm-4 col-lg-6">
           <div className="medium-font">
-            Match Position - <span className="yellow-clr">{teamName}</span>
+            Fancy Result P/L - <span className="yellow-clr">IND vs PAK</span>
           </div>
         </div>
         <div className="col">
@@ -73,12 +73,12 @@ function MatchPositionTable(props) {
       </div>
       <div className="mt-3">
         <MatchTable
-          data={MATCH_POSITION_TABLE_DATA}
-          columns={MATCH_POSITION_HEADER_DATA}
+          data={FANCY_CLIENT_TABLE_DATA}
+          columns={FANCY_CLIENT_HEADER_DATA}
         />
       </div>
     </div>
   );
 }
 
-export default MatchPositionTable;
+export default FancyResultClientTable;

@@ -2,6 +2,7 @@ import "./styles.css";
 import MatchScroll from "./MatchScroll";
 import MatchPositionTable from "./MatchPositionTable";
 import MatchEntries from "./MatchEntries";
+import MatchEntryTable from "./MatchEntryTable";
 
 function MatchEntry() {
   return (
@@ -12,6 +13,7 @@ function MatchEntry() {
         <MatchPositionTable teamName={"PAK"} />
       </div>
       <MatchEntries />
+      <MatchEntryTable />
     </div>
   );
 }
