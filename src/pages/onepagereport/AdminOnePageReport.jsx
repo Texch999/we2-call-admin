@@ -81,7 +81,7 @@ const AdminOnePageReport = () => {
               <th className="text-center">ADMINS NET P/L</th>
               <th className="text-center">
                 {activeReport === "UL/Platform Comm Report"
-                  ? "UL /Platform comm"
+                  ? "UL /PLATFORM COMM"
                   : "UL Share"}
               </th>
             </tr>

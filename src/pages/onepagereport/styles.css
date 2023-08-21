@@ -8,6 +8,7 @@
   --bs-btn-border-color: none;
   --bs-btn-font-family: "Barlow-SemiBold";
   --bs-btn-font-size:var(--table-body-lg-font-size);
+  --bs-btn-padding-y:0.5rem;
   font-weight: 600;
   border-color: none !important;
 }
