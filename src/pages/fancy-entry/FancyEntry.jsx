@@ -1,9 +1,12 @@
-import React from 'react'
+import React from "react";
+import MatchScroll from "../match-entry/MatchScroll";
 
 function FancyEntry() {
   return (
-    <div>FancyEntry</div>
-  )
+    <div>
+      <MatchScroll />
+    </div>
+  );
 }
 
-export default FancyEntry
+export default FancyEntry;
