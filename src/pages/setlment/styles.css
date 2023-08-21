@@ -61,9 +61,9 @@
 .admin-account-summary-container p{
   margin-bottom: 0;
 }
-.admin-account-summary-container>p{
+/* .admin-account-summary-container>p{
   font-size: 0.9rem;
-}
+} */
 .call-management-data tfoot tr th{
   background-color: #082051;
   font-size: var(--table-head-font-size);
