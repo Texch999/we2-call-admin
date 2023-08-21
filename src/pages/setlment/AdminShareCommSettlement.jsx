@@ -32,30 +32,31 @@ const AdminShareCommSettlement = () => {
     {
       admin_name: "Sri23465",
       role: "Master",
-      amount: 1000000.00,
-      credit_debit: 1000000.00,
-      balance: 1000000.00,
+      amount: 1000000.0,
+      credit_debit: 1000000.0,
+      balance: 1000000.0,
     },
     {
       admin_name: "Srinivash",
       role: "SM",
-      amount: 1000000.00,
-      credit_debit: 1000000.00,
-      balance: 1000000.00,
+      amount: 1000000.0,
+      credit_debit: 1000000.0,
+      balance: 1000000.0,
     },
+
     {
-      admin_name: "Jayanta",
-      role: "SA",
-      amount: 1000000.00,
-      credit_debit: 1000000.00,
-      balance: 1000000.00,
+      admin_name: "Sri23465",
+      role: "Master",
+      amount: 1000000.0,
+      credit_debit: 1000000.0,
+      balance: 1000000.0,
     },
     {
       admin_name: "Srikanth",
       role: "Sub A",
-      amount: 1000000.00,
-      credit_debit: 1000000.00,
-      balance: 1000000.00,
+      amount: 1000000.0,
+      credit_debit: 1000000.0,
+      balance: 1000000.0,
     },
   ];
 
@@ -76,7 +77,9 @@ const AdminShareCommSettlement = () => {
               <hr />
               <div className="d-flex justify-content-between align-items-center">
                 <p>{item?.balance_title}</p>
-                <p className="clr-yellow">{item?.amount}</p>
+                <p className="clr-yellow">
+                  {parseFloat(item?.amount).toFixed(2)}
+                </p>
               </div>
             </div>
           );
@@ -100,9 +103,19 @@ const AdminShareCommSettlement = () => {
               <tr key={index}>
                 <td>{data?.admin_name}</td>
                 <td className="text-center">{data?.role}</td>
-                <td className="text-center">{data?.amount}</td>
-                <td className="text-center">{data?.credit_debit}</td>
-                <td className="text-center clr-green">{data?.balance}</td>
+                <td className="text-center">
+                  {parseFloat(data?.amount).toFixed(2)}
+                </td>
+                <td
+                  className={`text-center ${
+                    data?.admin_name === "Sri23465" ? "clr-red" : "clr-green"
+                  }`}
+                >
+                  {parseFloat(data?.credit_debit).toFixed(2)}
+                </td>
+                <td className="text-center clr-green">
+                  {parseFloat(data?.balance).toFixed(2)}
+                </td>
                 <td className="text-center">
                   <Button
                     type="button"
