@@ -132,14 +132,14 @@ function OnePageReport() {
               <td>{item.mfrc}</td>
               <td>{item.cnet}</td>
               <td> {item.rfnet}</td>
-              <td>{item.totalpl}</td>
+              <td className="clr-green">{item.totalpl}</td>
             </tr>
           </tbody>
         ))}
         <tfoot>
           <tr className="text-center">
             <th colSpan={4}>TOTAL</th>
-            <th colSpan={3}>50000000.00</th>
+            <th colSpan={3} className="clr-green">50000000.00</th>
           </tr>
         </tfoot>
       </table>

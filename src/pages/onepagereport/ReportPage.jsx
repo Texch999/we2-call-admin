@@ -30,6 +30,7 @@ function ReportPage() {
           );
         })}
       </div>
+      <div className="hr-line mt-4"></div>
       {activeReportIndex === 0 && <OnePageReport />}
       {activeReportIndex === 1 && <IndiviudalPLReport />}
     </div>
