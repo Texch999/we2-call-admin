@@ -32,3 +32,20 @@
 .w-80 {
   width: 80% !important;
 }
+.button-container {
+  background-color: #112a5e;
+  border-radius: 8px;
+  border: solid 1px #264990;
+  height: 5vh !important;
+
+}
+.button-container:hover {
+  background-color: #112a5e;
+  color: whitesmoke;
+  border-color: #112a5e;
+  border: solid 1px #264990;
+}
+.dropdown-item-statement{
+  background-color: #112a5e;
+  color: white !important;
+}

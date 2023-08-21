@@ -1,8 +1,4 @@
 import React, { useState } from "react";
-import { AiFillPlayCircle } from "react-icons/ai";
-import { RiDeleteBin6Line } from "react-icons/ri";
-import { FaCalendarAlt } from "react-icons/fa";
-import "./styles.css";
 import Statement from "./Statement";
 import FinancialStatement from "./FinancialStatement";
 

@@ -1,9 +1,12 @@
-import React, { useRef } from "react";
-import { AiFillEye } from "react-icons/ai";
+import React from "react";
 import { FaCalendarAlt } from "react-icons/fa";
-import { RiArrowDropDownLine, RiArrowDropUpLine } from "react-icons/ri";
+import { RiArrowDropDownLine } from "react-icons/ri";
 import { AiFillEdit } from "react-icons/ai";
+import { Button, Table, Dropdown } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { MdModeEditOutline, MdArrowDownward } from "react-icons/md";
 import "./styles.css";
+
 function Statement() {
   const STATEMENT_DETAILS = [
     {
@@ -170,13 +173,26 @@ function Statement() {
         </div>
         <div>
           <div className="medium-font mb-2">Series Name</div>
-          <div className="statement-container matchstatement-container d-flex justify-content-between align-items-center p-4">
-            <div className="medium-font d-flex justify-content-start placeholder-text ">
+          <Dropdown>
+            <Dropdown.Toggle
+              id="dropdown-custom-components"
+              className="button-container medium-font p-2
+              "
+            >
               Enter Series Name
-            </div>
-            <RiArrowDropDownLine className="custom-icon clr-white" />
-          </div>
+            </Dropdown.Toggle>
+
+            <Dropdown.Menu className="dropdown-item-statement">
+              <Dropdown.Item eventKey="1" className="clr-white small-font">
+                Demo
+              </Dropdown.Item>
+              <Dropdown.Item eventKey="2" className="clr-white small-font">
+                Demo
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
         </div>
+
         <div>
           <div className="medium-font mb-2">Match Name</div>
           <div className="statement-container matchstatement-container d-flex justify-content-between align-items-center p-4">
@@ -204,9 +220,8 @@ function Statement() {
             <RiArrowDropDownLine className="custom-icon clr-white" />
           </div>
         </div>
-        <button className="submit-button mt-3 medium-font p-3">Verify</button>
+        <button className="submit-button mt-3 medium-font">Verify</button>
       </div>
-
       <table className="w-100 match-position-table medium-font">
         <thead>
           <tr className="text-center">
@@ -223,7 +238,7 @@ function Statement() {
           <tbody key={index}>
             <tr className="text-center">
               <td>{item.datetime}</td>
-              <td >{item.series}</td>
+              <td>{item.series}</td>
               <td>{item.team}</td>
               <td className="clr-green"> {item.matchplace}</td>
               <td className="clr-green"> {item.winteam}</td>
@@ -234,12 +249,12 @@ function Statement() {
             </tr>
           </tbody>
         ))}
-         <tfoot>
-            <tr className="text-center">
-              <th colSpan={4}>TOTAL</th>
-              <th colSpan={3}>50000000.00</th>
-            </tr>
-          </tfoot>
+        <tfoot>
+          <tr className="text-center">
+            <th colSpan={4}>TOTAL</th>
+            <th colSpan={3}>50000000.00</th>
+          </tr>
+        </tfoot>
       </table>
     </div>
   );

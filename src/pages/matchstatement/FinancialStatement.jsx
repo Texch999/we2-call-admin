@@ -1,7 +1,7 @@
-import React, { useRef } from "react";
-import { AiFillEye } from "react-icons/ai";
+import React from "react";
+ 
 import { FaCalendarAlt } from "react-icons/fa";
-import { RiArrowDropDownLine, RiArrowDropUpLine } from "react-icons/ri";
+import { RiArrowDropDownLine } from "react-icons/ri";
 import { AiFillEdit } from "react-icons/ai";
 import "./styles.css";
 
@@ -187,7 +187,7 @@ function FinancialStatement() {
             <RiArrowDropDownLine className="custom-icon clr-white" />
           </div>
         </div>
-        <button className="submit-button mt-3 medium-font p-4 rounded-top">Verify</button>
+        <button className="submit-button mt-3 medium-font">Verify</button>
       </div>
 
       <table className="w-100 match-position-table medium-font">
