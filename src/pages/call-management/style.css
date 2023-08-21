@@ -83,18 +83,14 @@
 }
 @media screen and (min-width: 1400px) {
   .meeting-status-button {
-    --bs-btn-font-size: 1.2rem;
+    --bs-btn-font-size: 0.9rem;
   }
   .arrow-dropdown-icon-button {
-    --bs-btn-padding-y: 0.3rem;
-    --bs-btn-padding-x: 0.3rem;
-    --bs-btn-font-size: 0.7rem;
+    --bs-btn-padding-y: 0.2rem;
+    --bs-btn-padding-x: 0.2rem;
+    --bs-btn-font-size: 0.6rem;
   }
-  .arrow-dropdown-icon-button {
-    --bs-btn-padding-y: 0.3rem;
-    --bs-btn-padding-x: 0.3rem;
-    --bs-btn-font-size: 0.7rem;
-  }
+
   .call-management-data thead tr th,
   .call-management-data tbody tr td,
   .active-status-btn,
