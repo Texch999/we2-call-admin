@@ -2,3 +2,22 @@
   opacity: 0.2;
   border: solid 1px #fff;
 }
+.admin-reports-button,
+.all-match-button {
+  --bs-btn-bg: #112a5e;
+  --bs-btn-border-color: none;
+  --bs-btn-font-family: "Barlow-SemiBold";
+  --bs-btn-font-size:var(--table-body-lg-font-size);
+  --bs-btn-padding-y:0.5rem;
+  font-weight: 600;
+  border-color: none !important;
+}
+/* .admin-reports-button:hover,
+.admin-reports-button:active {
+  background-color:var(--color);
+  color: var(--background-color);
+} */
+.active-report-button {
+  background-color: #fce719 !important;
+  color: #00143d !important;
+}

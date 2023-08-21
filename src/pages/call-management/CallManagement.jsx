@@ -93,7 +93,7 @@ const CallManagement = () => {
                         size="sm"
                         className="ms-2 text-warning bg-transparent rounded-circle border border-warning arrow-dropdown-icon-button"
                       >
-                        <MdArrowDownward size={14} />
+                        <MdArrowDownward size={16} />
                       </Button>
                     </Dropdown.Toggle>
                     <Dropdown.Menu>
@@ -130,7 +130,7 @@ const CallManagement = () => {
               <th className="text-center">EVENT NAME</th>
               <th className="text-center">START DATE & TIME</th>
               <th className="text-center">USER</th>
-              <th className="text-center">STATUS</th>
+              <th className="text-center" >STATUS</th>
               <th className="text-center"></th>
             </tr>
           </thead>
@@ -141,12 +141,12 @@ const CallManagement = () => {
                 <td className="text-center">{data?.event_name}</td>
                 <td className="text-center">{data?.date}</td>
                 <td className="text-center">{data?.user}</td>
-                <td className="text-center">
+                <td className="text-center" colSpan={2}>
                   <Button className="rounded-pill meeting-status-button">
                     {data?.status}
                   </Button>
                 </td>
-                <td>{``}</td>
+             
               </tr>
             ))}
           </tbody>
