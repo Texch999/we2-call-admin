@@ -26,10 +26,10 @@
 
 @media (min-width: 1201px) {
   .small-font {
-    font-size: 10px;
+    font-size: 14px;
   }
   .medium-font {
-    font-size: 14px;
+    font-size: 16px;
   }
   .large-font {
     font-size: 18px;
@@ -130,4 +130,8 @@
 }
 .red-color {
   color: #f62a3d;
+}
+.w-100vw {
+  width: 100vw;
+  overflow-x: scroll;
 }

@@ -16,13 +16,18 @@ function MatchTable(props) {
         {data.map((item, rowIndex) => (
           <tr key={rowIndex}>
             {columns.map((column, colIndex) => (
-              <td
-                className={`${
-                  column.field > 0 ? "red-color" : "green-color"
-                }`}
-                key={colIndex}
-              >
-                {item[column.field]}
+              <td key={colIndex}>
+                <div
+                  className={`${
+                    isNaN(item[column.field]) > 0
+                      ? ""
+                      : +item[column.field] > 0
+                      ? "green-color"
+                      : "red-color"
+                  }`}
+                >
+                  {item[column.field]}
+                </div>
               </td>
             ))}
           </tr>

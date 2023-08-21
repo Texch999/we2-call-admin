@@ -1,47 +1,47 @@
-import MatchTable from "./MatchTable";
 import { MdEdit, MdDelete } from "react-icons/md";
+import MatchTable from "../match-entry/MatchTable";
 
-function MatchEntryTable() {
+function FancyEntryTable() {
   const MATCH_ENTRY_DATA = [
     {
       sNo: 1,
-      rate: 1.5,
-      client: "Srinivas2346",
-      amount: 50000000.0,
+      over: "30 Over",
+      rate: "- -",
       team: "India",
-      playEat: "P",
+      runs: "150",
+      yesNo: "Y",
       date: "31-07-2023",
       time: "12:48:00 PM",
-      ind: 50000000.0,
-      pak: 50000000.0,
+      client: "Srinivas2346",
+      amount: 50000000.0,
       edit: <MdEdit className="edit-icon" />,
       delete: <MdDelete className="edit-icon" />,
     },
     {
-      sNo: 1,
-      rate: 1.5,
-      client: "Srinivas2346",
-      amount: -50000000.0,
+      sNo: 2,
+      over: "20 Over",
+      rate: "- -",
       team: "India",
-      playEat: "P",
+      runs: "150",
+      yesNo: "Y",
       date: "31-07-2023",
       time: "12:48:00 PM",
-      ind: -50000000.0,
-      pak: -50000000.0,
+      client: "Srinivas2346",
+      amount: 50000000.0,
       edit: <MdEdit className="edit-icon" />,
       delete: <MdDelete className="edit-icon" />,
     },
     {
-      sNo: 1,
-      rate: 1.5,
-      client: "Srinivas2346",
-      amount: 50000000.0,
+      sNo: 2,
+      over: "10 Over",
+      rate: "- -",
       team: "India",
-      playEat: "P",
+      runs: "150",
+      yesNo: "Y",
       date: "31-07-2023",
       time: "12:48:00 PM",
-      ind: 50000000.0,
-      pak: 50000000.0,
+      client: "Srinivas2346",
+      amount: 50000000.0,
       edit: <MdEdit className="edit-icon" />,
       delete: <MdDelete className="edit-icon" />,
     },
@@ -52,24 +52,24 @@ function MatchEntryTable() {
       field: "sNo",
     },
     {
+      header: "OVER",
+      field: "over",
+    },
+    {
       header: "RATE",
       field: "rate",
-    },
-    {
-      header: "CLIENT NAME",
-      field: "client",
-    },
-    {
-      header: "AMOUNT",
-      field: "amount",
     },
     {
       header: "TEAM",
       field: "team",
     },
     {
-      header: "P/E",
-      field: "playEat",
+      header: "RUNS",
+      field: "runs",
+    },
+    {
+      header: "Y?N",
+      field: "yesNo",
     },
     {
       header: "DATE",
@@ -80,12 +80,12 @@ function MatchEntryTable() {
       field: "time",
     },
     {
-      header: "IND",
-      field: "ind",
+      header: "CLIENT NAME",
+      field: "client",
     },
     {
-      header: "PAK",
-      field: "pak",
+      header: "AMOUNT",
+      field: "amount",
     },
     {
       header: "",
@@ -96,7 +96,6 @@ function MatchEntryTable() {
       field: "delete",
     },
   ];
-
   return (
     <div className="p-3">
       <MatchTable data={MATCH_ENTRY_DATA} columns={MATCH_ENTRY_HEADING} />
@@ -104,4 +103,4 @@ function MatchEntryTable() {
   );
 }
 
-export default MatchEntryTable;
+export default FancyEntryTable;
