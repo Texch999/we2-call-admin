@@ -175,7 +175,11 @@ function Statement() {
             </div>
             <RiArrowDropDownLine className="custom-icon clr-white" />
           </div> */}
-          <select name="cars" id="cars">
+          <select
+            name="cars"
+            className="w-100 custom-select medium-font btn-bg rounded all-none p-3"
+          >
+            <option selected>Enter Series Name</option>
             <option value="volvo">Volvo</option>
             <option value="saab">Saab</option>
             <option value="mercedes">Mercedes</option>
@@ -184,30 +188,60 @@ function Statement() {
         </div>
         <div>
           <div className="medium-font mb-2">Match Name</div>
-          <div className="statement-container matchstatement-container d-flex justify-content-between align-items-center p-4">
+          {/* <div className="statement-container matchstatement-container d-flex justify-content-between align-items-center p-4">
             <div className="medium-font d-flex justify-content-start placeholder-text ">
               Select match
             </div>
             <RiArrowDropDownLine className="custom-icon clr-white" />
-          </div>
+          </div> */}
+          <select
+            name="cars"
+            className="w-100 custom-select medium-font btn-bg rounded all-none p-3"
+          >
+            <option selected>Enter Match Name</option>
+            <option value="volvo">Volvo</option>
+            <option value="saab">Saab</option>
+            <option value="mercedes">Mercedes</option>
+            <option value="audi">Audi</option>
+          </select>
         </div>
         <div>
-          <div className="medium-font mb-2">Fancy</div>
-          <div className="statement-container matchstatement-container d-flex justify-content-between align-items-center p-4">
+          <div className="medium-font mb-2"> Fancy</div>
+          {/* <div className="statement-container matchstatement-container d-flex justify-content-between align-items-center p-4">
             <div className="medium-font d-flex justify-content-start placeholder-text ">
               Fancy
             </div>
             <RiArrowDropDownLine className="custom-icon clr-white" />
-          </div>
+          </div> */}
+          <select
+            name="cars"
+            className="w-100 custom-select medium-font btn-bg rounded all-none p-3"
+          >
+            <option selected>Enter Fancy</option>
+            <option value="volvo">Volvo</option>
+            <option value="saab">Saab</option>
+            <option value="mercedes">Mercedes</option>
+            <option value="audi">Audi</option>
+          </select>
         </div>
         <div>
           <div className="medium-font mb-2">Client Name</div>
-          <div className="statement-container matchstatement-container d-flex justify-content-between align-items-center p-4">
+          {/* <div className="statement-container matchstatement-container d-flex justify-content-between align-items-center p-4">
             <div className="medium-font d-flex justify-content-start placeholder-text ">
               Select
             </div>
             <RiArrowDropDownLine className="custom-icon clr-white" />
-          </div>
+          </div> */}
+          <select
+            name="cars"
+            className="w-100 custom-select medium-font btn-bg rounded all-none p-3"
+          >
+            <option selected>Enter Client Name</option>
+            <option value="volvo">Volvo</option>
+            <option value="saab">Saab</option>
+            <option value="mercedes">Mercedes</option>
+            <option value="audi">Audi</option>
+          </select>
         </div>
         <button className="submit-button mt-3 medium-font p-3">Verify</button>
       </div>
