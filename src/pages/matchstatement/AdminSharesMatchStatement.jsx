@@ -11,31 +11,37 @@ const AdminSharesMatchStatement = () => {
       label: "From",
       type: "date",
       name: "start_date",
+      id: "startDate",
     },
     {
       label: "To",
       type: "date",
       name: "end_date",
+      id: "endDate",
     },
     {
       label: "Series Name",
       options: ["Enter Series Name", "WTC", "ODI", "IPL"],
       name: "series_name",
+      id: "seriesName",
     },
     {
       label: "Match Name",
       options: ["Select Match   ", "WTC", "ODI", "IPL"],
-      name: "series_name",
+      name: "match_name",
+      id: "matchName",
     },
     {
       label: "Fancy",
       options: ["Fancy", "WTC", "ODI", "IPL"],
-      name: "series_name",
+      name: "fancy",
+      id: "fancy",
     },
     {
       label: "Name",
       options: ["Select", "ODI", "IPL"],
-      name: "series_name",
+      name: "client_name",
+      id: "clientName",
     },
   ];
   const adminSharesMatchStatementData = [
@@ -96,10 +102,12 @@ const AdminSharesMatchStatement = () => {
           <div className="d-flex">
             {inputFields?.map((inputData, index) => (
               <div key={index} className="d-flex me-2">
-                <Form.Group className="d-flex flex-column" size="lg">
-                  <Form.Label>{inputData?.label}</Form.Label>
+                <Form.Group className="d-flex flex-column admin-match-statement">
+                  <Form.Label htmlFor={inputData?.id}>
+                    {inputData?.label}
+                  </Form.Label>
                   {inputData?.options ? (
-                    <Form.Select>
+                    <Form.Select id={inputData?.id} size="lg">
                       {inputData?.options?.map((options) => (
                         <option className="w-100">{options}</option>
                       ))}
@@ -108,13 +116,18 @@ const AdminSharesMatchStatement = () => {
                     <Form.Control
                       type={inputData?.type}
                       value={inputData?.value}
+                      id={inputData?.id}
+                      size="lg"
+                  
                     />
                   )}
                 </Form.Group>
               </div>
             ))}
+            <div>
+              <Button type="submit">Verify</Button>
+            </div>
           </div>
-          <Button type="submit">Verify</Button>
         </Form>
       </div>
 

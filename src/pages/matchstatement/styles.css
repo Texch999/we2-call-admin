@@ -48,3 +48,22 @@
   background-color: #112a5e;
   color: white !important;
 }
+.admin-match-statement input,
+.admin-match-statement select,
+.admin-match-statement .form-control:focus {
+  background-color: var(--input-bg-color);
+  color: var(--table-text-color);
+  font-family: "Barlow-SemiBold";
+  border-color: unset;
+  font-size: var(--table-body-font-size);
+  border: none;
+}
+.admin-match-statement .form-select:focus,.admin-match-statement .form-control:focus{
+  border-color:none;
+  box-shadow: none;
+}
+.admin-match-statement label{
+  font-size: var(--table-body-font-size);
+  font-family: "Barlow-SemiBold";
+  margin-bottom: 0.2rem;
+}
