@@ -112,7 +112,7 @@ const AdminSharesMatchStatement = () => {
         <Form onSubmit={(e) => handleFormSubmit(e)}>
           <div className="d-flex flex-sm-row container-fluid">
             {inputFields?.map((inputData, index) => (
-              <div key={index} className="d-flex me-2 row">
+              <div key={index} className="d-flex me-1 row">
                 <Form.Group className="d-flex flex-column admin-match-statement col">
                   <Form.Label htmlFor={inputData?.id} className="ms-1">
                     {inputData?.label}
