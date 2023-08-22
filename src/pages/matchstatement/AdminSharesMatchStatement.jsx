@@ -4,7 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 const AdminSharesMatchStatement = () => {
   const [activeReport, setActiveReport] = useState("Share Statement");
-
+  const [selectedOptions, setSelectedOptions] = useState({});
   const reports = ["Share Statement", "Statement", "Financial Statement"];
   const inputFields = [
     {
@@ -81,11 +81,15 @@ const AdminSharesMatchStatement = () => {
   const handleReport = (report) => {
     setActiveReport(report);
   };
-  const handleSelect = (e) => {
-    console.log(e.target.value);
+  const handleSelect = (fieldName, value) => {
+    setSelectedOptions((prevOptions) => ({
+      ...prevOptions,
+      [fieldName]: value,
+    }));
   };
   const handleFormSubmit = (e) => {
     e.preventDefault();
+    console.log(selectedOptions);
   };
   return (
     <div className="p-4">
@@ -104,31 +108,38 @@ const AdminSharesMatchStatement = () => {
             </Button>
           ))}
         </div>
+        <hr />
         <Form onSubmit={(e) => handleFormSubmit(e)}>
           <div className="d-flex flex-sm-row container-fluid">
             {inputFields?.map((inputData, index) => (
               <div key={index} className="d-flex me-2 row">
                 <Form.Group className="d-flex flex-column admin-match-statement col">
-                  <Form.Label htmlFor={inputData?.id}>
+                  <Form.Label htmlFor={inputData?.id} className="ms-1">
                     {inputData?.label}
                   </Form.Label>
                   {inputData?.options ? (
                     <Form.Select
                       id={inputData?.id}
                       size="lg"
-                      onChange={(e) => handleSelect(e)}
+                      value={selectedOptions[inputData?.name] || ""}
+                      onChange={(e) =>
+                        handleSelect(inputData?.name, e.target.value)
+                      }
                     >
-                      {inputData?.options?.map((options, index) => (
-                        <option className="w-100" key={index}>
-                          {options}
+                      {inputData?.options?.map((option, index) => (
+                        <option className="w-100" key={index} value={option}>
+                          {option}
                         </option>
                       ))}
                     </Form.Select>
                   ) : (
                     <Form.Control
                       type={inputData?.type}
-                      value={inputData?.value}
+                      value={selectedOptions[inputData?.name] || ""}
                       id={inputData?.id}
+                      onChange={(e) =>
+                        handleSelect(inputData?.name, e.target.value)
+                      }
                       size="lg"
                     />
                   )}

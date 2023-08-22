@@ -57,6 +57,7 @@
   border-color: unset;
   font-size: var(--table-body-font-size);
   border: none;
+  cursor: pointer;
 }
 .admin-match-statement .form-select:focus,
 .admin-match-statement .form-control:focus {
@@ -73,4 +74,15 @@
   font-family: "Barlow-SemiBold";
   font-size: var(--table-body-font-size);
   border: none;
+}
+.admin-match-statement input[type="date"]::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+
+  opacity: 0.6;
+  filter: invert(0.8);
+}
+
+.admin-match-statement
+  input[type="date"]::-webkit-calendar-picker-indicator:hover {
+  opacity: 1;
 }
