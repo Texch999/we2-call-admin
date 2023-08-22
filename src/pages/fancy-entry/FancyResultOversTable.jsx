@@ -4,35 +4,35 @@ import { PiArrowCircleDownBold } from "react-icons/pi";
 function FancyResultOversTable() {
   const FANCY_OVERS_TABLE_DATA = [
     {
-      overs: "10 Overs",
+      header: "10 Overs",
       grossPL: 50000000,
       cNet: 50000000,
       rfNet: 50000000,
       netPL: 50000000,
     },
     {
-      overs: "10 Overs",
+      header: "10 Overs",
       grossPL: -50000000,
       cNet: 50000000,
       rfNet: 50000000,
       netPL: -50000000,
     },
     {
-      overs: "10 Overs",
+      header: "10 Overs",
       grossPL: 50000000,
       cNet: 50000000,
       rfNet: 50000000,
       netPL: 50000000,
     },
     {
-      overs: "10 Overs",
+      header: "10 Overs",
       grossPL: 50000000,
       cNet: 50000000,
       rfNet: 50000000,
       netPL: 50000000,
     },
     {
-      overs: "10 Overs",
+      header: "10 Overs",
       grossPL: 50000000,
       cNet: 50000000,
       rfNet: 50000000,
@@ -40,7 +40,7 @@ function FancyResultOversTable() {
     },
   ];
   const FANCY_OVERS_HEADER_DATA = [
-    { header: "OVERS", field: "overs" },
+    { header: "OVERS", field: "header" },
     { header: "GROSS PL", field: "grossPL" },
     { header: "C NET", field: "cNet" },
     { header: "RF NET", field: "rfNet" },

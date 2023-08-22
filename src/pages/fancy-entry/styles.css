@@ -1,0 +1,15 @@
+.match-share-modal .modal-content {
+  background-color: #00143d;
+}
+.match-share-modal .btn-close {
+  color: #ffffff;
+  border: none;
+  outline: none;
+}
+.match-share-modal .modal-header {
+  padding: 5px 15px !important;
+  border-bottom: none;
+}
+.match-share-modal .modal-body {
+  padding: 0px;
+}

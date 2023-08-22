@@ -4,35 +4,35 @@ import { PiArrowCircleDownBold } from "react-icons/pi";
 function FancyRiskRunningTable() {
   const FANCY_CLIENT_TABLE_DATA = [
     {
-      runs: "50 Runs",
+      header: "50 Runs",
       amount: 50000000,
       cPosition: 50000000,
       rfPosition: 50000000,
       ursPosition: 50000000,
     },
     {
-      runs: "50 Runs",
+      header: "50 Runs",
       amount: 50000000,
       cPosition: 50000000,
       rfPosition: 50000000,
       ursPosition: 50000000,
     },
     {
-      runs: "50 Runs",
+      header: "50 Runs",
       amount: 50000000,
       cPosition: 50000000,
       rfPosition: 50000000,
       ursPosition: 50000000,
     },
     {
-      runs: "50 Runs",
+      header: "50 Runs",
       amount: 50000000,
       cPosition: 50000000,
       rfPosition: 50000000,
       ursPosition: 50000000,
     },
     {
-      runs: "50 Runs",
+      header: "50 Runs",
       amount: 50000000,
       cPosition: 50000000,
       rfPosition: 50000000,
@@ -40,7 +40,7 @@ function FancyRiskRunningTable() {
     },
   ];
   const FANCY_CLIENT_HEADER_DATA = [
-    { header: "RUNS", field: "runs" },
+    { header: "RUNS", field: "header" },
     { header: "AMOUNT", field: "amount" },
     { header: "C POSITION", field: "cPosition" },
     { header: "RF POSITION", field: "rfPosition" },

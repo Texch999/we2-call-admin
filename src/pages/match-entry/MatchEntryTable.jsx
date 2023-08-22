@@ -1,5 +1,5 @@
-import MatchTable from "./MatchTable";
 import { MdEdit, MdDelete } from "react-icons/md";
+import Table from "./../home-page/Table";
 
 function MatchEntryTable() {
   const MATCH_ENTRY_DATA = [
@@ -99,7 +99,7 @@ function MatchEntryTable() {
 
   return (
     <div className="p-3">
-      <MatchTable data={MATCH_ENTRY_DATA} columns={MATCH_ENTRY_HEADING} />
+      <Table data={MATCH_ENTRY_DATA} columns={MATCH_ENTRY_HEADING} />
     </div>
   );
 }
