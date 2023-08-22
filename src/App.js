@@ -10,6 +10,8 @@ import Settelment from "./pages/setlment/Settelment";
 import CallManagement from "./pages/call-management/CallManagement";
 import FancyEntry from "./pages/fancy-entry/FancyEntry";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import SportsManagement from "./pages/sport-management/SportsManagement";
+import UserManagement from "./pages/user-management/UserManagement";
 import CallHistory from "./pages/calling/CallHistory";
 import CallStatement from "./pages/calling/CallStatement";
 import CallSettelment from "./pages/calling/CallSettelment";
@@ -38,6 +40,9 @@ function App() {
               path="/super-admin-call-management"
               element={<SuperAdminCallManagement />}
             />
+            <Route path="/settelment-statement" element={<Settelment />} />
+            <Route path="/sport-management" element={<SportsManagement />} />
+            <Route path="/user-management" element={<UserManagement />} />
             <Route path="/call-history" element={<CallHistory />} />
             <Route path="/call-statement" element={<CallStatement />} />
             <Route path="/call-settelment" element={<CallSettelment />} />

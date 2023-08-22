@@ -39,7 +39,7 @@ function Header() {
                 <a
                   className="nav-link active font-white"
                   aria-current="page"
-                  href="/rajinth"
+                  href="/"
                 >
                   Home
                 </a>

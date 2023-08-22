@@ -2,6 +2,39 @@
   background: #634beb;
   border-radius: 10px;
 }
+.w-90 {
+  width: 90%;
+}
+.gutter-1rem {
+  --bs-gutter-x: 1rem !important;
+}
+.sport-management-input input {
+  background: none;
+  border: none;
+  outline: none;
+  color: #ffffff;
+}
+.sport-management-input {
+  background: #112a5e;
+  height: 8vh;
+  align-items: center;
+  border-radius: 5px;
+}
+.bg-yellow {
+  background: #fce719;
+  color: black;
+  font-weight: 600;
+}
+.active-head {
+  border: 2px solid #fce719;
+  border-radius: 5px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+.gutter-2rem {
+  --bs-gutter-x: 2rem;
+}
 .user-management {
   background: linear-gradient(to right, #e762e5, #4f64f0);
   border-radius: 10px;
@@ -67,7 +100,7 @@
 }
 @media (min-width: 1400px) {
   h2 {
-    font-size: 3rem;
+    font-size: 2rem;
   }
   h5 {
     font-size: 1.5rem;
