@@ -1,8 +1,9 @@
 function MatchTable(props) {
   const { data, columns } = props;
-  const calculateColumnTotal = (data, key) => {
-    return data.reduce((total, row) => total + row[key], 0);
+  const calculateColumnSum = (data, field) => {
+    return data.reduce((sum, item) => sum + item[field], 0);
   };
+  const columnKeys = columns.map((column) => column.field);
   return (
     <table className="w-100 match-position-table text-center medium-font">
       <thead>
@@ -35,9 +36,18 @@ function MatchTable(props) {
       </tbody>
       <tfoot>
         <tr>
-          {columns.map((column, index) => (
-            <th key={index}>
-              {column.total ? calculateColumnTotal(data, column.key) : ""}
+          {columnKeys.map((field) => (
+            <th
+              key={field}
+              className={`${
+                isNaN(calculateColumnSum(data, field)) > 0
+                  ? ""
+                  : +calculateColumnSum(data, field) > 0
+                  ? "green-color"
+                  : "red-color"
+              }`}
+            >
+              {field === "header" ? "TOTAL" : calculateColumnSum(data, field)}
             </th>
           ))}
         </tr>

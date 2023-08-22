@@ -5,6 +5,7 @@ import FancyResultOversTable from "./FancyResultOversTable";
 import FancyEntries from "./FancyEntries";
 import FancyEntryTable from "./FancyEntryTable";
 import FancyRiskRunningTable from "./FancyRiskRunningTable";
+import "./styles.css";
 
 function FancyEntry() {
   return (

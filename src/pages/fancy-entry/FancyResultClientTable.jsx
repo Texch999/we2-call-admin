@@ -4,35 +4,35 @@ import { PiArrowCircleDownBold } from "react-icons/pi";
 function FancyResultClientTable() {
   const FANCY_CLIENT_TABLE_DATA = [
     {
-      clientName: "Animesh",
+      header: "Animesh",
       grossPL: 50000000,
       cNet: 50000000,
       rfNet: 50000000,
       netPL: 50000000,
     },
     {
-      clientName: "Animesh",
+      header: "Animesh",
       grossPL: 50000000,
       cNet: 50000000,
       rfNet: 50000000,
       netPL: 50000000,
     },
     {
-      clientName: "Animesh",
+      header: "Animesh",
       grossPL: 50000000,
       cNet: -50000000,
       rfNet: -50000000,
       netPL: 50000000,
     },
     {
-      clientName: "Animesh",
+      header: "Animesh",
       grossPL: 50000000,
       cNet: 50000000,
       rfNet: 50000000,
       netPL: 50000000,
     },
     {
-      clientName: "Animesh",
+      header: "Animesh",
       grossPL: 50000000,
       cNet: 50000000,
       rfNet: 50000000,
@@ -40,7 +40,7 @@ function FancyResultClientTable() {
     },
   ];
   const FANCY_CLIENT_HEADER_DATA = [
-    { header: "CLIENT NAME", field: "clientName" },
+    { header: "CLIENT NAME", field: "header" },
     { header: "GROSS PL", field: "grossPL" },
     { header: "C NET", field: "cNet" },
     { header: "RF NET", field: "rfNet" },

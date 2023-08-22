@@ -94,7 +94,7 @@ function MatchScroll() {
                 className="btn-bg d-flex align-items-center justify-content-evenly p-2 m-1 rounded"
               >
                 <span className="d-flex m-1">
-                  <FaTrophy className="fs-4 yellow-clr" />
+                  <FaTrophy className="fs-5 yellow-clr" />
                 </span>
                 <div className="text-xl medium-font text-white m-1">
                   {item.matchName}

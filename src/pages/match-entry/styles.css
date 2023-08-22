@@ -116,6 +116,9 @@
 .match-position-table tbody > tr {
   border: solid 1px #112a5e;
 }
+.match-position-table thead {
+  border-radius: 5px 5px 0px 0px;
+}
 .match-position-table thead,
 .match-position-table tfoot {
   background-color: #082051;
