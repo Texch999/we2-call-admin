@@ -39,7 +39,7 @@ function Alert() {
   const options = {
     title: "Connect Devices",
     pieHole: 0.5,
-    // is3D: false,
+    is3D: true,
   };
   return (
     <div className="row vh-70 mt-3">
