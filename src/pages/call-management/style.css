@@ -95,8 +95,11 @@
   .call-management-data tbody tr td,
   .active-status-btn,
   .inactive-status-btn,
-  .call-management-data tfoot tr th {
-    font-size: var(--table-body-lg-font-size);
+  .call-management-data tfoot tr th,
+  .admin-match-statement input,
+  .admin-match-statement select,
+  .admin-match-statement label, .verify-button {
+    font-size: var(--table-body-lg-font-size) !important;
   }
 }
 @media screen and (min-width: 1900px) {
