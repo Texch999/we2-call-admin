@@ -21,4 +21,6 @@ export const Images = {
   LoginLockIcon: "./assets/login_Lock_Icon.png",
   UserManagement: "./assets/user_Management.png",
   SportManagement: "./assets/sports_management.png",
+  QuestionMark: "./assets/questionMark.png",
+  CheckedMark: "./assets/checked_Mark.png",
 };

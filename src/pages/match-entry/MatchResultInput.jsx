@@ -1,4 +1,22 @@
+import { useState } from "react";
+import MatchDeclarationPopup from "../match-popups/MatchDeclarationPopup";
+import MatchSubmitPopup from "../match-popups/MatchSubmitPopup";
 function MatchResultInput() {
+  const [matchSubmitPopup, setMatchSubmitPopup] = useState(false);
+  const [submitPopup, setSubmitPopup] = useState(false);
+  const handleMatchSubmitPopupOpen = () => {
+    setMatchSubmitPopup(true);
+  };
+  const handleMatchSubmitPopupClose = () => {
+    setMatchSubmitPopup(false);
+  };
+  const handleSubmitPopupOpen = () => {
+    setSubmitPopup(true);
+    setMatchSubmitPopup(false);
+  };
+  const handleSubmitPopupClose = () => {
+    setSubmitPopup(false);
+  };
   return (
     <div className="match-position-bg rounded-bottom p-3">
       <div className="row">
@@ -44,11 +62,23 @@ function MatchResultInput() {
           </div>
         </div>
         <div className="col d-flex align-items-end">
-          <div className="w-100 text-center rounded medium-font p-2 yellow-btn fw-semibold">
+          <div
+            className="w-100 text-center rounded medium-font p-2 yellow-btn fw-semibold"
+            onClick={() => handleMatchSubmitPopupOpen()}
+          >
             Result Declaration
           </div>
         </div>
       </div>
+      <MatchDeclarationPopup
+        matchSubmitPopup={matchSubmitPopup}
+        handleMatchSubmitPopupClose={handleMatchSubmitPopupClose}
+        handleSubmitPopupOpen={handleSubmitPopupOpen}
+      />
+      <MatchSubmitPopup
+        submitPopup={submitPopup}
+        handleSubmitPopupClose={handleSubmitPopupClose}
+      />
     </div>
   );
 }
