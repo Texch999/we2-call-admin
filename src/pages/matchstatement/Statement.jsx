@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { FaCalendarAlt } from "react-icons/fa";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import { AiFillEdit } from "react-icons/ai";
 import "./styles.css";
+import StatementPopup from "./StatementPopup";
 function Statement() {
   const STATEMENT_DETAILS = [
     {
@@ -150,6 +151,9 @@ function Statement() {
       pl: "50000000",
     },
   ];
+  const [showModal, setShowModal] = useState(false);
+  const handleShow = () => setShowModal(true);
+
   return (
     <div className="p-2">
       <div className="d-flex flex-row justify-content-around mb-4 w-100">
@@ -267,7 +271,10 @@ function Statement() {
               <td className="clr-green"> {item.winteam}</td>
               <td className="clr-green"> {item.pl}</td>
               <td>
-                <AiFillEdit className="custom-icon" />
+                <AiFillEdit
+                  className="custom-icon"
+                  onClick={() => handleShow()}
+                />
               </td>
             </tr>
           </tbody>
@@ -279,6 +286,7 @@ function Statement() {
           </tr>
         </tfoot>
       </table>
+      <StatementPopup showModal={showModal} setShowModal={setShowModal} />
     </div>
   );
 }
