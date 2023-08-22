@@ -9,14 +9,16 @@ import SuperAdminCallManagement from "./pages/call-management/SuperAdminCallMana
 import Settelment from "./pages/setlment/Settelment";
 import CallManagement from "./pages/call-management/CallManagement";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import SportsManagement from "./pages/sport-management/SportsManagement";
+import UserManagement from "./pages/user-management/UserManagement";
 
 function App() {
   return (
     <div>
       <Header />
       <div className="scroll-container">
-      <BrowserRouter>
-        <Routes>
+        <BrowserRouter>
+          <Routes>
             <Route path="/" element={<HomeContent />} />
             <Route path="/match-entry" element={<MatchEntry />} />
             <Route path="/call-management" element={<CallManagement />} />
@@ -30,8 +32,10 @@ function App() {
               element={<SuperAdminCallManagement />}
             />
             <Route path="/settelment-statement" element={<Settelment />} />
-        </Routes>
-      </BrowserRouter>
+            <Route path="/sport-management" element={<SportsManagement />} />
+            <Route path="/user-management" element={<UserManagement />} />
+          </Routes>
+        </BrowserRouter>
       </div>
     </div>
   );
