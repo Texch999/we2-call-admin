@@ -272,6 +272,8 @@ function Statement() {
               <td className="clr-green"> {item.pl}</td>
               <td>
                 <AiFillEdit
+                  data-toggle="modal"
+                  data-target=".bd-example-modal-lg"
                   className="custom-icon"
                   onClick={() => handleShow()}
                 />
