@@ -4,7 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 const AdminSharesMatchStatement = () => {
   const [activeReport, setActiveReport] = useState("Share Statement");
-
+  const [selectedOptions, setSelectedOptions] = useState({});
   const reports = ["Share Statement", "Statement", "Financial Statement"];
   const inputFields = [
     {
@@ -33,13 +33,13 @@ const AdminSharesMatchStatement = () => {
     },
     {
       label: "Fancy",
-      options: ["Fancy", "WTC", "ODI", "IPL"],
+      options: ["Fancy", "1st Innings", "2nd Innings", "10th over"],
       name: "fancy",
       id: "fancy",
     },
     {
       label: "Name",
-      options: ["Select", "ODI", "IPL"],
+      options: ["Select", "Sri1234", "Jayantha", "srikanth"],
       name: "client_name",
       id: "clientName",
     },
@@ -81,6 +81,16 @@ const AdminSharesMatchStatement = () => {
   const handleReport = (report) => {
     setActiveReport(report);
   };
+  const handleSelect = (fieldName, value) => {
+    setSelectedOptions((prevOptions) => ({
+      ...prevOptions,
+      [fieldName]: value,
+    }));
+  };
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    console.log(selectedOptions);
+  };
   return (
     <div className="p-4">
       <div>
@@ -98,34 +108,51 @@ const AdminSharesMatchStatement = () => {
             </Button>
           ))}
         </div>
-        <Form>
-          <div className="d-flex">
+        <hr />
+        <Form onSubmit={(e) => handleFormSubmit(e)}>
+          <div className="d-flex flex-sm-row container-fluid">
             {inputFields?.map((inputData, index) => (
-              <div key={index} className="d-flex me-2">
-                <Form.Group className="d-flex flex-column admin-match-statement">
-                  <Form.Label htmlFor={inputData?.id}>
+              <div key={index} className="d-flex me-1 row">
+                <Form.Group className="d-flex flex-column admin-match-statement col">
+                  <Form.Label htmlFor={inputData?.id} className="ms-1">
                     {inputData?.label}
                   </Form.Label>
                   {inputData?.options ? (
-                    <Form.Select id={inputData?.id} size="lg">
-                      {inputData?.options?.map((options) => (
-                        <option className="w-100">{options}</option>
+                    <Form.Select
+                      id={inputData?.id}
+                      size="lg"
+                      value={selectedOptions[inputData?.name] || ""}
+                      onChange={(e) =>
+                        handleSelect(inputData?.name, e.target.value)
+                      }
+                    >
+                      {inputData?.options?.map((option, index) => (
+                        <option className="w-100" key={index} value={option}>
+                          {option}
+                        </option>
                       ))}
                     </Form.Select>
                   ) : (
                     <Form.Control
                       type={inputData?.type}
-                      value={inputData?.value}
+                      value={selectedOptions[inputData?.name] || ""}
                       id={inputData?.id}
+                      onChange={(e) =>
+                        handleSelect(inputData?.name, e.target.value)
+                      }
                       size="lg"
-                  
                     />
                   )}
                 </Form.Group>
               </div>
             ))}
-            <div>
-              <Button type="submit">Verify</Button>
+            <div className="mt-4">
+              <Button
+                type="submit"
+                className="active-report-button verify-button"
+              >
+                Verify
+              </Button>
             </div>
           </div>
         </Form>
