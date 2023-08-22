@@ -1,22 +1,14 @@
-/* th {
-  height: 5vh;
-  display: table-cell;
-  vertical-align: inherit;
-  font-weight: bold;
-  background-color: #082051 !important;
-  color: white !important;
+.settelment-table {
+  width: 100%;
+  border: solid 2px rgba(255, 255, 255, 0.11);
+  background-color: var(--table-border-color);
+  border-radius: 8px;
+  --bs-table-color: var(--text-white);
+  --bs-table-bg: var(--table-bg-color);
 }
-td {
-  display: table-cell;
-  vertical-align: inherit;
-  font-weight: bold;
-  height: 4vh;
-  text-align: center;
-  border: none;
-  background: 
-  #082051 !important;
-  color: white !important;
-} */
+.clr-red {
+  color: #ff0000 !important;
+}
 .clr-green {
   color: #04c85e !important;
 }
@@ -35,72 +27,53 @@ td {
   border: solid 1px #264990;
 }
 @media (min-width: 577px) and (max-width: 768px) {
-  .small-font {
-    font-size: 8px;
-  }
-  .medium-font {
-    font-size: 12px;
-  }
-  .large-font {
-    font-size: 16px;
-  }
-  .xx-large-font{
+  .xx-large-font {
     font-size: 22px;
+  }
+  .custom-icon {
+    font-size: 10px;
+    color: yellow;
   }
 }
 
 @media (min-width: 769px) and (max-width: 1200px) {
-  .small-font {
-    font-size: 10px;
-  }
-  .medium-font {
-    font-size: 14px;
-  }
-  .large-font {
-    font-size: 18px;
-  }
-  .xx-large-font{
+  .xx-large-font {
     font-size: 25px;
+  }
+  .custom-icon {
+    font-size: 20px;
+    color: yellow;
   }
 }
 
 @media (min-width: 1201px) {
-  .small-font {
-    font-size: 12px;
-  }
-  .medium-font {
-    font-size: 16px;
-  }
-  .large-font {
-    font-size: 22px;
-  }
-  .xx-large-font{
+  .xx-large-font {
     font-size: 30px;
   }
+  .custom-icon {
+    font-size: 30px;
+    color: yellow;
+  }
 }
-/* .table{
-  width: 100%;
-  background-color: #082051 !important;
-  tbody{
-    height:200px;
-    overflow-y:auto;
-    width: 100%;
-    }
-  thead,tbody,tr,td,th{
-    display:block;
-  }
-  tbody{
-    td{
-      float:left;
-    }
-  }
-  thead {
-    tr{
-      th{
-        float:left;
-        background-color: #082051 !important;
-        border-color:#e67e22;
-      }
-    }
-  }
-} */
+.admin-account-summary-container {
+  font-family: "Barlow-SemiBold";
+  border: var(--admin-summary-bs-border-color) !important;
+  background-color: #112a5e;
+  font-size: var(--table-body-font-size);
+}
+.admin-account-summary-container p {
+  margin-bottom: 0;
+}
+.admin-account-summary-container:hover,.admin-account-summary-container:active {
+  border: solid 2px #fce719 !important;
+}
+.call-management-data tfoot tr th {
+  background-color: #082051;
+  font-size: var(--table-head-font-size);
+  font-family: "Barlow-SemiBold";
+}
+.settlement-file-button {
+  --bs-btn-bg: none;
+  --bs-btn-padding-x: 0.4rem;
+  --bs-btn-padding-y: 0.2rem;
+}

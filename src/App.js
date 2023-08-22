@@ -8,9 +8,17 @@ import SettelmentStatement from "./pages/setlment/SettelmentStatement";
 import SuperAdminCallManagement from "./pages/call-management/SuperAdminCallManagement";
 import Settelment from "./pages/setlment/Settelment";
 import CallManagement from "./pages/call-management/CallManagement";
+import FancyEntry from "./pages/fancy-entry/FancyEntry";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import SportsManagement from "./pages/sport-management/SportsManagement";
 import UserManagement from "./pages/user-management/UserManagement";
+import CallHistory from "./pages/calling/CallHistory";
+import CallStatement from "./pages/calling/CallStatement";
+import CallSettelment from "./pages/calling/CallSettelment";
+import MatchStatement from "./pages/matchstatement/MatchStatement";
+import ReportPage from "./pages/onepagereport/ReportPage";
+import AdminShareCommSettlement from "./pages/setlment/AdminShareCommSettlement";
+import AdminOnePageReport from "./pages/onepagereport/AdminOnePageReport";
 
 function App() {
   return (
@@ -21,6 +29,7 @@ function App() {
           <Routes>
             <Route path="/" element={<HomeContent />} />
             <Route path="/match-entry" element={<MatchEntry />} />
+            <Route path="/fancy-entry" element={<FancyEntry />} />
             <Route path="/call-management" element={<CallManagement />} />
             <Route
               path="/settelment-statement"
@@ -34,6 +43,19 @@ function App() {
             <Route path="/settelment-statement" element={<Settelment />} />
             <Route path="/sport-management" element={<SportsManagement />} />
             <Route path="/user-management" element={<UserManagement />} />
+            <Route path="/call-history" element={<CallHistory />} />
+            <Route path="/call-statement" element={<CallStatement />} />
+            <Route path="/call-settelment" element={<CallSettelment />} />
+            <Route path="/match-statement" element={<MatchStatement />} />
+            <Route path="/report-page" element={<ReportPage />} />
+            <Route
+              path="/admin-share-comm-settlement"
+              element={<AdminShareCommSettlement />}
+            />
+            <Route
+              path="/admin-one-page-report"
+              element={<AdminOnePageReport />}
+            />
           </Routes>
         </BrowserRouter>
       </div>

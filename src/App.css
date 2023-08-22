@@ -3,6 +3,19 @@ body {
   color: #ffffff !important;
   font-family: "Barlow-Regular" !important;
 }
+::-webkit-scrollbar {
+  width: 5px;
+  border-radius: 10px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: #082051;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: #113070;
+  border-radius: 10px;
+}
 @font-face {
   font-family: "Barlow-Medium";
   src: url("./pages/call-management/Barlow-Medium.ttf");
