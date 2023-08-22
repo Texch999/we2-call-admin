@@ -29,116 +29,7 @@ function StatementPopup(props) {
   //     setMatchEntryInputs(false);
   //     setMatchResultInputs(true);
   //   };
-  const CLIENTPL_DETAILS = [
-    {
-      name: "Animesh",
-      matchpl: "1000000.00",
-      sixover: "500000.00",
-      tenover: "500000.00",
-      fifteenover: "500000.00",
-      sixoverone: "500000.00",
-      tenoverone: "500000.00",
-      fifteenoverone: "500000.00",
-      fancycom: "500000.00",
-      mfc: "500000.00",
-    },
-    {
-      name: "Animesh",
-      matchpl: "1000000.00",
-      sixover: "500000.00",
-      tenover: "500000.00",
-      fifteenover: "500000.00",
-      sixoverone: "500000.00",
-      tenoverone: "500000.00",
-      fifteenoverone: "500000.00",
-      fancycom: "500000.00",
-      mfc: "500000.00",
-    },
-    {
-      name: "Animesh",
-      matchpl: "1000000.00",
-      sixover: "500000.00",
-      tenover: "500000.00",
-      fifteenover: "500000.00",
-      sixoverone: "500000.00",
-      tenoverone: "500000.00",
-      fifteenoverone: "500000.00",
-      fancycom: "500000.00",
-      mfc: "500000.00",
-    },
-    {
-      name: "Animesh",
-      matchpl: "1000000.00",
-      sixover: "500000.00",
-      tenover: "500000.00",
-      fifteenover: "500000.00",
-      sixoverone: "500000.00",
-      tenoverone: "500000.00",
-      fifteenoverone: "500000.00",
-      fancycom: "500000.00",
-      mfc: "500000.00",
-    },
-    {
-      name: "Animesh",
-      matchpl: "1000000.00",
-      sixover: "500000.00",
-      tenover: "500000.00",
-      fifteenover: "500000.00",
-      sixoverone: "500000.00",
-      tenoverone: "500000.00",
-      fifteenoverone: "500000.00",
-      fancycom: "500000.00",
-      mfc: "500000.00",
-    },
-    {
-      name: "Animesh",
-      matchpl: "1000000.00",
-      sixover: "500000.00",
-      tenover: "500000.00",
-      fifteenover: "500000.00",
-      sixoverone: "500000.00",
-      tenoverone: "500000.00",
-      fifteenoverone: "500000.00",
-      fancycom: "500000.00",
-      mfc: "500000.00",
-    },
-    {
-      name: "Animesh",
-      matchpl: "1000000.00",
-      sixover: "500000.00",
-      tenover: "500000.00",
-      fifteenover: "500000.00",
-      sixoverone: "500000.00",
-      tenoverone: "500000.00",
-      fifteenoverone: "500000.00",
-      fancycom: "500000.00",
-      mfc: "500000.00",
-    },
-    {
-      name: "Animesh",
-      matchpl: "1000000.00",
-      sixover: "500000.00",
-      tenover: "500000.00",
-      fifteenover: "500000.00",
-      sixoverone: "500000.00",
-      tenoverone: "500000.00",
-      fifteenoverone: "500000.00",
-      fancycom: "500000.00",
-      mfc: "500000.00",
-    },
-    {
-      name: "Animesh",
-      matchpl: "1000000.00",
-      sixover: "500000.00",
-      tenover: "500000.00",
-      fifteenover: "500000.00",
-      sixoverone: "500000.00",
-      tenoverone: "500000.00",
-      fifteenoverone: "500000.00",
-      fancycom: "500000.00",
-      mfc: "500000.00",
-    },
-  ];
+
   return (
     <div className="modal fade bd-example-modal-lg container mt-5">
       <Modal
@@ -150,26 +41,38 @@ function StatementPopup(props) {
       >
         <Modal.Header>
           <div className="w-100">
-            <div className="p-3 rounded-top match-position-bg w-100 d-flex align-items-center justify-content-between">
+            <div className="p-2 rounded-top w-100 d-flex align-items-center justify-content-between">
               <div className="w-25 d-flex justify-content-between">
                 <div>
-                  <div className="medium-font">Match Entry</div>
-                  <PiArrowCircleDownBold className="d-flex" />
+                  <div className="w-100 small-font clr-yellow match-date-button p-1 rounded-pill ms-1 me-1">
+                    Match : IND vs SL
+                  </div>
                 </div>
-                <div onClick={() => handleRfplResult()}>
-                  <div className="medium-font">Match Result</div>
-                  <PiArrowCircleDownBold className="d-flex" />
+                <div>
+                  <div className="w-100 small-font clr-yellow match-date-button p-1 rounded-pill ms-1 me-1">
+                    Date : 31/07/2023
+                  </div>
                 </div>
               </div>
-              <div className="w-50 d-flex justify-content-between">
-                <div className="w-50 d-flex justify-content-end">
-                  <div className="w-50 match-entry-btn d-flex align-items-center justify-content-around rounded-pill p-1">
+              <div className="w-50 d-flex justify-content-end">
+                <div className="w-100 d-flex justify-content-end">
+                  <div
+                    className={`match-entry-btn w-50 d-flex align-items-center justify-content-around rounded-pill p-1 ${
+                      clientInputs ? "yellow-btn" : ""
+                    }`}
+                    onClick={() => handleClientEntry()}
+                  >
                     <div className="medium-font">Client P/L</div>
                     <PiArrowCircleRightBold className="d-flex" />
                   </div>
                 </div>
-                <div className="w-50 d-flex justify-content-start">
-                  <div className="w-50 match-entry-btn d-flex align-items-center justify-content-around rounded-pill p-1">
+                <div className="w-50 d-flex justify-content-end">
+                  <div
+                    className={`match-entry-btn w-100 d-flex align-items-center justify-content-around rounded-pill p-1 ${
+                      rfplInputs ? "yellow-btn" : ""
+                    }`}
+                    onClick={() => handleRfplResult()}
+                  >
                     <div className="medium-font">Rf P/L</div>
                     <PiArrowCircleRightBold className="d-flex" />
                   </div>
@@ -179,38 +82,8 @@ function StatementPopup(props) {
           </div>
         </Modal.Header>
         <Modal.Body className="p-3">
-          <table className="w-100 match-position-table small-font">
-            <thead>
-              <tr className="text-center">
-                <th>Name</th>
-                <th>Match P/L</th>
-                <th>6 Over</th>
-                <th>10 Over</th>
-                <th>15 Over</th>
-                <th>6 Over</th>
-                <th>10 Over</th>
-                <th>15 Over</th>
-                <th>FancyR-Com</th>
-                <th>M+F+C</th>
-              </tr>
-            </thead>
-            {CLIENTPL_DETAILS.map((item, index) => (
-              <tbody key={index}>
-                <tr className="text-center">
-                  <td>{item.name}</td>
-                  <td>{item.matchpl}</td>
-                  <td>{item.sixover}</td>
-                  <td className="clr-green"> {item.tenover}</td>
-                  <td className="clr-green"> {item.fifteenover}</td>
-                  <td className="clr-green"> {item.sixoverone}</td>
-                  <td className="clr-green"> {item.tenoverone}</td>
-                  <td className="clr-green"> {item.fifteenoverone}</td>
-                  <td className="clr-green"> {item.fancycom}</td>
-                  <td className="clr-green"> {item.mfc}</td>
-                </tr>
-              </tbody>
-            ))}
-          </table>
+          {clientInputs && <ClientPLTable />}
+          {rfplInputs && <RfplTable />}
         </Modal.Body>
         <Modal.Footer></Modal.Footer>
       </Modal>
