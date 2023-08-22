@@ -33,13 +33,13 @@ const AdminSharesMatchStatement = () => {
     },
     {
       label: "Fancy",
-      options: ["Fancy", "WTC", "ODI", "IPL"],
+      options: ["Fancy", "1st Innings", "2nd Innings", "10th over"],
       name: "fancy",
       id: "fancy",
     },
     {
       label: "Name",
-      options: ["Select", "ODI", "IPL"],
+      options: ["Select", "Sri1234", "Jayantha", "srikanth"],
       name: "client_name",
       id: "clientName",
     },
@@ -81,6 +81,12 @@ const AdminSharesMatchStatement = () => {
   const handleReport = (report) => {
     setActiveReport(report);
   };
+  const handleSelect = (e) => {
+    console.log(e.target.value);
+  };
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+  };
   return (
     <div className="p-4">
       <div>
@@ -98,18 +104,24 @@ const AdminSharesMatchStatement = () => {
             </Button>
           ))}
         </div>
-        <Form>
-          <div className="d-flex">
+        <Form onSubmit={(e) => handleFormSubmit(e)}>
+          <div className="d-flex flex-sm-row container-fluid">
             {inputFields?.map((inputData, index) => (
-              <div key={index} className="d-flex me-2">
-                <Form.Group className="d-flex flex-column admin-match-statement">
+              <div key={index} className="d-flex me-2 row">
+                <Form.Group className="d-flex flex-column admin-match-statement col">
                   <Form.Label htmlFor={inputData?.id}>
                     {inputData?.label}
                   </Form.Label>
                   {inputData?.options ? (
-                    <Form.Select id={inputData?.id} size="lg">
-                      {inputData?.options?.map((options) => (
-                        <option className="w-100">{options}</option>
+                    <Form.Select
+                      id={inputData?.id}
+                      size="lg"
+                      onChange={(e) => handleSelect(e)}
+                    >
+                      {inputData?.options?.map((options, index) => (
+                        <option className="w-100" key={index}>
+                          {options}
+                        </option>
                       ))}
                     </Form.Select>
                   ) : (
@@ -118,14 +130,18 @@ const AdminSharesMatchStatement = () => {
                       value={inputData?.value}
                       id={inputData?.id}
                       size="lg"
-                  
                     />
                   )}
                 </Form.Group>
               </div>
             ))}
-            <div>
-              <Button type="submit">Verify</Button>
+            <div className="mt-4">
+              <Button
+                type="submit"
+                className="active-report-button verify-button"
+              >
+                Verify
+              </Button>
             </div>
           </div>
         </Form>
