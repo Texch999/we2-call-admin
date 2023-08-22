@@ -37,7 +37,6 @@
   border-radius: 8px;
   border: solid 1px #264990;
   height: 5vh !important;
-
 }
 .button-container:hover {
   background-color: #112a5e;
@@ -45,7 +44,7 @@
   border-color: #112a5e;
   border: solid 1px #264990;
 }
-.dropdown-item-statement{
+.dropdown-item-statement {
   background-color: #112a5e;
   color: white !important;
 }
