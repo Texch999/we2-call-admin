@@ -2,14 +2,22 @@ import { PiArrowCircleDownBold } from "react-icons/pi";
 import MatchTable from "./MatchTable";
 import { useState } from "react";
 import MatchShareModal from "../match-popups/MatchShareModal";
+import MatchCommModal from "../match-popups/MatchCommModal";
 function MatchPositionTable(props) {
   const { teamName } = props;
   const [matchShareModal, setMatchShareModal] = useState(false);
+  const [matchCommModal, setMatchCommModal] = useState(false);
   const handleOpenMatchShareModal = () => {
     setMatchShareModal(true);
   };
   const handleCloseMatchShareModal = () => {
     setMatchShareModal(false);
+  };
+  const handleOpenMatchCommModal = () => {
+    setMatchCommModal(true);
+  };
+  const handleCloseMatchCommModal = () => {
+    setMatchCommModal(false);
   };
   const MATCH_POSITION_TABLE_DATA = [
     {
@@ -75,7 +83,10 @@ function MatchPositionTable(props) {
           </div>
         </div>
         <div className="col">
-          <div className="share-bg rounded-pill d-flex align-items-center justify-content-between p-1">
+          <div
+            className="share-bg rounded-pill d-flex align-items-center justify-content-between p-1"
+            onClick={() => handleOpenMatchCommModal()}
+          >
             <div className="medium-font">Comm</div>
             <div>
               <PiArrowCircleDownBold className="d-flex large-font" />
@@ -93,6 +104,10 @@ function MatchPositionTable(props) {
         <MatchShareModal
           matchShareModal={matchShareModal}
           handleCloseMatchShareModal={handleCloseMatchShareModal}
+        />
+        <MatchCommModal
+          matchCommModal={matchCommModal}
+          handleCloseMatchCommModal={handleCloseMatchCommModal}
         />
       </div>
     </div>

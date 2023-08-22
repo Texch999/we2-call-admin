@@ -1,44 +1,45 @@
 import { Modal } from "react-bootstrap";
 import { IoCloseSharp } from "react-icons/io5";
 import MatchTable from "../match-entry/MatchTable";
-function MatchShareModal(props) {
-  const { matchShareModal, handleCloseMatchShareModal } = props;
+
+function MatchCommModal(props) {
+  const { matchCommModal, handleCloseMatchCommModal } = props;
   const MATCH_POSITION_TABLE_DATA = [
     {
       header: "Animesh",
-      clientShare: 50000000,
-      rfShare: 50000000,
-      ulShare: 50000000,
+      clientComm: 50000000,
+      rfComm: 50000000,
+      empty: "- -",
     },
     {
       header: "Animesh",
-      clientShare: 50000000,
-      rfShare: 50000000,
-      ulShare: 50000000,
+      clientComm: 50000000,
+      rfComm: 50000000,
+      empty: "- -",
     },
     {
       header: "Animesh",
-      clientShare: 50000000,
-      rfShare: 50000000,
-      ulShare: 50000000,
+      clientComm: 50000000,
+      rfComm: 50000000,
+      empty: "- -",
     },
   ];
   const MATCH_POSITION_HEADER_DATA = [
     { header: "Client Name", field: "header" },
-    { header: "Client Share", field: "clientShare" },
-    { header: "RF Share", field: "rfShare" },
-    { header: "UL Share", field: "ulShare" },
+    { header: "Client Comm", field: "clientComm" },
+    { header: "RF Comm", field: "rfComm" },
+    { header: "- -", field: "empty" },
   ];
   return (
     <Modal
       className="match-share-modal"
-      show={matchShareModal}
-      onHide={handleCloseMatchShareModal}
+      show={matchCommModal}
+      onHide={handleCloseMatchCommModal}
       centered
     >
       <Modal.Header>
-        <div className="large-font">Client Share</div>
-        <IoCloseSharp onClick={handleCloseMatchShareModal} />
+        <div className="large-font">Client Comm</div>
+        <IoCloseSharp onClick={handleCloseMatchCommModal} />
       </Modal.Header>
       <Modal.Body>
         <div className="p-3">
@@ -52,4 +53,4 @@ function MatchShareModal(props) {
   );
 }
 
-export default MatchShareModal;
+export default MatchCommModal;
