@@ -151,7 +151,7 @@ function Settelment() {
         </div>
       </div>
       <div>
-        <table className="table settelment-table">
+        <table className="table settelment-table medium-font">
           <thead>
             <tr>
               <th scope="col" className="text-center">

@@ -1,8 +1,5 @@
 import React, { useState } from "react";
 import { Modal } from "react-bootstrap";
-import { PiArrowCircleRightBold } from "react-icons/pi";
-import ClientPLTable from "./ClientPLTable";
-import RfplTable from "./RfplTable";
 import ClientTableFS from "./ClientTableFS";
 import ULShareTableFS from "./ULShareTableFS";
 import ReferalTableFS from "./ReferalTableFS";

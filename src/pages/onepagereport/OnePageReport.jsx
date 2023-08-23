@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import "./styles.css";
+import OnePagePopup from "./OnePagePopup";
 
 function OnePageReport() {
   const PAGE_REPORT_DETAILS = [
@@ -109,6 +110,10 @@ function OnePageReport() {
       totalpl: "50000000",
     },
   ];
+  const [showReportPopup, setShowReportPopup] = useState(false);
+  const handleReportPageShow = () => {
+    setShowReportPopup(true);
+  };
   return (
     <div className="p-2 mt-4">
       <table className="w-100 match-position-table medium-font">
@@ -124,7 +129,7 @@ function OnePageReport() {
         {PAGE_REPORT_DETAILS.map((item, index) => (
           <tbody key={index}>
             <tr className="text-center">
-              <td>{item.client}</td>
+              <td onClick={() => handleReportPageShow()}>{item.client}</td>
               <td>{item.mfrc}</td>
               <td>{item.cnet}</td>
               <td> {item.rfnet}</td>
@@ -135,10 +140,16 @@ function OnePageReport() {
         <tfoot>
           <tr className="text-center">
             <th colSpan={4}>TOTAL</th>
-            <th colSpan={3} className="clr-green">50000000.00</th>
+            <th colSpan={3} className="clr-green">
+              50000000.00
+            </th>
           </tr>
         </tfoot>
       </table>
+      <OnePagePopup
+        showReportPopup={showReportPopup}
+        setShowReportPopup={setShowReportPopup}
+      />
     </div>
   );
 }

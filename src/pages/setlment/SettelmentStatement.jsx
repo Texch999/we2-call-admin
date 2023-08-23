@@ -128,7 +128,7 @@ function SettelmentStatement() {
     <div className="p-4">
       <div className="xx-large-font mb-4">Settelment Statement</div>
       <div>
-        <table className="settelment-table">
+        <table className="table settelment-table medium-font">
           <thead>
             <tr>
               <th scope="col" className="text-center">
@@ -154,13 +154,13 @@ function SettelmentStatement() {
 
           {UPCOMING_SETTELMENT_DETAILS.map((item, index) => (
             <tbody key={index}>
-              <tr>
-                <td className="text-center">{item.DateTime}</td>
-                <td className="text-center">{item.ClientName}</td>
-                <td className="text-center">{item.ModeofPayment}</td>
-                <td className="text-center">{item.dayBalance}</td>
-                <td className="text-center">{item.SettledAmount}</td>
-                <td className="text-centert">{item.Balance}</td>
+              <tr className="text-center">
+                <td>{item.DateTime}</td>
+                <td>{item.ClientName}</td>
+                <td>{item.ModeofPayment}</td>
+                <td>{item.dayBalance}</td>
+                <td>{item.SettledAmount}</td>
+                <td>{item.Balance}</td>
               </tr>
             </tbody>
           ))}

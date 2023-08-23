@@ -165,10 +165,10 @@ function CallSettelment() {
           <div className="clr-yellow medium-font">0.00</div>
         </div>
       </div>
-      <div className="d-flex flex-row mb-4 w-50 justify-content-between">
+      <div className="d-flex flex-row mb-4 w-35 justify-content-between">
         <div>
           <div className="medium-font mb-2">Settelment Amount</div>
-          <div className="date-container d-flex justify-content-around align-items-center">
+          <div className="date-container d-flex justify-content-around align-items-center rounded p-2">
             <div className="small-font d-flex justify-content-start">
               Setteled Amount
             </div>
@@ -176,7 +176,7 @@ function CallSettelment() {
         </div>
         <div onClick={handleUploadButtonClick}>
           <div className="medium-font mb-2">Upload Screenshot</div>
-          <div className="date-container d-flex justify-content-around align-items-center">
+          <div className="date-container d-flex justify-content-around align-items-center rounded p-2">
             <div className="small-font">Upload Screenshot</div>
             <input
               type="file"
@@ -188,13 +188,13 @@ function CallSettelment() {
             <BiSolidCloudUpload className="custom-icon"></BiSolidCloudUpload>
           </div>
         </div>
-        <button className="submit-button mt-3 medium-font p-3">
+        <button className="submit-button mt-3 medium-font p-2 all-none">
           Create Settelment
         </button>
       </div>
 
       <div>
-        <table className="table settelment-table">
+        <table className="table settelment-table medium-font">
           <thead>
             <tr>
               <th scope="col" className="text-center">

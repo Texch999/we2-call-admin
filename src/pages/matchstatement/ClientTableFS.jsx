@@ -33,7 +33,6 @@ function ClientTableFS() {
   ];
   return (
     <div>
-      {" "}
       <table className="w-100 match-position-table medium-font">
         <thead>
           <tr className="text-center">

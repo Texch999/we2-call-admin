@@ -191,22 +191,22 @@ function CallHistory() {
       <div className="xx-large-font mt-2 mb-4 font-weight-bold">
         Call History
       </div>
-      <div className="d-flex flex-row mb-4 w-50 justify-content-between">
+      <div className="d-flex flex-row mb-4 w-35 justify-content-between">
         <div>
           <div className="small-font mb-2">From</div>
-          <div className="date-container d-flex justify-content-around align-items-center">
-            <input className="login-inputs " type="date"></input>
-            <FaCalendarAlt className="custom-icon"></FaCalendarAlt>
+          <div className="date-container d-flex justify-content-around align-items-center rounded p-2">
+            <input className="login-inputs small-font" type="date"></input>
           </div>
         </div>
         <div>
           <div className="small-font mb-2">To</div>
-          <div className="date-container d-flex justify-content-around align-items-center">
-            <input type="date" className="login-inputs"></input>
-            <FaCalendarAlt className="custom-icon"></FaCalendarAlt>
+          <div className="date-container d-flex justify-content-around align-items-center rounded p-2">
+            <input type="date" className="login-inputs small-font"></input>
           </div>
         </div>
-        <button className="submit-button mt-3 medium-font p-3 font-weight-bold">Submit</button>
+        <button className="submit-button mt-3 medium-font p-1 font-weight-bold">
+          Submit
+        </button>
       </div>
       <div>
         <table className="table settelment-table">
@@ -240,7 +240,9 @@ function CallHistory() {
                 <td className="text-center">{item.duration}</td>
                 <td className="text-center clr-green ">{item.charge}</td>
                 <td className="text-center clr-green ">
-                  <button className="rounded-pill p-1 history-status-approve-button w-100">{item.status}</button>
+                  <button className="rounded-pill p-1 history-status-approve-button w-100">
+                    {item.status}
+                  </button>
                 </td>
                 <td className="text-center">
                   <AiFillPlayCircle className="custom-icon" />
