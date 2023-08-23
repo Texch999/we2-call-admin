@@ -18,9 +18,7 @@
   border: none;
   box-shadow: none !important;
 }
-/* .user-search-input .form-control:focus {
-  background-color: unset;
-} */
+
 .user-search-input::placeholder {
   color: #8da3d0;
   font-family: "Barlow-Medium";

@@ -56,7 +56,7 @@ const AddUsers = () => {
             <Form.Control
               type="text"
               placeholder="Search User..."
-              className="me-3 user-search-input "
+              className="me-3 user-search-input cursor-pointer"
             />
             <FiSearch className="user-search-icon position-absolute" />
             <Button className="add-new-meetings-button">+ Add Users</Button>
