@@ -102,6 +102,17 @@ function AddUserPopUp(props) {
                   />
                 </Form.Group>
               </Col>
+              <Form.Group
+                className="mb-3"
+                controlId="exampleForm.ControlInput1"
+              >
+                <Form.Label>Admin Password*</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Enter Admin Password"
+                  autoFocus
+                />
+              </Form.Group>
             </Row>
           </Container>
           <Button className="w-100 add-user-button">Add</Button>
