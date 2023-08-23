@@ -7,9 +7,9 @@ function MatchResultInput() {
   const handleMatchSubmitPopupOpen = () => {
     setMatchSubmitPopup(true);
   };
-  const handleMatchSubmitPopupClose = () => {
-    setMatchSubmitPopup(false);
-  };
+  // const handleMatchSubmitPopupClose = () => {
+  //   setMatchSubmitPopup(false);
+  // };
   const handleSubmitPopupOpen = () => {
     setSubmitPopup(true);
     setMatchSubmitPopup(false);
@@ -71,14 +71,11 @@ function MatchResultInput() {
         </div>
       </div>
       <MatchDeclarationPopup
-        matchSubmitPopup={matchSubmitPopup}
-        handleMatchSubmitPopupClose={handleMatchSubmitPopupClose}
+        state={matchSubmitPopup}
+        setState={setMatchSubmitPopup}
         handleSubmitPopupOpen={handleSubmitPopupOpen}
       />
-      <MatchSubmitPopup
-        submitPopup={submitPopup}
-        handleSubmitPopupClose={handleSubmitPopupClose}
-      />
+      <MatchSubmitPopup state={submitPopup} setState={setSubmitPopup} />
     </div>
   );
 }

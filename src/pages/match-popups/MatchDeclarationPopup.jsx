@@ -3,15 +3,15 @@ import { IoCloseSharp } from "react-icons/io5";
 import { Images } from "./../../images/index";
 
 function MatchDeclarationPopup(props) {
-  const {
-    matchSubmitPopup,
-    handleMatchSubmitPopupClose,
-    handleSubmitPopupOpen,
-  } = props;
+  console.log(props);
+  const { state, setState, handleSubmitPopupOpen } = props;
+  const handleCancel = () => {
+    setState(false);
+  };
   return (
-    <Modal className="match-declaration-modal" centered show={matchSubmitPopup}>
+    <Modal className="match-declaration-modal" centered show={state}>
       <Modal.Header className="d-flex justify-content-end">
-        <IoCloseSharp onClick={handleMatchSubmitPopupClose} />
+        <IoCloseSharp onClick={() => handleCancel()} />
       </Modal.Header>
       <Modal.Body>
         <center className="px-3">
@@ -33,7 +33,7 @@ function MatchDeclarationPopup(props) {
             </div>
             <div
               className="col-5 rounded share-bg p-1"
-              onClick={handleMatchSubmitPopupClose}
+              onClick={() => handleCancel()}
             >
               No
             </div>

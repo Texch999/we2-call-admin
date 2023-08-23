@@ -45,14 +45,14 @@ function Header() {
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">
+                <a className="nav-link" href="/match-entry">
                   Link
                 </a>
               </li>
               <li className="nav-item dropdown">
                 <a
                   className="nav-link dropdown-toggle "
-                  href="#"
+                  href="/match-entry"
                   role="button"
                   data-bs-toggle="dropdown"
                   aria-expanded="false"

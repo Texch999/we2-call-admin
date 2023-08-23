@@ -1,23 +1,24 @@
 import { Modal } from "react-bootstrap";
 import { IoCloseSharp } from "react-icons/io5";
 import MatchTable from "../match-entry/MatchTable";
-function MatchShareModal(props) {
-  const { matchShareModal, handleCloseMatchShareModal } = props;
+
+function FancyResultNameSharePopup(props) {
+  const { fancyResultSharePopup, handleFancyResultSharePopupClose } = props;
   const MATCH_POSITION_TABLE_DATA = [
     {
-      header: "Animesh",
+      header: "Jayanth",
       clientShare: 50000000,
       rfShare: 50000000,
       ulShare: 50000000,
     },
     {
-      header: "Animesh",
+      header: "Jayanth",
       clientShare: 50000000,
       rfShare: 50000000,
       ulShare: 50000000,
     },
     {
-      header: "Animesh",
+      header: "Jayanth",
       clientShare: 50000000,
       rfShare: 50000000,
       ulShare: 50000000,
@@ -32,13 +33,15 @@ function MatchShareModal(props) {
   return (
     <Modal
       className="match-share-modal modal-lg"
-      show={matchShareModal}
-      onHide={handleCloseMatchShareModal}
+      show={fancyResultSharePopup}
+      onHide={handleFancyResultSharePopupClose}
       centered
     >
       <Modal.Header>
-        <div className="large-font">Client Share</div>
-        <IoCloseSharp onClick={handleCloseMatchShareModal} />
+        <div className="large-font">
+          Fancy Result P/L- <span className="yellow-clr">IND vs SL</span>
+        </div>
+        <IoCloseSharp onClick={handleFancyResultSharePopupClose} />
       </Modal.Header>
       <Modal.Body>
         <div className="p-3">
@@ -52,4 +55,4 @@ function MatchShareModal(props) {
   );
 }
 
-export default MatchShareModal;
+export default FancyResultNameSharePopup;
