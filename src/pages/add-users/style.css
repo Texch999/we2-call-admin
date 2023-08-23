@@ -1,0 +1,33 @@
+.cp-button {
+  --bs-btn-bg: #2eb9b5;
+}
+.edit-button {
+  --bs-btn-bg: #277da1;
+}
+.b-button {
+  --bs-btn-bg: #e84855;
+}
+.ub-button {
+  --bs-btn-bg: #4ebd5d;
+}
+.user-search-input {
+  width: unset;
+  color: #fff !important;
+  background-color: #112a5e !important;
+  font-family: "Barlow-Medium";
+  border: none;
+  box-shadow: none !important;
+}
+/* .user-search-input .form-control:focus {
+  background-color: unset;
+} */
+.user-search-input::placeholder {
+  color: #8da3d0;
+  font-family: "Barlow-Medium";
+}
+.user-search-icon {
+  color: #fce719;
+  top: 30%;
+  left: 55%;
+  cursor: pointer;
+}

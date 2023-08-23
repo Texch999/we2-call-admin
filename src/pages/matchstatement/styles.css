@@ -81,7 +81,6 @@
 }
 .admin-match-statement input[type="date"]::-webkit-calendar-picker-indicator {
   cursor: pointer;
-
   opacity: 0.6;
   filter: invert(0.8);
 }

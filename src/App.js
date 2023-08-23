@@ -20,6 +20,7 @@ import ReportPage from "./pages/onepagereport/ReportPage";
 import AdminShareCommSettlement from "./pages/setlment/AdminShareCommSettlement";
 import AdminOnePageReport from "./pages/onepagereport/AdminOnePageReport";
 import AdminSharesMatchStatement from "./pages/matchstatement/AdminSharesMatchStatement";
+import AddUsers from "./pages/add-users/AddUsers";
 
 function App() {
   return (
@@ -57,10 +58,11 @@ function App() {
               path="/admin-one-page-report"
               element={<AdminOnePageReport />}
             />
-             <Route
+            <Route
               path="/admin-share-match-statement"
               element={<AdminSharesMatchStatement />}
             />
+            <Route path="/add-users" element={<AddUsers />} />
           </Routes>
         </BrowserRouter>
       </div>
