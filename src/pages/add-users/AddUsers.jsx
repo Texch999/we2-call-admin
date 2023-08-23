@@ -47,9 +47,9 @@ const AddUsers = () => {
         </div>
 
         <div className="mt-3 d-flex justify-content-between align-items-center">
-          <div className="d-flex">
+          <div className="d-flex justify-content-center align-items-center">
             <Button className="me-2">Agent</Button>
-            <p>Sri Agent</p>
+            <p className="mb-0 fs-6">Sri Agent</p>
           </div>
 
           <Form className="d-flex position-relative">
