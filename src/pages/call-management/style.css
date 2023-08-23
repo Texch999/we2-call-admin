@@ -10,8 +10,9 @@
   --bs-btn-bg: #fce719;
   --bs-btn-border-color: none;
   --bs-btn-font-weight: 600;
+  --bs-btn-font-family: "Barlow-SemiBold";
 }
-.meetings-heading {
+.meetings-heading ,.agent-button{
   font-family: "Barlow-SemiBold";
 }
 .call-management-data thead tr th {
@@ -98,7 +99,8 @@
   .call-management-data tfoot tr th,
   .admin-match-statement input,
   .admin-match-statement select,
-  .admin-match-statement label, .verify-button {
+  .admin-match-statement label,
+  .verify-button {
     font-size: var(--table-body-lg-font-size) !important;
   }
 }
