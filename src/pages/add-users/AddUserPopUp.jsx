@@ -1,6 +1,7 @@
-import { Container, Form, Row, Col } from "react-bootstrap";
+import { Container, Form, Row, Col, InputGroup, Image } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import { Images } from "../../images";
 
 function AddUserPopUp(props) {
   return (
@@ -12,7 +13,18 @@ function AddUserPopUp(props) {
         <Form>
           <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
             <Form.Label>Name*</Form.Label>
-            <Form.Control type="text" placeholder="Enter Name" autoFocus />
+            <InputGroup>
+              <InputGroup.Text id="basic-addon1">
+                <Image src={Images.LoginUserIcon} />
+              </InputGroup.Text>
+              <Form.Control
+                type="text"
+                placeholder="Enter Name"
+                aria-label="Enter Name"
+                aria-describedby="basic-addon1"
+                autoFocus
+              />
+            </InputGroup>
           </Form.Group>
           <Container fluid>
             <Row>
@@ -22,7 +34,6 @@ function AddUserPopUp(props) {
                   controlId="exampleForm.ControlInput1"
                 >
                   <Form.Label>User ID*</Form.Label>
-
                   <Form.Control
                     type="text"
                     placeholder="Enter Name"
@@ -78,7 +89,7 @@ function AddUserPopUp(props) {
                   <Form.Text id="sharePercentage">10%</Form.Text>
                   <Form.Control
                     type="text"
-                    placeholder="Enter password"
+                    placeholder="Enter Share"
                     autoFocus
                     aria-describedby="sharePercentage"
                   />
@@ -90,13 +101,12 @@ function AddUserPopUp(props) {
                   controlId="exampleForm.ControlInput1"
                 >
                   <Form.Label>My Share*</Form.Label>
-
                   <Form.Text id="platComm">
                     Plat Comm-<span>10%</span>
                   </Form.Text>
                   <Form.Control
                     type="text"
-                    placeholder="Enter confirm password"
+                    placeholder="Enter Share"
                     autoFocus
                     aria-describedby="platComm"
                   />
