@@ -2,44 +2,49 @@ import { Modal } from "react-bootstrap";
 import { IoCloseSharp } from "react-icons/io5";
 import MatchTable from "../match-entry/MatchTable";
 
-function MatchCommModal(props) {
-  const { matchCommModal, handleCloseMatchCommModal } = props;
+function FancyResultOversCommPopup(props) {
+  const { state, setState } = props;
+  const handleCancel = () => {
+    setState(false);
+  };
   const MATCH_POSITION_TABLE_DATA = [
     {
-      header: "Animesh",
+      header: "20 Overs",
       clientComm: 50000000,
       rfComm: 50000000,
-      empty: "- -",
+      ulComm: "- - ",
     },
     {
-      header: "Animesh",
+      header: "10 Overs",
       clientComm: 50000000,
       rfComm: 50000000,
-      empty: "- -",
+      ulComm: "- - ",
     },
     {
-      header: "Animesh",
+      header: "5 Overs",
       clientComm: 50000000,
       rfComm: 50000000,
-      empty: "- -",
+      ulComm: "- - ",
     },
   ];
   const MATCH_POSITION_HEADER_DATA = [
-    { header: "Client Name", field: "header" },
+    { header: "Overs", field: "header" },
     { header: "Client Comm", field: "clientComm" },
     { header: "RF Comm", field: "rfComm" },
-    { header: "- -", field: "empty" },
+    { header: "- -", field: "ulComm" },
   ];
   return (
     <Modal
       className="match-share-modal modal-lg"
-      show={matchCommModal}
-      onHide={handleCloseMatchCommModal}
+      show={state}
+      onHide={() => handleCancel()}
       centered
     >
       <Modal.Header>
-        <div className="large-font">Client Comm</div>
-        <IoCloseSharp onClick={handleCloseMatchCommModal} />
+        <div className="large-font">
+          Fancy Result P/L- <span className="yellow-clr">IND vs SL</span>
+        </div>
+        <IoCloseSharp onClick={() => handleCancel()} />
       </Modal.Header>
       <Modal.Body>
         <div className="p-3">
@@ -53,4 +58,4 @@ function MatchCommModal(props) {
   );
 }
 
-export default MatchCommModal;
+export default FancyResultOversCommPopup;

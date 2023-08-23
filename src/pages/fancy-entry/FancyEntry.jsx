@@ -11,9 +11,9 @@ function FancyEntry() {
   return (
     <div>
       <MatchScroll />
-      <div className="d-flex">
+      <div className="d-flex flex-wrap">
         <FancyResultClientTable />
-        {/* <FancyResultOversTable /> */}
+        <FancyResultOversTable />
         <FancyRiskRunningTable />
       </div>
       <FancyEntries />

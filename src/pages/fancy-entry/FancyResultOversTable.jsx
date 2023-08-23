@@ -1,7 +1,21 @@
+import { useState } from "react";
 import MatchTable from "../match-entry/MatchTable";
 import { PiArrowCircleDownBold } from "react-icons/pi";
+import FancyResultSharePopup from "../fancy-popups/FancyResultSharePopup";
+import FancyResultOversCommPopup from "../fancy-popups/FancyResultOversCommPopup";
 
 function FancyResultOversTable() {
+  const [fancyResultSharePopup, setFancyResultSharePopup] = useState(false);
+  const [fancyResultCommPopup, setFancyResultCommPopup] = useState(false);
+  const handleFancyResultSharePopupOpen = () => {
+    setFancyResultSharePopup(true);
+  };
+  const handleFancyResultSharePopupClose = () => {
+    setFancyResultSharePopup(false);
+  };
+  const handleFancyResultCommPopupOpen = () => {
+    setFancyResultCommPopup(true);
+  };
   const FANCY_OVERS_TABLE_DATA = [
     {
       header: "10 Overs",
@@ -55,7 +69,10 @@ function FancyResultOversTable() {
           </div>
         </div>
         <div className="col">
-          <div className="share-bg rounded-pill d-flex align-items-center justify-content-between p-1">
+          <div
+            className="share-bg rounded-pill d-flex align-items-center justify-content-between p-1"
+            onClick={() => handleFancyResultSharePopupOpen()}
+          >
             <div className="medium-font">Share</div>
             <div>
               <PiArrowCircleDownBold className="d-flex large-font" />
@@ -63,7 +80,10 @@ function FancyResultOversTable() {
           </div>
         </div>
         <div className="col">
-          <div className="share-bg rounded-pill d-flex align-items-center justify-content-between p-1">
+          <div
+            className="share-bg rounded-pill d-flex align-items-center justify-content-between p-1"
+            onClick={() => handleFancyResultCommPopupOpen()}
+          >
             <div className="medium-font">Comm</div>
             <div>
               <PiArrowCircleDownBold className="d-flex large-font" />
@@ -77,6 +97,14 @@ function FancyResultOversTable() {
           columns={FANCY_OVERS_HEADER_DATA}
         />
       </div>
+      <FancyResultSharePopup
+        fancyResultSharePopup={fancyResultSharePopup}
+        handleFancyResultSharePopupClose={handleFancyResultSharePopupClose}
+      />
+      <FancyResultOversCommPopup
+        state={fancyResultCommPopup}
+        setState={setFancyResultCommPopup}
+      />
     </div>
   );
 }

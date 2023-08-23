@@ -1,7 +1,24 @@
+import { useState } from "react";
+import FancyResultNameSharePopup from "../fancy-popups/FancyResultNameSharePopup";
 import MatchTable from "../match-entry/MatchTable";
 import { PiArrowCircleDownBold } from "react-icons/pi";
+import FancyResultCommPopup from "../fancy-popups/FancyResultCommPopup";
 
 function FancyResultClientTable() {
+  const [fancyResultSharePopup, setFancyResultSharePopup] = useState(false);
+  const [fancyResultCommPopup, setFancyResultCommPopup] = useState(false);
+  const handleFancyResultSharePopupOpen = () => {
+    setFancyResultSharePopup(true);
+  };
+  const handleFancyResultSharePopupClose = () => {
+    setFancyResultSharePopup(false);
+  };
+  const handleFancyResultCommPopupOpen = () => {
+    setFancyResultCommPopup(true);
+  };
+  const handleFancyResultCommPopupClose = () => {
+    setFancyResultCommPopup(false);
+  };
   const FANCY_CLIENT_TABLE_DATA = [
     {
       header: "Animesh",
@@ -55,7 +72,10 @@ function FancyResultClientTable() {
           </div>
         </div>
         <div className="col">
-          <div className="share-bg rounded-pill d-flex align-items-center justify-content-between p-1">
+          <div
+            className="share-bg rounded-pill d-flex align-items-center justify-content-between p-1"
+            onClick={() => handleFancyResultSharePopupOpen()}
+          >
             <div className="medium-font">Share</div>
             <div>
               <PiArrowCircleDownBold className="d-flex large-font" />
@@ -63,7 +83,10 @@ function FancyResultClientTable() {
           </div>
         </div>
         <div className="col">
-          <div className="share-bg rounded-pill d-flex align-items-center justify-content-between p-1">
+          <div
+            className="share-bg rounded-pill d-flex align-items-center justify-content-between p-1"
+            onClick={() => handleFancyResultCommPopupOpen()}
+          >
             <div className="medium-font">Comm</div>
             <div>
               <PiArrowCircleDownBold className="d-flex large-font" />
@@ -77,6 +100,14 @@ function FancyResultClientTable() {
           columns={FANCY_CLIENT_HEADER_DATA}
         />
       </div>
+      <FancyResultNameSharePopup
+        fancyResultSharePopup={fancyResultSharePopup}
+        handleFancyResultSharePopupClose={handleFancyResultSharePopupClose}
+      />
+      <FancyResultCommPopup
+        fancyResultCommPopup={fancyResultCommPopup}
+        handleFancyResultCommPopupClose={handleFancyResultCommPopupClose}
+      />
     </div>
   );
 }
