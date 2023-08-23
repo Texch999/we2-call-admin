@@ -17,6 +17,7 @@
   font-family: "Barlow-Medium";
   border: none;
   box-shadow: none !important;
+  padding-right: 2rem;
 }
 
 .user-search-input::placeholder {
@@ -26,6 +27,11 @@
 .user-search-icon {
   color: #fce719;
   top: 30%;
-  left: 55%;
+  left: 58%;
   cursor: pointer;
+}
+.add-users-date span,
+.add-user-name {
+  font-family: "Barlow-Medium";
+  font-size: var(--table-body-font-size);
 }

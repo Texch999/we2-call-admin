@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, Table, Form } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./style.css";
 import { FiSearch } from "react-icons/fi";
+import AddUserPopUp from "./AddUserPopUp";
 
 const AddUsers = () => {
+  const [filteredValue, setFilteredValue] = useState("");
+  const [modalShow, setModalShow] = useState(false);
+
   const addUsersData = [
     {
       s_no: 1,
@@ -16,7 +20,7 @@ const AddUsers = () => {
     },
     {
       s_no: 2,
-      user_name: "Sai Offline",
+      user_name: "Sangram",
       type: "User",
       location: "Hyderabad",
       user: "Sriagent",
@@ -24,7 +28,7 @@ const AddUsers = () => {
     },
     {
       s_no: 3,
-      user_name: "Sai Offline",
+      user_name: "Srikanth",
       type: "User",
       location: "Hyderabad",
       user: "Sriagent",
@@ -37,19 +41,25 @@ const AddUsers = () => {
     b: "B",
     ub: "UB",
   };
+  const handleUserChange = (e) => {
+    setFilteredValue(e.target.value);
+  };
+  const filteredUsersData = addUsersData.filter((data) => {
+    return data?.user_name.toLowerCase().includes(filteredValue.toLowerCase());
+  });
   return (
     <div className="p-4">
       <div>
         <h5 className="meetings-heading">Add Users</h5>
-        <div className="d-flex flex-column">
+        <div className="d-flex flex-column add-users-date">
           <span>Wednesday, 2nd August, 2023</span>
           <span>12:22:34 PM</span>
         </div>
 
         <div className="mt-3 d-flex justify-content-between align-items-center">
           <div className="d-flex justify-content-center align-items-center">
-            <Button className="me-2">Agent</Button>
-            <p className="mb-0 fs-6">Sri Agent</p>
+            <Button className="me-2 agent-button">Agent</Button>
+            <span className="mb-0 add-user-name">Sri Agent</span>
           </div>
 
           <Form className="d-flex position-relative">
@@ -57,9 +67,16 @@ const AddUsers = () => {
               type="text"
               placeholder="Search User..."
               className="me-3 user-search-input cursor-pointer"
+              value={filteredValue}
+              onChange={(e) => handleUserChange(e)}
             />
             <FiSearch className="user-search-icon position-absolute" />
-            <Button className="add-new-meetings-button">+ Add Users</Button>
+            <Button
+              className="add-new-meetings-button"
+              onClick={() => setModalShow(true)}
+            >
+              + Add Users
+            </Button>
           </Form>
         </div>
       </div>
@@ -78,7 +95,7 @@ const AddUsers = () => {
             </tr>
           </thead>
           <tbody>
-            {addUsersData?.map((data, index) => (
+            {filteredUsersData?.map((data, index) => (
               <tr key={index}>
                 <td className="text-center">{data?.s_no}</td>
                 <td className="text-center">{data?.user_name}</td>
@@ -99,6 +116,9 @@ const AddUsers = () => {
               </tr>
             ))}
           </tbody>
+          {modalShow && (
+            <AddUserPopUp show={modalShow} onHide={() => setModalShow(false)} />
+          )}
         </Table>
       </div>
     </div>
