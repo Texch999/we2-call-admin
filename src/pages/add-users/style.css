@@ -35,3 +35,51 @@
   font-family: "Barlow-Medium";
   font-size: var(--table-body-font-size);
 }
+.add-user-modal .modal-content {
+  box-shadow: 0.3px 19px 24px 0 rgba(4, 12, 38, 0.36);
+  background-color: var(--table-bg-color);
+}
+@media (min-width: 576px) {
+  .add-user-modal .modal-dialog {
+    max-width: var(--modal-bs-width);
+  }
+}
+.add-user-modal .container-fluid {
+  --bs-gutter-x: unset;
+}
+.add-user-modal .modal-header {
+  padding: 1.5rem 1.5rem 0px 1.5rem;
+  border-bottom: unset;
+}
+.add-user-modal .modal-body {
+  padding: 0 1.5rem 1.5rem 1.5rem;
+}
+.add-user-modal .form-label {
+  font-size: var(--table-body-font-size);
+}
+.add-user-modal .form-control {
+  background-color: var(--input-bg-color);
+  color: var(--input-text-color);
+  border: none;
+}
+.add-user-modal .form-control:focus {
+  box-shadow: unset;
+}
+.add-user-modal .form-control::placeholder {
+  color: var(--input-placeholder-color);
+  font-size: var(--table-body-font-size);
+}
+.add-user-button {
+  background-color: var(--btn-bg-color);
+  color: var(--table-bg-color);
+  --bs-btn-border-width: unset;
+  font-family: "Barlow-Medium";
+}
+.add-user-modal .form-text {
+    color: var(--btn-bg-color);
+    font-size: var(--table-body-font-size);
+    float: right;
+    padding: 0.1rem 0.3rem;
+    background-color: var(--comm-bg-color);
+    border-radius: 0.4rem;
+}

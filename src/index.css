@@ -20,6 +20,10 @@ code {
   --table-body-lg-font-size: 0.9rem;
   --admin-summary-bs-border-color: solid 2px #264990;
   --table-body-xl-font-size: 1rem;
-  --input-bg-color:#112a5e;
-
+  --input-bg-color: #112a5e;
+  --input-text-color:#fff;
+  --input-placeholder-color:#c9d6f0;
+  --modal-bs-width: 450px !important;
+  --btn-bg-color:#fce719;
+  --comm-bg-color: #051e51;
 }
