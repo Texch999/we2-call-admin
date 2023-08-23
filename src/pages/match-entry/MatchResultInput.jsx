@@ -7,15 +7,9 @@ function MatchResultInput() {
   const handleMatchSubmitPopupOpen = () => {
     setMatchSubmitPopup(true);
   };
-  // const handleMatchSubmitPopupClose = () => {
-  //   setMatchSubmitPopup(false);
-  // };
   const handleSubmitPopupOpen = () => {
     setSubmitPopup(true);
     setMatchSubmitPopup(false);
-  };
-  const handleSubmitPopupClose = () => {
-    setSubmitPopup(false);
   };
   return (
     <div className="match-position-bg rounded-bottom p-3">
@@ -71,11 +65,17 @@ function MatchResultInput() {
         </div>
       </div>
       <MatchDeclarationPopup
+        header={"Are You Sure You Want Match to Win India?"}
+        amount={"+100000"}
         state={matchSubmitPopup}
         setState={setMatchSubmitPopup}
         handleSubmitPopupOpen={handleSubmitPopupOpen}
       />
-      <MatchSubmitPopup state={submitPopup} setState={setSubmitPopup} />
+      <MatchSubmitPopup
+        header={"You Are Successfully Submited Your Match to Win IND"}
+        state={submitPopup}
+        setState={setSubmitPopup}
+      />
     </div>
   );
 }

@@ -1,4 +1,17 @@
+import { useState } from "react";
+import MatchDeclarationPopup from "../match-popups/MatchDeclarationPopup";
+import MatchSubmitPopup from "../match-popups/MatchSubmitPopup";
+
 function FancyResultInput() {
+  const [fancyDeclarationPopup, setFancyDeclarationPopup] = useState(false);
+  const [fancySubmitPopup, setFancySubmitPopup] = useState(false);
+  const handleFancyDeclarationPopupOpen = () => {
+    setFancyDeclarationPopup(true);
+  };
+  const handleFancySubmitPopupOpen = () => {
+    setFancySubmitPopup(true);
+    setFancyDeclarationPopup(false);
+  };
   return (
     <div className="match-position-bg rounded-bottom p-3">
       <div className="row w-75">
@@ -33,11 +46,26 @@ function FancyResultInput() {
           </div>
         </div>
         <div className="col d-flex align-items-end">
-          <div className="w-100 text-center rounded medium-font p-2 yellow-btn fw-semibold">
+          <div
+            className="w-100 text-center rounded medium-font p-2 yellow-btn fw-semibold"
+            onClick={() => handleFancyDeclarationPopupOpen()}
+          >
             Fancy Declaration
           </div>
         </div>
       </div>
+      <MatchDeclarationPopup
+        header={"Are You Sure You Want to Declare 10th Over +50 Runs Session?"}
+        amount={"+100000"}
+        state={fancyDeclarationPopup}
+        setState={setFancyDeclarationPopup}
+        handleSubmitPopupOpen={handleFancySubmitPopupOpen}
+      />
+      <MatchSubmitPopup
+        header={"You Are Successfully Submited IND 10th Over Session"}
+        state={fancySubmitPopup}
+        setState={setFancySubmitPopup}
+      />
     </div>
   );
 }

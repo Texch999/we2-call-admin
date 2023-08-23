@@ -3,8 +3,7 @@ import { IoCloseSharp } from "react-icons/io5";
 import { Images } from "./../../images/index";
 
 function MatchDeclarationPopup(props) {
-  console.log(props);
-  const { state, setState, handleSubmitPopupOpen } = props;
+  const { header, amount, state, setState, handleSubmitPopupOpen } = props;
   const handleCancel = () => {
     setState(false);
   };
@@ -20,10 +19,8 @@ function MatchDeclarationPopup(props) {
             src={Images.QuestionMark}
             alt="Question_Mark"
           />
-          <div className="fs-6 mt-3">
-            Are You Sure You Want Match to Win India?
-          </div>
-          <div className="fs-6 mt-3">+100000</div>
+          <div className="fs-6 mt-3">{header}</div>
+          <div className="fs-6 mt-3">{amount}</div>
           <div className="row d-flex justify-content-between mt-3">
             <div
               className="col-5 rounded yellow-btn p-1"

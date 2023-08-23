@@ -3,7 +3,7 @@ import { IoCloseSharp } from "react-icons/io5";
 import { Images } from "./../../images/index";
 
 function MatchSubmitPopup(props) {
-  const { state, setState } = props;
+  const {header, state, setState } = props;
   const handleCancel = () => {
     setState(false);
   };
@@ -20,8 +20,7 @@ function MatchSubmitPopup(props) {
             alt="Question_Mark"
           />
           <div className="fs-6 mt-3">
-            You Are Successfully Submited Your Match to Win IND
-          </div>
+{header}          </div>
           <div className="row d-flex justify-content-between mt-3">
             <div
               className="col rounded yellow-btn p-1"
