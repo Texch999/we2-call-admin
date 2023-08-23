@@ -90,7 +90,7 @@ function ClientPLTable() {
           </tbody>
         ))}
         <tfoot>
-          <tr className="text-center small-font clr-green">
+          <tr className="text-center small-font clr-green all-none">
             <th>TOTAL</th>
             <th>50000000.00</th>
             <th>50000000.00</th>

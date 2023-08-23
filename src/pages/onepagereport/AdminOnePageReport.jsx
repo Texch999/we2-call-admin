@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { Button, Table, Dropdown } from "react-bootstrap";
+import { Button, Table } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-// import "./style.css";
 
 const AdminOnePageReport = () => {
   const reports = [

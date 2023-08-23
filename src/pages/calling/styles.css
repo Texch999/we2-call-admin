@@ -10,9 +10,8 @@
   font-family: "Barlow-Regular";
 }
 .date-container {
-  width: 15vw;
-  height: 50px;
-  border-radius: 8px;
+  width: 10vw;
+  height: 30px;
   background-color: #112a5e;
 }
 .submit-button {

@@ -1,9 +1,7 @@
-import React from "react";
- 
-import { FaCalendarAlt } from "react-icons/fa";
-import { RiArrowDropDownLine } from "react-icons/ri";
+import React, { useState } from "react";
 import { AiFillEdit } from "react-icons/ai";
 import "./styles.css";
+import FinancialPopupStatement from "./FinancialPopupStatement";
 
 function FinancialStatement() {
   const FINANCIAL_STATEMENT_DETAILS = [
@@ -152,44 +150,56 @@ function FinancialStatement() {
       pl: "50000000",
     },
   ];
+  const [showFinancialModal, setShowFinancialModal] = useState(false);
+  const handleFinancialModalShow = () => setShowFinancialModal(true);
   return (
     <div className="p-2">
-      <div className="d-flex flex-row justify-content-around mb-4 w-80">
+      <hr />
+      <div className="d-flex flex-row justify-content-around mb-2 w-80">
         <div>
           <div className="medium-font mb-2">From</div>
-          <div className="date-container d-flex justify-content-around align-items-center">
-            <input className="login-inputs " type="date"></input>
-            <FaCalendarAlt className="custom-icon"></FaCalendarAlt>
+          <div className="date-container d-flex justify-content-around align-items-center rounded">
+            <input className="login-inputs medium-font" type="date"></input>
           </div>
         </div>
         <div>
           <div className="medium-font mb-2">To</div>
-          <div className="date-container d-flex justify-content-around align-items-center">
-            <input type="date" className="login-inputs"></input>
-            <FaCalendarAlt className="custom-icon"></FaCalendarAlt>
+          <div className="date-container d-flex justify-content-around align-items-center rounded">
+            <input type="date" className="login-inputs medium-font"></input>
           </div>
         </div>
         <div>
           <div className="medium-font mb-2">Series Name</div>
-          <div className="statement-container matchstatement-container d-flex justify-content-between align-items-center p-4">
-            <div className="medium-font d-flex justify-content-start placeholder-text ">
-              Enter Series Name
-            </div>
-            <RiArrowDropDownLine className="custom-icon clr-white" />
-          </div>
+
+          <select
+            name="cars"
+            className="w-100 custom-select medium-font btn-bg rounded all-none p-2"
+          >
+            <option selected>Enter Series Name</option>
+            <option value="volvo">Volvo</option>
+            <option value="saab">Saab</option>
+            <option value="mercedes">Mercedes</option>
+            <option value="audi">Audi</option>
+          </select>
         </div>
         <div>
           <div className="medium-font mb-2">Match Name</div>
-          <div className="statement-container matchstatement-container d-flex justify-content-between align-items-center p-4">
-            <div className="medium-font d-flex justify-content-start placeholder-text ">
-              Select match
-            </div>
-            <RiArrowDropDownLine className="custom-icon clr-white" />
-          </div>
+          <select
+            name="cars"
+            className="w-100 custom-select medium-font btn-bg rounded all-none p-2"
+          >
+            <option selected>Enter Match Name</option>
+            <option value="volvo">Volvo</option>
+            <option value="saab">Saab</option>
+            <option value="mercedes">Mercedes</option>
+            <option value="audi">Audi</option>
+          </select>
         </div>
-        <button className="submit-button mt-3 medium-font">Verify</button>
+        <button className="submit-button mt-3 medium-font all-none">
+          Verify
+        </button>
       </div>
-
+      <hr />
       <table className="w-100 match-position-table medium-font">
         <thead>
           <tr className="text-center">
@@ -212,7 +222,10 @@ function FinancialStatement() {
               <td className="clr-green"> {item.winteam}</td>
               <td className="clr-green"> {item.pl}</td>
               <td>
-                <AiFillEdit className="custom-icon" />
+                <AiFillEdit
+                  className="custom-icon"
+                  onClick={() => handleFinancialModalShow()}
+                />
               </td>
             </tr>
           </tbody>
@@ -224,6 +237,10 @@ function FinancialStatement() {
           </tr>
         </tfoot>
       </table>
+      <FinancialPopupStatement
+        showFinancialModal={showFinancialModal}
+        setShowFinancialModal={setShowFinancialModal}
+      />
     </div>
   );
 }

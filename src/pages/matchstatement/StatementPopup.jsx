@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Modal } from "react-bootstrap";
-import { PiArrowCircleDownBold, PiArrowCircleRightBold } from "react-icons/pi";
+import { PiArrowCircleRightBold } from "react-icons/pi";
 import ClientPLTable from "./ClientPLTable";
 import RfplTable from "./RfplTable";
 
@@ -18,18 +18,6 @@ function StatementPopup(props) {
     setClientInputs(true);
     setRfplInputs(false);
   };
-  //   const navigate = useNavigate();
-  //   const [matchEntryInputs, setMatchEntryInputs] = useState(true);
-  //   const [matchResultInputs, setMatchResultInputs] = useState(false);
-  //   const handleMatchEntry = () => {
-  //     setMatchEntryInputs(true);
-  //     setMatchResultInputs(false);
-  //   };
-  //   const handleMatchResult = () => {
-  //     setMatchEntryInputs(false);
-  //     setMatchResultInputs(true);
-  //   };
-
   return (
     <div className="modal fade bd-example-modal-lg container mt-5">
       <Modal

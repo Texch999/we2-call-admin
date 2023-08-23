@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import { FaCalendarAlt } from "react-icons/fa";
-import { RiArrowDropDownLine } from "react-icons/ri";
 import { AiFillEdit } from "react-icons/ai";
 import "./styles.css";
 import StatementPopup from "./StatementPopup";
@@ -156,19 +154,20 @@ function Statement() {
 
   return (
     <div className="p-2">
-      <div className="d-flex flex-row justify-content-around mb-4 w-100">
+      <hr />
+      <div className="d-flex flex-row justify-content-around mb-3 w-100 ">
         <div>
           <div className="medium-font mb-2">From</div>
-          <div className="date-container d-flex justify-content-around align-items-center">
-            <input className="login-inputs " type="date"></input>
-            <FaCalendarAlt className="custom-icon"></FaCalendarAlt>
+          <div className="date-container d-flex justify-content-around align-items-center rounded">
+            <input className="login-inputs medium-font" type="date"></input>
+            {/* <FaCalendarAlt className="custom-icon"></FaCalendarAlt> */}
           </div>
         </div>
         <div>
           <div className="medium-font mb-2">To</div>
-          <div className="date-container d-flex justify-content-around align-items-center">
-            <input type="date" className="login-inputs"></input>
-            <FaCalendarAlt className="custom-icon"></FaCalendarAlt>
+          <div className="date-container d-flex justify-content-around align-items-center rounded">
+            <input type="date" className="login-inputs medium-font"></input>
+            {/* <FaCalendarAlt className="custom-icon"></FaCalendarAlt> */}
           </div>
         </div>
         <div>
@@ -181,7 +180,7 @@ function Statement() {
           </div> */}
           <select
             name="cars"
-            className="w-100 custom-select medium-font btn-bg rounded all-none p-3"
+            className="w-100 custom-select medium-font btn-bg rounded all-none p-2"
           >
             <option selected>Enter Series Name</option>
             <option value="volvo">Volvo</option>
@@ -200,7 +199,7 @@ function Statement() {
           </div> */}
           <select
             name="cars"
-            className="w-100 custom-select medium-font btn-bg rounded all-none p-3"
+            className="w-100 custom-select medium-font btn-bg rounded all-none p-2"
           >
             <option selected>Enter Match Name</option>
             <option value="volvo">Volvo</option>
@@ -219,7 +218,7 @@ function Statement() {
           </div> */}
           <select
             name="cars"
-            className="w-100 custom-select medium-font btn-bg rounded all-none p-3"
+            className="w-100 custom-select medium-font btn-bg rounded all-none p-2"
           >
             <option selected>Enter Fancy</option>
             <option value="volvo">Volvo</option>
@@ -238,7 +237,7 @@ function Statement() {
           </div> */}
           <select
             name="cars"
-            className="w-100 custom-select medium-font btn-bg rounded all-none p-3"
+            className="w-100 custom-select medium-font btn-bg rounded all-none p-2"
           >
             <option selected>Enter Client Name</option>
             <option value="volvo">Volvo</option>
@@ -247,8 +246,11 @@ function Statement() {
             <option value="audi">Audi</option>
           </select>
         </div>
-        <button className="submit-button mt-3 medium-font p-3">Verify</button>
-      </div>
+        <button className="submit-button mt-3 medium-font p-2 rounded all-none">
+          Verify
+        </button>
+      </div>{" "}
+      <hr />
       <table className="w-100 match-position-table medium-font">
         <thead>
           <tr className="text-center">
