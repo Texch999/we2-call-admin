@@ -26,8 +26,7 @@ function UploadScreenShot(props) {
           </div>
         </Modal.Header>
 
-        {/* <Modal.Body>Body</Modal.Body>
-        <Modal.Footer>Footer</Modal.Footer> */}
+     
       </Modal>
     </div>
   );
