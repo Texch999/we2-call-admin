@@ -59,7 +59,7 @@ const AddUsers = () => {
         <div className="mt-3 d-flex justify-content-between align-items-center">
           <div className="d-flex justify-content-center align-items-center">
             <Button className="me-2 agent-button">Agent</Button>
-            <span className="mb-0 add-user-name">Sri Agent</span>
+            <span className="mb-0 add-user-name">Srikanth</span>
           </div>
 
           <Form className="d-flex position-relative">
@@ -117,7 +117,11 @@ const AddUsers = () => {
             ))}
           </tbody>
           {modalShow && (
-            <AddUserPopUp show={modalShow} onHide={() => setModalShow(false)} />
+            <AddUserPopUp
+              show={modalShow}
+              onHide={() => setModalShow(false)}
+              filteredUsersData={filteredUsersData}
+            />
           )}
         </Table>
       </div>

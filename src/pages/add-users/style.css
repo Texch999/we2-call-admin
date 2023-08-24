@@ -69,6 +69,14 @@
   color: var(--input-placeholder-color);
   font-size: var(--table-body-font-size);
 }
+.add-user-modal .btn-close {
+  opacity: 0;
+}
+.add-user-modal .close-button-user {
+  opacity: 1;
+  left: 100%;
+  --bs-btn-close-focus-shadow: unset;
+}
 .add-user-button {
   background-color: var(--btn-bg-color);
   color: var(--table-bg-color);
@@ -76,10 +84,19 @@
   font-family: "Barlow-Medium";
 }
 .add-user-modal .form-text {
-    color: var(--btn-bg-color);
-    font-size: var(--table-body-font-size);
-    float: right;
-    padding: 0.1rem 0.3rem;
-    background-color: var(--comm-bg-color);
-    border-radius: 0.4rem;
+  color: var(--btn-bg-color);
+  font-size: var(--table-body-font-size);
+  float: right;
+  padding: 0.1rem 0.3rem;
+  background-color: var(--comm-bg-color);
+  border-radius: 0.4rem;
+}
+.add-user-modal-form-details .input-group-text {
+  color: unset;
+  border: unset;
+  background-color: var(--input-bg-color);
+  padding: 0.375rem 0.1rem 0.375rem 0.6rem;
+}
+.add-user-modal-form-details .input-group-text img {
+  width: 14px;
 }
