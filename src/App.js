@@ -21,6 +21,7 @@ import AdminShareCommSettlement from "./pages/setlment/AdminShareCommSettlement"
 import AdminOnePageReport from "./pages/onepagereport/AdminOnePageReport";
 import AdminSharesMatchStatement from "./pages/matchstatement/AdminSharesMatchStatement";
 import AddUsers from "./pages/add-users/AddUsers";
+import AddAdmins from "./pages/add-users/AddAdmins";
 
 function App() {
   return (
@@ -63,6 +64,7 @@ function App() {
               element={<AdminSharesMatchStatement />}
             />
             <Route path="/add-users" element={<AddUsers />} />
+            <Route path="/add-admins" element={<AddAdmins />} />
           </Routes>
         </BrowserRouter>
       </div>

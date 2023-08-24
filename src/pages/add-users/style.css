@@ -19,7 +19,11 @@
   box-shadow: none !important;
   padding-right: 2rem;
 }
-
+.status-button {
+  --bs-btn-padding-x: 0.2rem;
+  --bs-btn-padding-y: 0.2rem;
+  background-color: #4ebd5d;
+}
 .user-search-input::placeholder {
   color: #8da3d0;
   font-family: "Barlow-Medium";
@@ -27,7 +31,7 @@
 .user-search-icon {
   color: #fce719;
   top: 30%;
-  left: 58%;
+  left: 80%;
   cursor: pointer;
 }
 .add-users-date span,
@@ -54,13 +58,18 @@
 .add-user-modal .modal-body {
   padding: 0 1.5rem 1.5rem 1.5rem;
 }
+.add-user-modal .modal-title {
+  font-family: "Barlow-SemiBold";
+}
 .add-user-modal .form-label {
   font-size: var(--table-body-font-size);
+  font-family: "Barlow-Regular";
 }
 .add-user-modal .form-control {
   background-color: var(--input-bg-color);
   color: var(--input-text-color);
   border: none;
+  font-family: "Barlow-Regular";
 }
 .add-user-modal .form-control:focus {
   box-shadow: unset;
@@ -90,6 +99,12 @@
   padding: 0.1rem 0.3rem;
   background-color: var(--comm-bg-color);
   border-radius: 0.4rem;
+}
+.add-user-modal .platform-comm {
+  color: #fff;
+}
+.add-user-modal .yellow-color {
+  color: var(--btn-bg-color);
 }
 .add-user-modal-form-details .input-group-text {
   color: unset;
