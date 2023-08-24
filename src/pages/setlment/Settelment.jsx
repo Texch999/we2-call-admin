@@ -137,15 +137,15 @@ function Settelment() {
       <div className="xx-large-font mt-2 mb-4">Settelment</div>
       <div className="large-font mt-1 mb-4">Account Summary</div>
       <div className="d-flex flex-row justify-content-around mb-4 w-50">
-        <div className="d-flex flex-column settelment-container justify-content-around p-2">
+        <div className="d-flex flex-column settelment-container justify-content-around p-2 rounded">
           <div className="medium-font">Total Amount</div>
           <div className="clr-yellow medium-font">1000000.00</div>
         </div>
-        <div className="d-flex flex-column settelment-container justify-content-around p-2">
+        <div className="d-flex flex-column settelment-container justify-content-around p-2 rounded">
           <div className="medium-font">Total Settled Bal C/D</div>
           <div className="clr-yellow medium-font">1000000.00</div>
         </div>
-        <div className="d-flex flex-column settelment-container justify-content-around p-2">
+        <div className="d-flex flex-column settelment-container justify-content-around p-2 rounded">
           <div className="medium-font">Total Balance</div>
           <div className="clr-yellow medium-font">1000000.00</div>
         </div>

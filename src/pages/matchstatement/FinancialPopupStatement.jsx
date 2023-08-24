@@ -32,7 +32,7 @@ function FinancialPopupStatement(props) {
   return (
     <div className="modal fade bd-example-modal-lg container mt-5">
       <Modal
-        size="md"
+        size="lg"
         show={showFinancialModal}
         onHide={handleFinancialModalClose}
         centered

@@ -20,10 +20,8 @@
   color: #fce719;
 }
 .settelment-container {
-  width: 15vw;
-  height: 7vh;
+  width: 15vw !important;
   background-color: #112a5e;
-  border-radius: 8px;
   border: solid 1px #264990;
 }
 @media (min-width: 577px) and (max-width: 768px) {

@@ -32,7 +32,7 @@ function OnePagePopup(props) {
   return (
     <div className="modal fade bd-example-modal-lg container mt-5">
       <Modal
-        size="md"
+        size="lg"
         show={showReportPopup}
         onHide={handleReportClose}
         centered
@@ -41,13 +41,13 @@ function OnePagePopup(props) {
         <Modal.Header>
           <div className="w-100">
             <div>
-              <div className="w-25 mt-1 mb-1">
+              <div className="w-25 mt-2 mb-1">
                 <div className="match-date-button rounded-pill small-font text-center p-1 ">
                   Date : 31/07/2023
                 </div>
               </div>
             </div>
-            <div className="w-100 d-flex justify-content-start mt-2 mb-1">
+            <div className="w-100 d-flex justify-content-start mt-4 mb-1">
               <div className="w-50 d-flex justify-content-end">
                 <div
                   className={`match-entry-btn w-100 d-flex align-items-center justify-content-around rounded p-2 ms-1 me-1 ${
