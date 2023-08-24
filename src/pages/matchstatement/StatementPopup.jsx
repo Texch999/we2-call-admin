@@ -21,7 +21,7 @@ function StatementPopup(props) {
   return (
     <div className="modal fade bd-example-modal-lg container mt-5">
       <Modal
-        size="lg"
+        size="xl"
         show={showModal}
         onHide={handleClose}
         centered
