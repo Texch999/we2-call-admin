@@ -1,4 +1,11 @@
+import { useState } from "react";
+import SubmitPopup from "../popups/SubmitPopup";
+
 function MatchEntryInput() {
+  const [submitPopup, setSubmitPopup] = useState(false);
+  const handleSubmitPopupOpen = () => {
+    setSubmitPopup(true);
+  };
   return (
     <div className="match-position-bg rounded-bottom p-3">
       <div className="row">
@@ -63,11 +70,19 @@ function MatchEntryInput() {
           </div>
         </div>
         <div className="col d-flex align-items-end">
-          <div className="w-100 text-center rounded medium-font p-2 yellow-btn fw-semibold">
+          <div
+            className="w-100 text-center rounded medium-font p-2 yellow-btn fw-semibold"
+            onClick={() => handleSubmitPopupOpen()}
+          >
             Submit
           </div>
         </div>
       </div>
+      <SubmitPopup
+        state={submitPopup}
+        setState={setSubmitPopup}
+        header={"Are You Sure You Want To Submit This Match Entry"}
+      />
     </div>
   );
 }
