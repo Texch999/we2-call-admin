@@ -51,7 +51,7 @@ function MatchResultInput() {
               <option>Select</option>
               <option>Win</option>
               <option>Loss</option>
-              <option>Draw</option>
+              <option>Abandoned</option>
             </select>
           </div>
         </div>

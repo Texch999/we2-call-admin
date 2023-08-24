@@ -13,7 +13,7 @@ function MatchEntryInput() {
           <div>
             <div className="medium-font">S.No:</div>
             <input
-              type="text"
+              type="number"
               className="w-100 medium-font btn-bg rounded all-none p-2"
               placeholder="Enter"
             />
@@ -23,7 +23,8 @@ function MatchEntryInput() {
           <div>
             <div className="medium-font">Rate</div>
             <input
-              type="text"
+              type="number"
+              defaultValue={1.}
               className="w-100 medium-font btn-bg rounded all-none p-2"
               placeholder="Rate"
             />
@@ -43,7 +44,7 @@ function MatchEntryInput() {
           <div>
             <div className="medium-font">Amount</div>
             <input
-              type="text"
+              type="number"
               className="w-100 medium-font btn-bg rounded all-none p-2"
               placeholder="Amount"
             />
