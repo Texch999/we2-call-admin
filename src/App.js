@@ -21,6 +21,7 @@ import AdminShareCommSettlement from "./pages/setlment/AdminShareCommSettlement"
 import AdminOnePageReport from "./pages/onepagereport/AdminOnePageReport";
 import AdminSharesMatchStatement from "./pages/matchstatement/AdminSharesMatchStatement";
 import AddUsers from "./pages/add-users/AddUsers";
+import UpgradePackage from "./pages/upgrade-package/UpgradePackage";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
             <Route path="/" element={<HomeContent />} />
             <Route path="/match-entry" element={<MatchEntry />} />
             <Route path="/fancy-entry" element={<FancyEntry />} />
+            <Route path="/upgrade-package" element={<UpgradePackage />} />
             <Route path="/call-management" element={<CallManagement />} />
             <Route
               path="/settelment-statement"
