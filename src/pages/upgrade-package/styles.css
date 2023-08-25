@@ -8,3 +8,7 @@
 .yellow-border-bottom {
   border-bottom: 3px solid #fce719;
 }
+.offers-div {
+  border: solid 2px #2b3967;
+  background-image: linear-gradient(to top, #ffa88b, #fd7b87);
+}
