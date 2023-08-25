@@ -26,4 +26,5 @@ export const Images = {
   AgentHomePage: "./assets/agent_home_page.png",
   percentIcon: "./assets/percent.png",
   Percentage: "./assets/discount_02.png",
+  GiftBox: "./assets/gift_box.png",
 };

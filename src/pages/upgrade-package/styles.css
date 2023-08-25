@@ -2,13 +2,54 @@
   border: solid 2px #264990;
   background-color: #112a5e;
 }
+.offers-div {
+  border-radius: 15px;
+  border: solid 2px #2b3967;
+  background-image: linear-gradient(to top, #ffa88b, #fd7b87);
+}
+.offers-blue-div {
+  border-radius: 15px;
+  border: solid 2px #2b3967;
+  background-image: linear-gradient(to top, #3f5cc2, #5640c6);
+}
 .num-btn-bg {
   background-color: #00143d;
+}
+.offer-percentage-div {
+  color: #fe6985;
+  font-weight: bold;
+  margin-bottom: -3rem;
+  margin-left: 1rem;
+  position: relative;
 }
 .yellow-border-bottom {
   border-bottom: 3px solid #fce719;
 }
-.offers-div {
-  border: solid 2px #2b3967;
-  background-image: linear-gradient(to top, #ffa88b, #fd7b87);
+.percentage-img {
+  width: 50px;
+  height: 50px;
+}
+.giftbox-img {
+  /* height: 140px;
+  width: 160px; */
+  height: 25vh;
+  width: 15vw;
+  margin-right: 2rem;
+  margin-top: -2rem;
+}
+.package-btn-clr {
+  height: 6vh;
+  background-color: #ef796a;
+}
+.package-btn-blue-clr {
+  height: 6vh;
+  background-color: #3542b3;
+}
+.view-details-btn {
+  height: 6vh;
+  background-image: linear-gradient(to bottom, #ef5759, #7c23a7);
+}
+.view-details-blue-btn {
+  height: 6vh;
+  background-image: linear-gradient(to bottom, #ffc843, #ff8f17);
 }
