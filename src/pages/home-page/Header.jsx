@@ -10,6 +10,7 @@ import {
 } from "react-icons/ai";
 import { CiStickyNote } from "react-icons/ci";
 import "./style.css";
+import Login from "../log-in/Login";
 
 function Header() {
   const [currentDateTime, setCurrentDateTime] = useState(new Date());
@@ -20,7 +21,7 @@ function Header() {
     }, 1000);
     return () => clearInterval(interval);
   }, []);
-
+  const [showLoginPopup, setShowLoginPopup] = useState(false);
   const handleActiveHead = (index) => {
     setActiveHead(index);
   };
@@ -44,11 +45,21 @@ function Header() {
       name: "Share Risk",
     },
   ];
+
+  const handleLoginPopup = () => {
+    setShowLoginPopup(true);
+    // console.log("Hello")
+  };
+
   return (
     <div className="agent-header">
       <div className=" p-3 d-flex justify-content-between">
         {/* <div className="col-1"> */}
-          <img src={Images.header_logo} className="head-image " />
+        <img
+          src={Images.header_logo}
+          className="head-image "
+          onClick={() => handleLoginPopup()}
+        />
         {/* </div> */}
         <div className="w-75 bl-1 br-1 d-flex">
           <div className="w-80px ms-1">
@@ -212,6 +223,7 @@ function Header() {
         sure that your personal messages stay between you and who you send them
         to.
       </Marquee>
+      <Login showLoginPopup={showLoginPopup} setShowLoginPopup={setShowLoginPopup}/>
     </div>
   );
 }

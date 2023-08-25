@@ -131,6 +131,7 @@
   overflow-y: scroll;
   position: absolute;
   bottom: 0%;
+  width: 100%;
 }
 .table-head {
   background: #112e69;
@@ -176,7 +177,7 @@
   top: 0%;
 }
 .bl-1 {
-  border-left: 1px solid grey;
+  border-left: 1px solid grey !important;
 }
 .br-1 {
   border-right: 1px solid grey;
@@ -192,16 +193,32 @@
   border-radius: 10px;
   border: 2px solid #fce719;
 }
-.w-80px{
+.w-80px {
   width: 80px !important;
 }
-.profile-image{
+.profile-image {
   height: 40px;
   width: 40px;
   background: #202d57;
   border-radius: 10px;
 }
-.user-img{
+.user-img {
   font-size: 25px;
-  color:#fff;
+  color: #fff;
+}
+.login-input input {
+  background: none;
+  border: none;
+  outline: none;
+  color: white;
+}
+.login-input {
+  background: #112a5e;
+  border-radius: 10px;
+}
+.login-button {
+  width: 100%;
+  border-radius: 10px;
+  background: #fce719;
+  font-weight: bold;
 }
