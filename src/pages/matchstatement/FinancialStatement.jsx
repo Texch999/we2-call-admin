@@ -231,9 +231,12 @@ function FinancialStatement() {
           </tbody>
         ))}
         <tfoot>
-          <tr className="text-center">
-            <th colSpan={4}>TOTAL</th>
-            <th colSpan={3}>50000000.00</th>
+          <tr className="text-center clr-green">
+            <th colSpan={5} className="text-end">
+              TOTAL
+            </th>
+            <th className="text-center">50000000.00</th>
+            <th></th>
           </tr>
         </tfoot>
       </table>

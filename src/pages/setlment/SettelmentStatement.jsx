@@ -128,7 +128,7 @@ function SettelmentStatement() {
     <div className="p-4">
       <div className="xx-large-font mb-4">Settelment Statement</div>
       <div>
-        <table className="table settelment-table medium-font">
+        <table className="w-100 match-position-table medium-font">
           <thead>
             <tr>
               <th scope="col" className="text-center">
@@ -160,18 +160,18 @@ function SettelmentStatement() {
                 <td>{item.ModeofPayment}</td>
                 <td>{item.dayBalance}</td>
                 <td>{item.SettledAmount}</td>
-                <td>{item.Balance}</td>
+                <td className="clr-green">{item.Balance}</td>
               </tr>
             </tbody>
           ))}
           <tfoot>
             <tr>
-              <th colSpan={4} className="text-center">
+              <th colSpan={3} className="text-end">
                 Total
               </th>
-              <th colSpan={2} className="text-center clr-green">
-                500000.00
-              </th>
+              <th className="text-center clr-green">500000.00</th>{" "}
+              <th className="text-center clr-green">500000.00</th>{" "}
+              <th className="text-center clr-green">500000.00</th>
             </tr>
           </tfoot>
         </table>

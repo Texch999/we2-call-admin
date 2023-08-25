@@ -92,22 +92,24 @@ function FancyFirstInnings() {
           <tbody key={index}>
             <tr className="text-center">
               <td>{item.Sno}</td>
-              <td className="clr-green">{item.over}</td>
-              <td className="clr-green">{item.team}</td>
-              <td className="clr-green"> {item.runs}</td>
-              <td className="clr-green"> {item.name}</td>
-              <td className="clr-green"> {item.yorn}</td>
-              <td className="clr-green"> {item.date}</td>
-              <td className="clr-green"> {item.time}</td>
+              <td>{item.over}</td>
+              <td>{item.team}</td>
+              <td> {item.runs}</td>
+              <td> {item.name}</td>
+              <td> {item.yorn}</td>
+              <td> {item.date}</td>
+              <td> {item.time}</td>
               <td className="clr-green"> {item.result}</td>
-              <td className="clr-green"> {item.amount}</td>
+              <td> {item.amount}</td>
               <td className="clr-green"> {item.pl}</td>
             </tr>
           </tbody>
         ))}
         <tfoot>
           <tr className="text-center small-font clr-green all-none w-100">
-            <th colSpan={10}>TOTAL</th>
+            <th colSpan={10} className="text-end">
+              TOTAL
+            </th>
             <th>50000000.00</th>
           </tr>
         </tfoot>

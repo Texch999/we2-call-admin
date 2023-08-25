@@ -62,7 +62,8 @@
 .admin-account-summary-container p {
   margin-bottom: 0;
 }
-.admin-account-summary-container:hover,.admin-account-summary-container:active {
+.admin-account-summary-container:hover,
+.admin-account-summary-container:active {
   border: solid 2px #fce719 !important;
 }
 .call-management-data tfoot tr th {
@@ -74,4 +75,27 @@
   --bs-btn-bg: none;
   --bs-btn-padding-x: 0.4rem;
   --bs-btn-padding-y: 0.2rem;
+}
+.payment-modal {
+  --bs-modal-width: 420px !important;
+  /* background-image: url("/public/assets/close.png"); */
+}
+.close-btn .btn-close {
+  --bs-btn-close-bg: url("/public/assets/close.png");
+}
+.payment-modal .btn-close {
+  position: absolute;
+  top: 5%;
+  right: 5%;
+}
+.relative-position {
+  position: relative;
+}
+.close-button {
+  position: absolute;
+  top: 5%;
+  right: 5%;
+}
+.w-80 {
+  width: 80%;
 }

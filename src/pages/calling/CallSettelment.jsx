@@ -198,7 +198,7 @@ function CallSettelment() {
       </div>
 
       <div>
-        <table className="table settelment-table medium-font">
+        <table className="w-100 match-position-table medium-font">
           <thead>
             <tr>
               <th scope="col" className="text-center">

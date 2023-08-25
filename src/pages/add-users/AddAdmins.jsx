@@ -3,13 +3,15 @@ import { Button, Table, Form } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./style.css";
 import { FiSearch } from "react-icons/fi";
-import AddUserPopUp from "./AddUserPopUp";
+
 import AddAdminsPopup from "./AddAdminsPopup";
+import { MdArrowForwardIos } from "react-icons/md";
+import PackageViewPopUp from "./PackageViewPopUp";
 
 const AddAdmins = () => {
   const [filteredValue, setFilteredValue] = useState("");
   const [modalShow, setModalShow] = useState(false);
-
+  const [packageViewPopShow, setPackageViewPopup] = useState(false);
   const addUsersData = [
     {
       s_no: 1,
@@ -71,8 +73,16 @@ const AddAdmins = () => {
 
         <div className="mt-3 d-flex justify-content-between align-items-center">
           <div className="d-flex justify-content-center align-items-center">
-            <Button className="me-2 agent-button">SM</Button>
-            <span className="mb-0 add-user-name">Srinivas</span>
+            <Button
+              className="agent-button sm-button"
+              onClick={() => setPackageViewPopup(true)}
+            >
+              SM
+            </Button>
+            <span className="mb-0 ms-2 me-2 add-user-name">Srinivas</span>
+            <MdArrowForwardIos />
+            <Button className="ms-2 agent-button">AGENT</Button>
+            <span className="mb-0 ms-2 me-2 add-user-name">Sai agent</span>
           </div>
 
           <Form className="d-flex">
@@ -155,6 +165,12 @@ const AddAdmins = () => {
               show={modalShow}
               onHide={() => setModalShow(false)}
               filteredUsersData={filteredUsersData}
+            />
+          )}
+          {packageViewPopShow && (
+            <PackageViewPopUp
+              show={packageViewPopShow}
+              onHide={() => setPackageViewPopup(false)}
             />
           )}
         </Table>

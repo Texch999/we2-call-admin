@@ -65,8 +65,8 @@ function MatchResultInput() {
         </div>
       </div>
       <MatchDeclarationPopup
-        header={"Are You Sure You Want Match to Win India?"}
-        amount={"+100000"}
+        header={"Settled Payment sai-offline-user 4000 are you sure?"}
+        // amount={"+100000"}
         state={matchSubmitPopup}
         setState={setMatchSubmitPopup}
         handleSubmitPopupOpen={handleSubmitPopupOpen}

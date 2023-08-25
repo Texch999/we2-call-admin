@@ -85,8 +85,8 @@ function MatchBetTable() {
           </tbody>
         ))}
         <tfoot>
-          <tr className="text-center">
-            <th colSpan={9}>TOTAL</th>
+          <tr className="text-center clr-green">
+            <th colSpan={9} className="text-end">TOTAL</th>
             <th colSpan={1}>50000000.00</th>
           </tr>
         </tfoot>
