@@ -14,6 +14,12 @@
   --bs-btn-bg: #f3a22f;
   border: unset;
 }
+.package-used-clr {
+  color: #f3a22f !important;
+}
+.package-available-clr {
+  color: #04c85e !important;
+}
 .user-search-input {
   width: unset;
   color: #fff !important;
@@ -133,4 +139,8 @@
   position: absolute;
   left: 90%;
   top: 15%;
+}
+.total-package-values .btn-primary {
+  --bs-btn-bg: #102e6d;
+  border: unset;
 }

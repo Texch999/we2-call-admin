@@ -6,6 +6,7 @@ import { FiSearch } from "react-icons/fi";
 
 import AddAdminsPopup from "./AddAdminsPopup";
 import { MdArrowForwardIos } from "react-icons/md";
+import PackageViewPopUp from "./PackageViewPopUp";
 
 const AddAdmins = () => {
   const [filteredValue, setFilteredValue] = useState("");
@@ -167,10 +168,9 @@ const AddAdmins = () => {
             />
           )}
           {packageViewPopShow && (
-            <AddAdminsPopup
+            <PackageViewPopUp
               show={packageViewPopShow}
               onHide={() => setPackageViewPopup(false)}
-              filteredUsersData={filteredUsersData}
             />
           )}
         </Table>

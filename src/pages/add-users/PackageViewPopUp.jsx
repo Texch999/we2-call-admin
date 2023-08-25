@@ -1,207 +1,86 @@
-import {
-  Container,
-  Form,
-  Row,
-  Col,
-  InputGroup,
-  Image,
-  CloseButton,
-} from "react-bootstrap";
-import Button from "react-bootstrap/Button";
+import { CloseButton, Button, Table } from "react-bootstrap";
+// import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { Images } from "../../images";
-import { useState } from "react";
-import { IoEyeSharp, IoEyeOffSharp } from "react-icons/io5";
 
 function PackageViewPopUp(props) {
+  const packagesData = [
+    {
+      package_type: "Standard",
+      purchase_count: 2,
+      used: 2,
+      available: 0,
+    },
+    {
+      package_type: "Silver",
+      purchase_count: 2,
+      used: 2,
+      available: 0,
+    },
+    {
+      package_type: "Gold",
+      purchase_count: 2,
+      used: 2,
+      available: 0,
+    },
+    {
+      package_type: "Diamond",
+      purchase_count: 20,
+      used: 8,
+      available: 12,
+    },
+    {
+      package_type: "VIP",
+      purchase_count: 25,
+      used: 10,
+      available: 5,
+    },
+  ];
   return (
     <Modal {...props} centered className="add-user-modal">
-      <Modal.Header closeButton>
-        <Modal.Title className="w-100 text-center">
-         Srinivas
-        </Modal.Title>
-        <div data-bs-theme="dark" className="p-2">
+      <Modal.Header closeButton className="mb-2">
+        <h6>Srinivas</h6>
+        <Button className="agent-button sm-button ms-2">SM</Button>
+        <div data-bs-theme="dark" className="p-2 w-100">
           <CloseButton className="close-button-user position-relative" />
         </div>{" "}
       </Modal.Header>
       <Modal.Body>
-        <Form className="add-user-modal-form-details">
-          <Form.Group className="mb-3" controlId="user_name">
-            <Form.Label>Name*</Form.Label>
-            <InputGroup>
-              <InputGroup.Text id="basic-addon1">
-                <Image src={Images.LoginUserIcon} />
-              </InputGroup.Text>
-              <Form.Control
-                type="text"
-                placeholder="Enter Name"
-                aria-label="Enter Name"
-                aria-describedby="basic-addon1"
-                autoFocus
-                onChange={(e) => handleInputChnage(e)}
-              />
-            </InputGroup>
-          </Form.Group>
-          <Container fluid>
-            <Row>
-              <Col>
-                <Form.Group className="mb-3" controlId="userId">
-                  <Form.Label>User ID*</Form.Label>
-                  <InputGroup>
-                    <InputGroup.Text id="basic-addon1">
-                      <Image src={Images.LoginUserIcon} />
-                    </InputGroup.Text>
-                    <Form.Control
-                      type="text"
-                      placeholder="Enter Name"
-                      autoFocus
-                    />
-                  </InputGroup>
-                </Form.Group>
-              </Col>
-              <Col>
-                <Form.Group className="mb-3" controlId="role">
-                  <Form.Label>Role*</Form.Label>
-                  <InputGroup>
-                    <InputGroup.Text id="basic-addon1">
-                      <Image src={Images.LoginUserIcon} />
-                    </InputGroup.Text>
-                    <Form.Select>
-                      <option>Admin</option>
-                      <option>Super Admin</option>
-                      <option>Master</option>
-                      <option>Super Master</option>
-                      <option>Agent</option>
-                    </Form.Select>
-                  </InputGroup>
-                </Form.Group>
-              </Col>
-            </Row>
-            <Row>
-              <Col>
-                <Form.Group className="mb-3" controlId="password">
-                  <Form.Label>Password*</Form.Label>
-                  <InputGroup>
-                    <InputGroup.Text id="basic-addon1">
-                      <Image src={Images.LoginLockIcon} />
-                    </InputGroup.Text>
-                    <Form.Control
-                      type={togglePassword ? "password" : "text"}
-                      placeholder="Enter password"
-                      autoFocus
-                    />
-                    <InputGroup.Text
-                      className="ps-0 pe-2"
-                      onClick={() => handleTogglePassword()}
-                    >
-                      {togglePassword ? <IoEyeOffSharp /> : <IoEyeSharp />}
-                    </InputGroup.Text>
-                  </InputGroup>
-                </Form.Group>
-              </Col>
-              <Col>
-                <Form.Group className="mb-3" controlId="confirmPassword">
-                  <Form.Label>Confirm Password*</Form.Label>
-                  <InputGroup>
-                    <InputGroup.Text id="basic-addon1">
-                      <Image src={Images.LoginLockIcon} />
-                    </InputGroup.Text>
-                    <Form.Control
-                      type={cnfPasswordToggle ? "password" : "text"}
-                      placeholder="Enter confirm password"
-                      autoFocus
-                    />
-                    <InputGroup.Text
-                      className="ps-0 pe-2"
-                      onClick={() => handleCnfTogglePassword()}
-                    >
-                      {cnfPasswordToggle ? <IoEyeOffSharp /> : <IoEyeSharp />}
-                    </InputGroup.Text>
-                  </InputGroup>
-                </Form.Group>
-              </Col>
-            </Row>
-            <Row>
-              <Col>
-                <Form.Group className="mb-3" controlId="share">
-                  <Form.Label>Share*</Form.Label>
-                  <Form.Text id="sharePercentage">10%</Form.Text>
-                  <InputGroup>
-                    <InputGroup.Text id="basic-addon1">
-                      <Image src={Images.percentIcon} />
-                    </InputGroup.Text>
-                    <Form.Control
-                      type="text"
-                      placeholder="Enter Share"
-                      autoFocus
-                      aria-describedby="sharePercentage"
-                    />
-                  </InputGroup>
-                </Form.Group>
-              </Col>
-              <Col>
-                <Form.Group className="mb-3" controlId="myShare">
-                  <Form.Label>My Share*</Form.Label>
-                  <Form.Text id="platComm" className="platform-comm">
-                    Plat Comm-<span className="yellow-clr">2%</span>
-                  </Form.Text>
-                  <InputGroup>
-                    <InputGroup.Text id="basic-addon1">
-                      <Image src={Images.percentIcon} />
-                    </InputGroup.Text>
-                    <Form.Control
-                      type="text"
-                      placeholder="Enter Share"
-                      autoFocus
-                      aria-describedby="platComm"
-                    />
-                  </InputGroup>
-                </Form.Group>
-              </Col>
-              <Form.Group className="mb-3" controlId="adminPackages">
-                <Form.Label>Package*</Form.Label>
-                <InputGroup>
-                  <InputGroup.Text id="basic-addon1">
-                    <Image src={Images.packageIcon} style={{ width: "18px" }} />
-                  </InputGroup.Text>
-                  <Form.Select>
-                    <option>Trial</option>
-                    <option>Standard</option>
-                    <option>Silver</option>
-                    <option>Gold</option>
-                    <option>Diamond</option>
-                    <option>VIP</option>
-                  </Form.Select>
-                </InputGroup>
-              </Form.Group>
-              <Form.Group className="mb-3" controlId="adminPassword">
-                <Form.Label>Admin Password*</Form.Label>
-                <InputGroup>
-                  <InputGroup.Text id="basic-addon1">
-                    <Image src={Images.LoginLockIcon} />
-                  </InputGroup.Text>
-                  <Form.Control
-                    type={adminPasswordToggle ? "password" : "text"}
-                    placeholder="Enter Admin Password"
-                    autoFocus
-                  />
-                  <InputGroup.Text
-                    className="ps-0 pe-2"
-                    onClick={() => handleAdminTogglePassword()}
-                  >
-                    {adminPasswordToggle ? <IoEyeOffSharp /> : <IoEyeSharp />}
-                  </InputGroup.Text>
-                </InputGroup>
-              </Form.Group>
-            </Row>
-          </Container>
-          <Button
-            className="w-100 add-user-button"
-            onClick={() => handleAddUser()}
-          >
-            Add
-          </Button>
-        </Form>
+        <div>
+          <Table responsive="md" className="call-management-data">
+            <thead>
+              <tr>
+                <th className="text-center">Packages</th>
+                <th className="text-center">Purchase</th>
+                <th className="text-center">Used</th>
+                <th className="text-center">Available</th>
+              </tr>
+            </thead>
+            <tbody>
+              {packagesData?.map((data, index) => (
+                <tr key={index}>
+                  <td className="text-center">{data?.package_type}</td>
+                  <td className="text-center">{data?.purchase_count}</td>
+                  <td className="text-center package-used-clr">{data?.used}</td>
+                  <td className="text-center package-available-clr">
+                    {data?.available}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+            <tfoot className="total-package-values">
+              <tr>
+                <th>Total Paid</th>
+                <th>
+                  <Button>10000000</Button>
+                </th>
+                <th>Balance</th>
+                <th>
+                  <Button>10000000</Button>
+                </th>
+              </tr>
+            </tfoot>
+          </Table>
+        </div>
       </Modal.Body>
     </Modal>
   );
