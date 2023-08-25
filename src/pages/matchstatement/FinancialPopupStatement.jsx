@@ -36,12 +36,15 @@ function FinancialPopupStatement(props) {
         show={showFinancialModal}
         onHide={handleFinancialModalClose}
         centered
-        className="match-share-modal w-100"
+        className="match-share-modal w-100 close-btn"
       >
-        <Modal.Header>
-          <div className="w-100">
+        <Modal.Header closeButton>
+          
+        </Modal.Header>
+        <Modal.Body className="p-3">
+        <div className="w-100">
             <div>
-              <div className="mt-2 mb-1">
+              <div className="mt-n2 mb-1">
                 <div>Match Name : IND vs SL</div>
               </div>
               <div className="w-25 mt-1 mb-1">
@@ -83,8 +86,6 @@ function FinancialPopupStatement(props) {
               </div>
             </div>
           </div>
-        </Modal.Header>
-        <Modal.Body className="p-3">
           {clientInputs && <ClientTableFS />}
           {ulshareInputs && <ULShareTableFS />}
           {referalInputs && <ReferalTableFS />}

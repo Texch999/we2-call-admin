@@ -25,9 +25,9 @@ function StatementPopup(props) {
         show={showModal}
         onHide={handleClose}
         centered
-        className="match-share-modal w-100"
+        className="match-share-modal w-100 close-btn"
       >
-        <Modal.Header>
+        <Modal.Header closeButton>
           <div className="w-100">
             <div className="p-2 rounded-top w-100 d-flex align-items-center justify-content-between">
               <div className="w-25 d-flex justify-content-between">
@@ -73,7 +73,6 @@ function StatementPopup(props) {
           {clientInputs && <ClientPLTable />}
           {rfplInputs && <RfplTable />}
         </Modal.Body>
-        <Modal.Footer></Modal.Footer>
       </Modal>
     </div>
   );

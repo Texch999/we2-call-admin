@@ -23,6 +23,7 @@ import AdminSharesMatchStatement from "./pages/matchstatement/AdminSharesMatchSt
 import AddUsers from "./pages/add-users/AddUsers";
 import UpgradePackage from "./pages/upgrade-package/UpgradePackage";
 import AddAdmins from "./pages/add-users/AddAdmins";
+import PrivacyPolicy from "./pages/privacy-policy/PrivacyPolicy";
 
 function App() {
   return (
@@ -64,7 +65,8 @@ function App() {
             <Route
               path="/admin-share-match-statement"
               element={<AdminSharesMatchStatement />}
-            />
+            />{" "}
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/add-users" element={<AddUsers />} />
             <Route path="/add-admins" element={<AddAdmins />} />
           </Routes>

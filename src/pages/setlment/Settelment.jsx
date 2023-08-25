@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { AiFillFileText } from "react-icons/ai";
+import PaymentSettelmentPopup from "./PaymentSettelmentPopup";
 
 function Settelment() {
   const SETTELMENT_DETAILS = [
@@ -132,6 +133,10 @@ function Settelment() {
       File: "",
     },
   ];
+  const [showPaymentModal, setShowPaymentModal] = useState(false);
+  const handlePaymentModal = () => {
+    setShowPaymentModal(true);
+  };
   return (
     <div className="p-4">
       <div className="xx-large-font mt-2 mb-4">Settelment</div>
@@ -151,7 +156,7 @@ function Settelment() {
         </div>
       </div>
       <div>
-        <table className="table settelment-table medium-font">
+        <table className="w-100 match-position-table medium-font">
           <thead>
             <tr>
               <th scope="col" className="text-center">
@@ -182,23 +187,32 @@ function Settelment() {
                 <td className="text-center clr-green ">{item.CreditDebit}</td>
                 <td className="text-center clr-green ">{item.Balance}</td>
                 <td className="text-center">
-                  <AiFillFileText className="custom-icon" />
+                  <AiFillFileText
+                    className="custom-icon"
+                    onClick={() => handlePaymentModal()}
+                  />
                 </td>
               </tr>
             </tbody>
           ))}
           <tfoot>
             <tr>
-              <th colSpan={4} className="text-center medium-font">
+              <th colSpan={2} className="text-end medium-font">
                 Total
               </th>
-              <th colSpan={2} className="text-center medium-font">
-                500000.00
-              </th>
+              <th className="text-center medium-font clr-green">500000.00</th>
+              <th className="text-center medium-font clr-green">500000.00</th>
+              <th className="text-center medium-font clr-green">500000.00</th>
+              <th className="text-center medium-font clr-green"></th>
+
             </tr>
           </tfoot>
         </table>
       </div>
+      <PaymentSettelmentPopup
+        showPaymentModal={showPaymentModal}
+        setShowPaymentModal={setShowPaymentModal}
+      />
     </div>
   );
 }

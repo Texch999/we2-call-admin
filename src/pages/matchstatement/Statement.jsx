@@ -159,7 +159,11 @@ function Statement() {
         <div>
           <div className="medium-font mb-2">From</div>
           <div className="date-container d-flex justify-content-around align-items-center rounded p-2">
-            <input className="login-inputs medium-font" type="date" pattern="\d{4}-\d{2}-\d{2}"></input>
+            <input
+              className="login-inputs medium-font"
+              type="date"
+              pattern="\d{4}-\d{2}-\d{2}"
+            ></input>
             {/* <FaCalendarAlt className="custom-icon"></FaCalendarAlt> */}
           </div>
         </div>
@@ -284,9 +288,13 @@ function Statement() {
           </tbody>
         ))}
         <tfoot>
-          <tr className="text-center">
-            <th colSpan={4}>TOTAL</th>
-            <th colSpan={3}>50000000.00</th>
+          <tr className="text-center clr-green">
+            <th colSpan={5} className="text-end">
+              TOTAL
+            </th>
+            <th className="text-center" colSpan={2}>
+              50000000.00
+            </th>
           </tr>
         </tfoot>
       </table>
