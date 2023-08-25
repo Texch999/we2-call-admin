@@ -75,7 +75,7 @@ const AddAdmins = () => {
             <Button className="agent-button sm-button">SM</Button>
             <span className="mb-0 ms-2 me-2 add-user-name">Srinivas</span>
             <MdArrowForwardIos />
-            <Button className="agent-button">AGENT</Button>
+            <Button className="ms-2 agent-button">AGENT</Button>
             <span className="mb-0 ms-2 me-2 add-user-name">Sai agent</span>
           </div>
 
