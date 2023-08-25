@@ -10,7 +10,7 @@ import { MdArrowForwardIos } from "react-icons/md";
 const AddAdmins = () => {
   const [filteredValue, setFilteredValue] = useState("");
   const [modalShow, setModalShow] = useState(false);
-
+  const [packageViewPopShow, setPackageViewPopup] = useState(false);
   const addUsersData = [
     {
       s_no: 1,
@@ -72,7 +72,12 @@ const AddAdmins = () => {
 
         <div className="mt-3 d-flex justify-content-between align-items-center">
           <div className="d-flex justify-content-center align-items-center">
-            <Button className="agent-button sm-button">SM</Button>
+            <Button
+              className="agent-button sm-button"
+              onClick={() => setPackageViewPopup(true)}
+            >
+              SM
+            </Button>
             <span className="mb-0 ms-2 me-2 add-user-name">Srinivas</span>
             <MdArrowForwardIos />
             <Button className="ms-2 agent-button">AGENT</Button>
@@ -158,6 +163,13 @@ const AddAdmins = () => {
             <AddAdminsPopup
               show={modalShow}
               onHide={() => setModalShow(false)}
+              filteredUsersData={filteredUsersData}
+            />
+          )}
+          {packageViewPopShow && (
+            <AddAdminsPopup
+              show={packageViewPopShow}
+              onHide={() => setPackageViewPopup(false)}
               filteredUsersData={filteredUsersData}
             />
           )}
