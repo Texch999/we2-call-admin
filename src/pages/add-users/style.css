@@ -10,6 +10,10 @@
 .ub-button {
   --bs-btn-bg: #4ebd5d;
 }
+.sm-button {
+  --bs-btn-bg: #f3a22f;
+  border: unset;
+}
 .user-search-input {
   width: unset;
   color: #fff !important;
@@ -66,11 +70,20 @@
   font-size: var(--table-body-font-size);
   font-family: "Barlow-Regular";
 }
-.add-user-modal .form-control {
+.add-user-modal .form-control,
+.add-user-modal .form-select {
   background-color: var(--input-bg-color);
   color: var(--input-text-color);
   border: none;
   font-family: "Barlow-Regular";
+}
+.add-user-modal .form-select {
+  --bs-form-select-bg-img: url("../../../public/assets/dropdown.png");
+  background-size: 12px 8px;
+}
+
+.add-user-modal .form-select:focus {
+  box-shadow: unset;
 }
 .add-user-modal .form-control:focus {
   box-shadow: unset;
@@ -115,4 +128,9 @@
 }
 .add-user-modal-form-details .input-group-text img {
   width: 14px;
+}
+.add-admin-dropdown-icon {
+  position: absolute;
+  left: 90%;
+  top: 15%;
 }

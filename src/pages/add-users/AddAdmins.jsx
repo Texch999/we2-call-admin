@@ -3,8 +3,9 @@ import { Button, Table, Form } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./style.css";
 import { FiSearch } from "react-icons/fi";
-import AddUserPopUp from "./AddUserPopUp";
+
 import AddAdminsPopup from "./AddAdminsPopup";
+import { MdArrowForwardIos } from "react-icons/md";
 
 const AddAdmins = () => {
   const [filteredValue, setFilteredValue] = useState("");
@@ -71,8 +72,11 @@ const AddAdmins = () => {
 
         <div className="mt-3 d-flex justify-content-between align-items-center">
           <div className="d-flex justify-content-center align-items-center">
-            <Button className="me-2 agent-button">SM</Button>
-            <span className="mb-0 add-user-name">Srinivas</span>
+            <Button className="agent-button sm-button">SM</Button>
+            <span className="mb-0 ms-2 me-2 add-user-name">Srinivas</span>
+            <MdArrowForwardIos />
+            <Button className="agent-button">AGENT</Button>
+            <span className="mb-0 ms-2 me-2 add-user-name">Sai agent</span>
           </div>
 
           <Form className="d-flex">

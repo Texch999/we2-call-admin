@@ -25,4 +25,6 @@ export const Images = {
   CheckedMark: "./assets/checked_Mark.png",
   AgentHomePage: "./assets/agent_home_page.png",
   percentIcon: "./assets/percent.png",
+  dropdownIcon: "./assets/dropdown.png",
+  packageIcon: "./assets/package.png",
 };
