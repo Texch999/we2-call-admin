@@ -17,3 +17,15 @@
 .h-10vh {
   height: 10vh;
 }
+.pending-btn {
+  color: #ff971c;
+  background-color: #302a33;
+}
+.completed-btn {
+  color: #04c85e;
+  background-color: #003542;
+}
+.reject-btn {
+  color: #fa3333;
+  background-color: #2e1338;
+}

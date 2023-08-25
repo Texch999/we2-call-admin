@@ -158,13 +158,13 @@ function FinancialStatement() {
       <div className="d-flex flex-row justify-content-around mb-2 w-80">
         <div>
           <div className="medium-font mb-2">From</div>
-          <div className="date-container d-flex justify-content-around align-items-center rounded">
-            <input className="login-inputs medium-font" type="date"></input>
+          <div className="date-container d-flex justify-content-around align-items-center rounded p-2">
+            <input className="login-inputs medium-font " type="date"></input>
           </div>
         </div>
         <div>
           <div className="medium-font mb-2">To</div>
-          <div className="date-container d-flex justify-content-around align-items-center rounded">
+          <div className="date-container d-flex justify-content-around align-items-center rounded p-2">
             <input type="date" className="login-inputs medium-font"></input>
           </div>
         </div>

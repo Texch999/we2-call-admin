@@ -23,4 +23,6 @@ export const Images = {
   SportManagement: "./assets/sports_management.png",
   QuestionMark: "./assets/questionMark.png",
   CheckedMark: "./assets/checked_Mark.png",
+  AgentHomePage: "./assets/agent_home_page.png",
+  percentIcon: "./assets/percent.png",
 };

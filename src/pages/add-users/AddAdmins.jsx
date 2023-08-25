@@ -4,8 +4,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./style.css";
 import { FiSearch } from "react-icons/fi";
 import AddUserPopUp from "./AddUserPopUp";
+import AddAdminsPopup from "./AddAdminsPopup";
 
-const AddUsers = () => {
+const AddAdmins = () => {
   const [filteredValue, setFilteredValue] = useState("");
   const [modalShow, setModalShow] = useState(false);
 
@@ -13,34 +14,38 @@ const AddUsers = () => {
     {
       s_no: 1,
       user_name: "Sai Offline",
+      package: 1,
       type: "User",
       location: "Hyderabad",
       user: "Sriagent",
-      profit_loss: "500000000",
+      profit_loss: 500000000,
     },
     {
       s_no: 2,
       user_name: "Sangram",
+      package: 10,
       type: "User",
       location: "Hyderabad",
       user: "Sriagent",
-      profit_loss: "500000000",
+      profit_loss: 500000000,
     },
     {
       s_no: 3,
       user_name: "Srikanth",
-      type: "User",
+      package: 3,
+      type: "Master",
       location: "Hyderabad",
       user: "Sriagent",
-      profit_loss: "500000000",
+      profit_loss: 500000000,
     },
     {
       s_no: 4,
       user_name: "Srikanth",
-      type: "User",
+      package: 5,
+      type: "Master",
       location: "Hyderabad",
       user: "Sriagent",
-      profit_loss: "500000000",
+      profit_loss: 500000000,
     },
   ];
   const ACTION_LABELS = {
@@ -58,7 +63,7 @@ const AddUsers = () => {
   return (
     <div className="p-4">
       <div>
-        <h5 className="meetings-heading">Add Users</h5>
+        <h5 className="meetings-heading">Add Users & Admins</h5>
         <div className="d-flex flex-column add-users-date">
           <span>Wednesday, 2nd August, 2023</span>
           <span>12:22:34 PM</span>
@@ -66,8 +71,8 @@ const AddUsers = () => {
 
         <div className="mt-3 d-flex justify-content-between align-items-center">
           <div className="d-flex justify-content-center align-items-center">
-            <Button className="me-2 agent-button">Agent</Button>
-            <span className="mb-0 add-user-name">Srikanth</span>
+            <Button className="me-2 agent-button">SM</Button>
+            <span className="mb-0 add-user-name">Srinivas</span>
           </div>
 
           <Form className="d-flex">
@@ -81,12 +86,11 @@ const AddUsers = () => {
               />
               <FiSearch className="user-search-icon position-absolute" />
             </div>
-
             <Button
               className="add-new-meetings-button"
               onClick={() => setModalShow(true)}
             >
-              + Add Users
+              + Add Users/Admins
             </Button>
           </Form>
         </div>
@@ -99,6 +103,7 @@ const AddUsers = () => {
               <th></th>
               <th className="text-center">USER NAME</th>
               <th className="text-center">TYPE</th>
+              <th className="text-center">PACKAGE</th>
               <th className="text-center">LOCATION</th>
               <th className="text-center">REFERRAL</th>
               <th className="text-center">P/L</th>
@@ -113,7 +118,9 @@ const AddUsers = () => {
                   {data?.user_name}{" "}
                   <Button className="ms-1 border-0 status-button"></Button>
                 </td>
+
                 <td className="text-center">{data?.type}</td>
+                <td className="text-center">{data?.package}</td>
                 <td className="text-center">{data?.location}</td>
                 <td className="text-center">{data?.user}</td>
                 <td className="text-center">{data?.profit_loss}</td>
@@ -132,7 +139,7 @@ const AddUsers = () => {
           </tbody>
           <tfoot>
             <tr>
-              <th colSpan={5}>TOTAL</th>
+              <th colSpan={6}>TOTAL</th>
               <th className="clr-green" colSpan={2}>
                 {filteredUsersData
                   ?.reduce(
@@ -144,7 +151,7 @@ const AddUsers = () => {
             </tr>
           </tfoot>
           {modalShow && (
-            <AddUserPopUp
+            <AddAdminsPopup
               show={modalShow}
               onHide={() => setModalShow(false)}
               filteredUsersData={filteredUsersData}
@@ -156,4 +163,4 @@ const AddUsers = () => {
   );
 };
 
-export default AddUsers;
+export default AddAdmins;

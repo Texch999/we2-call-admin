@@ -189,7 +189,7 @@ function CallStatement() {
       <div className="xx-large-font mt-2 mb-4 font-weight-bold">
         Call Statement
       </div>
-      <div className="d-flex flex-row justify-content-around mb-4 w-75">
+      <div className="d-flex flex-row justify-content-around mb-4 w-50">
         <div className="d-flex flex-column statement-container justify-content-around p-2">
           <div className="medium-font">Settlement Information Charges</div>
           <div className="clr-yellow medium-font">1000/Hour</div>

@@ -1,6 +1,7 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { AiFillEye } from "react-icons/ai";
 import { BiSolidCloudUpload } from "react-icons/bi";
+import UploadScreenShot from "./UploadScreenShot";
 
 function CallSettelment() {
   const SETTELMENT_DETAILS = [
@@ -125,7 +126,10 @@ function CallSettelment() {
       status: "Rejected",
     },
   ];
-
+  const [showUploadButton, setShowUploadButton] = useState();
+  const handleUploadButton = () => {
+    setShowUploadButton(true);
+  };
   const uploadfileInputRef = useRef(null);
   const handleUploadFileSelect = (e) => {
     const file = e.target.files[0];
@@ -169,7 +173,7 @@ function CallSettelment() {
         <div>
           <div className="medium-font mb-2">Settelment Amount</div>
           <div className="date-container d-flex justify-content-around align-items-center rounded p-2">
-            <div className="small-font d-flex justify-content-start">
+            <div className="small-font d-flex justify-content-start p-2">
               Setteled Amount
             </div>
           </div>
@@ -183,7 +187,7 @@ function CallSettelment() {
               ref={uploadfileInputRef}
               style={{ display: "none" }}
               onChange={handleUploadFileSelect}
-              className="login-inputs p-2"
+              className="login-inputs"
             ></input>
             <BiSolidCloudUpload className="custom-icon"></BiSolidCloudUpload>
           </div>
@@ -237,13 +241,20 @@ function CallSettelment() {
                   </button> */}
                 </td>
                 <td className="text-center">
-                  <AiFillEye className="custom-icon" />
+                  <AiFillEye
+                    className="custom-icon"
+                    onClick={() => handleUploadButton()}
+                  />
                 </td>
               </tr>
             </tbody>
           ))}
         </table>
       </div>
+      <UploadScreenShot
+        showUploadButton={showUploadButton}
+        setShowUploadButton={setShowUploadButton}
+      />
     </div>
   );
 }

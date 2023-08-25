@@ -1,4 +1,11 @@
+import { useState } from "react";
+import SubmitPopup from "../popups/SubmitPopup";
+
 function FancyEntryInput() {
+  const [submitPopup, setSubmitPopup] = useState(false);
+  const handleSubmitPopupOpen = () => {
+    setSubmitPopup(true);
+  };
   return (
     <div className="match-position-bg rounded-bottom p-3">
       <div className="row">
@@ -16,7 +23,7 @@ function FancyEntryInput() {
           <div>
             <div className="medium-font">S.No:</div>
             <input
-              type="text"
+              type="number"
               className="w-100 medium-font btn-bg rounded all-none p-2"
               placeholder="Enter"
             />
@@ -26,7 +33,8 @@ function FancyEntryInput() {
           <div>
             <div className="medium-font">Rate</div>
             <input
-              type="text"
+              type="number"
+              defaultValue={1.}
               className="w-100 medium-font btn-bg rounded all-none p-2"
               placeholder="Rate"
             />
@@ -56,7 +64,7 @@ function FancyEntryInput() {
           <div>
             <div className="medium-font">Amount</div>
             <input
-              type="text"
+              type="number"
               className="w-100 medium-font btn-bg rounded all-none p-2"
               placeholder="Amount"
             />
@@ -83,11 +91,19 @@ function FancyEntryInput() {
           </div>
         </div>
         <div className="col d-flex align-items-end">
-          <div className="w-100 text-center rounded medium-font p-2 yellow-btn fw-semibold">
+          <div
+            className="w-100 text-center rounded medium-font p-2 yellow-btn fw-semibold"
+            onClick={() => handleSubmitPopupOpen()}
+          >
             Submit
           </div>
         </div>
       </div>
+      <SubmitPopup
+        state={submitPopup}
+        setState={setSubmitPopup}
+        header={"Are You Sure You Want To Submit This Fancy Entry"}
+      />
     </div>
   );
 }

@@ -39,7 +39,7 @@ function FancyResultInput() {
           <div>
             <div className="medium-font">Result Runs</div>
             <input
-              type="text"
+              type="number"
               className="w-100 medium-font btn-bg rounded all-none p-2"
               placeholder="Result Runs"
             />
