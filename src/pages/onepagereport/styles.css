@@ -17,3 +17,9 @@
   background-color: #fce719 !important;
   color: #00143d !important;
 }
+
+@media (min-width: 576px) {
+  .admin-reports-modal .modal-dialog {
+    max-width: var(--admin-modal-bs-width) !important;
+  }
+}

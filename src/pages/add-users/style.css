@@ -99,13 +99,15 @@
   font-size: var(--table-body-font-size);
 }
 .add-user-modal .btn-close {
-  opacity: 0;
+  --bs-btn-close-bg:url("/public/assets/close.png");
+  --bs-btn-close-focus-shadow: unset;
+  cursor: pointer;
 }
-.add-user-modal .close-button-user {
+/* .add-user-modal .close-button-user {
   opacity: 1;
   left: 100%;
-  --bs-btn-close-focus-shadow: unset;
-}
+
+} */
 .add-user-button {
   background-color: var(--btn-bg-color);
   color: var(--table-bg-color);

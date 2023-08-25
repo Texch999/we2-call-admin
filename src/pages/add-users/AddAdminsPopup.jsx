@@ -5,7 +5,6 @@ import {
   Col,
   InputGroup,
   Image,
-  CloseButton,
 } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
@@ -52,9 +51,6 @@ function AddAdminsPopup(props) {
         <Modal.Title className="w-100 text-center">
           Add Users/Admins
         </Modal.Title>
-        <div data-bs-theme="dark" className="p-2">
-          <CloseButton className="close-button-user position-relative" />
-        </div>{" "}
       </Modal.Header>
       <Modal.Body>
         <Form className="add-user-modal-form-details">

@@ -1,4 +1,4 @@
-import { CloseButton, Button, Table } from "react-bootstrap";
+import { Button, Table } from "react-bootstrap";
 // import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 
@@ -40,9 +40,6 @@ function PackageViewPopUp(props) {
       <Modal.Header closeButton className="mb-2">
         <h6>Srinivas</h6>
         <Button className="agent-button sm-button ms-2">SM</Button>
-        <div data-bs-theme="dark" className="p-2 w-100">
-          <CloseButton className="close-button-user position-relative" />
-        </div>{" "}
       </Modal.Header>
       <Modal.Body>
         <div>

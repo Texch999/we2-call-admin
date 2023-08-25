@@ -24,6 +24,7 @@ code {
   --input-text-color:#fff;
   --input-placeholder-color:#c9d6f0;
   --modal-bs-width: 450px !important;
+  --admin-modal-bs-width:600px !important;
   --btn-bg-color:#fce719;
   --comm-bg-color: #051e51;
 }

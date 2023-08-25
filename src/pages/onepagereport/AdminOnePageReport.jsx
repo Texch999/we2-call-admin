@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 import { Button, Table } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
+import AdminOnePageReportPopup from "./AdminOnePageReportPopup";
 
 const AdminOnePageReport = () => {
+  const [adminOnePageReportPopUp, setAdminOnePageReportPopUp] = useState(false);
+  const [adminName, setAdminName] = useState("");
+  const [role, setRole] = useState("");
   const reports = [
     "Client One Page Report",
     "Admin One Page Report",
@@ -47,8 +51,40 @@ const AdminOnePageReport = () => {
       ul_share: 200000.0,
     },
   ];
+  const adminOnePageReportIndividualData = [
+    {
+      series_name: "T20 world cup",
+      date_time: "02/08/2023 11:32:00 AM",
+      team: "india",
+      win_team: "india",
+      profit_loss: 50000000,
+      urs_profilt_loss: 50000000,
+    },
+    {
+      series_name: "T20 world cup",
+      date_time: "02/08/2023 11:32:00 AM",
+      team: "india",
+      win_team: "india",
+      profit_loss: 50000000,
+      urs_profilt_loss: 50000000,
+    },
+  ];
+  const adminOnePageReportIndividualHeadings = [
+    { header: "Series Name", field: "series_name" },
+    { header: "Date & Time", field: "date_time" },
+    { header: "Team", field: "team" },
+
+    { header: "Win Team", field: "win_team" },
+    { header: "Admin P/L", field: "profit_loss" },
+    { header: "Urs P/L", field: "urs_profilt_loss" },
+  ];
   const handleReport = (report) => {
     setActiveReport(report);
+  };
+  const handleAdminReports = (data) => {
+    setAdminName(data?.admin_name);
+    setRole(data?.admin_role);
+    setAdminOnePageReportPopUp(true);
   };
   return (
     <div className="p-4">
@@ -88,7 +124,12 @@ const AdminOnePageReport = () => {
           <tbody>
             {adminOnePageReportData?.map((data, index) => (
               <tr key={index}>
-                <td className="text-center">{data?.admin_name}</td>
+                <td
+                  className="text-center cursor-pointer"
+                  onClick={() => handleAdminReports(data)}
+                >
+                  {data?.admin_name}
+                </td>
                 <td className="text-center">{data?.admin_role}</td>
                 <td className="text-center">
                   {parseFloat(data?.profit_loss).toFixed(2)}
@@ -120,6 +161,16 @@ const AdminOnePageReport = () => {
               </th>
             </tr>
           </tfoot>
+          {adminOnePageReportPopUp && (
+            <AdminOnePageReportPopup
+              show={adminOnePageReportPopUp}
+              onHide={() => setAdminOnePageReportPopUp(false)}
+              data={adminOnePageReportIndividualData}
+              columns={adminOnePageReportIndividualHeadings}
+              adminName={adminName}
+              role={role}
+            />
+          )}
         </Table>
       </div>
     </div>
