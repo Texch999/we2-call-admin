@@ -42,8 +42,9 @@ body {
   color: #080c27;
 }
 .head-image {
-  height: 50% !important;
-  width: 7%;
+  height: 8vh !important;
+  width: 13% !important;
+  margin-right: 5px ;
 }
 .vh-50 {
   height: 60vh !important;

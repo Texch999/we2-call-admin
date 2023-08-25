@@ -28,7 +28,7 @@ function App() {
   return (
     <div>
       <Header />
-      <div className="scroll-container">
+      <div className="scroll-container p-3">
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<HomeContent />} />

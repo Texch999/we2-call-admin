@@ -5,6 +5,9 @@ import { useNavigate } from "react-router";
 
 function ManagementContainer() {
   const navigate = useNavigate();
+  const handleWe2callButton = () => {
+    navigate("/call-management")
+  };
   return (
     <div className="row vh-50 p-3">
       <div className="col-7 call-management col-sm-12 col-md-12 col-lg-7 col-xl-7 d-flex">
@@ -15,7 +18,12 @@ function ManagementContainer() {
             Amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
             ut labore et dolore magna aliqua.
           </p>
-          <div className="we2-call-button">we2Call</div>
+          <div
+            className="we2-call-button"
+            onClick={() => handleWe2callButton()}
+          >
+            we2Call
+          </div>
         </div>
         <div className="w-50 d-flex align-items-center justify-content-center">
           <img
