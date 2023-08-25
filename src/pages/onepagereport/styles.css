@@ -23,3 +23,11 @@
     max-width: var(--admin-modal-bs-width) !important;
   }
 }
+.admin-reports-modal .btn-primary {
+  --bs-btn-bg: var(--btn-opacity-bg-color);
+  --bs-btn-color:var(--btn-bg-color);
+  border: none;
+}
+.cursor-pointer{
+  cursor: pointer !important;
+}

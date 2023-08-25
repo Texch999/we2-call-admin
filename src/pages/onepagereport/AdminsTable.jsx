@@ -11,7 +11,7 @@ function AdminsTable(props) {
       <thead>
         <tr>
           {columns.map((column, index) => (
-            <th key={index}>{column.header}</th>
+            <th key={index} className="text-center">{column.header}</th>
           ))}
         </tr>
       </thead>
@@ -21,7 +21,7 @@ function AdminsTable(props) {
             {columns.map((column, colIndex) => (
               <td key={colIndex}>
                 <div
-                  className={`${
+                  className={`text-center ${
                     isNaN(item[column.field]) > 0
                       ? ""
                       : +item[column.field] > 0
@@ -46,7 +46,7 @@ function AdminsTable(props) {
             return (
               <th
                 key={field}
-                className={`${
+                className={`text-center ${
                   isNumericColumn && sum >= 0 ? "green-color" : "red-color"
                 }`}
               >

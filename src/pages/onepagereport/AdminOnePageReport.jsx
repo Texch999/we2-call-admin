@@ -7,12 +7,15 @@ const AdminOnePageReport = () => {
   const [adminOnePageReportPopUp, setAdminOnePageReportPopUp] = useState(false);
   const [adminName, setAdminName] = useState("");
   const [role, setRole] = useState("");
+  const [adminsData, setAdminsData] = useState("");
+  const [adminsHeadings, setAdminsHeadings] = useState("");
   const reports = [
     "Client One Page Report",
     "Admin One Page Report",
     "UL/Platform Comm Report",
   ];
   const [activeReport, setActiveReport] = useState("Admin One Page Report");
+  const [popupHeading, setPopupHeading] = useState(false);
   const adminOnePageReportData = [
     {
       admin_name: "Animesh",
@@ -68,23 +71,92 @@ const AdminOnePageReport = () => {
       profit_loss: 50000000,
       urs_profilt_loss: 50000000,
     },
+    {
+      series_name: "T20 world cup",
+      date_time: "02/08/2023 11:32:00 AM",
+      team: "india",
+      win_team: "india",
+      profit_loss: 50000000,
+      urs_profilt_loss: 50000000,
+    },
+    {
+      series_name: "T20 world cup",
+      date_time: "02/08/2023 11:32:00 AM",
+      team: "india",
+      win_team: "india",
+      profit_loss: 50000000,
+      urs_profilt_loss: 50000000,
+    },
   ];
   const adminOnePageReportIndividualHeadings = [
     { header: "Series Name", field: "series_name" },
     { header: "Date & Time", field: "date_time" },
     { header: "Team", field: "team" },
-
     { header: "Win Team", field: "win_team" },
     { header: "Admin P/L", field: "profit_loss" },
     { header: "Urs P/L", field: "urs_profilt_loss" },
+  ];
+  const adminUlPlatformCommData = [
+    {
+      series_name: "T20 world cup",
+      date_time: "02/08/2023 11:32:00 AM",
+      team: "india",
+      win_team: "india",
+      profit_loss: 50000000,
+      urs_profilt_loss: 50000000,
+    },
+    {
+      series_name: "T20 world cup",
+      date_time: "02/08/2023 11:32:00 AM",
+      team: "india",
+      win_team: "india",
+      profit_loss: 50000000,
+      urs_profilt_loss: 50000000,
+    },
+    {
+      series_name: "T20 world cup",
+      date_time: "02/08/2023 11:32:00 AM",
+      team: "india",
+      win_team: "india",
+      profit_loss: 50000000,
+      urs_profilt_loss: 50000000,
+    },
+    {
+      series_name: "T20 world cup",
+      date_time: "02/08/2023 11:32:00 AM",
+      team: "india",
+      win_team: "india",
+      profit_loss: 50000000,
+      urs_profilt_loss: 50000000,
+    },
+  ];
+  const adminUlPlatformCommHeadings = [
+    { header: "Series Name", field: "series_name" },
+    { header: "Date & Time", field: "date_time" },
+    { header: "Team", field: "team" },
+    { header: "Win Team", field: "win_team" },
+    { header: "Admin P/L", field: "profit_loss" },
+    { header: "UL/Plat Comm", field: "urs_profilt_loss" },
   ];
   const handleReport = (report) => {
     setActiveReport(report);
   };
   const handleAdminReports = (data) => {
-    setAdminName(data?.admin_name);
-    setRole(data?.admin_role);
-    setAdminOnePageReportPopUp(true);
+    if (activeReport === "Admin One Page Report") {
+      setAdminName(data?.admin_name);
+      setRole(data?.admin_role);
+      setAdminOnePageReportPopUp(true);
+      setAdminsData(adminOnePageReportIndividualData);
+      setAdminsHeadings(adminOnePageReportIndividualHeadings);
+      setPopupHeading("Match Wise Share P/L");
+    } else {
+      setAdminName(data?.admin_name);
+      setRole(data?.admin_role);
+      setAdminOnePageReportPopUp(true);
+      setAdminsData(adminUlPlatformCommData);
+      setAdminsHeadings(adminUlPlatformCommHeadings);
+      setPopupHeading("Match Wise UL/Platform Com");
+    }
   };
   return (
     <div className="p-4">
@@ -165,10 +237,11 @@ const AdminOnePageReport = () => {
             <AdminOnePageReportPopup
               show={adminOnePageReportPopUp}
               onHide={() => setAdminOnePageReportPopUp(false)}
-              data={adminOnePageReportIndividualData}
-              columns={adminOnePageReportIndividualHeadings}
+              data={adminsData}
+              columns={adminsHeadings}
               adminName={adminName}
               role={role}
+              heading={popupHeading}
             />
           )}
         </Table>
