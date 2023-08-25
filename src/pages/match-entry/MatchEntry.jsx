@@ -1,4 +1,3 @@
-import "./styles.css";
 import MatchScroll from "./MatchScroll";
 import MatchPositionTable from "./MatchPositionTable";
 import MatchEntries from "./MatchEntries";

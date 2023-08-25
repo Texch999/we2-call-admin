@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import UpgradeYourPackage from "./UpgradeYourPackage";
 import YourPackageTicket from "./YourPackageTicket";
+import "./styles.css";
 
 function UpgradePackage() {
   const [upgradeYourPackage, setUpgradeYourPackage] = useState(true);
@@ -41,10 +42,8 @@ function UpgradePackage() {
         </div>
       </div>
       <hr className="hr-line" />
-      <div className="p-3">
-        {upgradeYourPackage && <UpgradeYourPackage />}
-        {yourPackageTickets && <YourPackageTicket />}
-      </div>
+      {upgradeYourPackage && <UpgradeYourPackage />}
+      <div className="p-3">{yourPackageTickets && <YourPackageTicket />}</div>
     </div>
   );
 }
