@@ -75,7 +75,7 @@ const AdminOnePageReport = () => {
         <Table responsive="md" className="call-management-data">
           <thead>
             <tr>
-              <th>ADMINS NAME</th>
+              <th className="text-center">ADMINS NAME</th>
               <th className="text-center">ADMINS ROLE</th>
               <th className="text-center">ADMINS NET P/L</th>
               <th className="text-center">
@@ -88,7 +88,7 @@ const AdminOnePageReport = () => {
           <tbody>
             {adminOnePageReportData?.map((data, index) => (
               <tr key={index}>
-                <td>{data?.admin_name}</td>
+                <td className="text-center">{data?.admin_name}</td>
                 <td className="text-center">{data?.admin_role}</td>
                 <td className="text-center">
                   {parseFloat(data?.profit_loss).toFixed(2)}
