@@ -10,6 +10,16 @@
 .ub-button {
   --bs-btn-bg: #4ebd5d;
 }
+.sm-button {
+  --bs-btn-bg: #f3a22f;
+  border: unset;
+}
+.package-used-clr {
+  color: #f3a22f !important;
+}
+.package-available-clr {
+  color: #04c85e !important;
+}
 .user-search-input {
   width: unset;
   color: #fff !important;
@@ -66,11 +76,20 @@
   font-size: var(--table-body-font-size);
   font-family: "Barlow-Regular";
 }
-.add-user-modal .form-control {
+.add-user-modal .form-control,
+.add-user-modal .form-select {
   background-color: var(--input-bg-color);
   color: var(--input-text-color);
   border: none;
   font-family: "Barlow-Regular";
+}
+.add-user-modal .form-select {
+  --bs-form-select-bg-img: url("../../../public/assets/dropdown.png");
+  background-size: 12px 8px;
+}
+
+.add-user-modal .form-select:focus {
+  box-shadow: unset;
 }
 .add-user-modal .form-control:focus {
   box-shadow: unset;
@@ -80,13 +99,15 @@
   font-size: var(--table-body-font-size);
 }
 .add-user-modal .btn-close {
-  opacity: 0;
+  --bs-btn-close-bg:url("/public/assets/close.png");
+  --bs-btn-close-focus-shadow: unset;
+  cursor: pointer;
 }
-.add-user-modal .close-button-user {
+/* .add-user-modal .close-button-user {
   opacity: 1;
   left: 100%;
-  --bs-btn-close-focus-shadow: unset;
-}
+
+} */
 .add-user-button {
   background-color: var(--btn-bg-color);
   color: var(--table-bg-color);
@@ -115,4 +136,13 @@
 }
 .add-user-modal-form-details .input-group-text img {
   width: 14px;
+}
+.add-admin-dropdown-icon {
+  position: absolute;
+  left: 90%;
+  top: 15%;
+}
+.total-package-values .btn-primary {
+  --bs-btn-bg: #102e6d;
+  border: unset;
 }

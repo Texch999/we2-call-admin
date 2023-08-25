@@ -140,10 +140,10 @@
   background-color: #1a2a39;
 }
 .green-color {
-  color: #04c85e;
+  color: #04c85e !important;
 }
 .red-color {
-  color: #f62a3d;
+  color: #f62a3d !important;
 }
 .w-100vw {
   width: 100vw;
