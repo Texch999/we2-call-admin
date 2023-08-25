@@ -33,11 +33,7 @@ function SportsManagement() {
           <br /> 11:46:00 AM
         </div>
       ),
-      editButton: (
-        <div>
-          <GoPencil />
-        </div>
-      ),
+      editButton:<GoPencil className="edit-icon" />
     },
     {
       seriesName: "T20 World Cup",
@@ -50,11 +46,7 @@ function SportsManagement() {
           <br /> 11:46:00 AM
         </div>
       ),
-      editButton: (
-        <div>
-          <GoPencil />
-        </div>
-      ),
+      editButton: <GoPencil className="edit-icon" />,
     },
     {
       seriesName: "T20 World Cup",
@@ -67,11 +59,7 @@ function SportsManagement() {
           <br /> 11:46:00 AM
         </div>
       ),
-      editButton: (
-        <div>
-          <GoPencil />
-        </div>
-      ),
+      editButton:<GoPencil className="edit-icon" />,
     },
     {
       seriesName: "T20 World Cup",
@@ -84,11 +72,7 @@ function SportsManagement() {
           <br /> 11:46:00 AM
         </div>
       ),
-      editButton: (
-        <div>
-          <GoPencil />
-        </div>
-      ),
+      editButton: <GoPencil className="edit-icon" />
     },
   ];
 

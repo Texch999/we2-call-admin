@@ -129,6 +129,8 @@
 .scroll-container {
   height: 85vh;
   overflow-y: scroll;
+  position: absolute;
+  bottom: 0%;
 }
 .table-head {
   background: #112e69;
@@ -156,4 +158,50 @@
   width: fit-content;
   color: #af5bd4;
   font-weight: bold;
+}
+.w-40 {
+  width: 40%;
+}
+.w-55 {
+  width: 55%;
+}
+.w-70 {
+  width: 65%;
+}
+.agent-header {
+  height: 13.5vh;
+  background: #00143d !important;
+  z-index: 9999 !important;
+  position: fixed;
+  top: 0%;
+}
+.bl-1 {
+  border-left: 1px solid grey;
+}
+.br-1 {
+  border-right: 1px solid grey;
+}
+.head-menu {
+  background: #202d57;
+  padding: 8px 15px;
+  border-radius: 10px;
+}
+.active-head-menu {
+  background: #202d57;
+  padding: 6px 13px;
+  border-radius: 10px;
+  border: 2px solid #fce719;
+}
+.w-80px{
+  width: 80px !important;
+}
+.profile-image{
+  height: 40px;
+  width: 40px;
+  background: #202d57;
+  border-radius: 10px;
+}
+.user-img{
+  font-size: 25px;
+  color:#fff;
 }
