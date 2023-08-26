@@ -5,8 +5,8 @@ import SpecialPackages from "./SpecialPackages";
 import { useState } from "react";
 
 function UpgradeYourPackage() {
-  const [specialOffer, setSpecialOffer] = useState(true);
-  const [specialPackage, setSpecialPackage] = useState(false);
+  const [specialOffer, setSpecialOffer] = useState(false);
+  const [specialPackage, setSpecialPackage] = useState(true);
   const handleSpecialOffer = () => {
     setSpecialOffer(true);
     setSpecialPackage(false);

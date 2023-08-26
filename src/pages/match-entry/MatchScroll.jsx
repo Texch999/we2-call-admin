@@ -6,6 +6,10 @@ function MatchScroll() {
   const navigate = useNavigate();
   const [matchEntry, setMatchEntry] = useState(true);
   const [fancyEntry, setFancyEntry] = useState(false);
+  const [activeIndex, setActiveIndex] = useState("");
+  const handleActiveIndex = (index) => {
+    setActiveIndex(index);
+  };
   const handleMatchEntry = () => {
     setMatchEntry(true);
     setFancyEntry(false);
@@ -91,7 +95,11 @@ function MatchScroll() {
             {MatchDetailsButtons?.map((item, index) => (
               <div
                 key={index}
-                className="btn-bg d-flex align-items-center justify-content-evenly p-2 m-1 rounded"
+                className={`btn-bg d-flex align-items-center justify-content-evenly p-2 m-1 rounded ${
+                  activeIndex ? "yellow-border" : ""
+                }`}
+                onClick={() => handleActiveIndex(index)}
+                // className="btn-bg d-flex align-items-center justify-content-evenly p-2 m-1 rounded yellow-border"
               >
                 <span className="d-flex m-1">
                   <FaTrophy className="fs-5 yellow-clr" />
@@ -138,27 +146,27 @@ function MatchScroll() {
             <div className="col-8 d-flex align-items-center justify-content-end">
               <div className="row d-flex align-items-center w-85">
                 <div className="col">
-                  <div className="text-center small-font text-white p-2 match-bg rounded-pill">
+                  <div className="text-center small-font text-white p-1 py-3 match-bg rounded-pill">
                     Date : 31/07/2023
                   </div>
                 </div>
                 <div className="col">
-                  <div className="text-center small-font text-white p-2 match-bg rounded-pill">
+                  <div className="text-center small-font text-white p-1 py-3 match-bg rounded-pill">
                     Time : 11:58:00 AM
                   </div>
                 </div>
                 <div className="col">
-                  <div className="text-center small-font text-white p-2 match-bg rounded-pill">
-                    Team : IND vs SL
+                  <div className="text-center small-font text-white p-1 py-3 match-bg rounded-pill">
+                    Team : IND vs PAK
                   </div>
                 </div>
                 <div className="col">
-                  <div className="text-center small-font text-white p-2 match-bg rounded-pill">
+                  <div className="text-center small-font text-white p-1 py-3 match-bg rounded-pill">
                     Series : T20 WC
                   </div>
                 </div>
                 <div className="col">
-                  <div className="text-center small-font text-white p-2 match-bg rounded-pill">
+                  <div className="text-center small-font text-white p-1 py-3 match-bg rounded-pill">
                     Gender : Male
                   </div>
                 </div>
