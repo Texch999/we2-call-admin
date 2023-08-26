@@ -119,6 +119,9 @@
   p {
     font-size: 1.5rem;
   }
+  .sport-management-input {
+    height: 4vh;
+  }
 }
 .meetings-container {
   height: 100%;
@@ -221,4 +224,29 @@
   border-radius: 10px;
   background: #fce719;
   font-weight: bold;
+  border: none;
+}
+.h-100p {
+  height: 100px;
+}
+.h-12vh {
+  height: 12vh;
+}
+.h-40px {
+  height: 40px !important;
+}
+.drop-down-container {
+  background: #112a5e;
+  padding-top: 10px;
+  height: fit-content;
+  z-index: 9999;
+  position: relative;
+}
+.packages-add {
+  background: #183673;
+  margin-bottom: 2px;
+}
+.incre-button {
+  background: #284b95;
+  border-radius: 15px;
 }

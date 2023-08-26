@@ -71,10 +71,10 @@
     font-size: 0.8rem;
   }
   .medium-font {
-    font-size: 1rem;
+    font-size: 20px;
   }
   .large-font {
-    font-size: 1.3rem;
+    font-size: 22px;
   }
 }
 
@@ -113,6 +113,7 @@
 }
 .yellow-clr {
   color: #fce719;
+  font-weight: 600;
 }
 .arrow-icon {
   background-image: linear-gradient(to top, #ff6163, #a806f8);
