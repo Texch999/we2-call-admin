@@ -64,13 +64,32 @@
 }
 .standard-package-div {
   border-radius: 15px;
-  height: 30vh;
+  /* height: 40vh; */
   border: solid 2px #2b3967;
   background-image: linear-gradient(to left, #7683d9, #d8a0fe);
 }
 .amount-border {
-  width: 100px; height: 100px;
+  width: 100px;
+  height: 100px;
   box-shadow: inset 0px 4px 4px 0 rgba(8, 12, 39, 0.65);
   border: solid 5px #00143d;
   background-image: linear-gradient(to top, #d8a0fe);
+}
+.add-package-btn {
+  background-image: linear-gradient(to bottom, #ef5759, #7c23a7);
+}
+.upgrade-btn {
+  color: #080c27 !important;
+  border: solid 2px #080c27;
+}
+.standard-star-img {
+  width: 150px;
+  height: 130px;
+}
+.discount-img {
+  height: 20px;
+  width: 20px;
+}
+.discount-div {
+  background-color: #893bf4;
 }

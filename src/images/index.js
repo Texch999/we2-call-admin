@@ -29,4 +29,7 @@ export const Images = {
   GiftBox: "./assets/gift_box.png",
   dropdownIcon: "./assets/dropdown.png",
   packageIcon: "./assets/package.png",
+  StandardStar: "./assets/standard_star.png",
+  StandardStarBG: "./assets/Standard_start_bg.png",
+  DiscountImg: "./assets/Discount.png",
 };
