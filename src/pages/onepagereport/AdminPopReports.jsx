@@ -2,7 +2,7 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import AdminsTable from "./AdminsTable";
 
-function AdminOnePageReportPopup(props) {
+function AdminPopReports(props) {
   const { show, onHide, data, columns, adminName, role, heading } = props;
   return (
     <Modal
@@ -13,9 +13,11 @@ function AdminOnePageReportPopup(props) {
     >
       <Modal.Header closeButton>
         <Modal.Title className="w-100 mb-2">
-          <Button className="rounded-pill">
-            {adminName} - {role}
-          </Button>
+          {adminName && (
+            <Button className="rounded-pill">
+              {adminName} - {role}
+            </Button>
+          )}
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
@@ -25,4 +27,4 @@ function AdminOnePageReportPopup(props) {
     </Modal>
   );
 }
-export default AdminOnePageReportPopup;
+export default AdminPopReports;

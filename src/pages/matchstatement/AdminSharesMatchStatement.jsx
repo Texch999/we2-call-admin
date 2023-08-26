@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import { Button, Form, Table } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
+import AdminPopReports from "../onepagereport/AdminPopReports";
 
 const AdminSharesMatchStatement = () => {
+  const [adminShareStatementMatchPopUp, setAdminShareStatementMatchPopUp] =
+    useState(false);
   const [activeReport, setActiveReport] = useState("Share Statement");
   const [selectedOptions, setSelectedOptions] = useState({});
   const reports = ["Share Statement", "Statement", "Financial Statement"];
@@ -78,6 +81,39 @@ const AdminSharesMatchStatement = () => {
       profit_loss: 1000000.0,
     },
   ];
+  const adminSharepopupHeadings = [
+    { header: "Admins Name", field: "admin_name" },
+    { header: "Role", field: "role" },
+    { header: "Admin Net P/L", field: "profit_loss" },
+    { header: "U/L Share", field: "ul_share" },
+  ];
+  const adminSharepopupData = [
+    {
+      admin_name: "Animesh",
+      role: "Agent",
+      profit_loss: 50000000,
+      ul_share: 50000000,
+    },
+    {
+      admin_name: "Animesh",
+      role: "Master",
+      profit_loss: 50000000,
+      ul_share: 50000000,
+    },
+    {
+      admin_name: "Animesh",
+      role: "SM",
+      profit_loss: 50000000,
+      ul_share: 50000000,
+    },
+    {
+      admin_name: "Animesh",
+      role: "SA",
+      profit_loss: 50000000,
+      ul_share: 50000000,
+    },
+  ];
+
   const handleReport = (report) => {
     setActiveReport(report);
   };
@@ -179,7 +215,10 @@ const AdminSharesMatchStatement = () => {
                 <td className="text-center">{data?.team_name}</td>
                 <td className="text-center">{data?.match_place}</td>
                 <td className="text-center">{data?.win_team}</td>
-                <td className="text-center clr-green">
+                <td
+                  className="text-center clr-green"
+                  onClick={() => setAdminShareStatementMatchPopUp(true)}
+                >
                   {parseFloat(data?.profit_loss).toFixed(2)}
                 </td>
               </tr>
@@ -199,6 +238,15 @@ const AdminSharesMatchStatement = () => {
               </th>
             </tr>
           </tfoot>
+          {adminShareStatementMatchPopUp && (
+            <AdminPopReports
+              show={adminShareStatementMatchPopUp}
+              onHide={() => setAdminShareStatementMatchPopUp(false)}
+              data={adminSharepopupData}
+              columns={adminSharepopupHeadings}
+              heading={`Admin Share`}
+            />
+          )}
         </Table>
       </div>
     </div>

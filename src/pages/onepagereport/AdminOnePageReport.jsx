@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button, Table } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import AdminOnePageReportPopup from "./AdminOnePageReportPopup";
+import AdminPopReports from "./AdminPopReports";
 
 const AdminOnePageReport = () => {
   const [adminOnePageReportPopUp, setAdminOnePageReportPopUp] = useState(false);
@@ -234,7 +234,7 @@ const AdminOnePageReport = () => {
             </tr>
           </tfoot>
           {adminOnePageReportPopUp && (
-            <AdminOnePageReportPopup
+            <AdminPopReports
               show={adminOnePageReportPopUp}
               onHide={() => setAdminOnePageReportPopUp(false)}
               data={adminsData}

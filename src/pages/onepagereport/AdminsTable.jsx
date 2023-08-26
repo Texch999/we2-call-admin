@@ -11,7 +11,9 @@ function AdminsTable(props) {
       <thead>
         <tr>
           {columns.map((column, index) => (
-            <th key={index} className="text-center">{column.header}</th>
+            <th key={index} className="text-center">
+              {column.header}
+            </th>
           ))}
         </tr>
       </thead>
@@ -25,8 +27,8 @@ function AdminsTable(props) {
                     isNaN(item[column.field]) > 0
                       ? ""
                       : +item[column.field] > 0
-                      ? "green-color"
-                      : "red-color"
+                      ? "clr-green"
+                      : "clr-red"
                   }`}
                 >
                   {item[column.field]}
@@ -47,7 +49,7 @@ function AdminsTable(props) {
               <th
                 key={field}
                 className={`text-center ${
-                  isNumericColumn && sum >= 0 ? "green-color" : "red-color"
+                  isNumericColumn && sum >= 0 ? "clr-green" : "clr-red"
                 }`}
               >
                 {isNumericColumn ? sum : ""}
