@@ -9,26 +9,26 @@ function MatchCommModal(props) {
       header: "Animesh",
       clientComm: 50000000,
       rfComm: 50000000,
-      empty: "- -",
+      ulComm: "- -",
     },
     {
       header: "Animesh",
       clientComm: 50000000,
       rfComm: 50000000,
-      empty: "- -",
+      ulComm: "- -",
     },
     {
       header: "Animesh",
       clientComm: 50000000,
       rfComm: 50000000,
-      empty: "- -",
+      ulComm: "- -",
     },
   ];
   const MATCH_POSITION_HEADER_DATA = [
     { header: "Client Name", field: "header" },
     { header: "Client Comm", field: "clientComm" },
     { header: "RF Comm", field: "rfComm" },
-    { header: "- -", field: "empty" },
+    { header: "- -", field: "ulComm" },
   ];
   return (
     <Modal

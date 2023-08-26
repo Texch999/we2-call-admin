@@ -33,48 +33,48 @@
 
 @media (min-width: 577px) and (max-width: 768px) {
   .small-font {
-    font-size: 8px;
+    font-size: 0.5rem;
   }
   .medium-font {
-    font-size: 10px;
+    font-size: 0.7rem;
   }
   .large-font {
-    font-size: 14px;
+    font-size: 0.9rem;
   }
 }
 
 @media (min-width: 769px) and (max-width: 1200px) {
   .small-font {
-    font-size: 10px;
+    font-size: 0.6rem;
   }
   .medium-font {
-    font-size: 12px;
+    font-size: 0.7rem;
   }
   .large-font {
-    font-size: 16px;
+    font-size: 1rem;
   }
 }
 
 @media (min-width: 1201px) and (max-width: 1600px) {
   .small-font {
-    font-size: 10px;
+    font-size: 0.7rem;
   }
   .medium-font {
-    font-size: 12px;
+    font-size: 0.9rem;
   }
   .large-font {
-    font-size: 16px;
+    font-size: 1.1rem;
   }
 }
 @media (min-width: 1601px) {
   .small-font {
-    font-size: 15px;
+    font-size: 0.8rem;
   }
   .medium-font {
-    font-size: 18px;
+    font-size: 1rem;
   }
   .large-font {
-    font-size: 20px;
+    font-size: 1.3rem;
   }
 }
 
