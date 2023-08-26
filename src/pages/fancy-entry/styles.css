@@ -180,3 +180,6 @@
   width: 100vw;
   overflow-x: scroll;
 }
+.yellow-border {
+  border: 3px solid #fce719;
+}

@@ -6,6 +6,10 @@ function MatchScroll() {
   const navigate = useNavigate();
   const [matchEntry, setMatchEntry] = useState(true);
   const [fancyEntry, setFancyEntry] = useState(false);
+  const [activeIndex, setActiveIndex] = useState("");
+  const handleActiveIndex = (index) => {
+    setActiveIndex(index);
+  };
   const handleMatchEntry = () => {
     setMatchEntry(true);
     setFancyEntry(false);
@@ -91,7 +95,11 @@ function MatchScroll() {
             {MatchDetailsButtons?.map((item, index) => (
               <div
                 key={index}
-                className="btn-bg d-flex align-items-center justify-content-evenly p-2 m-1 rounded"
+                className={`btn-bg d-flex align-items-center justify-content-evenly p-2 m-1 rounded ${
+                  activeIndex ? "yellow-border" : ""
+                }`}
+                onClick={() => handleActiveIndex(index)}
+                // className="btn-bg d-flex align-items-center justify-content-evenly p-2 m-1 rounded yellow-border"
               >
                 <span className="d-flex m-1">
                   <FaTrophy className="fs-5 yellow-clr" />
@@ -149,7 +157,7 @@ function MatchScroll() {
                 </div>
                 <div className="col">
                   <div className="text-center small-font text-white p-2 match-bg rounded-pill">
-                    Team : IND vs SL
+                    Team : IND vs PAK
                   </div>
                 </div>
                 <div className="col">

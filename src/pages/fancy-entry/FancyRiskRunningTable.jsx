@@ -53,7 +53,7 @@ function FancyRiskRunningTable() {
           <div className="medium-font">Risk Running Position P/L</div>
         </div>
         <div className="col">
-          <div className="share-bg rounded-pill d-flex align-items-center justify-content-between p-1">
+          <div className="share-bg rounded-pill d-flex align-items-center justify-content-around p-1">
             <div className="medium-font">Share</div>
             <div>
               <PiArrowCircleDownBold className="d-flex large-font" />
@@ -61,7 +61,7 @@ function FancyRiskRunningTable() {
           </div>
         </div>
         <div className="col">
-          <div className="share-bg rounded-pill d-flex align-items-center justify-content-between p-1">
+          <div className="share-bg rounded-pill d-flex align-items-center justify-content-around p-1">
             <div className="medium-font">Comm</div>
             <div>
               <PiArrowCircleDownBold className="d-flex large-font" />
