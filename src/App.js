@@ -25,6 +25,9 @@ import UpgradePackage from "./pages/upgrade-package/UpgradePackage";
 import AddAdmins from "./pages/add-users/AddAdmins";
 import PrivacyPolicy from "./pages/privacy-policy/PrivacyPolicy";
 
+import MatchesShareRisk from "./pages/match-risk/MatchesShareRisk";
+import ShareRiskLiveMatches from "./pages/match-risk/ShareRiskLiveMatches";
+
 function App() {
   return (
     <div>
@@ -69,6 +72,8 @@ function App() {
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/add-users" element={<AddUsers />} />
             <Route path="/add-admins" element={<AddAdmins />} />
+            <Route path="/matches-share-risk" element={<MatchesShareRisk />} />
+            <Route path="/share-risk-live-matches" element={<ShareRiskLiveMatches />} />
           </Routes>
         </BrowserRouter>
       </div>

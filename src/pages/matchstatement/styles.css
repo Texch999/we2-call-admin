@@ -88,3 +88,10 @@
   input[type="date"]::-webkit-calendar-picker-indicator:hover {
   opacity: 1;
 }
+.admin-match-statement .form-select {
+  --bs-form-select-bg-img: url("/public/assets/dropdown.png");
+  background-size: 12px 8px;
+}
+.cursor-pointer {
+  cursor: pointer;
+}

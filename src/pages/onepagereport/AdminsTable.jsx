@@ -1,7 +1,7 @@
 import { Table } from "react-bootstrap";
 
 function AdminsTable(props) {
-  const { data, columns } = props;
+  const { data, columns, totalPosition } = props;
   const calculateColumnSum = (data, field) => {
     return data.reduce((sum, item) => sum + item[field], 0);
   };
@@ -11,7 +11,9 @@ function AdminsTable(props) {
       <thead>
         <tr>
           {columns.map((column, index) => (
-            <th key={index} className="text-center">{column.header}</th>
+            <th key={index} className="text-center">
+              {column.header}
+            </th>
           ))}
         </tr>
       </thead>
@@ -25,8 +27,8 @@ function AdminsTable(props) {
                     isNaN(item[column.field]) > 0
                       ? ""
                       : +item[column.field] > 0
-                      ? "green-color"
-                      : "red-color"
+                      ? "clr-green"
+                      : "clr-red"
                   }`}
                 >
                   {item[column.field]}
@@ -42,15 +44,18 @@ function AdminsTable(props) {
             const isNumericColumn =
               field !== "header" && data.every((item) => !isNaN(item[field]));
             const sum = calculateColumnSum(data, field);
-
             return (
               <th
                 key={field}
                 className={`text-center ${
-                  isNumericColumn && sum >= 0 ? "green-color" : "red-color"
+                  totalPosition === field
+                    ? "text-white"
+                    : isNumericColumn && sum >= 0
+                    ? "clr-green"
+                    : "clr-red"
                 }`}
               >
-                {isNumericColumn ? sum : ""}
+                {totalPosition === field ? "TOTAL" : isNumericColumn ? sum : ""}
               </th>
             );
           })}
