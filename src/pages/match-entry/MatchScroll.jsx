@@ -146,27 +146,27 @@ function MatchScroll() {
             <div className="col-8 d-flex align-items-center justify-content-end">
               <div className="row d-flex align-items-center w-85">
                 <div className="col">
-                  <div className="text-center small-font text-white p-2 match-bg rounded-pill">
+                  <div className="text-center small-font text-white p-1 py-3 match-bg rounded-pill">
                     Date : 31/07/2023
                   </div>
                 </div>
                 <div className="col">
-                  <div className="text-center small-font text-white p-2 match-bg rounded-pill">
+                  <div className="text-center small-font text-white p-1 py-3 match-bg rounded-pill">
                     Time : 11:58:00 AM
                   </div>
                 </div>
                 <div className="col">
-                  <div className="text-center small-font text-white p-2 match-bg rounded-pill">
+                  <div className="text-center small-font text-white p-1 py-3 match-bg rounded-pill">
                     Team : IND vs PAK
                   </div>
                 </div>
                 <div className="col">
-                  <div className="text-center small-font text-white p-2 match-bg rounded-pill">
+                  <div className="text-center small-font text-white p-1 py-3 match-bg rounded-pill">
                     Series : T20 WC
                   </div>
                 </div>
                 <div className="col">
-                  <div className="text-center small-font text-white p-2 match-bg rounded-pill">
+                  <div className="text-center small-font text-white p-1 py-3 match-bg rounded-pill">
                     Gender : Male
                   </div>
                 </div>
