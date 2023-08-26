@@ -3,10 +3,12 @@ import { CiPercent } from "react-icons/ci";
 import SpecialOffers from "./SpecialOffers";
 import SpecialPackages from "./SpecialPackages";
 import { useState } from "react";
+import PopupUpgradePackages from "./PopupUpgradePackages";
 
 function UpgradeYourPackage() {
   const [specialOffer, setSpecialOffer] = useState(true);
   const [specialPackage, setSpecialPackage] = useState(false);
+  const [openPopup, setOpenPopup] = useState(false);
   const handleSpecialOffer = () => {
     setSpecialOffer(true);
     setSpecialPackage(false);
@@ -14,6 +16,10 @@ function UpgradeYourPackage() {
   const handleSpecialPackage = () => {
     setSpecialPackage(true);
     setSpecialOffer(false);
+  };
+
+  const handlePopup = () => {
+    setOpenPopup(true);
   };
   return (
     <div>
@@ -34,7 +40,10 @@ function UpgradeYourPackage() {
               </div>
             </div>
             <div className="col d-flex align-items-center justify-content-around">
-              <div className="w-35 d-flex align-items-center justify-content-around fw-semibold medium-font text-white p-2 rounded yellow-btn">
+              <div
+                className="w-35 d-flex align-items-center justify-content-around fw-semibold medium-font text-white p-2 rounded yellow-btn"
+                onClick={() => handlePopup()}
+              >
                 <div>Upgrade</div>
                 <div>
                   <BsFillRocketTakeoffFill className="d-flex large-font" />
@@ -73,6 +82,7 @@ function UpgradeYourPackage() {
         {specialOffer && <SpecialOffers />}
         {specialPackage && <SpecialPackages />}
       </div>
+      <PopupUpgradePackages openPopup={openPopup} setOpenPopup={setOpenPopup} />
     </div>
   );
 }

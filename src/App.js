@@ -24,11 +24,13 @@ import AddUsers from "./pages/add-users/AddUsers";
 import UpgradePackage from "./pages/upgrade-package/UpgradePackage";
 import AddAdmins from "./pages/add-users/AddAdmins";
 import PrivacyPolicy from "./pages/privacy-policy/PrivacyPolicy";
+import HeaderTwo from "./pages/home-page/HeaderTwo";
 
 function App() {
   return (
     <div>
       <Header />
+      {/* <HeaderTwo /> */}
       <div className="scroll-container p-3">
         <BrowserRouter>
           <Routes>
