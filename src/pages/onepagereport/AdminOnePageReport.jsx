@@ -242,6 +242,7 @@ const AdminOnePageReport = () => {
               adminName={adminName}
               role={role}
               heading={popupHeading}
+              totalPosition ="series_name"
             />
           )}
         </Table>

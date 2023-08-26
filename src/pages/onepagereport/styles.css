@@ -26,6 +26,7 @@
 .admin-reports-modal .btn-primary {
   --bs-btn-bg: var(--btn-opacity-bg-color);
   --bs-btn-color:var(--btn-bg-color);
+  --bs-btn-font-size:var(--table-body-font-size);
   border: none;
 }
 .cursor-pointer{

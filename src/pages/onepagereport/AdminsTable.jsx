@@ -1,7 +1,7 @@
 import { Table } from "react-bootstrap";
 
 function AdminsTable(props) {
-  const { data, columns } = props;
+  const { data, columns, totalPosition } = props;
   const calculateColumnSum = (data, field) => {
     return data.reduce((sum, item) => sum + item[field], 0);
   };
@@ -44,15 +44,18 @@ function AdminsTable(props) {
             const isNumericColumn =
               field !== "header" && data.every((item) => !isNaN(item[field]));
             const sum = calculateColumnSum(data, field);
-
             return (
               <th
                 key={field}
                 className={`text-center ${
-                  isNumericColumn && sum >= 0 ? "clr-green" : "clr-red"
+                  totalPosition === field
+                    ? "text-white"
+                    : isNumericColumn && sum >= 0
+                    ? "clr-green"
+                    : "clr-red"
                 }`}
               >
-                {isNumericColumn ? sum : ""}
+                {totalPosition === field ? "TOTAL" : isNumericColumn ? sum : ""}
               </th>
             );
           })}

@@ -216,7 +216,7 @@ const AdminSharesMatchStatement = () => {
                 <td className="text-center">{data?.match_place}</td>
                 <td className="text-center">{data?.win_team}</td>
                 <td
-                  className="text-center clr-green"
+                  className="text-center clr-green cursor-pointer"
                   onClick={() => setAdminShareStatementMatchPopUp(true)}
                 >
                   {parseFloat(data?.profit_loss).toFixed(2)}
@@ -245,6 +245,7 @@ const AdminSharesMatchStatement = () => {
               data={adminSharepopupData}
               columns={adminSharepopupHeadings}
               heading={`Admin Share`}
+              totalPosition ="admin_name"
             />
           )}
         </Table>

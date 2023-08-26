@@ -3,7 +3,16 @@ import Modal from "react-bootstrap/Modal";
 import AdminsTable from "./AdminsTable";
 
 function AdminPopReports(props) {
-  const { show, onHide, data, columns, adminName, role, heading } = props;
+  const {
+    show,
+    onHide,
+    data,
+    columns,
+    adminName,
+    role,
+    heading,
+    totalPosition,
+  } = props;
   return (
     <Modal
       show={show}
@@ -22,7 +31,11 @@ function AdminPopReports(props) {
       </Modal.Header>
       <Modal.Body>
         <h6 className="mb-2">{heading}</h6>
-        <AdminsTable data={data} columns={columns} />
+        <AdminsTable
+          data={data}
+          columns={columns}
+          totalPosition={totalPosition}
+        />
       </Modal.Body>
     </Modal>
   );
