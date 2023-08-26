@@ -43,10 +43,20 @@
   height: 5vh;
   width: 12vw;
 }
-.yellow-border{
-border:1px solid  yellow;
+.yellow-border {
+  border: 1px solid yellow;
 }
-.settelment-image{
+.settelment-image {
   width: 5vw;
   height: 5vh;
+}
+.overflow-hidden {
+  overflow: hidden;
+}
+.react-pan-zoom > div :nth-child(1) {
+  /* border: red;
+  background-color: red !important; */
+  top: unset !important;
+  bottom: 5px !important;
+  color: #ffffff;
 }

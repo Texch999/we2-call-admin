@@ -139,8 +139,8 @@ function Settelment() {
   };
   return (
     <div className="p-4">
-      <div className="xx-large-font mt-2 mb-4">Settelment</div>
-      <div className="large-font mt-1 mb-4">Account Summary</div>
+      <h5 className="meetings-heading mb-3">One Page Report</h5>
+      <div className="medium-font mt-1 mb-4">Account Summary</div>
       <div className="d-flex flex-row justify-content-around mb-4 w-50">
         <div className="d-flex flex-column settelment-container justify-content-around p-2 rounded">
           <div className="medium-font">Total Amount</div>
@@ -204,7 +204,6 @@ function Settelment() {
               <th className="text-center medium-font clr-green">500000.00</th>
               <th className="text-center medium-font clr-green">500000.00</th>
               <th className="text-center medium-font clr-green"></th>
-
             </tr>
           </tfoot>
         </table>

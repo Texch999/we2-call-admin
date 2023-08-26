@@ -188,9 +188,8 @@ function CallHistory() {
   ];
   return (
     <div className="p-4">
-      <div className="xx-large-font mt-2 mb-4 font-weight-bold">
-        Call History
-      </div>
+         <h5 className="meetings-heading mb-3">Call History</h5>
+
       <div className="d-flex flex-row mb-4 w-35 justify-content-between">
         <div>
           <div className="small-font mb-2">From</div>

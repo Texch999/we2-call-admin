@@ -140,9 +140,8 @@ function CallSettelment() {
   };
   return (
     <div className="p-4">
-      <div className="xx-large-font mt-2 mb-4 font-weight-bold">
-        Call Settelment
-      </div>
+         <h5 className="meetings-heading mb-3">Call Settlement</h5>
+
       <div className="d-flex flex-row justify-content-around mb-4 w-100">
         <div className="d-flex flex-column statement-container settelment-container  justify-content-around p-2">
           <div className="medium-font">Package Charges</div>

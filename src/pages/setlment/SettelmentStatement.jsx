@@ -126,7 +126,7 @@ function SettelmentStatement() {
   ];
   return (
     <div className="p-4">
-      <div className="xx-large-font mb-4">Settelment Statement</div>
+      <h5 className="meetings-heading mb-3">Settlement Statement</h5>
       <div>
         <table className="w-100 match-position-table medium-font">
           <thead>

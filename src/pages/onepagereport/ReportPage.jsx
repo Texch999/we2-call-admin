@@ -1,19 +1,18 @@
 import React, { useState } from "react";
 import OnePageReport from "./OnePageReport";
 import IndiviudalPLReport from "./IndiviudalPLReport";
+import { Button } from "react-bootstrap";
 
 function ReportPage() {
   const reportList = ["One Page Report", "Individual P/L Report"];
-  const [activeReportIndex, setActiveReportIndex] = useState(0);
-  const handleReportSelect = (value) => {
-    setActiveReportIndex(value);
+  const [activeReport, setActiveReport] = useState("Statement");
+  const handleReport = (report) => {
+    setActiveReport(report);
   };
   return (
     <div className="p-4">
-      <div className="xx-large-font mt-2 mb-4 font-weight-bold">
-        One Page Report
-      </div>
-      <div className="d-flex flex-row w-25 justify-content-between">
+      <h5 className="meetings-heading mb-3">One Page Report</h5>
+      {/* <div className="d-flex flex-row w-25 justify-content-between">
         {reportList.map((value, index) => {
           return (
             <div
@@ -29,10 +28,26 @@ function ReportPage() {
             </div>
           );
         })}
+      </div> */}
+      <div className="mb-3">
+        {reportList.map((report, index) => (
+          <Button
+            key={index}
+            className={`me-2 admin-reports-button ${
+              report === activeReport ? "active-report-button" : ""
+            }`}
+            onClick={() => handleReport(report)}
+          >
+            {report}
+          </Button>
+        ))}
       </div>
       <div className="hr-line mt-4"></div>
-      {activeReportIndex === 0 && <OnePageReport />}
-      {activeReportIndex === 1 && <IndiviudalPLReport />}
+      {activeReport === "One Page Report" ? (
+        <OnePageReport />
+      ) : (
+        <IndiviudalPLReport />
+      )}
     </div>
   );
 }

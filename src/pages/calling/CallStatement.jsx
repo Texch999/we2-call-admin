@@ -186,9 +186,7 @@ function CallStatement() {
   ];
   return (
     <div className="p-4">
-      <div className="xx-large-font mt-2 mb-4 font-weight-bold">
-        Call Statement
-      </div>
+      <h5 className="meetings-heading mb-3">Call Statement</h5>
       <div className="d-flex flex-row justify-content-around mb-4 w-50">
         <div className="d-flex flex-column statement-container justify-content-around p-2">
           <div className="medium-font">Settlement Information Charges</div>

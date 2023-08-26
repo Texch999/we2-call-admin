@@ -84,6 +84,7 @@
   --bs-btn-close-bg: url("/public/assets/close.png");
 }
 .payment-modal .btn-close {
+  --bs-btn-close-bg: url("/public/assets/close.png");
   position: absolute;
   top: 5%;
   right: 5%;
@@ -98,4 +99,24 @@
 }
 .w-80 {
   width: 80%;
+}
+.login-inputs {
+  background: none;
+  border: none;
+  outline: none;
+  color: #ffffff;
+}
+.login-inputs::placeholder {
+  font-size: 12px;
+  color: #c9d6f0 !important;
+  font-family: "Barlow-Regular";
+}
+.by-id-btn {
+  border-radius: 5px;
+  background-color: #112a5e;
+}
+.username-img {
+  height: 30px;
+  width: 30px;
+  border-right: 1px solid #727488;
 }

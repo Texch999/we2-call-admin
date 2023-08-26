@@ -1,35 +1,35 @@
-import React, { useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import { Modal } from "react-bootstrap";
 import { Images } from "../../images";
-import "./styles.css";
+import ReactPanZoom from "react-image-pan-zoom-rotate";
 
 function UploadScreenShot(props) {
   const { showUploadButton, setShowUploadButton } = props;
   const handleUploadClose = () => {
     setShowUploadButton(false);
   };
+
   return (
     <div className="modal fade bd-example-modal-lg container">
       <Modal
-        size="sm"
+        size="md"
         show={showUploadButton}
         onHide={handleUploadClose}
         centered
-        className="match-share-modal w-100 close-btn"
+        className="match-share-modal w-100 payment-modal"
       >
-        <Modal.Header closeButton></Modal.Header>
-        <Modal.Body>
-          <div className="d-flex justify-content-center flex-column">
+        <Modal.Header closeButton>
+          <div className="d-flex justify-content-center flex-column p-4 mt-n4 relative-position">
             <div className="text-center">Upload Screenshot</div>
-            <div className="d-flex justify-content-center mt-2">
-              <img
-                alt="upload screenshot"
-                src={process.env.PUBLIC_URL + "./assets/agent_home_page.jpg"}
-                className="w-75 h-75 p-3 yellow-border rounded mb-4"
-              ></img>
+            <div className="d-flex justify-content-center mt-2 yellow-border overflow-hidden react-pan-zoom">
+              <ReactPanZoom
+                alt="cool image"
+                image="./assets/agent_home_page.jpg"
+                className="w-25 h-25 rounded"
+              />
             </div>
           </div>
-        </Modal.Body>
+        </Modal.Header>
       </Modal>
     </div>
   );

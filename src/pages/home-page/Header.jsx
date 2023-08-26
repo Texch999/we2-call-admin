@@ -55,14 +55,17 @@ function Header() {
     <div className="agent-header">
       <div className=" p-3 d-flex justify-content-between">
         {/* <div className="col-1"> */}
-        <img
-          src={Images.header_logo}
-          className="head-image "
-          onClick={() => handleLoginPopup()}
-        />
+        <div className="d-flex justify-content-center">
+          <img
+            src={Images.header_logo}
+            className="head-image "
+            onClick={() => handleLoginPopup()}
+          />
+        </div>
+
         {/* </div> */}
         <div className="w-75 bl-1 br-1 d-flex">
-          <div className="w-80px ms-1">
+          <div className="w-80px ms-1 medium-font">
             {currentDateTime.toLocaleDateString()}
             <br />
             {currentDateTime.toLocaleTimeString()}
@@ -223,7 +226,10 @@ function Header() {
         sure that your personal messages stay between you and who you send them
         to.
       </Marquee>
-      <Login showLoginPopup={showLoginPopup} setShowLoginPopup={setShowLoginPopup}/>
+      <Login
+        showLoginPopup={showLoginPopup}
+        setShowLoginPopup={setShowLoginPopup}
+      />
     </div>
   );
 }
