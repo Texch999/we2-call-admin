@@ -1,96 +1,34 @@
 import React from "react";
 import { Button, Table } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-
+import AdminsTable from "../";
 import { MdOutlineArrowForward } from "react-icons/md";
+import { useNavigate } from "react-router";
 
 const ShareRiskLiveMatches = () => {
-  const matchShareRiskData = [
+  const navigate = useNavigate();
+  const shareRiskLiveMatchData = [
     {
       date_time: "19 July 2023, 10:00:00 PM",
       series_name: "Men T20 World Cup 2023 Ahmadabad Stadium",
       team_name: "India vs Srilanka",
-      name: "Srinivas",
-      role: "SM",
-      team_one: 50000000,
-      dropdown: (
-        <MdOutlineArrowForward
-          size={18}
-          className="cursor-pointer clr-yellow"
-        />
-      ),
-      team_two: 50000000,
-    },
-    {
-      date_time: "19 July 2023, 10:00:00 PM",
-      series_name: "Men T20 World Cup 2023 Ahmadabad Stadium",
-      team_name: "India vs Srilanka",
-      name: "Srinivas",
-      role: "Admin",
-      team_one: 50000000,
-      dropdown: (
-        <MdOutlineArrowForward
-          size={18}
-          className="cursor-pointer clr-yellow"
-        />
-      ),
-      team_two: 50000000,
-    },
-    {
-      date_time: "19 July 2023, 10:00:00 PM",
-      series_name: "Men T20 World Cup 2023 Ahmadabad Stadium",
-      team_name: "India vs Srilanka",
-      name: "Srinivas",
-      role: "SM",
-      team_one: 50000000,
-      dropdown: (
-        <MdOutlineArrowForward
-          size={18}
-          className="cursor-pointer clr-yellow"
-        />
-      ),
-      team_two: 50000000,
-    },
-    {
-      date_time: "19 July 2023, 10:00:00 PM",
-      series_name: "Men T20 World Cup 2023 Ahmadabad Stadium",
-      team_name: "India vs Srilanka",
-      name: "srinivas",
-      role: "Agent",
-      team_one: 50000000,
-      dropdown: (
-        <MdOutlineArrowForward
-          size={18}
-          className="cursor-pointer clr-yellow"
-        />
-      ),
-      team_two: 50000000,
-    },
-    {
-      date_time: "19 July 2023, 10:00:00 PM",
-      series_name: "Men T20 World Cup 2023 Ahmadabad Stadium",
-      team_name: "India vs Srilanka",
-      name: "Jayanth",
-      role: "Admin",
-      team_one: 50000000,
-      dropdown: (
-        <MdOutlineArrowForward
-          size={18}
-          className="cursor-pointer clr-yellow"
-        />
-      ),
-      team_two: 50000000,
+      match_place: "Amhadabad Stadium",
+      team_one: "NewZealnd",
+      amount: 50000000,
+      team_two: "Srilanka",
+      profit: 5000000,
     },
   ];
-  const matchShareRiskHeadings = [
-    "DATE & TIME",
-    "SERIES NAME",
-    "TEAM NAME",
-    "NAME",
-    "ROLE",
-    "INDIA",
-    "",
-    "SRI LANKA",
+
+  const shareRiskLiveMatchHeadings = [
+    { header: "DATE & TIME", field: "date_time" },
+    { header: "SERIES NAME", field: "series_name" },
+    { header: "TEAM NAME", field: "team_name" },
+    { header: "MATCH PLACE", field: "match_place" },
+    { header: "", field: "team_one" },
+    { header: "", field: "amount" },
+    { header: "", field: "team_tow" },
+    { header: "", field: "profit" },
   ];
   return (
     <div className="p-4">
@@ -102,7 +40,7 @@ const ShareRiskLiveMatches = () => {
       </div>
       <hr />
       <div>
-        <Table responsive="md" className="call-management-data">
+        {/* <Table responsive="md" className="call-management-data">
           <thead>
             <tr>
               {matchShareRiskHeadings.map((headings, index) => (
@@ -133,7 +71,11 @@ const ShareRiskLiveMatches = () => {
           <tfoot>
             <tr></tr>
           </tfoot>
-        </Table>
+        </Table> */}
+        <AdminsTable
+          data={shareRiskLiveMatchData}
+          columns={shareRiskLiveMatchHeadings}
+        />
       </div>
     </div>
   );
