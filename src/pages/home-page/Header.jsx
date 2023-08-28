@@ -36,6 +36,7 @@ import { GiArmorUpgrade } from "react-icons/gi";
 import { BiPhoneCall } from "react-icons/bi";
 import { BsFillCreditCard2BackFill } from "react-icons/bs";
 import { MdOutlinePrivacyTip } from "react-icons/md";
+import ResetPassword from "../log-in/ResetPassword";
 // import { useState } from "react";
 // import { Images } from "../../images";
 
@@ -49,6 +50,7 @@ function Header() {
     return () => clearInterval(interval);
   }, []);
   const [showLoginPopup, setShowLoginPopup] = useState(false);
+  const [showResetPopup, setShowResetPopup] = useState(false);
   const handleActiveHead = (index) => {
     setActiveHead(index);
   };
@@ -239,7 +241,11 @@ function Header() {
       </div> */}
       <div className="w-100 flex-align-center d-flex">
         <div className="header-logo col-2">
-          <img src={Images.header_logo} alt="we2-call-logo" />
+          <img
+            src={Images.header_logo}
+            alt="we2-call-logo"
+            onClick={() => handleLoginPopup()}
+          />
         </div>
         <div className="w-15"></div>
         <div className="w-70 h-12vh d-flex justify-content-between">
@@ -463,6 +469,11 @@ function Header() {
       <Login
         showLoginPopup={showLoginPopup}
         setShowLoginPopup={setShowLoginPopup}
+        setShowResetPopup={setShowResetPopup}
+      />
+      <ResetPassword
+        showResetPopup={showResetPopup}
+        setShowResetPopup={setShowResetPopup}
       />
     </div>
   );

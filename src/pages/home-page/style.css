@@ -217,11 +217,11 @@
 }
 .login-input {
   background: #112a5e;
-  border-radius: 10px;
+  border-radius: 5px;
 }
 .login-button {
   width: 100%;
-  border-radius: 10px;
+  border-radius: 5px;
   background: #fce719;
   font-weight: bold;
   border: none;
@@ -249,4 +249,19 @@
 .incre-button {
   background: #284b95;
   border-radius: 15px;
+}
+.font-9 {
+  font-size: 9px;
+  font-family: "Barlow-Regular" !important;
+}
+.font-10 {
+  font-size: 11px;
+  font-family: "Barlow-Regular" !important;
+}
+.font-11 {
+  font-size: 11px;
+  font-family: "Barlow-Regular" !important;
+}
+input::placeholder{
+  font-size: 10px;
 }

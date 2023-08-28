@@ -29,12 +29,12 @@ function PopupUpgradePackages(props) {
             <h5>Upgrade Packages</h5>
           </center>
           <div className="d-flex align-items-center justify-content-between login-input p-2 mt-2">
-            <div className="medium-font">Total Packages Price</div>
-            <div className="medium-font">150000.00</div>
+            <div className="small-font">Total Packages Price</div>
+            <div className="small-fontt">150000.00</div>
           </div>
-          <div className="medium-font mt-3">Code Appiled</div>
+          <div className="small-font mt-3">Code Appiled</div>
           <div className="d-flex align-items-center justify-content-between login-input p-2 mt-2">
-            <div className="medium-font">Total Packages Price</div>
+            <div className="small-font">Total Packages Price</div>
             <RxCrossCircled />
           </div>
           <div className="small-font  d-flex justify-content-end">-2250</div>
@@ -43,7 +43,7 @@ function PopupUpgradePackages(props) {
               className="d-flex align-items-center justify-content-between login-input p-2 mt-2"
               onClick={() => handleAvailablePackage()}
             >
-              <div className="medium-font">
+              <div className="small-font">
                 Reduse Available Package <BiSolidChevronDown className="ms-1" />
               </div>
               <span>-2442</span>
@@ -54,7 +54,7 @@ function PopupUpgradePackages(props) {
                   return (
                     <div
                       key={index}
-                      className="packages-add p-2 medium-font d-flex justify-content-between align-items-center"
+                      className="packages-add p-2 small-font d-flex justify-content-between align-items-center"
                     >
                       <div>
                         {item}
@@ -76,7 +76,7 @@ function PopupUpgradePackages(props) {
               className="d-flex align-items-center justify-content-between login-input p-2 mt-2"
               onClick={() => handleReturnPackages()}
             >
-              <div className="medium-font">
+              <div className="small-font">
                 Return to Return Package <BiSolidChevronDown className="ms-1" />
               </div>
               <span>-2442</span>
@@ -87,7 +87,7 @@ function PopupUpgradePackages(props) {
                   return (
                     <div
                       key={index}
-                      className="packages-add p-2 medium-font d-flex justify-content-between align-items-center"
+                      className="packages-add p-2 small-font d-flex justify-content-between align-items-center"
                     >
                       <div>
                         {item}
@@ -105,15 +105,15 @@ function PopupUpgradePackages(props) {
             )}
           </div>
           <div className="d-flex align-items-center justify-content-between login-input p-2 mt-2">
-            <div className="medium-font">
+            <div className="small-font">
               Return Available Hours <BiSolidChevronDown className="ms-1" />
             </div>
             <span>-2442</span>
           </div>
           <hr className="mt-3 hr-line" />
           <div className="d-flex justify-content-between">
-            <div className="medium-font">Total</div>
-            <div className="medium-font">107500</div>
+            <div className="small-font">Total</div>
+            <div className="small-font">107500</div>
           </div>
           <button className="login-button p-2 mt-2">Confirm and Pay</button>
         </div>
