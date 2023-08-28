@@ -185,16 +185,37 @@
 .br-1 {
   border-right: 1px solid grey;
 }
-.head-menu {
+.header-menu {
   background: #202d57;
   padding: 8px 15px;
   border-radius: 10px;
+  height: fit-content;
+  font-size: 12px;
+}
+.head-dropdown {
+  background: #202d57;
+  width: fit-content;
+  border-radius: 10px;
+  font-size: 12px;
+  padding: 8px 8px;
+  z-index: 9999 !important;
+  position: relative;
+  top: -35%;
+}
+.head-dropdown div {
+  background: #00143d;
+  border-radius: 5px;
+  padding: 10px 10px;
+}
+.head-dropdown div:hover {
+  border: 2px solid #fce719;
 }
 .active-head-menu {
   background: #202d57;
   padding: 6px 13px;
   border-radius: 10px;
   border: 2px solid #fce719;
+  height: fit-content;
 }
 .w-80px {
   width: 80px !important;
@@ -217,11 +238,11 @@
 }
 .login-input {
   background: #112a5e;
-  border-radius: 10px;
+  border-radius: 5px;
 }
 .login-button {
   width: 100%;
-  border-radius: 10px;
+  border-radius: 5px;
   background: #fce719;
   font-weight: bold;
   border: none;
@@ -249,4 +270,33 @@
 .incre-button {
   background: #284b95;
   border-radius: 15px;
+}
+.font-9 {
+  font-size: 9px;
+  font-family: "Barlow-Regular" !important;
+}
+.font-10 {
+  font-size: 11px;
+  font-family: "Barlow-Regular" !important;
+}
+.font-11 {
+  font-size: 11px;
+  font-family: "Barlow-Regular" !important;
+}
+input::placeholder {
+  font-size: 10px;
+}
+.sport-management-select {
+  border: none;
+  color: #ffffff;
+  outline: none;
+}
+.match-entry-position {
+  left: 54%;
+}
+.report-position {
+  left: 65%;
+}
+.more-position {
+  left: 85%;
 }

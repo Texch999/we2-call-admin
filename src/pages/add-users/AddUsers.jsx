@@ -4,11 +4,19 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./style.css";
 import { FiSearch } from "react-icons/fi";
 import AddUserPopUp from "./AddUserPopUp";
+import ChangePassword from "./ChangePassword";
+import MatchSubmitPopup from "../match-popups/MatchSubmitPopup";
 
 const AddUsers = () => {
   const [filteredValue, setFilteredValue] = useState("");
   const [modalShow, setModalShow] = useState(false);
+  const [showChangePopup, setShowChangePopup] = useState(false);
 
+  const handleCpButton = (value) => {
+    {
+      value === "CP" && setShowChangePopup(true);
+    }
+  };
   const addUsersData = [
     {
       s_no: 1,
@@ -49,6 +57,8 @@ const AddUsers = () => {
     b: "B",
     ub: "UB",
   };
+
+  const [changePasswordSubmit, setChangePasswordSubmit] = useState(false);
   const handleUserChange = (e) => {
     setFilteredValue(e.target.value);
   };
@@ -122,6 +132,7 @@ const AddUsers = () => {
                     <Button
                       key={index}
                       className={`rounded meeting-status-button ${action}-button me-2`}
+                      onClick={() => handleCpButton(ACTION_LABELS[action])}
                     >
                       {ACTION_LABELS[action]}
                     </Button>
@@ -152,6 +163,16 @@ const AddUsers = () => {
           )}
         </Table>
       </div>
+      <ChangePassword
+        showChangePopup={showChangePopup}
+        setShowChangePopup={setShowChangePopup}
+        setChangePasswordSubmit={setChangePasswordSubmit}
+      />
+      <MatchSubmitPopup
+        header={"You Are Successfully Changed your Password"}
+        state={changePasswordSubmit}
+        setState={setChangePasswordSubmit}
+      />
     </div>
   );
 };

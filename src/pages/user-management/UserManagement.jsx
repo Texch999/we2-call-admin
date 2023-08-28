@@ -63,7 +63,7 @@ function UserManagement() {
   ];
   return (
     <div className="p-3">
-      <h4>All Admins / Sports Management</h4>
+      <h5 className="meetings-heading">User Management/Creation</h5>
       <div className="row gutter-1rem">
         <div className="col-5 d-flex justify-content-between">
           {shareList.map((item, index) => {

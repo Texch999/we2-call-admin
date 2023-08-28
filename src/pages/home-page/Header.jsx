@@ -36,6 +36,8 @@ import { GiArmorUpgrade } from "react-icons/gi";
 import { BiPhoneCall } from "react-icons/bi";
 import { BsFillCreditCard2BackFill } from "react-icons/bs";
 import { MdOutlinePrivacyTip } from "react-icons/md";
+import ResetPassword from "../log-in/ResetPassword";
+import MatchSubmitPopup from "../match-popups/MatchSubmitPopup";
 // import { useState } from "react";
 // import { Images } from "../../images";
 
@@ -48,7 +50,10 @@ function Header() {
     }, 1000);
     return () => clearInterval(interval);
   }, []);
+
+  // const navigate = useNavigate();
   const [showLoginPopup, setShowLoginPopup] = useState(false);
+  const [showResetPopup, setShowResetPopup] = useState(false);
   const handleActiveHead = (index) => {
     setActiveHead(index);
   };
@@ -147,6 +152,9 @@ function Header() {
   ];
   const handleMenuItem = (index) => {
     setActiveHead(index);
+    // {
+    //   index === 0 && navigate("/");
+    // }
     {
       index === 3 && handleMatchEntry();
     }
@@ -188,6 +196,8 @@ function Header() {
   };
   // const date = moment().format("MMMM DD YYYY");
   const time = Date().toLocaleString();
+
+  const [resetPasswordSubmit, setResetPasswordSubmit] = useState();
 
   return (
     <div className="agent-header ">
@@ -239,11 +249,15 @@ function Header() {
       </div> */}
       <div className="w-100 flex-align-center d-flex">
         <div className="header-logo col-2">
-          <img src={Images.header_logo} alt="we2-call-logo" />
+          <img
+            src={Images.header_logo}
+            alt="we2-call-logo"
+            onClick={() => handleLoginPopup()}
+          />
         </div>
         <div className="w-15"></div>
-        <div className="w-70 h-12vh d-flex justify-content-between">
-          <div className=" w-100 justify-content-between h-100p d-flex">
+        <div className="w-70 h-12vh  align-items-center">
+          <div className=" w-100 justify-content-between h-100p d-flex align-items-center">
             {headerMenu.map((item, index) => {
               return (
                 <div
@@ -266,12 +280,12 @@ function Header() {
             })}
           </div>
           {matchEntryOpen && (
-            <div className="head-dropdown match-entry-position">
+            <div className="head-dropdown match-entry-position p-2">
               {MatchEntryDropdown.map((item, index) => {
                 return (
                   <div
                     key={index}
-                    className="flex-align-center mt-5"
+                    className="d-flex align-items-center mt-2 "
                     onClick={() => handleSelectMatchEntry(item.name)}
                   >
                     {item.icon}
@@ -282,12 +296,12 @@ function Header() {
             </div>
           )}
           {reportsOpen && (
-            <div className="head-dropdown report-position">
+            <div className="head-dropdown report-position p-2">
               {ReportsEntryDropdown.map((item, index) => {
                 return (
                   <div
                     key={index}
-                    className="flex-aline-center mt-5"
+                    className="d-flex align-items-center mt-2 p-2"
                     onClick={() => handleSelectReports(item.name)}
                   >
                     {item.icon}
@@ -298,12 +312,12 @@ function Header() {
             </div>
           )}
           {moreOpen && (
-            <div className="head-dropdown more-position w-200px">
+            <div className="head-dropdown p-2 more-position w-200px">
               {moreDropdown.map((item, index) => {
                 return (
                   <div
                     key={index}
-                    className="flex-aline-center mt-5"
+                    className="d-flex align-items-center mt-2 p-2"
                     onClick={() => handleMore(item.name)}
                   >
                     {item.icon}
@@ -463,6 +477,17 @@ function Header() {
       <Login
         showLoginPopup={showLoginPopup}
         setShowLoginPopup={setShowLoginPopup}
+        setShowResetPopup={setShowResetPopup}
+      />
+      <ResetPassword
+        showResetPopup={showResetPopup}
+        setShowResetPopup={setShowResetPopup}
+        setResetPasswordSubmit={setResetPasswordSubmit}
+      />
+      <MatchSubmitPopup
+        header={"You Are Successfully Reset your Password"}
+        state={resetPasswordSubmit}
+        setState={setResetPasswordSubmit}
       />
     </div>
   );
