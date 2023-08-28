@@ -31,7 +31,7 @@ function SpecialOffers() {
               <div className="col">
                 <div className="d-flex flex-column align-items-end">
                   <div>
-                    <div className="small-font offer-percentage-div">
+                    <div className="font-10 offer-percentage-div">
                       <div>FLAT</div>
                       <div>10%</div>
                       <div>OFF</div>
@@ -80,7 +80,7 @@ function SpecialOffers() {
               <div className="col">
                 <div className="d-flex flex-column align-items-end">
                   <div>
-                    <div className="small-font offer-percentage-div">
+                    <div className="font-10 offer-percentage-div">
                       <div>FLAT</div>
                       <div>10%</div>
                       <div>OFF</div>
