@@ -4,13 +4,17 @@ import { IoCloseSharp } from "react-icons/io5";
 import { BiSolidLock, BiSolidUser } from "react-icons/bi";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 
-function ChangePassword() {
-  const { showResetPopup, setShowResetPopup } = props;
+function ChangePassword(props) {
+  const { showChangePopup, setShowChangePopup,setChangePasswordSubmit } = props;
   const [showEye, setShowEye] = useState(false);
   const handleShoeEye = () => {
     setShowEye(!showEye);
   };
 
+  const handleChangePasswordSubmit = () => {
+    setChangePasswordSubmit(true);
+    setShowChangePopup(false);
+  };
   const passwordInputs = [
     {
       head: "New Password*",
@@ -26,15 +30,15 @@ function ChangePassword() {
     },
   ];
   return (
-    <Modal className="match-declaration-modal" centered show={showResetPopup}>
+    <Modal className="match-declaration-modal" centered show={showChangePopup}>
       <Modal.Header className="d-flex justify-content-end">
-        <IoCloseSharp onClick={() => setShowResetPopup(false)} />
+        <IoCloseSharp onClick={() => setShowChangePopup(false)} />
       </Modal.Header>
       <Modal.Body>
-        <div className="p-3 ">
+        <div className="p-2">
           <center>
-            <h5 className="meetings-heading">Reset Password</h5>
-            <span className="font-11">Reset Your Password</span>
+            <h5 className="meetings-heading">Change Password</h5>
+            <span className="font-11">Change Your Password</span>
           </center>
           {passwordInputs.map((item, index) => {
             return (
@@ -52,40 +56,11 @@ function ChangePassword() {
               </div>
             );
           })}
-          {/* <div>
-            <span className="mt-2 font-9">Old Password*</span>
-            <div className="d-flex align-items-center login-input p-1">
-              <BiSolidLock />
-              <input className="bl-1 ms-2" placeholder="Enter Old Password" />
-              {showEye === true ? (
-                <AiFillEye onClick={() => handleShoeEye()} />
-              ) : (
-                <AiFillEyeInvisible onClick={() => handleShoeEye()} />
-              )}
-            </div>
-          </div>
-          <span className="mt-2 font-9">New Password*</span>
-          <div className="d-flex align-items-center login-input p-1">
-            <BiSolidLock />
-            <input className="bl-1 ms-2" placeholder="Enter New Password" />
-            {showEye === true ? (
-              <AiFillEye onClick={() => handleShoeEye()} />
-            ) : (
-              <AiFillEyeInvisible onClick={() => handleShoeEye()} />
-            )}
-          </div>
-          <span className="mt-2 font-9">Confirm New Password*</span>
-          <div className="d-flex align-items-center login-input p-1">
-            <BiSolidLock />
-            <input className="bl-1 ms-2" placeholder="Enter New Password" />
-            {showEye === true ? (
-              <AiFillEye onClick={() => handleShoeEye()} />
-            ) : (
-              <AiFillEyeInvisible onClick={() => handleShoeEye()} />
-            )}
-          </div> */}
-          <button className="login-button p-1 mt-3 medium-font">
-            ResetPassword
+          <button
+            className="login-button p-1 mt-3 medium-font"
+            onClick={() => handleChangePasswordSubmit()}
+          >
+            Submit
           </button>
         </div>
       </Modal.Body>

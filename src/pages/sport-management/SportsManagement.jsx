@@ -4,9 +4,39 @@ import { FaLocationDot, FaTrophy } from "react-icons/fa6";
 import { MdStadium } from "react-icons/md";
 import Table from "../home-page/Table";
 import { GoPencil } from "react-icons/go";
+import MatchSubmitPopup from "../match-popups/MatchSubmitPopup";
 
 function SportsManagement() {
-  const sportsDropdowns = ["Sports Name", "Team1", "Team2"];
+  const top_cricket_countries = [
+    "India",
+    "Australia",
+    "England",
+    "New Zealand",
+    "Pakistan",
+    "South Africa",
+    "Sri Lanka",
+    "West Indies",
+    "Bangladesh",
+    "Zimbabwe",
+  ];
+  const sportsDropdowns = [
+    {
+      headName: "Sports Name",
+      options: <option>Cricket</option>,
+    },
+    {
+      headName: "Team1",
+      options: top_cricket_countries.map((item, index) => {
+        return <option key={index}>{item}</option>;
+      }),
+    },
+    {
+      headName: "Team2",
+      options: top_cricket_countries.map((item, index) => {
+        return <option key={index}>{item}</option>;
+      }),
+    },
+  ];
   const MatchTypeDropdown = [
     {
       heading: "Macth Type",
@@ -33,7 +63,7 @@ function SportsManagement() {
           <br /> 11:46:00 AM
         </div>
       ),
-      editButton:<GoPencil className="edit-icon" />
+      editButton: <GoPencil className="edit-icon" />,
     },
     {
       seriesName: "T20 World Cup",
@@ -59,7 +89,7 @@ function SportsManagement() {
           <br /> 11:46:00 AM
         </div>
       ),
-      editButton:<GoPencil className="edit-icon" />,
+      editButton: <GoPencil className="edit-icon" />,
     },
     {
       seriesName: "T20 World Cup",
@@ -72,7 +102,7 @@ function SportsManagement() {
           <br /> 11:46:00 AM
         </div>
       ),
-      editButton: <GoPencil className="edit-icon" />
+      editButton: <GoPencil className="edit-icon" />,
     },
   ];
 
@@ -122,7 +152,7 @@ function SportsManagement() {
       ),
     },
   ];
-  const columns = [
+  const   columns = [
     { header: "Series Name", field: "seriesName" },
     { header: "Team", field: "team" },
     { header: "Sports Name", field: "sportName" },
@@ -139,13 +169,19 @@ function SportsManagement() {
 
   const [activeHead, setActiveHead] = useState(0);
 
+  const [createMacthSubmit, setCreateMacthSubmit] = useState(false);
+
   const handleActiveHead = (index) => {
     setActiveHead(index);
   };
 
+  const handleSubmitMatch = () => {
+    setCreateMacthSubmit(true);
+  };
+
   return (
     <div className="p-3">
-      <h4>All Admins / Sports Management</h4>
+      <h5 className="meetings-heading">All Admins / Sports Management</h5>
       <div className="row gutter-1rem">
         <div className="col-3">
           <div>Series Name</div>
@@ -156,18 +192,17 @@ function SportsManagement() {
         </div>
         {sportsDropdowns.map((item, index) => {
           return (
-            <div className="col-2">
-              <div>{item}</div>
-              <div className="sport-management-input d-flex ">
-                <div className="w-90 m-auto">Enter</div>
-                <BsChevronDown />
-              </div>
+            <div key={index} className="col-2">
+              <div>{item.headName}</div>
+              <select className="sport-management-input d-flex p-1 w-100 sport-management-select">
+                {item.options}
+              </select>
             </div>
           );
         })}
         <div className="col-3">
           <div>Series Name</div>
-          <div className="sport-management-input d-flex ">
+          <div className="sport-management-input d-flex p-1">
             <input placeholder="Enter" className="w-90" />
             <FaLocationDot />
           </div>
@@ -176,27 +211,29 @@ function SportsManagement() {
       <div className="row gutter-1rem mt-3">
         <div className="col-3">
           <div>Stadium</div>
-          <div className="sport-management-input d-flex ">
+          <div className="sport-management-input d-flex p-1">
             <input placeholder="Enter" className="w-90" />
             <MdStadium />
           </div>
         </div>
         <div className="col-2">
           <div>Gender</div>
-          <div className="sport-management-input d-flex ">
-            <div className="w-90 m-auto">Enter</div>
-            <BsChevronDown />
+          <div className="sport-management-input d-flex p-1">
+            <select className="sport-management-input d-flex p-1 w-100 sport-management-select">
+              <option>Male</option>
+              <option>FeMale</option>
+            </select>
           </div>
         </div>
         <div className="col-2">
           <div>Date</div>
-          <div className="sport-management-input d-flex ">
+          <div className="sport-management-input d-flex p-1">
             <input className="w-100 m-auto" type="date"></input>
           </div>
         </div>
         <div className="col-2">
           <div>Time</div>
-          <div className="sport-management-input d-flex ">
+          <div className="sport-management-input d-flex p-1">
             <input className="w-100 m-auto" type="time"></input>
           </div>
         </div>
@@ -206,7 +243,7 @@ function SportsManagement() {
           return (
             <div className={item.cspan}>
               <div>{item.heading}</div>
-              <div className="sport-management-input d-flex ">
+              <div className="sport-management-input d-flex p-1">
                 <div className="w-90">Enter</div>
                 <BsChevronDown />
               </div>
@@ -214,7 +251,10 @@ function SportsManagement() {
           );
         })}
         <div className="col-5 d-flex align-items-end">
-          <div className="sport-management-input w-100 d-flex justify-content-center align-items-center bg-yellow">
+          <div
+            className="sport-management-input w-100 d-flex justify-content-center align-items-center bg-yellow"
+            onClick={() => handleSubmitMatch()}
+          >
             Submit
           </div>
         </div>
@@ -251,6 +291,11 @@ function SportsManagement() {
           <div className="mt-2">
             <Table data={scheduledTableData} columns={scheduledColumns} />
           </div>
+          <MatchSubmitPopup
+            header={"You Are Successfully Created Your Match"}
+            state={createMacthSubmit}
+            setState={setCreateMacthSubmit}
+          />
         </div>
       </div>
     </div>

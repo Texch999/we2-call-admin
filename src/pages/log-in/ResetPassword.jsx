@@ -5,10 +5,15 @@ import { BiSolidLock, BiSolidUser } from "react-icons/bi";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 
 function ResetPassword(props) {
-  const { showResetPopup, setShowResetPopup } = props;
-  const [ showEye, setShowEye ] = useState(false);
+  const { showResetPopup, setShowResetPopup, setResetPasswordSubmit } = props;
+  const [showEye, setShowEye] = useState(false);
   const handleShoeEye = () => {
     setShowEye(!showEye);
+  };
+
+  const handleResetPassword = () => {
+    setResetPasswordSubmit(true);
+    setShowResetPopup(false);
   };
   return (
     <Modal className="match-declaration-modal" centered show={showResetPopup}>
@@ -51,7 +56,10 @@ function ResetPassword(props) {
               <AiFillEyeInvisible onClick={() => handleShoeEye()} />
             )}
           </div>
-          <button className="login-button p-1 mt-3 medium-font">
+          <button
+            className="login-button p-1 mt-3 medium-font"
+            onClick={() => handleResetPassword()}
+          >
             ResetPassword
           </button>
         </div>
