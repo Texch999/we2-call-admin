@@ -5,7 +5,7 @@ import { Button } from "react-bootstrap";
 
 function ReportPage() {
   const reportList = ["One Page Report", "Individual P/L Report"];
-  const [activeReport, setActiveReport] = useState("Statement");
+  const [activeReport, setActiveReport] = useState("One Page Report");
   const handleReport = (report) => {
     setActiveReport(report);
   };

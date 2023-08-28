@@ -1,32 +1,37 @@
 import React, { useState } from "react";
+import ClientIndPL from "./ClientIndPL";
+import ULShareIndPlData from "./ULShareIndPlData";
+import PlatformCommPL from "./PlatformCommPL";
+import { Button } from "react-bootstrap";
+import ReferalIndPl from "./ReferalIndPl";
 
 function IndiviudalPLReport() {
-  const reportList = ["Client", "Referal","U/L Share","Platform Comm P/L"];
-  const [activeReportIndex, setActiveReportIndex] = useState(0);
-  const handleReportSelect = (value) => {
-    setActiveReportIndex(value);
+  const reportList = ["Client", "Referal", "U/L Share", "Platform Comm P/L"];
+  const [activeReport, setActiveReport] = useState("Client");
+  const handleReport = (report) => {
+    setActiveReport(report);
   };
   return (
-    <div className="p-4">
-      <div className="d-flex flex-row w-35 justify-content-between">
-        {reportList.map((value, index) => {
-          return (
-            <div
-              key={index}
-              className={
-                activeReportIndex === index
-                  ? "d-flex justify-content-center align-items-center match-statement-button medium-font ml-2 mr-2"
-                  : "d-flex justify-content-center align-items-center statement-deactive-button medium-font ml-2 mr-2"
-              }
-              onClick={() => handleReportSelect(index)}
-            >
-              {value}
-            </div>
-          );
-        })}
+    <div>
+        <hr/>
+      <div className="mb-3">
+        {reportList.map((report, index) => (
+          <Button
+            key={index}
+            className={`me-2 admin-reports-button ${
+              report === activeReport ? "active-report-button" : ""
+            }`}
+            onClick={() => handleReport(report)}
+          >
+            {report}
+          </Button>
+        ))}
       </div>
-            {/* {activeReportIndex === 0 && <OnePageReport />}
-      {activeReportIndex === 1 && <IndiviudalPLReport />} */}
+    
+      {activeReport === "Client" && <ClientIndPL />}
+      {activeReport === "Referal" && <ReferalIndPl />}
+      {activeReport === "U/L Share" && <ULShareIndPlData />}
+      {activeReport === "Platform Comm P/L" && <PlatformCommPL />}
     </div>
   );
 }
