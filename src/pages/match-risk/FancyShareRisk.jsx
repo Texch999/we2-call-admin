@@ -1,6 +1,7 @@
 import React from "react";
-import { Button } from "react-bootstrap";
+import { Button,Container,Row,Col } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
+import MatchRiskPositionTable from "./MatchRiskPositionTable";
 
 const FancyShareRisk = () => {
   return (
@@ -12,7 +13,16 @@ const FancyShareRisk = () => {
           Share Risk - Live Match
         </Button>
       </div>
-
+      <Container fluid className="match-share-risk-position-table-container mt-3">
+        <Row>
+          <Col>
+            <MatchRiskPositionTable teamName="IND" />
+          </Col>
+          <Col>
+            <MatchRiskPositionTable teamName="SL" />
+          </Col>
+        </Row>
+      </Container>
       {/* <div>
         <Table responsive="md" className="call-management-data">
           <thead>

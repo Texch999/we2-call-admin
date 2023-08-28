@@ -4,8 +4,10 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./style.css";
 import { PiArrowCircleRightBold } from "react-icons/pi";
 import MatchRiskPositionTable from "./MatchRiskPositionTable";
+import { useNavigate } from "react-router";
 
 const MatchShareRiskPosition = () => {
+  const navigate = useNavigate();
   return (
     <div className="p-4">
       <h5 className="meetings-heading mb-3">Match Share Risk</h5>
@@ -19,7 +21,10 @@ const MatchShareRiskPosition = () => {
         <Button className="all-match-button clr-yellow rounded-pill">
           India Vs Sri lanka
         </Button>
-        <Button className="all-match-button rounded-pill d-flex align-items-center button-border">
+        <Button
+          className="all-match-button rounded-pill d-flex align-items-center button-border"
+          onClick={() => navigate("/fancy-share-risk")}
+        >
           Fancy Risk <PiArrowCircleRightBold size={20} className="ms-2" />
         </Button>
       </div>
