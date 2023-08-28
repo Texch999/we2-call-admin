@@ -39,9 +39,9 @@ function UpgradePackage() {
       <div className="p-3">
         <h4 className="h4 fw-semibold">Upgrade Package</h4>
         <div className="row">
-          <div className="col-2">
+          <div className="col-sm-3 col-lg-2 col-xl-2">
             <div
-              className={`fw-semibold btn-bg medium-font text-white text-center p-3 m-1 rounded ${
+              className={`fw-semibold btn-bg medium-font text-white text-center py-3 px-1 m-1 rounded ${
                 upgradeYourPackage ? "yellow-btn" : ""
               }`}
               onClick={() => handleUpgradeYourPackage()}
@@ -49,9 +49,9 @@ function UpgradePackage() {
               Upgrade Your Package
             </div>
           </div>
-          <div className="col-2">
+          <div className="col-sm-3 col-lg-2 col-xl-2">
             <div
-              className={`fw-semibold btn-bg medium-font text-white text-center p-3 m-1 rounded ${
+              className={`fw-semibold btn-bg medium-font text-white text-center py-3 px-1 m-1 rounded ${
                 yourPackageTickets ? "yellow-btn" : ""
               }`}
               onClick={() => handleYourPackageTickets()}
@@ -59,9 +59,9 @@ function UpgradePackage() {
               Your Package Ticket
             </div>
           </div>
-          <div className="col-2">
+          <div className="col-sm-3 col-lg-3 col-xl-3">
             <div
-              className={`fw-semibold btn-bg medium-font text-white text-center p-3 m-1 rounded ${
+              className={`fw-semibold btn-bg medium-font text-white text-center py-3 px-1 m-1 rounded ${
                 packageTransaction ? "yellow-btn" : ""
               }`}
               onClick={() => handlePackageTrasaction()}
@@ -69,9 +69,9 @@ function UpgradePackage() {
               Your Package Transaction
             </div>
           </div>
-          <div className="col-2">
+          <div className="col-sm-3 col-lg-3 col-xl-3">
             <div
-              className={`fw-semibold btn-bg medium-font text-white text-center p-3 m-1 rounded ${
+              className={`fw-semibold btn-bg medium-font text-white text-center py-3 m-1 rounded ${
                 adminPackageTrasaction ? "yellow-btn" : ""
               }`}
               onClick={() => handleAdminPackageTrasaction()}

@@ -214,7 +214,7 @@ function SpecialPackages() {
       </div>
       <div className="row mt-3">
         {PACKAGE_DETAILS?.map((item, index) => (
-          <div className="col-6 mt-3" key={index}>
+          <div className="col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6 mt-3" key={index}>
             <div className={`package-div ${item.packageBackGroundColor}`}>
               <div className="row p-3">
                 <div className="col-9 d-flex flex-column">
@@ -250,7 +250,7 @@ function SpecialPackages() {
                     <div className="col">{item.meetingsText}</div>
                   </div>
                   <div className="row medium-font mt-3">
-                    <div className="col">{item.personalMeetingsText}</div>
+                    <div className="col-5">{item.personalMeetingsText}</div>
                     <div className="col">{item.audioText}</div>
                     {item.videoText === "" ? null : (
                       <div className="col">{item.videoText}</div>

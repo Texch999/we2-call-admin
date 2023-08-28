@@ -5,7 +5,7 @@ function SpecialOffers() {
   return (
     <div>
       <div className="row">
-        <div className="col">
+        <div className="col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6 mt-3">
           <div className="offers-div p-3">
             <div className="row">
               <div className="col">
@@ -54,7 +54,7 @@ function SpecialOffers() {
             </div>
           </div>
         </div>
-        <div className="col">
+        <div className="col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6 mt-3">
           <div className="offers-blue-div p-3">
             <div className="row">
               <div className="col">
