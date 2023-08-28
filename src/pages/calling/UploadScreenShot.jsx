@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from "react";
+import React from "react";
 import { Modal } from "react-bootstrap";
 import { Images } from "../../images";
 import ReactPanZoom from "react-image-pan-zoom-rotate";

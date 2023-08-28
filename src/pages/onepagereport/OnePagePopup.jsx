@@ -36,9 +36,10 @@ function OnePagePopup(props) {
         show={showReportPopup}
         onHide={handleReportClose}
         centered
-        className="match-share-modal w-100"
+        className="match-share-modal w-100 close-btn"
       >
-        <Modal.Header>
+        <Modal.Header closeButton></Modal.Header>
+        <Modal.Body className="p-3">
           <div className="w-100">
             <div>
               <div className="w-25 mt-2 mb-1">
@@ -51,7 +52,7 @@ function OnePagePopup(props) {
               <div className="w-50 d-flex justify-content-end">
                 <div
                   className={`match-entry-btn w-100 d-flex align-items-center justify-content-around rounded p-2 ms-1 me-1 ${
-                    mfrcInputs ? "yellow-btn" : ""
+                    mfrcInputs ? "yellow-border" : ""
                   }`}
                   onClick={() => handleMfrcInputs()}
                 >
@@ -63,7 +64,7 @@ function OnePagePopup(props) {
               <div className="w-25 d-flex justify-content-end">
                 <div
                   className={`match-entry-btn w-100 d-flex align-items-center justify-content-around rounded p-2 ms-1 me-1 ${
-                    referalNetInputs ? "yellow-btn" : ""
+                    referalNetInputs ? "yellow-border" : ""
                   }`}
                   onClick={() => handleReferalReportInputs()}
                 >
@@ -73,7 +74,7 @@ function OnePagePopup(props) {
               <div className="w-25 d-flex justify-content-end">
                 <div
                   className={`match-entry-btn w-100 d-flex align-items-center justify-content-around rounded p-2 ms-1 me-1 ${
-                    ulsharereportInputs ? "yellow-btn" : ""
+                    ulsharereportInputs ? "yellow-border" : ""
                   }`}
                   onClick={() => handleUlshareReportInputs()}
                 >
@@ -82,8 +83,6 @@ function OnePagePopup(props) {
               </div>
             </div>
           </div>
-        </Modal.Header>
-        <Modal.Body className="p-3">
           {mfrcInputs && <MFRCTotalTable />}
           {referalNetInputs && <ReferalNetTable />}
           {ulsharereportInputs && <UlshareTable />}

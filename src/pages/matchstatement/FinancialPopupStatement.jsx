@@ -57,7 +57,7 @@ function FinancialPopupStatement(props) {
               <div className="w-50 d-flex justify-content-end">
                 <div
                   className={`match-entry-btn w-100 d-flex align-items-center justify-content-around rounded p-2 ms-1 me-1 ${
-                    clientInputs ? "yellow-btn" : ""
+                    clientInputs ? "yellow-border" : ""
                   }`}
                   onClick={() => handleClientInputs()}
                 >
@@ -67,7 +67,7 @@ function FinancialPopupStatement(props) {
               <div className="w-50 d-flex justify-content-end">
                 <div
                   className={`match-entry-btn w-100 d-flex align-items-center justify-content-around rounded p-2 ms-1 me-1 ${
-                    referalInputs ? "yellow-btn" : ""
+                    referalInputs ? "yellow-border" : ""
                   }`}
                   onClick={() => handleReferalInputs()}
                 >
@@ -77,7 +77,7 @@ function FinancialPopupStatement(props) {
               <div className="w-50 d-flex justify-content-end">
                 <div
                   className={`match-entry-btn w-100 d-flex align-items-center justify-content-around rounded p-2 ms-1 me-1 ${
-                    ulshareInputs ? "yellow-btn" : ""
+                    ulshareInputs ? "yellow-border" : ""
                   }`}
                   onClick={() => handleUlshareInputs()}
                 >

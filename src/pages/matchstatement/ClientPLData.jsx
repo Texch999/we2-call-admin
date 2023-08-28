@@ -21,7 +21,7 @@ function ClientPLData() {
         <div className="w-25 d-flex justify-content-end">
           <div
             className={`match-entry-btn w-100 d-flex align-items-center justify-content-around rounded p-1 ms-1 me-1 ${
-              matchBetInputs ? "yellow-btn" : ""
+              matchBetInputs ? "yellow-border" : ""
             }`}
             onClick={() => handleMatchBet()}
           >
@@ -31,7 +31,7 @@ function ClientPLData() {
         <div className="w-25 d-flex justify-content-end">
           <div
             className={`match-entry-btn w-100 d-flex align-items-center justify-content-around rounded p-1 ms-1 me-1 ${
-              fancyBetInputs ? "yellow-btn" : ""
+              fancyBetInputs ? "yellow-border" : ""
             }`}
             onClick={() => handleFancyBet()}
           >

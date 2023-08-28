@@ -176,10 +176,9 @@ function FinancialStatement() {
             className="w-100 custom-select medium-font btn-bg rounded all-none p-2"
           >
             <option selected>Enter Series Name</option>
-            <option value="volvo">Volvo</option>
-            <option value="saab">Saab</option>
-            <option value="mercedes">Mercedes</option>
-            <option value="audi">Audi</option>
+            <option value="test">Test</option>
+            <option value="t20">T20 League</option>
+            <option value="oneday">ODI Cricket</option>
           </select>
         </div>
         <div>
@@ -189,10 +188,10 @@ function FinancialStatement() {
             className="w-100 custom-select medium-font btn-bg rounded all-none p-2"
           >
             <option selected>Enter Match Name</option>
-            <option value="volvo">Volvo</option>
-            <option value="saab">Saab</option>
-            <option value="mercedes">Mercedes</option>
-            <option value="audi">Audi</option>
+            <option value="sl">India vs SL</option>
+            <option value="eng">India vs Eng</option>
+            <option value="zim">Eng vs Zim</option>
+            <option value="pak">India Vs Pak</option>
           </select>
         </div>
         <button className="submit-button mt-3 medium-font all-none">
