@@ -20,6 +20,7 @@ const MatchShareRisk = () => {
         <MdOutlineArrowForward
           size={18}
           className="cursor-pointer clr-yellow"
+          onClick={() => navigate("/match-share-risk-position")}
         />
       ),
       team_two: 50000000,

@@ -1,86 +1,11 @@
 import React from "react";
-import { Button, Table } from "react-bootstrap";
+import { Container, Row, Col, Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { useNavigate } from "react-router";
 import "./style.css";
 import { PiArrowCircleDownBold } from "react-icons/pi";
 import MatchRiskPositionTable from "./MatchRiskPositionTable";
 
 const MatchShareRiskPosition = () => {
-  const navigate = useNavigate();
-  const shareRiskLiveMatchData = [
-    {
-      date_time: "19 July 2023, 10:00:00 PM",
-      series_name: "Men T20 World Cup 2023",
-      team_name: "Newziland vs Srilanka",
-      match_place: "Amhadabad Stadium",
-      team_one: "NewZealnd",
-      amount: 50000000,
-      team_two: "Srilanka",
-      profit: 5000000,
-    },
-    {
-      date_time: "19 July 2023, 10:00:00 PM",
-      series_name: "Women T20 World Cup 2023",
-      team_name: "India vs Srilanka",
-      match_place: "Amhadabad Stadium",
-      team_one: "India Wo",
-      amount: 50000000,
-      team_two: "Srilanka Wo",
-      profit: 5000000,
-    },
-    {
-      date_time: "19 July 2023, 10:00:00 PM",
-      series_name: "Men T20 World Cup 2023",
-      team_name: "India vs Srilanka",
-      match_place: "Amhadabad Stadium",
-      team_one: "NewZealnd",
-      amount: 50000000,
-      team_two: "Srilanka",
-      profit: 5000000,
-    },
-    {
-      date_time: "19 July 2023, 10:00:00 PM",
-      series_name: "Men T20 World Cup 2023",
-      team_name: "Newziland vs Srilanka",
-      match_place: "Amhadabad Stadium",
-      team_one: "NewZealnd",
-      amount: 50000000,
-      team_two: "Srilanka",
-      profit: 5000000,
-    },
-    {
-      date_time: "19 July 2023, 10:00:00 PM",
-      series_name: "Men T20 World Cup 2023 ",
-      team_name: "India vs Srilanka",
-      match_place: "Amhadabad Stadium",
-      team_one: "NewZealnd",
-      amount: 50000000,
-      team_two: "Srilanka",
-      profit: 5000000,
-    },
-    {
-      date_time: "19 July 2023, 10:00:00 PM",
-      series_name: "Men T20 World Cup 2023",
-      team_name: "Newziland vs Srilanka",
-      match_place: "Amhadabad Stadium",
-      team_one: "NewZealnd",
-      amount: 50000000,
-      team_two: "Srilanka",
-      profit: 5000000,
-    },
-  ];
-
-  const shareRiskLiveMatchHeadings = [
-    "DATE & TIME",
-    "SERIES NAME",
-    "TEAM NAME",
-    "MATCH PLACE",
-    "",
-    "",
-    "",
-    "",
-  ];
   return (
     <div className="p-4">
       <h5 className="meetings-heading mb-3">Match Share Risk</h5>
@@ -98,8 +23,16 @@ const MatchShareRiskPosition = () => {
           Fancy Risk <PiArrowCircleDownBold size={20} className="ms-2" />
         </Button>
       </div>
-
-      <MatchRiskPositionTable />
+      <Container fluid className="match-share-risk-position-table-container">
+        <Row>
+          <Col>
+            <MatchRiskPositionTable teamName="IND" />
+          </Col>
+          <Col>
+            <MatchRiskPositionTable teamName="SL" />
+          </Col>
+        </Row>
+      </Container>
     </div>
   );
 };
