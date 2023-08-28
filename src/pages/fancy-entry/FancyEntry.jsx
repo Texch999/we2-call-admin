@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import MatchScroll from "../match-entry/MatchScroll";
 import FancyResultClientTable from "./FancyResultClientTable";
 import FancyResultOversTable from "./FancyResultOversTable";

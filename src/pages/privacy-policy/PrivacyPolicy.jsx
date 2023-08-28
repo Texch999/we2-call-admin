@@ -12,9 +12,9 @@ function PrivacyPolicy() {
           ></img>
         </div>
         <div className="p-3">
-          <div className="large-font p-2 ">
+          <h6 className="meetings-heading mb-3">
             Privacy Policy and Terms & Condition
-          </div>
+          </h6>
           <p className="small-font">
             This company established under the laws of Costa Rica, with
             registered address at Costa Rica and having its gaming sublicence

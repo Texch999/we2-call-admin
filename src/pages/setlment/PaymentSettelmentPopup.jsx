@@ -1,9 +1,5 @@
 import React, { useState } from "react";
 import { Col, Container, Modal, Row } from "react-bootstrap";
-import { CgProfile } from "react-icons/cg";
-import { BiSolidBank } from "react-icons/bi";
-import { BsTelephone } from "react-icons/bs";
-import { BiCloudUpload } from "react-icons/bi";
 import MatchSubmitPopup from "../match-popups/MatchSubmitPopup";
 import MatchDeclarationPopup from "../match-popups/MatchDeclarationPopup";
 function PaymentSettelmentPopup(props) {
