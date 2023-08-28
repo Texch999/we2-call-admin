@@ -202,19 +202,28 @@ function SpecialPackages() {
   ];
   return (
     <div>
-      <div className="w-25 d-flex align-items-center justify-content-between form-check form-switch">
-        <div>Monthly</div>
-        <input
-          className="form-check-input"
-          type="checkbox"
-          role="switch"
-          id="flexSwitchCheckDefault"
-        />
-        <div>Yearly</div>
+      <div className="row">
+        <div className="col-sm-2 col-lg-1 d-flex align-items-center">
+          <div className="medium-font">Monthly</div>
+        </div>
+        <div className="col-sm-2 col-lg-1 form-check form-switch">
+          <input
+            className="form-check-input"
+            type="checkbox"
+            role="switch"
+            id="flexSwitchCheckDefault"
+          />
+        </div>
+        <div className="col-sm-2 col-lg-1 d-flex align-items-center">
+          <div className="medium-font">Yearly</div>
+        </div>
       </div>
       <div className="row mt-3">
         {PACKAGE_DETAILS?.map((item, index) => (
-          <div className="col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6 mt-3" key={index}>
+          <div
+            className="col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6 mt-3"
+            key={index}
+          >
             <div className={`package-div ${item.packageBackGroundColor}`}>
               <div className="row p-3">
                 <div className="col-9 d-flex flex-column">
