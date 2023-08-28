@@ -5,7 +5,9 @@ import "./style.css";
 import { PiArrowCircleDownBold } from "react-icons/pi";
 import MatchRiskPositionTable from "./MatchRiskPositionTable";
 
+
 const MatchShareRiskPosition = () => {
+
   return (
     <div className="p-4">
       <h5 className="meetings-heading mb-3">Match Share Risk</h5>
@@ -33,6 +35,7 @@ const MatchShareRiskPosition = () => {
           </Col>
         </Row>
       </Container>
+    
     </div>
   );
 };

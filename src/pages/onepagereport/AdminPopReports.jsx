@@ -30,7 +30,7 @@ function AdminPopReports(props) {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <h6 className="mb-2">{heading}</h6>
+        <h6 className="mb-2 fw-semibold">{heading}</h6>
         <AdminsTable
           data={data}
           columns={columns}
