@@ -1,0 +1,17 @@
+.share-risk-match-button {
+  --bs-btn-bg: var(--table-heading-bg-color);
+}
+.share-risk-live-match-container {
+  background-color: var(--table-heading-bg-color);
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.375rem;
+}
+.share-risk-live-match-container h6 {
+  font-family: "Barlow-SemiBold";
+}
+.button-border {
+  --bs-btn-border-color: #395ca4;
+}
+.share-risk-live-match-container .all-match-button {
+  --bs-btn-font-size: var(--table-head-font-size);
+}

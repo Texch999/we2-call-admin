@@ -3,8 +3,9 @@ import { Button, Table } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useNavigate } from "react-router";
 import "./style.css";
+import { PiArrowCircleDownBold } from "react-icons/pi";
 
-const ShareRiskLiveMatches = () => {
+const MatchShareRiskPosition = () => {
   const navigate = useNavigate();
   const shareRiskLiveMatchData = [
     {
@@ -81,58 +82,25 @@ const ShareRiskLiveMatches = () => {
   ];
   return (
     <div className="p-4">
-      <h5 className="meetings-heading mb-3">Share Risk Live Matches </h5>
+      <h5 className="meetings-heading mb-3">Match Share Risk</h5>
       <hr />
-      <div className="mb-2">
-        <Button className="all-match-button share-risk-match-button w-25 text-start">
-          Live Matches
+      <div className="d-flex justify-content-between align-items-center mb-2 share-risk-live-match-container">
+        <div>
+          <h6>Share Risk - Live Match</h6>
+          <Button className="agent-button sm-button">SM</Button>
+          <span className="mb-0 ms-2 me-2 add-user-name">Srinivas</span>
+        </div>
+        <Button className="all-match-button clr-yellow rounded-pill">
+          India Vs Sri lanka
+        </Button>
+        <Button className="all-match-button rounded-pill d-flex align-items-center button-border">
+          Fancy Risk <PiArrowCircleDownBold size={20} className="ms-2" />
         </Button>
       </div>
 
-      <div>
-        <Table responsive="md" className="call-management-data">
-          <thead>
-            <tr>
-              {shareRiskLiveMatchHeadings.map((headings, index) => (
-                <th className="text-center" key={index}>
-                  {headings}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {shareRiskLiveMatchData?.map((data, index) => (
-              <tr key={index}>
-                <td className="text-center">{data?.date_time}</td>
-                <td className="text-center">{data?.series_name}</td>
-                <td
-                  className="text-center clr-yellow cursor-pointer"
-                  onClick={() =>
-                    navigate(
-                      `/match-share-risk/${encodeURIComponent(data?.team_name)}`
-                    )
-                  }
-                >
-                  {data?.team_name}
-                </td>
-                <td className="text-center">{data?.match_place}</td>
-
-                <td className="text-center ">{data?.team_one}</td>
-
-                <td className="clr-green">
-                  {parseFloat(data?.amount).toFixed(2)}
-                </td>
-                <td className="text-center">{data?.team_two}</td>
-                <td className="clr-red">
-                  {parseFloat(data?.profit).toFixed(2)}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </Table>
-      </div>
+      <div></div>
     </div>
   );
 };
 
-export default ShareRiskLiveMatches;
+export default MatchShareRiskPosition;
