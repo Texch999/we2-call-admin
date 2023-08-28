@@ -99,6 +99,7 @@ const MatchShareRisk = () => {
   return (
     <div className="p-4">
       <h5 className="meetings-heading mb-3">Match Share Risk </h5>
+      <hr />
       <div>
         <Button className="all-match-button share-risk-match-button clr-yellow w-100 text-start">
           Share Risk - Live Match

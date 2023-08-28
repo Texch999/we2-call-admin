@@ -2,12 +2,10 @@ import React from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./style.css";
-import { PiArrowCircleDownBold } from "react-icons/pi";
+import { PiArrowCircleRightBold } from "react-icons/pi";
 import MatchRiskPositionTable from "./MatchRiskPositionTable";
 
-
 const MatchShareRiskPosition = () => {
-
   return (
     <div className="p-4">
       <h5 className="meetings-heading mb-3">Match Share Risk</h5>
@@ -22,7 +20,7 @@ const MatchShareRiskPosition = () => {
           India Vs Sri lanka
         </Button>
         <Button className="all-match-button rounded-pill d-flex align-items-center button-border">
-          Fancy Risk <PiArrowCircleDownBold size={20} className="ms-2" />
+          Fancy Risk <PiArrowCircleRightBold size={20} className="ms-2" />
         </Button>
       </div>
       <Container fluid className="match-share-risk-position-table-container">
@@ -35,7 +33,6 @@ const MatchShareRiskPosition = () => {
           </Col>
         </Row>
       </Container>
-    
     </div>
   );
 };

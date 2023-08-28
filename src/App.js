@@ -29,6 +29,7 @@ import HeaderTwo from "./pages/home-page/HeaderTwo";
 import ShareRiskLiveMatches from "./pages/match-risk/ShareRiskLiveMatches";
 import MatchShareRisk from "./pages/match-risk/MatchShareRisk";
 import MatchShareRiskPosition from "./pages/match-risk/MatchShareRiskPosition";
+import FancyShareRisk from "./pages/match-risk/FancyShareRisk";
 
 function App() {
   return (
@@ -87,7 +88,7 @@ function App() {
               path="/match-share-risk-position"
               element={<MatchShareRiskPosition />}
             />
-          
+            <Route path="/fancy-share-risk" element={<FancyShareRisk />} />
           </Routes>
         </BrowserRouter>
       </div>
