@@ -49,7 +49,7 @@ function ReferalIndPl() {
           <table className="w-100 match-position-table medium-font">
             <thead>
               <tr className="text-center">
-                <th>CLIENT NAME</th>
+                <th>REFERAL NAME</th>
                 <th>TOTAL P/L</th>
               </tr>
             </thead>
@@ -87,7 +87,7 @@ function ReferalIndPl() {
             <table className="w-100 match-position-table medium-font">
               <thead>
                 <tr>
-                  <th className="text-start">CLIENT NAME</th>
+                  <th className="text-start">REFERAL NAME</th>
                   <th className="text-end">TOTAL P/L</th>
                 </tr>
               </thead>
