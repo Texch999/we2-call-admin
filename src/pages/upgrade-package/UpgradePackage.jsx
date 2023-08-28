@@ -2,17 +2,37 @@ import React, { useState } from "react";
 import UpgradeYourPackage from "./UpgradeYourPackage";
 import YourPackageTicket from "./YourPackageTicket";
 import "./styles.css";
+import YourPackageTransaction from "./YourPackageTransaction";
+import AdminPackageTransaction from "./AdminPackageTransaction";
 
 function UpgradePackage() {
   const [upgradeYourPackage, setUpgradeYourPackage] = useState(true);
   const [yourPackageTickets, setYourPackageTickets] = useState(false);
+  const [packageTransaction, setPackageTransaction] = useState(false);
+  const [adminPackageTrasaction, setAdminPackageTrasaction] = useState(false);
   const handleUpgradeYourPackage = () => {
     setUpgradeYourPackage(true);
     setYourPackageTickets(false);
+    setPackageTransaction(false);
+    setAdminPackageTrasaction(false);
   };
   const handleYourPackageTickets = () => {
     setYourPackageTickets(true);
     setUpgradeYourPackage(false);
+    setPackageTransaction(false);
+    setAdminPackageTrasaction(false);
+  };
+  const handlePackageTrasaction = () => {
+    setPackageTransaction(true);
+    setUpgradeYourPackage(false);
+    setYourPackageTickets(false);
+    setAdminPackageTrasaction(false);
+  };
+  const handleAdminPackageTrasaction = () => {
+    setAdminPackageTrasaction(true);
+    setPackageTransaction(false);
+    setUpgradeYourPackage(false);
+    setYourPackageTickets(false);
   };
   return (
     <div>
@@ -39,11 +59,33 @@ function UpgradePackage() {
               Your Package Ticket
             </div>
           </div>
+          <div className="col-2">
+            <div
+              className={`fw-semibold btn-bg medium-font text-white text-center p-3 m-1 rounded ${
+                packageTransaction ? "yellow-btn" : ""
+              }`}
+              onClick={() => handlePackageTrasaction()}
+            >
+              Your Package Transaction
+            </div>
+          </div>
+          <div className="col-2">
+            <div
+              className={`fw-semibold btn-bg medium-font text-white text-center p-3 m-1 rounded ${
+                adminPackageTrasaction ? "yellow-btn" : ""
+              }`}
+              onClick={() => handleAdminPackageTrasaction()}
+            >
+              Admin Packages/Transaction
+            </div>
+          </div>
         </div>
       </div>
       <hr className="hr-line" />
       {upgradeYourPackage && <UpgradeYourPackage />}
-      <div className="p-3">{yourPackageTickets && <YourPackageTicket />}</div>
+      {yourPackageTickets && <YourPackageTicket />}
+      {packageTransaction && <YourPackageTransaction />}
+      {adminPackageTrasaction && <AdminPackageTransaction />}
     </div>
   );
 }
