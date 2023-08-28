@@ -26,8 +26,9 @@ import AddAdmins from "./pages/add-users/AddAdmins";
 import PrivacyPolicy from "./pages/privacy-policy/PrivacyPolicy";
 import HeaderTwo from "./pages/home-page/HeaderTwo";
 
-import MatchesShareRisk from "./pages/match-risk/MatchesShareRisk";
 import ShareRiskLiveMatches from "./pages/match-risk/ShareRiskLiveMatches";
+import MatchShareRisk from "./pages/match-risk/MatchShareRisk";
+import MatchShareRiskPosition from "./pages/match-risk/MatchShareRiskPosition";
 
 function App() {
   return (
@@ -74,8 +75,19 @@ function App() {
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/add-users" element={<AddUsers />} />
             <Route path="/add-admins" element={<AddAdmins />} />
-            <Route path="/matches-share-risk" element={<MatchesShareRisk />} />
-            <Route path="/share-risk-live-matches" element={<ShareRiskLiveMatches />} />
+            <Route
+              path="/match-share-risk/:team_name"
+              element={<MatchShareRisk />}
+            />
+            <Route
+              path="/share-risk-live-matches"
+              element={<ShareRiskLiveMatches />}
+            />
+            <Route
+              path="/match-share-risk-position"
+              element={<MatchShareRiskPosition />}
+            />
+          
           </Routes>
         </BrowserRouter>
       </div>

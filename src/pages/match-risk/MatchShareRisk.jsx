@@ -2,15 +2,17 @@ import React from "react";
 import { Button, Table } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { MdOutlineArrowForward } from "react-icons/md";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 
-const MatchesShareRisk = () => {
-  const navigate=useNavigate()
+const MatchShareRisk = () => {
+  const navigate = useNavigate();
+  const { team_name } = useParams();
+  console.log(team_name);
   const matchShareRiskData = [
     {
       date_time: "19 July 2023, 10:00:00 PM",
       series_name: "Men T20 World Cup 2023 Ahmadabad Stadium",
-      team_name: "India vs Srilanka",
+      team_name: team_name,
       name: "Srinivas",
       role: "SM",
       team_one: 50000000,
@@ -18,6 +20,7 @@ const MatchesShareRisk = () => {
         <MdOutlineArrowForward
           size={18}
           className="cursor-pointer clr-yellow"
+          onClick={() => navigate("/match-share-risk-position")}
         />
       ),
       team_two: 50000000,
@@ -25,7 +28,7 @@ const MatchesShareRisk = () => {
     {
       date_time: "19 July 2023, 10:00:00 PM",
       series_name: "Men T20 World Cup 2023 Ahmadabad Stadium",
-      team_name: "India vs Srilanka",
+      team_name: team_name,
       name: "Srinivas",
       role: "Admin",
       team_one: 50000000,
@@ -40,7 +43,7 @@ const MatchesShareRisk = () => {
     {
       date_time: "19 July 2023, 10:00:00 PM",
       series_name: "Men T20 World Cup 2023 Ahmadabad Stadium",
-      team_name: "India vs Srilanka",
+      team_name: team_name,
       name: "Srinivas",
       role: "SM",
       team_one: 50000000,
@@ -55,7 +58,7 @@ const MatchesShareRisk = () => {
     {
       date_time: "19 July 2023, 10:00:00 PM",
       series_name: "Men T20 World Cup 2023 Ahmadabad Stadium",
-      team_name: "India vs Srilanka",
+      team_name: team_name,
       name: "srinivas",
       role: "Agent",
       team_one: 50000000,
@@ -70,7 +73,7 @@ const MatchesShareRisk = () => {
     {
       date_time: "19 July 2023, 10:00:00 PM",
       series_name: "Men T20 World Cup 2023 Ahmadabad Stadium",
-      team_name: "India vs Srilanka",
+      team_name: team_name,
       name: "Jayanth",
       role: "Admin",
       team_one: 50000000,
@@ -91,13 +94,13 @@ const MatchesShareRisk = () => {
     "ROLE",
     "INDIA",
     "",
-    "TEAM",
+    "SRI LANKA",
   ];
   return (
     <div className="p-4">
       <h5 className="meetings-heading mb-3">Match Share Risk </h5>
       <div>
-        <Button className="all-match-button clr-yellow w-100 text-start">
+        <Button className="all-match-button share-risk-match-button clr-yellow w-100 text-start">
           Share Risk - Live Match
         </Button>
       </div>
@@ -122,7 +125,7 @@ const MatchesShareRisk = () => {
                 <td className="text-center">{data?.name}</td>
                 <td className="text-center">{data?.role}</td>
                 <td className="text-center clr-green">
-                  {parseFloat(data?.team_two).toFixed(2)}
+                  {parseFloat(data?.team_one).toFixed(2)}
                 </td>
                 <td className="text-center">{data?.dropdown}</td>
                 <td className="text-center clr-red">
@@ -131,13 +134,10 @@ const MatchesShareRisk = () => {
               </tr>
             ))}
           </tbody>
-          <tfoot>
-            <tr></tr>
-          </tfoot>
         </Table>
       </div>
     </div>
   );
 };
 
-export default MatchesShareRisk;
+export default MatchShareRisk;
