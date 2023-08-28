@@ -4,6 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { useNavigate } from "react-router";
 import "./style.css";
 import { PiArrowCircleDownBold } from "react-icons/pi";
+import MatchRiskPositionTable from "./MatchRiskPositionTable";
 
 const MatchShareRiskPosition = () => {
   const navigate = useNavigate();
@@ -98,7 +99,7 @@ const MatchShareRiskPosition = () => {
         </Button>
       </div>
 
-      <div></div>
+      <MatchRiskPositionTable />
     </div>
   );
 };
