@@ -43,7 +43,7 @@ function PaymentSettelmentPopup(props) {
                     Match : IND vs SL
                   </div>
                 </div>
-                <div>
+                <div className="ms-1 me-1">
                   <div className="w-100 small-font clr-yellow match-date-button p-1 rounded-pill">
                     Date : 31/07/2023
                   </div>
