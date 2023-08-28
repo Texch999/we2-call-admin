@@ -45,7 +45,7 @@ function MFRCTotalTable() {
         </thead>
         {MFRC_DETAILS.map((item, index) => (
           <tbody key={index}>
-            <tr className="text-center">
+            <tr className="text-center clr-green">
               <td>{item.name}</td>
               <td>{item.amount1}</td>
               <td>{item.amount2}</td>
@@ -55,7 +55,7 @@ function MFRCTotalTable() {
           </tbody>
         ))}
         <tfoot>
-          <tr className="text-center">
+          <tr className="text-center clr-green">
             <th>TOTAL</th>
             <th>1000000.00</th>
             <th>1000000.00</th>
@@ -79,7 +79,7 @@ function MFRCTotalTable() {
         </thead>
         {MFRC_DETAILS.map((item, index) => (
           <tbody key={index}>
-            <tr className="text-center">
+            <tr className="text-center clr-green">
               <td>{item.name}</td>
               <td>{item.amount1}</td>
               <td>{item.amount2}</td>
@@ -89,7 +89,7 @@ function MFRCTotalTable() {
           </tbody>
         ))}
         <tfoot>
-          <tr className="text-center">
+          <tr className="text-center clr-green">
             <th>TOTAL</th>
             <th>1000000.00</th>
             <th>1000000.00</th>

@@ -25,26 +25,7 @@ function MatchStatement() {
           </Button>
         ))}
       </div>
-      {/* <div className="d-flex flex-row w-25 justify-content-between">
-        {reportList.map((value, index) => {
-          return (
-            <div
-              key={index}
-              className={
-                activeStatementIndex === index
-                  ? "d-flex justify-content-center align-items-center match-statement-button rounded medium-font ml-2 mr-2"
-                  : "d-flex justify-content-center align-items-center statement-deactive-button medium-font ml-2 mr-2"
-              }
-              onClick={() => handleStatementSelect(index)}
-            >
-              {value}
-            </div>
-          );
-        })}
-      </div> */}
       {activeReport==="Statement"?<Statement />:<FinancialStatement />}
-      {/* {activeReport === 0 && }
-      {activeReport === 1 && } */}
     </div>
   );
 }

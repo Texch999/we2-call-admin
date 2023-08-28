@@ -139,7 +139,7 @@ function Settelment() {
   };
   return (
     <div className="p-4">
-      <h5 className="meetings-heading mb-3">One Page Report</h5>
+      <h5 className="meetings-heading mb-3">Settlement</h5>
       <div className="medium-font mt-1 mb-4">Account Summary</div>
       <div className="d-flex flex-row justify-content-around mb-4 w-50">
         <div className="d-flex flex-column settelment-container justify-content-around p-2 rounded">

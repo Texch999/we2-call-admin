@@ -45,7 +45,7 @@ function ReferalNetTable() {
         </thead>
         {REFERALNET_DETAILS.map((item, index) => (
           <tbody key={index}>
-            <tr className="text-center">
+            <tr className="text-center clr-green">
               <td>{item.name}</td>
               <td>{item.amount1}</td>
               <td>{item.amount2}</td>
@@ -55,7 +55,7 @@ function ReferalNetTable() {
           </tbody>
         ))}
         <tfoot>
-          <tr className="text-center">
+          <tr className="text-center clr-green">
             <th colSpan={4}>TOTAL</th>
             <th colSpan={3}>50000000.00</th>
           </tr>
@@ -76,7 +76,7 @@ function ReferalNetTable() {
         </thead>
         {REFERALNET_DETAILS.map((item, index) => (
           <tbody key={index}>
-            <tr className="text-center">
+            <tr className="text-center clr-green">
               <td>{item.name}</td>
               <td>{item.amount1}</td>
               <td>{item.amount2}</td>
@@ -86,7 +86,7 @@ function ReferalNetTable() {
           </tbody>
         ))}
         <tfoot>
-          <tr className="text-center">
+          <tr className="text-center clr-green">
             <th>TOTAL</th>
             <th>1000000.00</th>
             <th>1000000.00</th>

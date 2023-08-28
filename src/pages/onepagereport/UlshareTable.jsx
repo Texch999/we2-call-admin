@@ -40,7 +40,7 @@ function UlshareTable() {
         </thead>
         {ULSHARE_DETAILS.map((item, index) => (
           <tbody key={index}>
-            <tr className="text-center">
+            <tr className="text-center clr-green">
               <td>{item.name}</td>
               <td>{item.net}</td>
               <td>{item.ulshare}</td>
@@ -49,7 +49,7 @@ function UlshareTable() {
           </tbody>
         ))}
         <tfoot>
-          <tr className="text-center">
+          <tr className="text-center clr-green">
             <th colSpan={3}>TOTAL</th>
             <th colSpan={3}>50000000.00</th>
           </tr>

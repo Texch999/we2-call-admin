@@ -12,23 +12,6 @@ function ReportPage() {
   return (
     <div className="p-4">
       <h5 className="meetings-heading mb-3">One Page Report</h5>
-      {/* <div className="d-flex flex-row w-25 justify-content-between">
-        {reportList.map((value, index) => {
-          return (
-            <div
-              key={index}
-              className={
-                activeReportIndex === index
-                  ? "d-flex justify-content-center align-items-center match-statement-button medium-font ml-2 mr-2 rounded"
-                  : "d-flex justify-content-center align-items-center statement-deactive-button medium-font ml-2 mr-2 rounded"
-              }
-              onClick={() => handleReportSelect(index)}
-            >
-              {value}
-            </div>
-          );
-        })}
-      </div> */}
       <div className="mb-3">
         {reportList.map((report, index) => (
           <Button

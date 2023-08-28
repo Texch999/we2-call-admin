@@ -164,90 +164,60 @@ function Statement() {
               type="date"
               pattern="\d{4}-\d{2}-\d{2}"
             ></input>
-            {/* <FaCalendarAlt className="custom-icon"></FaCalendarAlt> */}
           </div>
         </div>
         <div>
           <div className="medium-font mb-2">To</div>
           <div className="date-container d-flex justify-content-around align-items-center rounded p-2">
             <input type="date" className="login-inputs medium-font"></input>
-            {/* <FaCalendarAlt className="custom-icon"></FaCalendarAlt> */}
           </div>
         </div>
         <div>
           <div className="medium-font mb-2">Series Name</div>
-          {/* <div className="statement-container matchstatement-container d-flex justify-content-between align-items-center p-4">
-            <div className="medium-font d-flex justify-content-start placeholder-text ">
-              Enter Series Name
-            </div>
-            <RiArrowDropDownLine className="custom-icon clr-white" />
-          </div> */}
           <select
-            name="cars"
+            name="Series"
             className="w-100 custom-select medium-font btn-bg rounded all-none p-2"
           >
             <option selected>Enter Series Name</option>
-            <option value="volvo">Volvo</option>
-            <option value="saab">Saab</option>
-            <option value="mercedes">Mercedes</option>
-            <option value="audi">Audi</option>
+            <option value="test">Test</option>
+            <option value="t20">T20 League</option>
+            <option value="oneday">ODI Cricket</option>
           </select>
         </div>
         <div>
           <div className="medium-font mb-2">Match Name</div>
-          {/* <div className="statement-container matchstatement-container d-flex justify-content-between align-items-center p-4">
-            <div className="medium-font d-flex justify-content-start placeholder-text ">
-              Select match
-            </div>
-            <RiArrowDropDownLine className="custom-icon clr-white" />
-          </div> */}
           <select
-            name="cars"
+            name="match"
             className="w-100 custom-select medium-font btn-bg rounded all-none p-2"
           >
             <option selected>Enter Match Name</option>
-            <option value="volvo">Volvo</option>
-            <option value="saab">Saab</option>
-            <option value="mercedes">Mercedes</option>
-            <option value="audi">Audi</option>
+            <option value="sl">India vs SL</option>
+            <option value="eng">India vs Eng</option>
+            <option value="zim">Eng vs Zim</option>
+            <option value="pak">India Vs Pak</option>
           </select>
         </div>
         <div>
           <div className="medium-font mb-2"> Fancy</div>
-          {/* <div className="statement-container matchstatement-container d-flex justify-content-between align-items-center p-4">
-            <div className="medium-font d-flex justify-content-start placeholder-text ">
-              Fancy
-            </div>
-            <RiArrowDropDownLine className="custom-icon clr-white" />
-          </div> */}
           <select
-            name="cars"
+            name="fancy"
             className="w-100 custom-select medium-font btn-bg rounded all-none p-2"
           >
             <option selected>Enter Fancy</option>
-            <option value="volvo">Volvo</option>
-            <option value="saab">Saab</option>
-            <option value="mercedes">Mercedes</option>
-            <option value="audi">Audi</option>
+            <option value="first">1st Innings</option>
+            <option value="second">2nd Innings</option>
           </select>
         </div>
         <div>
           <div className="medium-font mb-2">Client Name</div>
-          {/* <div className="statement-container matchstatement-container d-flex justify-content-between align-items-center p-4">
-            <div className="medium-font d-flex justify-content-start placeholder-text ">
-              Select
-            </div>
-            <RiArrowDropDownLine className="custom-icon clr-white" />
-          </div> */}
           <select
             name="cars"
             className="w-100 custom-select medium-font btn-bg rounded all-none p-2"
           >
             <option selected>Enter Client Name</option>
-            <option value="volvo">Volvo</option>
-            <option value="saab">Saab</option>
-            <option value="mercedes">Mercedes</option>
-            <option value="audi">Audi</option>
+            <option value="sri">Srikanth</option>
+            <option value="upi">Upendra</option>
+            <option value="ranj">Ranjit katari</option>
           </select>
         </div>
         <button className="submit-button mt-3 medium-font p-2 rounded all-none">
