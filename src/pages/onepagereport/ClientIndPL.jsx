@@ -1,5 +1,5 @@
 import React from "react";
-
+import AdminsTable from "./AdminsTable";
 function ClientIndPL() {
   const PAGE_REPORT_DETAILS = [
     { name: "Animesh", pl: "1000000.00" },
@@ -81,6 +81,7 @@ function ClientIndPL() {
             </table>
           </div>
           <div>
+            {/* <AdminsTable data={PAGE_REPORT_DETAILS} columns/> */}
             <table className="w-100 match-position-table medium-font">
               <thead>
                 <tr className="text-center">
