@@ -1,7 +1,3 @@
-.your-package-div {
-  border: solid 2px #264990;
-  background-color: #112a5e;
-}
 .offers-div {
   border-radius: 15px;
   border: solid 2px #2b3967;
@@ -11,6 +7,43 @@
   border-radius: 15px;
   border: solid 2px #2b3967;
   background-image: linear-gradient(to top, #3f5cc2, #5640c6);
+}
+.view-details-btn {
+  height: 6vh;
+  background-image: linear-gradient(to bottom, #ef5759, #7c23a7);
+}
+.view-details-blue-btn {
+  height: 6vh;
+  background-image: linear-gradient(to bottom, #ffc843, #ff8f17);
+}
+.standard-package-bg {
+  background-image: linear-gradient(to left, #7683d9, #d8a0fe);
+}
+.silver-package-bg {
+  background-image: linear-gradient(to left, #43ea80, #38f8d4);
+  color: #080c27 !important;
+  font-weight: bold;
+}
+.gold-package-bg {
+  background-image: linear-gradient(to left, rgba(255, 228, 0, 1), #ffa517);
+  color: #080c27 !important;
+  font-weight: bold;
+}
+.diamond-package-bg {
+  background-image: linear-gradient(to left, rgba(232, 220, 233, 1), #fbcdf1);
+  color: #080c27;
+  font-weight: bold;
+}
+.vip-package-bg {
+  background-image: linear-gradient(to left, rgba(181, 100, 217, 1), #ee609c);
+}
+.font-10 {
+  font-size: 10px;
+  font-weight: bold;
+}
+.your-package-div {
+  border: solid 2px #264990;
+  background-color: #112a5e;
 }
 .num-btn-bg {
   background-color: #00143d;
@@ -30,8 +63,6 @@
   height: 50px;
 }
 .giftbox-img {
-  /* height: 140px;
-  width: 160px; */
   height: 25vh;
   width: 15vw;
   margin-right: 2rem;
@@ -45,15 +76,6 @@
   height: 6vh;
   background-color: #3542b3;
 }
-.view-details-btn {
-  height: 6vh;
-  background-image: linear-gradient(to bottom, #ef5759, #7c23a7);
-}
-.view-details-blue-btn {
-  height: 6vh;
-  background-image: linear-gradient(to bottom, #ffc843, #ff8f17);
-}
-
 .form-switch .form-check-input {
   width: 5em;
   border: solid 2px #264990;
@@ -62,11 +84,9 @@
 .form-check-input {
   height: 2em;
 }
-.standard-package-div {
+.package-div {
   border-radius: 15px;
-  /* height: 40vh; */
   border: solid 2px #2b3967;
-  background-image: linear-gradient(to left, #7683d9, #d8a0fe);
 }
 .amount-border {
   width: 100px;
@@ -78,9 +98,21 @@
 .add-package-btn {
   background-image: linear-gradient(to bottom, #ef5759, #7c23a7);
 }
+.add-package-black-btn {
+  background-color: #080c27;
+  color: #fff;
+}
+.add-package-white-btn {
+  background-color: #fff;
+  color: #000;
+}
 .upgrade-btn {
   color: #080c27 !important;
   border: solid 2px #080c27;
+}
+.upgrade-white-btn {
+  color: #000 !important;
+  border: solid 2px #fff;
 }
 .standard-star-img {
   width: 150px;
@@ -90,6 +122,23 @@
   height: 20px;
   width: 20px;
 }
-.discount-div {
+.standard-discount-div {
+  width: fit-content !important;
   background-color: #893bf4;
+}
+.silver-discount-div {
+  width: fit-content !important;
+  background-color: #0bd781;
+}
+.gold-discount-div {
+  width: fit-content !important;
+  background-color: #efa900;
+}
+.diamond-discount-div {
+  width: fit-content !important;
+  background-color: #ff93f4;
+}
+.vip-discount-div {
+  width: fit-content !important;
+  background-color: #de2083;
 }

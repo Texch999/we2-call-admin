@@ -1,6 +1,6 @@
 import Table from "../home-page/Table";
 
-function YourPackageTicket() {
+function YourPackageTransaction() {
   const MATCH_ENTRY_DATA = [
     {
       dateAndTime: "19 July 2023, 10:00:00 PM",
@@ -67,4 +67,4 @@ function YourPackageTicket() {
   );
 }
 
-export default YourPackageTicket;
+export default YourPackageTransaction;

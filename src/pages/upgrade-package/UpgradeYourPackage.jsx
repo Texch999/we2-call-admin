@@ -6,8 +6,8 @@ import { useState } from "react";
 import PopupUpgradePackages from "./PopupUpgradePackages";
 
 function UpgradeYourPackage() {
-  const [specialOffer, setSpecialOffer] = useState(true);
-  const [specialPackage, setSpecialPackage] = useState(false);
+  const [specialOffer, setSpecialOffer] = useState(false);
+  const [specialPackage, setSpecialPackage] = useState(true);
   const [openPopup, setOpenPopup] = useState(false);
   const handleSpecialOffer = () => {
     setSpecialOffer(true);

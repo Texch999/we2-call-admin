@@ -4,100 +4,302 @@ import { Images } from "../../images";
 function SpecialPackages() {
   const PACKAGE_DETAILS = [
     {
+      id: 1,
+      packageBackGroundColor: "standard-package-bg",
+      addPackageBtnColor: "add-package-btn",
+      upgradeBtnColor: "upgrade-btn",
+      discountDivColor: "standard-discount-div",
       packageName: "Standard Package",
-      discountPer: "10% OFF",
+      rate: 5000,
+      offerImage: Images.DiscountImg,
+      offerPercentage: "10% OFF",
+      videoText: "",
+      addPackageBtn: "Add Package",
+      upgradeBtn: "",
+      packageImage: Images.StandardPackage,
+      packageBackGroundImage: Images.StandardPackageBG,
+      usersText: (
+        <div>
+          <BiSolidCheckCircle /> Join call with 10 users
+        </div>
+      ),
+      meetingsText: (
+        <div>
+          <BiSolidCheckCircle /> Monthly 10 meetings
+        </div>
+      ),
+      personalMeetingsText: (
+        <div>
+          <BiSolidCheckCircle /> Use 5 personal meetings
+        </div>
+      ),
+      audioText: (
+        <div>
+          <BiSolidCheckCircle /> Audio Calls
+        </div>
+      ),
+    },
+    {
+      id: 2,
+      packageBackGroundColor: "silver-package-bg",
+      addPackageBtnColor: "add-package-black-btn",
+      upgradeBtnColor: "upgrade-btn",
+      discountDivColor: "silver-discount-div",
+      packageName: "Silver Package",
+      rate: 10000,
+      offerImage: Images.DiscountBlackImg,
+      offerPercentage: "10% OFF",
+      addPackageBtn: "Add Package",
+      upgradeBtn: "Upgrade",
+      packageImage: Images.SilverPackage,
+      packageBackGroundImage: Images.SilverPackageBG,
+      usersText: (
+        <div>
+          <BiSolidCheckCircle /> Join call with 15 users
+        </div>
+      ),
+      meetingsText: (
+        <div>
+          <BiSolidCheckCircle /> Monthly 15 meetings
+        </div>
+      ),
+      personalMeetingsText: (
+        <div>
+          <BiSolidCheckCircle /> Use 10 personal meetings
+        </div>
+      ),
+      audioText: (
+        <div>
+          <BiSolidCheckCircle /> Audio Calls
+        </div>
+      ),
+      videoText: (
+        <div>
+          <BiSolidCheckCircle /> Video Calls
+        </div>
+      ),
+    },
+    {
+      id: 3,
+      packageBackGroundColor: "gold-package-bg",
+      addPackageBtnColor: "add-package-black-btn",
+      upgradeBtnColor: "upgrade-btn",
+      discountDivColor: "gold-discount-div",
+      packageName: "Gold Package",
+      rate: 15000,
+      offerImage: Images.DiscountBlackImg,
+      offerPercentage: "10% OFF",
+      addPackageBtn: "Add Package",
+      upgradeBtn: "Upgrade",
+      packageImage: Images.GoldPackage,
+      packageBackGroundImage: Images.GoldPackageBG,
+      usersText: (
+        <div>
+          <BiSolidCheckCircle /> Join call with 15 users
+        </div>
+      ),
+      meetingsText: (
+        <div>
+          <BiSolidCheckCircle /> Monthly 20 meetings
+        </div>
+      ),
+      personalMeetingsText: (
+        <div>
+          <BiSolidCheckCircle /> Use 20 personal meetings
+        </div>
+      ),
+      audioText: (
+        <div>
+          <BiSolidCheckCircle /> Audio Calls
+        </div>
+      ),
+      videoText: (
+        <div>
+          <BiSolidCheckCircle /> Video Calls
+        </div>
+      ),
+    },
+    {
+      id: 4,
+      packageBackGroundColor: "diamond-package-bg",
+      addPackageBtnColor: "add-package-black-btn",
+      upgradeBtnColor: "upgrade-btn",
+      discountDivColor: "diamond-discount-div",
+      packageName: "Diamond Package",
+      rate: 20000,
+      offerImage: Images.DiscountBlackImg,
+      offerPercentage: "10% OFF",
+      addPackageBtn: "Add Package",
+      upgradeBtn: "Upgrade",
+      packageImage: Images.DiamondPackage,
+      packageBackGroundImage: Images.DiamondPackageBG,
+      usersText: (
+        <div>
+          <BiSolidCheckCircle /> Unlimited users
+        </div>
+      ),
+      meetingsText: (
+        <div>
+          <BiSolidCheckCircle /> Monthly Unlimited meetings
+        </div>
+      ),
+      personalMeetingsText: (
+        <div>
+          <BiSolidCheckCircle /> Unlimited personal meetings
+        </div>
+      ),
+      audioText: (
+        <div>
+          <BiSolidCheckCircle /> Audio Calls
+        </div>
+      ),
+      videoText: (
+        <div>
+          <BiSolidCheckCircle /> Video Calls
+        </div>
+      ),
+    },
+    {
+      id: 5,
+      packageBackGroundColor: "vip-package-bg",
+      addPackageBtnColor: "add-package-white-btn",
+      upgradeBtnColor: "upgrade-white-btn",
+      discountDivColor: "vip-discount-div",
+      packageName: "VIP Package",
+      rate: 25000,
+      offerImage: Images.DiscountImg,
+      offerPercentage: "10% OFF",
+      addPackageBtn: "Add Package",
+      upgradeBtn: "Upgrade",
+      packageImage: Images.VIPPackage,
+      packageBackGroundImage: Images.VIPPackageBG,
+      usersText: (
+        <div>
+          <BiSolidCheckCircle /> Join call with 15 users
+        </div>
+      ),
+      meetingsText: (
+        <div>
+          <BiSolidCheckCircle /> Monthly 20 meetings
+        </div>
+      ),
+      personalMeetingsText: (
+        <div>
+          <BiSolidCheckCircle /> Use 20 personal meetings
+        </div>
+      ),
+      audioText: (
+        <div>
+          <BiSolidCheckCircle /> Audio Calls
+        </div>
+      ),
+      videoText: (
+        <div>
+          <BiSolidCheckCircle /> Video Calls
+        </div>
+      ),
     },
   ];
   return (
     <div>
-      <div className="w-25 d-flex align-items-center justify-content-between form-check form-switch">
-        <div>Monthly</div>
-        <input
-          className="form-check-input"
-          type="checkbox"
-          role="switch"
-          id="flexSwitchCheckDefault"
-        />
-        <div>Yearly</div>
+      <div className="row">
+        <div className="col-sm-2 col-lg-1 d-flex align-items-center">
+          <div className="medium-font">Monthly</div>
+        </div>
+        <div className="col-sm-2 col-lg-1 form-check form-switch">
+          <input
+            className="form-check-input"
+            type="checkbox"
+            role="switch"
+            id="flexSwitchCheckDefault"
+          />
+        </div>
+        <div className="col-sm-2 col-lg-1 d-flex align-items-center">
+          <div className="medium-font">Yearly</div>
+        </div>
       </div>
       <div className="row mt-3">
-        <div className="col-6">
-          <div className="standard-package-div">
-            <div className="row p-3">
-              <div className="col-9 d-flex flex-column">
-                <div className="row">
-                  <div className="d-flex">
-                    <div className="d-flex flex-column align-items-center justify-content-center rounded-circle amount-border p-1">
-                      <div className="fw-semibold">Rs</div>
-                      <h5 className="fw-bold">5000</h5>
-                    </div>
-                    <div className="p-2 px-4">
-                      <div className="w-75 d-flex align-items-center justify-content-evenly discount-div rounded-pill p-2">
-                        <img
-                          className="discount-img"
-                          src={Images.DiscountImg}
-                          alt="Discount_Img"
-                        />
-                        <span className="fw-semibold">10% OFF</span>
+        {PACKAGE_DETAILS?.map((item, index) => (
+          <div
+            className="col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6 mt-3"
+            key={index}
+          >
+            <div className={`package-div ${item.packageBackGroundColor}`}>
+              <div className="row p-3">
+                <div className="col-9 d-flex flex-column">
+                  <div className="row">
+                    <div className="d-flex">
+                      <div className="d-flex flex-column align-items-center justify-content-center rounded-circle amount-border p-1">
+                        <div className="fw-semibold">Rs</div>
+                        <h5 className="fw-bold">{item.rate}</h5>
                       </div>
-                      <h5 className="fw-bold d-flex align-items-end">
-                        Standard Package
-                      </h5>
+                      <div className="p-2 px-4 d-flex flex-column">
+                        <div
+                          className={`rounded-pill p-2 ${item.discountDivColor}`}
+                        >
+                          <img
+                            className="discount-img"
+                            src={item.offerImage}
+                            alt="Discount_Img"
+                          />
+                          <span className="fw-semibold p-1">
+                            {item.offerPercentage}
+                          </span>
+                        </div>
+                        <div>
+                          <h5 className="fw-bold d-flex align-items-end">
+                            {item.packageName}
+                          </h5>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="row medium-font mt-3">
+                    <div className="col">{item.usersText}</div>
+                    <div className="col">{item.meetingsText}</div>
+                  </div>
+                  <div className="row medium-font mt-3">
+                    <div className="col-5">{item.personalMeetingsText}</div>
+                    <div className="col">{item.audioText}</div>
+                    {item.videoText === "" ? null : (
+                      <div className="col">{item.videoText}</div>
+                    )}
+                  </div>
+                  <div className="row w-75 mt-3">
+                    <div className="col">
+                      <div
+                        className={`rounded-pill p-2 text-center medium-font fw-semibold ${item.addPackageBtnColor}`}
+                      >
+                        {item.addPackageBtn}
+                      </div>
+                    </div>
+                    <div className="col">
+                      {item.upgradeBtn === "" ? null : (
+                        <div
+                          className={`rounded-pill p-2 text-center medium-font fw-bold ${item.upgradeBtnColor}`}
+                        >
+                          {item.upgradeBtn}
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
-                <div className="row medium-font mt-3">
-                  <div className="col">
-                    <BiSolidCheckCircle />
-                    Join call with 10 users
-                  </div>
-                  <div className="col">
-                    <BiSolidCheckCircle />
-                    Monthly 10 meetings
-                  </div>
+                <div className="col-3 d-flex flex-column align-items-end">
+                  <img
+                    className="standard-star-img"
+                    src={item.packageImage}
+                    alt="Star"
+                  />
+                  <img
+                    className="standard-star-img"
+                    src={item.packageBackGroundImage}
+                    alt="Star_BG"
+                  />
                 </div>
-                <div className="row medium-font mt-3">
-                  <div className="col">
-                    <BiSolidCheckCircle />
-                    Use 5 personal meetings
-                  </div>
-                  <div className="col">
-                    <BiSolidCheckCircle />
-                    Audio calls
-                  </div>
-                  <div className="col">
-                    <BiSolidCheckCircle />
-                    Video calls
-                  </div>
-                </div>
-                <div className="row w-75 mt-3">
-                  <div className="col">
-                    <div className="add-package-btn rounded-pill p-2 text-center medium-font">
-                      Add Package
-                    </div>
-                  </div>
-                  <div className="col">
-                    <div className="upgrade-btn rounded-pill p-2 text-center medium-font">
-                      Upgrade
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="col-3 d-flex flex-column align-items-end">
-                <img
-                  className="standard-star-img"
-                  src={Images.StandardStar}
-                  alt="Star"
-                />
-                <img
-                  className="standard-star-img"
-                  src={Images.StandardStarBG}
-                  alt="Star_BG"
-                />
               </div>
             </div>
           </div>
-        </div>
+        ))}
       </div>
     </div>
   );

@@ -5,7 +5,7 @@ function SpecialOffers() {
   return (
     <div>
       <div className="row">
-        <div className="col">
+        <div className="col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6 mt-3">
           <div className="offers-div p-3">
             <div className="row">
               <div className="col">
@@ -31,7 +31,7 @@ function SpecialOffers() {
               <div className="col">
                 <div className="d-flex flex-column align-items-end">
                   <div>
-                    <div className="small-font offer-percentage-div">
+                    <div className="font-10 offer-percentage-div">
                       <div>FLAT</div>
                       <div>10%</div>
                       <div>OFF</div>
@@ -54,7 +54,7 @@ function SpecialOffers() {
             </div>
           </div>
         </div>
-        <div className="col">
+        <div className="col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6 mt-3">
           <div className="offers-blue-div p-3">
             <div className="row">
               <div className="col">
@@ -80,7 +80,7 @@ function SpecialOffers() {
               <div className="col">
                 <div className="d-flex flex-column align-items-end">
                   <div>
-                    <div className="small-font offer-percentage-div">
+                    <div className="font-10 offer-percentage-div">
                       <div>FLAT</div>
                       <div>10%</div>
                       <div>OFF</div>
