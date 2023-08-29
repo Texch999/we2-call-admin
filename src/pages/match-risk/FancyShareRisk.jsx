@@ -220,6 +220,13 @@ const FancyShareRisk = () => {
       dummy: "--",
     },
   ];
+
+  const fancyPositionSharePLPopTwoHeadings = [
+    { header: "Over", field: "over" },
+    { header: "Client Share", field: "client_share" },
+    { header: "Rf Share", field: "rf_share" },
+    { header: "UL Share", field: "ul_share" },
+  ];
   const fancyPositionSharePLPopTwoData = [
     {
       over: "20 over",
@@ -246,43 +253,37 @@ const FancyShareRisk = () => {
       ul_share: 100000.0,
     },
   ];
-  const fancyPositionSharePLPopTwoHeadings = [
-    { header: "Over", field: "over" },
-    { header: "Client Share", field: "client_share" },
-    { header: "Rf Share", field: "rf_share" },
-    { header: "UL Share", field: "ul_share" },
-  ];
-  const fancyPositionCommPLPopTwoData = [
-    {
-      over: "20 Over  ",
-      client_comm: 100000.0,
-      rf_comm: 100000.0,
-      dummy: "--",
-    },
-    {
-      over: "15 Over  ",
-      client_comm: 100000.0,
-      rf_comm: 100000.0,
-      dummy: "--",
-    },
-    {
-      over: "10 Over  ",
-      client_comm: 100000.0,
-      rf_comm: 100000.0,
-      dummy: "--",
-    },
-    {
-      over: "5 Over  ",
-      client_comm: 100000.0,
-      rf_comm: 100000.0,
-      dummy: "--",
-    },
-  ];
   const fancyPositionCommPLPopTwoHeadings = [
     { header: "Over", field: "over" },
     { header: "C-Rf-Comm", field: "client_comm" },
     { header: "Rf-RF- Comm", field: "rf_comm" },
     { header: "--", field: "dummy" },
+  ];
+  const fancyPositionCommPLPopTwoData = [
+    {
+      over: "20 Over",
+      client_comm: 100000.0,
+      rf_comm: 100000.0,
+      dummy: "--",
+    },
+    {
+      over: "15 Over",
+      client_comm: 100000.0,
+      rf_comm: 100000.0,
+      dummy: "--",
+    },
+    {
+      over: "10 Over",
+      client_comm: 100000.0,
+      rf_comm: 100000.0,
+      dummy: "--",
+    },
+    {
+      over: "5 Over",
+      client_comm: 100000.0,
+      rf_comm: 100000.0,
+      dummy: "--",
+    },
   ];
   const fancyPositionCommPLPopThreeData = [
     {
@@ -361,6 +362,7 @@ const FancyShareRisk = () => {
       setMatchPositionPopUpHeadings(matchPositionCommPopUpHeadings);
       setSubHeading("Fancy Result P/L- IND vs SL");
       setPositionOne("client_name");
+      console.log(positionOne);
     }
   };
   const handleFancyPositionSharePLPopTwo = (buttonType) => {
@@ -376,6 +378,7 @@ const FancyShareRisk = () => {
       setMatchPositionPopUpHeadings(fancyPositionCommPLPopTwoHeadings);
       setSubHeading("Fancy Result P/L- IND vs SL");
       setPositionTwo("over");
+      console.log(positionTwo);
     }
   };
   const handleFancyPositionSharePLPopThree = (buttonType) => {
@@ -391,6 +394,7 @@ const FancyShareRisk = () => {
       setMatchPositionPopUpHeadings(fancyPositionCommPLPopThreeHeadings);
       setSubHeading("Fancy Result P/L- IND vs SL");
       setPositionThree("runs");
+      console.log(positionThree);
     }
   };
   return (
