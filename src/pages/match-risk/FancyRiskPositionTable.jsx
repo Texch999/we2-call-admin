@@ -6,20 +6,14 @@ import { useState } from "react";
 import AdminPopReports from "../onepagereport/AdminPopReports";
 
 const FancyRiskPositionTable = (props) => {
-  const { teamName, tableHeading } = props;
+  const { teamName, tableHeading ,data,headings} = props;
   const [matchPositionShareCommStatus, setMatchPositionShareCommStatus] =
     useState(false);
   const [matchpositionPopData, setMatchPositionPopUpData] = useState("");
   const [matchpositionPopHeadings, setMatchPositionPopUpHeadings] =
     useState("");
   const [subHeading, setSubHeading] = useState("");
-  const matchFancyRiskHeadings = [
-    { header: "CLIENT NAME", field: "client_name" },
-    { header: "GROSS P/L", field: "grossPL" },
-    { header: "C NET", field: "cNet" },
-    { header: "RF NET", field: "rfNet" },
-    { header: "NET P/L", field: "netPL" },
-  ];
+
   const matchPositionSharePopUpHeadings = [
     { header: "Client Name", field: "client_name" },
     { header: "Client Share", field: "client_share" },
@@ -32,43 +26,7 @@ const FancyRiskPositionTable = (props) => {
     { header: "Rf Comm", field: "rf_comm" },
     { header: "--", field: "dummy" },
   ];
-  const matchFancyRiskData = [
-    {
-      client_name: "Animesh",
-      grossPL: 50000000,
-      cNet: 50000000,
-      rfNet: 50000000,
-      netPL: 50000000,
-    },
-    {
-      client_name: "Ganesh",
-      grossPL: 50000000,
-      cNet: 50000000,
-      rfNet: 50000000,
-      netPL: 50000000,
-    },
-    {
-      client_name: "Jayanth",
-      grossPL: 50000000,
-      cNet: 50000000,
-      rfNet: 50000000,
-      netPL: 50000000,
-    },
-    {
-      client_name: "Srikanth",
-      grossPL: 50000000,
-      cNet: 50000000,
-      rfNet: 50000000,
-      netPL: 50000000,
-    },
-    {
-      client_name: "Sri182",
-      grossPL: 50000000,
-      cNet: 50000000,
-      rfNet: 50000000,
-      netPL: 50000000,
-    },
-  ];
+  
   const matchPositionSharePopUpData = [
     {
       client_name: "Animesh",
@@ -164,8 +122,8 @@ const FancyRiskPositionTable = (props) => {
         </div>
       </div>
       <AdminsTable
-        data={matchFancyRiskData}
-        columns={matchFancyRiskHeadings}
+        data={data}
+        columns={headings}
         totalPosition="client_name"
       />
       {matchPositionShareCommStatus && (
