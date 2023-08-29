@@ -253,7 +253,7 @@ function SpecialPackages() {
                       </div>
                     </div>
                   </div>
-                  <div className="row medium-font mt-3">
+                  <div className="row w-90 medium-font mt-3">
                     <div className="col">{item.usersText}</div>
                     <div className="col">{item.meetingsText}</div>
                   </div>
