@@ -1,59 +1,52 @@
 import React from "react";
-import { Button,Container,Row,Col } from "react-bootstrap";
+import { Button, Container, Row, Col } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import MatchRiskPositionTable from "./MatchRiskPositionTable";
+import { PiArrowCircleRightBold } from "react-icons/pi";
+import { useNavigate } from "react-router";
+import FancyRiskPositionTable from "./FancyRiskPositionTable";
 
 const FancyShareRisk = () => {
+  const navigate = useNavigate();
   return (
     <div className="p-4">
       <h5 className="meetings-heading mb-3">Match Share Risk </h5>
       <hr />
-      <div>
-        <Button className="all-match-button share-risk-match-button clr-yellow w-100 text-start">
+      <div className="d-flex justify-content-between align-items-center mb-2 share-risk-live-match-container">
+        <Button className="fs-lg all-match-button share-risk-match-button clr-yellow text-start">
           Share Risk - Live Match
         </Button>
+        <Button
+          className="all-match-button rounded-pill d-flex align-items-center button-border"
+          onClick={() => navigate("/match-share-risk-position")}
+        >
+          Match Risk <PiArrowCircleRightBold size={20} className="ms-2" />
+        </Button>
       </div>
-      <Container fluid className="match-share-risk-position-table-container mt-3">
+      <Container
+        fluid
+        className="match-share-risk-position-table-container mt-3"
+      >
         <Row>
           <Col>
-            <MatchRiskPositionTable teamName="IND" />
+            <FancyRiskPositionTable
+              teamName="IND Vs SL"
+              tableHeading="Fancy Result P/L - "
+            />
           </Col>
           <Col>
-            <MatchRiskPositionTable teamName="SL" />
+            <FancyRiskPositionTable
+              teamName="IND vs SL"
+              tableHeading="Fancy Result P/L - "
+            />
+          </Col>
+        </Row>
+        <Row className="mt-2">
+          <Col></Col>
+          <Col>
+            <FancyRiskPositionTable tableHeading="Risk Running Position P/L" />
           </Col>
         </Row>
       </Container>
-      {/* <div>
-        <Table responsive="md" className="call-management-data">
-          <thead>
-            <tr>
-              {matchShareRiskHeadings.map((headings, index) => (
-                <th className="text-center" key={index}>
-                  {headings}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {matchShareRiskData?.map((data, index) => (
-              <tr key={index}>
-                <td className="text-center">{data?.date_time}</td>
-                <td className="text-center">{data?.series_name}</td>
-                <td className="text-center clr-yellow">{data?.team_name}</td>
-                <td className="text-center">{data?.name}</td>
-                <td className="text-center">{data?.role}</td>
-                <td className="text-center clr-green">
-                  {parseFloat(data?.team_one).toFixed(2)}
-                </td>
-                <td className="text-center">{data?.dropdown}</td>
-                <td className="text-center clr-red">
-                  {parseFloat(data?.team_two).toFixed(2)}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </Table>
-      </div> */}
     </div>
   );
 };
