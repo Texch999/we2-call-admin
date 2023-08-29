@@ -279,11 +279,11 @@ function SportsManagement() {
                 <div
                   key={index}
                   className={
-                    activeHead === index ? "active-head col-4" : "col-4"
+                    activeHead === index ? "active-head col-4 " : "col-4"
                   }
                   onClick={() => handleActiveHead(index)}
                 >
-                  {item}
+                  <div className="text-center">{item}</div>
                 </div>
               );
             })}

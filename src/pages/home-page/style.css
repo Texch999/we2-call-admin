@@ -363,3 +363,6 @@ input::placeholder {
 .linked-in {
   background: linear-gradient(to right, #069, #0676ae);
 }
+option{
+  height: 50px;
+}
