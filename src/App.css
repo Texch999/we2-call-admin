@@ -40,6 +40,16 @@ body {
 .marqu-tag {
   background: #fce719;
   color: #080c27;
+  padding: 10px;
+  font-size: 12px;
+}
+.header-avatar{
+  border-right: 1px solid grey;
+  padding-right: 0.8rem;
+}
+.header-avatar img {
+  height: 50%;
+  width: 50%;
 }
 .head-image {
   height: 8vh !important;
