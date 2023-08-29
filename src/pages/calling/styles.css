@@ -21,13 +21,13 @@
 }
 .history-status-approve-button {
   background-color: #04c85e;
-  color: green;
+  color: black;
   width: 60%;
   border: none;
 }
 .history-status-reject-button {
   background-color: #ae0909;
-  color: red;
+  color: black;
   width: 60%;
   border: none;
 }

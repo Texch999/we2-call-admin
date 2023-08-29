@@ -2,6 +2,12 @@ import React, { useState } from "react";
 import { AiFillEdit } from "react-icons/ai";
 import "./styles.css";
 import StatementPopup from "./StatementPopup";
+import DatePicker from "react-datepicker";
+import { FaRegCalendarAlt } from "react-icons/fa";
+import "react-datepicker/dist/react-datepicker.css";
+import Select from "react-select";
+import { Col, Container, Modal, Row } from "react-bootstrap";
+
 function Statement() {
   const STATEMENT_DETAILS = [
     {
@@ -149,27 +155,57 @@ function Statement() {
       pl: "50000000",
     },
   ];
+  const seriesOptions = [
+    { value: "option1", label: "Option 1" },
+    { value: "option2", label: "Option 2" },
+    { value: "option3", label: "Option 3" },
+  ];
+  const matchOptions = [
+    { value: "option1", label: "Option 1" },
+    { value: "option2", label: "Option 2" },
+    { value: "option3", label: "Option 3" },
+  ];
+  const fancyOptions = [
+    { value: "option1", label: "Option 1" },
+    { value: "option2", label: "Option 2" },
+    { value: "option3", label: "Option 3" },
+  ];
+  const clientOptions = [
+    { value: "option1", label: "Option 1" },
+    { value: "option2", label: "Option 2" },
+    { value: "option3", label: "Option 3" },
+  ];
   const [showModal, setShowModal] = useState(false);
   const handleShow = () => setShowModal(true);
-
+  const [selectedDate, setSelectedDate] = useState(null);
   return (
     <div className="p-2">
       <hr />
-      <div className="d-flex flex-row justify-content-around mb-3 w-100 ">
+      {/* <div className="d-flex flex-row justify-content-around mb-3 w-100 ">
         <div>
           <div className="medium-font mb-2">From</div>
-          <div className="date-container d-flex justify-content-around align-items-center rounded p-2">
-            <input
-              className="login-inputs medium-font"
-              type="date"
-              pattern="\d{4}-\d{2}-\d{2}"
-            ></input>
+          <div className="date-container d-flex justify-content-around align-items-center rounded all-none p-1">
+            <DatePicker
+              className="login-input all-none"
+              selected={selectedDate}
+              onChange={(date) => setSelectedDate(date)}
+              dateFormat="yyyy-MM-dd"
+              placeholderText="Select a date"
+            />
+            <FaRegCalendarAlt className="custom-icon p-1" />
           </div>
         </div>
         <div>
           <div className="medium-font mb-2">To</div>
-          <div className="date-container d-flex justify-content-around align-items-center rounded p-2">
-            <input type="date" className="login-inputs medium-font"></input>
+          <div className="date-container d-flex justify-content-around align-items-center rounded all-none p-1 w-50">
+            <DatePicker
+              className="login-input all-none w-100"
+              selected={selectedDate}
+              onChange={(date) => setSelectedDate(date)}
+              dateFormat="yyyy-MM-dd"
+              placeholderText="Select a date"
+            />
+            <FaRegCalendarAlt className="custom-icon p-1" />
           </div>
         </div>
         <div>
@@ -223,7 +259,102 @@ function Statement() {
         <button className="submit-button mt-3 medium-font p-2 rounded all-none">
           Verify
         </button>
-      </div>{" "}
+      </div> */}
+      <Container fluid className="mt-2">
+        <Row>
+          <Col className="col-lg-2 col-md-3">
+            <div>
+              <div className="medium-font mb-2">From</div>
+              <div className="date-container d-flex justify-content-around align-items-center rounded all-none p-1 w-100">
+                <DatePicker
+                  className="login-input all-none w-50"
+                  selected={selectedDate}
+                  onChange={(date) => setSelectedDate(date)}
+                  dateFormat="yyyy-MM-dd"
+                  placeholderText="Select a date"
+                />
+                <FaRegCalendarAlt className="custom-icon p-1" />
+              </div>
+            </div>
+          </Col>
+          <Col className="col-lg-2 col-md-3">
+            <div>
+              <div className="medium-font mb-2">To</div>
+              <div className="date-container d-flex justify-content-around align-items-center rounded all-none p-1 w-100">
+                <DatePicker
+                  className="login-input all-none w-50"
+                  selected={selectedDate}
+                  onChange={(date) => setSelectedDate(date)}
+                  dateFormat="yyyy-MM-dd"
+                  placeholderText="Select a date"
+                />
+                <FaRegCalendarAlt className="custom-icon p-1" />
+              </div>
+            </div>
+          </Col>{" "}
+          <Col className="col-lg-1 col-md-3">
+            <div>
+              <div className="medium-font mb-2">Match Name</div>
+              <select
+                name="match"
+                className="w-100 custom-select medium-font btn-bg rounded all-none p-2"
+              >
+                <option selected>Enter Match Name</option>
+                <option value="sl">India vs SL</option>
+                <option value="eng">India vs Eng</option>
+                <option value="zim">Eng vs Zim</option>
+                <option value="pak">India Vs Pak</option>
+              </select>
+            </div>
+          </Col>{" "}
+          <Col className="col-lg-2 col-md-3">
+            <div>
+              <div className="medium-font mb-2">Series Name</div>
+              <select
+                name="Series"
+                className="w-100 custom-select medium-font btn-bg rounded all-none p-2"
+              >
+                <option selected>Enter Series Name</option>
+                <option value="test">Test</option>
+                <option value="t20">T20 League</option>
+                <option value="oneday">ODI Cricket</option>
+              </select>
+            </div>
+          </Col>{" "}
+          <Col className="col-lg-1 col-md-3">
+            <div>
+              <div className="medium-font mb-2"> Fancy</div>
+              <select
+                name="fancy"
+                className="w-100 custom-select medium-font btn-bg rounded all-none p-2"
+              >
+                <option selected>Enter Fancy</option>
+                <option value="first">1st Innings</option>
+                <option value="second">2nd Innings</option>
+              </select>
+            </div>
+          </Col>{" "}
+          <Col className="col-lg-2 col-md-3">
+            <div>
+              <div className="medium-font mb-2">Client Name</div>
+              <select
+                name="cars"
+                className="w-100 custom-select medium-font btn-bg rounded all-none p-2"
+              >
+                <option selected>Enter Client Name</option>
+                <option value="sri">Srikanth</option>
+                <option value="upi">Upendra</option>
+                <option value="ranj">Ranjit katari</option>
+              </select>
+            </div>
+          </Col>{" "}
+          <Col className="ms-1 me-1 mt-4 col-lg-1 col-md-2">
+            <button className="submit-button medium-font p-2 rounded all-none">
+              Verify
+            </button>
+          </Col>
+        </Row>
+      </Container>
       <hr />
       <table className="w-100 match-position-table medium-font">
         <thead>

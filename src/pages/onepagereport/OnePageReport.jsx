@@ -129,8 +129,15 @@ function OnePageReport() {
         {PAGE_REPORT_DETAILS.map((item, index) => (
           <tbody key={index}>
             <tr className="text-center">
-              <td onClick={() => handleReportPageShow()}>{item.client}</td>
-              <td>{item.mfrc}</td>
+              <td>{item.client}</td>
+              <td className="d-flex flex-column align-items-center">
+                {item.mfrc}
+                <img
+                  className="click-here-img mt-1"
+                  src={process.env.PUBLIC_URL + "./assets/click_here.png"}
+                  onClick={() => handleReportPageShow()}
+                ></img>
+              </td>
               <td>{item.cnet}</td>
               <td> {item.rfnet}</td>
               <td className="clr-green">{item.totalpl}</td>

@@ -188,7 +188,7 @@ function CallHistory() {
   ];
   return (
     <div className="p-4">
-         <h5 className="meetings-heading mb-3">Call History</h5>
+      <h5 className="meetings-heading mb-3">Call History</h5>
 
       <div className="d-flex flex-row mb-4 w-35 justify-content-between">
         <div>
@@ -208,7 +208,7 @@ function CallHistory() {
         </button>
       </div>
       <div>
-        <table className="table settelment-table">
+        <table className="w-100 match-position-table small-font">
           <thead className="medium-font">
             <tr>
               <th scope="col" className="text-center">
