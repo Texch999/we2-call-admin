@@ -386,13 +386,13 @@ const FancyShareRisk = () => {
       setMatchPositionShareCommStatus(true);
       setMatchPositionPopUpData(fancyPositionSharePLPopThreeData);
       setMatchPositionPopUpHeadings(fancyPositionSharePLPopThreeHeadings);
-      setSubHeading("Fancy Result P/L- IND vs SL");
+      setSubHeading("Risk Running Position P/L");
       setPositionThree("runs");
     } else if (buttonType === "comm") {
       setMatchPositionShareCommStatus(true);
       setMatchPositionPopUpData(fancyPositionCommPLPopThreeData);
       setMatchPositionPopUpHeadings(fancyPositionCommPLPopThreeHeadings);
-      setSubHeading("Fancy Result P/L- IND vs SL");
+      setSubHeading("Risk Running Position P/L");
       setPositionThree("runs");
       console.log(positionThree);
     }
