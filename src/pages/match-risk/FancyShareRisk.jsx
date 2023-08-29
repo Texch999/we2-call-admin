@@ -6,16 +6,15 @@ import { useNavigate } from "react-router";
 import FancyRiskPositionTable from "./FancyRiskPositionTable";
 
 const FancyShareRisk = () => {
-  
   const navigate = useNavigate();
-  const fancyRiskHeadings = [
+  const fancyRiskHeadingsOne = [
     { header: "CLIENT NAME", field: "client_name" },
     { header: "GROSS P/L", field: "grossPL" },
     { header: "C NET", field: "cNet" },
     { header: "RF NET", field: "rfNet" },
     { header: "NET P/L", field: "netPL" },
   ];
-  const fancyRiskData = [
+  const fancyRiskDataOne = [
     {
       client_name: "Animesh",
       grossPL: 50000000,
@@ -52,6 +51,94 @@ const FancyShareRisk = () => {
       netPL: 50000000,
     },
   ];
+  const fancyRiskHeadingsTwo = [
+    { header: "OVERS", field: "over" },
+    { header: "GROSS P/L", field: "grossPL" },
+    { header: "C NET", field: "cNet" },
+    { header: "RF NET", field: "rfNet" },
+    { header: "NET P/L", field: "netPL" },
+  ];
+  const fancyRiskDataTwo = [
+    {
+      over: "20 over",
+      grossPL: 50000000.0,
+      cNet: 50000000.0,
+      rfNet: 50000000.0,
+      netPL: 50000000.0,
+    },
+    {
+      over: "15 over",
+      grossPL: 50000000.0,
+      cNet: 50000000.0,
+      rfNet: 50000000.0,
+      netPL: 50000000.0,
+    },
+    {
+      over: "10 over",
+      grossPL: 50000000.0,
+      cNet: 50000000.0,
+      rfNet: 50000000.0,
+      netPL: 50000000.0,
+    },
+    {
+      over: "5 over",
+      grossPL: 50000000.0,
+      cNet: 50000000.0,
+      rfNet: 50000000.0,
+      netPL: 50000000.0,
+    },
+    {
+      over: "1 over",
+      grossPL: 50000000.0,
+      cNet: 50000000.0,
+      rfNet: 50000000.0,
+      netPL: 50000000.0,
+    },
+  ];
+  const fancyRiskHeadingsThree = [
+    { header: "RUNS", field: "runs" },
+    { header: "AMOUNT", field: "amount" },
+    { header: "C POSITION", field: "cPosition" },
+    { header: "RF POSITION", field: "rfPosition" },
+    { header: "URS POSITION", field: "ursPosition" },
+  ];
+  const fancyRiskDataThree = [
+    {
+      runs: "-44 runs",
+      amount: 50000000.0,
+      cPosition: 50000000.0,
+      rfPosition: 50000000.0,
+      ursPosition: 50000000.0,
+    },
+    {
+      runs: "-44 runs",
+      amount: 50000000.0,
+      cPosition: 50000000.0,
+      rfPosition: 50000000.0,
+      ursPosition: 50000000.0,
+    },
+    {
+      runs: "-40 runs",
+      amount: 50000000.0,
+      cPosition: 50000000.0,
+      rfPosition: 50000000.0,
+      ursPosition: 50000000.0,
+    },
+    {
+      runs: "42 runs",
+      amount: 50000000.0,
+      cPosition: 50000000.0,
+      rfPosition: 50000000.0,
+      ursPosition: 50000000.0,
+    },
+    {
+      runs: "40 runs",
+      amount: 50000000.0,
+      cPosition: 50000000.0,
+      rfPosition: 50000000.0,
+      ursPosition: 50000000.0,
+    },
+  ];
   return (
     <div className="p-4">
       <h5 className="meetings-heading mb-3">Match Share Risk </h5>
@@ -76,16 +163,16 @@ const FancyShareRisk = () => {
             <FancyRiskPositionTable
               teamName="IND Vs SL"
               tableHeading="Fancy Result P/L - "
-              data={fancyRiskData} 
-              headings={fancyRiskHeadings} 
+              data={fancyRiskDataOne}
+              headings={fancyRiskHeadingsOne}
             />
           </Col>
           <Col>
             <FancyRiskPositionTable
               teamName="IND vs SL"
               tableHeading="Fancy Result P/L - "
-              data={fancyRiskData}
-              headings={fancyRiskHeadings}
+              data={fancyRiskDataTwo}
+              headings={fancyRiskHeadingsTwo}
             />
           </Col>
         </Row>
@@ -94,8 +181,8 @@ const FancyShareRisk = () => {
           <Col>
             <FancyRiskPositionTable
               tableHeading="Risk Running Position P/L"
-              data={fancyRiskData}
-              headings={fancyRiskHeadings}
+              data={fancyRiskDataThree}
+              headings={fancyRiskHeadingsThree}
             />
           </Col>
         </Row>
