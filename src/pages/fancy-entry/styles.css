@@ -34,47 +34,59 @@
 @media (min-width: 577px) and (max-width: 768px) {
   .small-font {
     font-size: 0.5rem;
+    font-family: "Barlow-Regular" !important;
   }
   .medium-font {
     font-size: 0.7rem;
+    font-family: "Barlow-Regular" !important;
   }
   .large-font {
     font-size: 0.9rem;
+    font-family: "Barlow-Regular" !important;
   }
 }
 
 @media (min-width: 769px) and (max-width: 1200px) {
   .small-font {
     font-size: 0.6rem;
+    font-family: "Barlow-Regular" !important;
   }
   .medium-font {
     font-size: 0.7rem;
+    font-family: "Barlow-Regular" !important;
   }
   .large-font {
     font-size: 1rem;
+    font-family: "Barlow-Regular" !important;
   }
 }
 
 @media (min-width: 1201px) and (max-width: 1600px) {
   .small-font {
     font-size: 0.8rem;
+    font-family: "Barlow-Regular" !important;
   }
   .medium-font {
     font-size: 0.9rem;
+    font-family: "Barlow-Regular" !important;
   }
   .large-font {
     font-size: 1.1rem;
+    font-family: "Barlow-Regular" !important;
   }
 }
 @media (min-width: 1601px) {
   .small-font {
     font-size: 0.8rem;
+    font-family: "Barlow-Regular" !important;
   }
   .medium-font {
     font-size: 1rem;
+    font-family: "Barlow-Regular" !important;
   }
   .large-font {
     font-size: 1.5rem;
+    font-family: "Barlow-Regular" !important;
   }
 }
 
@@ -160,6 +172,19 @@
 .match-position-table tbody > tr > td {
   padding: 8px;
 }
+.admin-package-table table,
+.admin-package-table tbody {
+  background: #112a5e !important;
+}
+.admin-package-table tbody > tr {
+  border-bottom: 1px solid #3f4c66;
+}
+.admin-package-table thead {
+  background-color: #082051 !important;
+}
+.admin-package-table table {
+  border: solid 2px #264990 !important;
+}
 #home-table-head {
   background-color: #112e69;
 }
@@ -173,6 +198,7 @@
 }
 .green-color {
   color: #04c85e;
+  font-weight: 600;
 }
 .red-color {
   color: #f62a3d;

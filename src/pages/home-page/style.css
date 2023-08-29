@@ -288,7 +288,7 @@
   font-family: "Barlow-Regular" !important;
 }
 input::placeholder {
-  font-size: 10px;
+  font-size: 0.9rem;
 }
 .sport-management-select {
   border: none;
