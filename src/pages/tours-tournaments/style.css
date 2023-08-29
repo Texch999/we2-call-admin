@@ -1,0 +1,47 @@
+.tour-cricket {
+  height: 45vh;
+}
+.take-tour {
+  background: linear-gradient(to right, #3f5cc2, #5640c6);
+  border-radius: 15px;
+  border: solid 2px #2b3967;
+}
+.cricket-cup {
+  background: linear-gradient(to right, #e762e5, #4f64f0);
+  border-radius: 15px;
+}
+.football-cup {
+  background: linear-gradient(to right, rgba(253, 221, 52, 1), #fe5e02);
+  border-radius: 15px;
+}
+.casino-tournie {
+  background: linear-gradient(to top, rgba(159, 251, 162, 1), #3f8c49);
+  border-radius: 15px;
+}
+.entertain-ment {
+  background: linear-gradient(to right, #6d54fa, #64dcf8, #3a68f3);
+  border-radius: 15px;
+}
+.h-100per {
+  height: 100%;
+}
+.like-button,
+.intrested {
+  height: 50px;
+  background: #3542b3;
+  border-radius: 25px;
+}
+.intrested {
+  background: linear-gradient(to top, #ffc843, #ff8f17) !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.w-60{
+    width: 60%;
+}
+.banner{
+    height: 35vh;
+    left: 15%;
+    position: relative;
+}

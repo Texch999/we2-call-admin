@@ -114,6 +114,9 @@ function Header() {
       index === 0 && navigate("/");
     }
     {
+      index === 2 && navigate("/tours-tournaments");
+    }
+    {
       index === 3 && handleMatchEntry();
     }
     {
@@ -166,7 +169,7 @@ function Header() {
           />
         </div>
         <div className="date-div mt-2">
-          <p className="meetings-heading">{currentDateTime.toLocaleString()}</p>
+          <p className="meetings-heading medium-font">{currentDateTime.toLocaleString()}</p>
         </div>
         <div className="h-10vh d-flex align-items-center head-wrap">
           <div className="row w-100 min-h-10vh d-flex align-items-center">

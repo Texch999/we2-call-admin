@@ -41,4 +41,5 @@ export const Images = {
   DiamondPackageBG: "./assets/diamong_bg.png",
   VIPPackage: "./assets/vip_package.png",
   VIPPackageBG: "./assets/vip_bg.png",
+  BatBall:"./assets/bat_ball.png"
 };
