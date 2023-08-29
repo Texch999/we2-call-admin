@@ -15,6 +15,9 @@
 .share-risk-live-match-container .all-match-button {
   --bs-btn-font-size: var(--table-head-font-size);
 }
-.match-share-risk-position-table-container{
-  --bs-gutter-x:unset;
+.match-share-risk-position-table-container {
+  --bs-gutter-x: unset;
+}
+.fs-lg {
+  font-size: var(--table-body-lg-font-size);
 }
