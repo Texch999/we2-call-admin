@@ -64,7 +64,7 @@ function UserManagement() {
   return (
     <div className="p-3">
       <h5 className="meetings-heading">User Management/Creation</h5>
-      <div className="row gutter-1rem">
+      <div className="row gutter-1rem meetings-heading">
         <div className="col-5 d-flex justify-content-between">
           {shareList.map((item, index) => {
             return (
@@ -104,7 +104,7 @@ function UserManagement() {
           </div>
         </div>
       </div>
-      <div className="row gutter-1rem mt-3">
+      <div className="row gutter-1rem mt-3 meetings-heading">
         <div className="col-5 d-flex justify-content-between">
           <div className="w-70">
             <div>Select Referral</div>
@@ -147,7 +147,7 @@ function UserManagement() {
           </div>
         </div>
       </div>
-      <div className="row mt-3">
+      <div className="row mt-3 meetings-heading">
         <div className="col-7">
           <div className="row gutter-1rem">
             <div className="col-6">

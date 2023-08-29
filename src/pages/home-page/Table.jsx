@@ -3,11 +3,11 @@ import React from "react";
 function Table(props) {
   const { data, columns } = props;
   return (
-    <table className="w-100 match-position-table text-center medium-font">
+    <table className="w-100 match-position-table call-management-data text-center medium-font">
       <thead id="home-table-head">
         <tr>
           {columns.map((column, index) => (
-            <th key={index}>{column.header}</th>
+            <th key={index} className="meetings-heading">{column.header}</th>
           ))}
         </tr>
       </thead>
@@ -15,7 +15,7 @@ function Table(props) {
         {data.map((item, rowIndex) => (
           <tr key={rowIndex}>
             {columns.map((column, colIndex) => (
-              <td key={colIndex}>
+              <td key={colIndex} className="meetings-heading">
                 <div
                   className={
                     item[column.field] === "Join"

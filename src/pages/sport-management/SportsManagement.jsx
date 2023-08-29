@@ -184,7 +184,7 @@ function SportsManagement() {
       <h5 className="meetings-heading">All Admins / Sports Management</h5>
       <div className="row gutter-1rem">
         <div className="col-3">
-          <div>Series Name</div>
+          <div className="meetings-heading">Series Name</div>
           <div className="sport-management-input d-flex ">
             <input placeholder="Enter" className="w-90" />
             <FaTrophy />
@@ -192,15 +192,15 @@ function SportsManagement() {
         </div>
         {sportsDropdowns.map((item, index) => {
           return (
-            <div key={index} className="col-2">
+            <div key={index} className="col-2 meetings-heading">
               <div>{item.headName}</div>
-              <select className="sport-management-input d-flex p-1 w-100 sport-management-select">
+              <select className="sport-management-input d-flex p-1 w-100 sport-management-select meetings-heading">
                 {item.options}
               </select>
             </div>
           );
         })}
-        <div className="col-3">
+        <div className="col-3 meetings-heading">
           <div>Series Name</div>
           <div className="sport-management-input d-flex p-1">
             <input placeholder="Enter" className="w-90" />
@@ -208,7 +208,7 @@ function SportsManagement() {
           </div>
         </div>
       </div>
-      <div className="row gutter-1rem mt-3">
+      <div className="row gutter-1rem mt-3 meetings-heading">
         <div className="col-3">
           <div>Stadium</div>
           <div className="sport-management-input d-flex p-1">
@@ -238,7 +238,7 @@ function SportsManagement() {
           </div>
         </div>
       </div>
-      <div className="row gutter-1rem mt-3">
+      <div className="row gutter-1rem mt-3 meetings-heading">
         {MatchTypeDropdown.map((item, index) => {
           return (
             <div className={item.cspan}>
@@ -260,20 +260,20 @@ function SportsManagement() {
         </div>
       </div>
       <hr className="mt-3" />
-      <div className="row p-3 gutter-2rem">
+      <div className="row gutter-1rem d-flex justify-content-around">
         <div className="col-8">
-          <div className="row sport-management-input ">
+          <div className="sport-management-input meetings-heading p-2">
             <h5>Created Matches</h5>
           </div>
-          <div className="mt-3">
+          <div className="mt-3 ">
             <Table data={tableData} columns={columns} />
           </div>
         </div>
-        <div className="col-4">
-          <div className="row sport-management-input">
+        <div className="col-4 meetings-heading">
+          <div className="sport-management-input p-2">
             <h5>Scheduled Matches</h5>
           </div>
-          <div className="row sport-management-input mt-2">
+          <div className="sport-management-input mt-2 d-flex">
             {headings.map((item, index) => {
               return (
                 <div

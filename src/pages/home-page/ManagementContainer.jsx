@@ -12,14 +12,14 @@ function ManagementContainer() {
     <div className="row vh-50 p-3">
       <div className="col-7 call-management col-sm-12 col-md-12 col-lg-7 col-xl-7 d-flex">
         <div className="w-50 p-3 call-management-text">
-          <h2>Call Management</h2>
-          <h5>Create your new meetings</h5>
-          <p>
+          <h2 className="meetings-heading">Call Management</h2>
+          <h5 className="meetings-heading">Create your new meetings</h5>
+          <p className="meetings-heading">
             Amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
             ut labore et dolore magna aliqua.
           </p>
           <div
-            className="we2-call-button"
+            className="we2-call-button meetings-heading"
             onClick={() => handleWe2callButton()}
           >
             we2Call
@@ -41,8 +41,8 @@ function ManagementContainer() {
             ></img>
           </div>
           <div className="ms-3">
-            <h2>Sports Management</h2>
-            <h5>Create your new meetings</h5>
+            <h2 className="meetings-heading">Sports Management</h2>
+            <h5 className="meetings-heading">Create your new meetings</h5>
             <div className="right-arrow-icon">
               <BsArrowRight onClick={() => navigate("/sport-management")} />
             </div>
@@ -53,8 +53,8 @@ function ManagementContainer() {
             <img className="management-image" src={Images.UserManagement}></img>
           </div>
           <div className="ms-3">
-            <h2>User Management</h2>
-            <h5>Create your new meetings</h5>
+            <h2 className="meetings-heading">User Management</h2>
+            <h5 className="meetings-heading">Create your new meetings</h5>
             <div className="right-arrow-icon">
               <BsArrowRight onClick={() => navigate("/user-management")} />
             </div>
