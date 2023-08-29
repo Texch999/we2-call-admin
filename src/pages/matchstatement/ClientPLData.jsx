@@ -9,7 +9,6 @@ function ClientPLData() {
     setFancyBetInputs(false);
     setMatchBetInputs(true);
   };
-
   const handleFancyBet = () => {
     setFancyBetInputs(true);
     setMatchBetInputs(false);
