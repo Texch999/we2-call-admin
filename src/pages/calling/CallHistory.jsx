@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { AiFillPlayCircle } from "react-icons/ai";
 import { RiDeleteBin6Line } from "react-icons/ri";
-import { FaCalendarAlt } from "react-icons/fa";
+import DatePicker from "react-datepicker";
+import { FaRegCalendarAlt } from "react-icons/fa";
+import "react-datepicker/dist/react-datepicker.css";
+import { Col, Container, Modal, Row } from "react-bootstrap";
 import "./styles.css";
 function CallHistory() {
   const HISTORY_DETAILS = [
@@ -186,27 +189,49 @@ function CallHistory() {
       delete: "",
     },
   ];
+  const [selectedDate, setSelectedDate] = useState(null);
   return (
     <div className="p-4">
       <h5 className="meetings-heading mb-3">Call History</h5>
-
-      <div className="d-flex flex-row mb-4 w-35 justify-content-between">
-        <div>
-          <div className="small-font mb-2">From</div>
-          <div className="date-container d-flex justify-content-around align-items-center rounded p-2">
-            <input className="login-inputs small-font" type="date"></input>
-          </div>
-        </div>
-        <div>
-          <div className="small-font mb-2">To</div>
-          <div className="date-container d-flex justify-content-around align-items-center rounded p-2">
-            <input type="date" className="login-inputs small-font"></input>
-          </div>
-        </div>
-        <button className="submit-button mt-3 medium-font p-1 font-weight-bold">
-          Submit
-        </button>
-      </div>
+      <Container fluid className="mt-2 mb-4" >
+        <Row>
+          <Col className="col-lg-2 col-md-3">
+            <div>
+              <div className="medium-font mb-2">From</div>
+              <div className="date-container d-flex justify-content-around align-items-center rounded all-none p-1 w-100">
+                <DatePicker
+                  className="login-input all-none w-50"
+                  selected={selectedDate}
+                  onChange={(date) => setSelectedDate(date)}
+                  dateFormat="yyyy-MM-dd"
+                  placeholderText="Select a date"
+                />
+                <FaRegCalendarAlt className="custom-icon p-1" />
+              </div>
+            </div>
+          </Col>
+          <Col className="col-lg-2 col-md-3">
+            <div>
+              <div className="medium-font mb-2">To</div>
+              <div className="date-container d-flex justify-content-around align-items-center rounded all-none p-1 w-100">
+                <DatePicker
+                  className="login-input all-none w-50"
+                  selected={selectedDate}
+                  onChange={(date) => setSelectedDate(date)}
+                  dateFormat="yyyy-MM-dd"
+                  placeholderText="Select a date"
+                />
+                <FaRegCalendarAlt className="custom-icon p-1" />
+              </div>
+            </div>
+          </Col>{" "}
+          <Col className="ms-1 me-1 mt-4 col-lg-1 col-md-2">
+            <button className="submit-button medium-font p-2 rounded all-none">
+              Verify
+            </button>
+          </Col>
+        </Row>
+      </Container>
       <div>
         <table className="w-100 match-position-table small-font">
           <thead className="medium-font">

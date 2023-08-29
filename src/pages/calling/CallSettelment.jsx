@@ -191,7 +191,7 @@ function CallSettelment() {
             <BiSolidCloudUpload className="custom-icon"></BiSolidCloudUpload>
           </div>
         </div>
-        <button className="submit-button mt-3 medium-font p-2 all-none">
+        <button className="submit-button mt-3 medium-font all-none">
           Create Settelment
         </button>
       </div>
