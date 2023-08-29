@@ -346,8 +346,8 @@ function PurchaseAdminPackages() {
                   <div>50000000</div>
                 </div>
               </div>
-              <div className="col-sm-4 col-lg-2">
-                <div className="add-button rounded p-1 d-flex align-items-center justify-content-evenly">
+              <div className="col-sm-4 col-lg-3">
+                <div className="add-button rounded p-2 d-flex align-items-center justify-content-evenly">
                   <FaMinus />
                   <div className="fw-semibold">ADD</div>
                   <FaPlus />
