@@ -130,7 +130,14 @@ function OnePageReport() {
           <tbody key={index}>
             <tr className="text-center">
               <td>{item.client}</td>
-              <td onClick={() => handleReportPageShow()}>{item.mfrc}</td>
+              <td className="d-flex flex-column align-items-center">
+                {item.mfrc}
+                <img
+                  className="click-here-img mt-1"
+                  src={process.env.PUBLIC_URL + "./assets/click_here.png"}
+                  onClick={() => handleReportPageShow()}
+                ></img>
+              </td>
               <td>{item.cnet}</td>
               <td> {item.rfnet}</td>
               <td className="clr-green">{item.totalpl}</td>
