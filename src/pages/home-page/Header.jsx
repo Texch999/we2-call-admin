@@ -105,11 +105,14 @@ function Header() {
       name: "Privacy Policy",
     },
   ];
+
+  const navigate = useNavigate();
+
   const handleMenuItem = (index) => {
     setActiveHead(index);
-    // {
-    //   index === 0 && navigate("/");
-    // }
+    {
+      index === 0 && navigate("/");
+    }
     {
       index === 3 && handleMatchEntry();
     }
@@ -241,12 +244,12 @@ function Header() {
             </div>
           )}
         </div>
-        <div className="d-flex ">
-          <div className="header-avatar align-items-center d-flex">
+        <div className="d-flex w-18 p-2">
+          <div className="header-avatar align-items-center justify-content-around d-flex w-50">
             <img src={Images.profile} alt="profile" className="me-2" />
             <div>SriAgent</div>
           </div>
-          <div className="d-flex align-items-center">
+          <div className="d-flex align-items-center w-50 justify-content-around">
             <div className=" icons-share me-2 ms-2">
               <AiOutlineShareAlt />
             </div>

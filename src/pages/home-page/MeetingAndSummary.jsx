@@ -54,7 +54,7 @@ function MeetingAndSummary() {
     },
   ];
   return (
-    <div className="row vh-70 ">
+    <div className="row meet-box-height ">
       <div className="col-6 p-2">
         <div className="meetings-container ">
           <div className="row p-3 align-center">

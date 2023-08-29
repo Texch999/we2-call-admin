@@ -3,6 +3,7 @@ import ManagementContainer from "./ManagementContainer";
 import MeetingAndSummary from "./MeetingAndSummary";
 import TopUsersList from "./TopUsersList";
 import Alert from "./Alert";
+import HomeFooter from "./HomeFooter";
 
 function HomeContent() {
   return (
@@ -11,6 +12,7 @@ function HomeContent() {
       <MeetingAndSummary />
       <TopUsersList />
       <Alert />
+      <HomeFooter />
     </div>
   );
 }

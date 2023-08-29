@@ -59,11 +59,6 @@ function Alert() {
         <div className="meetings-container p-3">
           <div className="row  align-center mb-3">
             <h5 className="col-9">Connect Devices</h5>
-            {/* <div className="col-3 d-flex">
-              <h6>See All</h6>
-              <AiOutlineRight />
-            </div> */}
-            
           </div>
           <Chart
               chartType="PieChart"

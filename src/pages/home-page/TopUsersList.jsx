@@ -25,7 +25,7 @@ function TopUsersList() {
     },
   ];
   return (
-    <div className="row vh-50 ">
+    <div className="row meet-box-height ">
       <div className="col-6 p-2 ">
         <div className="meetings-container p-3">
           <div className="row  align-center mb-3">

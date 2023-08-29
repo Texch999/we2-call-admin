@@ -41,6 +41,9 @@
   .large-font {
     font-size: 0.9rem;
   }
+  .meet-box-height{
+    height: 50vh !important;
+  }
 }
 
 @media (min-width: 769px) and (max-width: 1200px) {
@@ -52,6 +55,9 @@
   }
   .large-font {
     font-size: 1rem;
+  }
+  .meet-box-height{
+    height: 70vh !important;
   }
 }
 
@@ -65,6 +71,9 @@
   .large-font {
     font-size: 1.1rem;
   }
+  .meet-box-height{
+    height: 65vh !important;
+  }
 }
 @media (min-width: 1601px) {
   .small-font {
@@ -75,6 +84,9 @@
   }
   .large-font {
     font-size: 22px;
+  }
+  .meet-box-height{
+    height: 25vh !important;
   }
 }
 

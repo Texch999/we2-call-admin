@@ -33,11 +33,10 @@ import FancyShareRisk from "./pages/match-risk/FancyShareRisk";
 
 function App() {
   return (
-    <div>
-      <Header />
-      {/* <HeaderTwo /> */}
-      <div className="scroll-container p-3">
-        <BrowserRouter>
+    <div className="scroll-container">
+      <BrowserRouter>
+        <Header />
+        <div className="p-3">
           <Routes>
             <Route path="/" element={<HomeContent />} />
             <Route path="/match-entry" element={<MatchEntry />} />
@@ -90,8 +89,8 @@ function App() {
             />
             <Route path="/fancy-share-risk" element={<FancyShareRisk />} />
           </Routes>
-        </BrowserRouter>
-      </div>
+        </div>
+      </BrowserRouter>
     </div>
   );
 }
