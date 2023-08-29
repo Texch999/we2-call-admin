@@ -3,7 +3,7 @@ import React from "react";
 function Table(props) {
   const { data, columns,tableClassname } = props;
   return (
-    <table className={`w-100 match-position-table text-center medium-font ${tableClassname}`}>
+    <table className={`w-100 match-position-table text-center meetings-heading medium-font ${tableClassname}`}>
       <thead id="home-table-head">
         <tr>
           {columns.map((column, index) => (
