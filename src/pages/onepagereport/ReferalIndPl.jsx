@@ -64,7 +64,7 @@ function ReferalIndPl() {
             <tfoot>
               <tr className="text-center">
                 <th className="text-center">TOTAL</th>
-                <th className="clr-green">50000000000</th>
+                <th className="clr-green">500000000.00</th>
               </tr>
             </tfoot>
           </table>
@@ -102,7 +102,7 @@ function ReferalIndPl() {
               <tfoot>
                 <tr className="text-center">
                   <th className="text-start">TOTAL</th>
-                  <th className="clr-green text-end">50000000000</th>
+                  <th className="clr-green text-end">500000000.00</th>
                 </tr>
               </tfoot>
             </table>
@@ -142,7 +142,7 @@ function ReferalIndPl() {
                   <th colSpan={3} className="text-start">
                     TOTAL
                   </th>
-                  <th className="clr-green">50000000000</th>
+                  <th className="clr-green">500000000.00</th>
                 </tr>
               </tfoot>
             </table>
