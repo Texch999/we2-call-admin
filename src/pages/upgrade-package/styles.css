@@ -142,3 +142,19 @@
   width: fit-content !important;
   background-color: #de2083;
 }
+.package-banner {
+  background-color: #ffffff;
+  height: 12vh;
+}
+.add-button {
+  background-color: #1d3b79;
+}
+.select-package-div {
+  border: solid 2px #264990;
+  background-color: #112a5e;
+}
+.select-package-img {
+  height: 60px;
+  width: 60px;
+  margin-top: 10px;
+}

@@ -172,6 +172,19 @@
 .match-position-table tbody > tr > td {
   padding: 8px;
 }
+.admin-package-table table,
+.admin-package-table tbody {
+  background: #112a5e !important;
+}
+.admin-package-table tbody > tr {
+  border-bottom: 1px solid #3f4c66;
+}
+.admin-package-table thead {
+  background-color: #082051 !important;
+}
+.admin-package-table table {
+  border: solid 2px #264990 !important;
+}
 #home-table-head {
   background-color: #112e69;
 }
@@ -185,6 +198,7 @@
 }
 .green-color {
   color: #04c85e;
+  font-weight: 600;
 }
 .red-color {
   color: #f62a3d;
