@@ -7,7 +7,7 @@ function Table(props) {
       <thead id="home-table-head">
         <tr>
           {columns.map((column, index) => (
-            <th key={index}>{column.header}</th>
+            <th key={index} className="meetings-heading">{column.header}</th>
           ))}
         </tr>
       </thead>
@@ -15,7 +15,7 @@ function Table(props) {
         {data.map((item, rowIndex) => (
           <tr key={rowIndex}>
             {columns.map((column, colIndex) => (
-              <td key={colIndex}>
+              <td key={colIndex} className="meetings-heading">
                 <div
                   className={
                     item[column.field] === "Join"

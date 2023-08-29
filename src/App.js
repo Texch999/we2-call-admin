@@ -30,14 +30,14 @@ import ShareRiskLiveMatches from "./pages/match-risk/ShareRiskLiveMatches";
 import MatchShareRisk from "./pages/match-risk/MatchShareRisk";
 import MatchShareRiskPosition from "./pages/match-risk/MatchShareRiskPosition";
 import FancyShareRisk from "./pages/match-risk/FancyShareRisk";
+import ToursAndTournaments from "./pages/tours-tournaments/ToursAndTournaments";
 
 function App() {
   return (
-    <div>
-      <Header />
-      {/* <HeaderTwo /> */}
-      <div className="scroll-container p-3">
-        <BrowserRouter>
+    <div className="scroll-container">
+      <BrowserRouter>
+        <Header />
+        <div className="p-3">
           <Routes>
             <Route path="/" element={<HomeContent />} />
             <Route path="/match-entry" element={<MatchEntry />} />
@@ -89,9 +89,13 @@ function App() {
               element={<MatchShareRiskPosition />}
             />
             <Route path="/fancy-share-risk" element={<FancyShareRisk />} />
+            <Route
+              path="/tours-tournaments"
+              element={<ToursAndTournaments />}
+            />
           </Routes>
-        </BrowserRouter>
-      </div>
+        </div>
+      </BrowserRouter>
     </div>
   );
 }

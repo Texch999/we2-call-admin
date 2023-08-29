@@ -54,13 +54,13 @@ function MeetingAndSummary() {
     },
   ];
   return (
-    <div className="row vh-70 ">
+    <div className="row meet-box-height ">
       <div className="col-6 p-2">
         <div className="meetings-container ">
           <div className="row p-3 align-center">
-            <h5 className="col-9">Live/Upcoming Meetings</h5>
+            <h5 className="col-9 meetings-heading">Live/Upcoming Meetings</h5>
             <div className="col-3 d-flex">
-              <h6>See All</h6>
+              <h6 className="meetings-heading">See All</h6>
               <AiOutlineRight />
             </div>
           </div>
@@ -70,17 +70,17 @@ function MeetingAndSummary() {
       <div className="col-6 p-2">
         <div className="meetings-container p-3">
           <div className="row  align-center mb-3">
-            <h5 className="col-9">Summary</h5>
+            <h5 className="col-9 meetings-heading">Summary</h5>
             <div className="col-3 d-flex">
-              <h6>See All</h6>
+              <h6 className="meetings-heading">See All</h6>
               <AiOutlineRight />
             </div>
           </div>
           {summaryContent.map((item, index) => {
             return (
               <div key={index} className="w-100 summary-line d-flex">
-                <h6>{item.users}</h6>
-                <h6>{item.count}</h6>
+                <h6 className="meetings-heading">{item.users}</h6>
+                <h6 className="meetings-heading">{item.count}</h6>
               </div>
             );
           })}

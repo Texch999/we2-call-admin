@@ -188,8 +188,8 @@
 }
 .header-menu {
   background: #202d57;
-  padding: 8px 15px;
-  border-radius: 10px;
+  padding: 10px 10px;
+  border-radius: 5px;
   height: fit-content;
   font-size: 12px;
 }
@@ -213,8 +213,8 @@
 }
 .active-head-menu {
   background: #202d57;
-  padding: 6px 13px;
-  border-radius: 10px;
+  padding: 8px 8px;
+  border-radius: 5px;
   border: 2px solid #fce719;
   height: fit-content;
 }
@@ -329,4 +329,40 @@ input::placeholder {
   background: #202d57;
   border-radius: 10px;
   padding: 5px 9px;
+}
+.w-18 {
+  width: 18%;
+}
+.footer-height {
+  height: 35vh;
+  padding-bottom: 25% !important;
+}
+.footer-left {
+  padding-left: 10% !important;
+}
+.footer-image {
+  height: 70px;
+}
+.icons-div {
+  padding: 10px 30px;
+  margin-right: 10px;
+  border-radius: 5px;
+}
+.telegram {
+  background: linear-gradient(to right, #008bd2, #0da6cf);
+}
+.instagram {
+  background: linear-gradient(to right, #fcb910, #ef1c69, #832de8);
+}
+.facebook {
+  background: linear-gradient(to right, #769ad8, #476db6);
+}
+.twitter {
+  background: linear-gradient(to right, #73c8fe, #23a4f5);
+}
+.linked-in {
+  background: linear-gradient(to right, #069, #0676ae);
+}
+option{
+  height: 50px;
 }

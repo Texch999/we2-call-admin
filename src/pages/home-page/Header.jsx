@@ -105,11 +105,17 @@ function Header() {
       name: "Privacy Policy",
     },
   ];
+
+  const navigate = useNavigate();
+
   const handleMenuItem = (index) => {
     setActiveHead(index);
-    // {
-    //   index === 0 && navigate("/");
-    // }
+    {
+      index === 0 && navigate("/");
+    }
+    {
+      index === 2 && navigate("/tours-tournaments");
+    }
     {
       index === 3 && handleMatchEntry();
     }
@@ -163,13 +169,13 @@ function Header() {
           />
         </div>
         <div className="date-div mt-2">
-          <p>{currentDateTime.toLocaleString()}</p>
+          <p className="meetings-heading medium-font">{currentDateTime.toLocaleString()}</p>
         </div>
         <div className="h-10vh d-flex align-items-center head-wrap">
           <div className="row w-100 min-h-10vh d-flex align-items-center">
             {headerMenu.map((item, index) => {
               return (
-                <div className="col-2">
+                <div className="col-2 meetings-heading">
                   <div
                     key={index}
                     className={`${
@@ -241,12 +247,12 @@ function Header() {
             </div>
           )}
         </div>
-        <div className="d-flex ">
-          <div className="header-avatar align-items-center d-flex">
+        <div className="d-flex w-18 p-2">
+          <div className="header-avatar align-items-center justify-content-around d-flex w-50">
             <img src={Images.profile} alt="profile" className="me-2" />
-            <div>SriAgent</div>
+            <div className="meetings-heading">SriAgent</div>
           </div>
-          <div className="d-flex align-items-center">
+          <div className="d-flex align-items-center w-50 justify-content-around">
             <div className=" icons-share me-2 ms-2">
               <AiOutlineShareAlt />
             </div>
@@ -256,7 +262,7 @@ function Header() {
           </div>
         </div>
       </div>
-      <Marquee className="marqu-tag">
+      <Marquee className="marqu-tag meetings-heading">
         Your privacy is our priority. With end-to-end encryption, you can be
         sure that your personal messages stay between you and who you send them
         to. Your privacy is our priority. With end-to-end encryption, you can be

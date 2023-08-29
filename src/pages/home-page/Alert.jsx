@@ -46,9 +46,9 @@ function Alert() {
       <div className="col-6 p-2">
         <div className="meetings-container ">
           <div className="row p-3 align-center">
-            <h5 className="col-9">Alerts</h5>
+            <h5 className="col-9 meetings-heading">Alerts</h5>
             <div className="col-3 d-flex">
-              <h6>See All</h6>
+              <h6 className="meetings-heading">See All</h6>
               <AiOutlineRight />
             </div>
           </div>
@@ -58,12 +58,7 @@ function Alert() {
       <div className="col-6 p-2">
         <div className="meetings-container p-3">
           <div className="row  align-center mb-3">
-            <h5 className="col-9">Connect Devices</h5>
-            {/* <div className="col-3 d-flex">
-              <h6>See All</h6>
-              <AiOutlineRight />
-            </div> */}
-            
+            <h5 className="col-9 meetings-heading">Connect Devices</h5>
           </div>
           <Chart
               chartType="PieChart"
