@@ -10,7 +10,7 @@ function SpecialPackages() {
       upgradeBtnColor: "upgrade-btn",
       discountDivColor: "standard-discount-div",
       packageName: "Standard Package",
-      rate: 5000,
+      rate: 5000000,
       offerImage: Images.DiscountImg,
       offerPercentage: "10% OFF",
       videoText: "",
@@ -166,7 +166,7 @@ function SpecialPackages() {
       upgradeBtnColor: "upgrade-white-btn",
       discountDivColor: "vip-discount-div",
       packageName: "VIP Package",
-      rate: 25000,
+      rate: 25000000,
       offerImage: Images.DiscountImg,
       offerPercentage: "10% OFF",
       addPackageBtn: "Add Package",
@@ -226,25 +226,24 @@ function SpecialPackages() {
           >
             <div className={`package-div ${item.packageBackGroundColor}`}>
               <div className="row p-3">
-                <div className="col-9 d-flex flex-column">
+                <div className="col-sm-9 col-md-10 d-flex flex-column">
                   <div className="row">
                     <div className="d-flex">
                       <div className="d-flex flex-column align-items-center justify-content-center rounded-circle amount-border p-1">
-                        <div className="fw-semibold">Rs</div>
-                        <h5 className="fw-bold">{item.rate}</h5>
+                        <img
+                          className="discount-img"
+                          src={item.offerImage}
+                          alt="Discount_Img"
+                        />
+                        <div className="large-font fw-bold">
+                          {item.offerPercentage}
+                        </div>
                       </div>
                       <div className="p-2 px-4 d-flex flex-column">
                         <div
                           className={`rounded-pill p-2 ${item.discountDivColor}`}
                         >
-                          <img
-                            className="discount-img"
-                            src={item.offerImage}
-                            alt="Discount_Img"
-                          />
-                          <span className="fw-semibold p-1">
-                            {item.offerPercentage}
-                          </span>
+                          <h5 className="fw-bold mb-0">Rs {item.rate}</h5>
                         </div>
                         <div>
                           <h5 className="fw-bold d-flex align-items-end">
@@ -258,22 +257,22 @@ function SpecialPackages() {
                     <div className="col">{item.usersText}</div>
                     <div className="col">{item.meetingsText}</div>
                   </div>
-                  <div className="row medium-font mt-3">
+                  <div className="row w-90 medium-font mt-3">
                     <div className="col-5">{item.personalMeetingsText}</div>
                     <div className="col">{item.audioText}</div>
                     {item.videoText === "" ? null : (
                       <div className="col">{item.videoText}</div>
                     )}
                   </div>
-                  <div className="row w-75 mt-3">
-                    <div className="col">
+                  <div className="row w-90 d-flex align-items-end mt-3">
+                    <div className="col-4">
                       <div
                         className={`rounded-pill p-2 text-center medium-font fw-semibold ${item.addPackageBtnColor}`}
                       >
                         {item.addPackageBtn}
                       </div>
                     </div>
-                    <div className="col">
+                    <div className="col-3">
                       {item.upgradeBtn === "" ? null : (
                         <div
                           className={`rounded-pill p-2 text-center medium-font fw-bold ${item.upgradeBtnColor}`}
@@ -282,9 +281,17 @@ function SpecialPackages() {
                         </div>
                       )}
                     </div>
+                    <div className="col">
+                      <div
+                        className={`rounded-pill p-2 text-center medium-font fw-semibold ${item.addPackageBtnColor}`}
+                      >
+                        <div>Top Up Hours</div>
+                        <div>Per Hour - 100 Rs</div>
+                      </div>
+                    </div>
                   </div>
                 </div>
-                <div className="col-3 d-flex flex-column align-items-end">
+                <div className="col-sm-3 col-md-2 d-flex flex-column align-items-end">
                   <img
                     className="standard-star-img"
                     src={item.packageImage}
