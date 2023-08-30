@@ -1,5 +1,6 @@
-import React from "react";
-
+import React, { useState } from "react";
+import { GiClick } from "react-icons/gi";
+import ClientPLData from "./ClientPLData";
 function RfplTable() {
   const CLIENTPL_DETAILS = [
     {
@@ -51,6 +52,10 @@ function RfplTable() {
       mfc: "500000.00",
     },
   ];
+  const [showClientPL, setShowClientPL] = useState(false);
+  const handleClientData = () => {
+    setShowClientPL((prev) => !prev);
+  };
   return (
     <div>
       <table className="w-100 match-position-table small-font">
@@ -80,7 +85,9 @@ function RfplTable() {
               <td className="clr-green"> {item.tenoverone}</td>
               <td className="clr-green"> {item.fifteenoverone}</td>
               <td className="clr-green"> {item.fancycom}</td>
-              <td className="clr-green"> {item.mfc}</td>
+              <td className="clr-green" onClick={() => handleClientData()}>
+                {item.mfc} <GiClick className="custom-click-icon ms-1 mt-2" />
+              </td>
             </tr>
           </tbody>
         ))}
@@ -99,6 +106,7 @@ function RfplTable() {
           </tr>
         </tfoot>
       </table>
+      {showClientPL && <ClientPLData />}
     </div>
   );
 }

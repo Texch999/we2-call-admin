@@ -45,7 +45,7 @@ function ULShareIndPlData() {
         ))}
         <tfoot>
           <tr className="text-center">
-            <th colSpan={3} className="text-start">
+            <th colSpan={3} className="text-end">
               TOTAL
             </th>
             <th colSpan={1} className="clr-green">

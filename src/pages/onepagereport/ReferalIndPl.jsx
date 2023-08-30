@@ -100,7 +100,7 @@ function ReferalIndPl() {
                 </tbody>
               ))}
               <tfoot>
-                <tr className="text-center">
+                <tr className="text-end">
                   <th className="text-start">TOTAL</th>
                   <th className="clr-green text-end">500000000.00</th>
                 </tr>
@@ -139,7 +139,7 @@ function ReferalIndPl() {
               ))}
               <tfoot>
                 <tr className="text-center">
-                  <th colSpan={3} className="text-start">
+                  <th colSpan={3} className="text-end">
                     TOTAL
                   </th>
                   <th className="clr-green">500000000.00</th>
