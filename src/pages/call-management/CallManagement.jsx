@@ -59,6 +59,7 @@ const CallManagement = () => {
       status: "Join",
     },
   ];
+  const meetingType = ["Personal", "Professinoal"];
   return (
     <div className="p-4">
       <div className="d-flex align-items-center justify-content-between">
@@ -160,6 +161,8 @@ const CallManagement = () => {
       </div>
       {modalShow && (
         <AddNewMeetingsPopUp
+          meetingType={meetingType}
+          label="Add Users*"
           show={modalShow}
           onHide={() => setModalShow(false)}
         />

@@ -125,3 +125,6 @@ img.date-time-icon{
   position: absolute;
   right: 13%;
 }
+.custom-bs-button{
+  --bs-btn-padding-x:0.6rem;
+}

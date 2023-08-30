@@ -6,11 +6,12 @@ import { Images } from "../../images";
 import { useState } from "react";
 
 function AddNewMeetingsPopUp(props) {
+  console.log(props);
+  const { meetingType, onHide, show,label } = props;
   const handleAddUser = () => {
-    props.onHide();
+    onHide();
   };
 
-  const meetingType = ["Personal", "Professinoal"];
   const callCreations = [
     "Call Creation 01",
     "Call Creation 02",
@@ -25,7 +26,7 @@ function AddNewMeetingsPopUp(props) {
     setActiveCreation(creation);
   };
   return (
-    <Modal {...props} centered className="add-user-modal">
+    <Modal onHide={onHide} show={show} centered className="add-user-modal">
       <Modal.Header closeButton>
         <Modal.Title className="w-100 text-center">
           Add New Meetings
@@ -41,7 +42,7 @@ function AddNewMeetingsPopUp(props) {
                   return (
                     <Col key={index}>
                       <Button
-                        className={`w-100 all-match-button fs-8rem ${
+                        className={`w-100 all-match-button custom-bs-button fs-8rem ${
                           activeType === type ? "border-yellow" : ""
                         }`}
                         onClick={() => handleMeetingType(type)}
@@ -80,12 +81,12 @@ function AddNewMeetingsPopUp(props) {
                       autoFocus
                       className="fs-8rem"
                     />
-                    <InputGroup.Text id="basic-addon1">
+                    {/* <InputGroup.Text id="basic-addon1">
                       <Image
                         src={Images.calendarIcon}
                         className="date-time-icon"
                       />
-                    </InputGroup.Text>
+                    </InputGroup.Text> */}
                   </InputGroup>
                 </Form.Group>
               </Col>
@@ -99,19 +100,19 @@ function AddNewMeetingsPopUp(props) {
                       className="fs-8rem"
                       autoFocus
                     />
-                    <InputGroup.Text id="basic-addon1">
+                    {/* <InputGroup.Text id="basic-addon1">
                       <Image
                         src={Images.clockIcon}
                         className="date-time-icon"
                       />
-                    </InputGroup.Text>
+                    </InputGroup.Text> */}
                   </InputGroup>
                 </Form.Group>
               </Col>
             </Row>
 
             <Form.Group className="mb-3" controlId="addUsers">
-              <Form.Label>Add Users*</Form.Label>
+              <Form.Label>{label}</Form.Label>
               <InputGroup>
                 <Form.Select className="fs-8rem">
                   <option>Select</option>
