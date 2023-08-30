@@ -342,27 +342,6 @@ function PurchaseAdminPackages() {
         </div>
       ),
     },
-    {
-      returnPackage: (
-        <div className="d-flex align-items-center">
-          <img
-            className="discount-img"
-            src={Images.DiamondSmallImg}
-            alt="Standard_Small"
-          />
-          <div className="px-2">Diamond</div>
-        </div>
-      ),
-      value: <div>4000</div>,
-      hours: <div className="yellow-clr">15</div>,
-      available: <div className="green-color">2000</div>,
-      add: (
-        <div className="add-button rounded p-1 d-flex align-items-center justify-content-evenly fw-semibold">
-          <div>ADD</div>
-          <FaPlus />
-        </div>
-      ),
-    },
   ];
   const PACKAGES_HOURS_HEADING_TWO = [
     { header: "Return Packages", field: "returnPackage" },
@@ -492,7 +471,10 @@ function PurchaseAdminPackages() {
       <div className="row mt-3">
         <div className="col">
           {SELECT_PACKAGE?.map((item, index) => (
-            <div className="select-package-div rounded p-2 mt-2" key={index}>
+            <div
+              className="select-package-div rounded p-1 px-3 mt-2"
+              key={index}
+            >
               <div className="row d-flex align-items-center justify-content-between">
                 <div className="col-sm-7 col-lg-5 d-flex align-items-center">
                   <img
