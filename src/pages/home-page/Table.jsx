@@ -1,13 +1,17 @@
 import React from "react";
 
 function Table(props) {
-  const { data, columns,tableClassname } = props;
+  const { data, columns, tableClassname } = props;
   return (
-    <table className={`w-100 match-position-table text-center meetings-heading medium-font ${tableClassname}`}>
+    <table
+      className={`w-100 match-position-table text-center medium-font ${tableClassname}`}
+    >
       <thead id="home-table-head">
         <tr>
           {columns.map((column, index) => (
-            <th key={index} className="meetings-heading">{column.header}</th>
+            <th key={index} className="meetings-heading">
+              {column.header}
+            </th>
           ))}
         </tr>
       </thead>

@@ -144,7 +144,20 @@
 }
 .package-banner {
   background-color: #ffffff;
+  border-radius: 15px;
   height: 12vh;
+}
+.orange-banner {
+  border-radius: 15px 0px 0px 15px;
+  background-image: linear-gradient(
+    to right,
+    rgba(255, 228, 0, 1),
+    #ffa517
+  ) !important;
+}
+.blue-banner {
+  border-radius: 15px 0px 0px 15px;
+  background-image: linear-gradient(to left, #0992f3, #08baf9) !important;
 }
 .add-button {
   background-color: #1d3b79;
@@ -163,4 +176,30 @@
 }
 .next-div {
   background-color: #f6b832;
+}
+.w-fit-content {
+  width: fit-content;
+}
+.gold-color {
+  color: #fe8900;
+}
+.gold-color span {
+  color: #080c27;
+}
+.vip-color {
+  color: #cc383d;
+}
+.vip-color span {
+  color: #080c27;
+}
+.black-color {
+  color: #080c27;
+}
+.gold-percentage-img {
+  height: 3rem;
+  width: 3rem;
+}
+.gold-medal-img {
+  height: 5rem;
+  width: 5rem;
 }

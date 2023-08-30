@@ -51,5 +51,7 @@ export const Images = {
   GolddSelectPackage: "./assets/gold_select_package.png",
   DiamondSelectPackage: "./assets/diamond_select_package.png",
   VIPdSelectPackage: "./assets/vip_select_package.png",
-  BatBall:"./assets/bat_ball.png"
+  BatBall: "./assets/bat_ball.png",
+  SaleForGold: "./assets/sale_for_gold.png",
+  SaleForVIP: "./assets/sale_for_vip.png",
 };

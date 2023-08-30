@@ -420,10 +420,54 @@ function PurchaseAdminPackages() {
       </div>
       <div className="row mt-3">
         <div className="col">
-          <div className="package-banner rounded"></div>
+          <div className="package-banner w-100 d-flex">
+            <div className="w-35 orange-banner d-flex align-items-center justify-content-around">
+              <img
+                className="gold-percentage-img"
+                src={Images.SaleForGold}
+                alt="Gold"
+              />
+              <div className="black-color">
+                <h6 className="mb-0">Flat</h6>
+                <h5 className="fw-semibold">15% OFF</h5>
+              </div>
+            </div>
+            <div className="w-65 d-flex align-items-center justify-content-around">
+              <img
+                className="gold-medal-img mt-3"
+                src={Images.GoldPackage}
+                alt="Gold"
+              />
+              <h5 className="fw-semibold gold-color">
+                Gold <span>Package</span>
+              </h5>
+            </div>
+          </div>
         </div>
         <div className="col">
-          <div className="package-banner rounded"></div>
+          <div className="package-banner w-100 d-flex">
+            <div className="w-35 blue-banner d-flex align-items-center justify-content-around">
+              <img
+                className="gold-percentage-img"
+                src={Images.SaleForVIP}
+                alt="Gold"
+              />
+              <div>
+                <h6 className="mb-0">Flat</h6>
+                <h5 className="fw-semibold">30% OFF</h5>
+              </div>
+            </div>
+            <div className="w-65 d-flex align-items-center justify-content-around">
+              <img
+                className="gold-medal-img mt-3"
+                src={Images.VIPPackage}
+                alt="Gold"
+              />
+              <h5 className="fw-semibold vip-color">
+                VIP <span>Package</span>
+              </h5>
+            </div>
+          </div>
         </div>
       </div>
       <div className="mt-3">
@@ -482,12 +526,12 @@ function PurchaseAdminPackages() {
       </div>
       <div className="w-100 package-cart-div rounded p-2 mt-3 d-flex align-items-center justify-content-between">
         <div className="d-flex align-items-center justify-content-around">
-          <PiHandbagBold className="" />
+          <PiHandbagBold className="h4 mb-0" />
           <div className="h5 mb-0 fw-semibold">1 Package Selected</div>
         </div>
         <div className="next-div rounded-pill p-1 px-2 d-flex align-items-center justify-content-around">
           <div className="h5 mb-0 fw-semibold">Next</div>
-          <FaArrowRight className="h5 mb-0" />
+          <FaArrowRight className="h4 mb-0" />
         </div>
       </div>
     </div>
