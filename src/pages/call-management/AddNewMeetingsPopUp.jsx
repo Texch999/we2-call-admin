@@ -2,41 +2,27 @@ import { Container, Form, Row, Col, InputGroup, Image } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { Images } from "../../images";
+
 import { useState } from "react";
-import { IoEyeSharp, IoEyeOffSharp } from "react-icons/io5";
 
 function AddNewMeetingsPopUp(props) {
-  const [togglePassword, setTogglePassword] = useState(true);
-  const [cnfPasswordToggle, setCnfPasswordToggle] = useState(true);
-  const [adminPasswordToggle, setAdminPasswordToggle] = useState(true);
-  const [newUserData, setNewUserData] = useState({
-    s_no: 10,
-    user_name: "",
-    type: "",
-    location: "",
-    user: "",
-    profit_loss: "",
-  });
-  const handleInputChnage = (e) => {
-    const { id, value } = e.target;
-    setNewUserData((data) => ({
-      ...data,
-      [id]: value,
-    }));
-    console.log(newUserData);
-  };
   const handleAddUser = () => {
-    setNewUserData("user");
     props.onHide();
   };
-  const handleTogglePassword = () => {
-    setTogglePassword(!togglePassword);
+
+  const meetingType = ["Personal", "Professinoal"];
+  const callCreations = [
+    "Call Creation 01",
+    "Call Creation 02",
+    "Call Creation 03",
+  ];
+  const [activeType, setActiveType] = useState("Personal");
+  const [activeCreation, setActiveCreation] = useState("Call Creation 01");
+  const handleMeetingType = (type) => {
+    setActiveType(type);
   };
-  const handleCnfTogglePassword = () => {
-    setCnfPasswordToggle(!cnfPasswordToggle);
-  };
-  const handleAdminTogglePassword = () => {
-    setAdminPasswordToggle(!adminPasswordToggle);
+  const handleCreations = (creation) => {
+    setActiveCreation(creation);
   };
   return (
     <Modal {...props} centered className="add-user-modal">
@@ -48,124 +34,118 @@ function AddNewMeetingsPopUp(props) {
       <Modal.Body>
         <Form className="add-user-modal-form-details">
           <Form.Group className="mb-3" controlId="user_name">
+            <Form.Label>Meeting Type*</Form.Label>
+            <Container fluid>
+              <Row>
+                {meetingType?.map((type, index) => {
+                  return (
+                    <Col key={index}>
+                      <Button
+                        className={`w-100 all-match-button fs-8rem ${
+                          activeType === type ? "border-yellow" : ""
+                        }`}
+                        onClick={() => handleMeetingType(type)}
+                      >
+                        {type}
+                      </Button>
+                    </Col>
+                  );
+                })}
+              </Row>
+            </Container>
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="user_name">
             <Form.Label>Meeting/Event Name*</Form.Label>
             <InputGroup>
-              <InputGroup.Text id="basic-addon1">
-                <Image src={Images.LoginUserIcon} />
-              </InputGroup.Text>
               <Form.Control
                 type="text"
                 placeholder="Enter Meeting Name"
                 aria-label="Enter Meeting Name"
-                aria-describedby="basic-addon1"
                 autoFocus
-                onChange={(e) => handleInputChnage(e)}
               />
             </InputGroup>
           </Form.Group>
           <Container fluid>
             <Row>
               <Col>
-                <Form.Group className="mb-3" controlId="userId">
-                  <Form.Label>User ID*</Form.Label>
+                <Form.Group
+                  className="mb-3 position-relative"
+                  controlId="userId"
+                >
+                  <Form.Label>Meeting Date*</Form.Label>
                   <InputGroup>
-                    <InputGroup.Text id="basic-addon1">
-                      <Image src={Images.LoginUserIcon} />
-                    </InputGroup.Text>
                     <Form.Control
-                      type="text"
-                      placeholder="Enter Name"
+                      type="date"
+                      placeholder="select"
                       autoFocus
+                      className="fs-8rem"
                     />
-                  </InputGroup>
-                </Form.Group>
-              </Col>
-              <Col>
-                <Form.Group className="mb-3" controlId="role">
-                  <Form.Label>Role*</Form.Label>
-                  <InputGroup>
                     <InputGroup.Text id="basic-addon1">
-                      <Image src={Images.LoginUserIcon} />
-                    </InputGroup.Text>
-                    <Form.Select>
-                      <option>Admin</option>
-                      <option>Super Admin</option>
-                      <option>Master</option>
-                      <option>Super Master</option>
-                      <option>Agent</option>
-                    </Form.Select>
-                  </InputGroup>
-                </Form.Group>
-              </Col>
-            </Row>
-            <Row>
-              <Col>
-                <Form.Group className="mb-3" controlId="password">
-                  <Form.Label>Password*</Form.Label>
-                  <InputGroup>
-                    <InputGroup.Text id="basic-addon1">
-                      <Image src={Images.LoginLockIcon} />
-                    </InputGroup.Text>
-                    <Form.Control
-                      type={togglePassword ? "password" : "text"}
-                      placeholder="Enter password"
-                      autoFocus
-                    />
-                    <InputGroup.Text
-                      className="ps-0 pe-2"
-                      onClick={() => handleTogglePassword()}
-                    >
-                      {togglePassword ? <IoEyeOffSharp /> : <IoEyeSharp />}
+                      <Image
+                        src={Images.calendarIcon}
+                        className="date-time-icon"
+                      />
                     </InputGroup.Text>
                   </InputGroup>
                 </Form.Group>
               </Col>
               <Col>
-                <Form.Group className="mb-3" controlId="confirmPassword">
-                  <Form.Label>Confirm Password*</Form.Label>
+                <Form.Group className="mb-3 position-relative" controlId="role">
+                  <Form.Label>Meeting Time*</Form.Label>
                   <InputGroup>
-                    <InputGroup.Text id="basic-addon1">
-                      <Image src={Images.LoginLockIcon} />
-                    </InputGroup.Text>
                     <Form.Control
-                      type={cnfPasswordToggle ? "password" : "text"}
-                      placeholder="Enter confirm password"
+                      type="time"
+                      placeholder="select"
+                      className="fs-8rem"
                       autoFocus
                     />
-                    <InputGroup.Text
-                      className="ps-0 pe-2"
-                      onClick={() => handleCnfTogglePassword()}
-                    >
-                      {cnfPasswordToggle ? <IoEyeOffSharp /> : <IoEyeSharp />}
+                    <InputGroup.Text id="basic-addon1">
+                      <Image
+                        src={Images.clockIcon}
+                        className="date-time-icon"
+                      />
                     </InputGroup.Text>
                   </InputGroup>
                 </Form.Group>
               </Col>
             </Row>
-            <Row>
-              <Form.Group className="mb-3" controlId="adminPackages">
-                <Form.Label>Add Live Scoreboard*</Form.Label>
-                <InputGroup>
-                  <InputGroup.Text id="basic-addon1">
-                    <Image src={Images.packageIcon} style={{ width: "18px" }} />
-                  </InputGroup.Text>
-                  <Form.Select>
-                    <option>Trial</option>
-                    <option>Standard</option>
-                    <option>Silver</option>
-                    <option>Gold</option>
-                    <option>Diamond</option>
-                    <option>VIP</option>
-                  </Form.Select>
-                </InputGroup>
-              </Form.Group>
-            </Row>
+
+            <Form.Group className="mb-3" controlId="addUsers">
+              <Form.Label>Add Users*</Form.Label>
+              <InputGroup>
+                <Form.Select className="fs-8rem">
+                  <option>Select</option>
+                  <option>Sri</option>
+                  <option>animesh</option>
+                </Form.Select>
+              </InputGroup>
+            </Form.Group>
           </Container>
+          <Form.Group className="mb-3" controlId="user_name">
+            <Container fluid>
+              <Row>
+                {callCreations?.map((creation, index) => {
+                  return (
+                    <Col key={index}>
+                      <Button
+                        className={`w-100 all-match-button fs-8rem ${
+                          activeCreation === creation ? "border-yellow" : ""
+                        }`}
+                        onClick={() => handleCreations(creation)}
+                      >
+                        {creation}
+                      </Button>
+                    </Col>
+                  );
+                })}
+              </Row>
+            </Container>
+          </Form.Group>
           <Button
             className="w-100 add-user-button"
             onClick={() => handleAddUser()}
           >
-            Add
+            Sumbit
           </Button>
         </Form>
       </Modal.Body>

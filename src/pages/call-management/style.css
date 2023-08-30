@@ -12,7 +12,8 @@
   --bs-btn-font-weight: 600;
   --bs-btn-font-family: "Barlow-SemiBold";
 }
-.meetings-heading ,.agent-button{
+.meetings-heading,
+.agent-button {
   font-family: "Barlow-SemiBold";
 }
 .call-management-data thead tr th {
@@ -112,4 +113,15 @@
   .call-management-data tfoot tr th {
     font-size: var(--table-body-xl-font-size);
   }
+}
+.add-user-modal-form-details input[type="time"]::-webkit-inner-spin-button,
+input[type="time"]::-webkit-calendar-picker-indicator,
+.add-user-modal-form-details input[type="date"]::-webkit-inner-spin-button,
+input[type="date"]::-webkit-calendar-picker-indicator {
+  opacity: 1;
+  -webkit-appearance: none;
+}
+img.date-time-icon{
+  position: absolute;
+  right: 13%;
 }
