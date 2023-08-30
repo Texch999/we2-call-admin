@@ -235,9 +235,7 @@ function SpecialPackages() {
                           src={item.offerImage}
                           alt="Discount_Img"
                         />
-                        <div className="large-font fw-bold">
-                          {item.offerPercentage}
-                        </div>
+                        <h6 className="fw-bold">{item.offerPercentage}</h6>
                       </div>
                       <div className="p-2 px-4 d-flex flex-column">
                         <div

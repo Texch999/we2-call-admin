@@ -286,6 +286,35 @@ function PurchaseAdminPackages() {
     { header: "Available", field: "available" },
     { header: "", field: "add" },
   ];
+
+  const SELECT_PACKAGE = [
+    {
+      packageImg: Images.StandardPackage,
+      packageName: "Standard Package",
+      packageAmount: 5000,
+    },
+    {
+      packageImg: Images.SilverSelectPackage,
+      packageName: "Silver Package",
+      packageAmount: 10000,
+    },
+    {
+      packageImg: Images.GoldPackage,
+      packageName: "Gold Package",
+      packageAmount: 15000,
+    },
+    {
+      packageImg: Images.DiamondPackage,
+      packageName: "Diamond Package",
+      packageAmount: Intl.NumberFormat("en-IN").format(20000),
+    },
+    {
+      packageImg: Images.VIPPackage,
+      packageName: "VIP Package",
+      packageAmount: Intl.NumberFormat("en-IN").format(250000),
+    },
+  ];
+
   return (
     <div>
       <div className="row mt-3">
@@ -333,30 +362,32 @@ function PurchaseAdminPackages() {
       </div>
       <div className="row mt-3">
         <div className="col">
-          <div className="select-package-div rounded p-2">
-            <div className="row d-flex align-items-center justify-content-between">
-              <div className="col-sm-7 col-lg-5 d-flex align-items-center">
-                <img
-                  className="select-package-img"
-                  src={Images.StandardPackage}
-                  alt="Standard_Img"
-                />
-                <div className="medium-font fw-semibold">
-                  <div>Standard Package</div>
-                  <div>50000000</div>
+          {SELECT_PACKAGE?.map((item, index) => (
+            <div className="select-package-div rounded p-2 mt-2" key={index}>
+              <div className="row d-flex align-items-center justify-content-between">
+                <div className="col-sm-7 col-lg-5 d-flex align-items-center">
+                  <img
+                    className="select-package-img"
+                    src={item.packageImg}
+                    alt="Standard_Img"
+                  />
+                  <div className="medium-font fw-semibold">
+                    <div>{item.packageName}</div>
+                    <div>{item.packageAmount}</div>
+                  </div>
                 </div>
-              </div>
-              <div className="col-sm-4 col-lg-3">
-                <div className="add-button rounded p-2 d-flex align-items-center justify-content-evenly">
-                  <FaMinus />
-                  <div className="fw-semibold">ADD</div>
-                  <FaPlus />
+                <div className="col-sm-4 col-lg-3">
+                  <div className="add-button rounded p-2 d-flex align-items-center justify-content-evenly">
+                    <FaMinus />
+                    <div className="fw-semibold">ADD</div>
+                    <FaPlus />
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          ))}
         </div>
-        <div className="col">
+        <div className="col mt-2">
           <Table
             data={PACKAGES_HOURS_DATA_TWO}
             columns={PACKAGES_HOURS_HEADING_TWO}
