@@ -1,6 +1,7 @@
 import Table from "../home-page/Table";
 import { Images } from "./../../images/index";
-import { FaPlus, FaMinus } from "react-icons/fa6";
+import { FaPlus, FaMinus, FaArrowRight } from "react-icons/fa6";
+import { PiHandbagBold } from "react-icons/pi";
 
 function PurchaseAdminPackages() {
   const adminPackageTable = "admin-package-table";
@@ -278,6 +279,90 @@ function PurchaseAdminPackages() {
         </div>
       ),
     },
+    {
+      returnPackage: (
+        <div className="d-flex align-items-center">
+          <img
+            className="discount-img"
+            src={Images.StandardSmallImg}
+            alt="Standard_Small"
+          />
+          <div className="px-2">Standard</div>
+        </div>
+      ),
+      value: <div>4000</div>,
+      hours: <div className="yellow-clr">15</div>,
+      available: <div className="green-color">2000</div>,
+      add: (
+        <div className="add-button rounded p-1 d-flex align-items-center justify-content-evenly fw-semibold">
+          <div>ADD</div>
+          <FaPlus />
+        </div>
+      ),
+    },
+    {
+      returnPackage: (
+        <div className="d-flex align-items-center">
+          <img
+            className="discount-img"
+            src={Images.SilverSmallImg}
+            alt="Standard_Small"
+          />
+          <div className="px-2">Silver</div>
+        </div>
+      ),
+      value: <div>4000</div>,
+      hours: <div className="yellow-clr">15</div>,
+      available: <div className="green-color">2000</div>,
+      add: (
+        <div className="add-button rounded p-1 d-flex align-items-center justify-content-evenly fw-semibold">
+          <div>ADD</div>
+          <FaPlus />
+        </div>
+      ),
+    },
+    {
+      returnPackage: (
+        <div className="d-flex align-items-center">
+          <img
+            className="discount-img"
+            src={Images.GoldSmallImg}
+            alt="Standard_Small"
+          />
+          <div className="px-2">Gold</div>
+        </div>
+      ),
+      value: <div>4000</div>,
+      hours: <div className="yellow-clr">15</div>,
+      available: <div className="green-color">2000</div>,
+      add: (
+        <div className="add-button rounded p-1 d-flex align-items-center justify-content-evenly fw-semibold">
+          <div>ADD</div>
+          <FaPlus />
+        </div>
+      ),
+    },
+    {
+      returnPackage: (
+        <div className="d-flex align-items-center">
+          <img
+            className="discount-img"
+            src={Images.DiamondSmallImg}
+            alt="Standard_Small"
+          />
+          <div className="px-2">Diamond</div>
+        </div>
+      ),
+      value: <div>4000</div>,
+      hours: <div className="yellow-clr">15</div>,
+      available: <div className="green-color">2000</div>,
+      add: (
+        <div className="add-button rounded p-1 d-flex align-items-center justify-content-evenly fw-semibold">
+          <div>ADD</div>
+          <FaPlus />
+        </div>
+      ),
+    },
   ];
   const PACKAGES_HOURS_HEADING_TWO = [
     { header: "Return Packages", field: "returnPackage" },
@@ -393,6 +478,16 @@ function PurchaseAdminPackages() {
             columns={PACKAGES_HOURS_HEADING_TWO}
             tableClassname={adminPackageTable}
           />
+        </div>
+      </div>
+      <div className="w-100 package-cart-div rounded p-2 mt-3 d-flex align-items-center justify-content-between">
+        <div className="d-flex align-items-center justify-content-around">
+          <PiHandbagBold className="" />
+          <div className="h5 mb-0 fw-semibold">1 Package Selected</div>
+        </div>
+        <div className="next-div rounded-pill p-1 px-2 d-flex align-items-center justify-content-around">
+          <div className="h5 mb-0 fw-semibold">Next</div>
+          <FaArrowRight className="h5 mb-0" />
         </div>
       </div>
     </div>
