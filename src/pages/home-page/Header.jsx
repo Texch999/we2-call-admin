@@ -188,8 +188,8 @@ function Header() {
             onClick={() => handleLoginPopup()}
           />
         </div>
-        <div className="date-div mt-2">
-          <p className="meetings-heading medium-font">
+        <div className="date-div mt-2 d-flex align-items-center ms-1">
+          <p className="meetings-heading medium-font header-font">
             {currentDateTime.toLocaleString()}
           </p>
         </div>
