@@ -245,10 +245,10 @@ function Header() {
                     className="d-flex align-items-center mt-2 p-2"
                     onClick={() => handleSelectReports(item)}
                   >
-                    {item.icon}
-                    {item.name}
-                    {/* <span className="me-1">{item.icon}</span>
+                    {/* {item.icon}
                     {item.name} */}
+                    <span className="me-1">{item.icon}</span>
+                    {item.name}
                   </div>
                 );
               })}
