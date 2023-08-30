@@ -28,5 +28,5 @@ code {
   --btn-bg-color:#fce719;
   --comm-bg-color: #051e51;
   --btn-opacity-bg-color: rgba(252, 231, 25, 0.1); 
-  
+  --border-yellow: 1px solid #fce719 !important;
 }

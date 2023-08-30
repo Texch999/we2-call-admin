@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, Table, Dropdown } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./style.css";
 import { MdModeEditOutline, MdArrowDownward } from "react-icons/md";
+import AddNewMeetingsPopUp from "./AddNewMeetingsPopUp";
 
 const CallManagement = () => {
+  const [modalShow, setModalShow] = useState(false);
   const upcomingMeetingsData = [
     {
       title: "Sri Agent",
@@ -57,11 +59,18 @@ const CallManagement = () => {
       status: "Join",
     },
   ];
+  const meetingType = ["Personal", "Professinoal"];
+  const addusersData=["select","animesh","sri","jayanth"]
   return (
     <div className="p-4">
       <div className="d-flex align-items-center justify-content-between">
         <h5 className="meetings-heading">Call Management</h5>
-        <Button className="add-new-meetings-button">+ Add New Meetings</Button>
+        <Button
+          className="add-new-meetings-button"
+          onClick={() => setModalShow(true)}
+        >
+          + Add New Meetings
+        </Button>
       </div>
       <hr />
       <div>
@@ -130,7 +139,7 @@ const CallManagement = () => {
               <th className="text-center">EVENT NAME</th>
               <th className="text-center">START DATE & TIME</th>
               <th className="text-center">USER</th>
-              <th className="text-center" >STATUS</th>
+              <th className="text-center">STATUS</th>
               <th className="text-center"></th>
             </tr>
           </thead>
@@ -146,12 +155,20 @@ const CallManagement = () => {
                     {data?.status}
                   </Button>
                 </td>
-             
               </tr>
             ))}
           </tbody>
         </Table>
       </div>
+      {modalShow && (
+        <AddNewMeetingsPopUp
+          meetingType={meetingType}
+          label="Add Users*"
+          show={modalShow}
+          selectData={addusersData}
+          onHide={() => setModalShow(false)}
+        />
+      )}
     </div>
   );
 };

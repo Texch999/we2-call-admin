@@ -54,4 +54,6 @@ export const Images = {
   BatBall: "./assets/bat_ball.png",
   SaleForGold: "./assets/sale_for_gold.png",
   SaleForVIP: "./assets/sale_for_vip.png",
+  calendarIcon: "./assets/calendarIcon.png",
+  clockIcon: "./assets/clockIcon.png",
 };

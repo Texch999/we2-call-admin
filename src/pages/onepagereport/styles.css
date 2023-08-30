@@ -17,7 +17,9 @@
   background-color: #fce719 !important;
   color: #00143d !important;
 }
-
+.border-yellow {
+  border: var(--border-yellow);
+}
 @media (min-width: 576px) {
   .admin-reports-modal .modal-dialog {
     max-width: var(--admin-modal-bs-width) !important;
@@ -42,4 +44,7 @@
 .click-here-img {
   width: 70px;
   height: 20px;
+}
+.fs-8rem{
+  font-size: 0.8rem !important;
 }
