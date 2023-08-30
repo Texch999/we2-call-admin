@@ -59,7 +59,7 @@ const SuperAdminCallManagement = () => {
       admin_status: "In - Active",
     },
   ];
-  const meetingType = ["Personal", "Professinoal","Admins Meetings"];
+  const meetingType = ["Personal", "Professional","Admins Meetings"];
   return (
     <div className="p-4">
       <div className="d-flex align-items-center justify-content-between">
