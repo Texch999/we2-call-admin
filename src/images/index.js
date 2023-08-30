@@ -56,4 +56,8 @@ export const Images = {
   SaleForVIP: "./assets/sale_for_vip.png",
   calendarIcon: "./assets/calendarIcon.png",
   clockIcon: "./assets/clockIcon.png",
+  FootBallLeg: "./assets/football_leg.png",
+  CasinoBanner: "./assets/casino_banner.png",
+  ManSuitCase: "/assets/man_suitcase.png",
+  Emojis: "./assets/emojis.png",
 };
