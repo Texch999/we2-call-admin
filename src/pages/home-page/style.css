@@ -186,13 +186,6 @@
 .br-1 {
   border-right: 1px solid grey;
 }
-.header-menu {
-  background: #202d57;
-  padding: 10px 10px;
-  border-radius: 5px;
-  height: fit-content;
-  font-size: 12px;
-}
 .head-dropdown {
   background: #202d57;
   width: fit-content;
@@ -210,6 +203,14 @@
 }
 .head-dropdown div:hover {
   border: 2px solid #fce719;
+}
+
+.header-menu {
+  background: #202d57;
+  padding: 10px 10px;
+  border-radius: 5px;
+  height: fit-content;
+  font-size: 12px;
 }
 .active-head-menu {
   background: #202d57;
@@ -334,8 +335,8 @@ input::placeholder {
   width: 18%;
 }
 .footer-height {
-  height: 35vh;
-  padding-bottom: 25% !important;
+  /* height: 35vh; */
+  padding-bottom: 5% !important;
 }
 .footer-left {
   padding-left: 10% !important;
@@ -363,6 +364,6 @@ input::placeholder {
 .linked-in {
   background: linear-gradient(to right, #069, #0676ae);
 }
-option{
+option {
   height: 50px;
 }

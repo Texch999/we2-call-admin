@@ -42,7 +42,7 @@ function Alert() {
     is3D: true,
   };
   return (
-    <div className="row vh-70 mt-3">
+    <div className="row vh-70 mt-3 meet-box-height">
       <div className="col-6 p-2">
         <div className="meetings-container ">
           <div className="row p-3 align-center">

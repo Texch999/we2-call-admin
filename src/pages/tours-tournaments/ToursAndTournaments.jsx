@@ -6,7 +6,7 @@ import Entertainment from "./Entertainment";
 
 function ToursAndTournaments() {
   return (
-    <div>
+    <div className="pl-1rem tours-main">
       <TakeTour />
       <Football />
       <Entertainment />

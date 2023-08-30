@@ -49,7 +49,7 @@ body {
 }
 .header-avatar img {
   height: 50%;
-  width: 50%;
+  /* width: 50%; */
 }
 .head-image {
   height: 8vh !important;

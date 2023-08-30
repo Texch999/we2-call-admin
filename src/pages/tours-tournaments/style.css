@@ -1,5 +1,7 @@
 .tour-cricket {
-  height: 45vh;
+  height: 47vh;
+  display: flex;
+  justify-content: space-between;
 }
 .take-tour {
   background: linear-gradient(to right, #3f5cc2, #5640c6);
@@ -37,11 +39,42 @@
   align-items: center;
   justify-content: center;
 }
-.w-60{
-    width: 60%;
+#black-background {
+  background: black !important;
 }
-.banner{
-    height: 35vh;
-    left: 15%;
+.w-60 {
+  width: 60%;
+}
+.banner {
+  height: 30vh;
+  left: 10%;
+  position: relative;
+}
+.count-container {
+  background: #4fa9db;
+  width: fit-content;
+  border-radius: 25px;
+}
+.pl-1rem {
+  padding-left: 1rem !important;
+}
+.mid-div {
+  position: relative;
+  top: 5%;
+}
+@media (min-width: 1600px) {
+  .mid-div {
     position: relative;
+    top: 20%;
+  }
+  .active-head-menu,.header-menu{
+    height: 4vh;
+    align-items: center;
+  }
+  .header-font{
+    font-size: 1.5rem;
+  }
+}
+.tours-main{
+  padding-bottom: 5%;
 }

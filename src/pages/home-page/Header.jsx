@@ -168,14 +168,14 @@ function Header() {
             onClick={() => handleLoginPopup()}
           />
         </div>
-        <div className="date-div mt-2">
-          <p className="meetings-heading medium-font">{currentDateTime.toLocaleString()}</p>
+        <div className="date-div mt-2 d-flex align-items-center ms-2">
+          <p className="meetings-heading medium-font header-font">{currentDateTime.toLocaleString()}</p>
         </div>
         <div className="h-10vh d-flex align-items-center head-wrap">
           <div className="row w-100 min-h-10vh d-flex align-items-center">
             {headerMenu.map((item, index) => {
               return (
-                <div className="col-2 meetings-heading">
+                <div className="col meetings-heading">
                   <div
                     key={index}
                     className={`${
@@ -183,8 +183,8 @@ function Header() {
                     } header-menu flex-aline-center`}
                     onClick={() => handleMenuItem(index)}
                   >
-                    <div className="d-flex justify-content-between align-items-center">
-                      <span>{item}</span>
+                    <div className="d-flex h-100 justify-content-between align-items-center">
+                      <span className="header-font">{item}</span>
                       {index > 2 ? (
                         activeHead === index ? (
                           <FaChevronUp className="ml-5" />
@@ -250,7 +250,7 @@ function Header() {
         <div className="d-flex w-18 p-2">
           <div className="header-avatar align-items-center justify-content-around d-flex w-50">
             <img src={Images.profile} alt="profile" className="me-2" />
-            <div className="meetings-heading">SriAgent</div>
+            <div className="meetings-heading header-font">SriAgent</div>
           </div>
           <div className="d-flex align-items-center w-50 justify-content-around">
             <div className=" icons-share me-2 ms-2">
