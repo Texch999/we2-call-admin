@@ -56,42 +56,58 @@ function Header() {
     moreType,
   ];
   const MatchEntryDropdown = [
-    { icon: <LiaFolderSolid className="mr-10" />, name: "Match Entry" },
-    { icon: <AiFillWarning className="mr-10" />, name: "Share Risk" },
+    {
+      icon: <LiaFolderSolid className="mr-10" />,
+      name: "Match Entry",
+      path: "/match-entry",
+    },
+    {
+      icon: <AiFillWarning className="mr-10" />,
+      name: "Share Risk",
+      path: "/share-risk-live-matches",
+    },
   ];
 
   const ReportsEntryDropdown = [
     {
       icon: <BiPhoneCall className="mr-10" />,
       name: "Call History",
+      path: "/call-history",
     },
     {
       icon: <FaRegHandshake className="mr-10" />,
       name: "Call Settlement",
+      path: "/call-settelment",
     },
     {
       icon: <FaRegAddressBook className="mr-10" />,
       name: "Call Statement",
+      path: "/call-statement",
     },
     {
       icon: <TbReportSearch className="mr-10" />,
       name: "Match  Statement",
+      path: "/match-statement",
     },
     {
       icon: <TbReport className="mr-10" />,
       name: "One Page Reports",
+      path: "/report-page",
     },
     {
       icon: <FaRegHandshake className="mr-10" />,
       name: "Settlement",
+      path: "/settelment",
     },
     {
       icon: <FaHandshake className="mr-10" />,
       name: "Settlement Statement",
+      path: "/settelment-statement",
     },
     {
       icon: <GiArmorUpgrade className="mr-10" />,
       name: "Upgrade Packages",
+      path: "/upgrade-package",
     },
   ];
 
@@ -103,6 +119,7 @@ function Header() {
     {
       icon: <MdOutlinePrivacyTip className="mr-10" />,
       name: "Privacy Policy",
+      path: "/privacy-policy",
     },
   ];
 
@@ -142,18 +159,21 @@ function Header() {
     setReportsOpen(false);
     setMoreOpen((prev) => !prev);
   };
-  const handleSelectMatchEntry = (name) => {
-    setMatchEntryType(name);
+  const handleSelectMatchEntry = (v) => {
+    setMatchEntryType(v.name);
     setMatchEntryOpen(false);
+    navigate(v.path);
   };
 
-  const handleMore = (name) => {
-    setMoreType(name);
+  const handleMore = (item) => {
+    setMoreType(item.name);
     setMoreOpen(false);
+    navigate(item.path);
   };
-  const handleSelectReports = (name) => {
-    setReportsType(name);
+  const handleSelectReports = (e) => {
+    setReportsType(e.name);
     setReportsOpen(false);
+    navigate(e.path);
   };
 
   const [resetPasswordSubmit, setResetPasswordSubmit] = useState();
@@ -169,7 +189,9 @@ function Header() {
           />
         </div>
         <div className="date-div mt-2">
-          <p className="meetings-heading medium-font">{currentDateTime.toLocaleString()}</p>
+          <p className="meetings-heading medium-font">
+            {currentDateTime.toLocaleString()}
+          </p>
         </div>
         <div className="h-10vh d-flex align-items-center head-wrap">
           <div className="row w-100 min-h-10vh d-flex align-items-center">
@@ -205,7 +227,7 @@ function Header() {
                   <div
                     key={index}
                     className="d-flex align-items-center mt-2 "
-                    onClick={() => handleSelectMatchEntry(item.name)}
+                    onClick={() => handleSelectMatchEntry(item)}
                   >
                     <span className="me-1">{item.icon}</span>
                     {item.name}
@@ -221,10 +243,12 @@ function Header() {
                   <div
                     key={index}
                     className="d-flex align-items-center mt-2 p-2"
-                    onClick={() => handleSelectReports(item.name)}
+                    onClick={() => handleSelectReports(item)}
                   >
-                    <span className="me-1">{item.icon}</span>
+                    {item.icon}
                     {item.name}
+                    {/* <span className="me-1">{item.icon}</span>
+                    {item.name} */}
                   </div>
                 );
               })}
@@ -237,7 +261,7 @@ function Header() {
                   <div
                     key={index}
                     className="d-flex align-items-center mt-2 p-2"
-                    onClick={() => handleMore(item.name)}
+                    onClick={() => handleMore(item)}
                   >
                     <span className="me-1">{item.icon}</span>
                     {item.name}
