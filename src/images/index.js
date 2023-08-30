@@ -21,7 +21,7 @@ export const Images = {
   LoginLockIcon: "./assets/login_Lock_Icon.png",
   UserManagement: "./assets/user_Management.png",
   SportManagement: "./assets/sports_management.png",
-  QuestionMark: "./assets/questionMark.png",
+  QuestionMark: "./assets/question_mark.png",
   CheckedMark: "./assets/checked_Mark.png",
   AgentHomePage: "./assets/agent_home_page.png",
   percentIcon: "./assets/percent.png",
