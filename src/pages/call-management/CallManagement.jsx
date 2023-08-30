@@ -60,6 +60,7 @@ const CallManagement = () => {
     },
   ];
   const meetingType = ["Personal", "Professinoal"];
+  const addusersData=["select","animesh","sri","jayanth"]
   return (
     <div className="p-4">
       <div className="d-flex align-items-center justify-content-between">
@@ -164,6 +165,7 @@ const CallManagement = () => {
           meetingType={meetingType}
           label="Add Users*"
           show={modalShow}
+          selectData={addusersData}
           onHide={() => setModalShow(false)}
         />
       )}

@@ -1,5 +1,5 @@
-import React,{useState} from "react";
-import { Button, Table,Dropdown } from "react-bootstrap";
+import React, { useState } from "react";
+import { Button, Table, Dropdown } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./style.css";
 import { MdModeEditOutline, MdArrowDownward } from "react-icons/md";
@@ -59,12 +59,18 @@ const SuperAdminCallManagement = () => {
       admin_status: "In - Active",
     },
   ];
-  const meetingType = ["Personal", "Professional","Admins Meetings"];
+  const meetingType = ["Personal", "Professional", "Admins Meetings"];
+  const addusersData = ["select", "ind-120", "srilanka-200", "nz-100"];
   return (
     <div className="p-4">
       <div className="d-flex align-items-center justify-content-between">
         <h5 className="meetings-heading">Super Admin Call Management</h5>
-        <Button className="add-new-meetings-button"  onClick={() => setModalShow(true)}>+ Add New Meetings</Button>
+        <Button
+          className="add-new-meetings-button"
+          onClick={() => setModalShow(true)}
+        >
+          + Add New Meetings
+        </Button>
       </div>
       <hr />
       <div>
@@ -166,6 +172,7 @@ const SuperAdminCallManagement = () => {
           meetingType={meetingType}
           label="Add Live Scoreboard*"
           show={modalShow}
+          selectData={addusersData}
           onHide={() => setModalShow(false)}
         />
       )}

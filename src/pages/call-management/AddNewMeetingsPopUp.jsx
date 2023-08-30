@@ -7,7 +7,7 @@ import { useState } from "react";
 
 function AddNewMeetingsPopUp(props) {
   console.log(props);
-  const { meetingType, onHide, show,label } = props;
+  const { meetingType, onHide, show, label, selectData } = props;
   const handleAddUser = () => {
     onHide();
   };
@@ -115,9 +115,9 @@ function AddNewMeetingsPopUp(props) {
               <Form.Label>{label}</Form.Label>
               <InputGroup>
                 <Form.Select className="fs-8rem">
-                  <option>Select</option>
-                  <option>Sri</option>
-                  <option>animesh</option>
+                  {selectData.map((option, index) => {
+                    return <option key={index}>{option}</option>;
+                  })}
                 </Form.Select>
               </InputGroup>
             </Form.Group>
