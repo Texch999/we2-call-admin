@@ -141,7 +141,7 @@ function MatchScroll() {
               </div>
             </div>
             <div className="col-8 d-flex align-items-center justify-content-end">
-              <div className="d-flex align-items-center justify-content-between">
+              <div className="w-80 d-flex align-items-center justify-content-between">
                 <div className="text-center small-font text-white p-1 px-3 match-bg rounded-pill w-fit-content">
                   Date : 31/07/2023
                 </div>
