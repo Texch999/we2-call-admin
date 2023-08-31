@@ -4,6 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { MdOutlineArrowForward } from "react-icons/md";
 import { useNavigate, useParams } from "react-router";
 
+
 const MatchShareRisk = () => {
   const navigate = useNavigate();
   const { team_name } = useParams();
@@ -122,7 +123,10 @@ const MatchShareRisk = () => {
               <tr key={index}>
                 <td className="text-center">{data?.date_time}</td>
                 <td className="text-center">{data?.series_name}</td>
-                <td className="text-center clr-yellow">{data?.team_name}</td>
+                <td className="text-center clr-yellow">
+                  {data?.team_name}{" "}
+           
+                </td>
                 <td className="text-center">{data?.name}</td>
                 <td className="text-center">{data?.role}</td>
                 <td className="text-center clr-green">

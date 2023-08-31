@@ -121,6 +121,46 @@ function Header() {
       name: "Privacy Policy",
       path: "/privacy-policy",
     },
+    {
+      icon: <MdOutlinePrivacyTip className="mr-10" />,
+      name: "Admin One Page Report",
+      path: "/admin-one-page-report",
+    },
+    {
+      icon: <MdOutlinePrivacyTip className="mr-10" />,
+      name: "Admin Share Comm Settlement",
+      path: "/admin-share-comm-settlement",
+    },
+    {
+      icon: <MdOutlinePrivacyTip className="mr-10" />,
+      name: "Call Management",
+      path: "/call-management",
+    },
+    {
+      icon: <MdOutlinePrivacyTip className="mr-10" />,
+      name: "Super Admin Call Management",
+      path: "/super-admin-call-management",
+    },
+    {
+      icon: <MdOutlinePrivacyTip className="mr-10" />,
+      name: "Share Risk live mathces",
+      path: "/share-risk-live-matches",
+    },
+    {
+      icon: <MdOutlinePrivacyTip className="mr-10" />,
+      name: "Admin Share Match Statement",
+      path: "/admin-share-match-statement",
+    },
+    {
+      icon: <MdOutlinePrivacyTip className="mr-10" />,
+      name: "Add Users",
+      path: "/add-users",
+    },
+    {
+      icon: <MdOutlinePrivacyTip className="mr-10" />,
+      name: "Add Admins",
+      path: "/add-admins",
+    },
   ];
 
   const navigate = useNavigate();
