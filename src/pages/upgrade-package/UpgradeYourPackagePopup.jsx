@@ -1,6 +1,10 @@
-import React from "react";
 import { Col, Container, Modal, Row } from "react-bootstrap";
+import { Button, Table, Dropdown } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
+import React, { useState } from "react";
+import { MdModeEditOutline, MdArrowDownward } from "react-icons/md";
 import { RxCrossCircled } from "react-icons/rx";
+import { RiArrowDropDownLine } from "react-icons/ri";
 function UpgradeYourPackagePopup(props) {
   const { showPackagePopup, setShowPackagePopup } = props;
   const handlePackagePopupClose = () => {
@@ -39,38 +43,68 @@ function UpgradeYourPackagePopup(props) {
                 </div>
               </div>
               <div className="text-end small-font">-22500</div>
-              <div className="d-flex flex-row mt-2 justify-content-between custom-select small-font btn-bg rounded all-none p-2">
-                <div className="d-flex flex-row w-50 align-items-center">
-                  <select className="w-100 custom-upgrade-select small-font btn-bg rounded all-none">
-                    <option selected>Reduse Available Package</option>
-                    <option>Reduse Available Package</option>{" "}
-                    <option>Reduse Available Package</option>
-                    <option>Reduse Available Package</option>
-                    <option>Reduse Available Package</option>
-                    <option>Reduse Available Package</option>
-                    <option>Reduse Available Package</option>
-                  </select>
-                </div>
-                <div>-20000</div>
-              </div>
-              <div className="d-flex flex-row mt-2 justify-content-between custom-select small-font btn-bg rounded all-none p-2">
-                <div className="d-flex flex-row w-50 align-items-center">
-                  <select className="w-100 custom-select small-font btn-bg rounded all-none">
-                    <option selected>Return to Return Package</option>
-                  </select>
-                </div>
-                <div>-20000</div>
-              </div>
-              <div className="d-flex flex-row mt-2 justify-content-between custom-select small-font btn-bg rounded all-none p-2">
-                <div className="d-flex flex-row w-50 align-items-center">
-                  <select className="w-100 custom-select small-font btn-bg rounded all-none">
-                    <option selected>Return Available Hours</option>
-                  </select>
-                </div>
-                <div>-20000</div>
-              </div>
-              <hr />
-              <div className="d-flex justify-content-between medium-font">
+              <Dropdown
+                size="lg"
+                className="user-dropdown-toggle custom-button-drop small-font mt-2"
+              >
+                <Dropdown.Toggle>
+                  <div className="d-flex align-itens-center justify-content-between p-1">
+                    <div>
+                      Reduse Available Package{" "}
+                      <RiArrowDropDownLine style={{ fontSize: "20px" }} />
+                    </div>
+
+                    <span style={{ float: "right" }}>-20000</span>
+                  </div>
+                </Dropdown.Toggle>
+                <Dropdown.Menu>
+                  <Dropdown.Item href="#action1">Demo 01</Dropdown.Item>
+                  <Dropdown.Item href="#action2">Lokesh</Dropdown.Item>
+                  <Dropdown.Item href="#action3">Jayanth</Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>{" "}
+              <Dropdown
+                size="lg"
+                className="user-dropdown-toggle custom-button-drop small-font mt-2 mb-2"
+              >
+                <Dropdown.Toggle>
+                  <div className="d-flex align-itens-center justify-content-between p-1">
+                    <div>
+                      Return to Return Package{" "}
+                      <RiArrowDropDownLine style={{ fontSize: "20px" }} />
+                    </div>
+
+                    <span style={{ float: "right" }}>-20000</span>
+                  </div>
+                </Dropdown.Toggle>
+                <Dropdown.Menu>
+                  <Dropdown.Item href="#action1">Demo 01</Dropdown.Item>
+                  <Dropdown.Item href="#action2">Lokesh</Dropdown.Item>
+                  <Dropdown.Item href="#action3">Jayanth</Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>{" "}
+              <Dropdown
+                size="lg"
+                className="user-dropdown-toggle custom-button-drop small-font mt-2 mb-2"
+              >
+                <Dropdown.Toggle>
+                  <div className="d-flex align-itens-center justify-content-between p-1">
+                    <div>
+                      Return Available Hours
+                      <RiArrowDropDownLine style={{ fontSize: "20px" }} />
+                    </div>
+
+                    <span style={{ float: "right" }}>-20000</span>
+                  </div>
+                </Dropdown.Toggle>
+                <Dropdown.Menu>
+                  <Dropdown.Item href="#action1">Demo 01</Dropdown.Item>
+                  <Dropdown.Item href="#action2">Lokesh</Dropdown.Item>
+                  <Dropdown.Item href="#action3">Jayanth</Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
+              <hr/>
+              <div className="d-flex justify-content-between medium-font mt-2 mb-2">
                 <div>Total</div>
                 <div>107500</div>
               </div>

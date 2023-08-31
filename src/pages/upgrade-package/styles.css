@@ -209,9 +209,14 @@
   padding: 5px;
 }
 
-.custom-select-button option {
+.custom-upgrade-select option {
+  width: 100% !important;
   background-color: #183673;
   color: #ffffff;
-  margin-top: 10px !important;
-  border: 1px solid green;
+  border: 2px solid red;
+}
+.custom-button-drop button {
+  background-color: #112a5e;
+  text-align: left;
+  width: 100%;
 }
