@@ -24,8 +24,10 @@ import { BsFillCreditCard2BackFill } from "react-icons/bs";
 import { MdOutlinePrivacyTip } from "react-icons/md";
 import ResetPassword from "../log-in/ResetPassword";
 import MatchSubmitPopup from "../match-popups/MatchSubmitPopup";
+import AddPaymentMode from "../popups/AddPaymentMode";
 
 function Header() {
+  const [modalShow, setModalShow] = useState(false);
   const [currentDateTime, setCurrentDateTime] = useState(new Date());
   useEffect(() => {
     const interval = setInterval(() => {
@@ -115,11 +117,52 @@ function Header() {
     {
       icon: <BsFillCreditCard2BackFill className="mr-10" />,
       name: "Add Payment Gateway",
+      onClick: "onClick",
     },
     {
       icon: <MdOutlinePrivacyTip className="mr-10" />,
       name: "Privacy Policy",
       path: "/privacy-policy",
+    },
+    {
+      icon: <MdOutlinePrivacyTip className="mr-10" />,
+      name: "Admin One Page Report",
+      path: "/admin-one-page-report",
+    },
+    {
+      icon: <MdOutlinePrivacyTip className="mr-10" />,
+      name: "Admin Share Comm Settlement",
+      path: "/admin-share-comm-settlement",
+    },
+    {
+      icon: <MdOutlinePrivacyTip className="mr-10" />,
+      name: "Call Management",
+      path: "/call-management",
+    },
+    {
+      icon: <MdOutlinePrivacyTip className="mr-10" />,
+      name: "Super Admin Call Management",
+      path: "/super-admin-call-management",
+    },
+    {
+      icon: <MdOutlinePrivacyTip className="mr-10" />,
+      name: "Share Risk live mathces",
+      path: "/share-risk-live-matches",
+    },
+    {
+      icon: <MdOutlinePrivacyTip className="mr-10" />,
+      name: "Admin Share Match Statement",
+      path: "/admin-share-match-statement",
+    },
+    {
+      icon: <MdOutlinePrivacyTip className="mr-10" />,
+      name: "Add Users",
+      path: "/add-users",
+    },
+    {
+      icon: <MdOutlinePrivacyTip className="mr-10" />,
+      name: "Add Admins",
+      path: "/add-admins",
     },
   ];
 
@@ -169,6 +212,11 @@ function Header() {
     setMoreType(item.name);
     setMoreOpen(false);
     navigate(item.path);
+    {
+      if (item.onClick) {
+        setModalShow(true);
+      }
+    }
   };
   const handleSelectReports = (e) => {
     setReportsType(e.name);
@@ -245,10 +293,10 @@ function Header() {
                     className="d-flex align-items-center mt-2 p-2"
                     onClick={() => handleSelectReports(item)}
                   >
-                    {item.icon}
-                    {item.name}
-                    {/* <span className="me-1">{item.icon}</span>
+                    {/* {item.icon}
                     {item.name} */}
+                    <span className="me-1">{item.icon}</span>
+                    {item.name}
                   </div>
                 );
               })}
@@ -308,6 +356,13 @@ function Header() {
         state={resetPasswordSubmit}
         setState={setResetPasswordSubmit}
       />
+      {modalShow && (
+        <AddPaymentMode
+          show={modalShow}
+          onHide={() => setModalShow(false)}
+     
+        />
+      )}
     </div>
   );
 }

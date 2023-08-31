@@ -60,4 +60,9 @@ export const Images = {
   CasinoBanner: "./assets/casino_banner.png",
   ManSuitCase: "/assets/man_suitcase.png",
   Emojis: "./assets/emojis.png",
+  passbookIcon: "./assets/passbook.png",
+  transactionIcon: "./assets/transaction.png",
+  bankIcon: "./assets/bank.png",
+  uploadIcon: "./assets/upload.png",
+  callIcon:"./assets/callIcon.png"
 };

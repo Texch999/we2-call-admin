@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import ClientPLData from "./ClientPLData";
 import AdminsTable from "../onepagereport/AdminsTable";
 import { Col, Container, Row } from "react-bootstrap";
-
+import { GiClick } from "react-icons/gi";
 function ClientPLTable() {
   const CLIENTPL_DETAILS = [
     {
@@ -88,14 +88,11 @@ function ClientPLTable() {
               <td className="clr-green"> {item.fifteenoverone}</td>
               <td className="clr-green"> {item.fancycom}</td>
               <td
-                className="clr-green d-flex flex-column align-items-center"
+                className="clr-green"
                 onClick={() => handleClientData()}
               >
                 {item.mfc}
-                <img
-                  className="click-here-img mt-1"
-                  src={process.env.PUBLIC_URL + "./assets/click_here.png"}
-                ></img>
+                <GiClick className="custom-click-icon ms-1 mt-2" />
               </td>
             </tr>
           </tbody>

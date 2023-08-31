@@ -3,7 +3,7 @@ import { Button, Table, Form } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./style.css";
 import { FiSearch } from "react-icons/fi";
-
+import { GiClick } from "react-icons/gi";
 import AddAdminsPopup from "./AddAdminsPopup";
 import { MdArrowForwardIos } from "react-icons/md";
 import PackageViewPopUp from "./PackageViewPopUp";
@@ -77,7 +77,7 @@ const AddAdmins = () => {
               className="agent-button sm-button"
               onClick={() => setPackageViewPopup(true)}
             >
-              SM
+              SM <GiClick className="custom-click-icon ms-1 mt-2" />
             </Button>
             <span className="mb-0 ms-2 me-2 add-user-name">Srinivas</span>
             <MdArrowForwardIos />
@@ -149,8 +149,10 @@ const AddAdmins = () => {
           </tbody>
           <tfoot>
             <tr>
-              <th colSpan={6}>TOTAL</th>
-              <th className="clr-green" colSpan={2}>
+              <th colSpan={6} className="text-center">
+                TOTAL
+              </th>
+              <th className="clr-green text-center">
                 {filteredUsersData
                   ?.reduce(
                     (total, data) => total + parseFloat(data?.profit_loss),
@@ -158,6 +160,7 @@ const AddAdmins = () => {
                   )
                   .toFixed(2)}
               </th>
+              <th></th>
             </tr>
           </tfoot>
           {modalShow && (

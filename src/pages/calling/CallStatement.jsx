@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { AiFillPlayCircle } from "react-icons/ai";
+import UpgradeYourPackagePopup from "../upgrade-package/UpgradeYourPackagePopup";
 
 function CallStatement() {
   const HISTORY_DETAILS = [
@@ -184,6 +185,10 @@ function CallStatement() {
       delete: "",
     },
   ];
+  const [showPackagePopup, setShowPackagePopup] = useState(false);
+  const handlePackagePopup = () => {
+    setShowPackagePopup((prev) => !prev);
+  };
   return (
     <div className="p-4">
       <h5 className="meetings-heading mb-3">Call Statement</h5>
@@ -237,13 +242,20 @@ function CallStatement() {
                   </button>
                 </td>
                 <td className="text-center">
-                  <AiFillPlayCircle className="custom-icon" />
+                  <AiFillPlayCircle
+                    className="custom-icon"
+                    onClick={() => handlePackagePopup()}
+                  />
                 </td>
               </tr>
             </tbody>
           ))}
         </table>
       </div>
+      <UpgradeYourPackagePopup
+        showPackagePopup={showPackagePopup}
+        setShowPackagePopup={setShowPackagePopup}
+      />
     </div>
   );
 }

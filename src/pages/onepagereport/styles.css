@@ -45,6 +45,10 @@
   width: 70px;
   height: 20px;
 }
-.fs-8rem{
+.fs-8rem {
   font-size: 0.8rem !important;
+}
+.custom-click-icon {
+  font-size: 20px;
+  color: #fce719;
 }
