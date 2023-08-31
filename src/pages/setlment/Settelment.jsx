@@ -211,6 +211,8 @@ function Settelment() {
       <PaymentSettelmentPopup
         showPaymentModal={showPaymentModal}
         setShowPaymentModal={setShowPaymentModal}
+        match={`Match : IND vs SL`}
+        clientName="Client Name"
       />
     </div>
   );

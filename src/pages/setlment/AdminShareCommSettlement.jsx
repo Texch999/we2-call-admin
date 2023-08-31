@@ -16,7 +16,7 @@ const AdminShareCommSettlement = () => {
       amount: 1000000.0,
     },
     {
-      title: "Total Settled Bal C/D",
+      title: "UL/Platform Comm Summary",
       balance_title: "Total Balance",
       amount: 1000000.0,
     },

@@ -3,7 +3,7 @@ import { Col, Container, Modal, Row } from "react-bootstrap";
 import MatchSubmitPopup from "../match-popups/MatchSubmitPopup";
 import MatchDeclarationPopup from "../match-popups/MatchDeclarationPopup";
 function PaymentSettelmentPopup(props) {
-  const { showPaymentModal, setShowPaymentModal } = props;
+  const { showPaymentModal, setShowPaymentModal, match, clientName } = props;
   const handlePaymentClose = () => {
     setShowPaymentModal(false);
   };
@@ -40,7 +40,7 @@ function PaymentSettelmentPopup(props) {
               <div className="w-75 d-flex justify-content-center">
                 <div className="ms-1 me-1">
                   <div className="w-100 small-font clr-yellow match-date-button p-1 rounded-pill">
-                    Match : IND vs SL
+                    {match}
                   </div>
                 </div>
                 <div className="ms-1 me-1">
@@ -52,7 +52,7 @@ function PaymentSettelmentPopup(props) {
             </div>
             <div className="w-100 p-4">
               <div className="d-flex flex-column">
-                <div className="small-font mb-1">Client Name *</div>
+                <div className="small-font mb-1">{clientName}*</div>
                 <div className="d-flex flex-row w-100 custom-select small-font btn-bg rounded all-none p-1 align-items-center">
                   <div>
                     <img
@@ -61,7 +61,7 @@ function PaymentSettelmentPopup(props) {
                     />
                   </div>
                   <select className="w-100 custom-select small-font btn-bg rounded all-none">
-                    <option selected>Enter Client Name</option>
+                    <option selected>Select</option>
                     <option>Sangram</option>
                     <option>Ranjith</option>
                     <option>Srikanth</option>
