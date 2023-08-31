@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./styles.css";
 import OnePagePopup from "./OnePagePopup";
-
+import { GiClick } from "react-icons/gi";
 function OnePageReport() {
   const PAGE_REPORT_DETAILS = [
     {
@@ -130,13 +130,9 @@ function OnePageReport() {
           <tbody key={index}>
             <tr className="text-center">
               <td>{item.client}</td>
-              <td className="d-flex flex-column align-items-center">
+              <td onClick={() => handleReportPageShow()}>
                 {item.mfrc}
-                <img
-                  className="click-here-img mt-1"
-                  src={process.env.PUBLIC_URL + "./assets/click_here.png"}
-                  onClick={() => handleReportPageShow()}
-                ></img>
+                <GiClick className="custom-click-icon ms-1 mt-2" />
               </td>
               <td>{item.cnet}</td>
               <td> {item.rfnet}</td>
