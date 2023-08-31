@@ -2,7 +2,7 @@ import { Col, Container, Modal, Row } from "react-bootstrap";
 import { Button, Table, Dropdown } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useState } from "react";
-import { MdModeEditOutline, MdArrowDownward } from "react-icons/md";
+import { FaPlus, FaMinus, FaArrowRight } from "react-icons/fa6";
 import { RxCrossCircled } from "react-icons/rx";
 import { RiArrowDropDownLine } from "react-icons/ri";
 function UpgradeYourPackagePopup(props) {
@@ -10,6 +10,38 @@ function UpgradeYourPackagePopup(props) {
   const handlePackagePopupClose = () => {
     setShowPackagePopup(false);
   };
+  const packages = [
+    { package: "Standard", number: "5" },
+    { package: "Silver", number: "5" },
+    { package: "Gold", number: "5" },
+    { package: "Diamond", number: "5" },
+    { package: "VIP", number: "5" },
+  ];
+  const packagesHours = [
+    { package: "Standard", hours: "5h" },
+    { package: "Silver", hours: "5h" },
+    { package: "Gold", hours: "5h" },
+    { package: "Diamond", hours: "5h" },
+    { package: "VIP", hours: "5h" },
+  ];
+  const packageReturn = [
+    {
+      header: "Standard value",
+      data: "10000",
+      headerone: "Availbale Days",
+      dataone: "20",
+      headertwo: "Now Value ",
+      datatwo: "6666.66",
+    },
+    {
+      header: "Standard value",
+      data: "10000",
+      headerone: "Availbale Days",
+      dataone: "20",
+      headertwo: "Now Value ",
+      datatwo: "6666.66",
+    },
+  ];
   return (
     <div className="modal fade bd-example-modal-lg container mt-5">
       <Modal
@@ -42,7 +74,7 @@ function UpgradeYourPackagePopup(props) {
                   <RxCrossCircled />
                 </div>
               </div>
-              <div className="text-end small-font">-22500</div>
+              <div className="text-end small-font my-1">-22500</div>
               <Dropdown
                 size="lg"
                 className="user-dropdown-toggle custom-button-drop small-font mt-2"
@@ -57,35 +89,76 @@ function UpgradeYourPackagePopup(props) {
                     <span style={{ float: "right" }}>-20000</span>
                   </div>
                 </Dropdown.Toggle>
-                <Dropdown.Menu>
-                  <Dropdown.Item href="#action1">Demo 01</Dropdown.Item>
-                  <Dropdown.Item href="#action2">Lokesh</Dropdown.Item>
-                  <Dropdown.Item href="#action3">Jayanth</Dropdown.Item>
+                <Dropdown.Menu className="custom-menu-item px-1">
+                  {packages.map((data, index) => (
+                    <Dropdown.Item
+                      key={index}
+                      className="rounded my-1 d-flex flex-row justify-content-between"
+                    >
+                      <div>
+                        <span>{data.package}</span>
+                        <span className="clr-yellow mx-1">{data.number}</span>
+                      </div>
+                      <div className="add-button rounded-pill p-1 small-font d-flex align-items-center justify-content-evenly">
+                        <FaMinus className="mx-1" />
+                        <div className="fw-semibold">ADD</div>
+                        <FaPlus className="mx-1" />
+                      </div>
+                    </Dropdown.Item>
+                  ))}
+                  <Dropdown.Item className="rounded my-2 d-flex flex-row justify-content-between">
+                    <div>Total Amount</div>
+                    <div>2000000000.00</div>
+                  </Dropdown.Item>
                 </Dropdown.Menu>
-              </Dropdown>{" "}
+              </Dropdown>
               <Dropdown
                 size="lg"
-                className="user-dropdown-toggle custom-button-drop small-font mt-2 mb-2"
+                className="user-dropdown-toggle custom-button-drop small-font mt-2"
               >
                 <Dropdown.Toggle>
                   <div className="d-flex align-itens-center justify-content-between p-1">
                     <div>
-                      Return to Return Package{" "}
+                      Reduse Available Package{" "}
                       <RiArrowDropDownLine style={{ fontSize: "20px" }} />
                     </div>
 
                     <span style={{ float: "right" }}>-20000</span>
                   </div>
                 </Dropdown.Toggle>
-                <Dropdown.Menu>
-                  <Dropdown.Item href="#action1">Demo 01</Dropdown.Item>
-                  <Dropdown.Item href="#action2">Lokesh</Dropdown.Item>
-                  <Dropdown.Item href="#action3">Jayanth</Dropdown.Item>
+                <Dropdown.Menu className="custom-menu-item px-1">
+                  {packageReturn.map((inputdata, index) => (
+                    <Dropdown.Item
+                      key={index}
+                      className="rounded my-2 d-flex flex-row justify-content-between small-font "
+                    >
+                      <div className="d-flex flex-column w-100">
+                        <div className="d-flex flex-row justify-content-between align-items-center my-1">
+                          <div>{inputdata.header}</div>
+                          <div className="add-button rounded-pill p-1 w-20 text-center">
+                            {inputdata.data}
+                          </div>
+                        </div>
+                        <div className="d-flex flex-row justify-content-between align-items-center my-1">
+                          <div>{inputdata.headerone}</div>
+                          <div className="add-button rounded-pill p-1 w-20 text-center">
+                            {inputdata.dataone}
+                          </div>
+                        </div>
+                        <div className="d-flex flex-row justify-content-between align-items-center my-1">
+                          <div>{inputdata.headertwo}</div>
+                          <div className="add-button rounded-pill p-1 w-20 text-center">
+                            {inputdata.datatwo}
+                          </div>
+                        </div>
+                      </div>
+                    </Dropdown.Item>
+                  ))}
                 </Dropdown.Menu>
-              </Dropdown>{" "}
+              </Dropdown>
               <Dropdown
                 size="lg"
-                className="user-dropdown-toggle custom-button-drop small-font mt-2 mb-2"
+                className="user-dropdown-toggle custom-button-drop small-font mt-2"
               >
                 <Dropdown.Toggle>
                   <div className="d-flex align-itens-center justify-content-between p-1">
@@ -97,13 +170,30 @@ function UpgradeYourPackagePopup(props) {
                     <span style={{ float: "right" }}>-20000</span>
                   </div>
                 </Dropdown.Toggle>
-                <Dropdown.Menu>
-                  <Dropdown.Item href="#action1">Demo 01</Dropdown.Item>
-                  <Dropdown.Item href="#action2">Lokesh</Dropdown.Item>
-                  <Dropdown.Item href="#action3">Jayanth</Dropdown.Item>
+                <Dropdown.Menu className="custom-menu-item px-1">
+                  {packagesHours.map((data, index) => (
+                    <Dropdown.Item
+                      key={index}
+                      className="rounded my-1 d-flex flex-row justify-content-between"
+                    >
+                      <div>
+                        <span>{data.package}</span>
+                        <span className="clr-yellow mx-1">{data.hours}</span>
+                      </div>
+                      <div className="add-button rounded-pill p-1 small-font d-flex align-items-center justify-content-evenly">
+                        <FaMinus className="mx-1" />
+                        <div className="fw-semibold">ADD</div>
+                        <FaPlus className="mx-1" />
+                      </div>
+                    </Dropdown.Item>
+                  ))}
+                  <Dropdown.Item className="rounded my-2 d-flex flex-row justify-content-between">
+                    <div>Total Amount</div>
+                    <div>2000000000.00</div>
+                  </Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
-              <hr/>
+              <hr />
               <div className="d-flex justify-content-between medium-font mt-2 mb-2">
                 <div>Total</div>
                 <div>107500</div>
