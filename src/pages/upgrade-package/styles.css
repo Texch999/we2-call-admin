@@ -203,3 +203,15 @@
   height: 5rem;
   width: 5rem;
 }
+.custom-upgrade-select {
+  /* Apply styling to the select container */
+  color: #ffffff;
+  padding: 5px;
+}
+
+.custom-select-button option {
+  background-color: #183673;
+  color: #ffffff;
+  margin-top: 10px !important;
+  border: 1px solid green;
+}

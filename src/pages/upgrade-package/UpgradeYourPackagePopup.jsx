@@ -41,8 +41,14 @@ function UpgradeYourPackagePopup(props) {
               <div className="text-end small-font">-22500</div>
               <div className="d-flex flex-row mt-2 justify-content-between custom-select small-font btn-bg rounded all-none p-2">
                 <div className="d-flex flex-row w-50 align-items-center">
-                  <select className="w-100 custom-select small-font btn-bg rounded all-none">
+                  <select className="w-100 custom-upgrade-select small-font btn-bg rounded all-none">
                     <option selected>Reduse Available Package</option>
+                    <option>Reduse Available Package</option>{" "}
+                    <option>Reduse Available Package</option>
+                    <option>Reduse Available Package</option>
+                    <option>Reduse Available Package</option>
+                    <option>Reduse Available Package</option>
+                    <option>Reduse Available Package</option>
                   </select>
                 </div>
                 <div>-20000</div>
