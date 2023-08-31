@@ -5,10 +5,15 @@ import React, { useState } from "react";
 import { FaPlus, FaMinus, FaArrowRight } from "react-icons/fa6";
 import { RxCrossCircled } from "react-icons/rx";
 import { RiArrowDropDownLine } from "react-icons/ri";
+import AddPaymentMode from "../popups/AddPaymentMode";
 function UpgradeYourPackagePopup(props) {
   const { showPackagePopup, setShowPackagePopup } = props;
   const handlePackagePopupClose = () => {
     setShowPackagePopup(false);
+  };
+  const [showPaymentMode, setShowPaymentMode] = useState(false);
+  const handlePaymentModeOpen = () => {
+    setShowPaymentMode(true);
   };
   const packages = [
     { package: "Standard", number: "5" },
@@ -201,6 +206,7 @@ function UpgradeYourPackagePopup(props) {
               <button
                 type="submit"
                 className="submit-button mt-2 small-font p-2 rounded all-none w-100 mb-2"
+                onClick={() => handlePaymentModeOpen()}
               >
                 Confirm & Pay
               </button>
@@ -208,6 +214,10 @@ function UpgradeYourPackagePopup(props) {
           </div>
         </Modal.Header>
       </Modal>
+      <AddPaymentMode
+        showPaymentMode={showPaymentMode}
+        setShowPackagePopup={setShowPackagePopup}
+      />
     </div>
   );
 }

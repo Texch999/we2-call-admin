@@ -39,6 +39,7 @@ function AddAdminsPopup(props) {
       id: "ifscCode",
     },
   ];
+  const { showPaymentMode } = props;
   const [activeType, setActiveType] = useState("NEFT / RTGS");
   const paymentTypes = ["NEFT / RTGS", "QR Code", "UPI"];
   const handleAddUser = () => {
@@ -46,10 +47,15 @@ function AddAdminsPopup(props) {
   };
   const handlePaymentType = (type) => {
     setActiveType(type);
-    console.log(type)
+    console.log(type);
   };
   return (
-    <Modal {...props} centered className="add-user-modal">
+    <Modal
+      {...props}
+      centered
+      className="add-user-modal"
+      show={showPaymentMode}
+    >
       <Modal.Header closeButton>
         <Modal.Title className="w-100 text-center">
           Add Payment Mode
@@ -102,42 +108,44 @@ function AddAdminsPopup(props) {
                   placeholder="Upload Here"
                   autoFocus
                 />
-                <InputGroup.Text >
-                  <Image src={Images.uploadIcon} style={{ width: "18px" }} className="me-3"/>
+                <InputGroup.Text>
+                  <Image
+                    src={Images.uploadIcon}
+                    style={{ width: "18px" }}
+                    className="me-3"
+                  />
                 </InputGroup.Text>
               </InputGroup>
             </Form.Group>
           ) : (
             <Form.Group className="mb-3">
-            <Form.Label>UPI Name*</Form.Label>
-            <InputGroup>
-            <InputGroup.Text >
-                <Image src={Images.LoginUserIcon} style={{ width: "18px" }} />
-              </InputGroup.Text>
-              <Form.Control
-                type="text"
-                name="upi"
-                id="upi"
-                placeholder="Enter UPI Name"
-                autoFocus
-              />
-           
-            </InputGroup>
-            <Form.Label className="mt-3">Phone Number*</Form.Label>
-            <InputGroup>
-            <InputGroup.Text >
-                <Image src={Images.callIcon} style={{ width: "18px" }} />
-              </InputGroup.Text>
-              <Form.Control
-                type="number"
-                name="phoneNumber"
-                id="phoneNumber"
-                placeholder="Enter Phone Number"
-                autoFocus
-              />
-           
-            </InputGroup>
-          </Form.Group>
+              <Form.Label>UPI Name*</Form.Label>
+              <InputGroup>
+                <InputGroup.Text>
+                  <Image src={Images.LoginUserIcon} style={{ width: "18px" }} />
+                </InputGroup.Text>
+                <Form.Control
+                  type="text"
+                  name="upi"
+                  id="upi"
+                  placeholder="Enter UPI Name"
+                  autoFocus
+                />
+              </InputGroup>
+              <Form.Label className="mt-3">Phone Number*</Form.Label>
+              <InputGroup>
+                <InputGroup.Text>
+                  <Image src={Images.callIcon} style={{ width: "18px" }} />
+                </InputGroup.Text>
+                <Form.Control
+                  type="number"
+                  name="phoneNumber"
+                  id="phoneNumber"
+                  placeholder="Enter Phone Number"
+                  autoFocus
+                />
+              </InputGroup>
+            </Form.Group>
           )}
 
           <Button
