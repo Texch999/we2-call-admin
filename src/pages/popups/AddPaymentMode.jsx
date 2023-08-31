@@ -55,7 +55,7 @@ function AddAdminsPopup(props) {
       {...props}
       centered
       className="add-user-modal"
-      show={showPaymentMode}
+     
     >
       <Modal.Header closeButton>
         <Modal.Title className="w-100 text-center">

@@ -11,9 +11,9 @@ function UpgradeYourPackagePopup(props) {
   const handlePackagePopupClose = () => {
     setShowPackagePopup(false);
   };
-  const [showPaymentMode, setShowPaymentMode] = useState(false);
+  const [modalShow, setModalShow] = useState(false);
   const handlePaymentModeOpen = () => {
-    setShowPaymentMode(true);
+    setModalShow(true);
   };
   const packages = [
     { package: "Standard", number: "5" },
@@ -214,10 +214,9 @@ function UpgradeYourPackagePopup(props) {
           </div>
         </Modal.Header>
       </Modal>
-      <AddPaymentMode
-        showPaymentMode={showPaymentMode}
-        setShowPackagePopup={setShowPackagePopup}
-      />
+      {modalShow && (
+        <AddPaymentMode show={modalShow} onHide={() => setModalShow(false)} />
+      )}
     </div>
   );
 }
