@@ -2,6 +2,7 @@ import React from "react";
 import { Button, Table } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useNavigate } from "react-router";
+import { GiClick } from "react-icons/gi";
 import "./style.css";
 
 const ShareRiskLiveMatches = () => {
@@ -113,7 +114,8 @@ const ShareRiskLiveMatches = () => {
                     )
                   }
                 >
-                  {data?.team_name}
+                  {data?.team_name}{" "}
+                  <GiClick className="custom-click-icon ms-1 mt-2" />
                 </td>
                 <td className="text-center">{data?.match_place}</td>
 

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Button, Table } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import AdminPopReports from "./AdminPopReports";
+import { GiClick } from "react-icons/gi";
 
 const AdminOnePageReport = () => {
   const [adminOnePageReportPopUp, setAdminOnePageReportPopUp] = useState(false);
@@ -200,7 +201,7 @@ const AdminOnePageReport = () => {
                   className="text-center cursor-pointer"
                   onClick={() => handleAdminReports(data)}
                 >
-                  {data?.admin_name}
+                  {data?.admin_name}     <GiClick className="custom-click-icon ms-1 mt-2" />
                 </td>
                 <td className="text-center">{data?.admin_role}</td>
                 <td className="text-center">
@@ -214,7 +215,7 @@ const AdminOnePageReport = () => {
           </tbody>
           <tfoot>
             <tr>
-              <th colSpan={2}>TOTAL</th>
+              <th colSpan={2} className="text-center">TOTAL</th>
               <th className="text-center clr-green">
                 {adminOnePageReportData
                   ?.reduce(

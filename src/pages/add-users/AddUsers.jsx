@@ -143,8 +143,8 @@ const AddUsers = () => {
           </tbody>
           <tfoot>
             <tr>
-              <th colSpan={5}>TOTAL</th>
-              <th className="clr-green" colSpan={2}>
+              <th colSpan={5} className="text-center">TOTAL</th>
+              <th className="clr-green text-center" >
                 {filteredUsersData
                   ?.reduce(
                     (total, data) => total + parseFloat(data?.profit_loss),
@@ -152,6 +152,7 @@ const AddUsers = () => {
                   )
                   .toFixed(2)}
               </th>
+              <th></th>
             </tr>
           </tfoot>
           {modalShow && (

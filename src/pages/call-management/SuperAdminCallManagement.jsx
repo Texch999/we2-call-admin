@@ -78,7 +78,7 @@ const SuperAdminCallManagement = () => {
         <Table responsive="md" className="call-management-data">
           <thead>
             <tr>
-              <th>URS</th>
+              <th className="text-center">URS</th>
               <th className="text-center">EVENT NAME</th>
               <th className="text-center">START DATE & TIME</th>
               <th className="text-center">USER</th>
@@ -89,7 +89,7 @@ const SuperAdminCallManagement = () => {
           <tbody>
             {upcomingMeetingsData?.map((data, index) => (
               <tr key={index}>
-                <td>{data?.title}</td>
+                <td className="text-center">{data?.title}</td>
                 <td className="text-center">{data?.event_name}</td>
                 <td className="text-center">{data?.date}</td>
                 <td className="text-center">
@@ -135,7 +135,7 @@ const SuperAdminCallManagement = () => {
         <Table responsive="md" className="call-management-data">
           <thead>
             <tr>
-              <th scope="col" className="w-50">
+              <th scope="col" className="w-50 text-center">
                 EVENT NAME
               </th>
               <th scope="col" className="w-25 text-center">
@@ -149,7 +149,7 @@ const SuperAdminCallManagement = () => {
           <tbody>
             {adminNewMeetingsData?.map((data, index) => (
               <tr key={index}>
-                <td>{data?.event_name}</td>
+                <td className="text-center">{data?.event_name}</td>
                 <td className="text-center">{data?.date}</td>
                 <td className="text-center">
                   <Button
