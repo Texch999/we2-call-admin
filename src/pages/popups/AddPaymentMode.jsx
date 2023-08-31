@@ -141,7 +141,7 @@ function AddAdminsPopup(props) {
           )}
 
           <Button
-            className="w-100 add-user-button"
+            className="w-100 add-user-button mt-3"
             onClick={() => handleAddUser()}
           >
             Submit
