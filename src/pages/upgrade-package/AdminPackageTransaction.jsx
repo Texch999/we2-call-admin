@@ -26,7 +26,7 @@ function AdminPackageTransaction() {
           >
             <div
               className={`fw-semibold btn-bg medium-font text-white text-center py-3 px-1 m-1 rounded ${
-                activeIndex === index ? "yellow-btn" : ""
+                activeIndex === index ? "yellow-border-btn" : ""
               }`}
             >
               {item.buttonName}

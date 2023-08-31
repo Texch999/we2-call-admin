@@ -69,11 +69,11 @@
 
 @media (min-width: 1201px) and (max-width: 1600px) {
   .small-font {
-    font-size: 0.8rem;
+    font-size: 0.7rem;
     font-family: "Barlow-Regular" !important;
   }
   .medium-font {
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     font-family: "Barlow-Regular" !important;
   }
   .large-font {
@@ -171,6 +171,11 @@
   color: #00143d !important;
   background-color: #fce719;
   border: none !important;
+}
+.yellow-border-btn {
+  font-weight: bold;
+  color: #fce719 !important;
+  border: 2px solid #fce719;
 }
 .match-position-table thead > tr > th {
   padding: 10px;

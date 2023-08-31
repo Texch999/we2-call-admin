@@ -203,3 +203,19 @@
   height: 5rem;
   width: 5rem;
 }
+.package-popover {
+  border-radius: 15px;
+  box-shadow: 0.3px 19px 24px 0 rgba(4, 12, 38, 0.7);
+  border: solid 1px #284993;
+  background-color: #142f6a;
+  margin-top: -9rem;
+  margin-left: 24rem;
+  position: relative;
+}
+.monthly-btn {
+  background-color: #1f4088;
+}
+.package-close {
+  margin-top: -1rem;
+  margin-right: -1rem;
+}
