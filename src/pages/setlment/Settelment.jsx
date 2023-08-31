@@ -211,8 +211,9 @@ function Settelment() {
       <PaymentSettelmentPopup
         showPaymentModal={showPaymentModal}
         setShowPaymentModal={setShowPaymentModal}
-        match={`Match : IND vs SL`}
-        clientName="Client Name"
+        buttonOne={`Match : IND vs SL`}
+        role="Client Name"
+        buttonTwo={`Date : 27/07/23`}
       />
     </div>
   );
