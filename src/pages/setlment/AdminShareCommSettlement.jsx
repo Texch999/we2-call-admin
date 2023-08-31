@@ -90,7 +90,7 @@ const AdminShareCommSettlement = () => {
         <Table responsive="md" className="call-management-data">
           <thead>
             <tr>
-              <th>ADMIN NAME</th>
+              <th className="text-center">ADMIN NAME</th>
               <th className="text-center">ROLE/POSITION</th>
               <th className="text-center">AMOUNT</th>
               <th className="text-center">CREDIT/DEBIT</th>
@@ -101,7 +101,7 @@ const AdminShareCommSettlement = () => {
           <tbody>
             {adminShareCommSettlementData?.map((data, index) => (
               <tr key={index}>
-                <td>{data?.admin_name}</td>
+                <td className="text-center">{data?.admin_name}</td>
                 <td className="text-center">{data?.role}</td>
                 <td className="text-center">
                   {parseFloat(data?.amount).toFixed(2)}
@@ -129,7 +129,7 @@ const AdminShareCommSettlement = () => {
           </tbody>
           <tfoot>
             <tr>
-              <th colSpan={2}>TOTAL</th>
+              <th colSpan={2} className="text-center">TOTAL</th>
         
               <th className="text-center clr-green">
                 {adminShareCommSettlementData
