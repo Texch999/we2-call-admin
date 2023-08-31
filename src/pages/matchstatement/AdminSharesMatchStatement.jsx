@@ -199,7 +199,7 @@ const AdminSharesMatchStatement = () => {
         <Table responsive="md" className="call-management-data">
           <thead>
             <tr>
-              <th>DATE & TIME</th>
+              <th className="text-center">DATE & TIME</th>
               <th className="text-center">SERIES NAME</th>
               <th className="text-center">TEAM NAME</th>
               <th className="text-center">MATCH PLACE</th>
@@ -210,7 +210,7 @@ const AdminSharesMatchStatement = () => {
           <tbody>
             {adminSharesMatchStatementData?.map((data, index) => (
               <tr key={index}>
-                <td>{data?.date_time}</td>
+                <td className="text-center">{data?.date_time}</td>
                 <td className="text-center">{data?.series_name}</td>
                 <td className="text-center">{data?.team_name}</td>
                 <td className="text-center">{data?.match_place}</td>
@@ -226,7 +226,7 @@ const AdminSharesMatchStatement = () => {
           </tbody>
           <tfoot>
             <tr>
-              <th colSpan={5}>TOTAL</th>
+              <th colSpan={5} className="text-center">TOTAL</th>
 
               <th className="text-center clr-green">
                 {adminSharesMatchStatementData
