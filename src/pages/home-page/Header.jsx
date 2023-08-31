@@ -24,8 +24,10 @@ import { BsFillCreditCard2BackFill } from "react-icons/bs";
 import { MdOutlinePrivacyTip } from "react-icons/md";
 import ResetPassword from "../log-in/ResetPassword";
 import MatchSubmitPopup from "../match-popups/MatchSubmitPopup";
+import AddPaymentMode from "../popups/AddPaymentMode";
 
 function Header() {
+  const [modalShow, setModalShow] = useState(false);
   const [currentDateTime, setCurrentDateTime] = useState(new Date());
   useEffect(() => {
     const interval = setInterval(() => {
@@ -115,6 +117,7 @@ function Header() {
     {
       icon: <BsFillCreditCard2BackFill className="mr-10" />,
       name: "Add Payment Gateway",
+      onClick: "onClick",
     },
     {
       icon: <MdOutlinePrivacyTip className="mr-10" />,
@@ -209,6 +212,11 @@ function Header() {
     setMoreType(item.name);
     setMoreOpen(false);
     navigate(item.path);
+    {
+      if (item.onClick) {
+        setModalShow(true);
+      }
+    }
   };
   const handleSelectReports = (e) => {
     setReportsType(e.name);
@@ -348,6 +356,13 @@ function Header() {
         state={resetPasswordSubmit}
         setState={setResetPasswordSubmit}
       />
+      {modalShow && (
+        <AddPaymentMode
+          show={modalShow}
+          onHide={() => setModalShow(false)}
+     
+        />
+      )}
     </div>
   );
 }
