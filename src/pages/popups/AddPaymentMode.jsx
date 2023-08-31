@@ -3,6 +3,7 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { Images } from "../../images";
 import { useState } from "react";
+import MatchSubmitPopup from "../match-popups/MatchSubmitPopup";
 
 function AddAdminsPopup(props) {
   const paymentDetailsInputFields = [
@@ -41,12 +42,18 @@ function AddAdminsPopup(props) {
   ];
   const [activeType, setActiveType] = useState("NEFT / RTGS");
   const paymentTypes = ["NEFT / RTGS", "QR Code", "UPI"];
-  const handleAddUser = () => {
-    props.onHide();
-  };
+  const [paymentSubmitPopup, setPaymentSubmitPopup] = useState(false);
+  const [paymentPopup, setPaymentPopup] = useState(false);
+//   const handleAddUser = () => {
+//     props.onHide();
+//   };
   const handlePaymentType = (type) => {
     setActiveType(type);
     console.log(type)
+  };
+  const handlePaymentSubmitPopupOpen = () => {
+    setPaymentSubmitPopup(true);
+    // setShowPaymentModal(false);
   };
   return (
     <Modal {...props} centered className="add-user-modal">
@@ -142,12 +149,18 @@ function AddAdminsPopup(props) {
 
           <Button
             className="w-100 add-user-button mt-3"
-            onClick={() => handleAddUser()}
+            onClick={() => handlePaymentSubmitPopupOpen()}
           >
             Submit
           </Button>
         </Form>
       </Modal.Body>
+      {paymentSubmitPopup && <MatchSubmitPopup
+        header={"Payment Successfully Completed"}
+        state={paymentPopup}
+        setState={setPaymentPopup}
+      />}
+      
     </Modal>
   );
 }
