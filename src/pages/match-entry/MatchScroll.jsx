@@ -10,15 +10,18 @@ function MatchScroll() {
   const handleActiveIndex = (index) => {
     setActiveIndex(index);
   };
-  const handleMatchEntry = () => {
-    setMatchEntry(true);
-    setFancyEntry(false);
-    navigate("/match-entry");
-  };
-  const handleFancyEntry = () => {
+  const handleFancy = () => {
     setFancyEntry(true);
     setMatchEntry(false);
+  };
+  const handleMatchEntry = () => {
+    navigate("/match-entry");
+    setMatchEntry(true);
+    setFancyEntry(false);
+  };
+  const handleFancyEntry = () => {
     navigate("/fancy-entry");
+    handleFancy();
   };
   const [scrollPosition, setScrollPosition] = useState(0);
   const scrollLeft = () => {
@@ -141,7 +144,7 @@ function MatchScroll() {
               </div>
             </div>
             <div className="col-8 d-flex align-items-center justify-content-end">
-              <div className="w-80 d-flex align-items-center justify-content-between">
+              <div className="match-details-width d-flex align-items-center justify-content-between">
                 <div className="text-center small-font text-white p-1 px-3 match-bg rounded-pill w-fit-content">
                   Date : 31/07/2023
                 </div>

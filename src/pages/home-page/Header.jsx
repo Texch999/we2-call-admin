@@ -25,10 +25,20 @@ import { MdOutlinePrivacyTip } from "react-icons/md";
 import ResetPassword from "../log-in/ResetPassword";
 import MatchSubmitPopup from "../match-popups/MatchSubmitPopup";
 import AddPaymentMode from "../popups/AddPaymentMode";
+import TermsAndConditionsPopup from "../popups/TermsAndConditionsPopup";
+import SharePopup from "../popups/SharePopup";
 
 function Header() {
   const [modalShow, setModalShow] = useState(false);
   const [currentDateTime, setCurrentDateTime] = useState(new Date());
+  const [termsPopup, setTermsPopup] = useState(false);
+  const [sharePopup, setSharePopup] = useState(false);
+  const handleTermsPopup = () => {
+    setTermsPopup(true);
+  };
+  const handleSharePopup = () => {
+    setSharePopup(true);
+  };
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentDateTime(new Date());
@@ -229,15 +239,16 @@ function Header() {
   return (
     <div className="agent-header d-flex align-items">
       <div className="w-100 flex-align-center d-flex h-10vh mb-1">
-        <div className="header-logo ">
+        <div className="header-logo">
           <img
+            className="p-2"
             src={Images.header_logo}
             alt="we2-call-logo"
             onClick={() => handleLoginPopup()}
           />
         </div>
         <div className="date-div mt-2">
-          <p className="meetings-heading medium-font">
+          <p className="meetings-heading medium-font p-2">
             {currentDateTime.toLocaleString()}
           </p>
         </div>
@@ -325,10 +336,13 @@ function Header() {
             <div className="meetings-heading header-font">SriAgent</div>
           </div>
           <div className="d-flex align-items-center w-50 justify-content-around">
-            <div className=" icons-share me-2 ms-2">
+            <div
+              className=" icons-share me-2 ms-2"
+              onClick={() => handleSharePopup()}
+            >
               <AiOutlineShareAlt />
             </div>
-            <div className=" icons-share">
+            <div className=" icons-share" onClick={() => handleTermsPopup()}>
               <AiOutlineSetting />
             </div>
           </div>
@@ -356,12 +370,10 @@ function Header() {
         state={resetPasswordSubmit}
         setState={setResetPasswordSubmit}
       />
+      <TermsAndConditionsPopup state={termsPopup} setState={setTermsPopup} />
+      <SharePopup state={sharePopup} setState={setSharePopup} />
       {modalShow && (
-        <AddPaymentMode
-          show={modalShow}
-          onHide={() => setModalShow(false)}
-     
-        />
+        <AddPaymentMode show={modalShow} onHide={() => setModalShow(false)} />
       )}
     </div>
   );

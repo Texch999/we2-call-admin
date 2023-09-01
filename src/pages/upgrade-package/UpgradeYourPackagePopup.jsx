@@ -1,8 +1,8 @@
-import { Col, Container, Modal, Row } from "react-bootstrap";
-import { Button, Table, Dropdown } from "react-bootstrap";
+import { Modal } from "react-bootstrap";
+import { Dropdown } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useState } from "react";
-import { FaPlus, FaMinus, FaArrowRight } from "react-icons/fa6";
+import { FaPlus, FaMinus } from "react-icons/fa6";
 import { RxCrossCircled } from "react-icons/rx";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import AddPaymentMode from "../popups/AddPaymentMode";

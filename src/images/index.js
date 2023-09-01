@@ -64,5 +64,6 @@ export const Images = {
   transactionIcon: "./assets/transaction.png",
   bankIcon: "./assets/bank.png",
   uploadIcon: "./assets/upload.png",
-  callIcon:"./assets/callIcon.png"
+  callIcon: "./assets/callIcon.png",
+  TermsImage: "./assets/terms_image.png",
 };

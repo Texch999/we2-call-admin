@@ -47,6 +47,9 @@
   .meet-box-height {
     height: 50vh !important;
   }
+  .match-details-width {
+    width: 95%;
+  }
 }
 
 @media (min-width: 769px) and (max-width: 1200px) {
@@ -64,6 +67,9 @@
   }
   .meet-box-height {
     height: 70vh !important;
+  }
+  .match-details-width {
+    width: 90%;
   }
 }
 
@@ -83,6 +89,9 @@
   .meet-box-height {
     height: 65vh !important;
   }
+  .match-details-width {
+    width: 80%;
+  }
 }
 @media (min-width: 1601px) {
   .small-font {
@@ -99,6 +108,9 @@
   }
   .meet-box-height {
     height: 30vh !important;
+  }
+  .match-details-width {
+    width: 80%;
   }
 }
 
