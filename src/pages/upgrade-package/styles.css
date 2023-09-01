@@ -275,3 +275,6 @@
   top: 45%;
   font-size: 30px;
 }
+.package-specify-input::placeholder {
+  font-size: 10px;
+}

@@ -195,7 +195,7 @@ function AdminSaleTicketPopup(props) {
               className="user-dropdown-toggle custom-button-drop small-font mt-2"
             >
               <Dropdown.Toggle>
-                <div className="d-flex align-itens-center justify-content-between p-1">
+                <div className="d-flex align-itens-center justify-content-between">
                   <div>Select Rejection Reason</div>
                   <RiArrowDropDownLine
                     style={{ fontSize: "20px", float: "right" }}
@@ -217,9 +217,10 @@ function AdminSaleTicketPopup(props) {
             </Dropdown>
             <div className="d-flex flex-row w-100 custom-select small-font btn-bg rounded all-none  align-items-center justify-content-between my-2 px-2 py-2">
               <input
+      
                 type="text"
                 placeholder="Specify Other Reason"
-                className="w-100 custom-select small-font btn-bg rounded all-none p-2 small-font textinput "
+                className="package-specify-input w-100 custom-select small-font btn-bg rounded all-none"
               ></input>
             </div>
             <div className="d-flex justify-content-between mt-3 w-100">
