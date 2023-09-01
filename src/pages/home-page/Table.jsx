@@ -1,6 +1,6 @@
 import React from "react";
 
-function Table(props) {
+function  Table(props) {
   const { data, columns, tableClassname } = props;
   return (
     <table
