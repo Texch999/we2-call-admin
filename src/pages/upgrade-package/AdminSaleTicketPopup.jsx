@@ -222,28 +222,22 @@ function AdminSaleTicketPopup(props) {
                 className="w-100 custom-select small-font btn-bg rounded all-none p-2 small-font textinput "
               ></input>
             </div>
-            <Container fluid className="mt-2">
-              <Row>
-                <Col className="ps-0">
-                  <button
-                    type="submit"
-                    className="submit-button mt-2 small-font p-2 rounded all-none mb-2"
-                    onClick={() => handleAcceptClickPopupOpen()}
-                  >
-                    Approved
-                  </button>
-                </Col>
-                <Col className="pe-0">
-                  <button
-                    type="submit"
-                    className="submit-button mt-2 small-font p-2 rounded all-none w-100 mb-2"
-                    onClick={() => handleAdminTicketPopupClose()}
-                  >
-                    Rejected
-                  </button>
-                </Col>
-              </Row>
-            </Container>
+            <div className="d-flex justify-content-between mt-3 w-100">
+              <button
+                type="submit"
+                className="submit-button  small-font rounded all-none px-4 py-2 mx-2 w-50"
+                onClick={() => handleAcceptClickPopupOpen()}
+              >
+                Approved
+              </button>
+              <button
+                type="submit"
+                className="submit-button  small-font rounded all-none px-4 py-2 mx-2 w-50"
+                onClick={() => handleAdminTicketPopupClose()}
+              >
+                Rejected
+              </button>
+            </div>
           </div>
         </Modal.Header>
       </Modal>
