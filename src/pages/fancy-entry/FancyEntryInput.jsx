@@ -11,7 +11,7 @@ function FancyEntryInput() {
       <div className="row">
         <div className="col-1">
           <div>
-            <div className="medium-font">Inn</div>
+            <div className="medium-font px-1">Inn</div>
             <select className="w-100 custom-select medium-font btn-bg rounded all-none p-2">
               <option>Select</option>
               <option>1st Inn</option>
@@ -21,7 +21,7 @@ function FancyEntryInput() {
         </div>
         <div className="col-1">
           <div>
-            <div className="medium-font">S.No:</div>
+            <div className="medium-font px-1">S.No:</div>
             <input
               type="number"
               className="w-100 medium-font btn-bg rounded all-none p-2"
@@ -31,7 +31,7 @@ function FancyEntryInput() {
         </div>
         <div className="col-1">
           <div>
-            <div className="medium-font">Rate</div>
+            <div className="medium-font px-1">Rate</div>
             <input
               type="number"
               defaultValue={1.}
@@ -42,7 +42,7 @@ function FancyEntryInput() {
         </div>
         <div className="col-1">
           <div>
-            <div className="medium-font">Overs</div>
+            <div className="medium-font px-1">Overs</div>
             <select className="w-100 custom-select medium-font btn-bg rounded all-none p-2">
               <option>Select</option>
               <option>10 Overs</option>
@@ -52,7 +52,7 @@ function FancyEntryInput() {
         </div>
         <div className="col">
           <div>
-            <div className="medium-font">Team</div>
+            <div className="medium-font px-1">Team</div>
             <input
               type="text"
               className="w-100 medium-font btn-bg rounded all-none p-2"
@@ -62,7 +62,7 @@ function FancyEntryInput() {
         </div>
         <div className="col">
           <div>
-            <div className="medium-font">Amount</div>
+            <div className="medium-font px-1">Amount</div>
             <input
               type="number"
               className="w-100 medium-font btn-bg rounded all-none p-2"
@@ -72,7 +72,7 @@ function FancyEntryInput() {
         </div>
         <div className="col-1">
           <div>
-            <div className="medium-font">Y/N</div>
+            <div className="medium-font px-1">Y/N</div>
             <select className="w-100 custom-select medium-font btn-bg rounded all-none p-2">
               <option>Select</option>
               <option>Y</option>
@@ -82,7 +82,7 @@ function FancyEntryInput() {
         </div>
         <div className="col">
           <div>
-            <div className="medium-font">Client Name</div>
+            <div className="medium-font px-1">Client Name</div>
             <select className="w-100 custom-select medium-font btn-bg rounded all-none p-2">
               <option>Client Name</option>
               <option>Name 1</option>

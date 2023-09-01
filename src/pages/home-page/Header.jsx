@@ -69,12 +69,12 @@ function Header() {
   ];
   const MatchEntryDropdown = [
     {
-      icon: <LiaFolderSolid className="mr-10" />,
+      icon: <LiaFolderSolid className="mr-10 d-flex large-font" />,
       name: "Match Entry",
       path: "/match-entry",
     },
     {
-      icon: <AiFillWarning className="mr-10" />,
+      icon: <AiFillWarning className="mr-10 d-flex large-font" />,
       name: "Share Risk",
       path: "/share-risk-live-matches",
     },
@@ -82,42 +82,42 @@ function Header() {
 
   const ReportsEntryDropdown = [
     {
-      icon: <BiPhoneCall className="mr-10" />,
+      icon: <BiPhoneCall className="mr-10 d-flex large-font" />,
       name: "Call History",
       path: "/call-history",
     },
     {
-      icon: <FaRegHandshake className="mr-10" />,
+      icon: <FaRegHandshake className="mr-10 d-flex large-font" />,
       name: "Call Settlement",
       path: "/call-settelment",
     },
     {
-      icon: <FaRegAddressBook className="mr-10" />,
+      icon: <FaRegAddressBook className="mr-10 d-flex large-font" />,
       name: "Call Statement",
       path: "/call-statement",
     },
     {
-      icon: <TbReportSearch className="mr-10" />,
+      icon: <TbReportSearch className="mr-10 d-flex large-font" />,
       name: "Match  Statement",
       path: "/match-statement",
     },
     {
-      icon: <TbReport className="mr-10" />,
+      icon: <TbReport className="mr-10 d-flex large-font" />,
       name: "One Page Reports",
       path: "/report-page",
     },
     {
-      icon: <FaRegHandshake className="mr-10" />,
+      icon: <FaRegHandshake className="mr-10 d-flex large-font" />,
       name: "Settlement",
       path: "/settelment",
     },
     {
-      icon: <FaHandshake className="mr-10" />,
+      icon: <FaHandshake className="mr-10 d-flex large-font" />,
       name: "Settlement Statement",
       path: "/settelment-statement",
     },
     {
-      icon: <GiArmorUpgrade className="mr-10" />,
+      icon: <GiArmorUpgrade className="mr-10 d-flex large-font" />,
       name: "Upgrade Packages",
       path: "/upgrade-package",
     },
@@ -125,52 +125,52 @@ function Header() {
 
   const moreDropdown = [
     {
-      icon: <BsFillCreditCard2BackFill className="mr-10" />,
+      icon: <BsFillCreditCard2BackFill className="mr-10 d-flex large-font" />,
       name: "Add Payment Gateway",
       onClick: "onClick",
     },
     {
-      icon: <MdOutlinePrivacyTip className="mr-10" />,
+      icon: <MdOutlinePrivacyTip className="mr-10 d-flex large-font" />,
       name: "Privacy Policy",
       path: "/privacy-policy",
     },
     {
-      icon: <MdOutlinePrivacyTip className="mr-10" />,
+      icon: <MdOutlinePrivacyTip className="mr-10 d-flex large-font" />,
       name: "Admin One Page Report",
       path: "/admin-one-page-report",
     },
     {
-      icon: <MdOutlinePrivacyTip className="mr-10" />,
+      icon: <MdOutlinePrivacyTip className="mr-10 d-flex large-font" />,
       name: "Admin Share Comm Settlement",
       path: "/admin-share-comm-settlement",
     },
     {
-      icon: <MdOutlinePrivacyTip className="mr-10" />,
+      icon: <MdOutlinePrivacyTip className="mr-10 d-flex large-font" />,
       name: "Call Management",
       path: "/call-management",
     },
     {
-      icon: <MdOutlinePrivacyTip className="mr-10" />,
+      icon: <MdOutlinePrivacyTip className="mr-10 d-flex large-font" />,
       name: "Super Admin Call Management",
       path: "/super-admin-call-management",
     },
     {
-      icon: <MdOutlinePrivacyTip className="mr-10" />,
+      icon: <MdOutlinePrivacyTip className="mr-10 d-flex large-font" />,
       name: "Share Risk live mathces",
       path: "/share-risk-live-matches",
     },
     {
-      icon: <MdOutlinePrivacyTip className="mr-10" />,
+      icon: <MdOutlinePrivacyTip className="mr-10 d-flex large-font" />,
       name: "Admin Share Match Statement",
       path: "/admin-share-match-statement",
     },
     {
-      icon: <MdOutlinePrivacyTip className="mr-10" />,
+      icon: <MdOutlinePrivacyTip className="mr-10 d-flex large-font" />,
       name: "Add Users",
       path: "/add-users",
     },
     {
-      icon: <MdOutlinePrivacyTip className="mr-10" />,
+      icon: <MdOutlinePrivacyTip className="mr-10 d-flex large-font" />,
       name: "Add Admins",
       path: "/add-admins",
     },

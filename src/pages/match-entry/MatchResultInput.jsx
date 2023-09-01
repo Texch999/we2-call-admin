@@ -16,7 +16,7 @@ function MatchResultInput() {
       <div className="row">
         <div className="col">
           <div>
-            <div className="medium-font">Sports Name</div>
+            <div className="medium-font px-1">Sports Name</div>
             <input
               type="text"
               className="w-100 medium-font btn-bg rounded all-none p-2"
@@ -26,7 +26,7 @@ function MatchResultInput() {
         </div>
         <div className="col">
           <div>
-            <div className="medium-font">Series Name</div>
+            <div className="medium-font px-1">Series Name</div>
             <input
               type="text"
               className="w-100 medium-font btn-bg rounded all-none p-2"
@@ -36,7 +36,7 @@ function MatchResultInput() {
         </div>
         <div className="col">
           <div>
-            <div className="medium-font">Win Team</div>
+            <div className="medium-font px-1">Win Team</div>
             <select className="w-100 custom-select medium-font btn-bg rounded all-none p-2">
               <option>Select</option>
               <option>Team 1</option>
@@ -46,7 +46,7 @@ function MatchResultInput() {
         </div>
         <div className="col">
           <div>
-            <div className="medium-font">Result Type</div>
+            <div className="medium-font px-1">Result Type</div>
             <select className="w-100 custom-select medium-font btn-bg rounded all-none p-2">
               <option>Select</option>
               <option>Win</option>

@@ -17,7 +17,7 @@ function FancyResultInput() {
       <div className="row w-75">
         <div className="col-2">
           <div>
-            <div className="medium-font">Inn</div>
+            <div className="medium-font px-1">Inn</div>
             <select className="w-100 custom-select medium-font btn-bg rounded all-none p-2">
               <option>Select</option>
               <option>1st Inn</option>
@@ -27,7 +27,7 @@ function FancyResultInput() {
         </div>
         <div className="col">
           <div>
-            <div className="medium-font">Overs</div>
+            <div className="medium-font px-1">Overs</div>
             <select className="w-100 custom-select medium-font btn-bg rounded all-none p-2">
               <option>Select</option>
               <option>10 Overs</option>
@@ -37,7 +37,7 @@ function FancyResultInput() {
         </div>
         <div className="col">
           <div>
-            <div className="medium-font">Result Runs</div>
+            <div className="medium-font px-1">Result Runs</div>
             <input
               type="number"
               className="w-100 medium-font btn-bg rounded all-none p-2"

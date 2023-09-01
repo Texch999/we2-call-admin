@@ -204,6 +204,7 @@
 }
 .head-dropdown div:hover {
   border: 2px solid #fce719;
+  padding: 8px 8px !important;
 }
 
 .header-menu {
