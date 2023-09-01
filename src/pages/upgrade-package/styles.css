@@ -259,3 +259,19 @@
 .custom-button-drop .btn:hover {
   background-color: #112a5e !important;
 }
+.clr-orange {
+  background-color: #f3a22f;
+  color: white !important;
+}
+.textinput {
+  font-size: 12px;
+}
+.textinput ::placeholder {
+  font-size: 12px !important;
+}
+.zoom-icon {
+  position: absolute;
+  right: 0%;
+  top: 45%;
+  font-size: 30px;
+}

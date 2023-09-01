@@ -149,6 +149,7 @@ function OnePageReport() {
           </tr>
         </tfoot>
       </table>
+      
       <OnePagePopup
         showReportPopup={showReportPopup}
         setShowReportPopup={setShowReportPopup}
