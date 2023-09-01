@@ -24,6 +24,7 @@
 .completed-btn {
   color: #04c85e;
   background-color: #003542;
+  font-family: "Barlow-Medium" I !important;
 }
 .reject-btn {
   color: #fa3333;
