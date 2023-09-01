@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, Table } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { AiFillFileText } from "react-icons/ai";
+import PaymentSettelmentPopup from "./PaymentSettelmentPopup";
 
 const AdminShareCommSettlement = () => {
   const adminShareSummaryData = [
@@ -16,7 +17,7 @@ const AdminShareCommSettlement = () => {
       amount: 1000000.0,
     },
     {
-      title: "Total Settled Bal C/D",
+      title: "UL/Platform Comm Summary",
       balance_title: "Total Balance",
       amount: 1000000.0,
     },
@@ -59,7 +60,10 @@ const AdminShareCommSettlement = () => {
       balance: 1000000.0,
     },
   ];
-
+  const [showPaymentModal, setShowPaymentModal] = useState(false);
+  const handlePaymentModal = () => {
+    setShowPaymentModal(true);
+  };
   return (
     <div className="p-4">
       <div>
@@ -90,7 +94,7 @@ const AdminShareCommSettlement = () => {
         <Table responsive="md" className="call-management-data">
           <thead>
             <tr>
-              <th>ADMIN NAME</th>
+              <th className="text-center">ADMIN NAME</th>
               <th className="text-center">ROLE/POSITION</th>
               <th className="text-center">AMOUNT</th>
               <th className="text-center">CREDIT/DEBIT</th>
@@ -101,7 +105,7 @@ const AdminShareCommSettlement = () => {
           <tbody>
             {adminShareCommSettlementData?.map((data, index) => (
               <tr key={index}>
-                <td>{data?.admin_name}</td>
+                <td className="text-center">{data?.admin_name}</td>
                 <td className="text-center">{data?.role}</td>
                 <td className="text-center">
                   {parseFloat(data?.amount).toFixed(2)}
@@ -120,6 +124,7 @@ const AdminShareCommSettlement = () => {
                   <Button
                     type="button"
                     className="text-warning rounded-circle border-0 settlement-file-button"
+                    onClick={() => handlePaymentModal()}
                   >
                     <AiFillFileText size={18} />
                   </Button>
@@ -129,8 +134,10 @@ const AdminShareCommSettlement = () => {
           </tbody>
           <tfoot>
             <tr>
-              <th colSpan={2}>TOTAL</th>
-        
+              <th colSpan={2} className="text-center">
+                TOTAL
+              </th>
+
               <th className="text-center clr-green">
                 {adminShareCommSettlementData
                   .reduce((total, data) => total + parseFloat(data?.amount), 0)
@@ -154,6 +161,13 @@ const AdminShareCommSettlement = () => {
               <th className="text-center"></th>
             </tr>
           </tfoot>
+          <PaymentSettelmentPopup
+            showPaymentModal={showPaymentModal}
+            setShowPaymentModal={setShowPaymentModal}
+            buttonOne={`Date : 27/07/23`}
+            role="Admins Name"
+            buttonTwo={`Time : 17:46:00 PM`}
+          />
         </Table>
       </div>
     </div>

@@ -12,10 +12,10 @@
 .clr-green {
   color: #04c85e !important;
 }
-.custom-icon {
+/* .custom-icon {
   font-size: 30px;
-  color: yellow;
-}
+  color: #fce719 ;
+} */
 .clr-yellow {
   color: #fce719 !important;
 }
@@ -30,7 +30,7 @@
   }
   .custom-icon {
     font-size: 10px;
-    color: yellow;
+    color:  #fce719 ;
   }
 }
 
@@ -40,7 +40,7 @@
   }
   .custom-icon {
     font-size: 20px;
-    color: yellow;
+    color: #fce719 ;
   }
 }
 
@@ -50,7 +50,7 @@
   }
   .custom-icon {
     font-size: 30px;
-    color: yellow;
+    color: #fce719 ;
   }
 }
 .admin-account-summary-container {

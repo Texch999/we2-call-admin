@@ -14,13 +14,11 @@ function MatchScroll() {
     setMatchEntry(true);
     setFancyEntry(false);
     navigate("/match-entry");
-    // console.log(matchEntry, "Match");
   };
   const handleFancyEntry = () => {
     setFancyEntry(true);
     setMatchEntry(false);
     navigate("/fancy-entry");
-    // console.log(fancyEntry, "Fancy");
   };
   const [scrollPosition, setScrollPosition] = useState(0);
   const scrollLeft = () => {
@@ -99,7 +97,6 @@ function MatchScroll() {
                   activeIndex ? "yellow-border" : ""
                 }`}
                 onClick={() => handleActiveIndex(index)}
-                // className="btn-bg d-flex align-items-center justify-content-evenly p-2 m-1 rounded yellow-border"
               >
                 <span className="d-flex m-1">
                   <FaTrophy className="fs-5 yellow-clr" />
@@ -144,31 +141,21 @@ function MatchScroll() {
               </div>
             </div>
             <div className="col-8 d-flex align-items-center justify-content-end">
-              <div className="row d-flex align-items-center w-85">
-                <div className="col">
-                  <div className="text-center small-font text-white p-1 py-3 match-bg rounded-pill">
-                    Date : 31/07/2023
-                  </div>
+              <div className="w-80 d-flex align-items-center justify-content-between">
+                <div className="text-center small-font text-white p-1 px-3 match-bg rounded-pill w-fit-content">
+                  Date : 31/07/2023
                 </div>
-                <div className="col">
-                  <div className="text-center small-font text-white p-1 py-3 match-bg rounded-pill">
-                    Time : 11:58:00 AM
-                  </div>
+                <div className="text-center small-font text-white p-1 px-3 match-bg rounded-pill w-fit-content">
+                  Time : 11:58:00 AM
                 </div>
-                <div className="col">
-                  <div className="text-center small-font text-white p-1 py-3 match-bg rounded-pill">
-                    Team : IND vs PAK
-                  </div>
+                <div className="text-center small-font text-white p-1 px-3 match-bg rounded-pill w-fit-content">
+                  Team : IND vs PAK
                 </div>
-                <div className="col">
-                  <div className="text-center small-font text-white p-1 py-3 match-bg rounded-pill">
-                    Series : T20 WC
-                  </div>
+                <div className="text-center small-font text-white p-1 px-3 match-bg rounded-pill w-fit-content">
+                  Series : T20 WC
                 </div>
-                <div className="col">
-                  <div className="text-center small-font text-white p-1 py-3 match-bg rounded-pill">
-                    Gender : Male
-                  </div>
+                <div className="text-center small-font text-white p-1 px-3 match-bg rounded-pill w-fit-content">
+                  Gender : Male
                 </div>
               </div>
             </div>

@@ -59,8 +59,8 @@ const CallManagement = () => {
       status: "Join",
     },
   ];
-  const meetingType = ["Personal", "Professinoal"];
-  const addusersData=["select","animesh","sri","jayanth"]
+  const meetingType = ["Personal", "Professional"];
+  const addusersData = ["select", "animesh", "sri", "jayanth"];
   return (
     <div className="p-4">
       <div className="d-flex align-items-center justify-content-between">
@@ -78,7 +78,7 @@ const CallManagement = () => {
         <Table responsive="md" className="call-management-data">
           <thead>
             <tr>
-              <th>URS</th>
+              <th className="text-center">URS</th>
               <th className="text-center">EVENT NAME</th>
               <th className="text-center">START DATE & TIME</th>
               <th className="text-center">USER</th>
@@ -89,7 +89,7 @@ const CallManagement = () => {
           <tbody>
             {upcomingMeetingsData?.map((data, index) => (
               <tr key={index}>
-                <td>{data?.title}</td>
+                <td className="text-center">{data?.title}</td>
                 <td className="text-center">{data?.event_name}</td>
                 <td className="text-center">{data?.date}</td>
                 <td className="text-center">
@@ -135,7 +135,7 @@ const CallManagement = () => {
         <Table responsive="md" className="call-management-data">
           <thead>
             <tr>
-              <th>UL</th>
+              <th className="text-center">UL</th>
               <th className="text-center">EVENT NAME</th>
               <th className="text-center">START DATE & TIME</th>
               <th className="text-center">USER</th>
@@ -146,7 +146,7 @@ const CallManagement = () => {
           <tbody>
             {ulNewMeetingsData?.map((data, index) => (
               <tr key={index}>
-                <td>{data?.title}</td>
+                <td className="text-center">{data?.title}</td>
                 <td className="text-center">{data?.event_name}</td>
                 <td className="text-center">{data?.date}</td>
                 <td className="text-center">{data?.user}</td>

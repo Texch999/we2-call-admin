@@ -203,3 +203,59 @@
   height: 5rem;
   width: 5rem;
 }
+.package-popover {
+  border-radius: 15px;
+  box-shadow: 0.3px 19px 24px 0 rgba(4, 12, 38, 0.7);
+  border: solid 1px #284993;
+  background-color: #142f6a;
+  margin-top: -9rem;
+  margin-left: 24rem;
+  position: relative;
+}
+.monthly-btn {
+  background-color: #1f4088;
+}
+.package-close {
+  margin-top: -1rem;
+  margin-right: -1rem;
+}
+.custom-upgrade-select {
+  /* Apply styling to the select container */
+  color: #ffffff;
+  padding: 5px;
+}
+
+.custom-upgrade-select option {
+  width: 100% !important;
+  background-color: #183673;
+  color: #ffffff;
+  border: 2px solid red;
+}
+.custom-button-drop button {
+  background-color: #112a5e;
+  text-align: left;
+  width: 100%;
+}
+.custom-menu-item {
+  position: absolute;
+  inset: 0px auto auto 0px;
+  transform: translate3d(0px, 43px, 0px);
+  width: 100%;
+}
+.custom-menu-item .dropdown-item {
+  background-color: #112a5e;
+  border: 1px solid 112a5e;
+}
+.w-20 {
+  width: 20%;
+}
+.custom-menu-item .btn-check:checked + .btn,
+.btn.active,
+.btn.show,
+.btn:first-child:active,
+:not(.btn-check) + .btn:active .btn:hover {
+  background-color: #112a5e;
+}
+.custom-button-drop .btn:hover {
+  background-color: #112a5e !important;
+}

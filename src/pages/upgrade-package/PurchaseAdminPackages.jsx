@@ -1,9 +1,16 @@
+import { useState } from "react";
 import Table from "../home-page/Table";
 import { Images } from "./../../images/index";
 import { FaPlus, FaMinus, FaArrowRight } from "react-icons/fa6";
 import { PiHandbagBold } from "react-icons/pi";
+import { IoMdCloseCircleOutline } from "react-icons/io";
+import PackageAvailablePopup from "./PackageAvailablePopup";
 
 function PurchaseAdminPackages() {
+  const [packageAvailablePopup, setPackageAvailablePopup] = useState(false);
+  const handlePackageAvailable = () => {
+    setPackageAvailablePopup(!packageAvailablePopup);
+  };
   const adminPackageTable = "admin-package-table";
   const PACKAGES_DATA = [
     {
@@ -17,7 +24,7 @@ function PurchaseAdminPackages() {
           <div className="px-2">Standard</div>
         </div>
       ),
-      purchased: <div>2</div>,
+      purchased: <div onClick={() => handlePackageAvailable()}>2</div>,
       used: <div className="yellow-clr">2</div>,
       available: <div className="green-color">0</div>,
     },
@@ -388,6 +395,11 @@ function PurchaseAdminPackages() {
             columns={PACKAGES_HEADING}
             tableClassname={adminPackageTable}
           />
+          {packageAvailablePopup && (
+            <PackageAvailablePopup
+              handlePackageAvailable={handlePackageAvailable}
+            />
+          )}
         </div>
         <div className="col">
           <Table
