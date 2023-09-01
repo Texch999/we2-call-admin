@@ -152,7 +152,7 @@ function SportsManagement() {
       ),
     },
   ];
-  const   columns = [
+  const columns = [
     { header: "Series Name", field: "seriesName" },
     { header: "Team", field: "team" },
     { header: "Sports Name", field: "sportName" },
@@ -250,7 +250,8 @@ function SportsManagement() {
             </div>
           );
         })}
-        <div className="col-5 d-flex align-items-end">
+        <div className="col-2"></div>
+        <div className="col-3 d-flex align-items-end">
           <div
             className="sport-management-input w-100 d-flex justify-content-center align-items-center bg-yellow"
             onClick={() => handleSubmitMatch()}

@@ -368,3 +368,6 @@ input::placeholder {
 option {
   height: 50px;
 }
+.pr-3{
+  padding-right: 3%;
+}

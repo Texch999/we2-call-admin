@@ -86,24 +86,22 @@ function UserManagement() {
         <div className="col-4 d-flex justify-content-between">
           <div className="w-40">
             <div>Client Type</div>
-            <div className="sport-management-input d-flex ">
-              <div className="w-90 ms-1">Enter</div>
-              <AiOutlineDown className="me-1" />
-            </div>
+            <select className="sport-management-input d-flex  w-100 sport-management-select">
+              <option className="w-90 ms-1">Client Type</option>
+            </select>
           </div>
           <div className="w-55">
             <div>Client Name</div>
-            <div className="sport-management-input d-flex w-100">
-              <div className="w-90 ms-1">Enter</div>
-              <AiOutlineDown className="me-1" />
-            </div>
+            <select className="sport-management-input d-flex  w-100 sport-management-select ">
+              <option className="w-90 ms-1">Client Name</option>
+            </select>
           </div>
         </div>
         <div className="col-3">
           <div>
             <div>Alias Name</div>
             <div className="sport-management-input d-flex ">
-              <div className="w-90 ms-1">Enter</div>
+              <input className="w-90 ms-2 " placeholder="Enter"></input>
               <AiOutlineUser />
             </div>
           </div>
@@ -114,7 +112,7 @@ function UserManagement() {
           <div className="w-70">
             <div>Select Referral</div>
             <div className="sport-management-input d-flex ">
-              <input placeholder="Enter" className="w-90" />
+              <input placeholder="Enter" className="w-90 ms-1" />
               <FaPercent className="me-1" />
             </div>
           </div>
@@ -130,39 +128,41 @@ function UserManagement() {
           <div className="w-40">
             <div>Rf Fancy Comm</div>
             <div className="sport-management-input d-flex ">
-              <div className="w-90">Enter</div>
-              <AiOutlineDown className="me-1" />
+              <input className="w-90" placeholder="Enter"></input>
+              <FaPercent className="me-1" />
             </div>
           </div>
           <div className="w-55">
             <div>Rf Comm</div>
             <div className="sport-management-input d-flex w-100">
               <div className="w-90">Enter</div>
-              <AiOutlineDown />
+              <FaPercent className="me-1" />
             </div>
           </div>
         </div>
         <div className="col-3">
           <div>
             <div>Deposit/Credit</div>
-            <div className="sport-management-input d-flex ">
-              <div className="w-90">Enter</div>
-              <AiOutlineUser />
-            </div>
+            {/* <div className="w-90">Enter</div>
+              <AiOutlineUser /> */}
+            <select className="sport-management-input d-flex  w-100 sport-management-select meetings-heading">
+              <option>Widthdraw</option>
+              <option>Deposite</option>
+            </select>
           </div>
         </div>
       </div>
       <div className="row mt-3 meetings-heading">
-        <div className="col-7">
+        <div className="col-7 pr-3">
           <div className="row gutter-1rem">
-            <div className="col-6">
+            <div className="col">
               <div>Location</div>
               <div className="sport-management-input d-flex ">
                 <div className="w-90">Enter</div>
                 <BsChevronDown />
               </div>
             </div>
-            <div className="col-6">
+            <div className="col">
               <div>Match Risk Limit</div>
               <div className="sport-management-input d-flex ">
                 <div className="w-90">Enter</div>
@@ -171,7 +171,8 @@ function UserManagement() {
             </div>
           </div>
         </div>
-        <div className="col-5 d-flex align-items-end">
+        <div className="col-2"></div>
+        <div className="col-3 d-flex align-items-end">
           <div
             className="sport-management-input w-100 d-flex justify-content-center align-items-center bg-yellow"
             onClick={() => handleSubmitUser()}
