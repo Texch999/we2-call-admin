@@ -278,3 +278,7 @@
 .package-specify-input::placeholder {
   font-size: 10px;
 }
+.package-icons{
+  width: 30px;
+  height: 30px;
+}

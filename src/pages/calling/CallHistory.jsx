@@ -6,6 +6,7 @@ import { FaRegCalendarAlt } from "react-icons/fa";
 import "react-datepicker/dist/react-datepicker.css";
 import { Col, Container, Modal, Row } from "react-bootstrap";
 import "./styles.css";
+import PackageUpgradePopup from "../popups/PackageUpgradePopup";
 function CallHistory() {
   const HISTORY_DETAILS = [
     {
@@ -190,10 +191,14 @@ function CallHistory() {
     },
   ];
   const [selectedDate, setSelectedDate] = useState(null);
+  const [showPackageUpgrade, setShowPackageUpgrade] = useState(false);
+  const handleUpgradeButton = () => {
+    setShowPackageUpgrade(true);
+  };
   return (
     <div className="p-4">
       <h5 className="meetings-heading mb-3">Call History</h5>
-      <Container fluid className="mt-2 mb-4" >
+      <Container fluid className="mt-2 mb-4">
         <Row>
           <Col className="col-lg-2 col-md-3">
             <div>
@@ -234,25 +239,15 @@ function CallHistory() {
       </Container>
       <div>
         <table className="w-100 match-position-table small-font">
-          <thead className="medium-font">
+          <thead className="medium-font text-center">
             <tr>
-              <th scope="col" className="text-center">
-                DATE & TIME
-              </th>
-              <th scope="col" className="text-center">
-                MEETING TITLE
-              </th>
-              <th scope="col" className="text-center">
-                DURATION
-              </th>
-              <th scope="col" className="text-center">
-                PRICE
-              </th>
-              <th scope="col" className="text-center">
-                STATUS
-              </th>
-              <th scope="col" className="text-center"></th>
-              <th scope="col" className="text-center"></th>
+              <th>DATE & TIME</th>
+              <th>MEETING TITLE</th>
+              <th>DURATION</th>
+              <th>PRICE</th>
+              <th>STATUS</th>
+              <th></th>
+              <th></th>
             </tr>
           </thead>
 
@@ -269,7 +264,10 @@ function CallHistory() {
                   </button>
                 </td>
                 <td className="text-center">
-                  <AiFillPlayCircle className="custom-icon" />
+                  <AiFillPlayCircle
+                    className="custom-icon"
+                    onClick={() => handleUpgradeButton()}
+                  />
                 </td>
                 <td className="text-center">
                   <RiDeleteBin6Line className="custom-icon" />
@@ -279,6 +277,10 @@ function CallHistory() {
           ))}
         </table>
       </div>
+      <PackageUpgradePopup
+        showPackageUpgrade={showPackageUpgrade}
+        setShowPackageUpgrade={setShowPackageUpgrade}
+      />
     </div>
   );
 }
