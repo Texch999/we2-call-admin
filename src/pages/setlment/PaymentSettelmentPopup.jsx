@@ -41,12 +41,12 @@ function PaymentSettelmentPopup(props) {
             <div className="p-2 rounded-top w-100 d-flex align-items-center justify-content-center">
               <div className="w-75 d-flex justify-content-center">
                 <div className="ms-1 me-1">
-                  <div className="w-100 small-font clr-yellow match-date-button p-1 rounded-pill">
+                  <div className="w-100 small-font clr-yellow match-date-button py-1 px-1 rounded-pill">
                     {buttonOne}
                   </div>
                 </div>
                 <div className="ms-1 me-1">
-                  <div className="w-100 small-font clr-yellow match-date-button p-1 rounded-pill">
+                  <div className="w-100 small-font clr-yellow match-date-button py-1 px-1 rounded-pill">
                     {buttonTwo}
                   </div>
                 </div>
@@ -55,7 +55,7 @@ function PaymentSettelmentPopup(props) {
             <div className="w-100 p-4">
               <div className="d-flex flex-column">
                 <div className="small-font mb-1">{role}*</div>
-                <div className="d-flex flex-row w-100 custom-select small-font btn-bg rounded all-none p-1 align-items-center">
+                <div className="d-flex flex-row w-100 custom-select small-font btn-bg rounded all-none align-items-center">
                   <div>
                     <img
                       src={process.env.PUBLIC_URL + "./assets/user.png"}
@@ -74,27 +74,27 @@ function PaymentSettelmentPopup(props) {
                 </div>
               </div>
 
-              <Container fluid className="mt-2">
+              <Container fluid className="my-2">
                 <Row>
                   <Col className="ps-0">
                     <input
                       type="number"
                       placeholder="Balance"
-                      className="w-100 custom-select small-font btn-bg rounded all-none p-2 small-font"
+                      className="w-100 custom-select small-font btn-bg rounded all-none py-2 px-2"
                     ></input>
                   </Col>
                   <Col className="pe-0">
                     <input
                       type="number"
                       placeholder="Net Balance"
-                      className="w-100 custom-select small-font btn-bg rounded all-none p-2"
+                      className="w-100 custom-select small-font btn-bg rounded all-none py-2 px-2"
                     ></input>
                   </Col>
                 </Row>
               </Container>
-              <div className="d-flex flex-column mt-2">
+              <div className="d-flex flex-column mt-2 mb-2">
                 <div className="small-font mb-1">Payment Mode *</div>
-                <div className="d-flex flex-row w-100 custom-select small-font btn-bg rounded all-none p-1 align-items-center">
+                <div className="d-flex flex-row w-100 custom-select small-font btn-bg rounded align-items-center all-none">
                   <div>
                     <img
                       src={process.env.PUBLIC_URL + "./assets/card.png"}
@@ -114,7 +114,7 @@ function PaymentSettelmentPopup(props) {
               </div>
               <div className="d-flex flex-column w-100 mt-2">
                 <div className="small-font mb-1 mt-1">Amount *</div>
-                <div className="d-flex flex-row w-100 custom-select small-font btn-bg rounded all-none p-1 align-items-center">
+                <div className="d-flex flex-row w-100 custom-select small-font btn-bg rounded align-items-center all-none">
                   <div>
                     <img
                       src={process.env.PUBLIC_URL + "./assets/money.png"}
@@ -132,7 +132,7 @@ function PaymentSettelmentPopup(props) {
               </div>
               <button
                 type="submit"
-                className="submit-button mt-2 small-font p-2 rounded all-none w-100 mb-2"
+                className="submit-button mt-4 small-font rounded w-100 all-none py-2 "
                 onClick={() => handlePaymentSubmitPopupOpen()}
               >
                 Submit

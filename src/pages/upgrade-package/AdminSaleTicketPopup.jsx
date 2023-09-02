@@ -83,11 +83,11 @@ function AdminSaleTicketPopup(props) {
                 </div>
               </div>
             </div>
-            <div className="d-flex flex-row w-100 custom-select small-font btn-bg rounded all-none  align-items-center justify-content-between my-2 px-2 py-2">
+            <div className="d-flex flex-row w-100 custom-select small-font btn-bg rounded align-items-center justify-content-between my-2 px-2 py-2">
               <div>Trx ID</div>
               <div>#trx-id-20230713134510227530</div>
             </div>
-            <div className="d-flex flex-row w-100 custom-select small-font btn-bg rounded all-none  align-items-center justify-content-between my-2 px-2 py-2">
+            <div className="d-flex flex-row w-100 custom-select small-font btn-bg rounded align-items-center justify-content-between my-2 px-2 py-2">
               <div>Reference ID</div>
               <div>mast-20221219180735153168</div>
             </div>
@@ -215,25 +215,24 @@ function AdminSaleTicketPopup(props) {
                 ))}
               </Dropdown.Menu>
             </Dropdown>
-            <div className="d-flex flex-row w-100 custom-select small-font btn-bg rounded all-none  align-items-center justify-content-between my-2 px-2 py-2">
+            <div className="d-flex flex-row w-100 custom-select small-font btn-bg rounded align-items-center justify-content-between my-2 px-2 py-2">
               <input
-      
                 type="text"
                 placeholder="Specify Other Reason"
-                className="package-specify-input w-100 custom-select small-font btn-bg rounded all-none"
+                className="package-specify-input w-100 custom-select small-font btn-bg all-none rounded"
               ></input>
             </div>
             <div className="d-flex justify-content-between mt-3 w-100">
               <button
                 type="submit"
-                className="submit-button  small-font rounded all-none px-4 py-2 mx-2 w-50"
+                className="submit-button  small-font rounded px-4 py-2 mx-2 w-50 all-none"
                 onClick={() => handleAcceptClickPopupOpen()}
               >
                 Approved
               </button>
               <button
                 type="submit"
-                className="submit-button  small-font rounded all-none px-4 py-2 mx-2 w-50"
+                className="submit-button  small-font rounded px-4 py-2 mx-2 w-50 all-none"
                 onClick={() => handleAdminTicketPopupClose()}
               >
                 Rejected
