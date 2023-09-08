@@ -1,15 +1,19 @@
-import { useNavigate } from "react-router-dom";
 import { FaAngleLeft, FaAngleRight, FaTrophy } from "react-icons/fa6";
 import { useState } from "react";
+import { useHistory } from "react-router";
 
 function MatchScroll() {
-  const navigate = useNavigate();
+  const history = useHistory();
   const [matchEntry, setMatchEntry] = useState(true);
   const [fancyEntry, setFancyEntry] = useState(false);
   const [activeIndex, setActiveIndex] = useState("");
   const handleActiveIndex = (index) => {
     setActiveIndex(index);
   };
+
+  const navigate = (path) => {
+    history.push(path)
+  }
   const handleMatchEntry = () => {
     setMatchEntry(true);
     setFancyEntry(false);

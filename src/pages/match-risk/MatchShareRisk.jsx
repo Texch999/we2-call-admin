@@ -1,12 +1,11 @@
-import React from "react";
 import { Button, Table } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { MdOutlineArrowForward } from "react-icons/md";
-import { useNavigate, useParams } from "react-router";
+import { useHistory, useParams } from "react-router";
 
 
 const MatchShareRisk = () => {
-  const navigate = useNavigate();
+  const history = useHistory();
   const { team_name } = useParams();
   console.log(team_name);
   const matchShareRiskData = [
@@ -21,7 +20,7 @@ const MatchShareRisk = () => {
         <MdOutlineArrowForward
           size={18}
           className="cursor-pointer clr-yellow"
-          onClick={() => navigate("/match-share-risk-position")}
+          onClick={() => history.push("/match-share-risk-position")}
         />
       ),
       team_two: 50000000,

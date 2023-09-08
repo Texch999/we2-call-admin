@@ -1,12 +1,11 @@
-import React from "react";
 import { Images } from "../../images";
 import { BsArrowRight } from "react-icons/bs";
-import { useNavigate } from "react-router";
+import { useHistory } from "react-router";
 
 function ManagementContainer() {
-  const navigate = useNavigate();
+  const history = useHistory();
   const handleWe2callButton = () => {
-    navigate("/call-management")
+    history.push("/call-management")
   };
   return (
     <div className="row vh-50 p-3">
@@ -44,7 +43,7 @@ function ManagementContainer() {
             <h2 className="meetings-heading">Sports Management</h2>
             <h5 className="meetings-heading">Create your new meetings</h5>
             <div className="right-arrow-icon">
-              <BsArrowRight onClick={() => navigate("/sport-management")} />
+              <BsArrowRight onClick={() => history.push("/sport-management")} />
             </div>
           </div>
         </div>
@@ -56,7 +55,7 @@ function ManagementContainer() {
             <h2 className="meetings-heading">User Management</h2>
             <h5 className="meetings-heading">Create your new meetings</h5>
             <div className="right-arrow-icon">
-              <BsArrowRight onClick={() => navigate("/user-management")} />
+              <BsArrowRight onClick={() => history.push("/user-management")} />
             </div>
           </div>
         </div>

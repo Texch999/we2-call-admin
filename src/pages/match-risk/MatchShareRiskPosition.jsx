@@ -1,13 +1,12 @@
-import React from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./style.css";
 import { PiArrowCircleRightBold } from "react-icons/pi";
 import MatchRiskPositionTable from "./MatchRiskPositionTable";
-import { useNavigate } from "react-router";
+import { useHistory } from "react-router";
 
 const MatchShareRiskPosition = () => {
-  const navigate = useNavigate();
+  const history = useHistory();
   return (
     <div className="p-4">
       <h5 className="meetings-heading mb-3">Match Share Risk</h5>
@@ -23,7 +22,7 @@ const MatchShareRiskPosition = () => {
         </Button>
         <Button
           className="all-match-button rounded-pill d-flex align-items-center button-border"
-          onClick={() => navigate("/fancy-share-risk")}
+          onClick={() => history.push("/fancy-share-risk")}
         >
           Fancy Risk <PiArrowCircleRightBold size={20} className="ms-2" />
         </Button>

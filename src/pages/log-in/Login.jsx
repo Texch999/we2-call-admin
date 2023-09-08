@@ -1,5 +1,3 @@
-import React from "react";
-import { Images } from "../../images";
 import { Modal } from "react-bootstrap";
 import { IoCloseSharp } from "react-icons/io5";
 import { BiSolidLock, BiSolidUser } from "react-icons/bi";
