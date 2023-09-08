@@ -42,7 +42,7 @@ function ManagementContainer() {
           <div className="ms-3">
             <h2 className="meetings-heading">Sports Management</h2>
             <h5 className="meetings-heading">Create your new meetings</h5>
-            <div className="right-arrow-icon">
+            <div className="right-arrow-icon cursor-pointer">
               <BsArrowRight onClick={() => history.push("/sport-management")} />
             </div>
           </div>
@@ -54,7 +54,7 @@ function ManagementContainer() {
           <div className="ms-3">
             <h2 className="meetings-heading">User Management</h2>
             <h5 className="meetings-heading">Create your new meetings</h5>
-            <div className="right-arrow-icon">
+            <div className="right-arrow-icon cursor-pointer">
               <BsArrowRight onClick={() => history.push("/user-management")} />
             </div>
           </div>

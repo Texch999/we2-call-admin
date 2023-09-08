@@ -170,7 +170,7 @@ function Header() {
   ];
 
   const navigate = (path) => {
-    !token && history.push(path);
+    token && history.push(path);
   };
 
   const handleMenuItem = (index) => {
@@ -239,13 +239,13 @@ function Header() {
           <div className="row w-100 min-h-10vh d-flex align-items-center">
             {headerMenu.map((item, index) => {
               return (
-                <div className="col meetings-heading">
+                <div className="col meetings-heading cursor-pointer">
                   <div
                     key={index}
                     className={`${
                       activeHead === index ? "active-head-menu" : null
                     } header-menu flex-aline-center`}
-                    onClick={() => !token && handleMenuItem(index)}
+                    onClick={() => token && handleMenuItem(index)}
                   >
                     <div className="d-flex h-100 justify-content-between align-items-center">
                       <span className="header-font">{item}</span>
@@ -268,7 +268,7 @@ function Header() {
                 return (
                   <div
                     key={index}
-                    className="d-flex align-items-center mt-2 "
+                    className="d-flex align-items-center mt-2 cursor-pointer"
                     onClick={() => handleSelectMatchEntry(item)}
                   >
                     <span className="me-1">{item.icon}</span>
@@ -284,7 +284,7 @@ function Header() {
                 return (
                   <div
                     key={index}
-                    className="d-flex align-items-center mt-2 p-2"
+                    className="d-flex align-items-center mt-2 p-2 cursor-pointer"
                     onClick={() => handleSelectReports(item)}
                   >
                     {/* {item.icon}
@@ -302,7 +302,7 @@ function Header() {
                 return (
                   <div
                     key={index}
-                    className="d-flex align-items-center mt-2 p-2"
+                    className="d-flex align-items-center mt-2 p-2 cursor-pointer"
                     onClick={() => handleMore(item)}
                   >
                     <span className="me-1">{item.icon}</span>
@@ -316,7 +316,7 @@ function Header() {
         <div className="d-flex w-18 p-2">
           <div className="header-avatar align-items-center justify-content-around d-flex w-50">
             <img src={Images.profile} alt="profile" className="me-2" />
-            <div className="meetings-heading header-font">SriAgent</div>
+            <div className="meetings-heading header-font">{localStorage?.getItem('user_name')}</div>
           </div>
           <div className="d-flex align-items-center w-50 justify-content-around">
             <div className=" icons-share me-2 ms-2">
@@ -337,7 +337,7 @@ function Header() {
       </Marquee>
       {!token && (
         <Login
-          showLoginPopup={!token ? true : false}
+          showLoginPopup={token ? false : true}
           setShowLoginPopup={setShowLoginPopup}
           setShowResetPopup={setShowResetPopup}
         />

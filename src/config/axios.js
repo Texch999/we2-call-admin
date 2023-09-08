@@ -1,5 +1,5 @@
-const { default: axios } = require("axios");
 import { app_base_url } from "./config_local";
+import axios from "axios";
 const base_url = app_base_url
 
 export const call = async (
@@ -32,7 +32,7 @@ export const call = async (
     referrerPolicy: "no-referrer",
     timeout: 60000,
     headers: {
-      Authorization: localStorage.getItem("token")?.replace(/\"/g, ""),
+      Authorization: localStorage.getItem("token")?.replace(/"/g, ""),
     },
   };
   if (["POST", "PUT", "DELETE"].indexOf(config.method) > -1) {
