@@ -1,0 +1,235 @@
+.match-share-modal .modal-content,
+.match-declaration-modal .modal-content {
+  background-color: #00143d;
+}
+.match-declaration-modal .modal-header,
+.match-share-modal .modal-header {
+  padding: 5px 15px !important;
+  border-bottom: none;
+}
+.match-share-modal .modal-body {
+  padding: 0px;
+}
+.match-declaration-modal .modal-content {
+  width: 60%;
+  margin-left: 18%;
+}
+.h-10vh {
+  height: 11vh;
+}
+.pending-btn {
+  color: #ff971c;
+  background-color: #302a33;
+}
+.completed-btn {
+  color: #04c85e;
+  background-color: #003542;
+}
+.reject-btn {
+  color: #fa3333;
+  background-color: #2e1338;
+}
+/* Media Quiries CSS */
+
+@media (min-width: 577px) and (max-width: 768px) {
+  .small-font {
+    font-size: 0.5rem;
+    font-family: "Barlow-Regular" !important;
+  }
+  .medium-font {
+    font-size: 0.7rem;
+    font-family: "Barlow-Regular" !important;
+  }
+  .large-font {
+    font-size: 0.9rem;
+    font-family: "Barlow-Regular" !important;
+  }
+  .meet-box-height {
+    height: 50vh !important;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1200px) {
+  .small-font {
+    font-size: 0.6rem;
+    font-family: "Barlow-Regular" !important;
+  }
+  .medium-font {
+    font-size: 0.7rem;
+    font-family: "Barlow-Regular" !important;
+  }
+  .large-font {
+    font-size: 1rem;
+    font-family: "Barlow-Regular" !important;
+  }
+  .meet-box-height {
+    height: 70vh !important;
+  }
+}
+
+@media (min-width: 1201px) and (max-width: 1600px) {
+  .small-font {
+    font-size: 0.7rem;
+    font-family: "Barlow-Regular" !important;
+  }
+  .medium-font {
+    font-size: 0.8rem;
+    font-family: "Barlow-Regular" !important;
+  }
+  .large-font {
+    font-size: 1.1rem;
+    font-family: "Barlow-Regular" !important;
+  }
+  .meet-box-height {
+    height: 65vh !important;
+  }
+}
+@media (min-width: 1601px) {
+  .small-font {
+    font-size: 0.8rem;
+    font-family: "Barlow-Regular" !important;
+  }
+  .medium-font {
+    font-size: 1rem;
+    font-family: "Barlow-Regular" !important;
+  }
+  .large-font {
+    font-size: 1.5rem;
+    font-family: "Barlow-Regular" !important;
+  }
+  .meet-box-height {
+    height: 30vh !important;
+  }
+}
+
+/* Normal CSS */
+.w-85 {
+  width: 85%;
+}
+.w-20 {
+  width: 20%;
+}
+.w-30 {
+  width: 30%;
+}
+.w-45 {
+  width: 45%;
+}
+.w-15 {
+  width: 15%;
+}
+.w-8 {
+  width: 8%;
+}
+#scroll-container-btn {
+  display: flex;
+  width: 85%;
+}
+#scroll-container-btn::-webkit-scrollbar {
+  display: none;
+}
+.btn-bg {
+  background-color: #112a5e;
+}
+.match-bg {
+  background-color: #0a2150;
+}
+.share-bg {
+  border: solid 2px #395ca4;
+  background-color: #112a5e;
+}
+.match-position-bg {
+  background-color: #082051;
+}
+.yellow-clr {
+  color: #fce719;
+  font-weight: 600;
+}
+.arrow-icon {
+  background-image: linear-gradient(to top, #ff6163, #a806f8);
+}
+.hr-line {
+  margin: 0px;
+  opacity: 0.1;
+  background-color: #fff;
+}
+.match-entry-btn {
+  border: solid 2px #395ca4;
+  background-color: #112a5e;
+}
+.all-none {
+  outline: none;
+  border: none;
+  color: #ffffff;
+}
+.all-none::placeholder {
+  color: #8da3d0;
+  font-weight: 600;
+}
+.yellow-btn {
+  font-weight: 600;
+  color: #00143d !important;
+  background-color: #fce719;
+  border: none !important;
+}
+.yellow-border-btn {
+  font-weight: bold;
+  color: #fce719 !important;
+  border: 2px solid #fce719;
+}
+.match-position-table thead > tr > th {
+  padding: 10px;
+}
+.match-position-table tbody > tr {
+  border: solid 1px #112a5e;
+}
+.match-position-table thead {
+  border-radius: 5px 5px 0px 0px;
+}
+.match-position-table thead,
+.match-position-table tfoot {
+  background-color: #082051;
+  border: solid 1px #112a5e;
+}
+.match-position-table tfoot > tr > th,
+.match-position-table tbody > tr > td {
+  padding: 8px;
+}
+.admin-package-table table,
+.admin-package-table tbody {
+  background: #112a5e !important;
+}
+.admin-package-table tbody > tr {
+  border-bottom: 1px solid #3f4c66;
+}
+.admin-package-table thead {
+  background-color: #082051 !important;
+}
+.admin-package-table table {
+  border: solid 2px #264990 !important;
+}
+#home-table-head {
+  background-color: #112e69;
+}
+.edit-icon {
+  border-radius: 50%;
+  height: 22px;
+  width: 22px;
+  padding: 3px;
+  color: #fce719;
+  background-color: #1a2a39;
+}
+.green-color {
+  color: #04c85e;
+  font-weight: 600;
+}
+.red-color {
+  color: #f62a3d;
+}
+.w-100vw {
+  width: 100vw;
+  overflow-x: scroll;
+}
+.yellow-border {
+  border: 3px solid #fce719;
+}

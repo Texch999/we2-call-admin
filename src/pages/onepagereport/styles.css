@@ -1,0 +1,54 @@
+.admin-reports-button,
+.all-match-button {
+  --bs-btn-bg: #112a5e;
+  --bs-btn-border-color: none;
+  --bs-btn-font-family: "Barlow-SemiBold";
+  --bs-btn-font-size: var(--table-body-lg-font-size);
+  --bs-btn-padding-y: 0.5rem;
+  font-weight: 600;
+  border-color: none !important;
+}
+/* .admin-reports-button:hover,
+.admin-reports-button:active {
+  background-color:var(--color);
+  color: var(--background-color);
+} */
+.active-report-button {
+  background-color: #fce719 !important;
+  color: #00143d !important;
+}
+.border-yellow {
+  border: var(--border-yellow);
+}
+@media (min-width: 576px) {
+  .admin-reports-modal .modal-dialog {
+    max-width: var(--admin-modal-bs-width) !important;
+  }
+}
+.admin-reports-modal .btn-primary {
+  --bs-btn-bg: var(--btn-opacity-bg-color);
+  --bs-btn-color: var(--btn-bg-color);
+  --bs-btn-font-size: var(--table-body-font-size);
+  border: none;
+}
+.cursor-pointer {
+  cursor: pointer !important;
+}
+.yellow-border {
+  border: 1x soild #fce719;
+  color: #fce719;
+}
+.Platform-Comm-PL- {
+  font-family: "Barlow-SemiBold";
+}
+.click-here-img {
+  width: 70px;
+  height: 20px;
+}
+.fs-8rem {
+  font-size: 0.8rem !important;
+}
+.custom-click-icon {
+  font-size: 20px;
+  color: #fce719;
+}

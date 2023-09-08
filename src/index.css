@@ -1,13 +1,32 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+:root {
+  --table-text-color: #fff;
+  --table-bg-color: #00143d;
+  --table-heading-bg-color: #082051;
+  --table-head-font-size: 0.8rem;
+  --table-body-font-size: 0.8rem;
+  --table-body-lg-font-size: 0.9rem;
+  --admin-summary-bs-border-color: solid 2px #264990;
+  --table-body-xl-font-size: 1rem;
+  --input-bg-color: #112a5e;
+  --input-text-color:#fff;
+  --input-placeholder-color:#c9d6f0;
+  --modal-bs-width: 450px !important;
+  --admin-modal-bs-width:700px !important;
+  --btn-bg-color:#fce719;
+  --comm-bg-color: #051e51;
+  --btn-opacity-bg-color: rgba(252, 231, 25, 0.1); 
+  --border-yellow: 1px solid #fce719 !important;
 }

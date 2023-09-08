@@ -1,0 +1,148 @@
+.cp-button {
+  --bs-btn-bg: #2eb9b5;
+}
+.edit-button {
+  --bs-btn-bg: #277da1;
+}
+.b-button {
+  --bs-btn-bg: #e84855;
+}
+.ub-button {
+  --bs-btn-bg: #4ebd5d;
+}
+.sm-button {
+  --bs-btn-bg: #f3a22f;
+  border: unset;
+}
+.package-used-clr {
+  color: #f3a22f !important;
+}
+.package-available-clr {
+  color: #04c85e !important;
+}
+.user-search-input {
+  width: unset;
+  color: #fff !important;
+  background-color: #112a5e !important;
+  font-family: "Barlow-Medium";
+  border: none;
+  box-shadow: none !important;
+  padding-right: 2rem;
+  --table-body-font-size: 0.8rem;
+}
+.status-button {
+  --bs-btn-padding-x: 0.2rem;
+  --bs-btn-padding-y: 0.2rem;
+  background-color: #4ebd5d;
+}
+.user-search-input::placeholder {
+  color: #8da3d0;
+  font-family: "Barlow-Medium";
+}
+.user-search-icon {
+  color: #fce719;
+  top: 30%;
+  left: 80%;
+  cursor: pointer;
+}
+.add-users-date span,
+.add-user-name {
+  font-family: "Barlow-Medium";
+  font-size: var(--table-body-font-size);
+}
+.add-user-modal .modal-content {
+  box-shadow: 0.3px 19px 24px 0 rgba(4, 12, 38, 0.36);
+  background-color: var(--table-bg-color);
+}
+@media (min-width: 576px) {
+  .add-user-modal .modal-dialog {
+    max-width: var(--modal-bs-width);
+  }
+}
+.add-user-modal .container-fluid {
+  --bs-gutter-x: unset;
+}
+.add-user-modal .modal-header {
+  padding: 1.5rem 1.5rem 0px 1.5rem;
+  border-bottom: unset;
+}
+.add-user-modal .modal-body {
+  padding: 0 1.5rem 1.5rem 1.5rem;
+}
+.add-user-modal .modal-title {
+  font-family: "Barlow-SemiBold";
+}
+.add-user-modal .form-label {
+  font-size: var(--table-body-font-size);
+  font-family: "Barlow-Regular";
+}
+.add-user-modal .form-control,
+.add-user-modal .form-select {
+  background-color: var(--input-bg-color) !important;
+  color: var(--input-text-color) !important;
+  border: none;
+  font-family: "Barlow-Regular";
+}
+.add-user-modal .form-select {
+  --bs-form-select-bg-img: url("../../../public/assets/dropdown.png");
+  background-size: 12px 8px;
+}
+
+.add-user-modal .form-select:focus {
+  box-shadow: unset;
+}
+.add-user-modal .form-control:focus {
+  box-shadow: unset;
+}
+.add-user-modal .form-control::placeholder {
+  color: var(--input-placeholder-color);
+  font-size: var(--table-body-font-size);
+}
+.add-user-modal .btn-close {
+  --bs-btn-close-bg:url("/public/assets/close.png");
+  --bs-btn-close-focus-shadow: unset;
+  cursor: pointer;
+}
+/* .add-user-modal .close-button-user {
+  opacity: 1;
+  left: 100%;
+
+} */
+.add-user-button {
+  background-color: var(--btn-bg-color);
+  color: var(--table-bg-color);
+  --bs-btn-border-width: unset;
+  font-family: "Barlow-Medium";
+}
+.add-user-modal .form-text {
+  color: var(--btn-bg-color);
+  font-size: var(--table-body-font-size);
+  float: right;
+  padding: 0.1rem 0.3rem;
+  background-color: var(--comm-bg-color);
+  border-radius: 0.4rem;
+}
+.add-user-modal .platform-comm {
+  color: #fff;
+}
+.add-user-modal .yellow-color {
+  color: var(--btn-bg-color);
+}
+.add-user-modal-form-details .input-group-text {
+  color: unset;
+  border: unset;
+  background-color: var(--input-bg-color);
+  padding: 0.375rem 0.1rem 0.375rem 0.6rem;
+}
+.add-user-modal-form-details .input-group-text img {
+  width: 14px;
+}
+.add-admin-dropdown-icon {
+  position: absolute;
+  left: 90%;
+  top: 15%;
+}
+.total-package-values .btn-primary {
+  --bs-btn-bg: #102e6d;
+  border: unset;
+}

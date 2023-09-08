@@ -1,0 +1,130 @@
+.call-management-data {
+  border: solid 2px rgba(255, 255, 255, 0.11);
+  background-color: var(--table-border-color);
+  border-radius: 8px;
+  --bs-table-color: var(--text-white);
+  --bs-table-bg: var(--table-bg-color);
+}
+.add-new-meetings-button {
+  --bs-btn-color: #00143d;
+  --bs-btn-bg: #fce719;
+  --bs-btn-border-color: none;
+  --bs-btn-font-weight: 600;
+  --bs-btn-font-family: "Barlow-SemiBold";
+}
+.meetings-heading,
+.agent-button {
+  font-family: "Barlow-SemiBold";
+}
+.call-management-data thead tr th {
+  background-color: #082051;
+  font-size: var(--table-head-font-size);
+  font-family: "Barlow-SemiBold";
+}
+
+.call-management-data tbody tr td {
+  font-size: var(--table-body-font-size);
+  font-family: "Barlow-Medium";
+}
+.user-count-number {
+  color: #fce719;
+  font-family: "Barlow-Medium";
+}
+.user-dropdown-toggle .dropdown-toggle {
+  --bs-btn-bg: none;
+  --bs-btn-border-color: none;
+  --bs-btn-font-size: none;
+}
+.user-dropdown-toggle .btn:hover,
+.user-dropdown-toggle .btn:first-child:active {
+  background-color: none;
+}
+.user-dropdown-toggle .dropdown-menu {
+  --bs-dropdown-bg: #142f6a;
+  --bs-dropdown-font-size: var(--table-body-font-size);
+}
+.user-dropdown-toggle .dropdown-toggle::after {
+  content: none;
+}
+.user-dropdown-toggle .dropdown-item:focus,
+.dropdown-item:hover {
+  background-color: var(--bs-dropdown-bg);
+}
+.user-dropdown-toggle .dropdown-item {
+  color: var(--table-text-color);
+}
+.active-status-btn {
+  --bs-btn-color: #04c85e;
+  --bs-btn-bg: #013844;
+  --bs-btn-border-color: none;
+  --bs-btn-font-weight: 500;
+  --bs-btn-font-size: var(--table-body-font-size);
+}
+.inactive-status-btn {
+  --bs-btn-color: #f00;
+  --bs-btn-bg: #331031;
+  --bs-btn-border-color: none;
+  --bs-btn-font-weight: 500;
+  --bs-btn-font-size: var(--table-body-font-size);
+}
+.arrow-dropdown-icon-button {
+  --bs-btn-padding-y: 0.1rem;
+  --bs-btn-padding-x: 0.1rem;
+  --bs-btn-font-size: 0.5rem;
+}
+.meeting-status-button {
+  --bs-btn-bg: #04c85e;
+  --bs-btn-font-size: 0.8rem;
+  --bs-btn-font-family: "Barlow-SemiBold";
+  --bs-btn-border-width: none;
+}
+.meetings-edit-button {
+  --bs-btn-bg: #1a2a39;
+  --bs-btn-padding-x: 0.4rem;
+  --bs-btn-padding-y: 0.2rem;
+}
+@media screen and (min-width: 1400px) {
+  .meeting-status-button {
+    --bs-btn-font-size: 0.9rem;
+  }
+  .arrow-dropdown-icon-button {
+    --bs-btn-padding-y: 0.2rem;
+    --bs-btn-padding-x: 0.2rem;
+    --bs-btn-font-size: 0.6rem;
+  }
+
+  .call-management-data thead tr th,
+  .call-management-data tbody tr td,
+  .active-status-btn,
+  .inactive-status-btn,
+  .call-management-data tfoot tr th,
+  .admin-match-statement input,
+  .admin-match-statement select,
+  .admin-match-statement label,
+  .verify-button {
+    font-size: var(--table-body-lg-font-size) !important;
+  }
+}
+@media screen and (min-width: 1900px) {
+  .call-management-data thead tr th,
+  .call-management-data tbody tr td,
+  .active-status-btn,
+  .inactive-status-btn,
+  .call-management-data tfoot tr th {
+    font-size: var(--table-body-xl-font-size);
+  }
+}
+.add-user-modal-form-details input[type="time"]::-webkit-inner-spin-button,
+input[type="time"]::-webkit-calendar-picker-indicator,
+.add-user-modal-form-details input[type="date"]::-webkit-inner-spin-button,
+input[type="date"]::-webkit-calendar-picker-indicator {
+  opacity: 1;
+  -webkit-appearance: none;
+}
+img.date-time-icon{
+  position: absolute;
+  right: 13%;
+}
+.custom-bs-button{
+  --bs-btn-padding-x:0.6rem;
+}

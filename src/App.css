@@ -1,6 +1,32 @@
 body {
   background-color: #00143d !important;
   color: #ffffff !important;
+  font-family: "Barlow-Regular" !important;
+}
+::-webkit-scrollbar {
+  width: 5px;
+  border-radius: 10px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: #082051;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: #113070;
+  border-radius: 10px;
+}
+@font-face {
+  font-family: "Barlow-Medium";
+  src: url("./pages/call-management/Barlow-Medium.ttf");
+}
+@font-face {
+  font-family: "Barlow-Regular";
+  src: url("./pages/call-management/Barlow-Regular.ttf");
+}
+@font-face {
+  font-family: "Barlow-SemiBold";
+  src: url("./pages/call-management/Barlow-SemiBold.ttf");
 }
 .font-white {
   color: #ffffff !important;
@@ -14,8 +40,32 @@ body {
 .marqu-tag {
   background: #fce719;
   color: #080c27;
+  padding: 10px;
+  font-size: 12px;
 }
-.head-image{
-    height: 50% !important;
-    width:7%;
+.header-avatar{
+  border-right: 1px solid grey;
+  padding-right: 0.8rem;
+}
+.header-avatar img {
+  height: 50%;
+  /* width: 50%; */
+}
+.head-image {
+  height: 8vh !important;
+  width: 13% !important;
+  margin-right: 5px;
+}
+.vh-50 {
+  height: 60vh !important;
+}
+.vh-70 {
+  height: 65vh !important;
+  overflow: hidden;
+}
+.vh-40 {
+  height: 40vh !important;
+}
+.fw-semibold {
+  font-family: "Barlow-SemiBold";
 }

@@ -1,0 +1,373 @@
+.call-management {
+  background: #634beb;
+  border-radius: 10px;
+}
+.w-90 {
+  width: 90%;
+}
+.gutter-1rem {
+  --bs-gutter-x: 1rem !important;
+}
+.sport-management-input input {
+  background: none;
+  border: none;
+  outline: none;
+  color: #ffffff;
+}
+.sport-management-input {
+  background: #112a5e;
+  height: 8vh;
+  align-items: center;
+  border-radius: 5px;
+}
+.bg-yellow {
+  background: #fce719;
+  color: black;
+  font-weight: 600;
+}
+.active-head {
+  border: 2px solid #fce719;
+  border-radius: 5px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.gutter-2rem {
+  --bs-gutter-x: 2rem;
+}
+.user-management {
+  background: linear-gradient(to right, #e762e5, #4f64f0);
+  border-radius: 10px;
+}
+.sports-management {
+  background-image: linear-gradient(to top, rgba(237, 110, 159, 1), #ec8b6b);
+  border-radius: 10px;
+}
+.management {
+  display: block;
+}
+.we2-call-button {
+  background: #ffffff;
+  width: fit-content;
+  padding: 0.3rem 2rem;
+  color: black;
+  border-radius: 0px 20px 20px 20px;
+}
+.call-management-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.call-management-image {
+  height: 30vh !important;
+}
+.management-image {
+  height: 17vh;
+}
+@media (min-width: 576px) /*, (min-width: 768px) */ {
+  .sports-management {
+    width: 49%;
+    height: 100% !important;
+  }
+  .user-management {
+    width: 49%;
+    height: 100% !important;
+  }
+  .management {
+    display: flex;
+    padding: 0% !important;
+    margin-top: 10px;
+    height: 23vh;
+    justify-content: space-between;
+  }
+}
+@media (min-width: 992px) /*, (min-width: 1200px) */ {
+  .sports-management {
+    width: 98%;
+    height: 48% !important;
+  }
+  .user-management {
+    width: 98%;
+    height: 48% !important;
+  }
+  .management {
+    margin: 0;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+}
+@media (min-width: 1400px) {
+  h2 {
+    font-size: 2rem;
+  }
+  h5 {
+    font-size: 1.5rem;
+  }
+  p {
+    font-size: 1rem;
+  }
+}
+@media (min-width: 1600px) {
+  h2 {
+    font-size: 4rem;
+  }
+  h5 {
+    font-size: 2rem;
+  }
+  p {
+    font-size: 1.5rem;
+  }
+  .sport-management-input {
+    height: 4vh;
+  }
+}
+.meetings-container {
+  height: 100%;
+  width: 100%;
+  background: #082051;
+  border-radius: 10px;
+}
+.scroll-container {
+  height: 85vh;
+  overflow-y: scroll;
+  position: absolute;
+  bottom: 0%;
+  width: 100%;
+}
+.table-head {
+  background: #112e69;
+}
+.td-class {
+  background: #04c85e;
+  border-radius: 15px !important;
+}
+.not-class {
+  background: #344447;
+  border-radius: 15px !important;
+  color: #fce719;
+}
+.summary-line {
+  background: #112e69;
+  padding: 10px !important;
+  margin-bottom: 0.5rem;
+  justify-content: space-between;
+  border-radius: 5px !important;
+}
+.right-arrow-icon {
+  padding: 3px 20px;
+  background: #ffffff;
+  border-radius: 20px;
+  width: fit-content;
+  color: #af5bd4;
+  font-weight: bold;
+}
+.w-40 {
+  width: 40%;
+}
+.w-55 {
+  width: 55%;
+}
+.w-70 {
+  width: 65%;
+}
+.agent-header {
+  height: 13.5vh;
+  background: #00143d !important;
+  z-index: 9999 !important;
+  position: fixed;
+  top: 0%;
+  flex-direction: column;
+}
+.bl-1 {
+  border-left: 1px solid grey !important;
+}
+.br-1 {
+  border-right: 1px solid grey;
+}
+.head-dropdown {
+  background: #202d57;
+  width: fit-content;
+  border-radius: 10px;
+  font-size: 12px;
+  padding: 8px 8px;
+  z-index: 9999 !important;
+  position: relative;
+  top: -20%;
+}
+.head-dropdown div {
+  background: #00143d;
+  border-radius: 5px;
+  padding: 10px 10px;
+}
+.head-dropdown div:hover {
+  border: 2px solid #fce719;
+}
+
+.header-menu {
+  background: #202d57;
+  padding: 10px 10px;
+  border-radius: 5px;
+  height: fit-content;
+  font-size: 12px;
+}
+.active-head-menu {
+  background: #202d57;
+  padding: 8px 8px;
+  border-radius: 5px;
+  border: 2px solid #fce719;
+  height: fit-content;
+}
+.w-80px {
+  width: 80px !important;
+}
+.min-h-10vh {
+  min-height: 11vh;
+}
+.profile-image {
+  height: 40px;
+  width: 40px;
+  background: #202d57;
+  border-radius: 10px;
+}
+.user-img {
+  font-size: 25px;
+  color: #fff;
+}
+.login-input input {
+  background: none;
+  border: none;
+  outline: none;
+  color: white;
+}
+.login-input {
+  background: #112a5e;
+  border-radius: 5px;
+}
+.login-button {
+  width: 100%;
+  border-radius: 5px;
+  background: #fce719;
+  font-weight: bold;
+  border: none;
+}
+.h-100p {
+  height: 100px;
+}
+.h-12vh {
+  height: 12vh;
+}
+.h-40px {
+  height: 40px !important;
+}
+.drop-down-container {
+  background: #112a5e;
+  padding-top: 10px;
+  height: fit-content;
+  z-index: 9999;
+  position: relative;
+}
+.packages-add {
+  background: #183673;
+  margin-bottom: 2px;
+}
+.incre-button {
+  background: #284b95;
+  border-radius: 15px;
+}
+.font-9 {
+  font-size: 9px;
+  font-family: "Barlow-Regular" !important;
+}
+.font-10 {
+  font-size: 11px;
+  font-family: "Barlow-Regular" !important;
+}
+.font-11 {
+  font-size: 11px;
+  font-family: "Barlow-Regular" !important;
+}
+input::placeholder {
+  font-size: 0.9rem;
+}
+.sport-management-select {
+  border: none;
+  color: #ffffff;
+  outline: none;
+}
+.match-entry-position {
+  left: 10%;
+}
+.report-position {
+  left: 25%;
+}
+.more-position {
+  left: 40%;
+}
+.header-logo {
+  width: 10%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.header-logo img {
+  width: 90%;
+  height: 6vh;
+}
+.head-wrap {
+  width: 65%;
+  flex-direction: column;
+  /* justify-content: center; */
+  /* border-right: 1px solid gray; */
+}
+.date-div {
+  width: 7%;
+  border-left: 1px solid gray;
+  padding-left: 5px;
+}
+.icons-share {
+  background: #202d57;
+  border-radius: 10px;
+  padding: 5px 9px;
+}
+.w-18 {
+  width: 18%;
+}
+.footer-height {
+  /* height: 35vh; */
+  padding-bottom: 5% !important;
+}
+.footer-left {
+  padding-left: 10% !important;
+}
+.footer-image {
+  height: 70px;
+}
+.icons-div {
+  padding: 10px 30px;
+  margin-right: 10px;
+  border-radius: 5px;
+}
+.telegram {
+  background: linear-gradient(to right, #008bd2, #0da6cf);
+}
+.instagram {
+  background: linear-gradient(to right, #fcb910, #ef1c69, #832de8);
+}
+.facebook {
+  background: linear-gradient(to right, #769ad8, #476db6);
+}
+.twitter {
+  background: linear-gradient(to right, #73c8fe, #23a4f5);
+}
+.linked-in {
+  background: linear-gradient(to right, #069, #0676ae);
+}
+option {
+  height: 50px;
+}
+.pr-3{
+  padding-right: 3%;
+}

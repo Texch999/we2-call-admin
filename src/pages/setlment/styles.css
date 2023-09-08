@@ -1,0 +1,122 @@
+.settelment-table {
+  width: 100%;
+  border: solid 2px rgba(255, 255, 255, 0.11);
+  background-color: var(--table-border-color);
+  border-radius: 8px;
+  --bs-table-color: var(--text-white);
+  --bs-table-bg: var(--table-bg-color);
+}
+.clr-red {
+  color: #ff0000 !important;
+}
+.clr-green {
+  color: #04c85e !important;
+}
+/* .custom-icon {
+  font-size: 30px;
+  color: #fce719 ;
+} */
+.clr-yellow {
+  color: #fce719 !important;
+}
+.settelment-container {
+  width: 15vw !important;
+  background-color: #112a5e;
+  border: solid 1px #264990;
+}
+@media (min-width: 577px) and (max-width: 768px) {
+  .xx-large-font {
+    font-size: 22px;
+  }
+  .custom-icon {
+    font-size: 10px;
+    color:  #fce719 ;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1200px) {
+  .xx-large-font {
+    font-size: 25px;
+  }
+  .custom-icon {
+    font-size: 20px;
+    color: #fce719 ;
+  }
+}
+
+@media (min-width: 1201px) {
+  .xx-large-font {
+    font-size: 30px;
+  }
+  .custom-icon {
+    font-size: 30px;
+    color: #fce719 ;
+  }
+}
+.admin-account-summary-container {
+  font-family: "Barlow-SemiBold";
+  border: var(--admin-summary-bs-border-color) !important;
+  background-color: #112a5e;
+  font-size: var(--table-body-font-size);
+}
+.admin-account-summary-container p {
+  margin-bottom: 0;
+}
+.admin-account-summary-container:hover,
+.admin-account-summary-container:active {
+  border: solid 2px #fce719 !important;
+}
+.call-management-data tfoot tr th {
+  background-color: #082051;
+  font-size: var(--table-head-font-size);
+  font-family: "Barlow-SemiBold";
+}
+.settlement-file-button {
+  --bs-btn-bg: none;
+  --bs-btn-padding-x: 0.4rem;
+  --bs-btn-padding-y: 0.2rem;
+}
+.payment-modal {
+  --bs-modal-width: 420px !important;
+  /* background-image: url("/public/assets/close.png"); */
+}
+.close-btn .btn-close {
+  --bs-btn-close-bg: url("/public/assets/close.png");
+}
+.payment-modal .btn-close {
+  --bs-btn-close-bg: url("/public/assets/close.png");
+  position: absolute;
+  top: 5%;
+  right: 5%;
+}
+.relative-position {
+  position: relative;
+}
+.close-button {
+  position: absolute;
+  top: 5%;
+  right: 5%;
+}
+.w-80 {
+  width: 80%;
+}
+.login-inputs {
+  background: none;
+  border: none;
+  outline: none;
+  color: #ffffff;
+}
+.login-inputs::placeholder {
+  font-size: 12px;
+  color: #c9d6f0 !important;
+  font-family: "Barlow-Regular";
+}
+.by-id-btn {
+  border-radius: 5px;
+  background-color: #112a5e;
+}
+.username-img {
+  height: 30px;
+  width: 30px;
+  border-right: 1px solid #727488;
+}
