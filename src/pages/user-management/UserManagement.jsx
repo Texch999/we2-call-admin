@@ -80,50 +80,6 @@ function UserManagement() {
     { header: "REFFER BY", field: "location" },
     { header: "ACTION", field: "editButton" },
   ];
-  const userTableTable = [
-    {
-      seriesName: "T20 World Cup",
-      team: "Newziland  vs  SriLanka",
-      sportName: "Cricket, Male",
-      matchPlace: "One day Amhadabad Stadium",
-      editButton: (
-        <div className="d-flex justify-content-between">
-          <GoPencil className="edit-icon" />
-          <RiDeleteBin6Fill className="edit-icon" />
-          <ImBlocked className="edit-icon" />
-          <BiLock className="edit-icon" />
-        </div>
-      ),
-    },
-    {
-      seriesName: "T20 World Cup",
-      team: "Newziland  vs  SriLanka",
-      sportName: "Cricket, Male",
-      matchPlace: "One day Amhadabad Stadium",
-      editButton: (
-        <div className="d-flex justify-content-between">
-          <GoPencil className="edit-icon" />
-          <RiDeleteBin6Fill className="edit-icon" />
-          <ImBlocked className="edit-icon" />
-          <BiLock className="edit-icon" />
-        </div>
-      ),
-    },
-    {
-      seriesName: "T20 World Cup",
-      team: "Newziland  vs  SriLanka",
-      sportName: "Cricket, Male",
-      matchPlace: "One day Amhadabad Stadium",
-      editButton: (
-        <div className="d-flex justify-content-between">
-          <GoPencil className="edit-icon" />
-          <RiDeleteBin6Fill className="edit-icon" />
-          <ImBlocked className="edit-icon" />
-          <BiLock className="edit-icon" />
-        </div>
-      ),
-    },
-  ];
 
   const editButtons = (
     <div className="d-flex justify-content-between">
@@ -189,8 +145,6 @@ function UserManagement() {
   useEffect(() => {
     getOfflineClients();
   }, [addClientStatus]);
-
-  console.log(existingClients, "============clint");
 
   return (
     <div className="p-3">
@@ -357,7 +311,11 @@ function UserManagement() {
         </div>
       </div>
       <hr className="mt-4" />
-      <Table data={existingClients} columns={userColumns} editButtons={editButtons}/>
+      <Table
+        data={existingClients}
+        columns={userColumns}
+        editButtons={editButtons}
+      />
       <MatchSubmitPopup
         header={"You Are Successfully Created User"}
         state={createUserSubmit}
