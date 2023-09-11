@@ -1,12 +1,11 @@
-import React from "react";
 import { Button, Table } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { useNavigate } from "react-router";
 import { GiClick } from "react-icons/gi";
 import "./style.css";
+import { useHistory } from "react-router";
 
 const ShareRiskLiveMatches = () => {
-  const navigate = useNavigate();
+  const history = useHistory();
   const shareRiskLiveMatchData = [
     {
       date_time: "19 July 2023, 10:00:00 PM",
@@ -109,7 +108,7 @@ const ShareRiskLiveMatches = () => {
                 <td
                   className="text-center clr-yellow cursor-pointer"
                   onClick={() =>
-                    navigate(
+                    history.push(
                       `/match-share-risk/${encodeURIComponent(data?.team_name)}`
                     )
                   }

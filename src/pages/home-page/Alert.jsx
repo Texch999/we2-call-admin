@@ -1,9 +1,15 @@
-import React from "react";
+import { useEffect, useState } from "react";
 import Table from "./Table";
 import { AiOutlineRight } from "react-icons/ai";
 import { Chart } from "react-google-charts";
+import { GET_UPDATED_MATCHES_DATA } from "../../config/endpoints";
+import { call } from "../../config/axios";
 
 function Alert() {
+  let register_id = localStorage?.getItem("register_id");
+
+  const [allData, setAllData] = useState([])
+
   const data1 = [
     {
       admin: "UL",
@@ -41,6 +47,19 @@ function Alert() {
     pieHole: 0.5,
     is3D: true,
   };
+
+  const getMatchReports = async () => {
+    await call(GET_UPDATED_MATCHES_DATA, { register_id })
+      .then((res) => {
+        setAllData([...res?.data?.matchEntryData, ...res?.data?.fancyEntryData]);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  useEffect(() => {
+    getMatchReports();
+  }, []);
+
   return (
     <div className="row vh-70 mt-3 meet-box-height">
       <div className="col-6 p-2">

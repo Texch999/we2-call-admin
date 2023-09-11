@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Button, Container, Row, Col } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { PiArrowCircleRightBold } from "react-icons/pi";
-import { useNavigate } from "react-router";
 import FancyRiskPositionTable from "./FancyRiskPositionTable";
+import { useHistory } from "react-router";
 
 const FancyShareRisk = () => {
-  const navigate = useNavigate();
+  const history = useHistory();
   const [matchPositionShareCommStatus, setMatchPositionShareCommStatus] =
     useState(false);
   const [positionOne, setPositionOne] = useState("client_name");
@@ -407,7 +407,7 @@ const FancyShareRisk = () => {
         </Button>
         <Button
           className="all-match-button rounded-pill d-flex align-items-center button-border"
-          onClick={() => navigate("/match-share-risk-position")}
+          onClick={() => history("/match-share-risk-position")}
         >
           Match Risk <PiArrowCircleRightBold size={20} className="ms-2" />
         </Button>

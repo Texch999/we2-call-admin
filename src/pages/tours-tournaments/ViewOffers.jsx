@@ -1,12 +1,11 @@
-import React, { useState } from "react";
-import NoOffer from "./NoOffer";
+import { useState } from "react";
 import OfferDetails from "./OfferDetails";
-import { useNavigate } from "react-router-dom";
 import MessagePopup from "../tour-popups/MessagePopup";
 import { Images } from "../../images";
+import { useHistory } from "react-router";
 
 function ViewOffers() {
-  const navigate = useNavigate();
+  const history = useHistory();
   const [messagePopup, setMessagePopup] = useState(false);
   const [viewOffers, setViewOffers] = useState(true);
   const handleViewOffersOpen = () => {
@@ -21,7 +20,7 @@ function ViewOffers() {
         <div className="w-40 d-flex justify-content-between">
           <div
             className="normal-button font-14"
-            onClick={() => navigate("/tours-tournaments")}
+            onClick={() => history.push("/tours-tournaments")}
           >
             Tours & Tournaments
           </div>
