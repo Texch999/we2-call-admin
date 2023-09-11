@@ -4,11 +4,12 @@ import { AiOutlineRight } from "react-icons/ai";
 import { Chart } from "react-google-charts";
 import { GET_UPDATED_MATCHES_DATA } from "../../config/endpoints";
 import { call } from "../../config/axios";
+import AlertsTable from "./AlertsTable";
 
 function Alert() {
   let register_id = localStorage?.getItem("register_id");
 
-  const [allData, setAllData] = useState([])
+  const [allData, setAllData] = useState([]);
 
   const data1 = [
     {
@@ -32,10 +33,10 @@ function Alert() {
   ];
 
   const columns = [
-    { header: "Users", field: "admin" },
-    { header: "Match Name", field: "event" },
-    { header: "Amount", field: "user" },
-    { header: "Status", field: "status" },
+    { header: "Users", field: "client_name" },
+    { header: "Match Name", field: "date" },
+    { header: "Amount", field: "amount" },
+    { header: "Status", field: "record_status" },
   ];
   const data = [
     ["Task", "Hours per Day"],
@@ -51,7 +52,10 @@ function Alert() {
   const getMatchReports = async () => {
     await call(GET_UPDATED_MATCHES_DATA, { register_id })
       .then((res) => {
-        setAllData([...res?.data?.matchEntryData, ...res?.data?.fancyEntryData]);
+        setAllData([
+          ...res?.data?.matchEntryData,
+          ...res?.data?.fancyEntryData,
+        ]);
       })
       .catch((err) => console.log(err));
   };
@@ -59,7 +63,6 @@ function Alert() {
   useEffect(() => {
     getMatchReports();
   }, []);
-
   return (
     <div className="row vh-70 mt-3 meet-box-height">
       <div className="col-6 p-2">
@@ -71,7 +74,7 @@ function Alert() {
               <AiOutlineRight />
             </div>
           </div>
-          <Table data={data1} columns={columns} />
+          <AlertsTable data={allData} columns={columns} />
         </div>
       </div>
       <div className="col-6 p-2">
@@ -80,12 +83,12 @@ function Alert() {
             <h5 className="col-9 meetings-heading">Connect Devices</h5>
           </div>
           <Chart
-              chartType="PieChart"
-              width="100%"
-              height="400px"
-              data={data}
-              options={options}
-            />
+            chartType="PieChart"
+            width="100%"
+            height="400px"
+            data={data}
+            options={options}
+          />
         </div>
       </div>
     </div>
