@@ -1,7 +1,7 @@
 import React from "react";
 
-function  Table(props) {
-  const { data, columns, tableClassname } = props;
+function Table(props) {
+  const { data, columns, tableClassname, editButtons } = props;
   return (
     <table
       className={`w-100 match-position-table text-center medium-font ${tableClassname}`}
@@ -9,9 +9,7 @@ function  Table(props) {
       <thead id="home-table-head">
         <tr>
           {columns.map((column, index) => (
-            <th key={index} >
-              {column.header}
-            </th>
+            <th key={index}>{column.header}</th>
           ))}
         </tr>
       </thead>
@@ -29,7 +27,9 @@ function  Table(props) {
                       : ""
                   }
                 >
-                  {item[column.field]}
+                  {column.header === "ACTION"
+                    ? editButtons
+                    : item[column.field]}
                 </div>
               </td>
             ))}

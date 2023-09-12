@@ -74,60 +74,25 @@ function UserManagement() {
   };
 
   const userColumns = [
-    { header: "USER NAME", field: "seriesName" },
-    { header: "TYPE", field: "team" },
-    { header: "ALIAS NAME", field: "sportName" },
-    { header: "REFFER BY", field: "matchPlace" },
+    { header: "USER NAME", field: "client_name" },
+    { header: "TYPE", field: "account_role" },
+    { header: "ALIAS NAME", field: "alias_name" },
+    { header: "REFFER BY", field: "location" },
     { header: "ACTION", field: "editButton" },
   ];
-  const userTableTable = [
-    {
-      seriesName: "T20 World Cup",
-      team: "Newziland  vs  SriLanka",
-      sportName: "Cricket, Male",
-      matchPlace: "One day Amhadabad Stadium",
-      editButton: (
-        <div className="d-flex justify-content-between">
-          <GoPencil className="edit-icon" />
-          <RiDeleteBin6Fill className="edit-icon" />
-          <ImBlocked className="edit-icon" />
-          <BiLock className="edit-icon" />
-        </div>
-      ),
-    },
-    {
-      seriesName: "T20 World Cup",
-      team: "Newziland  vs  SriLanka",
-      sportName: "Cricket, Male",
-      matchPlace: "One day Amhadabad Stadium",
-      editButton: (
-        <div className="d-flex justify-content-between">
-          <GoPencil className="edit-icon" />
-          <RiDeleteBin6Fill className="edit-icon" />
-          <ImBlocked className="edit-icon" />
-          <BiLock className="edit-icon" />
-        </div>
-      ),
-    },
-    {
-      seriesName: "T20 World Cup",
-      team: "Newziland  vs  SriLanka",
-      sportName: "Cricket, Male",
-      matchPlace: "One day Amhadabad Stadium",
-      editButton: (
-        <div className="d-flex justify-content-between">
-          <GoPencil className="edit-icon" />
-          <RiDeleteBin6Fill className="edit-icon" />
-          <ImBlocked className="edit-icon" />
-          <BiLock className="edit-icon" />
-        </div>
-      ),
-    },
-  ];
+
+  const editButtons = (
+    <div className="d-flex justify-content-between">
+      <GoPencil className="edit-icon" />
+      <RiDeleteBin6Fill className="edit-icon" />
+      <ImBlocked className="edit-icon" />
+      <BiLock className="edit-icon" />
+    </div>
+  );
 
   const handleChange = (name, value) => {
-    console.log(name, value)
-  }
+    console.log(name, value);
+  };
   const getOfflineClients = async () => {
     await call(GET_OFFLINE_CLIENTS, { register_id })
       .then((res) => {
@@ -174,6 +139,7 @@ function UserManagement() {
   useEffect(() => {
     getAllClients();
     getRefferalData();
+    // getClientDetails();
   }, []);
 
   useEffect(() => {
@@ -345,7 +311,11 @@ function UserManagement() {
         </div>
       </div>
       <hr className="mt-4" />
-      <Table data={userTableTable} columns={userColumns} />
+      <Table
+        data={existingClients}
+        columns={userColumns}
+        editButtons={editButtons}
+      />
       <MatchSubmitPopup
         header={"You Are Successfully Created User"}
         state={createUserSubmit}
