@@ -45,7 +45,7 @@ function UserManagement() {
     { name: "Regulor", value: 0 },
     { name: "Book", value: 1 },
     { name: "Agent", value: 2 },
-    { name: "Dami", value: 3 },
+    { name: "Dami", value: 3 }
   ];
 
   const shareList = [

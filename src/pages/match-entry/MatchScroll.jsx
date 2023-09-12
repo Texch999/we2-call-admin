@@ -1,8 +1,14 @@
 import { FaAngleLeft, FaAngleRight, FaTrophy } from "react-icons/fa6";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useHistory } from "react-router";
+import { GET_ALL_MATCHES } from "../../config/endpoints";
+import { call } from "../../config/axios";
 
 function MatchScroll() {
+  let register_id = localStorage?.getItem("register_id");
+  let creator_id = localStorage?.getItem("creator_id");
+  let account_role = localStorage?.getItem("account_role");
+  const [matchesData, setMatchesData] = useState([]);
   const history = useHistory();
   const [matchEntry, setMatchEntry] = useState(true);
   const [fancyEntry, setFancyEntry] = useState(false);
@@ -12,8 +18,8 @@ function MatchScroll() {
   };
 
   const navigate = (path) => {
-    history.push(path)
-  }
+    history.push(path);
+  };
   const handleMatchEntry = () => {
     setMatchEntry(true);
     setFancyEntry(false);
@@ -41,44 +47,20 @@ function MatchScroll() {
     });
     setScrollPosition(scrollPosition + 100);
   };
-  const MatchDetailsButtons = [
-    {
-      matchName: "IND vs PAK",
-    },
-    {
-      matchName: "NZ vs SA",
-    },
-    {
-      matchName: "AUS vs ENG",
-    },
-    {
-      matchName: "IND vs PAK",
-    },
-    {
-      matchName: "IND vs PAK",
-    },
-    {
-      matchName: "NZ vs SA",
-    },
-    {
-      matchName: "AUS vs ENG",
-    },
-    {
-      matchName: "IND vs PAK",
-    },
-    {
-      matchName: "IND vs PAK",
-    },
-    {
-      matchName: "NZ vs SA",
-    },
-    {
-      matchName: "AUS vs ENG",
-    },
-    {
-      matchName: "IND vs PAK",
-    },
-  ];
+
+  const getMatchesData = async () => {
+    await call(GET_ALL_MATCHES, { register_id, account_role })
+      .then((res) => {
+        let result = res?.data?.data;
+        console.log(result);
+        setMatchesData(result.liveMatches);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  useEffect(() => {
+    getMatchesData();
+  }, []);
   return (
     <div>
       <div className="container-fluid p-3">
@@ -94,7 +76,7 @@ function MatchScroll() {
             id="scroll-container-btn"
             style={{ overflowX: "scroll", whiteSpace: "nowrap" }}
           >
-            {MatchDetailsButtons?.map((item, index) => (
+            {matchesData?.map((item, index) => (
               <div
                 key={index}
                 className={`btn-bg d-flex align-items-center justify-content-evenly p-2 m-1 rounded ${
@@ -106,7 +88,7 @@ function MatchScroll() {
                   <FaTrophy className="fs-5 yellow-clr" />
                 </span>
                 <div className="text-xl medium-font text-white m-1">
-                  {item.matchName}
+                  {item?.match_name}
                 </div>
               </div>
             ))}
