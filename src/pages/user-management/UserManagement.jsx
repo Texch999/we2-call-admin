@@ -75,7 +75,7 @@ function UserManagement() {
 
   const userColumns = [
     { header: "USER NAME", field: "client_name" },
-    { header: "TYPE", field: "account_role" },
+    { header: "TYPE", field: "client_type" },
     { header: "ALIAS NAME", field: "alias_name" },
     { header: "REFFER BY", field: "location" },
     { header: "ACTION", field: "editButton" },
@@ -145,6 +145,8 @@ function UserManagement() {
   useEffect(() => {
     getOfflineClients();
   }, [addClientStatus]);
+
+  console.log(existingClients);
 
   return (
     <div className="p-3">
