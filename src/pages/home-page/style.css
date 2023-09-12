@@ -247,6 +247,7 @@
   background: #112a5e;
   border-radius: 5px;
 }
+
 .login-button {
   width: 100%;
   border-radius: 5px;
@@ -369,6 +370,6 @@ input::placeholder {
 option {
   height: 50px;
 }
-.pr-3{
+.pr-3 {
   padding-right: 3%;
 }
