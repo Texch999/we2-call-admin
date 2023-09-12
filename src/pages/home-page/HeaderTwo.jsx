@@ -1,9 +1,6 @@
 // import { Images } from "../images";
 // import moment from "moment";
 import Marquee from "react-fast-marquee";
-// import "./common.css";
-// import "./styles.css";
-import { useNavigate } from "react-router-dom";
 import {
   FaChevronDown,
   FaChevronUp,
@@ -16,7 +13,6 @@ import { AiFillWarning } from "react-icons/ai";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import { TbReport, TbReportSearch } from "react-icons/tb";
 import { GiArmorUpgrade } from "react-icons/gi";
-// import { ShareAltOutlined, SettingOutlined } from "@ant-design/icons";
 import { BiPhoneCall } from "react-icons/bi";
 import { BsFillCreditCard2BackFill } from "react-icons/bs";
 import { MdOutlinePrivacyTip } from "react-icons/md";
@@ -24,7 +20,6 @@ import { useState } from "react";
 import { Images } from "../../images";
 
 function HeaderTwo() {
-//   const navigate = useNavigate();
   const [activeHead, setActiveHead] = useState(0);
   const [matchEntryOpen, setMatchEntryOpen] = useState(false);
   const [matchEntryType, setMatchEntryType] = useState("Match Entry");

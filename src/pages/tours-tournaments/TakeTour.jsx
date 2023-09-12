@@ -1,16 +1,15 @@
-import React from "react";
 import { HiThumbUp } from "react-icons/hi";
 import { Images } from "../../images";
-import { useNavigate } from "react-router";
 import "./styles.css";
+import { useHistory } from "react-router";
 
 function TakeTour() {
-  const navigate = useNavigate();
+  const history = useHistory();
   return (
     <div className="row  p-2 tour-cricket">
       <div className="col-sm-12 col-md-7">
         <div className="w-100 h-100per take-tour row d-flex align-items-center">
-          <div className="col-5 p-3" onClick={() => navigate("/offers")}>
+          <div className="col-5 p-3" onClick={() => history.push("/offers")}>
             <h3 className="meetings-heading mt-3">Take a Part in Our Tour</h3>
             <h4 className="large-font meetings-heading">
               Play and get a chance to join with tour

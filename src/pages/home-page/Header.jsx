@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Marquee from "react-fast-marquee";
 import { Images } from "../../images";
 import {
@@ -7,8 +7,6 @@ import {
   AiOutlineShareAlt,
 } from "react-icons/ai";
 import "./style.css";
-import Login from "../log-in/Login";
-import { useNavigate } from "react-router-dom";
 import {
   FaChevronDown,
   FaChevronUp,
@@ -27,9 +25,14 @@ import MatchSubmitPopup from "../match-popups/MatchSubmitPopup";
 import AddPaymentMode from "../popups/AddPaymentMode";
 import TermsAndConditionsPopup from "../popups/TermsAndConditionsPopup";
 import SharePopup from "../popups/SharePopup";
+import { useHistory } from "react-router-dom";
+import { isLoggedIn } from "../../utils/helpers";
+import Login from "../log-in/Login";
 
 function Header() {
   const [modalShow, setModalShow] = useState(false);
+  const history = useHistory();
+
   const [currentDateTime, setCurrentDateTime] = useState(new Date());
   const [termsPopup, setTermsPopup] = useState(false);
   const [sharePopup, setSharePopup] = useState(false);
@@ -176,25 +179,18 @@ function Header() {
     },
   ];
 
-  const navigate = useNavigate();
+  const navigate = (path) => {
+    token && history.push(path);
+  };
 
   const handleMenuItem = (index) => {
+    if (!token) return "";
     setActiveHead(index);
-    {
-      index === 0 && navigate("/");
-    }
-    {
-      index === 2 && navigate("/tours-tournaments");
-    }
-    {
-      index === 3 && handleMatchEntry();
-    }
-    {
-      index === 4 && handleReports();
-    }
-    {
-      index === 5 && handleMoreSelect();
-    }
+    index === 0 && navigate("/");
+    index === 2 && navigate("/tours-tournaments");
+    index === 3 && handleMatchEntry();
+    index === 4 && handleReports();
+    index === 5 && handleMoreSelect();
   };
 
   const handleMatchEntry = () => {
@@ -222,10 +218,8 @@ function Header() {
     setMoreType(item.name);
     setMoreOpen(false);
     navigate(item.path);
-    {
-      if (item.onClick) {
-        setModalShow(true);
-      }
+    if (item.onClick) {
+      setModalShow(true);
     }
   };
   const handleSelectReports = (e) => {
@@ -235,7 +229,7 @@ function Header() {
   };
 
   const [resetPasswordSubmit, setResetPasswordSubmit] = useState();
-
+  const token = isLoggedIn();
   return (
     <div className="agent-header d-flex align-items">
       <div className="w-100 flex-align-center d-flex h-10vh mb-1">
@@ -256,13 +250,13 @@ function Header() {
           <div className="row w-100 min-h-10vh d-flex align-items-center">
             {headerMenu.map((item, index) => {
               return (
-                <div className="col meetings-heading">
+                <div className="col meetings-heading cursor-pointer">
                   <div
                     key={index}
                     className={`${
                       activeHead === index ? "active-head-menu" : null
                     } header-menu flex-aline-center`}
-                    onClick={() => handleMenuItem(index)}
+                    onClick={() => token && handleMenuItem(index)}
                   >
                     <div className="d-flex h-100 justify-content-between align-items-center">
                       <span className="header-font">{item}</span>
@@ -285,7 +279,7 @@ function Header() {
                 return (
                   <div
                     key={index}
-                    className="d-flex align-items-center mt-2 "
+                    className="d-flex align-items-center mt-2 cursor-pointer"
                     onClick={() => handleSelectMatchEntry(item)}
                   >
                     <span className="me-1">{item.icon}</span>
@@ -301,7 +295,7 @@ function Header() {
                 return (
                   <div
                     key={index}
-                    className="d-flex align-items-center mt-2 p-2"
+                    className="d-flex align-items-center mt-2 p-2 cursor-pointer"
                     onClick={() => handleSelectReports(item)}
                   >
                     {/* {item.icon}
@@ -319,7 +313,7 @@ function Header() {
                 return (
                   <div
                     key={index}
-                    className="d-flex align-items-center mt-2 p-2"
+                    className="d-flex align-items-center mt-2 p-2 cursor-pointer"
                     onClick={() => handleMore(item)}
                   >
                     <span className="me-1">{item.icon}</span>
@@ -333,7 +327,9 @@ function Header() {
         <div className="d-flex w-18 p-2">
           <div className="header-avatar align-items-center justify-content-around d-flex w-50">
             <img src={Images.profile} alt="profile" className="me-2" />
-            <div className="meetings-heading header-font">SriAgent</div>
+            <div className="meetings-heading header-font">
+              {localStorage?.getItem("user_name")}
+            </div>
           </div>
           <div className="d-flex align-items-center w-50 justify-content-around">
             <div
@@ -355,11 +351,13 @@ function Header() {
         sure that your personal messages stay between you and who you send them
         to.
       </Marquee>
-      <Login
-        showLoginPopup={showLoginPopup}
-        setShowLoginPopup={setShowLoginPopup}
-        setShowResetPopup={setShowResetPopup}
-      />
+      {!token && (
+        <Login
+          showLoginPopup={token ? false : true}
+          setShowLoginPopup={setShowLoginPopup}
+          setShowResetPopup={setShowResetPopup}
+        />
+      )}
       <ResetPassword
         showResetPopup={showResetPopup}
         setShowResetPopup={setShowResetPopup}

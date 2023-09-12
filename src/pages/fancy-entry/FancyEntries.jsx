@@ -1,11 +1,11 @@
 import { PiArrowCircleDownBold, PiArrowCircleRightBold } from "react-icons/pi";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import FancyEntryInput from "./FancyEntryInput";
 import FancyResultInput from "./FancyResultInput";
+import { useHistory } from "react-router";
 
 function FancyEntries() {
-  const navigate = useNavigate();
+  const history = useHistory();
   const [fancyEntryInputs, setFancyEntryInputs] = useState(true);
   const [fancyResultInputs, setFancyResultInputs] = useState(false);
   const handleFancyEntry = () => {
@@ -42,7 +42,7 @@ function FancyEntries() {
         <div className="w-50 d-flex justify-content-end">
           <div
             className="w-25 match-entry-btn d-flex align-items-center justify-content-around rounded-pill p-1"
-            onClick={() => navigate("/match-entry")}
+            onClick={() => history.push("/match-entry")}
           >
             <div className="medium-font">Match Entry</div>
             <PiArrowCircleRightBold className="d-flex" />
