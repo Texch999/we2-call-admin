@@ -35,7 +35,7 @@ function ScheduleMatchesTable(props) {
                       <div>
                         {item.game_object.match_type},{item.stadium}
                       </div>
-                      <div>
+                      <div className="clr-yellow">
                         {item.date},{item.time}
                       </div>
                     </div>
