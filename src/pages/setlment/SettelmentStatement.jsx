@@ -57,12 +57,12 @@ function SettelmentStatement() {
 
   const UPCOMING_SETTELMENT_DETAILS = [
     {
-      date_time: "27/07/2023, 18:31:00 PM",
-      client_name: "Animesh - Client",
-      Payment_mode: "Phone Pay",
-      till_balance: "1000000.00",
-      setteled_balance: "1000000.00",
-      balance: "1000000.00",
+      date_time: "--",
+      client_name: "--",
+      Payment_mode: "--",
+      till_balance: "--",
+      setteled_balance: "--",
+      balance: "--",
     },
   ];
 
@@ -92,8 +92,8 @@ function SettelmentStatement() {
               <th colSpan={3} className="text-end">
                 Total
               </th>
-              <th className="text-center clr-green">500000.00</th>{" "}
-              <th className="text-center clr-green">500000.00</th>{" "}
+              <th className="text-center clr-green">500000.00</th>
+              <th className="text-center clr-green">500000.00</th>
               <th className="text-center clr-green">500000.00</th>
             </tr>
           </tfoot>
