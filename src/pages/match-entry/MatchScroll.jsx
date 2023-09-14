@@ -3,15 +3,16 @@ import { useEffect, useState } from "react";
 import { useHistory } from "react-router";
 
 function MatchScroll(props) {
-  const { allMatches, selectedMatch } = props;
+  const { allMatches, selectedMatch, setSelectedMatch } = props;
   const history = useHistory();
   const [scrollPosition, setScrollPosition] = useState(0);
   const [matchEntry, setMatchEntry] = useState(true);
   const [fancyEntry, setFancyEntry] = useState(false);
-  const [activeIndex, setActiveIndex] = useState("");
+  const [activeIndex, setActiveIndex] = useState(0);
 
-  const handleActiveIndex = (index) => {
+  const handleActiveIndex = (index, item) => {
     setActiveIndex(index);
+    setSelectedMatch(item);
   };
   const navigate = (path) => {
     history.push(path);
@@ -60,10 +61,10 @@ function MatchScroll(props) {
             {allMatches?.map((item, index) => (
               <div
                 key={index}
-                className={`btn-bg d-flex align-items-center justify-content-evenly p-2 m-1 rounded ${
-                  activeIndex ? "yellow-border" : ""
+                className={`btn-bg d-flex align-items-center justify-content-evenly p-2 m-1 rounded cursor-pointer ${
+                  activeIndex === index ? "yellow-border" : ""
                 }`}
-                onClick={() => handleActiveIndex(index)}
+                onClick={() => handleActiveIndex(index, item)}
               >
                 <span className="d-flex m-1">
                   <FaTrophy className="fs-5 yellow-clr" />
@@ -116,7 +117,7 @@ function MatchScroll(props) {
                   Time : {selectedMatch?.time || "Time"}
                 </div>
                 <div className="text-center small-font text-white p-1 px-3 match-bg rounded-pill w-fit-content">
-                  Team : IND vs PAK
+                  Team : {selectedMatch?.match_name || "Match"}
                 </div>
                 <div className="text-center small-font text-white p-1 px-3 match-bg rounded-pill w-fit-content">
                   Series : {selectedMatch?.series_name || "Series Name"}

@@ -17,7 +17,6 @@ function FancyEntry() {
   const [allMatches, setAllMatches] = useState([]);
   const [selectedMatch, setSelectedMatch] = useState([]);
   const [matchPositionData, setMatchPositionData] = useState([]);
-  const [matchAccountData, setMatchAccountData] = useState([]);
 
   let register_id = localStorage?.getItem("register_id");
   let creator_id = localStorage?.getItem("creator_id");
@@ -52,32 +51,13 @@ function FancyEntry() {
   useEffect(() => {
     getMatchPositionData();
   }, []);
-  const getMatchInfo = async () => {
-    await call(GET_ACCOUNT_MATCHES_DATA, {
-      register_id,
-      match_id: selectedMatch?.match_id,
-    })
-      .then(async (res) => {
-        let temp =
-          res?.data && res?.data?.data && res?.data?.data[0]
-            ? res?.data?.data[0]
-            : res?.data?.data;
-        setMatchAccountData(temp);
-        await getMatchPositionData(temp?.registered_match_id);
-      })
-      .catch((err) => console.log(err));
-  };
-  useEffect(() => {
-    const fetchMatchInfo = async () => {
-      if (selectedMatch) {
-        getMatchInfo();
-      }
-    };
-    fetchMatchInfo();
-  }, [selectedMatch]);
   return (
     <div>
-      <MatchScroll allMatches={allMatches} selectedMatch={selectedMatch} />
+      <MatchScroll
+        allMatches={allMatches}
+        selectedMatch={selectedMatch}
+        setSelectedMatch={setSelectedMatch}
+      />
       <div className="d-flex flex-wrap">
         <FancyResultClientTable />
         <FancyResultOversTable />
