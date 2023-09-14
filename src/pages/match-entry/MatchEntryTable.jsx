@@ -7,6 +7,7 @@ import { GET_MATCH_POSITION_DATA } from "../../config/endpoints";
 
 function MatchEntryTable(props) {
   const { matchPositionData } = props;
+
   let register_id = localStorage?.getItem("register_id");
   let creator_id = localStorage?.getItem("creator_id");
   let account_role = localStorage?.getItem("account_role");
@@ -24,7 +25,7 @@ function MatchEntryTable(props) {
     setDeletePopup(true);
   };
 
-  const getMatchEntryData = async (ID) => {
+  const getMatchEntryData = async () => {
     await call(GET_MATCH_POSITION_DATA, {
       registered_match_id,
       register_id,
