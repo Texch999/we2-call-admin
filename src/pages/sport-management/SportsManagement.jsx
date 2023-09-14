@@ -16,6 +16,8 @@ function SportsManagement() {
   const [liveMatchesData, setLiveMatchesData] = useState([]);
   const [upcomingMatchesData, setUpcomingMatchesData] = useState([]);
   const [todayMatchesData, setTodayMatchesData] = useState([]);
+
+  const [allMatchesData, setAllMatchesData] = useState([]);
   const top_cricket_countries = [
     "India",
     "Australia",
@@ -34,6 +36,11 @@ function SportsManagement() {
       .then((res) => {
         let result = res?.data?.data;
         console.log("all matches", res?.data?.data);
+        setAllMatchesData([
+          ...result?.liveMatches,
+          ...result?.todaysMatches,
+          ...result?.upCommingMatches,
+        ]);
         setLiveMatchesData(result?.liveMatches);
         setTodayMatchesData(result?.todaysMatches);
         setUpcomingMatchesData(result?.upCommingMatches);
@@ -74,9 +81,46 @@ function SportsManagement() {
       cspan: "col-2",
     },
   ];
-  const tableData = [
+  const tableData =
+    allMatchesData?.length &&
+    allMatchesData?.map((match, index) => {
+      return {
+        seriesName: match?.series_name,
+        team: match?.match_name,
+        sportName: (
+          <div>
+            {match?.sport_name},{match?.gender}
+          </div>
+        ),
+        matchPlace: (
+          <div>
+            {match?.game_object?.match_type},{match?.stadium},
+            {match?.match_place}
+          </div>
+        ),
+        dateTime: (
+          <div>
+            {match?.date}
+            <br /> {match?.time}
+          </div>
+        ),
+        editButton: <GoPencil className="edit-icon" />,
+      };
+    });
+
+  const scheduledTableData = [
     {
-      seriesName: "T20 World Cup",
+      seriesName: (
+        <div>
+          Cricket, Male
+          <br /> T20 World Cup
+          <br /> Oneday
+          <br /> Amhadabad Stadium
+          <br /> 01/08/2023
+          <br />
+          11:46:00 AM
+        </div>
+      ),
       team: "Newziland  vs  SriLanka",
       sportName: "Cricket, Male",
       matchPlace: "One day Amhadabad Stadium",
@@ -86,7 +130,11 @@ function SportsManagement() {
           <br /> 11:46:00 AM
         </div>
       ),
-      editButton: <GoPencil className="edit-icon" />,
+      editButton: (
+        <div>
+          <GoPencil />
+        </div>
+      ),
     },
     {
       seriesName: "T20 World Cup",
@@ -99,82 +147,13 @@ function SportsManagement() {
           <br /> 11:46:00 AM
         </div>
       ),
-      editButton: <GoPencil className="edit-icon" />,
-    },
-    {
-      seriesName: "T20 World Cup",
-      team: "Newziland  vs  SriLanka",
-      sportName: "Cricket, Male",
-      matchPlace: "One day Amhadabad Stadium",
-      dateTime: (
+      editButton: (
         <div>
-          01/08/2023
-          <br /> 11:46:00 AM
+          <GoPencil />
         </div>
       ),
-      editButton: <GoPencil className="edit-icon" />,
-    },
-    {
-      seriesName: "T20 World Cup",
-      team: "Newziland  vs  SriLanka",
-      sportName: "Cricket, Male",
-      matchPlace: "One day Amhadabad Stadium",
-      dateTime: (
-        <div>
-          01/08/2023
-          <br /> 11:46:00 AM
-        </div>
-      ),
-      editButton: <GoPencil className="edit-icon" />,
     },
   ];
-
-  // const scheduledTableData = [
-  //   {
-  //     seriesName: (
-  //       <div>
-  //         Cricket, Male
-  //         <br /> T20 World Cup
-  //         <br /> Oneday
-  //         <br /> Amhadabad Stadium
-  //         <br /> 01/08/2023
-  //         <br />
-  //         11:46:00 AM
-  //       </div>
-  //     ),
-  //     team: "Newziland  vs  SriLanka",
-  //     sportName: "Cricket, Male",
-  //     matchPlace: "One day Amhadabad Stadium",
-  //     dateTime: (
-  //       <div>
-  //         01/08/2023
-  //         <br /> 11:46:00 AM
-  //       </div>
-  //     ),
-  //     editButton: (
-  //       <div>
-  //         <GoPencil />
-  //       </div>
-  //     ),
-  //   },
-  //   {
-  //     seriesName: "T20 World Cup",
-  //     team: "Newziland  vs  SriLanka",
-  //     sportName: "Cricket, Male",
-  //     matchPlace: "One day Amhadabad Stadium",
-  //     dateTime: (
-  //       <div>
-  //         01/08/2023
-  //         <br /> 11:46:00 AM
-  //       </div>
-  //     ),
-  //     editButton: (
-  //       <div>
-  //         <GoPencil />
-  //       </div>
-  //     ),
-  //   },
-  // ];
   const columns = [
     { header: "Series Name", field: "seriesName" },
     { header: "Team", field: "team" },
@@ -192,8 +171,7 @@ function SportsManagement() {
 
   const [activeHead, setActiveHead] = useState(0);
 
-  const [scheduleDate, setScheduleDate] = useState([]);
-
+  const [scheduleDate, setScheduleDate] = useState(liveMatchesData);
 
   const [createMacthSubmit, setCreateMacthSubmit] = useState(false);
 
@@ -216,9 +194,10 @@ function SportsManagement() {
 
   useEffect(() => {
     getAllMatches();
+    setScheduleDate(liveMatchesData);
   }, []);
 
-  console.log(scheduleDate,"---------------heellel")
+  console.log(liveMatchesData, "---------------heellel");
 
   return (
     <div className="p-3">
@@ -308,7 +287,8 @@ function SportsManagement() {
             <h5>Created Matches</h5>
           </div>
           <div className="mt-3 ">
-            <Table data={tableData} columns={columns} />
+            <Table data={tableData || []} columns={columns} />
+            {console.log(allMatchesData, "...tabledata")}
           </div>
         </div>
         <div className="col-4 meetings-heading">
