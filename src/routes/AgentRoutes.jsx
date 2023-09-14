@@ -63,10 +63,6 @@ export const AgentRoutes = [
     component: SuperAdminCallManagement,
   },
   {
-    path: "/settlement-statement",
-    component: Settlement,
-  },
-  {
     path: "/sport-management",
     component: SportsManagement,
   },
