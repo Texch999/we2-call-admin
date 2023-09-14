@@ -34,7 +34,8 @@ const GET_ALL_ADMINS="/account_register/get_all_created_role_data"
 const BLOCKUNBLOCK="/offline-management/active_inactive_users"
 // const CREATE_PACKAGE_SUBSCRIPTION = '/packages/package_subsciption_ticket'
 const EDITPROFILE="/admin/admin_profile_update_info"
-const GET_USER_INFO="/admin/get_admin_accounts_user_info"
+const GET_USER_INFO="/admin/get_admin_accounts_user_info";
+const GET_MEETINGS_DATA= "/meetings/get_meetings";
 
 
 

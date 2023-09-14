@@ -82,7 +82,7 @@ function Header() {
     {
       icon: <FaRegHandshake className="mr-10" />,
       name: "Call Settlement",
-      path: "/call-settelment",
+      path: "/call-settlement",
     },
     {
       icon: <FaRegAddressBook className="mr-10" />,
