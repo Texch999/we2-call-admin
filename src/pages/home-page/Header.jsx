@@ -208,9 +208,9 @@ function Header() {
     setMoreType(item.name);
     setMoreOpen(false);
     navigate(item.path);
-      if (item.onClick) {
-        setModalShow(true);
-      }
+    if (item.onClick) {
+      setModalShow(true);
+    }
   };
   const handleSelectReports = (e) => {
     setReportsType(e.name);
@@ -239,9 +239,11 @@ function Header() {
           <div className="row w-100 min-h-10vh d-flex align-items-center">
             {headerMenu.map((item, index) => {
               return (
-                <div className="col meetings-heading cursor-pointer">
+                <div
+                  key={index}
+                  className="col meetings-heading cursor-pointer"
+                >
                   <div
-                    key={index}
                     className={`${
                       activeHead === index ? "active-head-menu" : null
                     } header-menu flex-aline-center`}
@@ -316,7 +318,9 @@ function Header() {
         <div className="d-flex w-18 p-2">
           <div className="header-avatar align-items-center justify-content-around d-flex w-50">
             <img src={Images.profile} alt="profile" className="me-2" />
-            <div className="meetings-heading header-font">{localStorage?.getItem('user_name')}</div>
+            <div className="meetings-heading header-font">
+              {localStorage?.getItem("user_name")}
+            </div>
           </div>
           <div className="d-flex align-items-center w-50 justify-content-around">
             <div className=" icons-share me-2 ms-2">
