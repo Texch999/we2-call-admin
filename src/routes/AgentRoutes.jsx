@@ -28,6 +28,7 @@ import MatchShareRiskPosition from "../pages/match-risk/MatchShareRiskPosition";
 import FancyShareRisk from "../pages/match-risk/FancyShareRisk";
 import ToursAndTournaments from "../pages/tours-tournaments/ToursAndTournaments";
 import ViewOffers from "../pages/tours-tournaments/ViewOffers";
+import EditProfile from "../pages/editprofile/EditProfile";
 
 export const AgentRoutes = [
   {
@@ -137,5 +138,9 @@ export const AgentRoutes = [
   {
     path: "/offers",
     component: ViewOffers,
+  },
+  {
+    path: "/edit-profile",
+    component: EditProfile,
   },
 ];

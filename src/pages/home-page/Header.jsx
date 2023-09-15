@@ -20,6 +20,9 @@ import { GiArmorUpgrade } from "react-icons/gi";
 import { BiPhoneCall } from "react-icons/bi";
 import { BsFillCreditCard2BackFill } from "react-icons/bs";
 import { MdOutlinePrivacyTip } from "react-icons/md";
+import { MdOutlineLockReset } from "react-icons/md";
+import { FaUserEdit } from "react-icons/fa";
+import { RiLogoutCircleLine } from "react-icons/ri";
 import ResetPassword from "../log-in/ResetPassword";
 import MatchSubmitPopup from "../match-popups/MatchSubmitPopup";
 import AddPaymentMode from "../popups/AddPaymentMode";
@@ -52,6 +55,8 @@ function Header() {
   const [reportsType, setReportsType] = useState("Report");
   const [moreOpen, setMoreOpen] = useState(false);
   const [moreType, setMoreType] = useState("More");
+  const [settingsOpen, setSettingsOpen] = useState(false);
+  const [settingsType, setSettingsType] = useState("");
   const headerMenu = [
     "Home",
     "Chat",
@@ -59,6 +64,22 @@ function Header() {
     matchEntryType,
     reportsType,
     moreType,
+  ];
+  const settingsDropdown = [
+    {
+      icon: <MdOutlineLockReset />,
+      name: "Reset Password",
+    },
+    {
+      icon: <FaUserEdit />,
+      name: "Edit Profile",
+      path: "/edit-profile",
+    },
+    {
+      icon: <RiLogoutCircleLine />,
+      name: "Logout",
+      path: "/log-out",
+    },
   ];
   const MatchEntryDropdown = [
     {
@@ -217,7 +238,14 @@ function Header() {
     setReportsOpen(false);
     navigate(e.path);
   };
-
+  const handleSettingsSelect = (e) => {
+    setSettingsOpen(true);
+  };
+  const handleSettings = (data) => {
+    setSettingsType(data.name);
+    setSettingsOpen(false);
+    navigate(data.path);
+  };
   const [resetPasswordSubmit, setResetPasswordSubmit] = useState();
   const token = isLoggedIn();
   return (
@@ -327,9 +355,25 @@ function Header() {
               <AiOutlineShareAlt />
             </div>
             <div className=" icons-share">
-              <AiOutlineSetting />
+              <AiOutlineSetting onClick={() => handleSettingsSelect()} />
             </div>
           </div>
+          {settingsOpen && (
+            <div className="head-dropdown p-2 more-position w-200px">
+              {settingsDropdown.map((item, index) => {
+                return (
+                  <div
+                    key={index}
+                    className="d-flex align-items-center mt-2 p-2 cursor-pointer"
+                    onClick={() => handleSettings(item)}
+                  >
+                    <span className="me-1">{item.icon}</span>
+                    {item.name}
+                  </div>
+                );
+              })}
+            </div>
+          )}
         </div>
       </div>
       <Marquee className="marqu-tag meetings-heading">
