@@ -38,6 +38,7 @@ const GET_ALL_ADMINS = "/account_register/get_all_created_role_data";
 const BLOCKUNBLOCK = "/offline-management/active_inactive_users";
 // const CREATE_PACKAGE_SUBSCRIPTION = '/packages/package_subsciption_ticket'
 const EDITPROFILE = "/admin/admin_profile_update_info";
+const GENERATE_SIGNED_URL = "/admin/profile_signed_url";
 const GET_USER_INFO = "/admin/get_admin_accounts_user_info";
 
 // methods
@@ -45,6 +46,11 @@ const DELETE = "DELETE";
 const POST = "POST";
 const GET = "POST";
 const PUT = "PUT";
+
+exports.GENERATE_SIGNED_URL = {
+  url: GENERATE_SIGNED_URL,
+  method: POST,
+};
 
 exports.GET_UPDATED_MATCHES_DATA = {
   url: GET_UPDATED_MATCHES_DATA,

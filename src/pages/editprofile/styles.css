@@ -7,5 +7,7 @@ body {
 }
 .form-control {
   background-color: #0c123e !important;
-  color: #ffffff;
+  color: #ffffff !important;
+  outline:none !important;
+  border-color: none !important;
 }

@@ -74,3 +74,4 @@ export const Images = {
   raina_image: "./assets/raina.png",
   no_chat_image: "/assets/no_chat_image.png",
 };
+export const ImageBaseUrl = "https://we2-call-images.s3.us-east-2.amazonaws.com";
