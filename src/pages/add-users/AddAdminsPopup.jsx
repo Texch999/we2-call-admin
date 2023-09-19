@@ -1,41 +1,95 @@
-import {
-  Container,
-  Form,
-  Row,
-  Col,
-  InputGroup,
-  Image,
-} from "react-bootstrap";
+import { Container, Form, Row, Col, InputGroup, Image } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { Images } from "../../images";
 import { useState } from "react";
 import { IoEyeSharp, IoEyeOffSharp } from "react-icons/io5";
+import { call } from "../../config/axios";
+import { ACCOUNT_REGISTERATION } from "../../config/endpoints";
 
 function AddAdminsPopup(props) {
+  let register_id = localStorage?.getItem("register_id");
+  let creator_id = localStorage?.getItem("creator_id");
+  let account_role = localStorage?.getItem("account_role");
+
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [err, setErr] = useState("");
+
+  const [inputData, setInputData] = useState({});
+
   const [togglePassword, setTogglePassword] = useState(true);
   const [cnfPasswordToggle, setCnfPasswordToggle] = useState(true);
   const [adminPasswordToggle, setAdminPasswordToggle] = useState(true);
-  const [newUserData, setNewUserData] = useState({
-    s_no: 10,
-    user_name: "",
-    type: "",
-    location: "",
-    user: "",
-    profit_loss: "",
-  });
+
   const handleInputChnage = (e) => {
-    const { id, value } = e.target;
-    setNewUserData((data) => ({
-      ...data,
-      [id]: value,
-    }));
-    console.log(newUserData);
+    // console.log(e.target.value);
+    setInputData({ ...inputData, [e.target.name]: e.target.value });
   };
-  const handleAddUser = () => {
-    setNewUserData("user");
-    props.onHide();
+  let packageList = [
+    { label: "Trial", value: "Trial" },
+    { label: "Standard", value: "Standard" },
+    { label: "Silver", value: "Silver" },
+    { label: "Gold", value: "Gold" },
+    { label: "Diamond", value: "Diamond" },
+    { label: "VIP", value: "VIP" },
+  ];
+
+  let userRoles = [
+    { label: "Super Admin", value: "superadmin" },
+    { label: "Admin", value: "admin" },
+    { label: "Sub Admin", value: "subadmin" },
+    { label: "Super Master", value: "supermaster" },
+    { label: "Master", value: "master" },
+    { label: "Agent", value: "agent" },
+  ];
+  const finIndex = userRoles.findIndex(
+    (obj) => obj.value === localStorage.getItem("account_role")
+  );
+  userRoles =
+    finIndex > -1 ? userRoles.slice(finIndex + 1, userRoles.length) : [];
+
+  const handleSubmitUserCreation = async () => {
+    if (
+      !(
+        inputData?.first_name &&
+        inputData?.user_name &&
+        inputData?.share &&
+        inputData?.my_share &&
+        inputData?.creator_password
+      )
+    ) {
+      return setErr("Please enter required fields");
+    }
+    if (inputData?.password !== inputData?.confirm_password) {
+      return setErr(`password doesn't match`);
+    }
+    setErr("");
+    setIsProcessing(true);
+    // console.log({ inputData });
+    await call(ACCOUNT_REGISTERATION, {
+      ...inputData,
+      creator_id: register_id,
+      creator_role: account_role,
+    })
+      .then((res) => {
+        setIsProcessing(false);
+        if (res.data.status === 201) {
+          props?.setIsUserAdded((prev) => !prev);
+          props.onHide();
+          setInputData({});
+        } else {
+          setErr(
+            res?.data?.message ? res?.data?.message : `something wen't wrong`
+          );
+        }
+      })
+      .catch((err) => {
+        setIsProcessing(false);
+        setErr(err?.message ? err?.message : `something wen't wrong`);
+        console.log(err);
+      });
   };
+
   const handleTogglePassword = () => {
     setTogglePassword(!togglePassword);
   };
@@ -66,6 +120,8 @@ function AddAdminsPopup(props) {
                 aria-label="Enter Name"
                 aria-describedby="basic-addon1"
                 autoFocus
+                name="first_name"
+                value={inputData["first_name"] || ""}
                 onChange={(e) => handleInputChnage(e)}
               />
             </InputGroup>
@@ -83,6 +139,9 @@ function AddAdminsPopup(props) {
                       type="text"
                       placeholder="Enter Name"
                       autoFocus
+                      name="user_name"
+                      value={inputData["user_name"] || ""}
+                      onChange={(e) => handleInputChnage(e)}
                     />
                   </InputGroup>
                 </Form.Group>
@@ -94,12 +153,18 @@ function AddAdminsPopup(props) {
                     <InputGroup.Text id="basic-addon1">
                       <Image src={Images.LoginUserIcon} />
                     </InputGroup.Text>
-                    <Form.Select>
-                      <option>Admin</option>
-                      <option>Super Admin</option>
-                      <option>Master</option>
-                      <option>Super Master</option>
-                      <option>Agent</option>
+                    <Form.Select
+                      name="account_role"
+                      onChange={(e) => handleInputChnage(e)}
+                    >
+                      <option value="">Select....</option>
+                      {userRoles?.map(({ label, value }, index) => {
+                        return (
+                          <option index={index} value={value}>
+                            {label}
+                          </option>
+                        );
+                      })}
                     </Form.Select>
                   </InputGroup>
                 </Form.Group>
@@ -117,6 +182,9 @@ function AddAdminsPopup(props) {
                       type={togglePassword ? "password" : "text"}
                       placeholder="Enter password"
                       autoFocus
+                      name="password"
+                      value={inputData["password"] || ""}
+                      onChange={(e) => handleInputChnage(e)}
                     />
                     <InputGroup.Text
                       className="ps-0 pe-2"
@@ -138,6 +206,9 @@ function AddAdminsPopup(props) {
                       type={cnfPasswordToggle ? "password" : "text"}
                       placeholder="Enter confirm password"
                       autoFocus
+                      name="confirm_password"
+                      value={inputData["confirm_password"] || ""}
+                      onChange={(e) => handleInputChnage(e)}
                     />
                     <InputGroup.Text
                       className="ps-0 pe-2"
@@ -163,6 +234,9 @@ function AddAdminsPopup(props) {
                       placeholder="Enter Share"
                       autoFocus
                       aria-describedby="sharePercentage"
+                      name="share"
+                      value={inputData["share"] || ""}
+                      onChange={(e) => handleInputChnage(e)}
                     />
                   </InputGroup>
                 </Form.Group>
@@ -182,23 +256,28 @@ function AddAdminsPopup(props) {
                       placeholder="Enter Share"
                       autoFocus
                       aria-describedby="platComm"
+                      name="my_share"
+                      value={inputData["my_share"] || ""}
+                      onChange={(e) => handleInputChnage(e)}
                     />
                   </InputGroup>
                 </Form.Group>
               </Col>
               <Form.Group className="mb-3" controlId="adminPackages">
-                <Form.Label>Package*</Form.Label>
+                <Form.Label>Package*</Form.Label> account_role: {inputData['account_role'] || ""}
                 <InputGroup>
                   <InputGroup.Text id="basic-addon1">
                     <Image src={Images.packageIcon} style={{ width: "18px" }} />
                   </InputGroup.Text>
                   <Form.Select>
-                    <option>Trial</option>
-                    <option>Standard</option>
-                    <option>Silver</option>
-                    <option>Gold</option>
-                    <option>Diamond</option>
-                    <option>VIP</option>
+                    <option value="">Select...</option>
+                    {packageList?.map(({ label, value }, index) => {
+                      return (
+                        <option value={value} key={index}>
+                          {label}
+                        </option>
+                      );
+                    })}
                   </Form.Select>
                 </InputGroup>
               </Form.Group>
@@ -212,6 +291,9 @@ function AddAdminsPopup(props) {
                     type={adminPasswordToggle ? "password" : "text"}
                     placeholder="Enter Admin Password"
                     autoFocus
+                    name="creator_password"
+                    value={inputData["creator_password"] || ""}
+                    onChange={(e) => handleInputChnage(e)}
                   />
                   <InputGroup.Text
                     className="ps-0 pe-2"
@@ -223,11 +305,13 @@ function AddAdminsPopup(props) {
               </Form.Group>
             </Row>
           </Container>
+          {err && <div className="error-message mb-1">{err}</div>}
           <Button
             className="w-100 add-user-button"
-            onClick={() => handleAddUser()}
+            disabled={isProcessing}
+            onClick={() => handleSubmitUserCreation()}
           >
-            Add
+            {isProcessing ? "Processing..." : "Add"}
           </Button>
         </Form>
       </Modal.Body>

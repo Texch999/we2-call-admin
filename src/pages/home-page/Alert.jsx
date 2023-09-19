@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import Table from "./Table";
 import { AiOutlineRight } from "react-icons/ai";
 import { Chart } from "react-google-charts";
 import { GET_UPDATED_MATCHES_DATA } from "../../config/endpoints";
@@ -61,7 +60,9 @@ function Alert() {
   };
 
   useEffect(() => {
-    getMatchReports();
+    if(register_id) {
+      getMatchReports();
+    }
   }, []);
   return (
     <div className="row vh-70 mt-3 meet-box-height">

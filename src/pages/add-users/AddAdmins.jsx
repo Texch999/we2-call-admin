@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Table, Form } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./style.css";
@@ -7,49 +7,38 @@ import { GiClick } from "react-icons/gi";
 import AddAdminsPopup from "./AddAdminsPopup";
 import { MdArrowForwardIos } from "react-icons/md";
 import PackageViewPopUp from "./PackageViewPopUp";
+import { GET_ALL_CLIENTS } from "../../config/endpoints";
+import { call } from "../../config/axios";
 
 const AddAdmins = () => {
+  let register_id = localStorage?.getItem("register_id");
+  let creator_id = localStorage?.getItem("creator_id");
+  let account_role = localStorage?.getItem("account_role");
+  let user_name = localStorage?.getItem("user_name");
+
   const [filteredValue, setFilteredValue] = useState("");
   const [modalShow, setModalShow] = useState(false);
   const [packageViewPopShow, setPackageViewPopup] = useState(false);
-  const addUsersData = [
-    {
-      s_no: 1,
-      user_name: "Sai Offline",
-      package: 1,
-      type: "User",
-      location: "Hyderabad",
-      user: "Sriagent",
-      profit_loss: 500000000,
-    },
-    {
-      s_no: 2,
-      user_name: "Sangram",
-      package: 10,
-      type: "User",
-      location: "Hyderabad",
-      user: "Sriagent",
-      profit_loss: 500000000,
-    },
-    {
-      s_no: 3,
-      user_name: "Srikanth",
-      package: 3,
-      type: "Master",
-      location: "Hyderabad",
-      user: "Sriagent",
-      profit_loss: 500000000,
-    },
-    {
-      s_no: 4,
-      user_name: "Srikanth",
-      package: 5,
-      type: "Master",
-      location: "Hyderabad",
-      user: "Sriagent",
-      profit_loss: 500000000,
-    },
-  ];
+
+  const [usersData, setUsersData] = useState([]);
+  const [isUserAdded, setIsUserAdded] = useState(false);
+
+  const addUsersData =
+    usersData?.length > 0 &&
+    usersData
+      ?.filter((i) => i.account_role !== "client")
+      ?.map((user, index) => {
+        return {
+          s_no: index + 1,
+          user_name: user?.user_name,
+          type: user?.account_role,
+          location: "Hyderabad",
+          user: "",
+          profit_loss: 0,
+          package: 1,
+        };
+      });
+
   const ACTION_LABELS = {
     cp: "CP",
     edit: "EDIT",
@@ -59,9 +48,20 @@ const AddAdmins = () => {
   const handleUserChange = (e) => {
     setFilteredValue(e.target.value);
   };
-  const filteredUsersData = addUsersData.filter((data) => {
-    return data?.user_name.toLowerCase().includes(filteredValue.toLowerCase());
-  });
+
+  const getAllClients = async () => {
+    await call(GET_ALL_CLIENTS, { register_id, account_role })
+      .then((res) => {
+        // console.log(res?.data?.data);
+        setUsersData(res?.data?.data);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  useEffect(() => {
+    getAllClients();
+  }, [isUserAdded]);
+
   return (
     <div className="p-4">
       <div>
@@ -81,8 +81,8 @@ const AddAdmins = () => {
             </Button>
             <span className="mb-0 ms-2 me-2 add-user-name">Srinivas</span>
             <MdArrowForwardIos />
-            <Button className="ms-2 agent-button">AGENT</Button>
-            <span className="mb-0 ms-2 me-2 add-user-name">Sai agent</span>
+            <Button className="ms-2 agent-button">{account_role}</Button>
+            <span className="mb-0 ms-2 me-2 add-user-name">{user_name}</span>
           </div>
 
           <Form className="d-flex">
@@ -121,31 +121,32 @@ const AddAdmins = () => {
             </tr>
           </thead>
           <tbody>
-            {filteredUsersData?.map((data, index) => (
-              <tr key={index}>
-                <td className="text-center">{data?.s_no}</td>
-                <td className="text-center">
-                  {data?.user_name}{" "}
-                  <Button className="ms-1 border-0 status-button"></Button>
-                </td>
+            {addUsersData?.length > 0 &&
+              addUsersData?.map((data, index) => (
+                <tr key={index}>
+                  <td className="text-center">{data?.s_no}</td>
+                  <td className="text-center">
+                    {data?.user_name}{" "}
+                    <Button className="ms-1 border-0 status-button"></Button>
+                  </td>
 
-                <td className="text-center">{data?.type}</td>
-                <td className="text-center">{data?.package}</td>
-                <td className="text-center">{data?.location}</td>
-                <td className="text-center">{data?.user}</td>
-                <td className="text-center">{data?.profit_loss}</td>
-                <td className="text-center">
-                  {Object.keys(ACTION_LABELS).map((action, index) => (
-                    <Button
-                      key={index}
-                      className={`rounded meeting-status-button ${action}-button me-2`}
-                    >
-                      {ACTION_LABELS[action]}
-                    </Button>
-                  ))}
-                </td>
-              </tr>
-            ))}
+                  <td className="text-center">{data?.type}</td>
+                  <td className="text-center">{data?.package}</td>
+                  <td className="text-center">{data?.location}</td>
+                  <td className="text-center">{data?.user}</td>
+                  <td className="text-center">{data?.profit_loss}</td>
+                  <td className="text-center">
+                    {Object.keys(ACTION_LABELS).map((action, index) => (
+                      <Button
+                        key={index}
+                        className={`rounded meeting-status-button ${action}-button me-2`}
+                      >
+                        {ACTION_LABELS[action]}
+                      </Button>
+                    ))}
+                  </td>
+                </tr>
+              ))}
           </tbody>
           <tfoot>
             <tr>
@@ -153,12 +154,13 @@ const AddAdmins = () => {
                 TOTAL
               </th>
               <th className="clr-green text-center">
-                {filteredUsersData
-                  ?.reduce(
-                    (total, data) => total + parseFloat(data?.profit_loss),
-                    0
-                  )
-                  .toFixed(2)}
+                {addUsersData?.length > 0 &&
+                  addUsersData
+                    ?.reduce(
+                      (total, data) => total + parseFloat(data?.profit_loss),
+                      0
+                    )
+                    .toFixed(2)}
               </th>
               <th></th>
             </tr>
@@ -167,7 +169,7 @@ const AddAdmins = () => {
             <AddAdminsPopup
               show={modalShow}
               onHide={() => setModalShow(false)}
-              filteredUsersData={filteredUsersData}
+              setIsUserAdded={setIsUserAdded}
             />
           )}
           {packageViewPopShow && (
