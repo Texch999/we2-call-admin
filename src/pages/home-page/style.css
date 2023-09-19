@@ -371,3 +371,16 @@ option {
 .pr-3{
   padding-right: 3%;
 }
+
+.no-data-found {
+  height: 300px;
+  position: relative;
+}
+
+.no-data-found p {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
