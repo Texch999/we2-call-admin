@@ -10,7 +10,7 @@ function AlertsTable(props) {
         >
           <thead id="home-table-head">
             <tr>
-              {columns.map((column, index) => (
+              {columns?.map((column, index) => (
                 <th key={index}>{column.header}</th>
               ))}
             </tr>
@@ -28,16 +28,16 @@ function AlertsTable(props) {
     >
       <thead id="home-table-head">
         <tr>
-          {columns.map((column, index) => (
+          {columns?.map((column, index) => (
             <th key={index}>{column.header}</th>
           ))}
         </tr>
       </thead>
       <tbody>
         {data?.length > 0 &&
-          data.map((item, rowIndex) => (
+          data?.map((item, rowIndex) => (
             <tr key={rowIndex}>
-              {columns.map((column, colIndex) => (
+              {columns?.map((column, colIndex) => (
                 <td key={colIndex}>
                   <div
                     className={
@@ -51,7 +51,7 @@ function AlertsTable(props) {
                     {colIndex === 1 ? (
                       <div>
                         <div>
-                          {item.team}-
+                          {item?.team}-
                           <span
                             className={
                               item.pe === "P"
@@ -59,13 +59,13 @@ function AlertsTable(props) {
                                 : "clr-red me-2"
                             }
                           >
-                            {item.pe}
+                            {item?.pe}
                           </span>
                           {Object.keys(item?.teamObj)[0]} vs
                           {Object.keys(item?.teamObj)[1]}
                         </div>
                         <div>
-                          {item.date}
+                          {item?.date}
                           <span className="ms-2">
                             {moment(item?.matchTimeStamp).format(
                               "DD-MM-YYYY, hh:mm:ss"
@@ -74,7 +74,7 @@ function AlertsTable(props) {
                         </div>
                       </div>
                     ) : (
-                      item[column.field]
+                      item[column?.field]
                     )}
                   </div>
                 </td>
