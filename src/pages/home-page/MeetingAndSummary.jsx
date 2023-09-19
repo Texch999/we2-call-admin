@@ -1,28 +1,39 @@
-import React from "react";
+import { useEffect, useState } from "react";
 import { AiOutlineRight } from "react-icons/ai";
 import Table from "./Table";
+import { call } from "../../config/axios";
+import { GET_ALL_CLIENTS, GET_ALL_MEETINGS } from "../../config/endpoints";
+import moment from "moment";
 
 function MeetingAndSummary() {
-  const data = [
-    {
-      admin: "UL",
-      event: "Newzelend vs South Africa Oneday 23-06-2023, 12:52:00 PM",
-      user: "Sri-Agent",
-      status: "Join",
-    },
-    {
-      admin: "UL",
-      event: "Newzelend vs South Africa Oneday 23-06-2023, 12:52:00 PM",
-      user: "Sri-Agent",
-      status: "Join",
-    },
-    {
-      admin: "UL",
-      event: "Newzelend vs South Africa Oneday 23-06-2023, 12:52:00 PM",
-      user: "Sri-Agent",
-      status: "Not-Started",
-    },
-  ];
+  let register_id = localStorage?.getItem("register_id");
+  let creator_id = localStorage?.getItem("creator_id");
+  let account_role = localStorage?.getItem("account_role");
+
+  const [liveMeetings, setLiveMeetings] = useState([]);
+  const [allAdmins, setAllAdmins] = useState([]);
+  let meetingUserData;
+  const data1 = liveMeetings?.map((obj) => {
+    meetingUserData = allAdmins?.filter((item) =>
+      obj.meetingUserIds.includes(item.register_id)
+    );
+    return {
+      ...obj,
+      meetingUserData: meetingUserData?.map((obj) => obj.user_name),
+    };
+  });
+
+  data1?.length > 0 &&
+    data1?.map((meeting, index) => {
+      return {
+        admin: meeting?.createdBy || "",
+        event: `${meeting?.event_name} - ${moment(
+          meeting?.given_time_stamp
+        ).format("DD-MM-YYY, hh:mm:s")}`,
+        user: meetingUserData.map((obj) => <>{obj.user_name}</>),
+        status: "Join",
+      };
+    });
 
   const columns = [
     { header: "Admin", field: "admin" },
@@ -53,6 +64,29 @@ function MeetingAndSummary() {
       count: "00",
     },
   ];
+
+  const getAllAdmins = async () => {
+    await call(GET_ALL_CLIENTS, { register_id })
+      .then((res) => {
+        setAllAdmins(res?.data?.data);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const getLiveMeetings = async () => {
+    await call(GET_ALL_MEETINGS, { register_id })
+      .then((res) => {
+        setLiveMeetings(res?.data?.data);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  useEffect(() => {
+    if (register_id) {
+      getLiveMeetings();
+      getAllAdmins();
+    }
+  }, []);
   return (
     <div className="row meet-box-height ">
       <div className="col-6 p-2">
@@ -64,7 +98,7 @@ function MeetingAndSummary() {
               <AiOutlineRight />
             </div>
           </div>
-          <Table data={data} columns={columns} />
+          <Table data={data1} columns={columns} />
         </div>
       </div>
       <div className="col-6 p-2">
