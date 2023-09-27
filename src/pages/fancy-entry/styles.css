@@ -177,6 +177,9 @@
   color: #fce719 !important;
   border: 2px solid #fce719;
 }
+.table-bg {
+  background-color: #082051 !important;
+}
 .match-position-table thead > tr > th {
   padding: 10px;
 }

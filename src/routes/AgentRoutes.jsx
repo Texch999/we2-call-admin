@@ -14,14 +14,12 @@ import ReportPage from "../pages/onepagereport/ReportPage";
 import AdminShareCommSettlement from "../pages/setlment/AdminShareCommSettlement";
 import SettlementStatement from "../pages/setlment/SettelmentStatement";
 import Settlement from "../pages/setlment/Settelment";
-
 import AdminOnePageReport from "../pages/onepagereport/AdminOnePageReport";
 import AdminSharesMatchStatement from "../pages/matchstatement/AdminSharesMatchStatement";
 import AddUsers from "../pages/add-users/AddUsers";
 import UpgradePackage from "../pages/upgrade-package/UpgradePackage";
 import AddAdmins from "../pages/add-users/AddAdmins";
 import PrivacyPolicy from "../pages/privacy-policy/PrivacyPolicy";
-
 import ShareRiskLiveMatches from "../pages/match-risk/ShareRiskLiveMatches";
 import MatchShareRisk from "../pages/match-risk/MatchShareRisk";
 import MatchShareRiskPosition from "../pages/match-risk/MatchShareRiskPosition";
@@ -61,10 +59,6 @@ export const AgentRoutes = [
   {
     path: "/super-admin-call-management",
     component: SuperAdminCallManagement,
-  },
-  {
-    path: "/settlement-statement",
-    component: Settlement,
   },
   {
     path: "/sport-management",

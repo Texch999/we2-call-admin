@@ -193,7 +193,7 @@ function CallHistory() {
   return (
     <div className="p-4">
       <h5 className="meetings-heading mb-3">Call History</h5>
-      <Container fluid className="mt-2 mb-4" >
+      <Container fluid className="mt-2 mb-4">
         <Row>
           <Col className="col-lg-2 col-md-3">
             <div>
@@ -232,30 +232,31 @@ function CallHistory() {
           </Col>
         </Row>
       </Container>
-      <div>
+      <table className="w-100 match-position-table small-font">
+        <thead className="w-100 medium-font">
+          <tr>
+            <th scope="col" className="text-center">
+              DATE & TIME
+            </th>
+            <th scope="col" className="text-center">
+              MEETING TITLE
+            </th>
+            <th scope="col" className="text-center">
+              DURATION
+            </th>
+            <th scope="col" className="text-center">
+              PRICE
+            </th>
+            <th scope="col" className="text-center">
+              STATUS
+            </th>
+            <th scope="col" className="text-center"></th>
+            <th scope="col" className="text-center"></th>
+          </tr>
+        </thead>
+      </table>
+      <div style={{ height: "150px", overflow: "scroll" }}>
         <table className="w-100 match-position-table small-font">
-          <thead className="medium-font">
-            <tr>
-              <th scope="col" className="text-center">
-                DATE & TIME
-              </th>
-              <th scope="col" className="text-center">
-                MEETING TITLE
-              </th>
-              <th scope="col" className="text-center">
-                DURATION
-              </th>
-              <th scope="col" className="text-center">
-                PRICE
-              </th>
-              <th scope="col" className="text-center">
-                STATUS
-              </th>
-              <th scope="col" className="text-center"></th>
-              <th scope="col" className="text-center"></th>
-            </tr>
-          </thead>
-
           {HISTORY_DETAILS.map((item, index) => (
             <tbody key={index} className="small-font">
               <tr>
