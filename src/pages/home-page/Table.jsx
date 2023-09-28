@@ -14,7 +14,7 @@ function Table(props) {
             </tr>
           </thead>
           <tbody>
-            {data?.length > 0 &&
+            {data?.length > 0 ? (
               data?.map((item, rowIndex) => (
                 <tr key={rowIndex}>
                   {columns?.map((column, colIndex) => (
@@ -23,11 +23,12 @@ function Table(props) {
                     </td>
                   ))}
                 </tr>
-              ))}
-            ||
-            <div className="no-data-found">
-              <p>No Data Found</p>
-            </div>
+              ))
+            ) : (
+              <tr className="no-data-found">
+                <div>NO DATA</div>
+              </tr>
+            )}
           </tbody>
         </table>
       </>

@@ -337,7 +337,7 @@ input::placeholder {
   height: 40vh;
   overflow-y: scroll;
 }
-.table-scedule-scroll{
+.table-scedule-scroll {
   height: 32vh;
   overflow-y: scroll;
 }
@@ -391,7 +391,7 @@ option {
   position: relative;
 }
 
-.no-data-found p {
+.no-data-found div {
   margin: 0;
   position: absolute;
   top: 50%;
