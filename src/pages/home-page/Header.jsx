@@ -230,16 +230,19 @@ function Header() {
             onClick={() => handleLoginPopup()}
           />
         </div>
-        <div className="date-div mt-2 d-flex align-items-center ms-1">
-          <p className="meetings-heading medium-font header-font">
+        <div className="date-div mt-2 d-flex align-items-center justify-content-center ms-1">
+          <div className="meetings-heading medium-font header-font ms-2">
             {currentDateTime.toLocaleString()}
-          </p>
+          </div>
         </div>
         <div className="h-10vh d-flex align-items-center head-wrap">
           <div className="row w-100 min-h-10vh d-flex align-items-center">
             {headerMenu?.map((item, index) => {
               return (
-                <div className="col meetings-heading cursor-pointer" key={index}>
+                <div
+                  className="col meetings-heading cursor-pointer"
+                  key={index}
+                >
                   <div
                     className={`${
                       activeHead === index ? "active-head-menu" : null

@@ -43,8 +43,8 @@ body {
   padding: 10px;
   font-size: 12px;
 }
-.header-avatar{
-  border-right: 1px solid grey;
+.header-avatar {
+  border-right: 2px solid #202d57;
   padding-right: 0.8rem;
 }
 .header-avatar img {
