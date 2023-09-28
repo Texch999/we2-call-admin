@@ -2,7 +2,9 @@ import { useEffect, useState } from "react";
 import Marquee from "react-fast-marquee";
 import { Images } from "../../images";
 import {
+  AiFillEdit,
   AiFillWarning,
+  AiOutlineLogout,
   AiOutlineSetting,
   AiOutlineShareAlt,
 } from "react-icons/ai";
@@ -19,7 +21,7 @@ import { TbReport, TbReportSearch } from "react-icons/tb";
 import { GiArmorUpgrade } from "react-icons/gi";
 import { BiPhoneCall } from "react-icons/bi";
 import { BsFillCreditCard2BackFill } from "react-icons/bs";
-import { MdOutlinePrivacyTip } from "react-icons/md";
+import { MdLockReset, MdOutlinePrivacyTip } from "react-icons/md";
 import ResetPassword from "../log-in/ResetPassword";
 import MatchSubmitPopup from "../match-popups/MatchSubmitPopup";
 import AddPaymentMode from "../popups/AddPaymentMode";
@@ -208,15 +210,33 @@ function Header() {
     setMoreType(item.name);
     setMoreOpen(false);
     navigate(item.path);
-      if (item.onClick) {
-        setModalShow(true);
-      }
+    if (item.onClick) {
+      setModalShow(true);
+    }
   };
   const handleSelectReports = (e) => {
     setReportsType(e.name);
     setReportsOpen(false);
     navigate(e.path);
   };
+
+  const settingsDropdown = [
+    {
+      icon: <AiFillEdit className="mr-10" />,
+      name: "Edit profile",
+      // onClick: "onClick",
+    },
+    {
+      icon: <MdLockReset className="mr-10" />,
+      name: "Reset Password",
+      // path: "/privacy-policy",
+    },
+    {
+      icon: <AiOutlineLogout className="mr-10" />,
+      name: "Logout",
+      // path: "/admin-one-page-report",
+    },
+  ];
 
   const [resetPasswordSubmit, setResetPasswordSubmit] = useState();
   const token = isLoggedIn();
@@ -239,7 +259,10 @@ function Header() {
           <div className="row w-100 min-h-10vh d-flex align-items-center">
             {headerMenu?.map((item, index) => {
               return (
-                <div className="col meetings-heading cursor-pointer" key={index}>
+                <div
+                  className="col meetings-heading cursor-pointer"
+                  key={index}
+                >
                   <div
                     className={`${
                       activeHead === index ? "active-head-menu" : null
@@ -312,17 +335,37 @@ function Header() {
             </div>
           )}
         </div>
-        <div className="d-flex w-18 p-2">
+        <div className="d-flex justify-content-between p-2">
           <div className="header-avatar align-items-center justify-content-around d-flex w-50">
             <img src={Images.profile} alt="profile" className="me-2" />
-            <div className="meetings-heading header-font">{localStorage?.getItem('user_name')}</div>
-          </div>
-          <div className="d-flex align-items-center w-50 justify-content-around">
-            <div className=" icons-share me-2 ms-2">
-              <AiOutlineShareAlt />
+            <div className="meetings-heading header-font">
+              {localStorage?.getItem("user_name")}
             </div>
-            <div className=" icons-share">
-              <AiOutlineSetting />
+          </div>
+          <div className="h-10vh">
+            <div className="d-flex align-items-center w-50 justify-content-around">
+              <div className=" icons-share me-2 ms-2">
+                <AiOutlineShareAlt />
+              </div>
+              <div className=" icons-share">
+                <AiOutlineSetting />
+              </div>
+            </div>
+            <div className="head-dropdown setting-position p-2">
+              {settingsDropdown.map((item, index) => {
+                return (
+                  <div
+                    key={index}
+                    className="d-flex align-items-center mt-2 p-2 cursor-pointer"
+                    // onClick={() => handleSelectReports(item)}
+                  >
+                    {/* {item.icon}
+                    {item.name} */}
+                    <span className="me-1">{item.icon}</span>
+                    {item.name}
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>

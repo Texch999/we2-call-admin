@@ -303,6 +303,9 @@ input::placeholder {
 .report-position {
   left: 25%;
 }
+.setting-position{
+  margin-top: 20px;
+}
 .more-position {
   left: 40%;
 }
