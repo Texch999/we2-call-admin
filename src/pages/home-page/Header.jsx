@@ -28,6 +28,7 @@ import AddPaymentMode from "../popups/AddPaymentMode";
 import { useHistory } from "react-router-dom";
 import { isLoggedIn } from "../../utils/helpers";
 import Login from "../log-in/Login";
+import EditProfile from "../popups/EditProfile";
 
 function Header() {
   const [modalShow, setModalShow] = useState(false);
@@ -54,6 +55,8 @@ function Header() {
   const [reportsType, setReportsType] = useState("Report");
   const [moreOpen, setMoreOpen] = useState(false);
   const [moreType, setMoreType] = useState("More");
+  const [activeUserDropdown, setActiveUserDropdown] = useState(false);
+  const [showeditProfile, setShowEditProfile] = useState(false);
   const headerMenu = [
     "Home",
     "Chat",
@@ -220,6 +223,28 @@ function Header() {
     navigate(e.path);
   };
 
+  const handleSettingsDropdown = () => {
+    setActiveUserDropdown((prev) => !prev);
+  };
+
+  const handleEndDropdown = (item, index) => {
+    setActiveUserDropdown(false);
+    {
+      index === 2 && handleLogout();
+    }
+    {
+      index === 1 && setShowResetPopup(true);
+    }
+    {
+      index === 0 && setShowEditProfile(true);
+    }
+  };
+
+  const handleLogout = () => {
+    localStorage.clear();
+    window.location.reload("");
+  };
+
   const settingsDropdown = [
     {
       icon: <AiFillEdit className="mr-10" />,
@@ -347,26 +372,31 @@ function Header() {
               <div className=" icons-share me-2 ms-2">
                 <AiOutlineShareAlt />
               </div>
-              <div className=" icons-share">
+              <div
+                className=" icons-share"
+                onClick={() => handleSettingsDropdown()}
+              >
                 <AiOutlineSetting />
               </div>
             </div>
-            <div className="head-dropdown setting-position p-2">
-              {settingsDropdown.map((item, index) => {
-                return (
-                  <div
-                    key={index}
-                    className="d-flex align-items-center mt-2 p-2 cursor-pointer"
-                    // onClick={() => handleSelectReports(item)}
-                  >
-                    {/* {item.icon}
+            {activeUserDropdown && (
+              <div className="head-dropdown setting-position p-2">
+                {settingsDropdown.map((item, index) => {
+                  return (
+                    <div
+                      key={index}
+                      className="d-flex align-items-center mt-2 p-2 cursor-pointer"
+                      onClick={() => handleEndDropdown(item, index)}
+                    >
+                      {/* {item.icon}
                     {item.name} */}
-                    <span className="me-1">{item.icon}</span>
-                    {item.name}
-                  </div>
-                );
-              })}
-            </div>
+                      <span className="me-1">{item.icon}</span>
+                      {item.name}
+                    </div>
+                  );
+                })}
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -393,6 +423,10 @@ function Header() {
         header={"You Are Successfully Reset your Password"}
         state={resetPasswordSubmit}
         setState={setResetPasswordSubmit}
+      />
+      <EditProfile
+        showeditProfile={showeditProfile}
+        setShowEditProfile={setShowEditProfile}
       />
       {modalShow && (
         <AddPaymentMode show={modalShow} onHide={() => setModalShow(false)} />
