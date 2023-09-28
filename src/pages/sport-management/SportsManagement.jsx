@@ -155,12 +155,19 @@ function SportsManagement() {
     },
   ];
   const columns = [
-    { header: "Series Name", field: "seriesName" },
-    { header: "Team", field: "team" },
-    { header: "Sports Name", field: "sportName" },
-    { header: "Match Place", field: "matchPlace" },
-    { header: "Date & Time", field: "dateTime" },
+    { field: "seriesName" },
+    { field: "team" },
+    { field: "sportName" },
+    { field: "matchPlace" },
+    { field: "dateTime" },
     { field: "editButton" },
+  ];
+  const columnsHead = [
+    "Series Name",
+    "Team",
+    "Sports Name",
+    "Match Place",
+    "Date & Time",
   ];
   const scheduledColumns = [
     { header: "Series Name", field: "seriesName" },
@@ -197,7 +204,6 @@ function SportsManagement() {
     setScheduleDate(liveMatchesData);
   }, []);
 
-  console.log(liveMatchesData, "---------------heellel");
 
   return (
     <div className="p-3">
@@ -287,7 +293,17 @@ function SportsManagement() {
             <h5>Created Matches</h5>
           </div>
           <div className="mt-3 ">
-            <Table data={tableData || []} columns={columns} />
+            <thead
+              id="home-table-head"
+              className="w-100 d-flex justify-content-around p-2"
+            >
+              {columnsHead?.map((column, index) => (
+                <th key={index}>{column}</th>
+              ))}
+            </thead>
+            <div className="table-div-scroll">
+              <Table data={tableData || []} columns={columns} />
+            </div>
             {console.log(allMatchesData, "...tabledata")}
           </div>
         </div>
@@ -311,7 +327,6 @@ function SportsManagement() {
             })}
           </div>
           <div className="mt-2">
-            {/* <Table data={liveMatchesData} columns={scheduledColumns} /> */}
             <ScheduleMatchesTable
               data={scheduleDate}
               columns={scheduledColumns}

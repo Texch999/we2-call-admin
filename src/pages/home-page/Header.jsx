@@ -2,7 +2,9 @@ import { useEffect, useState } from "react";
 import Marquee from "react-fast-marquee";
 import { Images } from "../../images";
 import {
+  AiFillEdit,
   AiFillWarning,
+  AiOutlineLogout,
   AiOutlineSetting,
   AiOutlineShareAlt,
 } from "react-icons/ai";
@@ -19,13 +21,14 @@ import { TbReport, TbReportSearch } from "react-icons/tb";
 import { GiArmorUpgrade } from "react-icons/gi";
 import { BiPhoneCall } from "react-icons/bi";
 import { BsFillCreditCard2BackFill } from "react-icons/bs";
-import { MdOutlinePrivacyTip } from "react-icons/md";
+import { MdLockReset, MdOutlinePrivacyTip } from "react-icons/md";
 import ResetPassword from "../log-in/ResetPassword";
 import MatchSubmitPopup from "../match-popups/MatchSubmitPopup";
 import AddPaymentMode from "../popups/AddPaymentMode";
 import { useHistory } from "react-router-dom";
 import { isLoggedIn } from "../../utils/helpers";
 import Login from "../log-in/Login";
+import EditProfile from "../popups/EditProfile";
 
 function Header() {
   const [modalShow, setModalShow] = useState(false);
@@ -52,6 +55,8 @@ function Header() {
   const [reportsType, setReportsType] = useState("Report");
   const [moreOpen, setMoreOpen] = useState(false);
   const [moreType, setMoreType] = useState("More");
+  const [activeUserDropdown, setActiveUserDropdown] = useState(false);
+  const [showeditProfile, setShowEditProfile] = useState(false);
   const headerMenu = [
     "Home",
     "Chat",
@@ -102,12 +107,12 @@ function Header() {
     {
       icon: <FaRegHandshake className="mr-10" />,
       name: "Settlement",
-      path: "/settelment",
+      path: "/settlement",
     },
     {
       icon: <FaHandshake className="mr-10" />,
       name: "Settlement Statement",
-      path: "/settelment-statement",
+      path: "/settlement-statement",
     },
     {
       icon: <GiArmorUpgrade className="mr-10" />,
@@ -218,6 +223,46 @@ function Header() {
     navigate(e.path);
   };
 
+  const handleSettingsDropdown = () => {
+    setActiveUserDropdown((prev) => !prev);
+  };
+
+  const handleEndDropdown = (item, index) => {
+    setActiveUserDropdown(false);
+    {
+      index === 2 && handleLogout();
+    }
+    {
+      index === 1 && setShowResetPopup(true);
+    }
+    {
+      index === 0 && setShowEditProfile(true);
+    }
+  };
+
+  const handleLogout = () => {
+    localStorage.clear();
+    window.location.reload("");
+  };
+
+  const settingsDropdown = [
+    {
+      icon: <AiFillEdit className="mr-10" />,
+      name: "Edit profile",
+      // onClick: "onClick",
+    },
+    {
+      icon: <MdLockReset className="mr-10" />,
+      name: "Reset Password",
+      // path: "/privacy-policy",
+    },
+    {
+      icon: <AiOutlineLogout className="mr-10" />,
+      name: "Logout",
+      // path: "/admin-one-page-report",
+    },
+  ];
+
   const [resetPasswordSubmit, setResetPasswordSubmit] = useState();
   const token = isLoggedIn();
   return (
@@ -315,20 +360,43 @@ function Header() {
             </div>
           )}
         </div>
-        <div className="d-flex w-18 p-2">
+        <div className="d-flex justify-content-between p-2">
           <div className="header-avatar align-items-center justify-content-around d-flex w-50">
             <img src={Images.profile} alt="profile" className="me-2" />
             <div className="meetings-heading header-font">
               {localStorage?.getItem("user_name")}
             </div>
           </div>
-          <div className="d-flex align-items-center w-50 justify-content-around">
-            <div className=" icons-share me-2 ms-2">
-              <AiOutlineShareAlt />
+          <div className="h-10vh">
+            <div className="d-flex align-items-center w-50 justify-content-around">
+              <div className=" icons-share me-2 ms-2">
+                <AiOutlineShareAlt />
+              </div>
+              <div
+                className=" icons-share"
+                onClick={() => handleSettingsDropdown()}
+              >
+                <AiOutlineSetting />
+              </div>
             </div>
-            <div className=" icons-share">
-              <AiOutlineSetting />
-            </div>
+            {activeUserDropdown && (
+              <div className="head-dropdown setting-position p-2">
+                {settingsDropdown.map((item, index) => {
+                  return (
+                    <div
+                      key={index}
+                      className="d-flex align-items-center mt-2 p-2 cursor-pointer"
+                      onClick={() => handleEndDropdown(item, index)}
+                    >
+                      {/* {item.icon}
+                    {item.name} */}
+                      <span className="me-1">{item.icon}</span>
+                      {item.name}
+                    </div>
+                  );
+                })}
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -355,6 +423,10 @@ function Header() {
         header={"You Are Successfully Reset your Password"}
         state={resetPasswordSubmit}
         setState={setResetPasswordSubmit}
+      />
+      <EditProfile
+        showeditProfile={showeditProfile}
+        setShowEditProfile={setShowEditProfile}
       />
       {modalShow && (
         <AddPaymentMode show={modalShow} onHide={() => setModalShow(false)} />

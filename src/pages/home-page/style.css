@@ -303,6 +303,9 @@ input::placeholder {
 .report-position {
   left: 25%;
 }
+.setting-position {
+  margin-top: 20px;
+}
 .more-position {
   left: 40%;
 }
@@ -326,6 +329,17 @@ input::placeholder {
   width: 6%;
   border-left: 2px solid #202d57;
   padding-left: 5px;
+}
+.w-130px {
+  width: 130px;
+}
+.table-div-scroll {
+  height: 40vh;
+  overflow-y: scroll;
+}
+.table-scedule-scroll{
+  height: 32vh;
+  overflow-y: scroll;
 }
 .icons-share {
   background: #202d57;

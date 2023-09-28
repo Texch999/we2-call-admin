@@ -80,6 +80,15 @@ function UserManagement() {
     { header: "REFFER BY", field: "location" },
     { header: "ACTION", field: "editButton" },
   ];
+  const userColumnsHead = [
+    "USER NAME",
+    "TYPE",
+    "ALIAS NAME",
+    "REFFER BY",
+    "ACTION",
+    "",
+    "",
+  ];
 
   const editButtons = (
     <div className="d-flex justify-content-between">
@@ -313,11 +322,21 @@ function UserManagement() {
         </div>
       </div>
       <hr className="mt-4" />
-      <Table
-        data={existingClients}
-        columns={userColumns}
-        editButtons={editButtons}
-      />
+      <thead
+        id="home-table-head"
+        className="w-100 d-flex justify-content-around p-2"
+      >
+        {userColumnsHead?.map((column, index) => (
+          <th key={index}>{column}</th>
+        ))}
+      </thead>
+      <div className="table-div-scroll">
+        <Table
+          data={existingClients}
+          columns={userColumns}
+          editButtons={editButtons}
+        />
+      </div>
       <MatchSubmitPopup
         header={"You Are Successfully Created User"}
         state={createUserSubmit}

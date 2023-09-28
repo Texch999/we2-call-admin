@@ -60,7 +60,7 @@ function Alert() {
   };
 
   useEffect(() => {
-    if(register_id) {
+    if (register_id) {
       getMatchReports();
     }
   }, []);
