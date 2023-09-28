@@ -40,7 +40,7 @@ function MatchEntryTable(props) {
 
   const MATCH_ENTRY_DATA =
     matchEntryData?.length &&
-    matchEntryData?.map((match, index) => ({
+    matchEntryData?.map((match) => ({
       s_no: match.s_no,
       rate: match.rate,
       client: match.client_name,

@@ -16,9 +16,9 @@ function AlertsTable(props) {
             </tr>
           </thead>
         </table>
-        <div className="no-data-found">
-          <p>No Data Found</p>
-        </div>
+        <tr className="no-data-found">
+          <div>No Data Found</div>
+        </tr>
       </>
     );
   }

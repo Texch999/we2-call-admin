@@ -50,9 +50,9 @@ function Table(props) {
 
       <tbody>
         {!data?.length ? (
-          <div className="no-data-found">
-            <p>No Data Found</p>
-          </div>
+          <tr className="no-data-found">
+            <div>No Data Found</div>
+          </tr>
         ) : (
           data.map((item, rowIndex) => (
             <tr key={rowIndex}>
