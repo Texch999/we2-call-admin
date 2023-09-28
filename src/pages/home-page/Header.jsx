@@ -104,12 +104,12 @@ function Header() {
     {
       icon: <FaRegHandshake className="mr-10" />,
       name: "Settlement",
-      path: "/settelment",
+      path: "/settlement",
     },
     {
       icon: <FaHandshake className="mr-10" />,
       name: "Settlement Statement",
-      path: "/settelment-statement",
+      path: "/settlement-statement",
     },
     {
       icon: <GiArmorUpgrade className="mr-10" />,

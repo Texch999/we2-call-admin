@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+ import React, { useState } from "react";
 import { AiFillPlayCircle } from "react-icons/ai";
 import UpgradeYourPackagePopup from "../upgrade-package/UpgradeYourPackagePopup";
 
@@ -206,29 +206,30 @@ function CallStatement() {
           <div className="clr-yellow medium-font">15970</div>
         </div>
       </div>
-
-      <div>
+      <table className="w-100 match-position-table medium-font">
+        <thead>
+          <tr>
+            <th scope="col" className="text-center">
+              DATE & TIME
+            </th>
+            <th scope="col" className="text-center">
+              MEETING TITLE
+            </th>
+            <th scope="col" className="text-center">
+              DURATION
+            </th>
+            <th scope="col" className="text-center">
+              PRICE
+            </th>
+            <th scope="col" className="text-center">
+              STATUS
+            </th>
+            <th scope="col" className="text-center"></th>
+          </tr>
+        </thead>
+      </table>
+      <div style={{ height: "350px", overflow: "scroll" }}>
         <table className="w-100 match-position-table medium-font">
-          <thead>
-            <tr>
-              <th scope="col" className="text-center">
-                DATE & TIME
-              </th>
-              <th scope="col" className="text-center">
-                MEETING TITLE
-              </th>
-              <th scope="col" className="text-center">
-                DURATION
-              </th>
-              <th scope="col" className="text-center">
-                PRICE
-              </th>
-              <th scope="col" className="text-center">
-                STATUS
-              </th>
-              <th scope="col" className="text-center"></th>
-            </tr>
-          </thead>
           {HISTORY_DETAILS.map((item, index) => (
             <tbody key={index}>
               <tr>
