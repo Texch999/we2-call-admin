@@ -6,6 +6,9 @@ import { BrowserRouter } from "react-router-dom";
 import Routes from "./routes/Routes";
 
 function App() {
+  let title = localStorage?.getItem("account_role")
+  document.title = (title?.charAt(0)?.toUpperCase() + title?.slice(1)) || "App";
+  
   return (
     <div className="scroll-container">
       <BrowserRouter>

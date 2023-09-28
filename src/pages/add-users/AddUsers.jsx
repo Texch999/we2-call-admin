@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Table, Form } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./style.css";
@@ -6,51 +6,42 @@ import { FiSearch } from "react-icons/fi";
 import AddUserPopUp from "./AddUserPopUp";
 import ChangePassword from "./ChangePassword";
 import MatchSubmitPopup from "../match-popups/MatchSubmitPopup";
+import { call } from "../../config/axios";
+import { GET_ALL_CLIENTS } from "../../config/endpoints";
 
 const AddUsers = () => {
+  let register_id = localStorage?.getItem("register_id");
+  let creator_id = localStorage?.getItem("creator_id");
+  let account_role = localStorage?.getItem("account_role");
+  let user_name = localStorage?.getItem("user_name");
+
   const [filteredValue, setFilteredValue] = useState("");
   const [modalShow, setModalShow] = useState(false);
   const [showChangePopup, setShowChangePopup] = useState(false);
+
+  const [usersData, setUsersData] = useState([]);
+  const [isUserAdded, setIsUserAdded] = useState(false);
 
   const handleCpButton = (value) => {
     {
       value === "CP" && setShowChangePopup(true);
     }
   };
-  const addUsersData = [
-    {
-      s_no: 1,
-      user_name: "Sai Offline",
-      type: "User",
-      location: "Hyderabad",
-      user: "Sriagent",
-      profit_loss: "500000000",
-    },
-    {
-      s_no: 2,
-      user_name: "Sangram",
-      type: "User",
-      location: "Hyderabad",
-      user: "Sriagent",
-      profit_loss: "500000000",
-    },
-    {
-      s_no: 3,
-      user_name: "Srikanth",
-      type: "User",
-      location: "Hyderabad",
-      user: "Sriagent",
-      profit_loss: "500000000",
-    },
-    {
-      s_no: 4,
-      user_name: "Srikanth",
-      type: "User",
-      location: "Hyderabad",
-      user: "Sriagent",
-      profit_loss: "500000000",
-    },
-  ];
+  const addUsersData =
+    usersData?.length > 0 &&
+    usersData
+      ?.filter((i) => i.account_role === "client")
+      ?.map((user, index) => {
+        return {
+          s_no: index + 1,
+          user_name: user?.user_name,
+          type: user?.account_role,
+          location: "Hyderabad",
+          user: "",
+          profit_loss: 0,
+        };
+      });
+
   const ACTION_LABELS = {
     cp: "CP",
     edit: "EDIT",
@@ -62,9 +53,19 @@ const AddUsers = () => {
   const handleUserChange = (e) => {
     setFilteredValue(e.target.value);
   };
-  const filteredUsersData = addUsersData.filter((data) => {
-    return data?.user_name.toLowerCase().includes(filteredValue.toLowerCase());
-  });
+  const getAllClients = async () => {
+    await call(GET_ALL_CLIENTS, { register_id, account_role })
+      .then((res) => {
+        // console.log(res?.data?.data);
+        setUsersData(res?.data?.data);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  useEffect(() => {
+    getAllClients();
+  }, [isUserAdded]);
+
   return (
     <div className="p-4">
       <div>
@@ -76,8 +77,8 @@ const AddUsers = () => {
 
         <div className="mt-3 d-flex justify-content-between align-items-center">
           <div className="d-flex justify-content-center align-items-center">
-            <Button className="me-2 agent-button">Agent</Button>
-            <span className="mb-0 add-user-name">Srikanth</span>
+            <Button className="me-2 agent-button">{account_role}</Button>
+            <span className="mb-0 add-user-name">{user_name}</span>
           </div>
 
           <Form className="d-flex">
@@ -116,41 +117,45 @@ const AddUsers = () => {
             </tr>
           </thead>
           <tbody>
-            {filteredUsersData?.map((data, index) => (
-              <tr key={index}>
-                <td className="text-center">{data?.s_no}</td>
-                <td className="text-center">
-                  {data?.user_name}{" "}
-                  <Button className="ms-1 border-0 status-button"></Button>
-                </td>
-                <td className="text-center">{data?.type}</td>
-                <td className="text-center">{data?.location}</td>
-                <td className="text-center">{data?.user}</td>
-                <td className="text-center">{data?.profit_loss}</td>
-                <td className="text-center">
-                  {Object.keys(ACTION_LABELS).map((action, index) => (
-                    <Button
-                      key={index}
-                      className={`rounded meeting-status-button ${action}-button me-2`}
-                      onClick={() => handleCpButton(ACTION_LABELS[action])}
-                    >
-                      {ACTION_LABELS[action]}
-                    </Button>
-                  ))}
-                </td>
-              </tr>
-            ))}
+            {addUsersData?.length > 0 &&
+              addUsersData?.map((data, index) => (
+                <tr key={index}>
+                  <td className="text-center">{data?.s_no}</td>
+                  <td className="text-center">
+                    {data?.user_name}{" "}
+                    <Button className="ms-1 border-0 status-button"></Button>
+                  </td>
+                  <td className="text-center">{data?.type}</td>
+                  <td className="text-center">{data?.location}</td>
+                  <td className="text-center">{data?.user}</td>
+                  <td className="text-center">{data?.profit_loss}</td>
+                  <td className="text-center">
+                    {Object.keys(ACTION_LABELS).map((action, index) => (
+                      <Button
+                        key={index}
+                        className={`rounded meeting-status-button ${action}-button me-2`}
+                        onClick={() => handleCpButton(ACTION_LABELS[action])}
+                      >
+                        {ACTION_LABELS[action]}
+                      </Button>
+                    ))}
+                  </td>
+                </tr>
+              ))}
           </tbody>
           <tfoot>
             <tr>
-              <th colSpan={5} className="text-center">TOTAL</th>
-              <th className="clr-green text-center" >
-                {filteredUsersData
-                  ?.reduce(
-                    (total, data) => total + parseFloat(data?.profit_loss),
-                    0
-                  )
-                  .toFixed(2)}
+              <th colSpan={5} className="text-center">
+                TOTAL
+              </th>
+              <th className="clr-green text-center">
+                {addUsersData?.length > 0 &&
+                  addUsersData
+                    ?.reduce(
+                      (total, data) => total + parseFloat(data?.profit_loss),
+                      0
+                    )
+                    .toFixed(2)}
               </th>
               <th></th>
             </tr>
@@ -159,7 +164,7 @@ const AddUsers = () => {
             <AddUserPopUp
               show={modalShow}
               onHide={() => setModalShow(false)}
-              filteredUsersData={filteredUsersData}
+              setIsUserAdded={setIsUserAdded}
             />
           )}
         </Table>

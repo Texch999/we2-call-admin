@@ -7,6 +7,9 @@
 .b-button {
   --bs-btn-bg: #e84855;
 }
+.error-message {
+  color: red;
+}
 .ub-button {
   --bs-btn-bg: #4ebd5d;
 }
@@ -145,4 +148,11 @@
 .total-package-values .btn-primary {
   --bs-btn-bg: #102e6d;
   border: unset;
+}
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0; 
 }

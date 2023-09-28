@@ -237,12 +237,9 @@ function Header() {
         </div>
         <div className="h-10vh d-flex align-items-center head-wrap">
           <div className="row w-100 min-h-10vh d-flex align-items-center">
-            {headerMenu.map((item, index) => {
+            {headerMenu?.map((item, index) => {
               return (
-                <div
-                  key={index}
-                  className="col meetings-heading cursor-pointer"
-                >
+                <div className="col meetings-heading cursor-pointer" key={index}>
                   <div
                     className={`${
                       activeHead === index ? "active-head-menu" : null

@@ -1,7 +1,25 @@
-import React from "react";
-
 function Table(props) {
   const { data, columns, tableClassname, editButtons } = props;
+  if (!data?.length) {
+    return (
+      <>
+        <table
+          className={`w-100 match-position-table text-center medium-font ${tableClassname}`}
+        >
+          <thead id="home-table-head">
+            <tr>
+              {columns.map((column, index) => (
+                <th key={index}>{column.header}</th>
+              ))}
+            </tr>
+          </thead>
+        </table>
+        <div className="no-data-found">
+          <p>No Data Found</p>
+        </div>
+      </>
+    );
+  }
   return (
     <table
       className={`w-100 match-position-table text-center medium-font ${tableClassname}`}

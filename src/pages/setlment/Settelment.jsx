@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { AiFillFileText } from "react-icons/ai";
 import PaymentSettelmentPopup from "./PaymentSettelmentPopup";
 
@@ -179,7 +179,7 @@ function Settelment() {
           </thead>
 
           {SETTELMENT_DETAILS.map((item, index) => (
-            <tbody key={index}>
+            <tbody key={index + item.Balance}>
               <tr>
                 <td className="text-center">{item.ClientName}</td>
                 <td className="text-center ">{item.RolePosition}</td>
