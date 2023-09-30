@@ -13,6 +13,7 @@ function Table(props) {
               ))}
             </tr>
           </thead>
+
           <tbody>
             {data?.length > 0 ? (
               data?.map((item, rowIndex) => (
