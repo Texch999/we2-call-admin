@@ -74,10 +74,10 @@ function UserManagement() {
   };
 
   const userColumns = [
-    { header: "USER NAME", field: "client_name" },
-    { header: "TYPE", field: "client_type" },
-    { header: "ALIAS NAME", field: "alias_name" },
-    { header: "REFFER BY", field: "location" },
+    { field: "client_name" },
+    { field: "client_type" },
+    { field: "alias_name" },
+    { field: "location" },
     { header: "ACTION", field: "editButton" },
   ];
   const userColumnsHead = [
@@ -155,7 +155,7 @@ function UserManagement() {
     getOfflineClients();
   }, [addClientStatus]);
 
-  console.log(existingClients);
+  console.log(existingClients, ".......existing Users DatA");
 
   return (
     <div className="p-3">

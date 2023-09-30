@@ -13,6 +13,7 @@ function Table(props) {
               ))}
             </tr>
           </thead>
+
           <tbody>
             {data?.length > 0 &&
               data?.map((item, rowIndex) => (
@@ -24,10 +25,9 @@ function Table(props) {
                   ))}
                 </tr>
               ))}
-            ||
-            <div className="no-data-found">
+            {/* <div className="no-data-found">
               <p>No Data Found</p>
-            </div>
+            </div> */}
           </tbody>
         </table>
       </>
@@ -37,15 +37,13 @@ function Table(props) {
     <table
       className={`w-100 match-position-table text-center medium-font ${tableClassname}`}
     >
-      {columns.header ? (
-        <thead id="home-table-head">
-          <tr>
-            {columns?.map((column, index) => (
-              <th key={index}>{column.header}</th>
-            ))}
-          </tr>
-        </thead>
-      ) : null}
+      <thead id="home-table-head">
+        <tr>
+          {columns?.map((column, index) => (
+            <th key={index}>{column.header}</th>
+          ))}
+        </tr>
+      </thead>
 
       <tbody>
         {!data?.length ? (
