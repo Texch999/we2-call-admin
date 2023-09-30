@@ -5,7 +5,11 @@ import { MdStadium } from "react-icons/md";
 import Table from "../home-page/Table";
 import { GoPencil } from "react-icons/go";
 import MatchSubmitPopup from "../match-popups/MatchSubmitPopup";
-import { GET_ALL_MATCHES } from "../../config/endpoints";
+import {
+  GET_ALL_MATCHES,
+  CREATE_OFFLINE_MATCH,
+  UPDATE_MATCH,
+} from "../../config/endpoints";
 import { call } from "../../config/axios";
 import ScheduleMatchesTable from "./ScheduleMatchesTable";
 
@@ -16,8 +20,8 @@ function SportsManagement() {
   const [liveMatchesData, setLiveMatchesData] = useState([]);
   const [upcomingMatchesData, setUpcomingMatchesData] = useState([]);
   const [todayMatchesData, setTodayMatchesData] = useState([]);
-
   const [allMatchesData, setAllMatchesData] = useState([]);
+  const [matchData, setMatchData] = useState({});
   const top_cricket_countries = [
     "India",
     "Australia",
@@ -52,26 +56,41 @@ function SportsManagement() {
   const sportsDropdowns = [
     {
       headName: "Sports Name",
-      options: <option>Cricket</option>,
+      name: "sport_name",
+      options: (
+        <>
+          <option value={matchData[matchData?.sport_name || "cricket"]}>
+            Cricket
+          </option>
+          <option
+            id="sport_name"
+            value={matchData[matchData?.sport_name || "FootBall"]}
+          >
+            FootBall
+          </option>
+        </>
+      ),
     },
     {
       headName: "Team1",
+      name: "team1",
       options: top_cricket_countries.map((item, index) => {
         return <option key={index}>{item}</option>;
       }),
     },
     {
       headName: "Team2",
+      name: "team2",
       options: top_cricket_countries.map((item, index) => {
         return <option key={index}>{item}</option>;
       }),
     },
   ];
   const MatchTypeDropdown = [
-    {
-      heading: "Macth Type",
-      cspan: "col-3",
-    },
+    // {
+    //   heading: "Macth Type",
+    //   cspan: "col-3",
+    // },
     {
       heading: "1st Inn",
       cspan: "col-2",
@@ -199,11 +218,16 @@ function SportsManagement() {
     setCreateMacthSubmit(true);
   };
 
+  const handleChange = (e) => {
+    setMatchData({ ...matchData, [e.target.name]: e.target.value });
+  };
+
   useEffect(() => {
     getAllMatches();
     setScheduleDate(liveMatchesData);
   }, []);
 
+  console.log(matchData, "......setMatchData");
 
   return (
     <div className="p-3">
@@ -212,7 +236,14 @@ function SportsManagement() {
         <div className="col-3">
           <div className="meetings-heading">Series Name</div>
           <div className="sport-management-input d-flex ">
-            <input placeholder="Enter" className="w-90" />
+            <input
+              placeholder="Enter"
+              className="w-90"
+              name="series_name"
+              id="series_name"
+              value={matchData[matchData?.series_name || ""]}
+              onChange={(e) => handleChange(e)}
+            />
             <FaTrophy />
           </div>
         </div>
@@ -220,16 +251,28 @@ function SportsManagement() {
           return (
             <div key={index} className="col-2 meetings-heading">
               <div>{item.headName}</div>
-              <select className="sport-management-input d-flex p-1 w-100 sport-management-select meetings-heading">
+              <select
+                className="sport-management-input d-flex p-1 w-100 sport-management-select meetings-heading"
+                onChange={(e) => handleChange(e)}
+                name={item.name}
+              >
                 {item.options}
               </select>
             </div>
           );
         })}
         <div className="col-3 meetings-heading">
-          <div>Series Name</div>
+          <div>Match Place</div>
           <div className="sport-management-input d-flex p-1">
-            <input placeholder="Enter" className="w-90" />
+            <input
+              placeholder="Enter"
+              className="w-90"
+              type="text"
+              name="match_place"
+              id="match_place"
+              value={matchData[matchData?.match_place || ""]}
+              onChange={(e) => handleChange(e)}
+            />
             <FaLocationDot />
           </div>
         </div>
@@ -238,33 +281,83 @@ function SportsManagement() {
         <div className="col-3">
           <div>Stadium</div>
           <div className="sport-management-input d-flex p-1">
-            <input placeholder="Enter" className="w-90" />
+            <input
+              placeholder="Enter"
+              className="w-90"
+              name="stadium"
+              id="stadium"
+              value={matchData[matchData?.stadium || ""]}
+              onChange={(e) => handleChange(e)}
+            />
             <MdStadium />
           </div>
         </div>
         <div className="col-2">
           <div>Gender</div>
           <div className="sport-management-input d-flex p-1">
-            <select className="sport-management-input d-flex p-1 w-100 sport-management-select">
-              <option>Male</option>
-              <option>FeMale</option>
+            <select
+              className="sport-management-input d-flex p-1 w-100 sport-management-select"
+              name="gender"
+              onChange={(e) => handleChange(e)}
+            >
+              <option value={matchData[matchData?.gender || "male"]}>
+                Male
+              </option>
+              <option value={matchData[matchData?.gender || "feMale"]}>
+                FeMale
+              </option>
             </select>
           </div>
         </div>
         <div className="col-2">
           <div>Date</div>
           <div className="sport-management-input d-flex p-1">
-            <input className="w-100 m-auto" type="date"></input>
+            <input
+              className="w-100 m-auto"
+              type="date"
+              name="date"
+              defaultValue={matchData[matchData?.date || ""]}
+              onChange={(e) => handleChange(e)}
+            ></input>
           </div>
         </div>
         <div className="col-2">
           <div>Time</div>
           <div className="sport-management-input d-flex p-1">
-            <input className="w-100 m-auto" type="time"></input>
+            <input
+              className="w-100 m-auto"
+              type="time"
+              name="time"
+              defaultValue={matchData[matchData?.time || ""]}
+              onChange={(e) => handleChange(e)}
+            ></input>
           </div>
         </div>
       </div>
       <div className="row gutter-1rem mt-3 meetings-heading">
+        <div className="col-3">
+          <div>Macth Type</div>
+          <div className="sport-management-input d-flex p-1">
+            <select
+              className="sport-management-input d-flex p-1 w-100 sport-management-select"
+              name="macth_Type"
+              onChange={(e) => handleChange(e)}
+            >
+              <option value={matchData[matchData?.macth_Type || "male"]}>
+                T10
+              </option>
+              <option value={matchData[matchData?.macth_Type || "feMale"]}>
+                T20
+              </option>
+              <option value={matchData[matchData?.macth_Type || "feMale"]}>
+                ODI
+              </option>
+              <option value={matchData[matchData?.macth_Type || "feMale"]}>
+                TEST
+              </option>
+            </select>
+          </div>
+        </div>
         {MatchTypeDropdown.map((item, index) => {
           return (
             <div className={item.cspan}>
