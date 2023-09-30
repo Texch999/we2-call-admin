@@ -2,9 +2,9 @@ function Table(props) {
   const { data, columns, tableClassname, editButtons } = props;
   if (!data?.length) {
     return (
-      <>
+      <div className="table-body-height">
         <table
-          className={`w-100 match-position-table text-center medium-font ${tableClassname}`}
+          className={`fixed-table w-100 match-position-table text-center medium-font ${tableClassname}`}
         >
           <thead id="home-table-head">
             <tr>
@@ -32,50 +32,52 @@ function Table(props) {
             )}
           </tbody>
         </table>
-      </>
+      </div>
     );
   }
   return (
-    <table
-      className={`w-100 match-position-table text-center medium-font ${tableClassname}`}
-    >
-      <thead id="home-table-head">
-        <tr>
-          {columns?.map((column, index) => (
-            <th key={index}>{column.header}</th>
-          ))}
-        </tr>
-      </thead>
-      <tbody>
-        {!data?.length ? (
-          <tr className="no-data-found">
-            <div>No Data Found</div>
+    <div className="table-body-height">
+      <table
+        className={`fixed-table w-100 match-position-table text-center medium-font ${tableClassname}`}
+      >
+        <thead id="home-table-head">
+          <tr>
+            {columns?.map((column, index) => (
+              <th key={index}>{column.header}</th>
+            ))}
           </tr>
-        ) : (
-          data.map((item, rowIndex) => (
-            <tr key={rowIndex}>
-              {columns.map((column, colIndex) => (
-                <td key={colIndex}>
-                  <div
-                    className={
-                      item[column.field] === "Join"
-                        ? "td-class"
-                        : item[column.field] === "Not-Started"
-                        ? "not-class"
-                        : ""
-                    }
-                  >
-                    {column.header === "ACTION"
-                      ? editButtons
-                      : item[column.field]}
-                  </div>
-                </td>
-              ))}
+        </thead>
+        <tbody>
+          {!data?.length ? (
+            <tr className="no-data-found">
+              <div>No Data Found</div>
             </tr>
-          ))
-        )}
-      </tbody>
-    </table>
+          ) : (
+            data.map((item, rowIndex) => (
+              <tr key={rowIndex}>
+                {columns.map((column, colIndex) => (
+                  <td key={colIndex}>
+                    <div
+                      className={
+                        item[column.field] === "Join"
+                          ? "td-class"
+                          : item[column.field] === "Not-Started"
+                          ? "not-class"
+                          : ""
+                      }
+                    >
+                      {column.header === "ACTION"
+                        ? editButtons
+                        : item[column.field]}
+                    </div>
+                  </td>
+                ))}
+              </tr>
+            ))
+          )}
+        </tbody>
+      </table>
+    </div>
   );
 }
 

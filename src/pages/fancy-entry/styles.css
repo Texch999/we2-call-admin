@@ -236,7 +236,28 @@
 .yellow-border {
   border: 2px solid #fce719;
 }
-.hhh {
-  height: 100px;
+.table-body-height {
+  height: 200px;
   overflow-y: scroll;
+}
+.fixed-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.fixed-table thead {
+  position: sticky;
+  top: -1px;
+  text-align: center;
+  border-top: 2px solid #082051;
+}
+.fixed-table thead th {
+  text-align: center;
+}
+.fixed-table tfoot {
+  position: sticky;
+  bottom: -1px;
+}
+.fixed-table tbody {
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
