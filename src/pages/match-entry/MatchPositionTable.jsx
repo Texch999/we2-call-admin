@@ -19,16 +19,30 @@ function MatchPositionTable(props) {
   const handleCloseMatchCommModal = () => {
     setMatchCommModal(false);
   };
-  
-  // const MATCH_POSITION_TABLE_DATA = [
-  //   {
-  //     header: "Animesh",
-  //     grossPL: 50000000,
-  //     cPosition: 50000000,
-  //     rfPosition: 50000000,
-  //     ursPosition: 50000000,
-  //   },
-  // ];
+
+  const MATCH_POSITION_TABLE_DATA = [
+    {
+      header: "Animesh",
+      grossPL: 50000000,
+      cPosition: 50000000,
+      rfPosition: 50000000,
+      ursPosition: 50000000,
+    },
+    {
+      header: "Animesh",
+      grossPL: 50000000,
+      cPosition: 50000000,
+      rfPosition: 50000000,
+      ursPosition: 50000000,
+    },
+    {
+      header: "Animesh",
+      grossPL: 50000000,
+      cPosition: 50000000,
+      rfPosition: 50000000,
+      ursPosition: 50000000,
+    },
+  ];
   const MATCH_POSITION_HEADER_DATA = [
     { header: "CLIENT NAME", field: "header" },
     { header: "GROSS PL", field: "grossPL" },
@@ -69,7 +83,7 @@ function MatchPositionTable(props) {
       </div>
       <div className="mt-3">
         <MatchTable
-          data={matchPositionData || []}
+          data={MATCH_POSITION_TABLE_DATA}
           columns={MATCH_POSITION_HEADER_DATA}
         />
       </div>

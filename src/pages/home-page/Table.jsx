@@ -38,16 +38,13 @@ function Table(props) {
     <table
       className={`w-100 match-position-table text-center medium-font ${tableClassname}`}
     >
-      {columns.header ? (
-        <thead id="home-table-head">
-          <tr>
-            {columns?.map((column, index) => (
-              <th key={index}>{column.header}</th>
-            ))}
-          </tr>
-        </thead>
-      ) : null}
-
+      <thead id="home-table-head">
+        <tr>
+          {columns?.map((column, index) => (
+            <th key={index}>{column.header}</th>
+          ))}
+        </tr>
+      </thead>
       <tbody>
         {!data?.length ? (
           <tr className="no-data-found">
