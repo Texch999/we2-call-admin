@@ -45,7 +45,7 @@ function UserManagement() {
     { name: "Regulor", value: 0 },
     { name: "Book", value: 1 },
     { name: "Agent", value: 2 },
-    { name: "Dami", value: 3 },
+    { name: "Dami", value: 3 }
   ];
 
   const shareList = [
@@ -74,11 +74,20 @@ function UserManagement() {
   };
 
   const userColumns = [
-    { header: "USER NAME", field: "client_name" },
-    { header: "TYPE", field: "client_type" },
-    { header: "ALIAS NAME", field: "alias_name" },
-    { header: "REFFER BY", field: "location" },
+    { field: "client_name" },
+    { field: "client_type" },
+    { field: "alias_name" },
+    { field: "location" },
     { header: "ACTION", field: "editButton" },
+  ];
+  const userColumnsHead = [
+    "USER NAME",
+    "TYPE",
+    "ALIAS NAME",
+    "REFFER BY",
+    "ACTION",
+    "",
+    "",
   ];
 
   const editButtons = (
@@ -146,7 +155,7 @@ function UserManagement() {
     getOfflineClients();
   }, [addClientStatus]);
 
-  console.log(existingClients);
+  console.log(existingClients, ".......existing Users DatA");
 
   return (
     <div className="p-3">
@@ -313,11 +322,21 @@ function UserManagement() {
         </div>
       </div>
       <hr className="mt-4" />
-      <Table
-        data={existingClients}
-        columns={userColumns}
-        editButtons={editButtons}
-      />
+      <thead
+        id="home-table-head"
+        className="w-100 d-flex justify-content-around p-2"
+      >
+        {userColumnsHead?.map((column, index) => (
+          <th key={index}>{column}</th>
+        ))}
+      </thead>
+      <div className="table-div-scroll">
+        <Table
+          data={existingClients}
+          columns={userColumns}
+          editButtons={editButtons}
+        />
+      </div>
       <MatchSubmitPopup
         header={"You Are Successfully Created User"}
         state={createUserSubmit}

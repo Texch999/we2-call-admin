@@ -201,7 +201,8 @@ const AdminOnePageReport = () => {
                   className="text-center cursor-pointer"
                   onClick={() => handleAdminReports(data)}
                 >
-                  {data?.admin_name}     <GiClick className="custom-click-icon ms-1 mt-2" />
+                  {data?.admin_name}{" "}
+                  <GiClick className="custom-click-icon ms-1 mt-2" />
                 </td>
                 <td className="text-center">{data?.admin_role}</td>
                 <td className="text-center">
@@ -215,7 +216,9 @@ const AdminOnePageReport = () => {
           </tbody>
           <tfoot>
             <tr>
-              <th colSpan={2} className="text-center">TOTAL</th>
+              <th colSpan={2} className="text-center">
+                TOTAL
+              </th>
               <th className="text-center clr-green">
                 {adminOnePageReportData
                   ?.reduce(
@@ -243,7 +246,7 @@ const AdminOnePageReport = () => {
               adminName={adminName}
               role={role}
               heading={popupHeading}
-              totalPosition ="series_name"
+              totalPosition="series_name"
             />
           )}
         </Table>

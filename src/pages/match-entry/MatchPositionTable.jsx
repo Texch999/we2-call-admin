@@ -4,7 +4,7 @@ import { useState } from "react";
 import MatchShareModal from "../match-popups/MatchShareModal";
 import MatchCommModal from "../match-popups/MatchCommModal";
 function MatchPositionTable(props) {
-  const { teamName } = props;
+  const { matchPositionData, team1, team2, win } = props;
   const [matchShareModal, setMatchShareModal] = useState(false);
   const [matchCommModal, setMatchCommModal] = useState(false);
   const handleOpenMatchShareModal = () => {
@@ -19,6 +19,7 @@ function MatchPositionTable(props) {
   const handleCloseMatchCommModal = () => {
     setMatchCommModal(false);
   };
+
   const MATCH_POSITION_TABLE_DATA = [
     {
       header: "Animesh",
@@ -30,22 +31,8 @@ function MatchPositionTable(props) {
     {
       header: "Animesh",
       grossPL: 50000000,
-      cPosition: -50000000,
+      cPosition: 50000000,
       rfPosition: 50000000,
-      ursPosition: 50000000,
-    },
-    {
-      header: "Animesh",
-      grossPL: 50000000,
-      cPosition: -50000000,
-      rfPosition: -50000000,
-      ursPosition: 50000000,
-    },
-    {
-      header: "Animesh",
-      grossPL: 50000000,
-      cPosition: -50000000,
-      rfPosition: -50000000,
       ursPosition: 50000000,
     },
     {
@@ -68,7 +55,7 @@ function MatchPositionTable(props) {
       <div className="row d-flex align-items-center match-position-bg p-2 rounded m-1">
         <div className="col-sm-4 col-lg-6">
           <div className="medium-font">
-            Match Position - <span className="yellow-clr">{teamName}</span>
+            Match Position - <span className="yellow-clr">{team1}</span>
           </div>
         </div>
         <div className="col">

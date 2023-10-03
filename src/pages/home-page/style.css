@@ -303,6 +303,9 @@ input::placeholder {
 .report-position {
   left: 25%;
 }
+.setting-position {
+  margin-top: 20px;
+}
 .more-position {
   left: 40%;
 }
@@ -323,9 +326,35 @@ input::placeholder {
   /* border-right: 1px solid gray; */
 }
 .date-div {
-  width: 7%;
-  border-left: 1px solid gray;
+  width: 6%;
+  border-left: 2px solid #202d57;
   padding-left: 5px;
+}
+.w-130px {
+  width: 130px;
+}
+.profile-image {
+  height: 60px;
+  width: 60px;
+  border-radius: 100%;
+  margin-top: 5px;
+}
+.edit-icon-black {
+  background: #fff;
+  font-size: 15px;
+  color: black;
+  border-radius: 50%;
+  position: relative;
+  left: 20px;
+  bottom: 15px;
+}
+.table-div-scroll {
+  height: 40vh;
+  overflow-y: scroll;
+}
+.table-scedule-scroll {
+  height: 32vh;
+  overflow-y: scroll;
 }
 .icons-share {
   background: #202d57;
@@ -368,7 +397,7 @@ input::placeholder {
 option {
   height: 50px;
 }
-.pr-3{
+.pr-3 {
   padding-right: 3%;
 }
 
@@ -377,7 +406,7 @@ option {
   position: relative;
 }
 
-.no-data-found p {
+.no-data-found div {
   margin: 0;
   position: absolute;
   top: 50%;

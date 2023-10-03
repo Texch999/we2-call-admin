@@ -23,15 +23,27 @@ function MeetingAndSummary() {
     };
   });
 
-  data1?.length > 0 &&
+  const data2 =
+    data1?.length > 0 &&
     data1?.map((meeting, index) => {
       return {
         admin: meeting?.createdBy || "",
-        event: `${meeting?.event_name} - ${moment(
-          meeting?.given_time_stamp
-        ).format("DD-MM-YYY, hh:mm:s")}`,
-        user: meetingUserData.map((obj) => <>{obj.user_name}</>),
-        status: "Join",
+        event: (
+          <div>
+            {meeting?.event_name}
+            <br />
+            {moment(meeting?.given_time_stamp).format("DD-MM-YYY")}
+            <br />
+            {moment(meeting?.given_time_stamp).format("hh:mm:s")}
+          </div>
+        ),
+        user: meetingUserData.map((obj) => (
+          <div>
+            {obj.user_name} +<br />
+            {meetingUserData.length - 1} others
+          </div>
+        )),
+        status: <div>{meeting.recording_status}</div>,
       };
     });
 
@@ -87,6 +99,8 @@ function MeetingAndSummary() {
       getAllAdmins();
     }
   }, []);
+
+  console.log(meetingUserData, ".......heloLIveMeeting");
   return (
     <div className="row meet-box-height ">
       <div className="col-6 p-2">
@@ -98,7 +112,9 @@ function MeetingAndSummary() {
               <AiOutlineRight />
             </div>
           </div>
-          <Table data={data1} columns={columns} />
+          <div className="table-div-scroll">
+            <Table data={data2} columns={columns} />
+          </div>
         </div>
       </div>
       <div className="col-6 p-2">
