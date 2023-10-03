@@ -21,6 +21,8 @@ function EditProfile(props) {
     mobile_no: "",
     user_name: "",
   });
+  const proImage = formData?.profileImage;
+  localStorage.setItem("profile_Img", proImage);
   const [editProfileSubmitPopup, setEditProfileSubmitPopup] = useState(false);
   const [profileImage, setProfileImage] = useState("");
   const [isUserNameValid, setIsUserNameValid] = useState(true);
@@ -214,9 +216,9 @@ function EditProfile(props) {
                       placeholder="Enter Whatsapp Number"
                       className="fs-8rem"
                       autoFocus
-                      maxLength={10}
-                      name="mobile_no"
-                      value={formData.mobile_no}
+                      maxlength="10"
+                      name="whats_app"
+                      value={formData.whats_app}
                       onChange={handleChange}
                     />
                   </InputGroup>
@@ -236,8 +238,8 @@ function EditProfile(props) {
                       placeholder="Enter Email ID"
                       autoFocus
                       className="fs-8rem"
-                      name="email"
-                      value={formData.skype || []}
+                      name="skype"
+                      value={formData.skype}
                       onChange={handleChange}
                     />
                   </InputGroup>
@@ -252,7 +254,7 @@ function EditProfile(props) {
                       placeholder="Enter Whatsapp Number"
                       className="fs-8rem"
                       autoFocus
-                      maxLength={10}
+                      maxlength="10"
                       name="mobile_no"
                       value={formData.mobile_no}
                       onChange={handleChange}

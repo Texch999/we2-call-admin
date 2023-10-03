@@ -49,7 +49,7 @@ function MatchEntry() {
     getMatchPositionData();
   }, []);
 
-  localStorage.setItem("match_id", selectedMatch.match_id);
+  // localStorage.setItem("match_id", selectedMatch.match_id);
 
   return (
     <div>
