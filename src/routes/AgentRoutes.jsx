@@ -26,6 +26,7 @@ import MatchShareRiskPosition from "../pages/match-risk/MatchShareRiskPosition";
 import FancyShareRisk from "../pages/match-risk/FancyShareRisk";
 import ToursAndTournaments from "../pages/tours-tournaments/ToursAndTournaments";
 import ViewOffers from "../pages/tours-tournaments/ViewOffers";
+import Chats from "../pages/chat/Chats";
 
 export const AgentRoutes = [
   {
@@ -135,5 +136,9 @@ export const AgentRoutes = [
   {
     path: "/offers",
     component: ViewOffers,
+  },
+  {
+    path: "/chats",
+    component: Chats,
   },
 ];

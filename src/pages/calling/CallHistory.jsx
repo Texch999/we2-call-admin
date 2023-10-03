@@ -251,7 +251,6 @@ function CallHistory() {
               STATUS
             </th>
             <th scope="col" className="text-center"></th>
-            <th scope="col" className="text-center"></th>
           </tr>
         </thead>
       </table>

@@ -277,18 +277,22 @@ function Statement() {
         </Row>
       </Container>
       <hr />
-      <table className="w-100 match-position-table medium-font">
-        <thead>
-          <tr className="text-center">
-            <th>DATE & TIME</th>
-            <th>SERIES NAME</th>
-            <th>TEAM NAME</th>
-            <th>MATCH PLACE</th>
-            <th>WIN TEAM</th>
-            <th>P/L</th>
-            <th></th>
-          </tr>
-        </thead>
+      <div>
+        <table>
+          <thead>
+            <tr className="text-center">
+              <th>DATE & TIME</th>
+              <th>SERIES NAME</th>
+              <th>TEAM NAME</th>
+              <th>MATCH PLACE</th>
+              <th>WIN TEAM</th>
+              <th>P/L</th>
+              <th></th>
+            </tr>
+          </thead>
+        </table>
+      </div>
+<div> <table className="w-100 match-position-table medium-font">
         {STATEMENT_DETAILS.map((item, index) => (
           <tbody key={index}>
             <tr className="text-center">
@@ -319,7 +323,8 @@ function Statement() {
             </th>
           </tr>
         </tfoot>
-      </table>
+      </table></div>
+     
       <StatementPopup showModal={showModal} setShowModal={setShowModal} />
     </div>
   );

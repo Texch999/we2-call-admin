@@ -177,6 +177,7 @@ function Header() {
     if (!token) return "";
     setActiveHead(index);
     index === 0 && navigate("/");
+    index === 1 && navigate("/chats");
     index === 2 && navigate("/tours-tournaments");
     index === 3 && handleMatchEntry();
     index === 4 && handleReports();
