@@ -29,7 +29,7 @@ function MeetingAndSummary() {
       return {
         admin: meeting?.createdBy || "",
         event: (
-          <div className="w-130px">
+          <div>
             {meeting?.event_name}
             <br />
             {moment(meeting?.given_time_stamp).format("DD-MM-YYY")}
@@ -48,16 +48,10 @@ function MeetingAndSummary() {
     });
 
   const columns = [
-    { field: "admin" },
-    { field: "event" },
-    { field: "user" },
-    { field: "status" },
-  ];
-  const columnsHead = [
-    { header: "Admin" },
-    { header: "Event Name" },
-    { header: "User" },
-    { header: "Status" },
+    { header: "Admin", field: "admin" },
+    { header: "Event Name", field: "event" },
+    { header: "User", field: "user" },
+    { header: "Status", field: "status" },
   ];
 
   const summaryContent = [
@@ -117,16 +111,6 @@ function MeetingAndSummary() {
               <h6 className="meetings-heading">See All</h6>
               <AiOutlineRight />
             </div>
-          </div>
-          <div className="w-100">
-            <thead
-              id="home-table-head"
-              className="w-100 d-flex justify-content-around"
-            >
-              {columnsHead.map((column, index) => (
-                <th key={index}>{column.header}</th>
-              ))}
-            </thead>
           </div>
           <div className="table-div-scroll">
             <Table data={data2} columns={columns} />

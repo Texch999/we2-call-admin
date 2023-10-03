@@ -32,6 +32,7 @@ import EditProfile from "../popups/EditProfile";
 
 function Header() {
   const [modalShow, setModalShow] = useState(false);
+  const [editModalShow, setEditModalShow] = useState(false);
   const history = useHistory();
 
   const [currentDateTime, setCurrentDateTime] = useState(new Date());
@@ -236,7 +237,7 @@ function Header() {
       index === 1 && setShowResetPopup(true);
     }
     {
-      index === 0 && setShowEditProfile(true);
+      index === 0 && setEditModalShow(true);
     }
   };
 
@@ -419,14 +420,11 @@ function Header() {
         setShowResetPopup={setShowResetPopup}
         setResetPasswordSubmit={setResetPasswordSubmit}
       />
+      <EditProfile show={editModalShow} close={() => setEditModalShow(false)} />
       <MatchSubmitPopup
         header={"You Are Successfully Reset your Password"}
         state={resetPasswordSubmit}
         setState={setResetPasswordSubmit}
-      />
-      <EditProfile
-        showeditProfile={showeditProfile}
-        setShowEditProfile={setShowEditProfile}
       />
       {modalShow && (
         <AddPaymentMode show={modalShow} onHide={() => setModalShow(false)} />
