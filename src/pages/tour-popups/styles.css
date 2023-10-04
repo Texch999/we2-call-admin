@@ -39,7 +39,7 @@
 }
 .all-none {
   border: none !important;
-  /* background: none !important; */
+  /* background: none; */
   outline: none !important;
 }
 /* .date-input {

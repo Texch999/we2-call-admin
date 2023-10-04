@@ -38,6 +38,8 @@ function MatchEntryTable(props) {
     getMatchEntryData();
   }, []);
 
+  console.log("matchEntryData", matchEntryData);
+
   const MATCH_ENTRY_DATA =
     matchEntryData?.length &&
     matchEntryData?.map((match) => ({
