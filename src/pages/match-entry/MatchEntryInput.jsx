@@ -24,7 +24,7 @@ function MatchEntryInput() {
             <div className="medium-font">Rate</div>
             <input
               type="number"
-              defaultValue={1.}
+              defaultValue={1}
               className="w-100 medium-font btn-bg rounded all-none p-2"
               placeholder="Rate"
             />

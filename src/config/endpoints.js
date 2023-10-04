@@ -41,6 +41,11 @@ const EDITPROFILE = "/admin/admin_profile_update_info";
 const GET_USER_INFO = "/admin/get_admin_accounts_user_info";
 const UPDATE_PROFILE = "/admin/admin_profile_update_info";
 const GENERATE_SIGNED_URL = "/admin/profile_signed_url";
+const GET_INDUVISUAL_MATCH_REPORT =
+  "/offline-management/get_match_resultsby_client_id";
+const GET_INDUVISUAL_REFERRAL_BY =
+  "/offline-management/get_individual_reportby_refferal";
+const GET_INDUVISUAL_REPORTS = "/offline-management/get_individual_report";
 
 // methods
 const DELETE = "DELETE";
@@ -51,6 +56,21 @@ const PUT = "PUT";
 exports.GET_UPDATED_MATCHES_DATA = {
   url: GET_UPDATED_MATCHES_DATA,
   method: POST,
+};
+
+exports.GET_INDUVISUAL_MATCH_REPORT = {
+  url: GET_INDUVISUAL_MATCH_REPORT,
+  method: GET,
+};
+
+exports.GET_INDUVISUAL_REFERRAL_BY = {
+  url: GET_INDUVISUAL_REFERRAL_BY,
+  method: GET,
+};
+
+exports.GET_INDUVISUAL_REPORTS = {
+  url: GET_INDUVISUAL_REPORTS,
+  method: GET,
 };
 
 exports.GET_ONEPAGE_REPORT = {
