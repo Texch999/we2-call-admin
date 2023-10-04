@@ -18,7 +18,6 @@ const AddUsers = () => {
   const [filteredValue, setFilteredValue] = useState("");
   const [modalShow, setModalShow] = useState(false);
   const [showChangePopup, setShowChangePopup] = useState(false);
-
   const [usersData, setUsersData] = useState([]);
   const [isUserAdded, setIsUserAdded] = useState(false);
 
