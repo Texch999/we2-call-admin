@@ -333,6 +333,21 @@ input::placeholder {
 .w-130px {
   width: 130px;
 }
+.profile-image {
+  height: 60px;
+  width: 60px;
+  border-radius: 100%;
+  margin-top: 5px;
+}
+.edit-icon-black {
+  background: #fff;
+  font-size: 15px;
+  color: black;
+  border-radius: 50%;
+  position: relative;
+  left: 20px;
+  bottom: 15px;
+}
 .table-div-scroll {
   height: 40vh;
   overflow-y: scroll;

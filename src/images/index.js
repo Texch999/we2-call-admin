@@ -67,3 +67,5 @@ export const Images = {
   callIcon:"./assets/callIcon.png",
   Congratulations:"./assets/congrats_image.png"
 };
+
+export const ImageBaseUrl = "https://we2-call-images.s3.us-east-2.amazonaws.com";

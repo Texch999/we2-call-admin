@@ -23,79 +23,67 @@ function AlertsTable(props) {
     );
   }
   return (
-    <div>
-      <div className="w-100">
-        <thead
-          id="home-table-head"
-          className="w-100 d-flex justify-content-around"
-        >
-          {columns?.map((column, index) => (
-            <th key={index}>{column.header}</th>
-          ))}
-        </thead>
-      </div>
-      <div className="table-div-scroll">
-        <table
-          className={`w-100 match-position-table text-center medium-font ${tableClassname}`}
-        >
-          {/* <thead id="home-table-head">
+    <div className="table-body-height">
+      <table
+        className={`fixed-table w-100 match-position-table text-center medium-font ${tableClassname}`}
+      >
+        <thead id="home-table-head">
           <tr>
             {columns?.map((column, index) => (
               <th key={index}>{column.header}</th>
             ))}
           </tr>
-        </thead> */}
-          <tbody className="w-100">
-            {data?.length > 0 &&
-              data?.map((item, rowIndex) => (
-                <tr key={rowIndex}>
-                  {columns?.map((column, colIndex) => (
-                    <td key={colIndex}>
-                      {colIndex === 1 ? (
+        </thead>
+        <tbody className="w-100">
+          {data?.length > 0 &&
+            data?.map((item, rowIndex) => (
+              <tr key={rowIndex}>
+                {columns?.map((column, colIndex) => (
+                  <td key={colIndex}>
+                    {colIndex === 1 ? (
+                      <div>
                         <div>
-                          <div>
-                            {item?.team}-
-                            <span
-                              className={
-                                item.pe === "P"
-                                  ? "clr-green me-2"
-                                  : "clr-red me-2"
-                              }
-                            >
-                              {item?.pe}
-                            </span>
-                            {Object.keys(item?.teamObj)[0]} vs
-                            {Object.keys(item?.teamObj)[1]}
-                          </div>
-                          <div>
-                            {item?.date}
-                            <span className="ms-2">
-                              {moment(item?.matchTimeStamp).format(
-                                "DD-MM-YYYY, hh:mm:ss"
-                              )}
-                            </span>
-                          </div>
+                          {item?.team}-
+                          <span
+                            className={
+                              item.pe === "P"
+                                ? "clr-green me-2"
+                                : "clr-red me-2"
+                            }
+                          >
+                            {item?.pe}
+                          </span>
+                          {Object.keys(item?.teamObj)[0]} vs
+                          {Object.keys(item?.teamObj)[1]}
                         </div>
-                      ) : (
-                        <div
-                          className={
-                            item[column.field] === "updated"
-                              ? "td-class"
-                              : item[column.field] === "deleted"
-                              ? "not-class"
-                              : ""
-                          }
-                        >
-                          {item[column?.field]}
+                        <div>
+                          {item?.date}
+                          <span className="ms-2">
+                            {moment(item?.matchTimeStamp).format(
+                              "DD-MM-YYYY, hh:mm:ss"
+                            )}
+                          </span>
                         </div>
-                      )}
-                    </td>
-                  ))}
-                </tr>
-              ))}
-          </tbody>
-        </table>
-      </div>
+                      </div>
+                    ) : (
+                      <div
+                        className={
+                          item[column.field] === "updated"
+                            ? "td-class"
+                            : item[column.field] === "deleted"
+                            ? "not-class"
+                            : ""
+                        }
+                      >
+                        {item[column?.field]}
+                      </div>
+                    )}
+                  </td>
+                ))}
+              </tr>
+            ))}
+        </tbody>
+      </table>
     </div>
   );
 }

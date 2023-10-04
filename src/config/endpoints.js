@@ -39,6 +39,8 @@ const BLOCKUNBLOCK = "/offline-management/active_inactive_users";
 // const CREATE_PACKAGE_SUBSCRIPTION = '/packages/package_subsciption_ticket'
 const EDITPROFILE = "/admin/admin_profile_update_info";
 const GET_USER_INFO = "/admin/get_admin_accounts_user_info";
+const UPDATE_PROFILE = "/admin/admin_profile_update_info";
+const GENERATE_SIGNED_URL = "/admin/profile_signed_url";
 
 // methods
 const DELETE = "DELETE";
@@ -58,6 +60,16 @@ exports.GET_ONEPAGE_REPORT = {
 
 exports.OFFLINE_PAYMENT_SETTLEMENT = {
   url: OFFLINE_PAYMENT_SETTLEMENT,
+  method: POST,
+};
+
+exports.UPDATE_PROFILE = {
+  url: UPDATE_PROFILE,
+  method: POST,
+};
+
+exports.GENERATE_SIGNED_URL = {
+  url: GENERATE_SIGNED_URL,
   method: POST,
 };
 
