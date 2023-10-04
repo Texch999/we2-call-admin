@@ -14,6 +14,9 @@ function MatchEntry() {
   const [allMatches, setAllMatches] = useState([]);
   const [selectedMatch, setSelectedMatch] = useState([]);
   const [matchPositionData, setMatchPositionData] = useState([]);
+  const [matchAccountData, setMatchAccountData] = useState([]);
+  const [selectedMatchEntry, setSelectedMatchEntry] = useState("");
+  const [status, setStatus] = useState(false);
 
   let register_id = localStorage?.getItem("register_id");
   let creator_id = localStorage?.getItem("creator_id");
@@ -49,6 +52,31 @@ function MatchEntry() {
     getMatchPositionData();
   }, []);
 
+  const getMatchInfo = async () => {
+    await call(GET_ACCOUNT_MATCHES_DATA, {
+      register_id,
+      match_id: selectedMatch?.match_id,
+    })
+      .then(async (res) => {
+        let temp =
+          res?.data && res.data.data && res.data.data[0]
+            ? res.data.data[0]
+            : res.data.data;
+        setMatchAccountData(temp);
+        await getMatchPositionData(temp?.registered_match_id);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  useEffect(() => {
+    const fetchMatchInfo = async () => {
+      if (selectedMatch) {
+        getMatchInfo();
+      }
+    };
+    fetchMatchInfo();
+  }, [selectedMatch]);
+
   return (
     <div>
       <MatchScroll
@@ -68,8 +96,15 @@ function MatchEntry() {
           matchPositionData={matchPositionData}
         />
       </div>
-      <MatchEntries />
-      <MatchEntryTable matchPositionData={matchPositionData} />
+      <MatchEntries selectedMatchEntry={selectedMatchEntry} />
+      <MatchEntryTable
+        selectedMatch={selectedMatch}
+        seriesType={""}
+        matchAccountData={matchAccountData}
+        setSelectedMatchEntry={setSelectedMatchEntry}
+        status={status}
+        setStatus={setStatus}
+      />
     </div>
   );
 }
