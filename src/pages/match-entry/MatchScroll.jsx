@@ -10,6 +10,13 @@ function MatchScroll(props) {
   const [fancyEntry, setFancyEntry] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
 
+  useEffect(() => {
+    if (history.location.pathname === "/fancy-entry") {
+      setFancyEntry(true);
+      setMatchEntry(false);
+    }
+  }, []);
+
   const handleActiveIndex = (index, item) => {
     setActiveIndex(index);
     setSelectedMatch(item);

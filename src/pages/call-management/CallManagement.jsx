@@ -86,7 +86,7 @@ const CallManagement = () => {
             date: obj?.date,
             time: obj?.time,
             user: localStorage.getItem("user_name"),
-            action: "--",
+            action: "JOIN",
           };
         })) ||
     [];
@@ -186,7 +186,7 @@ const CallManagement = () => {
                       <Dropdown.Toggle>
                         {data?.user[0]}
                         <span className="ms-1 user-count-number">
-                          {data?.user?.length - 1}
+                          + {data?.user?.length - 1}
                         </span>
                         <Button
                           type="button"
@@ -197,16 +197,34 @@ const CallManagement = () => {
                         </Button>
                       </Dropdown.Toggle>
                       <Dropdown.Menu>
-                        <Dropdown.Item href="#action1">Demo 01</Dropdown.Item>
-                        <Dropdown.Item href="#action2">Lokesh</Dropdown.Item>
-                        <Dropdown.Item href="#action3">Jayanth</Dropdown.Item>
+                        {data?.user?.map((userObj) => (
+                          <Dropdown.Item href="#action1">
+                            {userObj}
+                          </Dropdown.Item>
+                        ))}
                       </Dropdown.Menu>
                     </Dropdown>
                   </td>
                   <td className="text-center">
-                    <Button className="rounded-pill meeting-status-button">
-                      {data?.recording_status}
-                    </Button>
+                    {data?.recording_status === "started" ? (
+                      <Button className="rounded-pill meeting-status-button">
+                        Started
+                      </Button>
+                    ) : (
+                      <Button className="rounded-pill meeting-status-button">
+                        Upcoming
+                      </Button>
+                    )}
+                    {data?.recording_status === "upcoming" && (
+                      <Button className="rounded-pill meeting-status-button">
+                        Upcoming
+                      </Button>
+                    )}
+                    {data?.recording_status === "join" && (
+                      <Button className="rounded-pill meeting-status-button">
+                        Join
+                      </Button>
+                    )}
                   </td>
                   <td className="text-center">
                     <Button
