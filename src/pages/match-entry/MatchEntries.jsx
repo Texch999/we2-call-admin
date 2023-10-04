@@ -40,7 +40,7 @@ function MatchEntries() {
           </div>
         </div>
         <div className="w-50 d-flex justify-content-end">
-          <digit 
+          <digit
             className="w-25 match-entry-btn d-flex align-items-center justify-content-around rounded-pill p-1"
             onClick={() => history.push("/fancy-entry")}
           >
