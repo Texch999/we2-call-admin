@@ -53,6 +53,12 @@
 .type-file {
   color: #11e32f !important;
 }
+.div-scroll-pop {
+  height: 45vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  padding-bottom: 1vh;
+}
 .details-text {
   border-radius: 15px;
   border: solid 2px rgba(54, 60, 72, 0.5);
