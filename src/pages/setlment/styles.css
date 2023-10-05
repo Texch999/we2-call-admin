@@ -8,9 +8,11 @@
 }
 .clr-red {
   color: #ff0000 !important;
+  font-weight: 600;
 }
 .clr-green {
   color: #04c85e !important;
+  font-weight: 600;
 }
 /* .custom-icon {
   font-size: 30px;
@@ -30,7 +32,7 @@
   }
   .custom-icon {
     font-size: 10px;
-    color:  #fce719 ;
+    color: #fce719;
   }
 }
 
@@ -40,7 +42,7 @@
   }
   .custom-icon {
     font-size: 20px;
-    color: #fce719 ;
+    color: #fce719;
   }
 }
 
@@ -50,7 +52,7 @@
   }
   .custom-icon {
     font-size: 30px;
-    color: #fce719 ;
+    color: #fce719;
   }
 }
 .admin-account-summary-container {

@@ -29,28 +29,28 @@ function UserDetails() {
   ];
   const USERS_HEAD = [
     {
-      header:"S.NO",
-      field:"sNo"
+      header: "S.NO",
+      field: "sNo",
     },
     {
-      header:"DATE",
-      field:"date"
+      header: "DATE",
+      field: "date",
     },
     {
-      header:"TIME",
-      field:"time"
+      header: "TIME",
+      field: "time",
     },
     {
-      header:"NAME",
-      field:"name"
+      header: "NAME",
+      field: "name",
     },
     {
-      header:"ROLE",
-      field:"role"
+      header: "ROLE",
+      field: "role",
     },
-  ]
+  ];
   return (
-    <div className="mt-2">
+    <div>
       {/* <div className="your-users-heading">
         <Row>
           <Col span={4}>
@@ -93,7 +93,7 @@ function UserDetails() {
           </div>
         ))}
       </div> */}
-      <Table data={USERS_DETAILS} columns={USERS_HEAD}/>
+      <Table data={USERS_DETAILS} columns={USERS_HEAD} />
     </div>
   );
 }

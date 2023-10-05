@@ -237,7 +237,7 @@
   border: 2px solid #fce719;
 }
 .table-body-height {
-  height: 250px;
+  max-height: 250px;
   overflow-y: scroll;
 }
 .fixed-table {
@@ -260,4 +260,8 @@
 .fixed-table tbody {
   margin-top: 5px;
   margin-bottom: 5px;
+}
+.clr-pink {
+  color: #ff267a !important;
+  font-weight: 600;
 }

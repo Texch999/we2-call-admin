@@ -3,61 +3,115 @@ import Table from "./../home-page/Table";
 import { useEffect, useState } from "react";
 import SubmitPopup from "./../popups/SubmitPopup";
 import { call } from "../../config/axios";
-import { GET_MATCH_POSITION_DATA } from "../../config/endpoints";
+import {
+  DELETE_MATCH_ENTRY,
+  GET_MATCH_ENTRY_DETAILS,
+} from "../../config/endpoints";
 
 function MatchEntryTable(props) {
-  const { matchPositionData } = props;
+  const {
+    team1,
+    team2,
+    seriesType,
+    selectedMatch,
+    matchAccountData,
+    setSelectedMatchEntry,
+    status,
+    setStatus,
+  } = props;
 
   let register_id = localStorage?.getItem("register_id");
   let creator_id = localStorage?.getItem("creator_id");
   let account_role = localStorage?.getItem("account_role");
 
-  const registered_match_id = "reg-1694409417188";
-
   const [editPopup, setEditPopup] = useState(false);
   const [deletePopup, setDeletePopup] = useState(false);
+  const [data, setData] = useState([]);
   const [matchEntryData, setMatchEntryData] = useState([]);
+  const [selectedId, setSelectedId] = useState("");
 
-  const handleEditPopupOpen = () => {
-    setEditPopup(true);
+  const handleOpenEditPopup = (DATA) => {
+    setMatchEntryData(DATA);
+    setEditPopup(!editPopup);
   };
-  const handleDeletePopupOpen = () => {
-    setDeletePopup(true);
+  const handleOpenDeletePopup = (matchId) => {
+    setSelectedId(matchId);
+    setDeletePopup(!deletePopup);
   };
 
-  const getMatchEntryData = async () => {
-    await call(GET_MATCH_POSITION_DATA, {
-      registered_match_id,
+  const deleteApi = async () => {
+    await call(DELETE_MATCH_ENTRY, {
+      match_entry_id: selectedId,
       register_id,
     })
-      .then((res) => setMatchEntryData(res?.data?.data))
+      .then((res) => {
+        setSelectedId("");
+        setStatus((prev) => !prev);
+        console.log(res.data);
+      })
       .catch((err) => console.log(err));
   };
 
+  const getMatchEntryDetails = async () => {
+    await call(GET_MATCH_ENTRY_DETAILS, {
+      registered_match_id: matchAccountData?.registered_match_id,
+      register_id,
+    })
+      .then((res) => {
+        setData(res?.data?.data?.Items);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   useEffect(() => {
-    getMatchEntryData();
-  }, []);
+    getMatchEntryDetails();
+  }, [matchAccountData?.registered_match_id, status]);
 
   const MATCH_ENTRY_DATA =
-    matchEntryData?.length &&
-    matchEntryData?.map((match) => ({
+    data?.length >= 0 &&
+    data?.map((match) => ({
       s_no: match.s_no,
       rate: match.rate,
       client: match.client_name,
-      amount: match.amount,
+      amount: <div className="yellow-clr">{match.amount}</div>,
       team: match.team,
-      playEat: match.pe,
+      playEat: (
+        <div className={match?.pe === "P" ? "clr-green" : "clr-pink"}>
+          {match.pe}{" "}
+        </div>
+      ),
       date: match.date,
       time: match.time,
-      ind: match.teamObj.AUS,
-      pak: match.teamObj.IND,
+      teamOne: (
+        <div
+          className={
+            match.teamObj[selectedMatch.team1] >= 0 ? "clr-green" : "clr-red"
+          }
+        >
+          {match.teamObj[selectedMatch.team1]}
+        </div>
+      ),
+      teamTwo: (
+        <div
+          className={
+            match.teamObj[selectedMatch.team2] >= 0 ? "clr-green" : "clr-red"
+          }
+        >
+          {match.teamObj[selectedMatch.team2]}
+        </div>
+      ),
       edit: (
-        <MdEdit className="edit-icon" onClick={() => handleEditPopupOpen()} />
+        <MdEdit
+          className="edit-icon"
+          onClick={() => handleOpenEditPopup(match)}
+        />
       ),
       delete: (
         <MdDelete
           className="edit-icon"
-          onClick={() => handleDeletePopupOpen()}
+          onClick={() => handleOpenDeletePopup(match?.match_entry_id)}
         />
       ),
     }));
@@ -96,12 +150,12 @@ function MatchEntryTable(props) {
       field: "time",
     },
     {
-      header: "IND",
-      field: "ind",
+      header: <div>{team1}</div>,
+      field: "teamOne",
     },
     {
-      header: "PAK",
-      field: "pak",
+      header: <div>{team2}</div>,
+      field: "teamTwo",
     },
     {
       header: "",
@@ -119,11 +173,16 @@ function MatchEntryTable(props) {
         state={editPopup}
         setState={setEditPopup}
         header={"Are You Sure You Want To Edit This Match Entry"}
+        data={matchEntryData}
+        setSelectedMatchEntry={setSelectedMatchEntry}
       />
       <SubmitPopup
         state={deletePopup}
         setState={setDeletePopup}
         header={"Are You Sure You Want To Delete This Match Entry"}
+        deletedId={selectedId}
+        deleteApi={deleteApi}
+        setSelectedId={setSelectedId}
       />
     </div>
   );
