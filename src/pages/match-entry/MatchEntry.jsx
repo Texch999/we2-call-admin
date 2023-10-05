@@ -11,6 +11,12 @@ import {
 import { call } from "../../config/axios";
 
 function MatchEntry() {
+  // Retrieve values from localStorage
+  let register_id = localStorage?.getItem("register_id");
+  let creator_id = localStorage?.getItem("creator_id");
+  let account_role = localStorage?.getItem("account_role");
+
+  // State variables
   const [allMatches, setAllMatches] = useState([]);
   const [selectedMatch, setSelectedMatch] = useState([]);
   const [matchPositionData, setMatchPositionData] = useState([]);
@@ -18,27 +24,18 @@ function MatchEntry() {
   const [selectedMatchEntry, setSelectedMatchEntry] = useState("");
   const [status, setStatus] = useState(false);
 
-  let register_id = localStorage?.getItem("register_id");
-  let creator_id = localStorage?.getItem("creator_id");
-  let account_role = localStorage?.getItem("account_role");
-
+  // Function to fetch all matches
   const getAllMatches = async () => {
     await call(GET_OFFLINE_ALL_MATCHES, { register_id, account_role })
       .then((res) => {
         let result = res?.data?.data;
-        setAllMatches(result.liveMatches);
+        setAllMatches(result?.liveMatches);
         setSelectedMatch(
-          result && result?.liveMatches && result?.liveMatches[0]
+          (result && result?.liveMatches && result?.liveMatches[0]) || ""
         );
       })
       .catch((err) => console.log(err));
   };
-  useEffect(() => {
-    const fetchData = async () => {
-      await getAllMatches();
-    };
-    fetchData();
-  }, []);
 
   const getMatchPositionData = async (ID) => {
     await call(GET_MATCH_POSITION_DATA, {
@@ -67,6 +64,13 @@ function MatchEntry() {
       })
       .catch((err) => console.log(err));
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await getAllMatches();
+    };
+    fetchData();
+  }, []);
 
   useEffect(() => {
     const fetchMatchInfo = async () => {
