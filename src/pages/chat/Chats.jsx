@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import "./styles.css";
 import { PiClockClockwiseBold } from "react-icons/pi";
 import { IoCall } from "react-icons/io5";
@@ -10,7 +10,26 @@ import { LuUsers } from "react-icons/lu";
 import { BiLock } from "react-icons/bi";
 import { Images } from "../../images";
 import { FiSend } from "react-icons/fi";
+import { PiDotOutlineFill } from "react-icons/pi";
+import { icons } from "react-icons";
 function Chats() {
+  const [userInput, setUserInput] = useState("");
+  const [webcamVisible, setWebcamVisible] = useState(false);
+  const webcamRef = useRef(null);
+  // const handleUserInput = () => {
+  //   if (userInput.trim() !== "") {
+  //     setChatMessages((prevMessages) => [
+  //       ...prevMessages,
+  //       {
+  //         content: userInput,
+  //         type: "outgoing",
+  //         profilePic: Images.dhoni_image,
+  //       },
+  //     ]);
+  //     setUserInput("");
+  //   }
+  // };
+
   return (
     <div class="container w-100">
       <div class="messaging w-100">
@@ -38,12 +57,6 @@ function Chats() {
                 <PiClockClockwiseBold className="upload-icon mx-2" />
                 <span className="large-font mx-2">Recent</span>
               </div>
-              {/* <div className="d-flex justify-content-start align-items-center w-100 my-2">
-                <div>
-                  <PiClockClockwiseBold className="upload-icon" />
-                </div>
-                <div className="medium-font ms-1 clr-cornflower">Recent</div>
-              </div> */}
             </div>
 
             <div class="inbox_chat header-bg">
@@ -201,10 +214,18 @@ function Chats() {
                       className="rounded-circle h-30px mx-2"
                       src={Images.kohli_image}
                       alt="kohli"
-                    />{" "}
+                    />
                   </div>
-                  <div className="large-font clr-white mx-2">
-                    Mahendra Singh Baahubali
+                  <div className=" d-flex flex-column clr-white mx-2">
+                    <div className="large-font">Mahendra Singh Baahubali</div>
+                    <div className="small-font align-items-center">
+                      12 Members,5 Online
+                      <PiDotOutlineFill
+                        className="clr-green"
+                        style={{ fontSize: "30px" }}
+                      />
+                    </div>
+                    <div></div>
                   </div>
                 </div>
                 <div className="d-flex flex-row align-items-center justify-content-between">
@@ -287,18 +308,6 @@ function Chats() {
                 </div>
               </div>
             </div>
-
-            {/* <div className="d-flex flex-row align-items-center">
-              <div className="bg-clr-chat px-2 py-2 rounded mx-2">
-                <BiSolidCamera className="upload-icon" />
-              </div>
-              <div className="bg-clr-chat px-2 py-2 rounded mx-2">
-                <GrAttachment className="upload-icon" />
-              </div>
-              <div className="bg-clr-chat px-2 py-2 rounded mx-2">
-                <MdMicNone className="upload-icon" />
-              </div>
-            </div> */}
           </div>
           <div className="d-flex flex-row justify-content-around align-items-center px-4  chat-container-box header-bg">
             <div class="type_msg w-75 mx-2 rounded">
@@ -315,13 +324,13 @@ function Chats() {
               </div>
             </div>
             <div className="d-flex flex-row align-items-center w-25 justify-content-around">
-              <div className="button-chat px-3 py-2 rounded mx-2">
+              <div className="button-chat px-2 py-2 rounded mx-2">
                 <BiSolidCamera className="chat-icon" />
               </div>
-              <div className="button-chat px-3 py-2 rounded mx-2">
+              <div className="button-chat px-2 py-2 rounded mx-2">
                 <ImAttachment className="chat-icon" />
               </div>
-              <div className="button-chat px-3 py-2 rounded mx-2">
+              <div className="button-chat px-2 py-2 rounded mx-2">
                 <MdMicNone className="upload-icon" />
               </div>
             </div>

@@ -127,13 +127,15 @@ img {
   width: 92%;
 }
 .received_withd_msg p {
+  font-family: "Barlow-Regular";
+  color: #fff;
   background-color: #082051;
-  /* background: #33344c none repeat scroll 0 0; */
-  border-radius: 10px;
-  color: #cbcbe2;
+  padding: 10px;
+  font-size: 13px;
+  border-radius: 0px 14px 14px 14px;
+  word-break: break-word;
   font-size: 14px;
   margin: 0;
-  padding: 7px 10px 7px 12px;
   width: 100%;
 }
 .time_date {
@@ -150,12 +152,15 @@ img {
   width: 70%;
 }
 .sent_msg p {
+  font-family: "Barlow-Regular";
+  padding: 10px;
+  font-size: 13px;
+  border-radius: 14px 0px 14px 14px;
+  word-break: break-word;
   background-color: #03aa50 !important;
-  border-radius: 10px;
   font-size: 14px;
   margin: 0;
   color: #fff;
-  padding: 7px 10px 7px 12px;
   width: 100%;
 }
 .outgoing_msg {
@@ -245,7 +250,7 @@ img {
   background-color: #082051;
 }
 .button-chat {
-  font-size: 25px !important;
+  font-size: 20px !important;
   background-color: #132e67;
 }
 .header-img-indvdual {
