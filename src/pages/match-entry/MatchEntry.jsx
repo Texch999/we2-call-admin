@@ -100,8 +100,15 @@ function MatchEntry() {
           matchPositionData={matchPositionData}
         />
       </div>
-      <MatchEntries selectedMatchEntry={selectedMatchEntry} />
+      <MatchEntries
+        setStatus={setStatus}
+        selectedMatch={selectedMatch}
+        matchAccountData={matchAccountData}
+        selectedMatchEntry={selectedMatchEntry}
+      />
       <MatchEntryTable
+        team1={selectedMatch?.team1}
+        team2={selectedMatch?.team2}
         selectedMatch={selectedMatch}
         seriesType={""}
         matchAccountData={matchAccountData}

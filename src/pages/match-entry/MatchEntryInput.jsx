@@ -1,8 +1,24 @@
 import { useState } from "react";
 import SubmitPopup from "../popups/SubmitPopup";
+import {
+  CREATE_MATCH_ENTRY,
+  GET_OFFLINE_CLIENTS,
+  UPDATE_MATCH_ENTRY,
+} from "../../config/endpoints";
 
-function MatchEntryInput() {
+function MatchEntryInput({
+  setStatus,
+  selectedMatch,
+  selectedMatchEntry,
+  registered_match_id,
+}) {
   const [submitPopup, setSubmitPopup] = useState(false);
+  const [rate, setRate] = useState("");
+  const [amount, setAmount] = useState("");
+  const [enterTeam, setEnterTeam] = useState("");
+  const [playAndEat, setPlayAndEat] = useState("");
+  const [enterClient, setEnterClient] = useState("");
+
   const handleSubmitPopupOpen = () => {
     setSubmitPopup(true);
   };
@@ -24,7 +40,7 @@ function MatchEntryInput() {
             <div className="medium-font">Rate</div>
             <input
               type="number"
-              defaultValue={1.}
+              defaultValue={1}
               className="w-100 medium-font btn-bg rounded all-none p-2"
               placeholder="Rate"
             />
@@ -33,11 +49,11 @@ function MatchEntryInput() {
         <div className="col">
           <div>
             <div className="medium-font">Team</div>
-            <input
-              type="text"
-              className="w-100 medium-font btn-bg rounded all-none p-2"
-              placeholder="Team"
-            />
+            <select className="w-100 custom-select medium-font btn-bg rounded all-none p-2">
+              <option>Enter Team</option>
+              <option>IND</option>
+              <option>PAK</option>
+            </select>
           </div>
         </div>
         <div className="col">
