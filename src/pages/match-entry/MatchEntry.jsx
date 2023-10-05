@@ -8,34 +8,35 @@ import {
   GET_MATCH_POSITION_DATA,
   GET_OFFLINE_ALL_MATCHES,
 } from "../../config/endpoints";
+
 import { call } from "../../config/axios";
 
 function MatchEntry() {
-  const [allMatches, setAllMatches] = useState([]);
-  const [selectedMatch, setSelectedMatch] = useState([]);
-  const [matchPositionData, setMatchPositionData] = useState([]);
-
+  // Retrieve values from localStorage
   let register_id = localStorage?.getItem("register_id");
   let creator_id = localStorage?.getItem("creator_id");
   let account_role = localStorage?.getItem("account_role");
 
+  // State variables
+  const [allMatches, setAllMatches] = useState([]);
+  const [selectedMatch, setSelectedMatch] = useState([]);
+  const [matchPositionData, setMatchPositionData] = useState([]);
+  const [matchAccountData, setMatchAccountData] = useState([]);
+  const [selectedMatchEntry, setSelectedMatchEntry] = useState("");
+  const [status, setStatus] = useState(false);
+
+  // Function to fetch all matches
   const getAllMatches = async () => {
     await call(GET_OFFLINE_ALL_MATCHES, { register_id, account_role })
       .then((res) => {
         let result = res?.data?.data;
-        setAllMatches(result.liveMatches);
+        setAllMatches(result?.liveMatches);
         setSelectedMatch(
-          result && result?.liveMatches && result?.liveMatches[0]
+          (result && result?.liveMatches && result?.liveMatches[0]) || ""
         );
       })
       .catch((err) => console.log(err));
   };
-  useEffect(() => {
-    const fetchData = async () => {
-      await getAllMatches();
-    };
-    fetchData();
-  }, []);
 
   const getMatchPositionData = async (ID) => {
     await call(GET_MATCH_POSITION_DATA, {
@@ -49,7 +50,37 @@ function MatchEntry() {
     getMatchPositionData();
   }, []);
 
-  // localStorage.setItem("match_id", selectedMatch.match_id);
+  const getMatchInfo = async () => {
+    await call(GET_ACCOUNT_MATCHES_DATA, {
+      register_id,
+      match_id: selectedMatch?.match_id,
+    })
+      .then(async (res) => {
+        let temp =
+          res?.data && res.data.data && res.data.data[0]
+            ? res.data.data[0]
+            : res.data.data;
+        setMatchAccountData(temp);
+        await getMatchPositionData(temp?.registered_match_id);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await getAllMatches();
+    };
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    const fetchMatchInfo = async () => {
+      if (selectedMatch) {
+        getMatchInfo();
+      }
+    };
+    fetchMatchInfo();
+  }, [selectedMatch]);
 
   return (
     <div>
@@ -70,8 +101,22 @@ function MatchEntry() {
           matchPositionData={matchPositionData}
         />
       </div>
-      <MatchEntries />
-      <MatchEntryTable matchPositionData={matchPositionData} />
+      <MatchEntries
+        setStatus={setStatus}
+        selectedMatch={selectedMatch}
+        matchAccountData={matchAccountData}
+        selectedMatchEntry={selectedMatchEntry}
+      />
+      <MatchEntryTable
+        team1={selectedMatch?.team1}
+        team2={selectedMatch?.team2}
+        selectedMatch={selectedMatch}
+        seriesType={""}
+        matchAccountData={matchAccountData}
+        setSelectedMatchEntry={setSelectedMatchEntry}
+        status={status}
+        setStatus={setStatus}
+      />
     </div>
   );
 }

@@ -112,9 +112,7 @@ function MeetingAndSummary() {
               <AiOutlineRight />
             </div>
           </div>
-          <div className="table-div-scroll">
-            <Table data={data2} columns={columns} />
-          </div>
+          <Table data={data2} columns={columns} />
         </div>
       </div>
       <div className="col-6 p-2">

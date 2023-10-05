@@ -178,6 +178,12 @@ function Statement() {
   const [showModal, setShowModal] = useState(false);
   const handleShow = () => setShowModal(true);
   const [selectedDate, setSelectedDate] = useState(null);
+
+
+  const onChange = (e) => {
+
+  }
+
   return (
     <div className="p-2">
       <hr />
@@ -190,7 +196,7 @@ function Statement() {
                 <DatePicker
                   className="login-input all-none w-50"
                   selected={selectedDate}
-                  onChange={(date) => setSelectedDate(date)}
+                  onChange={(e) => onChange(e)}
                   dateFormat="yyyy-MM-dd"
                   placeholderText="Select a date"
                 />

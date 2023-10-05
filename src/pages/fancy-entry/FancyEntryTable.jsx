@@ -99,7 +99,7 @@ function FancyEntryTable() {
       field: "runs",
     },
     {
-      header: "Y?N",
+      header: "Y/N",
       field: "yesNo",
     },
     {

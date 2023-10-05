@@ -4,7 +4,12 @@ import MatchResultInput from "./MatchResultInput";
 import { useState } from "react";
 import { useHistory } from "react-router";
 
-function MatchEntries() {
+function MatchEntries({
+  setStatus,
+  selectedMatch,
+  matchAccountData,
+  selectedMatchEntry,
+}) {
   const history = useHistory();
   const [matchEntryInputs, setMatchEntryInputs] = useState(true);
   const [matchResultInputs, setMatchResultInputs] = useState(false);
@@ -40,7 +45,7 @@ function MatchEntries() {
           </div>
         </div>
         <div className="w-50 d-flex justify-content-end">
-          <digit 
+          <digit
             className="w-25 match-entry-btn d-flex align-items-center justify-content-around rounded-pill p-1"
             onClick={() => history.push("/fancy-entry")}
           >
@@ -50,8 +55,20 @@ function MatchEntries() {
         </div>
       </div>
       <hr className="hr-line" />
-      {matchEntryInputs && <MatchEntryInput />}
-      {matchResultInputs && <MatchResultInput />}
+      {matchEntryInputs && (
+        <MatchEntryInput
+          setStatus={setStatus}
+          selectedMatch={selectedMatch}
+          selectedMatchEntry={selectedMatchEntry}
+          registered_match_id={matchAccountData?.registered_match_id}
+        />
+      )}
+      {matchResultInputs && (
+        <MatchResultInput
+          selectedMatch={selectedMatch}
+          registered_match_id={matchAccountData?.registered_match_id}
+        />
+      )}
     </div>
   );
 }

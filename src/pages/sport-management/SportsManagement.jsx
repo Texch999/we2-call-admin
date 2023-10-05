@@ -394,9 +394,8 @@ function SportsManagement() {
                 <th key={index}>{column}</th>
               ))}
             </thead>
-            <div className="table-div-scroll">
-              <Table data={tableData || []} columns={columns} />
-            </div>
+            <Table data={tableData || []} columns={columns} />
+
             {console.log(allMatchesData, "...tabledata")}
           </div>
         </div>

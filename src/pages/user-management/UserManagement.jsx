@@ -45,7 +45,7 @@ function UserManagement() {
     { name: "Regulor", value: 0 },
     { name: "Book", value: 1 },
     { name: "Agent", value: 2 },
-    { name: "Dami", value: 3 }
+    { name: "Dami", value: 3 },
   ];
 
   const shareList = [
@@ -330,13 +330,11 @@ function UserManagement() {
           <th key={index}>{column}</th>
         ))}
       </thead>
-      <div className="table-div-scroll">
-        <Table
-          data={existingClients}
-          columns={userColumns}
-          editButtons={editButtons}
-        />
-      </div>
+      <Table
+        data={existingClients}
+        columns={userColumns}
+        editButtons={editButtons}
+      />
       <MatchSubmitPopup
         header={"You Are Successfully Created User"}
         state={createUserSubmit}

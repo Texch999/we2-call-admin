@@ -139,7 +139,7 @@ function EditProfile(props) {
     }
   };
 
-  console.log(formData, "formData.....");
+  // console.log(formData, "formData.....");
 
   return (
     <Modal onHide={close} show={show} centered className="add-user-modal">

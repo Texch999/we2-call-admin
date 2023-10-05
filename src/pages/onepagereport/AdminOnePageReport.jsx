@@ -17,6 +17,7 @@ const AdminOnePageReport = () => {
   ];
   const [activeReport, setActiveReport] = useState("Admin One Page Report");
   const [popupHeading, setPopupHeading] = useState(false);
+
   const adminOnePageReportData = [
     {
       admin_name: "Animesh",
@@ -159,6 +160,7 @@ const AdminOnePageReport = () => {
       setPopupHeading("Match Wise UL/Platform Com");
     }
   };
+
   return (
     <div className="p-4">
       <h5 className="meetings-heading mb-3">One Page Report</h5>
