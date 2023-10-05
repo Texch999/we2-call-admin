@@ -41,6 +41,7 @@ const EDITPROFILE = "/admin/admin_profile_update_info";
 const GET_USER_INFO = "/admin/get_admin_accounts_user_info";
 const UPDATE_PROFILE = "/admin/admin_profile_update_info";
 const GENERATE_SIGNED_URL = "/admin/profile_signed_url";
+const GET_USER_MESSAGES = "/chat/get_user_messages";
 
 // methods
 const DELETE = "DELETE";
@@ -55,6 +56,11 @@ exports.GET_UPDATED_MATCHES_DATA = {
 
 exports.GET_ONEPAGE_REPORT = {
   url: GET_ONEPAGE_REPORT,
+  method: POST,
+};
+
+exports.GET_USER_MESSAGES = {
+  url: GET_USER_MESSAGES,
   method: POST,
 };
 
