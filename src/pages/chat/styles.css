@@ -178,7 +178,7 @@ img {
   font-size: 14px;
   margin: 0;
   color: #fff;
-  width: 50%;
+  max-width: 50%;
 }
 .input_msg_write input {
   border-radius: 18px;
@@ -215,7 +215,7 @@ img {
   height: 20px !important;
 }
 .msg_history {
-  height: 67vh;
+  height: 95vh;
   overflow-y: auto;
 }
 .msg_history::-webkit-scrollbar {
