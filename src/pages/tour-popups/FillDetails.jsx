@@ -19,6 +19,8 @@ function FillDetails(props) {
   const [genderType, setGenderType] = useState();
   const [proofOpen, setProofOpen] = useState(false);
   const [proofType, setProofType] = useState();
+  const [selectedPackage, setSelectedPackage] = useState(false);
+  const [packageOptionsOpen, setPackageOptionsOpen] = useState(false);
   const handleMembersOpen = () => {
     setMembersOpen(!membersOpen);
   };
@@ -50,6 +52,24 @@ function FillDetails(props) {
     setProofType(content);
     setProofOpen(false);
   };
+
+  const handlePackageOptions = () => {
+    setPackageOptionsOpen(true);
+  };
+
+  const handleSelectOption = (item) => {
+    setSelectedPackage(item);
+    setPackageOptionsOpen(false);
+  };
+
+  const packageSelectOptions = [
+    "100000-200000",
+    "200000-300000",
+    "300000-400000",
+    "400000-500000",
+    "100000-above",
+  ];
+
   const NUMBER_OF_MEMBERS = [{ member: 1 }, { member: 2 }];
   return (
     <div className="p-3">
@@ -69,7 +89,33 @@ function FillDetails(props) {
       <hr className="hr-line mt-3" />
       <div className="flex-center font-16 mt-1 fw-600">Fill Your Details</div>
       <div className="mt-10 row">
-        <div className="col-6">
+        <div className="col">
+          <div
+            className="by-id-btn d-flex justify-content-between p-2"
+            onClick={() => handlePackageOptions()}
+          >
+            <div className="font-10">{selectedPackage || "Select Pack"}</div>
+            <div className="font-10">
+              ? <FaChevronUp /> : <FaChevronDown />
+            </div>
+          </div>
+          {packageOptionsOpen && (
+            <div className="by-id-btn d-flex justify-content-around flex-column mt-1 p-1 pos-abs w-30">
+              {packageSelectOptions.map((item, index) => {
+                return (
+                  <div
+                    key={index}
+                    className="member-one-text p-1 font-10"
+                    onClick={() => handleSelectOption(item)}
+                  >
+                    {item}
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </div>
+        <div className="col">
           <div
             className="by-id-btn d-flex justify-content-between p-2"
             onClick={() => handleMembersOpen()}
@@ -96,7 +142,7 @@ function FillDetails(props) {
             </div>
           )}
         </div>
-        <div className="col-6">
+        <div className="col">
           <div
             className="by-id-btn d-flex justify-content-between p-2"
             onClick={() => handleRegisteredOpen()}
