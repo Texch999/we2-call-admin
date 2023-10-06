@@ -62,6 +62,8 @@ const AddAdmins = () => {
     getAllClients();
   }, [isUserAdded]);
 
+  console.log(addUsersData,".......addusers")
+
   return (
     <div className="p-4">
       <div>
@@ -113,6 +115,8 @@ const AddAdmins = () => {
               <th></th>
               <th className="text-center">USER NAME</th>
               <th className="text-center">TYPE</th>
+              <th className="text-center">C Share</th>
+              <th className="text-center">My Share</th>
               <th className="text-center">PACKAGE</th>
               <th className="text-center">LOCATION</th>
               <th className="text-center">REFERRAL</th>
@@ -131,6 +135,8 @@ const AddAdmins = () => {
                   </td>
 
                   <td className="text-center">{data?.type}</td>
+                  <td className="text-center">{data?.package}</td>
+                  <td className="text-center">{data?.package}</td>
                   <td className="text-center">{data?.package}</td>
                   <td className="text-center">{data?.location}</td>
                   <td className="text-center">{data?.user}</td>
