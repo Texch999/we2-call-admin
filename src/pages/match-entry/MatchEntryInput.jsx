@@ -48,26 +48,25 @@ function MatchEntryInput({
     fetchData();
   }, []);
 
-  const handleMatchSubmitPopup = async (matchEntryInputData) => {
+  const handleMatchSubmitPopup = async () => {
     if (
       !matchEntryInputData?.rate ||
       !matchEntryInputData?.team ||
       !matchEntryInputData?.amount ||
-      !matchEntryInputData?.playAndEat ||
-      !matchEntryInputData?.clientName
+      !matchEntryInputData?.playEat ||
+      !matchEntryInputData?.client_id
     ) {
-      setError("Please Enter Required Fields");
+      return setError("Please Enter Required Fields");
     }
     setIsProcessing(true);
     setError("");
     await call(CREATE_MATCH_ENTRY, {
       ...selectedMatch,
-      // ...matchEntryInputData,
       rate: matchEntryInputData?.rate,
       team: matchEntryInputData?.team,
       amount: matchEntryInputData?.amount,
-      pe: matchEntryInputData?.playAndEat,
-      client_name: matchEntryInputData?.clientName,
+      pe: matchEntryInputData?.playEat,
+      client_id: matchEntryInputData?.client_id,
       account_role,
       registered_match_id: registered_match_id,
     })
@@ -94,16 +93,56 @@ function MatchEntryInput({
       });
   };
 
+  const handleMatchEntryUpdate = async () => {
+    if (
+      !matchEntryInputData?.rate ||
+      !matchEntryInputData?.team ||
+      !matchEntryInputData?.amount ||
+      !matchEntryInputData?.playEat ||
+      !matchEntryInputData?.client_id
+    ) {
+      return setError("Please Enter Required Fields");
+    }
+    setIsProcessing(true);
+    setError("");
+    await call(UPDATE_MATCH_ENTRY, {
+      rate: matchEntryInputData?.rate,
+      team: matchEntryInputData?.team,
+      amount: matchEntryInputData?.amount,
+      pe: matchEntryInputData?.playEat,
+      client_id: matchEntryInputData?.client_id,
+      register_id,
+      account_role,
+      registered_match_id,
+      match_entry_id: selectedMatchEntry?.match_entry_id,
+    })
+      .then((res) => {
+        setIsProcessing(false);
+        if (res.data.statusCode === 200) {
+          setStatus((prev) => !prev);
+          setMatchSubmitPopup(true);
+          setTimeout(() => {
+            setMatchSubmitPopup(false);
+          }, 1000);
+          setMatchEntryInputData({});
+        } else {
+          setError("Something Went Wrong");
+        }
+      })
+      .catch((err) => {
+        setIsProcessing(false);
+        setError("Something Went Wrong");
+        console.log(err);
+      });
+  };
+
   useEffect(() => {
     if (selectedMatchEntry) {
       setMatchEntryInputData(selectedMatchEntry);
     }
   }, [selectedMatchEntry]);
 
-  const handleMatchEntryUpdate = () => {
-    console.log("HELLOOOO");
-  };
-
+  console.log("matchEntryInputData--->", matchEntryInputData);
   return (
     <div className="match-position-bg rounded-bottom p-3">
       <div className="row">
@@ -116,7 +155,8 @@ function MatchEntryInput({
               type="number"
               name="rate"
               id="rate"
-              value={matchEntryInputData[matchEntryInputData?.rate || "1"]}
+              defaultValue={1}
+              value={matchEntryInputData[matchEntryInputData?.rate || ""]}
               onChange={(e) => handleMatchEntryInputDataChange(e)}
             />
           </div>
@@ -174,14 +214,14 @@ function MatchEntryInput({
             <div className="medium-font">Client Name</div>
             <select
               className="w-100 custom-select medium-font btn-bg rounded all-none p-2"
-              name="clientName"
+              name="client_id"
               id="clientName"
               onChange={(e) => handleMatchEntryInputDataChange(e)}
             >
               <option>Client Name</option>
               {existingUsers?.length >= 0 &&
                 existingUsers?.map((item, index) => (
-                  <option value={item?.client_name} key={index}>
+                  <option value={item?.client_id} key={index}>
                     {item?.client_name}
                   </option>
                 ))}
@@ -191,9 +231,9 @@ function MatchEntryInput({
         <div className="col d-flex align-items-end">
           <div
             className="w-100 text-center rounded medium-font p-2 yellow-btn fw-semibold"
-            onClick={(matchEntryInputData) =>
+            onClick={() =>
               Object.keys(selectedMatchEntry).length === 0
-                ? handleMatchSubmitPopup(matchEntryInputData)
+                ? handleMatchSubmitPopup()
                 : handleMatchEntryUpdate()
             }
             disabled={!selectedMatch?.match_id || isProcessing}
@@ -208,7 +248,7 @@ function MatchEntryInput({
       <SubmitPopup
         state={matchSubmitPopup}
         setState={setMatchSubmitPopup}
-        header={"Are You Sure You Want To Submit This Match Entry"}
+        header={"Your Successfully Submitted Match Entry"}
       />
     </div>
   );

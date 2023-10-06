@@ -3,14 +3,22 @@ import { IoCloseSharp } from "react-icons/io5";
 import { Images } from "./../../images/index";
 
 function SubmitPopup(props) {
-  const { header, state, setState } = props;
-  const handleCancel = () => {
+  const { header, state, setState, data, setSelectedMatchEntry } = props;
+  const handleCancelPopup = () => {
     setState(false);
+  };
+  const handleConfirm = () => {
+    setSelectedMatchEntry && setSelectedMatchEntry(data);
+    handleCancelPopup(false);
+  };
+  const handelCancel = () => {
+    setSelectedMatchEntry && setSelectedMatchEntry("");
+    handleCancelPopup(false);
   };
   return (
     <Modal show={state} className="match-declaration-modal" centered>
       <Modal.Header className="d-flex justify-content-end">
-        <IoCloseSharp onClick={() => handleCancel()} />
+        <IoCloseSharp onClick={() => handleCancelPopup()} />
       </Modal.Header>
       <Modal.Body>
         <center className="px-3">
@@ -23,13 +31,13 @@ function SubmitPopup(props) {
           <div className="row d-flex justify-content-between mt-3">
             <div
               className="col-5 rounded yellow-btn p-1"
-              onClick={() => handleCancel()}
+              onClick={() => handleConfirm()}
             >
               Yes
             </div>
             <div
               className="col-5 rounded share-bg p-1"
-              onClick={() => handleCancel()}
+              onClick={() => handelCancel()}
             >
               No
             </div>
