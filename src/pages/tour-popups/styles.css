@@ -37,6 +37,13 @@
   position: absolute;
   z-index: 9999;
 }
+.position-relative {
+  position: relative;
+}
+.border-ylw {
+  border: 1px solid yellow;
+  border-radius: 5px;
+}
 .all-none {
   border: none !important;
   /* background: none; */
@@ -87,6 +94,9 @@
   width: 50%;
   height: 25vh;
 }
+.bg-none {
+  background: none;
+}
 .message-text-div {
   border-radius: 15px;
   border: solid 2px rgba(255, 255, 255, 0.08);
@@ -112,10 +122,14 @@
   border-radius: 50%;
 }
 .middle-line-clr {
+  position: relative;
+  bottom: 18px;
   flex: 1;
   border-bottom: 1px dashed #496bb2;
 }
 .active-line-clr {
+  position: relative;
+  bottom: 18px;
   flex: 1;
   border-bottom: 1px dashed #fce719;
 }
