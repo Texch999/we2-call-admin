@@ -78,8 +78,10 @@ function MatchEntryTable(props) {
       amount: <div className="yellow-clr">{match.amount}</div>,
       team: match.team,
       playEat: (
-        <div className={match?.pe === "P" ? "clr-green" : "clr-pink"}>
-          {match.pe}{" "}
+        <div
+          className={match?.pe.toUpperCase() === "P" ? "clr-green" : "clr-pink"}
+        >
+          {match?.pe.toUpperCase()}
         </div>
       ),
       date: match.date,
