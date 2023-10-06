@@ -81,6 +81,16 @@ function Header() {
 
   const ReportsEntryDropdown = [
     {
+      icon: <GiArmorUpgrade className="mr-10 d-flex" />,
+      name: "Upgrade Packages",
+      path: "/upgrade-package",
+    },
+    {
+      icon: <TbReport className="mr-10 d-flex" />,
+      name: "Package Statement",
+      path: "/package-statement",
+    },
+    {
       icon: <BiPhoneCall className="mr-10 d-flex" />,
       name: "Call History",
       path: "/call-history",
@@ -114,11 +124,6 @@ function Header() {
       icon: <FaHandshake className="mr-10 d-flex" />,
       name: "Settlement Statement",
       path: "/settlement-statement",
-    },
-    {
-      icon: <GiArmorUpgrade className="mr-10 d-flex" />,
-      name: "Upgrade Packages",
-      path: "/upgrade-package",
     },
   ];
 

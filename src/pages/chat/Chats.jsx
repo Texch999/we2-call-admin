@@ -311,7 +311,7 @@ function Chats() {
               <div className="chat_list">
                 <div className="chat_people">
                   <div className="chat_img">
-                    <img
+                    <img 
                       className="rounded-circle"
                       src={Images.kohli_image}
                       alt="sunil"
@@ -411,7 +411,7 @@ function Chats() {
                       {sender ? (
                         ""
                       ) : (
-                        <div className="date-text mt-10">
+                        <div className="date-text mt-1">
                           {/* {moment(msg.ts).format("hh:mm a")} */}
                         </div>
                       )}
@@ -420,9 +420,7 @@ function Chats() {
                           sender ? "incoming_msg" : "outgoing_msg"
                         }`}
                       >
-                        <div className={`mt-2 ${
-                          sender ? "received_msg" : ""
-                        }`}>
+                        <div className={`mt-2 ${sender ? "received_msg" : ""}`}>
                           <div
                             key={index}
                             className={`mt-2 message ${
@@ -440,135 +438,62 @@ function Chats() {
                 <></>
               )}
             </div>
-            {/* <div className="msg_history px-4 py-3">
-              <div className="incoming_msg">
-                <div className="incoming_msg_img">
-                  <img
-                    className="rounded-circle"
-                    src={Images.dhoni_image}
-                    alt="sunil"
+            <div
+              className="recent_heading d-flex flex-start align-items-center justify-content-between w-100 header-bg h-8vh"
+              onClick={(e) => {
+                e.preventDefault();
+              }}
+            >
+              <div className="type_msg w-75 mx-2 rounded">
+                <div className="input_msg_write">
+                  <input
+                    type="text"
+                    className="write_msg px-3 py-2"
+                    name="postMessage"
+                    rows={1}
+                    value={userInput}
+                    // className="send-text-area"
+                    autoFocus
+                    placeholder="Write here ......"
+                    onChange={(e) => {
+                      handleInputChange(e);
+                    }}
+                    onKeyDown={(e) => userInput && hanldeKeyDown(e)}
+                  />
+                  <button
+                    className="msg_send_btn me-3"
+                    type="button"
+                    onClick={() => inputHandler()}
+                  >
+                    <FiSend />
+                  </button>
+                </div>
+              </div>
+              <div className="d-flex flex-row align-items-center w-25 justify-content-around">
+                <div className="button-chat px-2 py-2 rounded mx-2">
+                  <BiSolidCamera className="chat-icon" />
+                  <input
+                    type="file"
+                    id="upload-button"
+                    style={{ display: "none" }}
+                    onChange={handleChange}
                   />
                 </div>
-                <div className="received_msg">
-                  <div className="received_withd_msg">
-                    <p>Test which is a new approach to have all solutions</p>
-                    <span className="time_date"> 11:01 AM | June 9</span>
-                  </div>
-                </div>
-              </div>
-              <div className="outgoing_msg">
-                <div className="sent_msg">
-                  <p>Test which is a new approach to have all solutions</p>
-                  <span className="time_date"> 11:01 AM | June 9</span>{" "}
-                </div>
-              </div>
-              <div className="d-flex justify-content-center my-4">
-                <div className="small-font input-btn-bg px-2 py-2 clr-grey rounded ">
-                  Yesterday
-                </div>
-              </div>
-              <div className="incoming_msg">
-                <div className="incoming_msg_img">
-                  <img
-                    className="rounded-circle"
-                    src={Images.kohli_image}
-                    alt="sunil"
-                  />
-                </div>
-                <div className="received_msg">
-                  <div className="received_withd_msg">
-                    <p>Test, which is a new approach to have</p>
-                    <span className="time_date"> 11:01 AM | Yesterday</span>
-                  </div>
-                </div>
-              </div>
-              <div className="d-flex justify-content-center">
-                <div className="small-font input-btn-bg px-2 py-2 clr-grey rounded">
-                  today
-                </div>
-              </div>
-              <div className="outgoing_msg">
-                <div className="sent_msg">
-                  <p>Apollo University, Delhi, India Test</p>
-                  <span className="time_date"> 11:01 AM | Today</span>{" "}
-                </div>
-              </div>
-              <div className="incoming_msg">
-                <div className="incoming_msg_img">
-                  <img
-                    className="rounded-circle"
-                    src={Images.dhoni_image}
-                    alt="sunil"
-                  />
-                </div>
-                <div className="received_msg">
-                  <div className="received_withd_msg">
-                    <p>
-                      We work directly with our designers and suppliers, and
-                      sell direct to you, which means quality, exclusive
-                      products, at a price anyone can afford.
-                    </p>
-                    <span className="time_date"> 11:01 AM | Today</span>
-                  </div>
-                </div>
-              </div>
-            </div> */}
-          </div>
-          <div
-            className="d-flex flex-row justify-content-around align-items-center px-4  chat-container-box header-bg"
-            onClick={(e) => {
-              e.preventDefault();
-            }}
-          >
-            <div className="type_msg w-75 mx-2 rounded">
-              <div className="input_msg_write">
-                <input
-                  type="text"
-                  className="write_msg px-4 py-3"
-                  name="postMessage"
-                  rows={1}
-                  value={userInput}
-                  // className="send-text-area"
-                  autoFocus
-                  placeholder="Write here ......"
-                  onChange={(e) => {
-                    handleInputChange(e);
-                  }}
-                  onKeyDown={(e) => userInput && hanldeKeyDown(e)}
-                />
-                <button
-                  className="msg_send_btn me-3"
-                  type="button"
-                  onClick={() => inputHandler()}
+                <div
+                  className="button-chat px-2 py-2 rounded mx-2"
+                  onClick={handleUploadButtonClick}
                 >
-                  <FiSend />
-                </button>
-              </div>
-            </div>
-            <div className="d-flex flex-row align-items-center w-25 justify-content-around">
-              <div className="button-chat px-2 py-2 rounded mx-2">
-                <BiSolidCamera className="chat-icon" />
-                <input
-                  type="file"
-                  id="upload-button"
-                  style={{ display: "none" }}
-                  onChange={handleChange}
-                />
-              </div>
-              <div
-                className="button-chat px-2 py-2 rounded mx-2"
-                onClick={handleUploadButtonClick}
-              >
-                <ImAttachment className="chat-icon" />
-                <input
-                  type="file"
-                  ref={uploadfileInputRef}
-                  style={{ display: "none" }}
-                  onChange={handleUploadFileSelect}
-                />
-              </div>
-              <div className="button-chat px-2 py-2 rounded mx-2">
-                <MdMicNone className="upload-icon" />
+                  <ImAttachment className="chat-icon" />
+                  <input
+                    type="file"
+                    ref={uploadfileInputRef}
+                    style={{ display: "none" }}
+                    onChange={handleUploadFileSelect}
+                  />
+                </div>
+                <div className="button-chat px-2 py-2 rounded mx-2">
+                  <MdMicNone className="upload-icon" />
+                </div>
               </div>
             </div>
           </div>

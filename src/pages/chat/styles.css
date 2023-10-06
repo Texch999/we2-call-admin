@@ -15,7 +15,7 @@ img {
   /* border: 1px solid #c4c4c4; */
   clear: both;
   overflow: hidden;
-  /* height: 75vh; */
+  height: 85vh;
 }
 .top_spac {
   margin: 20px 0 0;
@@ -88,14 +88,14 @@ img {
 }
 .chat_list {
   margin: 0;
-  padding: 16px 10px 10px 16px;
+  padding: 5px;
 }
 .hr-chat {
   border: 1px solid #c4c4c4;
   opacity: 0.2;
 }
 .inbox_chat {
-  height: 300px;
+  height: 220px;
   overflow-y: scroll;
 }
 .inbox_chat::-webkit-scrollbar {
@@ -105,7 +105,7 @@ img {
   display: none;
 }
 .inbox-chat-contacts {
-  height: 265px;
+  height: 300px;
   overflow-y: scroll;
 }
 .chat-container-box {
@@ -215,7 +215,7 @@ img {
   height: 20px !important;
 }
 .msg_history {
-  height: 95vh;
+  height: 69vh;
   overflow-y: auto;
 }
 .msg_history::-webkit-scrollbar {

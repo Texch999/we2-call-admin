@@ -66,6 +66,7 @@ function ReportPage() {
     getOnePageReportData();
     getIndividualPLReport();
     getIndividualPLRefferal();
+    getIndivisualMatchReport();
   }, []);
 
   console.log(onePageReportData, "onePageReportData.....");

@@ -27,6 +27,7 @@ import FancyShareRisk from "../pages/match-risk/FancyShareRisk";
 import ToursAndTournaments from "../pages/tours-tournaments/ToursAndTournaments";
 import ViewOffers from "../pages/tours-tournaments/ViewOffers";
 import Chats from "../pages/chat/Chats";
+import PackageStatement from "../pages/packagestatement/PackageStatement";
 
 export const AgentRoutes = [
   {
@@ -136,6 +137,10 @@ export const AgentRoutes = [
   {
     path: "/offers",
     component: ViewOffers,
+  },
+  {
+    path: "/package-statement",
+    component: PackageStatement,
   },
   {
     path: "/chats",
