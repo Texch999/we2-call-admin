@@ -57,7 +57,7 @@ function MatchResultInput() {
         </div>
         <div className="col d-flex align-items-end">
           <div
-            className="w-100 text-center rounded medium-font p-2 yellow-btn fw-semibold"
+            className="cursor-pointer w-100 text-center rounded medium-font p-2 yellow-btn fw-semibold"
             onClick={() => handleMatchSubmitPopupOpen()}
           >
             Result Declaration

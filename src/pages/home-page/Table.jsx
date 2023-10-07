@@ -1,39 +1,52 @@
 function Table(props) {
   const { data, columns, tableClassname, editButtons } = props;
-  if (!data?.length) {
-    return (
-      <div className="table-body-height">
-        <table
-          className={`fixed-table w-100 match-position-table text-center medium-font ${tableClassname}`}
-        >
-          <thead id="home-table-head">
-            <tr>
-              {columns?.map((column, index) => (
-                <th key={index}>{column.header}</th>
-              ))}
-            </tr>
-          </thead>
+  console.log(data, "Status...");
 
-          <tbody>
-            {data?.length > 0 ? (
-              data?.map((item, rowIndex) => (
-                <tr key={rowIndex}>
-                  {columns?.map((column, colIndex) => (
-                    <td key={colIndex}>
-                      <div>{item[column?.field]}</div>
-                    </td>
-                  ))}
-                </tr>
-              ))
-            ) : (
-              <tr className="no-data-found">
-                <div>NO DATA</div>
-              </tr>
-            )}
-          </tbody>
-        </table>
-      </div>
-    );
+  if (!data?.length) {
+    {
+      console.log(data, "Status...");
+    }
+    // return (
+    //   <div className="table-body-height">
+    //     <table
+    //       className={`fixed-table w-100 match-position-table text-center medium-font ${tableClassname}`}
+    //     >
+    //       <thead id="home-table-head">
+    //         <tr>
+    //           {columns?.map((column, index) => (
+    //             <th key={index}>{column.header}</th>
+    //           ))}
+    //         </tr>
+    //       </thead>
+
+    //       <tbody>
+    //         {data?.length > 0 ? (
+    //           data?.map((item, rowIndex) => (
+    //             <tr
+    //               key={rowIndex}
+    //               className={
+    //                 item?.recordStatus === "updated"
+    //                   ? "match-entry-edit-color"
+    //                   : ""
+    //               }
+    //             >
+    //               {console.log(item?.recordStatus, "item?.recordStatus")}
+    //               {columns?.map((column, colIndex) => (
+    //                 <td key={colIndex}>
+    //                   <div>{item[column?.field]}</div>
+    //                 </td>
+    //               ))}
+    //             </tr>
+    //           ))
+    //         ) : (
+    //           <tr className="no-data-found">
+    //             <div>NO DATA</div>
+    //           </tr>
+    //         )}
+    //       </tbody>
+    //     </table>
+    //   </div>
+    // );
   }
   return (
     <div className="table-body-height">
@@ -54,7 +67,14 @@ function Table(props) {
             </tr>
           ) : (
             data.map((item, rowIndex) => (
-              <tr key={rowIndex}>
+              <tr
+                key={rowIndex}
+                className={
+                  item?.recordStatus === "updated"
+                    ? "match-entry-edit-color"
+                    : ""
+                }
+              >
                 {columns.map((column, colIndex) => (
                   <td key={colIndex}>
                     <div
