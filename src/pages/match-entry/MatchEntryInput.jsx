@@ -19,6 +19,7 @@ function MatchEntryInput({
   let account_role = localStorage?.getItem("account_role");
 
   const [matchSubmitPopup, setMatchSubmitPopup] = useState(false);
+  const [rate, setRate] = useState("");
   const [matchEntryInputData, setMatchEntryInputData] = useState({});
   const [existingUsers, setExistingUsers] = useState([]);
   const [error, setError] = useState("");
@@ -40,6 +41,7 @@ function MatchEntryInput({
   };
 
   const resetFields = () => {
+    setRate("");
     setMatchEntryInputData({});
     setSelectedOptions("");
   };
@@ -64,7 +66,7 @@ function MatchEntryInput({
 
   const handleMatchSubmitPopup = async () => {
     if (
-      !matchEntryInputData?.rate ||
+      !rate ||
       !matchEntryInputData?.team ||
       !matchEntryInputData?.amount ||
       !matchEntryInputData?.playEat ||
@@ -76,7 +78,7 @@ function MatchEntryInput({
     setError("");
     await call(CREATE_MATCH_ENTRY, {
       ...selectedMatch,
-      rate: matchEntryInputData?.rate,
+      rate: "1." + rate,
       team: matchEntryInputData?.team,
       amount: matchEntryInputData?.amount,
       pe: matchEntryInputData?.playEat,
@@ -110,7 +112,7 @@ function MatchEntryInput({
 
   const handleMatchEntryUpdate = async () => {
     if (
-      !matchEntryInputData?.rate ||
+      !rate ||
       !matchEntryInputData?.team ||
       !matchEntryInputData?.amount ||
       !matchEntryInputData?.playEat ||
@@ -121,7 +123,7 @@ function MatchEntryInput({
     setIsProcessing(true);
     setError("");
     await call(UPDATE_MATCH_ENTRY, {
-      rate: matchEntryInputData?.rate,
+      rate: "1." + rate,
       team: matchEntryInputData?.team,
       amount: matchEntryInputData?.amount,
       pe: matchEntryInputData?.playEat,
@@ -158,9 +160,22 @@ function MatchEntryInput({
         label: selectedMatchEntry?.client_name,
         value: selectedMatchEntry?.client_id,
       });
+      setRate(selectedMatchEntry?.rate?.substring(2));
       setMatchEntryInputData(selectedMatchEntry);
     }
   }, [selectedMatchEntry]);
+
+  const handleInputChange = (e) => {
+    if (e.target.value.length <= 4) {
+      let value = e.target.value;
+      if (value?.startsWith("1.")) {
+        setRate(value?.substring(2));
+      } else {
+        setRate(value);
+      }
+    }
+  };
+
   return (
     <div className="match-position-bg rounded-bottom p-3">
       <div className="row">
@@ -169,13 +184,13 @@ function MatchEntryInput({
             <div className="medium-font">Rate</div>
             <input
               className="w-100 medium-font btn-bg rounded all-none p-2"
-              placeholder="Rate"
-              type="number"
+              placeholder="1."
+              type="text"
               name="rate"
               id="rate"
-              defaultValue={1}
-              value={matchEntryInputData?.rate || ""}
-              onChange={(e) => handleMatchEntryInputDataChange(e)}
+              value={"1." + rate}
+              onChange={(e) => handleInputChange(e)}
+              maxLength={4}
             />
           </div>
         </div>
@@ -221,7 +236,7 @@ function MatchEntryInput({
               id="playEat"
               onChange={(e) => handleMatchEntryInputDataChange(e)}
             >
-              {/* <option>Select</option> */}
+              <option>Select</option>
               <option value="p">P</option>
               <option value="e">E</option>
             </select>
@@ -230,20 +245,6 @@ function MatchEntryInput({
         <div className="col">
           <div>
             <div className="medium-font">Client Name</div>
-            {/* <select
-              className="w-100 custom-select medium-font btn-bg rounded all-none p-2"
-              name="client_id"
-              id="clientName"
-              onChange={(e) => handleMatchEntryInputDataChange(e)}
-            >
-              <option>Client Name</option>
-              {existingUsers?.length >= 0 &&
-                existingUsers?.map((item, index) => (
-                  <option value={item?.client_id} key={index}>
-                    {item?.client_name}
-                  </option>
-                ))}
-            </select> */}
             <Select
               className="w-100"
               options={optionList}

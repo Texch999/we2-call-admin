@@ -75,7 +75,7 @@ function AlertsTable(props) {
                             : ""
                         }
                       >
-                        {item[column?.field]}
+                        {item[column.field]}
                       </div>
                     )}
                   </td>

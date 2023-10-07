@@ -52,7 +52,7 @@ function MatchScroll(props) {
   };
   return (
     <div>
-      <div className="container-fluid p-3">
+      <div className="container-fluid px-3 pb-3">
         <div className="container-responsive d-flex align-items-center">
           <div
             className="cursor-pointer d-flex align-items-center justify-content-center rounded-circle arrow-icon p-1"
@@ -89,7 +89,7 @@ function MatchScroll(props) {
             <FaAngleRight className="d-flex fs-5" />
           </div>
         </div>
-        <div className="w-100 container-fluid mt-4">
+        <div className="w-100 container-fluid mt-2">
           <div className="w-100 row">
             <div className="col-4">
               <div className="row">
