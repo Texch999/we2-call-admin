@@ -47,6 +47,7 @@ const GET_INDUVISUAL_MATCH_REPORT =
 const GET_INDUVISUAL_REFERRAL_BY =
   "/offline-management/get_individual_reportby_refferal";
 const GET_INDUVISUAL_REPORTS = "/offline-management/get_individual_report";
+const CREATE_REFFERAL = "/offline-management/create_refferal";
 
 // methods
 const DELETE = "DELETE";
@@ -56,6 +57,10 @@ const PUT = "PUT";
 
 exports.GET_UPDATED_MATCHES_DATA = {
   url: GET_UPDATED_MATCHES_DATA,
+  method: POST,
+};
+exports.CREATE_REFFERAL = {
+  url: CREATE_REFFERAL,
   method: POST,
 };
 

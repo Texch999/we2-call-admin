@@ -38,7 +38,6 @@ function OnePageReport() {
   const handleReportPageShow = () => {
     setShowReportPopup(true);
   };
-  console.log(onePageReportData, "........onePageReportData");
   return (
     <div className="p-2 mt-4">
       <table className="w-100 match-position-table medium-font">

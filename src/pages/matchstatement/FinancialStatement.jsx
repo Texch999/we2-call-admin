@@ -6,153 +6,42 @@ import FinancialPopupStatement from "./FinancialPopupStatement";
 import DatePicker from "react-datepicker";
 import { FaRegCalendarAlt } from "react-icons/fa";
 import "react-datepicker/dist/react-datepicker.css";
-function FinancialStatement() {
-  const FINANCIAL_STATEMENT_DETAILS = [
+import Table from "../home-page/Table";
+function FinancialStatement(props) {
+  const { financialStatementData } = props;
+  const tableColumns = [
+    { header: "DATE & TIME", field: "dateTime" },
+    { header: "SERIES NAME", field: "seriesName" },
+    { header: "TEAM NAME", field: "teamName" },
+    { header: "MATCH PLACE", field: "matchplace" },
+    { header: "WIN TEAM", field: "winTeam" },
+    { header: "P/L", field: "profitLoss" },
     {
-      datetime: "19 July 2023, 10:00:00 PM",
-      series: "T20 World Cup 2023",
-      team: "India vs England",
-      matchplace: "Hyderabad",
-      winteam: "India",
-      pl: "50000000",
-    },
-    {
-      datetime: "19 July 2023, 10:00:00 PM",
-      series: "T20 World Cup 2023",
-      team: "India vs England",
-      matchplace: "Hyderabad",
-      winteam: "India",
-      pl: "50000000",
-    },
-    {
-      datetime: "19 July 2023, 10:00:00 PM",
-      series: "T20 World Cup 2023",
-      team: "India vs England",
-      matchplace: "Hyderabad",
-      winteam: "India",
-      pl: "50000000",
-    },
-    {
-      datetime: "19 July 2023, 10:00:00 PM",
-      series: "T20 World Cup 2023",
-      team: "India vs England",
-      matchplace: "Hyderabad",
-      winteam: "India",
-      pl: "50000000",
-    },
-    {
-      datetime: "19 July 2023, 10:00:00 PM",
-      series: "T20 World Cup 2023",
-      team: "India vs England",
-      matchplace: "Hyderabad",
-      winteam: "India",
-      pl: "50000000",
-    },
-    {
-      datetime: "19 July 2023, 10:00:00 PM",
-      series: "T20 World Cup 2023",
-      team: "India vs England",
-      matchplace: "Hyderabad",
-      winteam: "India",
-      pl: "50000000",
-    },
-    {
-      datetime: "19 July 2023, 10:00:00 PM",
-      series: "T20 World Cup 2023",
-      team: "India vs England",
-      matchplace: "Hyderabad",
-      winteam: "India",
-      pl: "50000000",
-    },
-    {
-      datetime: "19 July 2023, 10:00:00 PM",
-      series: "T20 World Cup 2023",
-      team: "India vs England",
-      matchplace: "Hyderabad",
-      winteam: "India",
-      pl: "50000000",
-    },
-    {
-      datetime: "19 July 2023, 10:00:00 PM",
-      series: "T20 World Cup 2023",
-      team: "India vs England",
-      matchplace: "Hyderabad",
-      winteam: "India",
-      pl: "50000000",
-    },
-    {
-      datetime: "19 July 2023, 10:00:00 PM",
-      series: "T20 World Cup 2023",
-      team: "India vs England",
-      matchplace: "Hyderabad",
-      winteam: "India",
-      pl: "50000000",
-    },
-    {
-      datetime: "19 July 2023, 10:00:00 PM",
-      series: "T20 World Cup 2023",
-      team: "India vs England",
-      matchplace: "Hyderabad",
-      winteam: "India",
-      pl: "50000000",
-    },
-    {
-      datetime: "19 July 2023, 10:00:00 PM",
-      series: "T20 World Cup 2023",
-      team: "India vs England",
-      matchplace: "Hyderabad",
-      winteam: "India",
-      pl: "50000000",
-    },
-    {
-      datetime: "19 July 2023, 10:00:00 PM",
-      series: "T20 World Cup 2023",
-      team: "India vs England",
-      matchplace: "Hyderabad",
-      winteam: "India",
-      pl: "50000000",
-    },
-    {
-      datetime: "19 July 2023, 10:00:00 PM",
-      series: "T20 World Cup 2023",
-      team: "India vs England",
-      matchplace: "Hyderabad",
-      winteam: "India",
-      pl: "50000000",
-    },
-    {
-      datetime: "19 July 2023, 10:00:00 PM",
-      series: "T20 World Cup 2023",
-      team: "India vs England",
-      matchplace: "Hyderabad",
-      winteam: "India",
-      pl: "50000000",
-    },
-    {
-      datetime: "19 July 2023, 10:00:00 PM",
-      series: "T20 World Cup 2023",
-      team: "India vs England",
-      matchplace: "Hyderabad",
-      winteam: "India",
-      pl: "50000000",
-    },
-    {
-      datetime: "19 July 2023, 10:00:00 PM",
-      series: "T20 World Cup 2023",
-      team: "India vs England",
-      matchplace: "Hyderabad",
-      winteam: "India",
-      pl: "50000000",
-    },
-    {
-      datetime: "19 July 2023, 10:00:00 PM",
-      series: "T20 World Cup 2023",
-      team: "India vs England",
-      matchplace: "Hyderabad",
-      winteam: "India",
-      pl: "50000000",
+      field: "edit",
     },
   ];
+  const FINANCIAL_STATEMENT_DETAILS = financialStatementData.map((item) => {
+    return {
+      dateTime: item?.sport_name,
+      seriesName: item?.series_name,
+      teamName: (
+        <div>
+          {item?.team1} VS {item?.team1}
+        </div>
+      ),
+      matchplace: item?.stadium,
+      winTeam: item?.winTeam,
+      profitLoss: item?.totalAmount?.totalLossOrProfit,
+      edit: (
+        <AiFillEdit
+          data-toggle="modal"
+          data-target=".bd-example-modal-lg"
+          className="custom-icon"
+          onClick={() => handleFinancialModalShow()}
+        />
+      ),
+    };
+  });
   const [selectedDate, setSelectedDate] = useState(null);
 
   const [showFinancialModal, setShowFinancialModal] = useState(false);
@@ -160,63 +49,6 @@ function FinancialStatement() {
   return (
     <div className="p-2">
       <hr />
-      {/* <div className="d-flex flex-row justify-content-around mb-2 w-80">
-        <div>
-          <div className="medium-font mb-2">From</div>
-          <div className="date-container d-flex justify-content-around align-items-center rounded all-none p-1 w-75">
-            <DatePicker
-              className="login-input all-none w-100"
-              selected={selectedDate}
-              onChange={(date) => setSelectedDate(date)}
-              dateFormat="yyyy-MM-dd"
-              placeholderText="Select a date"
-            />
-            <FaRegCalendarAlt className="custom-icon p-1" />
-          </div>
-        </div>
-        <div>
-          <div className="medium-font mb-2">To</div>
-          <div className="date-container d-flex justify-content-around align-items-center rounded all-none p-1 w-75">
-            <DatePicker
-              className="login-input all-none w-100"
-              selected={selectedDate}
-              onChange={(date) => setSelectedDate(date)}
-              dateFormat="yyyy-MM-dd"
-              placeholderText="Select a date"
-            />
-            <FaRegCalendarAlt className="custom-icon p-1" />
-          </div>
-        </div>
-        <div>
-          <div className="medium-font mb-2">Series Name</div>
-
-          <select
-            name="cars"
-            className="w-100 custom-select medium-font btn-bg rounded all-none p-2"
-          >
-            <option selected>Enter Series Name</option>
-            <option value="test">Test</option>
-            <option value="t20">T20 League</option>
-            <option value="oneday">ODI Cricket</option>
-          </select>
-        </div>
-        <div>
-          <div className="medium-font mb-2">Match Name</div>
-          <select
-            name="cars"
-            className="w-100 custom-select medium-font btn-bg rounded all-none p-2"
-          >
-            <option selected>Enter Match Name</option>
-            <option value="sl">India vs SL</option>
-            <option value="eng">India vs Eng</option>
-            <option value="zim">Eng vs Zim</option>
-            <option value="pak">India Vs Pak</option>
-          </select>
-        </div>
-        <button className="submit-button mt-3 medium-font all-none">
-          Verify
-        </button>
-      </div> */}
       <Container fluid className="mt-2">
         <Row>
           <Col className="col-lg-2 col-md-3">
@@ -248,7 +80,7 @@ function FinancialStatement() {
                 <FaRegCalendarAlt className="custom-icon p-1" />
               </div>
             </div>
-          </Col>{" "}
+          </Col>
           <Col className="col-lg-2 col-md-3">
             <div>
               <div className="medium-font mb-2">Match Name</div>
@@ -263,7 +95,7 @@ function FinancialStatement() {
                 <option value="pak">India Vs Pak</option>
               </select>
             </div>
-          </Col>{" "}
+          </Col>
           <Col className="col-lg-2 col-md-3">
             <div>
               <div className="medium-font mb-2">Series Name</div>
@@ -286,46 +118,7 @@ function FinancialStatement() {
         </Row>
       </Container>
       <hr />
-      <table className="w-100 match-position-table medium-font">
-        <thead>
-          <tr className="text-center">
-            <th>DATE & TIME</th>
-            <th>SERIES NAME</th>
-            <th>TEAM NAME</th>
-            <th>MATCH PLACE</th>
-            <th>WIN TEAM</th>
-            <th>P/L</th>
-            <th></th>
-          </tr>
-        </thead>
-        {FINANCIAL_STATEMENT_DETAILS.map((item, index) => (
-          <tbody key={index}>
-            <tr className="text-center">
-              <td>{item.datetime}</td>
-              <td>{item.series}</td>
-              <td>{item.team}</td>
-              <td className="clr-green"> {item.matchplace}</td>
-              <td className="clr-green"> {item.winteam}</td>
-              <td className="clr-green"> {item.pl}</td>
-              <td>
-                <AiFillEdit
-                  className="custom-icon"
-                  onClick={() => handleFinancialModalShow()}
-                />
-              </td>
-            </tr>
-          </tbody>
-        ))}
-        <tfoot>
-          <tr className="text-center clr-green">
-            <th colSpan={5} className="text-end">
-              TOTAL
-            </th>
-            <th className="text-center">50000000.00</th>
-            <th></th>
-          </tr>
-        </tfoot>
-      </table>
+      <Table data={FINANCIAL_STATEMENT_DETAILS} columns={tableColumns} />
       <FinancialPopupStatement
         showFinancialModal={showFinancialModal}
         setShowFinancialModal={setShowFinancialModal}

@@ -16,11 +16,13 @@ function MatchStatement() {
   const [financialStatementData, setFinancialStatementData] = useState([]);
   const [existingUsers, setExistingUsers] = useState([]);
 
+  const [statementPayload, setStatementPayload] = useState({});
+
   const getStatementData = async () => {
     await call(GET_FINANCIAL_STATEMENT_BY_DATE, {
       register_id,
       account_role,
-      // ...statementPayload,
+      ...statementPayload,
     })
       .then((res) => {
         // const result = res?.data?.data?.Items;
@@ -55,6 +57,8 @@ function MatchStatement() {
   const handleReport = (report) => {
     setActiveReport(report);
   };
+
+  console.log(financialStatementData, ".....financialStatementData");
   return (
     <div className="p-4">
       <h5 className="meetings-heading mb-3">Match Statement</h5>
@@ -71,7 +75,15 @@ function MatchStatement() {
           </Button>
         ))}
       </div>
-      {activeReport === "Statement" ? <Statement /> : <FinancialStatement />}
+      {activeReport === "Statement" ? (
+        <Statement
+          statementPayload={statementPayload}
+          setStatementPayload={setStatementPayload}
+          financialStatementData={financialStatementData}
+        />
+      ) : (
+        <FinancialStatement financialStatementData={financialStatementData}/>
+      )}
     </div>
   );
 }
