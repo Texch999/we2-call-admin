@@ -65,11 +65,12 @@ function MatchEntryInput({
   }, []);
 
   const handleMatchSubmitPopup = async () => {
+    console.log({ selectedMatch, selectedOptions, matchEntryInputData, rate });
     if (
       !rate ||
       !matchEntryInputData?.team ||
       !matchEntryInputData?.amount ||
-      !matchEntryInputData?.playEat ||
+      !matchEntryInputData?.pe ||
       !selectedOptions?.label
     ) {
       return setError("Please Enter Required Fields");
@@ -81,7 +82,7 @@ function MatchEntryInput({
       rate: "1." + rate,
       team: matchEntryInputData?.team,
       amount: matchEntryInputData?.amount,
-      pe: matchEntryInputData?.playEat,
+      pe: matchEntryInputData?.pe,
       client_id: selectedOptions?.value,
       client_name: selectedOptions?.label,
       account_role,
@@ -111,11 +112,13 @@ function MatchEntryInput({
   };
 
   const handleMatchEntryUpdate = async () => {
+    console.log({ selectedMatch, selectedOptions, matchEntryInputData, rate });
+
     if (
       !rate ||
       !matchEntryInputData?.team ||
       !matchEntryInputData?.amount ||
-      !matchEntryInputData?.playEat ||
+      !matchEntryInputData?.pe ||
       !selectedOptions?.label
     ) {
       return setError("Please Enter Required Fields");
@@ -126,9 +129,9 @@ function MatchEntryInput({
       rate: "1." + rate,
       team: matchEntryInputData?.team,
       amount: matchEntryInputData?.amount,
-      pe: matchEntryInputData?.playEat,
+      pe: matchEntryInputData?.pe,
       client_id: selectedOptions?.value,
-      client_name: selectedOptions?.label,
+      client_name: selectedOptions?.label, 
       register_id,
       account_role,
       registered_match_id,
@@ -201,9 +204,10 @@ function MatchEntryInput({
               className="w-100 custom-select medium-font btn-bg rounded all-none p-2"
               name="team"
               id="team"
+              value={matchEntryInputData?.team}
               onChange={(e) => handleMatchEntryInputDataChange(e)}
             >
-              {/* <option>Enter Team</option> */}
+              <option value="">Enter Team</option>
               <option value={selectedMatch.team1 || ""}>
                 {selectedMatch?.team1}
               </option>
@@ -232,13 +236,14 @@ function MatchEntryInput({
             <div className="medium-font">P/E</div>
             <select
               className="w-100 custom-select medium-font btn-bg rounded all-none p-2"
-              name="playEat"
-              id="playEat"
+              name="pe"
+              id="pe"
+              value={matchEntryInputData?.pe}
               onChange={(e) => handleMatchEntryInputDataChange(e)}
             >
-              <option>Select</option>
-              <option value="p">P</option>
-              <option value="e">E</option>
+              <option value="">Select</option>
+              <option value="P">P</option>
+              <option value="E">E</option>
             </select>
           </div>
         </div>
