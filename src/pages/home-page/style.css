@@ -413,3 +413,9 @@ option {
   left: 50%;
   transform: translate(-50%, -50%);
 }
+.create-new{
+  background: yellow;
+  color: black;
+  padding: 0px 10px;
+  border-radius: 5px;
+}
