@@ -4,6 +4,7 @@ import OnePagePopup from "./OnePagePopup";
 import { GiClick } from "react-icons/gi";
 import { GET_ONEPAGE_REPORT } from "../../config/endpoints";
 import { call } from "../../config/axios";
+import CustomPagination from "../pagination/CustomPagination";
 
 function OnePageReport() {
   const [onePageReportData, setOnePageReportData] = useState([]);
@@ -39,6 +40,14 @@ function OnePageReport() {
     setShowReportPopup(true);
   };
   console.log(onePageReportData, "........onePageReportData");
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalPages = 5;
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+    // You can add your logic here to fetch data for the selected page.
+  };
   return (
     <div className="p-2 mt-4">
       <table className="w-100 match-position-table medium-font">
@@ -75,6 +84,20 @@ function OnePageReport() {
           </tr>
         </tfoot>
       </table>
+      <div className="d-flex justify-content-between align-items-center mt-4">
+        <div className="d-flex justify-content-start font-clr-white total-count-container  py-2 px-4 rounded">
+          <span>
+            Showing <b> {currentPage} </b> 0f <b> {totalPages} </b> Entries....
+          </span>
+        </div>
+        <div className="d-flex justify-content-end mt-2">
+          <CustomPagination
+            totalPages={totalPages}
+            currentPage={currentPage}
+            onPageChange={handlePageChange}
+          />
+        </div>
+      </div>
       <OnePagePopup
         showReportPopup={showReportPopup}
         setShowReportPopup={setShowReportPopup}

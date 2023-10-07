@@ -6,6 +6,8 @@ import FinancialPopupStatement from "./FinancialPopupStatement";
 import DatePicker from "react-datepicker";
 import { FaRegCalendarAlt } from "react-icons/fa";
 import "react-datepicker/dist/react-datepicker.css";
+import CustomPagination from "../pagination/CustomPagination";
+
 function FinancialStatement() {
   const FINANCIAL_STATEMENT_DETAILS = [
     {
@@ -157,6 +159,15 @@ function FinancialStatement() {
 
   const [showFinancialModal, setShowFinancialModal] = useState(false);
   const handleFinancialModalShow = () => setShowFinancialModal(true);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalPages = 5;
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+    // You can add your logic here to fetch data for the selected page.
+  };
+
   return (
     <div className="p-2">
       <hr />
@@ -326,6 +337,20 @@ function FinancialStatement() {
           </tr>
         </tfoot>
       </table>
+      <div className="d-flex justify-content-between align-items-center mt-4">
+        <div className="d-flex justify-content-start font-clr-white total-count-container  py-2 px-4 rounded">
+          <span>
+            Showing <b> {currentPage} </b> 0f <b> {totalPages} </b> Entries....
+          </span>
+        </div>
+        <div className="d-flex justify-content-end mt-2">
+          <CustomPagination
+            totalPages={totalPages}
+            currentPage={currentPage}
+            onPageChange={handlePageChange}
+          />
+        </div>
+      </div>
       <FinancialPopupStatement
         showFinancialModal={showFinancialModal}
         setShowFinancialModal={setShowFinancialModal}

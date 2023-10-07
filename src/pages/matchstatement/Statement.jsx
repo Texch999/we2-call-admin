@@ -7,6 +7,7 @@ import { FaRegCalendarAlt } from "react-icons/fa";
 import "react-datepicker/dist/react-datepicker.css";
 import Select from "react-select";
 import { Col, Container, Modal, Row } from "react-bootstrap";
+import CustomPagination from "../pagination/CustomPagination";
 
 function Statement() {
   const STATEMENT_DETAILS = [
@@ -179,10 +180,14 @@ function Statement() {
   const handleShow = () => setShowModal(true);
   const [selectedDate, setSelectedDate] = useState(null);
 
+  const onChange = (e) => {};
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalPages = 5;
 
-  const onChange = (e) => {
-
-  }
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+    // You can add your logic here to fetch data for the selected page.
+  };
 
   return (
     <div className="p-2">
@@ -298,39 +303,55 @@ function Statement() {
           </thead>
         </table>
       </div>
-<div> <table className="w-100 match-position-table medium-font">
-        {STATEMENT_DETAILS.map((item, index) => (
-          <tbody key={index}>
-            <tr className="text-center">
-              <td>{item.datetime}</td>
-              <td>{item.series}</td>
-              <td>{item.team}</td>
-              <td className="clr-green"> {item.matchplace}</td>
-              <td className="clr-green"> {item.winteam}</td>
-              <td className="clr-green"> {item.pl}</td>
-              <td>
-                <AiFillEdit
-                  data-toggle="modal"
-                  data-target=".bd-example-modal-lg"
-                  className="custom-icon"
-                  onClick={() => handleShow()}
-                />
-              </td>
+      <div>
+        {" "}
+        <table className="w-100 match-position-table medium-font">
+          {STATEMENT_DETAILS.map((item, index) => (
+            <tbody key={index}>
+              <tr className="text-center">
+                <td>{item.datetime}</td>
+                <td>{item.series}</td>
+                <td>{item.team}</td>
+                <td className="clr-green"> {item.matchplace}</td>
+                <td className="clr-green"> {item.winteam}</td>
+                <td className="clr-green"> {item.pl}</td>
+                <td>
+                  <AiFillEdit
+                    data-toggle="modal"
+                    data-target=".bd-example-modal-lg"
+                    className="custom-icon"
+                    onClick={() => handleShow()}
+                  />
+                </td>
+              </tr>
+            </tbody>
+          ))}
+          <tfoot>
+            <tr className="text-center clr-green">
+              <th colSpan={5} className="text-end">
+                TOTAL
+              </th>
+              <th className="text-center" colSpan={2}>
+                50000000.00
+              </th>
             </tr>
-          </tbody>
-        ))}
-        <tfoot>
-          <tr className="text-center clr-green">
-            <th colSpan={5} className="text-end">
-              TOTAL
-            </th>
-            <th className="text-center" colSpan={2}>
-              50000000.00
-            </th>
-          </tr>
-        </tfoot>
-      </table></div>
-     
+          </tfoot>
+        </table>
+      </div>
+      <div className="d-flex justify-content-between align-items-center mt-4">
+        <div className="d-flex justify-content-start font-clr-white total-count-container  py-2 px-4 rounded">
+          <span>
+            Showing <b> {currentPage} </b> 0f <b> {totalPages} </b> Entries....
+          </span>
+        </div>
+        <div className="d-flex justify-content-end mt-2">
+          <CustomPagination
+            totalPages={totalPages}
+            currentPage={currentPage}
+            onPageChange={handlePageChange}
+          />
+        </div>
+      </div>
       <StatementPopup showModal={showModal} setShowModal={setShowModal} />
     </div>
   );
