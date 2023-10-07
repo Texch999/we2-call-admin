@@ -29,6 +29,10 @@
   color: #fa3333;
   background-color: #2e1338;
 }
+.match-entry-edit-color {
+  color: #0992f3 !important;
+  font-weight: 600;
+}
 .cursor-pointer {
   cursor: pointer;
 }

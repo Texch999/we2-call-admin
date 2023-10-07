@@ -40,7 +40,6 @@ function MatchEntryInput({
   };
 
   const resetFields = () => {
-    console.log("testing");
     setMatchEntryInputData({});
     setSelectedOptions("");
   };
@@ -88,13 +87,9 @@ function MatchEntryInput({
     })
       .then((res) => {
         setIsProcessing(false);
-        console.log("inside response", res.data);
-
         if (res.data.statusCode === 200) {
           setStatus((prev) => !prev);
           setMatchSubmitPopup(true);
-          // setMatchEntryInputData({});
-          console.log("inside response");
           resetFields();
           setTimeout(() => {
             setMatchSubmitPopup(false);
@@ -145,7 +140,6 @@ function MatchEntryInput({
           setTimeout(() => {
             setMatchSubmitPopup(false);
           }, 1000);
-          // setMatchEntryInputData({});
           resetFields();
         } else {
           setError("Something Went Wrong");
@@ -167,8 +161,6 @@ function MatchEntryInput({
       setMatchEntryInputData(selectedMatchEntry);
     }
   }, [selectedMatchEntry]);
-
-  console.log("matchEntryInputData--->", matchEntryInputData);
   return (
     <div className="match-position-bg rounded-bottom p-3">
       <div className="row">
