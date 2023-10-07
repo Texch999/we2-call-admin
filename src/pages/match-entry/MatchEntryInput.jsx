@@ -6,6 +6,7 @@ import {
   UPDATE_MATCH_ENTRY,
 } from "../../config/endpoints";
 import { call } from "../../config/axios";
+import Select from "react-select";
 
 function MatchEntryInput({
   setStatus,
@@ -22,12 +23,26 @@ function MatchEntryInput({
   const [existingUsers, setExistingUsers] = useState([]);
   const [error, setError] = useState("");
   const [isProcessing, setIsProcessing] = useState(false);
+  const [selectedOptions, setSelectedOptions] = useState();
+
+  const optionList = existingUsers?.map((item) => {
+    return { value: item?.client_id, label: item?.client_name };
+  });
+  const handleSelect = (data) => {
+    setSelectedOptions(data);
+  };
 
   const handleMatchEntryInputDataChange = (e) => {
     setMatchEntryInputData({
       ...matchEntryInputData,
       [e.target.name]: e.target.value,
     });
+  };
+
+  const resetFields = () => {
+    console.log("testing");
+    setMatchEntryInputData({});
+    setSelectedOptions("");
   };
 
   const getAllClientsData = async () => {
@@ -54,7 +69,7 @@ function MatchEntryInput({
       !matchEntryInputData?.team ||
       !matchEntryInputData?.amount ||
       !matchEntryInputData?.playEat ||
-      !matchEntryInputData?.client_id
+      !selectedOptions?.label
     ) {
       return setError("Please Enter Required Fields");
     }
@@ -66,16 +81,21 @@ function MatchEntryInput({
       team: matchEntryInputData?.team,
       amount: matchEntryInputData?.amount,
       pe: matchEntryInputData?.playEat,
-      client_id: matchEntryInputData?.client_id,
+      client_id: selectedOptions?.value,
+      client_name: selectedOptions?.label,
       account_role,
       registered_match_id: registered_match_id,
     })
       .then((res) => {
         setIsProcessing(false);
+        console.log("inside response", res.data);
+
         if (res.data.statusCode === 200) {
           setStatus((prev) => !prev);
           setMatchSubmitPopup(true);
-          setMatchEntryInputData({});
+          // setMatchEntryInputData({});
+          console.log("inside response");
+          resetFields();
           setTimeout(() => {
             setMatchSubmitPopup(false);
           }, 1000);
@@ -99,7 +119,7 @@ function MatchEntryInput({
       !matchEntryInputData?.team ||
       !matchEntryInputData?.amount ||
       !matchEntryInputData?.playEat ||
-      !matchEntryInputData?.client_id
+      !selectedOptions?.label
     ) {
       return setError("Please Enter Required Fields");
     }
@@ -110,7 +130,8 @@ function MatchEntryInput({
       team: matchEntryInputData?.team,
       amount: matchEntryInputData?.amount,
       pe: matchEntryInputData?.playEat,
-      client_id: matchEntryInputData?.client_id,
+      client_id: selectedOptions?.value,
+      client_name: selectedOptions?.label,
       register_id,
       account_role,
       registered_match_id,
@@ -124,7 +145,8 @@ function MatchEntryInput({
           setTimeout(() => {
             setMatchSubmitPopup(false);
           }, 1000);
-          setMatchEntryInputData({});
+          // setMatchEntryInputData({});
+          resetFields();
         } else {
           setError("Something Went Wrong");
         }
@@ -138,6 +160,10 @@ function MatchEntryInput({
 
   useEffect(() => {
     if (selectedMatchEntry) {
+      setSelectedOptions({
+        label: selectedMatchEntry?.client_name,
+        value: selectedMatchEntry?.client_id,
+      });
       setMatchEntryInputData(selectedMatchEntry);
     }
   }, [selectedMatchEntry]);
@@ -156,25 +182,25 @@ function MatchEntryInput({
               name="rate"
               id="rate"
               defaultValue={1}
-              value={matchEntryInputData[matchEntryInputData?.rate || ""]}
+              value={matchEntryInputData?.rate || ""}
               onChange={(e) => handleMatchEntryInputDataChange(e)}
             />
           </div>
         </div>
         <div className="col">
           <div>
-            <div className="medium-font">Team</div>
+            <div className="medium-font">Enter Team</div>
             <select
               className="w-100 custom-select medium-font btn-bg rounded all-none p-2"
               name="team"
               id="team"
               onChange={(e) => handleMatchEntryInputDataChange(e)}
             >
-              <option>Enter Team</option>
-              <option value={selectedMatch.team1}>
+              {/* <option>Enter Team</option> */}
+              <option value={selectedMatch.team1 || ""}>
                 {selectedMatch?.team1}
               </option>
-              <option value={selectedMatch.team2}>
+              <option value={selectedMatch.team2 || ""}>
                 {selectedMatch?.team2}
               </option>
             </select>
@@ -189,7 +215,7 @@ function MatchEntryInput({
               placeholder="Amount"
               name="amount"
               id="amount"
-              value={matchEntryInputData[matchEntryInputData?.amount || ""]}
+              value={matchEntryInputData?.amount || ""}
               onChange={(e) => handleMatchEntryInputDataChange(e)}
             />
           </div>
@@ -203,7 +229,7 @@ function MatchEntryInput({
               id="playEat"
               onChange={(e) => handleMatchEntryInputDataChange(e)}
             >
-              <option>Select</option>
+              {/* <option>Select</option> */}
               <option value="p">P</option>
               <option value="e">E</option>
             </select>
@@ -212,7 +238,7 @@ function MatchEntryInput({
         <div className="col">
           <div>
             <div className="medium-font">Client Name</div>
-            <select
+            {/* <select
               className="w-100 custom-select medium-font btn-bg rounded all-none p-2"
               name="client_id"
               id="clientName"
@@ -225,12 +251,20 @@ function MatchEntryInput({
                     {item?.client_name}
                   </option>
                 ))}
-            </select>
+            </select> */}
+            <Select
+              className="w-100"
+              options={optionList}
+              placeholder="Client Name"
+              value={selectedOptions}
+              onChange={handleSelect}
+              isSearchable={true}
+            />
           </div>
         </div>
         <div className="col d-flex align-items-end">
           <div
-            className="w-100 text-center rounded medium-font p-2 yellow-btn fw-semibold"
+            className="cursor-pointer w-100 text-center rounded medium-font p-2 yellow-btn fw-semibold"
             onClick={() =>
               Object.keys(selectedMatchEntry).length === 0
                 ? handleMatchSubmitPopup()

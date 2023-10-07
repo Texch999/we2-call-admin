@@ -55,7 +55,7 @@ function MatchScroll(props) {
       <div className="container-fluid p-3">
         <div className="container-responsive d-flex align-items-center">
           <div
-            className="d-flex align-items-center justify-content-center rounded-circle arrow-icon p-1"
+            className="cursor-pointer d-flex align-items-center justify-content-center rounded-circle arrow-icon p-1"
             onClick={scrollLeft}
           >
             <FaAngleLeft className="d-flex fs-5" />
@@ -68,7 +68,7 @@ function MatchScroll(props) {
             {allMatches?.map((item, index) => (
               <div
                 key={index}
-                className={`btn-bg d-flex align-items-center justify-content-evenly p-2 m-1 rounded cursor-pointer ${
+                className={`cursor-pointer btn-bg d-flex align-items-center justify-content-evenly p-2 m-1 rounded cursor-pointer ${
                   activeIndex === index ? "yellow-border" : ""
                 }`}
                 onClick={() => handleActiveIndex(index, item)}
@@ -83,7 +83,7 @@ function MatchScroll(props) {
             ))}
           </div>
           <div
-            className="d-flex align-items-center justify-content-center rounded-circle arrow-icon p-1"
+            className="cursor-pointer d-flex align-items-center justify-content-center rounded-circle arrow-icon p-1"
             onClick={scrollRight}
           >
             <FaAngleRight className="d-flex fs-5" />
@@ -95,7 +95,7 @@ function MatchScroll(props) {
               <div className="row">
                 <div className="col">
                   <div
-                    className={`fw-semibold btn-bg medium-font text-white text-center p-3 m-1 rounded ${
+                    className={`cursor-pointer fw-semibold btn-bg medium-font text-white text-center p-3 m-1 rounded ${
                       matchEntry ? "yellow-btn" : ""
                     }`}
                     onClick={() => handleMatchEntry()}
@@ -105,7 +105,7 @@ function MatchScroll(props) {
                 </div>
                 <div className="col">
                   <div
-                    className={`fw-semibold btn-bg medium-font text-white text-center p-3 m-1 rounded ${
+                    className={`cursor-pointer fw-semibold btn-bg medium-font text-white text-center p-3 m-1 rounded ${
                       fancyEntry ? "yellow-btn" : ""
                     }`}
                     onClick={() => handleFancyEntry()}

@@ -106,13 +106,13 @@ function MatchEntryTable(props) {
       ),
       edit: (
         <MdEdit
-          className="edit-icon"
+          className="cursor-pointer edit-icon"
           onClick={() => handleOpenEditPopup(match)}
         />
       ),
       delete: (
         <MdDelete
-          className="edit-icon"
+          className="cursor-pointer edit-icon"
           onClick={() => handleOpenDeletePopup(match?.match_entry_id)}
         />
       ),
