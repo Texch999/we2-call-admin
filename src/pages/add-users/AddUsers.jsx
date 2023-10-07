@@ -35,6 +35,8 @@ const AddUsers = () => {
         return {
           s_no: index + 1,
           user_name: user?.user_name,
+          share: user?.share,
+          ul_share: user?.ul_share,
           type: user?.account_role,
           location: "Hyderabad",
           user: "",

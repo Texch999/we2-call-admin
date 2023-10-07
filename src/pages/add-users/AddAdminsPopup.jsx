@@ -5,7 +5,7 @@ import { Images } from "../../images";
 import { useState } from "react";
 import { IoEyeSharp, IoEyeOffSharp } from "react-icons/io5";
 import { call } from "../../config/axios";
-import { ACCOUNT_REGISTERATION } from "../../config/endpoints";
+import { ACCOUNT_REGISTERATION} from "../../config/endpoints";
 
 function AddAdminsPopup(props) {
   let register_id = localStorage?.getItem("register_id");
@@ -54,8 +54,9 @@ function AddAdminsPopup(props) {
         inputData?.first_name &&
         inputData?.user_name &&
         inputData?.share &&
-        inputData?.my_share &&
-        inputData?.creator_password
+        inputData?.ul_share &&
+        inputData?.creator_password &&
+        inputData?.location
       )
     ) {
       return setErr("Please enter required fields");
@@ -108,24 +109,50 @@ function AddAdminsPopup(props) {
       </Modal.Header>
       <Modal.Body>
         <Form className="add-user-modal-form-details">
-          <Form.Group className="mb-3" controlId="user_name">
-            <Form.Label>Name*</Form.Label>
-            <InputGroup>
-              <InputGroup.Text id="basic-addon1">
-                <Image src={Images.LoginUserIcon} />
-              </InputGroup.Text>
-              <Form.Control
-                type="text"
-                placeholder="Enter Name"
-                aria-label="Enter Name"
-                aria-describedby="basic-addon1"
-                autoFocus
-                name="first_name"
-                value={inputData["first_name"] || ""}
-                onChange={(e) => handleInputChnage(e)}
-              />
-            </InputGroup>
-          </Form.Group>
+          <Row>
+              <Col>
+                <Form.Group className="mb-3" controlId="user_name">
+                  <Form.Label>Name*</Form.Label>
+                  <InputGroup>
+                    <InputGroup.Text id="basic-addon1">
+                      <Image src={Images.LoginUserIcon} />
+                    </InputGroup.Text>
+                    <Form.Control
+                      type="text"
+                      placeholder="Enter Name"
+                      aria-label="Enter Name"
+                      aria-describedby="basic-addon1"
+                      autoFocus
+                      name="first_name"
+                      value={inputData["first_name"] || ""}
+                      onChange={(e) => handleInputChnage(e)}
+                    />
+                  </InputGroup>
+                </Form.Group>
+              
+              </Col>
+              <Col>
+                <Form.Group className="mb-3" controlId="location">
+                  <Form.Label>Location*</Form.Label>
+                  <InputGroup>
+                    <InputGroup.Text id="basic-addon1">
+                      <Image src={Images.LoginUserIcon} />
+                    </InputGroup.Text>
+                    <Form.Control
+                      type="text"
+                      placeholder="Enter Location"
+                      aria-label="Enter Location"
+                      aria-describedby="basic-addon1"
+                      autoFocus
+                      name="location"
+                      value={inputData["location"] || ""}
+                      onChange={(e) => handleInputChnage(e)}
+                    />
+                  </InputGroup>
+                </Form.Group>
+              
+              </Col>
+          </Row>          
           <Container fluid>
             <Row>
               <Col>
@@ -256,8 +283,8 @@ function AddAdminsPopup(props) {
                       placeholder="Enter Share"
                       autoFocus
                       aria-describedby="platComm"
-                      name="my_share"
-                      value={inputData["my_share"] || ""}
+                      name="ul_share"
+                      value={inputData["ul_share"] || ""}
                       onChange={(e) => handleInputChnage(e)}
                     />
                   </InputGroup>
@@ -319,3 +346,6 @@ function AddAdminsPopup(props) {
   );
 }
 export default AddAdminsPopup;
+
+
+

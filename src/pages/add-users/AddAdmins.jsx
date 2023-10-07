@@ -9,6 +9,8 @@ import { MdArrowForwardIos } from "react-icons/md";
 import PackageViewPopUp from "./PackageViewPopUp";
 import { GET_ALL_CLIENTS } from "../../config/endpoints";
 import { call } from "../../config/axios";
+import ChangePassword from "./ChangePassword";
+import MatchSubmitPopup from "../match-popups/MatchSubmitPopup";
 
 const AddAdmins = () => {
   let register_id = localStorage?.getItem("register_id");
@@ -22,6 +24,8 @@ const AddAdmins = () => {
 
   const [usersData, setUsersData] = useState([]);
   const [isUserAdded, setIsUserAdded] = useState(false);
+  const [changepasswordPopup, setChangepasswordPopup] = useState(false);
+  const [changePasswordSubmit, setChangePasswordSubmit] = useState(false);
 
   const addUsersData =
     usersData?.length > 0 &&
@@ -32,12 +36,21 @@ const AddAdmins = () => {
           s_no: index + 1,
           user_name: user?.user_name,
           type: user?.account_role,
-          location: "Hyderabad",
-          user: "",
+          share: user?.share,
+          ul_share: user?.ul_share,
+          location: user?.location,
           profit_loss: 0,
           package: 1,
         };
       });
+
+  
+  const handlePopupSubmit = (item) => {
+    // eslint-disable-next-line no-lone-blocks
+    {
+      item === "CP" && setChangepasswordPopup(true);
+    }
+  };
 
   const ACTION_LABELS = {
     cp: "CP",
@@ -62,7 +75,7 @@ const AddAdmins = () => {
     getAllClients();
   }, [isUserAdded]);
 
-  console.log(addUsersData,".......addusers")
+  console.log(addUsersData, ".......addusers");
 
   return (
     <div className="p-4">
@@ -102,7 +115,7 @@ const AddAdmins = () => {
               className="add-new-meetings-button"
               onClick={() => setModalShow(true)}
             >
-              + Add Users/Admins
+              + Add Admins
             </Button>
           </Form>
         </div>
@@ -128,6 +141,7 @@ const AddAdmins = () => {
             {addUsersData?.length > 0 &&
               addUsersData?.map((data, index) => (
                 <tr key={index}>
+                  {console.log({data})}
                   <td className="text-center">{data?.s_no}</td>
                   <td className="text-center">
                     {data?.user_name}{" "}
@@ -135,8 +149,8 @@ const AddAdmins = () => {
                   </td>
 
                   <td className="text-center">{data?.type}</td>
-                  <td className="text-center">{data?.package}</td>
-                  <td className="text-center">{data?.package}</td>
+                  <td className="text-center">{data?.share}</td>
+                  <td className="text-center">{data?.ul_share}</td>
                   <td className="text-center">{data?.package}</td>
                   <td className="text-center">{data?.location}</td>
                   <td className="text-center">{data?.user}</td>
@@ -146,6 +160,7 @@ const AddAdmins = () => {
                       <Button
                         key={index}
                         className={`rounded meeting-status-button ${action}-button me-2`}
+                        onClick={() => handlePopupSubmit(ACTION_LABELS[action])}
                       >
                         {ACTION_LABELS[action]}
                       </Button>
@@ -184,6 +199,16 @@ const AddAdmins = () => {
               onHide={() => setPackageViewPopup(false)}
             />
           )}
+          <ChangePassword
+            showChangePopup={changepasswordPopup}
+            setShowChangePopup={setChangepasswordPopup}
+            setChangePasswordSubmit={setChangePasswordSubmit}
+          />
+          <MatchSubmitPopup
+            header={"You Are Successfully Changed your Password"}
+            state={changePasswordSubmit}
+            setState={setChangePasswordSubmit}
+          />
         </Table>
       </div>
     </div>

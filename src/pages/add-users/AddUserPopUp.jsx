@@ -27,7 +27,7 @@ function AddUserPopUp(props) {
         inputData?.first_name &&
         inputData?.user_name &&
         inputData?.share &&
-        inputData?.my_share &&
+        inputData?.ul_share &&
         inputData?.creator_password
       )
     ) {
@@ -71,24 +71,50 @@ function AddUserPopUp(props) {
       </Modal.Header>
       <Modal.Body>
         <Form className="add-user-modal-form-details">
-          <Form.Group className="mb-3" controlId="user_name">
-            <Form.Label>Name*</Form.Label>
-            <InputGroup>
-              <InputGroup.Text id="basic-addon1">
-                <Image src={Images.LoginUserIcon} />
-              </InputGroup.Text>
-              <Form.Control
-                type="text"
-                placeholder="Enter Name"
-                aria-label="Enter Name"
-                aria-describedby="basic-addon1"
-                name="first_name"
-                value={inputData["first_name"] || ""}
-                autoFocus
-                onChange={(e) => handleInputChnage(e)}
-              />
-            </InputGroup>
-          </Form.Group>
+          <Row>
+              <Col>
+                <Form.Group className="mb-3" controlId="user_name">
+                  <Form.Label>Name*</Form.Label>
+                  <InputGroup>
+                    <InputGroup.Text id="basic-addon1">
+                      <Image src={Images.LoginUserIcon} />
+                    </InputGroup.Text>
+                    <Form.Control
+                      type="text"
+                      placeholder="Enter Name"
+                      aria-label="Enter Name"
+                      aria-describedby="basic-addon1"
+                      autoFocus
+                      name="first_name"
+                      value={inputData["first_name"] || ""}
+                      onChange={(e) => handleInputChnage(e)}
+                    />
+                  </InputGroup>
+                </Form.Group>
+              
+              </Col>
+              <Col>
+                <Form.Group className="mb-3" controlId="user_name">
+                  <Form.Label>Location*</Form.Label>
+                  <InputGroup>
+                    <InputGroup.Text id="basic-addon1">
+                      <Image src={Images.LoginUserIcon} />
+                    </InputGroup.Text>
+                    <Form.Control
+                      type="text"
+                      placeholder="Enter Location"
+                      aria-label="Enter Location"
+                      aria-describedby="basic-addon1"
+                      autoFocus
+                      name="location"
+                      value={inputData["location"] || ""}
+                      onChange={(e) => handleInputChnage(e)}
+                    />
+                  </InputGroup>
+                </Form.Group>
+              
+              </Col>
+          </Row>   
           <Container fluid>
             <Row>
               <Col>
@@ -159,7 +185,7 @@ function AddUserPopUp(props) {
                 </Form.Group>
               </Col>
             </Row>
-            <Row>
+            {/* <Row>
               <Col>
                 <Form.Group className="mb-3" controlId="share">
                   <Form.Label>Share*</Form.Label>
@@ -195,8 +221,8 @@ function AddUserPopUp(props) {
                       placeholder="Enter Share"
                       autoFocus
                       aria-describedby="platComm"
-                      name="my_share"
-                      value={inputData["my_share"] || ""}
+                      name="ul_share"
+                      value={inputData["ul_share"] || ""}
                       onChange={(e) => handleInputChnage(e)}
                     />
                   </InputGroup>
@@ -218,7 +244,7 @@ function AddUserPopUp(props) {
                   />
                 </InputGroup>
               </Form.Group>
-            </Row>
+            </Row> */}
           </Container>
           {err && <div className="error-message mb-1">{err}</div>}
           <Button

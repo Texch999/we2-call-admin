@@ -36,6 +36,8 @@ const BLOCKUNBLOCK="/offline-management/active_inactive_users"
 const EDITPROFILE="/admin/admin_profile_update_info"
 const GET_USER_INFO="/admin/get_admin_accounts_user_info";
 const GET_MEETINGS_DATA= "/meetings/get_meetings";
+const CHANGE_PASSWORD="/admin/change_password"
+
 
 
 
@@ -192,7 +194,7 @@ exports.ACCOUNT_REGISTERATION = {
   method: POST,
 };
 exports.GET_ALL_PACKAGES = {
-  url: GET_ALL_PACKAGES,
+  url: GET_ALL_PACKAGES,  
   method: POST,
 };
 
@@ -213,6 +215,11 @@ exports.BLOCKUNBLOCK = {
 
 exports.EDITPROFILE = {
   url: EDITPROFILE,
+  method: POST,
+};
+
+exports.CHANGE_PASSWORD = {
+  url: CHANGE_PASSWORD,
   method: POST,
 };
 
