@@ -3,6 +3,7 @@ import { Button, Table } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { AiFillFileText } from "react-icons/ai";
 import PaymentSettelmentPopup from "./PaymentSettelmentPopup";
+import CustomPagination from "../pagination/CustomPagination";
 
 const AdminShareCommSettlement = () => {
   const adminShareSummaryData = [
@@ -64,6 +65,15 @@ const AdminShareCommSettlement = () => {
   const handlePaymentModal = () => {
     setShowPaymentModal(true);
   };
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalPages = 5;
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+    // You can add your logic here to fetch data for the selected page.
+  };
+
   return (
     <div className="p-4">
       <div>
@@ -169,6 +179,20 @@ const AdminShareCommSettlement = () => {
             buttonTwo={`Time : 17:46:00 PM`}
           />
         </Table>
+      </div>
+      <div className="d-flex justify-content-between align-items-center mt-4">
+        <div className="d-flex justify-content-start font-clr-white total-count-container  py-2 px-4 rounded">
+          <span>
+            Showing <b> {currentPage} </b> 0f <b> {totalPages} </b> Entries....
+          </span>
+        </div>
+        <div className="d-flex justify-content-end mt-2">
+          <CustomPagination
+            totalPages={totalPages}
+            currentPage={currentPage}
+            onPageChange={handlePageChange}
+          />
+        </div>
       </div>
     </div>
   );

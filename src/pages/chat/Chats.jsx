@@ -448,7 +448,7 @@ function Chats() {
                 <div className="input_msg_write">
                   <input
                     type="text"
-                    className="write_msg px-3 py-2"
+                    className="write_msg px-2 py-1"
                     name="postMessage"
                     rows={1}
                     value={userInput}
@@ -470,7 +470,7 @@ function Chats() {
                 </div>
               </div>
               <div className="d-flex flex-row align-items-center w-25 justify-content-around">
-                <div className="button-chat px-2 py-2 rounded mx-2">
+                <div className="button-chat px-2 py-1 rounded mx-2">
                   <BiSolidCamera className="chat-icon" />
                   <input
                     type="file"
@@ -480,7 +480,7 @@ function Chats() {
                   />
                 </div>
                 <div
-                  className="button-chat px-2 py-2 rounded mx-2"
+                  className="button-chat px-2 py-1 rounded mx-2"
                   onClick={handleUploadButtonClick}
                 >
                   <ImAttachment className="chat-icon" />
@@ -491,7 +491,7 @@ function Chats() {
                     onChange={handleUploadFileSelect}
                   />
                 </div>
-                <div className="button-chat px-2 py-2 rounded mx-2">
+                <div className="button-chat px-2 py-1 rounded mx-2">
                   <MdMicNone className="upload-icon" />
                 </div>
               </div>

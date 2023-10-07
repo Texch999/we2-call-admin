@@ -46,6 +46,15 @@ function FinancialStatement(props) {
 
   const [showFinancialModal, setShowFinancialModal] = useState(false);
   const handleFinancialModalShow = () => setShowFinancialModal(true);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalPages = 5;
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+    // You can add your logic here to fetch data for the selected page.
+  };
+
   return (
     <div className="p-2">
       <hr />

@@ -80,6 +80,14 @@ function Statement(props) {
   };
 
   console.log(statementPayload, ".......statementPayload");
+  const onChange = (e) => {};
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalPages = 5;
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+    // You can add your logic here to fetch data for the selected page.
+  };
 
   return (
     <div className="p-2">
@@ -203,6 +211,16 @@ function Statement(props) {
       <hr />
       <div>
         <Table data={STATEMENT_DETAILS} columns={tableColumns} />
+        <tfoot>
+          <tr className="text-center clr-green">
+            <th colSpan={5} className="text-end">
+              TOTAL
+            </th>
+            <th className="text-center" colSpan={2}>
+              50000000.00
+            </th>
+          </tr>
+        </tfoot>
       </div>
       <StatementPopup showModal={showModal} setShowModal={setShowModal} />
     </div>
