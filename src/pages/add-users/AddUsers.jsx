@@ -7,7 +7,7 @@ import AddUserPopUp from "./AddUserPopUp";
 import ChangePassword from "./ChangePassword";
 import MatchSubmitPopup from "../match-popups/MatchSubmitPopup";
 import { call } from "../../config/axios";
-import { GET_ALL_CLIENTS } from "../../config/endpoints";
+import { GET_ALL_CLIENTS,BLOCKUNBLOCK} from "../../config/endpoints";
 
 const AddUsers = () => {
   let register_id = localStorage?.getItem("register_id");
@@ -22,10 +22,11 @@ const AddUsers = () => {
   const [usersData, setUsersData] = useState([]);
   const [isUserAdded, setIsUserAdded] = useState(false);
 
-  const handleCpButton = (value) => {
-    {
-      value === "CP" && setShowChangePopup(true);
-    }
+  const handleCpButton = () => {
+    console.log("testing....")
+
+       setShowChangePopup(true);
+    
   };
   const addUsersData =
     usersData?.length > 0 &&
@@ -38,18 +39,40 @@ const AddUsers = () => {
           share: user?.share,
           ul_share: user?.ul_share,
           type: user?.account_role,
-          location: "Hyderabad",
+          location: user?.location,
+          register_id:user?.register_id,
+          creator_id:user?.creator_id,
+          active:user?.active,
           user: "",
           profit_loss: 0,
         };
       });
-
-  const ACTION_LABELS = {
-    cp: "CP",
-    edit: "EDIT",
-    b: "B",
-    ub: "UB",
-  };
+  
+const handleBlock = async (data) => {
+       {console.log(data)}
+        await call(BLOCKUNBLOCK, {
+          register_id: data?.register_id,
+          creator_id: register_id,
+          active: !data?.active,
+          account_role: data?.type,
+        })
+          .then((res) => {
+            getAllClients();
+          })
+          .catch((err) => console.log(err));
+      }
+const ACTION_LABELS = [
+        {
+          name: "CP",
+    
+        },
+        {name: "EDIT"},
+        // b: "B",
+        {
+          name: "UB",
+          onclick: handleBlock
+        }
+];
 
   const [changePasswordSubmit, setChangePasswordSubmit] = useState(false);
   const handleUserChange = (e) => {
@@ -109,7 +132,7 @@ const AddUsers = () => {
         <Table responsive="md" className="call-management-data">
           <thead>
             <tr>
-              <th></th>
+              <th class="text-center">S NO</th>
               <th className="text-center">USER NAME</th>
               <th className="text-center">TYPE</th>
               <th className="text-center">LOCATION</th>
@@ -132,15 +155,9 @@ const AddUsers = () => {
                   <td className="text-center">{data?.user}</td>
                   <td className="text-center">{data?.profit_loss}</td>
                   <td className="text-center">
-                    {Object.keys(ACTION_LABELS).map((action, index) => (
-                      <Button
-                        key={index}
-                        className={`rounded meeting-status-button ${action}-button me-2`}
-                        onClick={() => handleCpButton(ACTION_LABELS[action])}
-                      >
-                        {ACTION_LABELS[action]}
-                      </Button>
-                    ))}
+                      <Button className="text-center rounded meeting-status-button EDIT-button me-2" onClick={()=>handleCpButton()}>CP</Button>
+                      <Button className="text-center rounded meeting-status-button EDIT-button me-2" >EDIT</Button>
+                      <Button className={`text-center rounded meeting-status-button EDIT-button me-2 ${data?.active ? "clr-blue" : "clr-red"}`} onClick={()=>handleBlock(data)}>{data?.active ? "UB" : "B"}</Button>
                   </td>
                 </tr>
               ))}

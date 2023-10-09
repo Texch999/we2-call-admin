@@ -26,8 +26,8 @@ function AddUserPopUp(props) {
       !(
         inputData?.first_name &&
         inputData?.user_name &&
-        inputData?.share &&
-        inputData?.ul_share &&
+        // inputData?.share &&
+        // inputData?.my_share &&
         inputData?.creator_password
       )
     ) {
@@ -185,8 +185,8 @@ function AddUserPopUp(props) {
                 </Form.Group>
               </Col>
             </Row>
-            {/* <Row>
-              <Col>
+            <Row>
+              {/* <Col>
                 <Form.Group className="mb-3" controlId="share">
                   <Form.Label>Share*</Form.Label>
                   <Form.Text id="sharePercentage">10%</Form.Text>
@@ -227,7 +227,7 @@ function AddUserPopUp(props) {
                     />
                   </InputGroup>
                 </Form.Group>
-              </Col>
+              </Col> */}
               <Form.Group className="mb-3" controlId="adminPassword">
                 <Form.Label>Admin Password*</Form.Label>
                 <InputGroup>
@@ -244,7 +244,7 @@ function AddUserPopUp(props) {
                   />
                 </InputGroup>
               </Form.Group>
-            </Row> */}
+            </Row>
           </Container>
           {err && <div className="error-message mb-1">{err}</div>}
           <Button
