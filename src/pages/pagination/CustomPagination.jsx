@@ -1,5 +1,6 @@
 import React from "react";
 import Pagination from "react-bootstrap/Pagination";
+import "./styles.css"
 
 const CustomPagination = ({ totalPages, currentPage, onPageChange }) => {
   const items = [];
