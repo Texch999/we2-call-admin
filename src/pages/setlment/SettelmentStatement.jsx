@@ -26,16 +26,18 @@ function SettelmentStatement() {
     getSettlementStatement();
   }, []);
 
-  const UPCOMING_SETTELMENT_DETAILS = settlementHistory.map((item) => {
-    return {
-      DateTime: "27/07/2023, 18:31:00 PM",
-      ClientName: "Animesh - Client",
-      ModeofPayment: "Phone Pay",
-      dayBalance: "1000000.00",
-      SettledAmount: "1000000.00",
-      Balance: "1000000.00",
-    };
-  });
+  const UPCOMING_SETTELMENT_DETAILS =
+    settlementHistory.length &&
+    settlementHistory?.map((item) => {
+      return {
+        DateTime: "27/07/2023, 18:31:00 PM",
+        ClientName: "Animesh - Client",
+        ModeofPayment: "Phone Pay",
+        dayBalance: "1000000.00",
+        SettledAmount: "1000000.00",
+        Balance: "1000000.00",
+      };
+    });
 
   console.log(settlementHistory, ".......settlementHistory");
   const [currentPage, setCurrentPage] = useState(1);
