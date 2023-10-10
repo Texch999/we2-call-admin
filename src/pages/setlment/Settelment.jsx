@@ -113,7 +113,7 @@ function Settelment() {
           </div>
         </div>
       </div>
-      <div className="table-body-height">
+      <div className="settelment-table-body-height">
         <table className="fixed-table w-100 match-position-table text-center medium-font">
           <thead id="home-table-head">
             <tr>

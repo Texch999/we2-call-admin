@@ -247,7 +247,10 @@
   max-height: 250px;
   overflow-y: scroll;
 }
-.no-scroll{
+.settelment-table-body-height {
+  overflow-y: scroll;
+}
+.no-scroll {
   overflow-y: unset !important;
 }
 .fixed-table {
