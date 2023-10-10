@@ -20,18 +20,38 @@ function FinancialStatement(props) {
       field: "edit",
     },
   ];
-  const FINANCIAL_STATEMENT_DETAILS = financialStatementData.map((item) => {
-    return {
-      dateTime: item?.sport_name,
-      seriesName: item?.series_name,
-      teamName: (
-        <div>
-          {item?.team1} VS {item?.team1}
-        </div>
-      ),
-      matchplace: item?.stadium,
-      winTeam: item?.winTeam,
-      profitLoss: item?.totalAmount?.totalLossOrProfit,
+  // const FINANCIAL_STATEMENT_DETAILS = financialStatementData.map(
+  //   (item, index) => {
+  //     return {
+  //       dateTime: item?.sport_name,
+  //       seriesName: item?.series_name,
+  //       teamName: (
+  //         <div>
+  //           {item?.team1} VS {item?.team1}
+  //         </div>
+  //       ),
+  //       matchplace: item?.stadium,
+  //       winTeam: item?.winTeam,
+  //       profitLoss: item?.totalAmount?.totalLossOrProfit,
+  //       edit: (
+  //         <AiFillEdit
+  //           data-toggle="modal"
+  //           data-target=".bd-example-modal-lg"
+  //           className="custom-icon"
+  //           onClick={() => handleFinancialModalShow()}
+  //         />
+  //       ),
+  //     };
+  //   }
+  // );
+  const FINANCIAL_STATEMENT_DETAILS = [
+    {
+      dateTime: "",
+      seriesName: "item?.series_name",
+      teamName: <div>"item?.team1 VS item?.team1"</div>,
+      matchplace: "item?.stadium",
+      winTeam: "item?.winTeam",
+      profitLoss: "item?.totalAmount?.totalLossOrProfit",
       edit: (
         <AiFillEdit
           data-toggle="modal"
@@ -40,8 +60,9 @@ function FinancialStatement(props) {
           onClick={() => handleFinancialModalShow()}
         />
       ),
-    };
-  });
+    },
+  ];
+
   const [selectedDate, setSelectedDate] = useState(null);
 
   const [showFinancialModal, setShowFinancialModal] = useState(false);

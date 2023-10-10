@@ -124,3 +124,18 @@
 .col-xs-4:nth-child(2n + 2) {
   background: black;
 }
+.harizental-scroll {
+  overflow: scroll;
+  width: 50vw;
+}
+.harizental-scroll div {
+  display: -webkit-inline-flex;
+}
+.fancy-overs {
+  width: 100px;
+  border: 1px solid yellow;
+  margin-right: 30px;
+  padding: 5px;
+  border-radius: 10px;
+  font-size: 15px;
+}
