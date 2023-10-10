@@ -12,7 +12,6 @@ const AdminOnePageReport = () => {
   const [adminsData, setAdminsData] = useState("");
   const [adminsHeadings, setAdminsHeadings] = useState("");
   const reports = [
-    "Client One Page Report",
     "Admin One Page Report",
     "UL/Platform Comm Report",
   ];
@@ -170,7 +169,7 @@ const AdminOnePageReport = () => {
   };
   return (
     <div className="p-4">
-      <h5 className="meetings-heading mb-3">One Page Report</h5>
+      <h5 className="meetings-heading mb-3">Your Share In Admin Book</h5>
       <div className="d-flex align-items-center justify-content-between">
         <div>
           {reports.map((report, index) => (
