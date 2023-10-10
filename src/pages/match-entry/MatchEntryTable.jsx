@@ -71,52 +71,71 @@ function MatchEntryTable(props) {
 
   const MATCH_ENTRY_DATA =
     data?.length >= 0 &&
-    data?.map((match) => ({
-      s_no: match.s_no,
-      rate: match.rate,
-      client: match.client_name,
-      amount: <div className="yellow-clr">{match.amount}</div>,
-      team: match.team,
-      playEat: (
-        <div
-          className={match?.pe.toUpperCase() === "P" ? "clr-green" : "clr-pink"}
-        >
-          {match?.pe.toUpperCase()}
-        </div>
-      ),
-      date: match.date,
-      time: match.time,
-      teamOne: (
-        <div
-          className={
-            match.teamObj[selectedMatch.team1] >= 0 ? "clr-green" : "clr-red"
-          }
-        >
-          {match.teamObj[selectedMatch.team1]}
-        </div>
-      ),
-      teamTwo: (
-        <div
-          className={
-            match.teamObj[selectedMatch.team2] >= 0 ? "clr-green" : "clr-red"
-          }
-        >
-          {match.teamObj[selectedMatch.team2]}
-        </div>
-      ),
-      edit: (
-        <MdEdit
-          className="edit-icon"
-          onClick={() => handleOpenEditPopup(match)}
-        />
-      ),
-      delete: (
-        <MdDelete
-          className="edit-icon"
-          onClick={() => handleOpenDeletePopup(match?.match_entry_id)}
-        />
-      ),
-    }));
+    data
+      ?.filter((i) => i.record_status !== "deleted")
+      ?.map((match) => ({
+        s_no: (
+          <div>
+            {match?.old_s_no === match?.s_no
+              ? match?.s_no
+              : `${match?.s_no}/${match?.old_s_no}`}
+          </div>
+        ),
+        rate: match.rate,
+        client: match.client_name,
+        amount: <div className="yellow-clr">{match.amount}</div>,
+        team: match.team,
+        playEat: (
+          <div
+            className={
+              match?.pe.toUpperCase() === "P" ? "clr-green" : "clr-pink"
+            }
+          >
+            {match?.pe.toUpperCase()}
+          </div>
+        ),
+        date: match.date,
+        time: match.time,
+        teamOne: (
+          <div
+            className={
+              match.teamObj[selectedMatch.team1] >= 0 ? "clr-green" : "clr-red"
+            }
+          >
+            {match.teamObj[selectedMatch.team1]}
+          </div>
+        ),
+        teamTwo: (
+          <div
+            className={
+              match.teamObj[selectedMatch.team2] >= 0 ? "clr-green" : "clr-red"
+            }
+          >
+            {match.teamObj[selectedMatch.team2]}
+          </div>
+        ),
+        edit: (
+          <div>
+            {match?.record_status === "active" && (
+              <MdEdit
+                className="cursor-pointer edit-icon"
+                onClick={() => handleOpenEditPopup(match)}
+              />
+            )}
+          </div>
+        ),
+        delete: (
+          <div>
+            {match?.record_status === "active" && (
+              <MdDelete
+                className="cursor-pointer edit-icon"
+                onClick={() => handleOpenDeletePopup(match?.match_entry_id)}
+              />
+            )}
+          </div>
+        ),
+        recordStatus: match?.record_status,
+      }));
 
   const MATCH_ENTRY_HEADING = [
     {
@@ -168,6 +187,7 @@ function MatchEntryTable(props) {
       field: "delete",
     },
   ];
+  console.log(data, "MATCH_ENTRY_DATA");
   return (
     <div className="p-3">
       <Table data={MATCH_ENTRY_DATA || []} columns={MATCH_ENTRY_HEADING} />

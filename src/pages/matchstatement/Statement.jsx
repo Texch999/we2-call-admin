@@ -7,6 +7,7 @@ import { FaRegCalendarAlt } from "react-icons/fa";
 import "react-datepicker/dist/react-datepicker.css";
 import Select from "react-select";
 import { Col, Container, Modal, Row } from "react-bootstrap";
+import CustomPagination from "../pagination/CustomPagination";
 import Table from "../home-page/Table";
 
 function Statement(props) {
@@ -97,6 +98,14 @@ function Statement(props) {
   const handleShow = () => setShowModal(true);
   const [selectedDate, setSelectedDate] = useState(null);
 
+  const onChange = (e) => {};
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalPages = 5;
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+    // You can add your logic here to fetch data for the selected page.
+  };
   const handleChange = (e) => {
     console.log(e, "event");
     setStatementPayload({
@@ -106,14 +115,6 @@ function Statement(props) {
   };
 
   console.log(statementPayload, ".......statementPayload");
-  const onChange = (e) => {};
-  const [currentPage, setCurrentPage] = useState(1);
-  const totalPages = 5;
-
-  const handlePageChange = (page) => {
-    setCurrentPage(page);
-    // You can add your logic here to fetch data for the selected page.
-  };
 
   return (
     <div className="p-2">
@@ -247,6 +248,20 @@ function Statement(props) {
             </th>
           </tr>
         </tfoot>
+      </div>
+      <div className="d-flex justify-content-between align-items-center mt-4">
+        <div className="d-flex justify-content-start font-clr-white total-count-container  py-2 px-4 rounded">
+          <span>
+            Showing <b> {currentPage} </b> 0f <b> {totalPages} </b> Entries....
+          </span>
+        </div>
+        <div className="d-flex justify-content-end mt-2">
+          <CustomPagination
+            totalPages={totalPages}
+            currentPage={currentPage}
+            onPageChange={handlePageChange}
+          />
+        </div>
       </div>
       <StatementPopup showModal={showModal} setShowModal={setShowModal} />
     </div>

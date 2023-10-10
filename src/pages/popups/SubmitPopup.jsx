@@ -3,16 +3,27 @@ import { IoCloseSharp } from "react-icons/io5";
 import { Images } from "./../../images/index";
 
 function SubmitPopup(props) {
-  const { header, state, setState, data, setSelectedMatchEntry } = props;
+  const {
+    header,
+    state,
+    setState,
+    data,
+    setSelectedMatchEntry,
+    deletedId,
+    deleteApi,
+    setSelectedId,
+  } = props;
   const handleCancelPopup = () => {
     setState(false);
   };
   const handleConfirm = () => {
     setSelectedMatchEntry && setSelectedMatchEntry(data);
+    deletedId && deleteApi();
     handleCancelPopup(false);
   };
   const handelCancel = () => {
     setSelectedMatchEntry && setSelectedMatchEntry("");
+    deletedId && setSelectedId("");
     handleCancelPopup(false);
   };
   return (

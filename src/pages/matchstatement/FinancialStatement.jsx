@@ -7,6 +7,8 @@ import DatePicker from "react-datepicker";
 import { FaRegCalendarAlt } from "react-icons/fa";
 import "react-datepicker/dist/react-datepicker.css";
 import Table from "../home-page/Table";
+import CustomPagination from "../pagination/CustomPagination";
+
 function FinancialStatement(props) {
   const { financialStatementData } = props;
   const tableColumns = [
@@ -149,6 +151,20 @@ function FinancialStatement(props) {
       </Container>
       <hr />
       <Table data={FINANCIAL_STATEMENT_DETAILS} columns={tableColumns} />
+      <div className="d-flex justify-content-between align-items-center mt-4">
+      <div className="d-flex justify-content-start font-clr-white total-count-container  py-2 px-4 rounded">
+        <span>
+          Showing <b> {currentPage} </b> 0f <b> {totalPages} </b> Entries....
+        </span>
+      </div>
+      <div className="d-flex justify-content-end mt-2">
+        <CustomPagination
+          totalPages={totalPages}
+          currentPage={currentPage}
+          onPageChange={handlePageChange}
+        />
+      </div>
+    </div>
       <FinancialPopupStatement
         showFinancialModal={showFinancialModal}
         setShowFinancialModal={setShowFinancialModal}
