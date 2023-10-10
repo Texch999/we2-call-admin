@@ -25,18 +25,43 @@ function Statement(props) {
       field: "edit",
     },
   ];
-  const STATEMENT_DETAILS = financialStatementData.map((item) => {
-    return {
-      dateTime: item?.sport_name,
-      seriesName: item?.series_name,
+  // const STATEMENT_DETAILS =
+  //   financialStatementData?.map((item) => {
+  //     return {
+  //       dateTime: item?.sport_name,
+  //       seriesName: item?.series_name,
+  //       teamName: (
+  //         <div>
+  //           {item?.team1} VS {item?.team1}
+  //         </div>
+  //       ),
+  //       matchplace: item?.stadium,
+  //       winTeam: item?.winTeam,
+  //       profitLoss: item?.totalAmount?.totalLossOrProfit,
+  //       edit: (
+  //         <AiFillEdit
+  //           data-toggle="modal"
+  //           data-target=".bd-example-modal-lg"
+  //           className="custom-icon"
+  //           onClick={() => handleShow()}
+  //         />
+  //       ),
+  //     };
+  //   });
+
+  const STATEMENT_DETAILS = [
+    {
+      dateTime: "item?.sport_name",
+      seriesName: "item?.series_name",
       teamName: (
         <div>
-          {item?.team1} VS {item?.team1}
+          {/* {item?.team1} VS {item?.team1} */}
+          team vs team
         </div>
       ),
-      matchplace: item?.stadium,
-      winTeam: item?.winTeam,
-      profitLoss: item?.totalAmount?.totalLossOrProfit,
+      matchplace: "item?.stadium",
+      winTeam: "item?.winTeam",
+      profitLoss: "item?.totalAmount?.totalLossOrProfit",
       edit: (
         <AiFillEdit
           data-toggle="modal"
@@ -45,8 +70,9 @@ function Statement(props) {
           onClick={() => handleShow()}
         />
       ),
-    };
-  });
+    },
+  ];
+
   const seriesOptions = [
     { value: "option1", label: "Option 1" },
     { value: "option2", label: "Option 2" },
@@ -183,7 +209,7 @@ function Statement(props) {
                 })}
               </select>
             </div>
-          </Col>{" "}
+          </Col>
           <Col className="col-lg-2 col-md-3">
             <div>
               <div className="medium-font mb-2">Client Name</div>
@@ -201,7 +227,7 @@ function Statement(props) {
                 })}
               </select>
             </div>
-          </Col>{" "}
+          </Col>
           <Col className="ms-1 me-1 mt-4 col-lg-1 col-md-2">
             <button className="submit-button medium-font p-2 rounded all-none">
               Verify
@@ -212,6 +238,16 @@ function Statement(props) {
       <hr />
       <div>
         <Table data={STATEMENT_DETAILS} columns={tableColumns} />
+        <tfoot>
+          <tr className="text-center clr-green">
+            <th colSpan={5} className="text-end">
+              TOTAL
+            </th>
+            <th className="text-center" colSpan={2}>
+              50000000.00
+            </th>
+          </tr>
+        </tfoot>
       </div>
       <div className="d-flex justify-content-between align-items-center mt-4">
         <div className="d-flex justify-content-start font-clr-white total-count-container  py-2 px-4 rounded">
