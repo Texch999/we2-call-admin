@@ -69,9 +69,6 @@ function ReportPage() {
     getIndivisualMatchReport();
   }, []);
 
-  console.log(onePageReportData, "onePageReportData.....");
-  console.log(individualPlData, "individualPlData.....");
-  console.log(indivisualMatchReportData, "indivisualMatchReportData.....");
   return (
     <div className="p-4">
       <h5 className="meetings-heading mb-3">One Page Report</h5>

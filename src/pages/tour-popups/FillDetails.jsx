@@ -80,7 +80,6 @@ function FillDetails(props) {
     arr.push(...arrey, {});
     setArrey(arr);
   };
-  console.log(arrey, "arrey");
   const packageSelectOptions = [
     {
       label: (
@@ -124,7 +123,6 @@ function FillDetails(props) {
     },
   ];
 
-  console.log(NUMBER_OF_MEMBERS, "NUMBER_OF_MEMBERS");
   return (
     <div className="p-3">
       <div className="w-100 d-flex justify-content-between mt-2">

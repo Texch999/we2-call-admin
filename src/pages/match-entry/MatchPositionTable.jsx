@@ -20,11 +20,6 @@ function MatchPositionTable(props) {
     setMatchCommModal(false);
   };
 
-  // console.log(matchPositionData, "matchPositionData");
-  // console.log(data, "dataaaa");
-  // console.log(mergedData, "mergedData");
-  // console.log(mergedDataArray, "mergedDataArray");
-
   const data =
     matchPositionData?.length > 0 &&
     matchPositionData

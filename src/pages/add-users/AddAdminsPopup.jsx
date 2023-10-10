@@ -22,7 +22,6 @@ function AddAdminsPopup(props) {
   const [adminPasswordToggle, setAdminPasswordToggle] = useState(true);
 
   const handleInputChnage = (e) => {
-    // console.log(e.target.value);
     setInputData({ ...inputData, [e.target.name]: e.target.value });
   };
   let packageList = [
@@ -65,7 +64,6 @@ function AddAdminsPopup(props) {
     }
     setErr("");
     setIsProcessing(true);
-    // console.log({ inputData });
     await call(ACCOUNT_REGISTERATION, {
       ...inputData,
       creator_id: register_id,

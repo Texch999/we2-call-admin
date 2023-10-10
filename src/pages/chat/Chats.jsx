@@ -120,10 +120,8 @@ function Chats() {
   };
 
   const addMessage = (message, msg_c = 0) => {
-    // console.log("new message : ", message);
     let temp = { message, ts: new Date().getTime(), msg_c };
     setSupportData((prev) => [...prev, temp]);
-    // console.log(supportData)
   };
 
   const handleInputChange = (e) => {
@@ -142,7 +140,6 @@ function Chats() {
       creator_id,
     })
       .then((res) => {
-        // console.log(res.data.data)
         setSupportData(res?.data?.data);
         // scroll();
       })
@@ -198,7 +195,6 @@ function Chats() {
     uploadfileInputRef.current.click();
   };
 
-  console.log(supportData, "Messages Data");
   return (
     <div className="container w-100">
       <div className="messaging w-100">

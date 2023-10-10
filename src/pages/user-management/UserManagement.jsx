@@ -100,7 +100,6 @@ function UserManagement() {
   const getOfflineClients = async () => {
     await call(GET_OFFLINE_CLIENTS, { register_id })
       .then((res) => {
-        // console.log(res.data);
         setExistingClients(res?.data?.data);
       })
       .catch((err) => console.log(err));

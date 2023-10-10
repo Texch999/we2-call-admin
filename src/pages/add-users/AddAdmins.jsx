@@ -52,7 +52,6 @@ const AddAdmins = () => {
   const getAllClients = async () => {
     await call(GET_ALL_CLIENTS, { register_id, account_role })
       .then((res) => {
-        // console.log(res?.data?.data);
         setUsersData(res?.data?.data);
       })
       .catch((err) => console.log(err));

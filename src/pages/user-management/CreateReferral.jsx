@@ -29,7 +29,6 @@ function CreateReferral(props) {
       location: location,
     })
       .then((res) => {
-        // console.log(res.data);
         setIsProcessing(false);
         if (res.data.status === 200) {
           setErr("");
