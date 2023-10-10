@@ -61,7 +61,7 @@ function MatchStatement() {
     <div className="p-4">
       <h5 className="meetings-heading mb-3">Match Statement</h5>
       <div className="mb-3">
-        {reportList.map((report, index) => (
+        {/* {reportList.map((report, index) => (
           <Button
             key={index}
             className={`me-2 admin-reports-button ${
@@ -71,9 +71,12 @@ function MatchStatement() {
           >
             {report}
           </Button>
-        ))}
+        ))} */}
+        <Button className="me-2 admin-reports-button active-report-button">
+          Statement
+        </Button>
       </div>
-      {activeReport === "Statement" ? (
+      {/* {activeReport === "Statement" ? (
         <Statement
           statementPayload={statementPayload}
           setStatementPayload={setStatementPayload}
@@ -81,7 +84,12 @@ function MatchStatement() {
         />
       ) : (
         <FinancialStatement financialStatementData={financialStatementData} />
-      )}
+      )} */}
+      <Statement
+        statementPayload={statementPayload}
+        setStatementPayload={setStatementPayload}
+        financialStatementData={financialStatementData}
+      />
     </div>
   );
 }

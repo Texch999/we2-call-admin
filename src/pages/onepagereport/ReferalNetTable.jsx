@@ -3,31 +3,59 @@ import React from "react";
 function ReferalNetTable() {
   const REFERALNET_DETAILS = [
     {
-      name: "Animesh",
+      matchName: (
+        <div>
+          IND vs SL
+          <br />
+          18-07-1995
+        </div>
+      ),
       amount1: "1000000.00",
       amount2: "500000.00",
       comm: "500000.00",
+      roleComm: "500000.00",
       total: "500000.00",
     },
     {
-      name: "Animesh",
+      matchName: (
+        <div>
+          IND vs SL
+          <br />
+          18-07-1995
+        </div>
+      ),
       amount1: "1000000.00",
       amount2: "500000.00",
       comm: "500000.00",
+      roleComm: "500000.00",
       total: "500000.00",
     },
     {
-      name: "Animesh",
+      matchName: (
+        <div>
+          IND vs SL
+          <br />
+          18-07-1995
+        </div>
+      ),
       amount1: "1000000.00",
       amount2: "500000.00",
       comm: "500000.00",
+      roleComm: "500000.00",
       total: "500000.00",
     },
     {
-      name: "Animesh",
+      matchName: (
+        <div>
+          IND vs SL
+          <br />
+          18-07-1995
+        </div>
+      ),
       amount1: "1000000.00",
       amount2: "500000.00",
       comm: "500000.00",
+      roleComm: "500000.00",
       total: "500000.00",
     },
   ];
@@ -36,20 +64,22 @@ function ReferalNetTable() {
       <table className="w-100 match-position-table small-font">
         <thead>
           <tr className="text-center">
-            <th>Client Name</th>
+            <th>Referer Name</th>
             <th>Match P/L</th>
             <th>Fancy P/L</th>
-            <th>RF-Fancy Comm</th>
-            <th>Total</th>
+            <th>RF-M+F Comm</th>
+            <th>Role Comm</th>
+            <th>M+F+RFCR</th>
           </tr>
         </thead>
         {REFERALNET_DETAILS.map((item, index) => (
           <tbody key={index}>
             <tr className="text-center clr-green">
-              <td>{item.name}</td>
+              <td>{item.matchName}</td>
               <td>{item.amount1}</td>
               <td>{item.amount2}</td>
               <td>{item.comm}</td>
+              <td>{item.roleComm}</td>
               <td>{item.total}</td>
             </tr>
           </tbody>
@@ -61,7 +91,7 @@ function ReferalNetTable() {
           </tr>
         </tfoot>
       </table>
-      <div className="large-font font-weight-bold mt-3 mb-3">
+      {/* <div className="large-font font-weight-bold mt-3 mb-3">
         Total - Rf Share = Rf Gross - M Comm = Rf Net
       </div>
       <table className="w-100 match-position-table small-font">
@@ -94,7 +124,7 @@ function ReferalNetTable() {
             <th>1000000.00</th>
           </tr>
         </tfoot>
-      </table>
+      </table> */}
     </div>
   );
 }

@@ -71,7 +71,9 @@ function ReportPage() {
 
   return (
     <div className="p-4">
-      <h5 className="meetings-heading mb-3">One Page Report</h5>
+      <h5 className="meetings-heading mb-3">
+        Your Book Client One Page Report
+      </h5>
       <div className="mb-3">
         {reportList.map((report, index) => (
           <Button
