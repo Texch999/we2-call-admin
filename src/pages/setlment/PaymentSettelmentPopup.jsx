@@ -1,10 +1,60 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Col, Container, Modal, Row } from "react-bootstrap";
 import MatchSubmitPopup from "../match-popups/MatchSubmitPopup";
+import moment from "moment";
+
 import MatchDeclarationPopup from "../match-popups/MatchDeclarationPopup";
 function PaymentSettelmentPopup(props) {
-  const { showPaymentModal, setShowPaymentModal, role, buttonOne, buttonTwo } =
-    props;
+  const {
+    clientId,
+    allClientsData = [],
+    setOfflineSettlePayload,
+    offlineSettlePayload,
+    handleOpenNewModal,
+    showPaymentModal,
+    setShowPaymentModal,
+    role,
+    buttonOne,
+    buttonTwo,
+  } = props;
+  const [showPaymentType, setShowPaymentType] = useState(false);
+  const [paymentType, setPaymentType] = useState("Payment Mode");
+  const selectedObj = allClientsData.filter(
+    (obj) => obj.client_id == clientId
+  )?.[0];
+  const [settlementObj, setSettlementObj] = useState({});
+  const onSubmitBtnClick = () => {
+    // console.log({settlementObj})
+    setOfflineSettlePayload({ ...offlineSettlePayload, ...settlementObj });
+    setShowPaymentModal(false);
+    handleOpenNewModal();
+  };
+  const handleCloseModal = () => {
+    setShowPaymentModal(false);
+  };
+  const paymentTypes = [
+    { name: "PhonePe", value: "Phonepay" },
+    { name: "G Pay", value: "G pay" },
+  ];
+  const onPaymentType = () => {
+    setShowPaymentType((prev) => !prev);
+  };
+  const handlePaymentType = (type) => {
+    setPaymentType(type);
+    setSettlementObj({
+      ...settlementObj,
+      payment_type: type?.value,
+    });
+  };
+  const onInputChange = (e) => {
+    setSettlementObj({
+      ...settlementObj,
+      [e.target.name]: Number(e.target.value),
+    });
+  };
+  useEffect(() => {
+    setSettlementObj(selectedObj);
+  }, [selectedObj]);
   const handlePaymentClose = () => {
     setShowPaymentModal(false);
   };
@@ -42,12 +92,12 @@ function PaymentSettelmentPopup(props) {
               <div className="w-75 d-flex justify-content-center">
                 <div className="ms-1 me-1">
                   <div className="w-100 small-font clr-yellow match-date-button p-1 rounded-pill">
-                    {buttonOne}
+                    Date: {moment().format("DD/MM/YYYY")}
                   </div>
                 </div>
                 <div className="ms-1 me-1">
                   <div className="w-100 small-font clr-yellow match-date-button p-1 rounded-pill">
-                    {buttonTwo}
+                    Time: {moment().format("hh:mm A")}
                   </div>
                 </div>
               </div>

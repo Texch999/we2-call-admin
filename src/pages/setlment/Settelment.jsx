@@ -19,7 +19,6 @@ function Settelment() {
   const [offlineSettlePayload, setOfflineSettlePayload] = useState({});
   const [showPaymentModal, setShowPaymentModal] = useState(false);
   const handlePaymentModal = (data) => {
-    setClientId(data.client_id);
     setShowPaymentModal(true);
   };
 

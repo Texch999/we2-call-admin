@@ -27,18 +27,25 @@ function SettelmentStatement() {
   }, []);
 
   const UPCOMING_SETTELMENT_DETAILS =
-    settlementHistory.length &&
+    settlementHistory?.length &&
     settlementHistory?.map((item) => {
       return {
-        DateTime: "27/07/2023, 18:31:00 PM",
-        ClientName: "Animesh - Client",
-        ModeofPayment: "Phone Pay",
+        Date: item.date,
+        Time: item.time,
+        ClientName: item.client_name,
+        ModeofPayment: item.payment_type,
         dayBalance: "1000000.00",
-        SettledAmount: "1000000.00",
-        Balance: "1000000.00",
+        SettledAmount: item.settled_amount,
+        Balance: item.pending_amount,
       };
     });
-
+  // <td>{item.date}</td>
+  // <td>{item.time}</td>
+  // <td>{item.client_name}</td>
+  // <td>{item.payment_type}</td>
+  // <td>{item.dayBalance}</td>
+  // <td>{item.settled_amount}</td>
+  // <td className="clr-green">{item.pending_amount}</td>
   console.log(settlementHistory, ".......settlementHistory");
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = 5;
@@ -74,19 +81,22 @@ function SettelmentStatement() {
               </th>
             </tr>
           </thead>
-
-          {UPCOMING_SETTELMENT_DETAILS.map((item, index) => (
-            <tbody key={index}>
-              <tr className="text-center">
-                <td>{item.DateTime}</td>
-                <td>{item.ClientName}</td>
-                <td>{item.ModeofPayment}</td>
-                <td>{item.dayBalance}</td>
-                <td>{item.SettledAmount}</td>
-                <td className="clr-green">{item.Balance}</td>
-              </tr>
-            </tbody>
-          ))}
+          {UPCOMING_SETTELMENT_DETAILS.length &&
+            UPCOMING_SETTELMENT_DETAILS?.map((item, index) => (
+              <tbody key={index}>
+                <tr className="text-center">
+                  <td>
+                    <div>{item.Date}</div>
+                    <div>{item.Time}</div>
+                  </td>
+                  <td>{item.ClientName}</td>
+                  <td>{item.ModeofPayment}</td>
+                  <td>{item.dayBalance}</td>
+                  <td>{item.SettledAmount}</td>
+                  <td className="clr-green">{item.Balance}</td>
+                </tr>
+              </tbody>
+            ))}
           <tfoot>
             <tr>
               <th colSpan={3} className="text-end">
