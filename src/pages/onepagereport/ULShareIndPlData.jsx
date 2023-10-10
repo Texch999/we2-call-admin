@@ -5,6 +5,7 @@ function ULShareIndPlData() {
     {
       date: "25-07-2023",
       matchname: "India vs Sri Lanka",
+      urnetpl: "1000000",
       winteam: "India",
       Ulshare: "50000000.00",
     },
@@ -12,12 +13,16 @@ function ULShareIndPlData() {
       date: "25-07-2023",
       matchname: "India vs Sri Lanka",
       winteam: "India",
+      urnetpl: "1000000",
+
       Ulshare: "50000000.00",
     },
     {
       date: "25-07-2023",
       matchname: "India vs Sri Lanka",
       winteam: "India",
+      urnetpl: "1000000",
+
       Ulshare: "50000000.00",
     },
   ];
@@ -30,6 +35,7 @@ function ULShareIndPlData() {
             <th>DATE</th>
             <th>MATCH NAME</th>
             <th>WIN TEAM</th>
+            <th>Urs Net P/L</th>
             <th>UL SHARE P/L</th>
           </tr>
         </thead>
@@ -39,13 +45,14 @@ function ULShareIndPlData() {
               <td>{item.date}</td>
               <td>{item.matchname}</td>
               <td>{item.winteam}</td>
+              <td>{item.urnetpl}</td>
               <td className="clr-green"> {item.Ulshare}</td>
             </tr>
           </tbody>
         ))}
         <tfoot>
           <tr className="text-center">
-            <th colSpan={3} className="text-end">
+            <th colSpan={4} className="text-end">
               TOTAL
             </th>
             <th colSpan={1} className="clr-green">
