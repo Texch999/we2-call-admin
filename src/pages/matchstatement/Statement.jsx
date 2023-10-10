@@ -209,7 +209,7 @@ function Statement(props) {
                 })}
               </select>
             </div>
-          </Col>{" "}
+          </Col>
           <Col className="col-lg-2 col-md-3">
             <div>
               <div className="medium-font mb-2">Client Name</div>
@@ -227,7 +227,7 @@ function Statement(props) {
                 })}
               </select>
             </div>
-          </Col>{" "}
+          </Col>
           <Col className="ms-1 me-1 mt-4 col-lg-1 col-md-2">
             <button className="submit-button medium-font p-2 rounded all-none">
               Verify
