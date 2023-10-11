@@ -120,7 +120,7 @@ function MatchPositionTable(props) {
 
   const MATCH_POSITION_TABLE_DATA =
     mergedDataArray?.length > 0 &&
-    mergedDataArray?.map((client, index) => ({
+    mergedDataArray?.map((client) => ({
       header: client?.client,
       grossPL: client?.resultTeam?.toFixed(2),
       cPosition: client?.clientNet?.toFixed(2),
@@ -197,10 +197,12 @@ function MatchPositionTable(props) {
       </div>
       <div>
         <MatchShareModal
+          mergedDataArray={mergedDataArray}
           matchShareModal={matchShareModal}
           handleCloseMatchShareModal={handleCloseMatchShareModal}
         />
         <MatchCommModal
+          mergedDataArray={mergedDataArray}
           matchCommModal={matchCommModal}
           handleCloseMatchCommModal={handleCloseMatchCommModal}
         />
