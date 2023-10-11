@@ -22,6 +22,7 @@ function MatchShareModal(props) {
           ? client?.ULShare?.toFixed(2) || 0
           : -client?.ULShare?.toFixed(2) || 0,
     }));
+
   // const MATCH_POSITION_TABLE_DATA = [
   //   {
   //     header: "Animesh",
@@ -39,6 +40,7 @@ function MatchShareModal(props) {
   //     rfShare: 50000000,
   //   },
   // ];
+  
   const MATCH_POSITION_HEADER_DATA = [
     { header: "Client Name", field: "header" },
     { header: "Client Share", field: "clientShare" },
