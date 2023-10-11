@@ -1,142 +1,72 @@
 import { useState } from "react";
 import { AiFillFileText } from "react-icons/ai";
 import PaymentSettelmentPopup from "./PaymentSettelmentPopup";
+import { GET_OFFLINE_CLIENTS } from "../../config/endpoints";
+import { useEffect } from "react";
+import { call } from "../../config/axios";
+import CustomPagination from "../pagination/CustomPagination";
 
 function Settelment() {
-  const SETTELMENT_DETAILS = [
-    {
-      ClientName: "Animesh",
-      RolePosition: "Client",
-      Amount: "1000000.00",
-      CreditDebit: "1000000.00",
-      Balance: "1000000.00",
-      File: "",
-    },
-    {
-      ClientName: "Sri23465",
-      RolePosition: "Referal",
-      Amount: "1000000.00",
-      CreditDebit: "1000000.00",
-      Balance: "1000000.00",
-      File: "",
-    },
-    {
-      ClientName: "Srinivash",
-      RolePosition: "Client",
-      Amount: "1000000.00",
-      CreditDebit: "1000000.00",
-      Balance: "1000000.00",
-      File: "",
-    },
-    {
-      ClientName: "Jayanta",
-      RolePosition: "Referal",
-      Amount: "1000000.00",
-      CreditDebit: "1000000.00",
-      Balance: "1000000.00",
-      File: "",
-    },
-    {
-      ClientName: "Animesh",
-      RolePosition: "Client",
-      Amount: "1000000.00",
-      CreditDebit: "1000000.00",
-      Balance: "1000000.00",
-      File: "",
-    },
-    {
-      ClientName: "Sri23465",
-      RolePosition: "Referal",
-      Amount: "1000000.00",
-      CreditDebit: "1000000.00",
-      Balance: "1000000.00",
-      File: "",
-    },
-    {
-      ClientName: "Srinivash",
-      RolePosition: "Client",
-      Amount: "1000000.00",
-      CreditDebit: "1000000.00",
-      Balance: "1000000.00",
-      File: "",
-    },
-    {
-      ClientName: "Jayanta",
-      RolePosition: "Referal",
-      Amount: "1000000.00",
-      CreditDebit: "1000000.00",
-      Balance: "1000000.00",
-      File: "",
-    },
-    {
-      ClientName: "Animesh",
-      RolePosition: "Client",
-      Amount: "1000000.00",
-      CreditDebit: "1000000.00",
-      Balance: "1000000.00",
-      File: "",
-    },
-    {
-      ClientName: "Sri23465",
-      RolePosition: "Referal",
-      Amount: "1000000.00",
-      CreditDebit: "1000000.00",
-      Balance: "1000000.00",
-      File: "",
-    },
-    {
-      ClientName: "Srinivash",
-      RolePosition: "Client",
-      Amount: "1000000.00",
-      CreditDebit: "1000000.00",
-      Balance: "1000000.00",
-      File: "",
-    },
-    {
-      ClientName: "Jayanta",
-      RolePosition: "Referal",
-      Amount: "1000000.00",
-      CreditDebit: "1000000.00",
-      Balance: "1000000.00",
-      File: "",
-    },
-    {
-      ClientName: "Animesh",
-      RolePosition: "Client",
-      Amount: "1000000.00",
-      CreditDebit: "1000000.00",
-      Balance: "1000000.00",
-      File: "",
-    },
-    {
-      ClientName: "Sri23465",
-      RolePosition: "Referal",
-      Amount: "1000000.00",
-      CreditDebit: "1000000.00",
-      Balance: "1000000.00",
-      File: "",
-    },
-    {
-      ClientName: "Srinivash",
-      RolePosition: "Client",
-      Amount: "1000000.00",
-      CreditDebit: "1000000.00",
-      Balance: "1000000.00",
-      File: "",
-    },
-    {
-      ClientName: "Jayanta",
-      RolePosition: "Referal",
-      Amount: "1000000.00",
-      CreditDebit: "1000000.00",
-      Balance: "1000000.00",
-      File: "",
-    },
+  let register_id = localStorage?.getItem("register_id");
+  let account_role = localStorage?.getItem("account_role");
+  const [settlementData, setSettlementData] = useState([]);
+  const getSettlementData = async () => {
+    await call(GET_OFFLINE_CLIENTS, {
+      register_id,
+      account_role,
+    })
+      .then((res) => {
+        if (res?.data?.statusCode === 200) {
+          setSettlementData(res?.data?.data);
+        }
+      })
+      .catch((err) => {
+        throw err;
+      });
+  };
+
+  useEffect(() => {
+    getSettlementData();
+  }, []);
+
+  const SETTELMENT_DETAILS = settlementData.map((item) => {
+    return {
+      ClientName: item.client_name,
+      RolePosition: item.account_role,
+      Amount: item.client_risk_limit,
+      CreditDebit: item.client_risk_limit,
+      Balance: item.client_risk_limit,
+      File: (
+        <AiFillFileText
+          className="custom-icon"
+          onClick={() => handlePaymentModal()}
+        />
+      ),
+    };
+  });
+
+  const columns = [
+    { header: "CLIENT NAME", field: "ClientName" },
+    { header: "ROLE/POSTION", field: "RolePosition" },
+    { header: "AMOUNT", field: "Amount" },
+    { header: "CREDIT/DEBIT", field: "CreditDebit" },
+    { header: "BALANCE", field: "Balance" },
+    { field: "File" },
   ];
+
   const [showPaymentModal, setShowPaymentModal] = useState(false);
   const handlePaymentModal = () => {
     setShowPaymentModal(true);
   };
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalPages = 5;
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+    // You can add your logic here to fetch data for the selected page.
+  };
+
   return (
     <div className="p-4">
       <h5 className="meetings-heading mb-3">Settlement</h5>
@@ -155,43 +85,25 @@ function Settelment() {
           <div className="clr-yellow medium-font">1000000.00</div>
         </div>
       </div>
-      <div>
-        <table className="w-100 match-position-table medium-font">
-          <thead>
+      <div className="table-body-height">
+        <table className="fixed-table w-100 match-position-table text-center medium-font">
+          <thead id="home-table-head">
             <tr>
-              <th scope="col" className="text-center">
-                CLIENT NAME
-              </th>
-              <th scope="col" className="text-center">
-                ROLE/POSITION
-              </th>
-              <th scope="col" className="text-center">
-                AMOUNT
-              </th>
-              <th scope="col" className="text-center">
-                CREDIT/DEBIT
-              </th>
-              <th scope="col" className="text-center">
-                BALANCE
-              </th>
-              <th scope="col" className="text-center"></th>
+              {columns.map((item, i) => {
+                return (
+                  <th scope="col" className="text-center">
+                    {item.header}
+                  </th>
+                );
+              })}
             </tr>
           </thead>
-
           {SETTELMENT_DETAILS.map((item, index) => (
             <tbody key={index + item.Balance}>
               <tr>
-                <td className="text-center">{item.ClientName}</td>
-                <td className="text-center ">{item.RolePosition}</td>
-                <td className="text-center">{item.Amount}</td>
-                <td className="text-center clr-green ">{item.CreditDebit}</td>
-                <td className="text-center clr-green ">{item.Balance}</td>
-                <td className="text-center">
-                  <AiFillFileText
-                    className="custom-icon"
-                    onClick={() => handlePaymentModal()}
-                  />
-                </td>
+                {columns.map((val, i) => {
+                  return <td className="text-center">{item[val.field]}</td>;
+                })}
               </tr>
             </tbody>
           ))}
@@ -208,6 +120,21 @@ function Settelment() {
           </tfoot>
         </table>
       </div>
+      <div className="d-flex justify-content-between align-items-center mt-4">
+        <div className="d-flex justify-content-start font-clr-white total-count-container  py-2 px-4 rounded">
+          <span>
+            Showing <b> {currentPage} </b> 0f <b> {totalPages} </b> Entries....
+          </span>
+        </div>
+        <div className="d-flex justify-content-end mt-2">
+          <CustomPagination
+            totalPages={totalPages}
+            currentPage={currentPage}
+            onPageChange={handlePageChange}
+          />
+        </div>
+      </div>
+
       <PaymentSettelmentPopup
         showPaymentModal={showPaymentModal}
         setShowPaymentModal={setShowPaymentModal}

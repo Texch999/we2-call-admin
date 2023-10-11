@@ -1,19 +1,29 @@
 import { FaAngleLeft, FaAngleRight, FaTrophy } from "react-icons/fa6";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useHistory } from "react-router";
 
-function MatchScroll() {
+function MatchScroll(props) {
+  const { allMatches, selectedMatch, setSelectedMatch } = props;
   const history = useHistory();
+  const [scrollPosition, setScrollPosition] = useState(0);
   const [matchEntry, setMatchEntry] = useState(true);
   const [fancyEntry, setFancyEntry] = useState(false);
-  const [activeIndex, setActiveIndex] = useState("");
-  const handleActiveIndex = (index) => {
-    setActiveIndex(index);
-  };
+  const [activeIndex, setActiveIndex] = useState(0);
 
+  useEffect(() => {
+    if (history.location.pathname === "/fancy-entry") {
+      setFancyEntry(true);
+      setMatchEntry(false);
+    }
+  }, []);
+
+  const handleActiveIndex = (index, item) => {
+    setActiveIndex(index);
+    setSelectedMatch(item);
+  };
   const navigate = (path) => {
-    history.push(path)
-  }
+    history.push(path);
+  };
   const handleMatchEntry = () => {
     setMatchEntry(true);
     setFancyEntry(false);
@@ -24,7 +34,6 @@ function MatchScroll() {
     setMatchEntry(false);
     navigate("/fancy-entry");
   };
-  const [scrollPosition, setScrollPosition] = useState(0);
   const scrollLeft = () => {
     const container = document.getElementById("scroll-container-btn");
     container.scrollTo({
@@ -41,50 +50,12 @@ function MatchScroll() {
     });
     setScrollPosition(scrollPosition + 100);
   };
-  const MatchDetailsButtons = [
-    {
-      matchName: "IND vs PAK",
-    },
-    {
-      matchName: "NZ vs SA",
-    },
-    {
-      matchName: "AUS vs ENG",
-    },
-    {
-      matchName: "IND vs PAK",
-    },
-    {
-      matchName: "IND vs PAK",
-    },
-    {
-      matchName: "NZ vs SA",
-    },
-    {
-      matchName: "AUS vs ENG",
-    },
-    {
-      matchName: "IND vs PAK",
-    },
-    {
-      matchName: "IND vs PAK",
-    },
-    {
-      matchName: "NZ vs SA",
-    },
-    {
-      matchName: "AUS vs ENG",
-    },
-    {
-      matchName: "IND vs PAK",
-    },
-  ];
   return (
     <div>
-      <div className="container-fluid p-3">
+      <div className="container-fluid px-3 pb-3">
         <div className="container-responsive d-flex align-items-center">
           <div
-            className="d-flex align-items-center justify-content-center rounded-circle arrow-icon p-1"
+            className="cursor-pointer d-flex align-items-center justify-content-center rounded-circle arrow-icon p-1"
             onClick={scrollLeft}
           >
             <FaAngleLeft className="d-flex fs-5" />
@@ -94,37 +65,37 @@ function MatchScroll() {
             id="scroll-container-btn"
             style={{ overflowX: "scroll", whiteSpace: "nowrap" }}
           >
-            {MatchDetailsButtons?.map((item, index) => (
+            {allMatches?.map((item, index) => (
               <div
                 key={index}
-                className={`btn-bg d-flex align-items-center justify-content-evenly p-2 m-1 rounded ${
-                  activeIndex ? "yellow-border" : ""
+                className={`cursor-pointer btn-bg d-flex align-items-center justify-content-evenly p-2 m-1 rounded cursor-pointer ${
+                  activeIndex === index ? "yellow-border" : ""
                 }`}
-                onClick={() => handleActiveIndex(index)}
+                onClick={() => handleActiveIndex(index, item)}
               >
                 <span className="d-flex m-1">
                   <FaTrophy className="fs-5 yellow-clr" />
                 </span>
                 <div className="text-xl medium-font text-white m-1">
-                  {item.matchName}
+                  {item?.match_name}
                 </div>
               </div>
             ))}
           </div>
           <div
-            className="d-flex align-items-center justify-content-center rounded-circle arrow-icon p-1"
+            className="cursor-pointer d-flex align-items-center justify-content-center rounded-circle arrow-icon p-1"
             onClick={scrollRight}
           >
             <FaAngleRight className="d-flex fs-5" />
           </div>
         </div>
-        <div className="w-100 container-fluid mt-4">
+        <div className="w-100 container-fluid mt-2">
           <div className="w-100 row">
             <div className="col-4">
               <div className="row">
                 <div className="col">
                   <div
-                    className={`fw-semibold btn-bg medium-font text-white text-center p-3 m-1 rounded ${
+                    className={`cursor-pointer fw-semibold btn-bg medium-font text-white text-center p-3 m-1 rounded ${
                       matchEntry ? "yellow-btn" : ""
                     }`}
                     onClick={() => handleMatchEntry()}
@@ -134,7 +105,7 @@ function MatchScroll() {
                 </div>
                 <div className="col">
                   <div
-                    className={`fw-semibold btn-bg medium-font text-white text-center p-3 m-1 rounded ${
+                    className={`cursor-pointer fw-semibold btn-bg medium-font text-white text-center p-3 m-1 rounded ${
                       fancyEntry ? "yellow-btn" : ""
                     }`}
                     onClick={() => handleFancyEntry()}
@@ -147,19 +118,19 @@ function MatchScroll() {
             <div className="col-8 d-flex align-items-center justify-content-end">
               <div className="w-80 d-flex align-items-center justify-content-between">
                 <div className="text-center small-font text-white p-1 px-3 match-bg rounded-pill w-fit-content">
-                  Date : 31/07/2023
+                  Date : {selectedMatch?.date || "Date"}
                 </div>
                 <div className="text-center small-font text-white p-1 px-3 match-bg rounded-pill w-fit-content">
-                  Time : 11:58:00 AM
+                  Time : {selectedMatch?.time || "Time"}
                 </div>
                 <div className="text-center small-font text-white p-1 px-3 match-bg rounded-pill w-fit-content">
-                  Team : IND vs PAK
+                  Team : {selectedMatch?.match_name || "Match"}
                 </div>
                 <div className="text-center small-font text-white p-1 px-3 match-bg rounded-pill w-fit-content">
-                  Series : T20 WC
+                  Series : {selectedMatch?.series_name || "Series Name"}
                 </div>
                 <div className="text-center small-font text-white p-1 px-3 match-bg rounded-pill w-fit-content">
-                  Gender : Male
+                  Gender : {selectedMatch?.gender || "Gender"}
                 </div>
               </div>
             </div>

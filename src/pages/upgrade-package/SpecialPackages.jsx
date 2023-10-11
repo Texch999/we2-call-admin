@@ -140,7 +140,7 @@ function SpecialPackages() {
       ),
       meetingsText: (
         <div>
-          <BiSolidCheckCircle /> Monthly Unlimited meetings
+          <BiSolidCheckCircle /> Monthly 25 meetings
         </div>
       ),
       personalMeetingsText: (
@@ -180,7 +180,7 @@ function SpecialPackages() {
       ),
       meetingsText: (
         <div>
-          <BiSolidCheckCircle /> Monthly 20 meetings
+          <BiSolidCheckCircle /> Monthly Unlimited meetings
         </div>
       ),
       personalMeetingsText: (

@@ -46,11 +46,11 @@ function FancyEntryTable() {
       client: "Srinivas2346",
       amount: 50000000.0,
       edit: (
-        <MdEdit className="edit-icon" onClick={() => handleEditPopupOpen()} />
+        <MdEdit className="cursor-pointer edit-icon" onClick={() => handleEditPopupOpen()} />
       ),
       delete: (
         <MdDelete
-          className="edit-icon"
+          className="cursor-pointer edit-icon"
           onClick={() => handleDeletePopupOpen()}
         />
       ),
@@ -99,7 +99,7 @@ function FancyEntryTable() {
       field: "runs",
     },
     {
-      header: "Y?N",
+      header: "Y/N",
       field: "yesNo",
     },
     {

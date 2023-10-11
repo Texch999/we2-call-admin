@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { AiFillPlayCircle } from "react-icons/ai";
 import UpgradeYourPackagePopup from "../upgrade-package/UpgradeYourPackagePopup";
+import CustomPagination from "../pagination/CustomPagination";
 
 function CallStatement() {
   const HISTORY_DETAILS = [
@@ -189,6 +190,15 @@ function CallStatement() {
   const handlePackagePopup = () => {
     setShowPackagePopup((prev) => !prev);
   };
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalPages = 5;
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+    // You can add your logic here to fetch data for the selected page.
+  };
+
   return (
     <div className="p-4">
       <h5 className="meetings-heading mb-3">Call Statement</h5>
@@ -206,29 +216,30 @@ function CallStatement() {
           <div className="clr-yellow medium-font">15970</div>
         </div>
       </div>
-
-      <div>
+      <table className="w-100 match-position-table medium-font">
+        <thead>
+          <tr>
+            <th scope="col" className="text-center">
+              DATE & TIME
+            </th>
+            <th scope="col" className="text-center">
+              MEETING TITLE
+            </th>
+            <th scope="col" className="text-center">
+              DURATION
+            </th>
+            <th scope="col" className="text-center">
+              PRICE
+            </th>
+            <th scope="col" className="text-center">
+              STATUS
+            </th>
+            <th scope="col" className="text-center"></th>
+          </tr>
+        </thead>
+      </table>
+      <div style={{ height: "350px", overflow: "scroll" }}>
         <table className="w-100 match-position-table medium-font">
-          <thead>
-            <tr>
-              <th scope="col" className="text-center">
-                DATE & TIME
-              </th>
-              <th scope="col" className="text-center">
-                MEETING TITLE
-              </th>
-              <th scope="col" className="text-center">
-                DURATION
-              </th>
-              <th scope="col" className="text-center">
-                PRICE
-              </th>
-              <th scope="col" className="text-center">
-                STATUS
-              </th>
-              <th scope="col" className="text-center"></th>
-            </tr>
-          </thead>
           {HISTORY_DETAILS.map((item, index) => (
             <tbody key={index}>
               <tr>
@@ -251,6 +262,20 @@ function CallStatement() {
             </tbody>
           ))}
         </table>
+      </div>
+      <div className="d-flex justify-content-between align-items-center mt-4">
+        <div className="d-flex justify-content-start font-clr-white total-count-container  py-2 px-4 rounded">
+          <span>
+            Showing <b> {currentPage} </b> 0f <b> {totalPages} </b> Entries....
+          </span>
+        </div>
+        <div className="d-flex justify-content-end mt-2">
+          <CustomPagination
+            totalPages={totalPages}
+            currentPage={currentPage}
+            onPageChange={handlePageChange}
+          />
+        </div>
       </div>
       <UpgradeYourPackagePopup
         showPackagePopup={showPackagePopup}

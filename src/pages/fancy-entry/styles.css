@@ -29,6 +29,13 @@
   color: #fa3333;
   background-color: #2e1338;
 }
+.match-entry-edit-color {
+  color: #0992f3 !important;
+  font-weight: 600;
+}
+.cursor-pointer {
+  cursor: pointer;
+}
 /* Media Quiries CSS */
 
 @media (min-width: 577px) and (max-width: 768px) {
@@ -177,6 +184,9 @@
   color: #fce719 !important;
   border: 2px solid #fce719;
 }
+.table-bg {
+  background-color: #082051 !important;
+}
 .match-position-table thead > tr > th {
   padding: 10px;
 }
@@ -231,5 +241,97 @@
   overflow-x: scroll;
 }
 .yellow-border {
-  border: 3px solid #fce719;
+  border: 2px solid #fce719;
+}
+.table-body-height {
+  max-height: 250px;
+  overflow-y: scroll;
+}
+.no-scroll{
+  overflow-y: unset !important;
+}
+.fixed-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.fixed-table thead {
+  position: sticky;
+  top: -1px;
+  text-align: center;
+  border-top: 2px solid #082051;
+}
+.fixed-table thead th {
+  text-align: center;
+}
+.fixed-table tfoot {
+  position: sticky;
+  bottom: -1px;
+}
+.fixed-table tbody {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.clr-pink {
+  color: #ff267a !important;
+  font-weight: 600;
+}
+
+/* React Select CSS */
+.css-13cymwt-control {
+  height: 33px !important;
+  min-height: 33px !important;
+  border-radius: 5px !important;
+  color: #ffffff !important;
+  background-color: #112a5e !important;
+  outline: none !important;
+  border-style: none !important;
+  display: flex !important;
+  align-items: center !important;
+}
+.css-t3ipsp-control {
+  min-height: 33px !important;
+  height: 33px !important;
+  border: none !important;
+}
+.css-13cymwt-control:hover {
+  outline: none !important;
+}
+.css-t3ipsp-control:hover {
+  border-color: none !important;
+  border-style: none !important;
+  border: none !important;
+  outline: none !important;
+}
+.css-1nmdiq5-menu {
+  height: 120px !important;
+  max-height: 120px !important;
+  min-height: 120px !important;
+  overflow-y: scroll !important;
+  color: #ffffff !important;
+  background-color: #112a5e !important;
+  border-radius: 5px !important;
+  outline: none !important;
+}
+.css-t3ipsp-control {
+  color: #ffffff !important;
+  outline: none !important;
+  border-radius: 5px !important;
+  box-shadow: none !important;
+  background-color: #112a5e !important;
+}
+.css-1jqq78o-placeholder {
+  color: #ffffff !important;
+  font-size: 12px !important;
+}
+.css-1dimb5e-singleValue {
+  color: #ffffff !important;
+}
+.css-166bipr-Input {
+  color: #ffffff !important;
+}
+.css-d7l1ni-option {
+  background: none !important;
+}
+.css-tr4s17-option {
+  background: none !important;
 }

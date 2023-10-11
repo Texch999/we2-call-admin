@@ -29,102 +29,6 @@ function CallSettelment() {
       amount: "5000",
       status: "Rejected",
     },
-    {
-      date: "27 July 2023",
-      time: "10:00:00 PM",
-      amount: "5000",
-      status: "Approved",
-    },
-    {
-      date: "27 July 2023",
-      time: "10:00:00 PM",
-      amount: "5000",
-      status: "Rejected",
-    },
-    {
-      date: "27 July 2023",
-      time: "10:00:00 PM",
-      amount: "5000",
-      status: "Approved",
-    },
-    {
-      date: "27 July 2023",
-      time: "10:00:00 PM",
-      amount: "5000",
-      status: "Approved",
-    },
-    {
-      date: "27 July 2023",
-      time: "10:00:00 PM",
-      amount: "5000",
-      status: "Approved",
-    },
-    {
-      date: "27 July 2023",
-      time: "10:00:00 PM",
-      amount: "5000",
-      status: "Rejected",
-    },
-    {
-      date: "27 July 2023",
-      time: "10:00:00 PM",
-      amount: "5000",
-      status: "Approved",
-    },
-    {
-      date: "27 July 2023",
-      time: "10:00:00 PM",
-      amount: "5000",
-      status: "Rejected",
-    },
-    {
-      date: "27 July 2023",
-      time: "10:00:00 PM",
-      amount: "5000",
-      status: "Approved",
-    },
-    {
-      date: "27 July 2023",
-      time: "10:00:00 PM",
-      amount: "5000",
-      status: "Rejected",
-    },
-    {
-      date: "27 July 2023",
-      time: "10:00:00 PM",
-      amount: "5000",
-      status: "Approved",
-    },
-    {
-      date: "27 July 2023",
-      time: "10:00:00 PM",
-      amount: "5000",
-      status: "Rejected",
-    },
-    {
-      date: "27 July 2023",
-      time: "10:00:00 PM",
-      amount: "5000",
-      status: "Approved",
-    },
-    {
-      date: "27 July 2023",
-      time: "10:00:00 PM",
-      amount: "5000",
-      status: "Approved",
-    },
-    {
-      date: "27 July 2023",
-      time: "10:00:00 PM",
-      amount: "5000",
-      status: "Approved",
-    },
-    {
-      date: "27 July 2023",
-      time: "10:00:00 PM",
-      amount: "5000",
-      status: "Rejected",
-    },
   ];
   const [showUploadButton, setShowUploadButton] = useState();
   const handleUploadButton = () => {
@@ -140,7 +44,7 @@ function CallSettelment() {
   };
   return (
     <div className="p-4">
-         <h5 className="meetings-heading mb-3">Call Settlement</h5>
+      <h5 className="meetings-heading mb-3">Call Settlement</h5>
 
       <div className="d-flex flex-row justify-content-around mb-4 w-100">
         <div className="d-flex flex-column statement-container settelment-container  justify-content-around p-2">
@@ -168,18 +72,18 @@ function CallSettelment() {
           <div className="clr-yellow medium-font">0.00</div>
         </div>
       </div>
-      <div className="d-flex flex-row mb-4 w-35 justify-content-between">
+      <div className="d-flex flex-row mb-4 w-35 justify-content-between p-2">
         <div>
           <div className="medium-font mb-2">Settelment Amount</div>
           <div className="date-container d-flex justify-content-around align-items-center rounded p-2">
-            <div className="small-font d-flex justify-content-start p-2">
+            <div className="small-font d-flex justify-content-start p-3">
               Setteled Amount
             </div>
           </div>
         </div>
         <div onClick={handleUploadButtonClick}>
           <div className="medium-font mb-2">Upload Screenshot</div>
-          <div className="date-container d-flex justify-content-around align-items-center rounded p-2">
+          <div className="date-container d-flex justify-content-around align-items-center rounded p-3">
             <div className="small-font">Upload Screenshot</div>
             <input
               type="file"
@@ -195,22 +99,18 @@ function CallSettelment() {
           Create Settelment
         </button>
       </div>
-
-      <div>
-        <table className="w-100 match-position-table medium-font">
+      <div className="w-100 table-bg medium-font">
+        <table className="w-100 match-position-table">
           <thead>
             <tr>
               <th scope="col" className="text-center">
-                DATE & TIME
+                CREATE DATE
               </th>
               <th scope="col" className="text-center">
-                MEETING TITLE
+                CREATE TIME
               </th>
               <th scope="col" className="text-center">
-                DURATION
-              </th>
-              <th scope="col" className="text-center">
-                PRICE
+                SETTELED AMOUNT
               </th>
               <th scope="col" className="text-center">
                 STATUS
@@ -218,6 +118,11 @@ function CallSettelment() {
               <th scope="col" className="text-center"></th>
             </tr>
           </thead>
+        </table>
+      </div>
+
+      <div style={{ height: "150px", overflow: "scroll" }}>
+        <table className="w-100 match-position-table medium-font">
           {SETTELMENT_DETAILS.map((item, index) => (
             <tbody key={index}>
               <tr>

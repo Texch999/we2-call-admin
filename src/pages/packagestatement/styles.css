@@ -1,0 +1,8 @@
+.pagination {
+  --bs-pagination-color: #ffffff !important;
+  --bs-pagination-bg: #112a5e !important;
+}
+.page-item {
+  width: 40px !important;
+  text-align: center !important;
+}

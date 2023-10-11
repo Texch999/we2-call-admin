@@ -60,7 +60,7 @@ function Alert() {
   };
 
   useEffect(() => {
-    if(register_id) {
+    if (register_id) {
       getMatchReports();
     }
   }, []);
@@ -72,7 +72,7 @@ function Alert() {
             <h5 className="col-9 meetings-heading">Alerts</h5>
             <div className="col-3 d-flex">
               <h6 className="meetings-heading">See All</h6>
-              <AiOutlineRight />
+              <AiOutlineRight className="d-flex" />
             </div>
           </div>
           <AlertsTable data={allData} columns={columns} />

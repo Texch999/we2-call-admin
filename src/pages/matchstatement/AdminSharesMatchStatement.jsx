@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Button, Form, Table } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import AdminPopReports from "../onepagereport/AdminPopReports";
+import CustomPagination from "../pagination/CustomPagination";
 
 const AdminSharesMatchStatement = () => {
   const [adminShareStatementMatchPopUp, setAdminShareStatementMatchPopUp] =
@@ -127,6 +128,14 @@ const AdminSharesMatchStatement = () => {
     e.preventDefault();
     console.log(selectedOptions);
   };
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalPages = 5;
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+    // You can add your logic here to fetch data for the selected page.
+  };
+
   return (
     <div className="p-4">
       <div>
@@ -226,7 +235,9 @@ const AdminSharesMatchStatement = () => {
           </tbody>
           <tfoot>
             <tr>
-              <th colSpan={5} className="text-center">TOTAL</th>
+              <th colSpan={5} className="text-center">
+                TOTAL
+              </th>
 
               <th className="text-center clr-green">
                 {adminSharesMatchStatementData
@@ -245,10 +256,24 @@ const AdminSharesMatchStatement = () => {
               data={adminSharepopupData}
               columns={adminSharepopupHeadings}
               heading={`Admin Share`}
-              totalPosition ="admin_name"
+              totalPosition="admin_name"
             />
           )}
         </Table>
+      </div>
+      <div className="d-flex justify-content-between align-items-center mt-4">
+        <div className="d-flex justify-content-start font-clr-white total-count-container  py-2 px-4 rounded">
+          <span>
+            Showing <b> {currentPage} </b> 0f <b> {totalPages} </b> Entries....
+          </span>
+        </div>
+        <div className="d-flex justify-content-end mt-2">
+          <CustomPagination
+            totalPages={totalPages}
+            currentPage={currentPage}
+            onPageChange={handlePageChange}
+          />
+        </div>
       </div>
     </div>
   );
