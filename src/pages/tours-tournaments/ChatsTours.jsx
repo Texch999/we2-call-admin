@@ -16,7 +16,7 @@ import { PiDotOutlineFill } from "react-icons/pi";
 import { useRef } from "react";
 import { useEffect } from "react";
 import moment from "moment";
-
+import { BsCheck2All } from "react-icons/bs";
 function ChatsTours(props) {
   const { showChatPopup, setShowChatPopup } = props;
   const handleChatPopupClose = () => {
@@ -215,7 +215,7 @@ function ChatsTours(props) {
       <Modal.Header>
         <IoCloseSharp
           onClick={handleChatPopupClose}
-          className="d-flex justify-content-end"
+          className="d-flex justify-content-row-reverse"
         />
       </Modal.Header>
       <Modal.Body>
@@ -264,26 +264,32 @@ function ChatsTours(props) {
                       ""
                     ) : (
                       <div className="mt-1 d-flex justify-content-center font-10">
-                        {moment(msg.ts).format("hh:mm a")}
                         {"     "}
                         {moment(msg.ts).format("DD-MM-YY")}
                       </div>
                     )}
                     <div
-                      className={`mt-2 ${
+                      className={`mt-1 ${
                         sender ? "incoming_msg" : "outgoing_msg"
                       }`}
                     >
-                      <div className={`mt-2 ${sender ? "received_msg" : ""}`}>
+                      <div className={`mt-1 ${sender ? "received_msg" : ""}`}>
                         <div
                           key={index}
-                          className={`mt-2 message ${
+                          className={`mt-1 message ${
                             sender ? "received_withd_msg" : "sent_msg"
                           }`}
                         >
-                          {msg?.message}
+                          <div className="me-2"> {msg?.message}</div>
                         </div>
                       </div>
+                    </div>
+                    <div
+                      style={{ fontSize: "10px" }}
+                      className="d-flex justify-content-end align-items-center me-2 mt-1"
+                    >
+                      {moment(msg.ts).format("hh:mm a")}
+                      <BsCheck2All className="d-flex font-10 ms-1" />
                     </div>
                   </div>
                 );
