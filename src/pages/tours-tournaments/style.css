@@ -67,14 +67,45 @@
     position: relative;
     top: 20%;
   }
-  .active-head-menu,.header-menu{
+  .active-head-menu,
+  .header-menu {
     height: 4vh;
     align-items: center;
   }
-  .header-font{
+  .header-font {
     font-size: 1.5rem;
   }
 }
-.tours-main{
+.tours-main {
   padding-bottom: 5%;
+}
+.msg-container {
+  background: #ffffff;
+  border: solid 4px #fce719;
+  border-radius: 50px 0px 50px 50px;
+  position: fixed;
+  bottom: 1%;
+  right: 2%;
+  align-items: center;
+  justify-content: center;
+  padding: 14px;
+  cursor: pointer;
+}
+.text-clr {
+  color: #000000;
+}
+.chat-tour-img-icon {
+  width: 50px;
+  height: 50px;
+}
+.chat-popup-mesgs {
+  float: left;
+  width: 100%;
+}
+.chat-msg_history {
+  height: 50vh;
+  overflow-y: auto;
+}
+.font-10{
+  font-size: 10px;
 }

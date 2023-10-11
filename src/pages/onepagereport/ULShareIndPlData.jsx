@@ -14,7 +14,6 @@ function ULShareIndPlData() {
       matchname: "India vs Sri Lanka",
       winteam: "India",
       urnetpl: "1000000",
-
       Ulshare: "50000000.00",
     },
     {

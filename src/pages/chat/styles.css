@@ -188,6 +188,7 @@ img {
   font-size: 15px;
   min-height: 48px;
   width: 100%;
+  outline: none !important;
 }
 
 .type_msg {
