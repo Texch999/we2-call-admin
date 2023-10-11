@@ -36,7 +36,8 @@ const BLOCKUNBLOCK="/offline-management/active_inactive_users"
 const EDITPROFILE="/admin/admin_profile_update_info"
 const GET_USER_INFO="/admin/get_admin_accounts_user_info";
 const GET_MEETINGS_DATA= "/meetings/get_meetings";
-const CHANGE_PASSWORD="/admin/change_password"
+const CHANGE_PASSWORD="/admin/change_password";
+const UPDATE_USER_ADMIN="/admin/update_user_admin"
 
 
 
@@ -220,6 +221,11 @@ exports.EDITPROFILE = {
 
 exports.CHANGE_PASSWORD = {
   url: CHANGE_PASSWORD,
+  method: POST,
+};
+
+exports.UPDATE_USER_ADMIN = {
+  url: UPDATE_USER_ADMIN,
   method: POST,
 };
 

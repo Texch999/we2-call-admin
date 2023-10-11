@@ -7,12 +7,13 @@ import { GiClick } from "react-icons/gi";
 import AddAdminsPopup from "./AddAdminsPopup";
 import { MdArrowForwardIos } from "react-icons/md";
 import PackageViewPopUp from "./PackageViewPopUp";
-import { GET_ALL_CLIENTS,BLOCKUNBLOCK } from "../../config/endpoints";
+import { GET_ALL_CLIENTS, BLOCKUNBLOCK } from "../../config/endpoints";
 import { call } from "../../config/axios";
 import ChangePassword from "./ChangePassword";
 import MatchSubmitPopup from "../match-popups/MatchSubmitPopup";
 
 const AddAdmins = () => {
+
   let register_id = localStorage?.getItem("register_id");
   let creator_id = localStorage?.getItem("creator_id");
   let account_role = localStorage?.getItem("account_role");
@@ -23,6 +24,7 @@ const AddAdmins = () => {
   const [packageViewPopShow, setPackageViewPopup] = useState(false);
 
   const [usersData, setUsersData] = useState([]);
+  const [adminsData, setAdminsData] = useState();
   const [isUserAdded, setIsUserAdded] = useState(false);
   const [changepasswordPopup, setChangepasswordPopup] = useState(false);
   const [changePasswordSubmit, setChangePasswordSubmit] = useState(false);
@@ -41,22 +43,28 @@ const AddAdmins = () => {
           location: user?.location,
           profit_loss: 0,
           package: 1,
-          register_id:user?.register_id,
-          creator_id:user?.creator_id,
-          active:user?.active,
-
+          register_id: user?.register_id,
+          creator_id: user?.creator_id,
+          active: user?.active,
         };
       });
 
-  console.log(usersData.filter(obj=>obj.location),"usersData")
+  console.log(
+    usersData.filter((obj) => obj.location),
+    "usersData"
+  );
   const handleCpButton = () => {
     // eslint-disable-next-line no-lone-blocks
-     setChangepasswordPopup(true);
-    
+    setChangepasswordPopup(true);
+  };
+
+  const handleEditButton = (data) => {
+    setAdminsData(data);
+    setModalShow(true);
   };
 
   const handleBlock = async (data) => {
-    console.log(data?.type,"data")
+    console.log(data?.type, "data");
     await call(BLOCKUNBLOCK, {
       register_id: data?.register_id,
       creator_id: register_id,
@@ -67,17 +75,16 @@ const AddAdmins = () => {
         getAllClients();
       })
       .catch((err) => console.log(err));
-  }
+  };
   const ACTION_LABELS = [
     {
       name: "CP",
-
     },
-    {name: "EDIT"},
+    { name: "EDIT" },
     // b: "B",
     {
       name: "UB",
-      onclick: handleBlock
+      onclick: handleBlock,
     },
   ];
   const handleUserChange = (e) => {
@@ -98,6 +105,8 @@ const AddAdmins = () => {
   }, [isUserAdded]);
 
   console.log(addUsersData, ".......addusers");
+
+  console.log(adminsData,".....adminsData")
 
   return (
     <div className="p-4">
@@ -163,7 +172,7 @@ const AddAdmins = () => {
             {addUsersData?.length > 0 &&
               addUsersData?.map((data, index) => (
                 <tr key={index}>
-                  {console.log({data})}
+                  {console.log({ data })}
                   <td className="text-center">{data?.s_no}</td>
                   <td className="text-center">
                     {data?.user_name}{" "}
@@ -178,9 +187,26 @@ const AddAdmins = () => {
                   <td className="text-center">{data?.user}</td>
                   <td className="text-center">{data?.profit_loss}</td>
                   <td className="text-center">
-                  <Button className="text-center rounded meeting-status-button EDIT-button me-2" onClick={()=>handleCpButton()}>CP</Button>
-                  <Button className="text-center rounded meeting-status-button EDIT-button me-2">EDIT</Button>
-                  <Button className={`text-center rounded meeting-status-button EDIT-button me-2 ${data?.active ? "clr-blue" : "clr-red"}`} onClick={()=>handleBlock(data)}>{data?.active ? "UB" : "B"}</Button>
+                    <Button
+                      className="text-center rounded meeting-status-button EDIT-button me-2"
+                      onClick={() => handleCpButton()}
+                    >
+                      CP
+                    </Button>
+                    <Button
+                      className="text-center rounded meeting-status-button EDIT-button me-2"
+                      onClick={() => handleEditButton(data)}
+                    >
+                      EDIT
+                    </Button>
+                    <Button
+                      className={`text-center rounded meeting-status-button EDIT-button me-2 ${
+                        data?.active ? "clr-blue" : "clr-red"
+                      }`}
+                      onClick={() => handleBlock(data)}
+                    >
+                      {data?.active ? "UB" : "B"}
+                    </Button>
                   </td>
                 </tr>
               ))}
@@ -202,10 +228,20 @@ const AddAdmins = () => {
               <th></th>
             </tr>
           </tfoot>
+          {console.log(modalShow,"modalShow")}
           {modalShow && (
             <AddAdminsPopup
+            Heading={`${
+              adminsData
+                ? "Update Admins" 
+                : "Add Admins"
+            } `}
               show={modalShow}
-              onHide={() => setModalShow(false)}
+              adminsData={ adminsData}
+              // setAdminsData={setAdminsData}setAdminsData
+              onhideClick={(e) => {
+                setAdminsData({})
+                setModalShow(e)}}
               setIsUserAdded={setIsUserAdded}
             />
           )}
@@ -232,7 +268,6 @@ const AddAdmins = () => {
 };
 
 export default AddAdmins;
-
 
 // import { useEffect, useState } from "react";
 // import { Button, Table, Form } from "react-bootstrap";
@@ -475,4 +510,3 @@ export default AddAdmins;
 // };
 
 // export default AddAdmins;
-

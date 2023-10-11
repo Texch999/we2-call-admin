@@ -23,9 +23,8 @@ const AddUsers = () => {
   const [isUserAdded, setIsUserAdded] = useState(false);
 
   const handleCpButton = () => {
-    console.log("testing....")
-
-       setShowChangePopup(true);
+      console.log("testing....")
+      setShowChangePopup(true);
     
   };
   const addUsersData =
