@@ -1,15 +1,35 @@
 import { useState } from "react";
 import { AiFillFileText } from "react-icons/ai";
 import PaymentSettelmentPopup from "./PaymentSettelmentPopup";
-import { GET_OFFLINE_CLIENTS } from "../../config/endpoints";
+import {
+  GET_OFFLINE_CLIENTS,
+  OFFLINE_PAYMENT_SETTLEMENT,
+} from "../../config/endpoints";
 import { useEffect } from "react";
 import { call } from "../../config/axios";
 import CustomPagination from "../pagination/CustomPagination";
+import { sumOfData } from "../../utils";
+import moment from "moment/moment";
 
 function Settelment() {
   let register_id = localStorage?.getItem("register_id");
   let account_role = localStorage?.getItem("account_role");
   const [settlementData, setSettlementData] = useState([]);
+  const [clientId, setClientId] = useState([]);
+  const [offlineSettlePayload, setOfflineSettlePayload] = useState({});
+  const [showPaymentModal, setShowPaymentModal] = useState(false);
+  const handlePaymentModal = (data) => {
+    setShowPaymentModal(true);
+  };
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalPages = 5;
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+    // You can add your logic here to fetch data for the selected page.
+  };
+
   const getSettlementData = async () => {
     await call(GET_OFFLINE_CLIENTS, {
       register_id,
@@ -28,8 +48,21 @@ function Settelment() {
   useEffect(() => {
     getSettlementData();
   }, []);
-
-  const SETTELMENT_DETAILS = settlementData.map((item) => {
+  const handleSettlement = async () => {
+    await call(OFFLINE_PAYMENT_SETTLEMENT, {
+      ...offlineSettlePayload,
+      register_id,
+      settledDate: moment(new Date()).format("DD/MM/YYYY"),
+      setteledTime: moment(new Date()).format("hh:mm:ss"),
+    })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  const SETTELMENT_DETAILS = settlementData?.map((item) => {
     return {
       ClientName: item.client_name,
       RolePosition: item.account_role,
@@ -54,19 +87,6 @@ function Settelment() {
     { field: "File" },
   ];
 
-  const [showPaymentModal, setShowPaymentModal] = useState(false);
-  const handlePaymentModal = () => {
-    setShowPaymentModal(true);
-  };
-
-  const [currentPage, setCurrentPage] = useState(1);
-  const totalPages = 5;
-
-  const handlePageChange = (page) => {
-    setCurrentPage(page);
-    // You can add your logic here to fetch data for the selected page.
-  };
-
   return (
     <div className="p-4">
       <h5 className="meetings-heading mb-3">Settlement</h5>
@@ -74,18 +94,25 @@ function Settelment() {
       <div className="d-flex flex-row justify-content-around mb-4 w-50">
         <div className="d-flex flex-column settelment-container justify-content-around p-2 rounded">
           <div className="medium-font">Total Amount</div>
-          <div className="clr-yellow medium-font">1000000.00</div>
+          <div className="clr-yellow medium-font">
+            {sumOfData(settlementData, "total_amount")}
+          </div>
         </div>
         <div className="d-flex flex-column settelment-container justify-content-around p-2 rounded">
           <div className="medium-font">Total Settled Bal C/D</div>
-          <div className="clr-yellow medium-font">1000000.00</div>
+          <div className="clr-yellow medium-font">
+            {sumOfData(settlementData, "total_amount") -
+              sumOfData(settlementData, "pending_amount")}
+          </div>
         </div>
         <div className="d-flex flex-column settelment-container justify-content-around p-2 rounded">
           <div className="medium-font">Total Balance</div>
-          <div className="clr-yellow medium-font">1000000.00</div>
+          <div className="clr-yellow medium-font">
+            {sumOfData(settlementData, "pending_amount")}
+          </div>
         </div>
       </div>
-      <div className="table-body-height">
+      <div className="settelment-table-body-height">
         <table className="fixed-table w-100 match-position-table text-center medium-font">
           <thead id="home-table-head">
             <tr>
@@ -98,7 +125,7 @@ function Settelment() {
               })}
             </tr>
           </thead>
-          {SETTELMENT_DETAILS.map((item, index) => (
+          {SETTELMENT_DETAILS?.map((item, index) => (
             <tbody key={index + item.Balance}>
               <tr>
                 {columns.map((val, i) => {

@@ -5,6 +5,7 @@ import DatePicker from "react-datepicker";
 import { FaRegCalendarAlt } from "react-icons/fa";
 import "react-datepicker/dist/react-datepicker.css";
 import { Col, Container, Modal, Row } from "react-bootstrap";
+import CustomPagination from "../pagination/CustomPagination";
 import "./styles.css";
 function CallHistory() {
   const HISTORY_DETAILS = [
@@ -190,6 +191,13 @@ function CallHistory() {
     },
   ];
   const [selectedDate, setSelectedDate] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalPages = 5;
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+    // You can add your logic here to fetch data for the selected page.
+  };
   return (
     <div className="p-4">
       <h5 className="meetings-heading mb-3">Call History</h5>
@@ -232,30 +240,29 @@ function CallHistory() {
           </Col>
         </Row>
       </Container>
-      <table className="w-100 match-position-table small-font">
-        <thead className="w-100 medium-font">
-          <tr>
-            <th scope="col" className="text-center">
-              DATE & TIME
-            </th>
-            <th scope="col" className="text-center">
-              MEETING TITLE
-            </th>
-            <th scope="col" className="text-center">
-              DURATION
-            </th>
-            <th scope="col" className="text-center">
-              PRICE
-            </th>
-            <th scope="col" className="text-center">
-              STATUS
-            </th>
-            <th scope="col" className="text-center"></th>
-          </tr>
-        </thead>
-      </table>
-      <div style={{ height: "150px", overflow: "scroll" }}>
+
+      <div>
         <table className="w-100 match-position-table small-font">
+          <thead>
+            <tr>
+              <th scope="col" className="text-center">
+                DATE & TIME
+              </th>
+              <th scope="col" className="text-center">
+                MEETING TITLE
+              </th>
+              <th scope="col" className="text-center">
+                DURATION
+              </th>
+              <th scope="col" className="text-center">
+                PRICE
+              </th>
+              <th scope="col" className="text-center">
+                STATUS
+              </th>
+              <th scope="col" className="text-center"></th>
+            </tr>
+          </thead>
           {HISTORY_DETAILS.map((item, index) => (
             <tbody key={index} className="small-font">
               <tr>
@@ -278,6 +285,20 @@ function CallHistory() {
             </tbody>
           ))}
         </table>
+      </div>
+      <div className="d-flex justify-content-between align-items-center mt-4">
+        <div className="d-flex justify-content-start font-clr-white total-count-container  py-2 px-4 rounded">
+          <span>
+            Showing <b> {currentPage} </b> 0f <b> {totalPages} </b> Entries....
+          </span>
+        </div>
+        <div className="d-flex justify-content-end mt-2">
+          <CustomPagination
+            totalPages={totalPages}
+            currentPage={currentPage}
+            onPageChange={handlePageChange}
+          />
+        </div>
       </div>
     </div>
   );

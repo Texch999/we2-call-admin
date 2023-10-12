@@ -165,7 +165,7 @@ img {
 }
 .outgoing_msg {
   overflow: hidden;
-  margin: 26px 0 26px;
+  /* margin: 26px 0 26px; */
 }
 .sent_msg {
   float: right;
@@ -188,6 +188,7 @@ img {
   font-size: 15px;
   min-height: 48px;
   width: 100%;
+  outline: none !important;
 }
 
 .type_msg {
@@ -216,7 +217,7 @@ img {
 }
 .msg_history {
   height: 69vh;
-  overflow-y: auto;
+  /* overflow-y: auto; */
 }
 .msg_history::-webkit-scrollbar {
   display: none;

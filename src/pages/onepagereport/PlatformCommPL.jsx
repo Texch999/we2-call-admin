@@ -5,18 +5,23 @@ function PlatformCommPL() {
     {
       date: "25-07-2023",
       matchname: "India vs Sri Lanka",
+      urnetpl: "100000",
       winteam: "India",
       platformcomm: "50000000.00",
     },
     {
       date: "25-07-2023",
       matchname: "India vs Sri Lanka",
+      urnetpl: "100000",
+
       winteam: "India",
       platformcomm: "50000000.00",
     },
     {
       date: "25-07-2023",
       matchname: "India vs Sri Lanka",
+      urnetpl: "100000",
+
       winteam: "India",
       platformcomm: "50000000.00",
     },
@@ -30,6 +35,7 @@ function PlatformCommPL() {
             <th>DATE</th>
             <th>MATCH NAME</th>
             <th>WIN TEAM</th>
+            <th>Urs Net P/L</th>
             <th>Platform Comm</th>
           </tr>
         </thead>
@@ -39,13 +45,14 @@ function PlatformCommPL() {
               <td>{item.date}</td>
               <td>{item.matchname}</td>
               <td>{item.winteam}</td>
+              <td>{item.urnetpl}</td>
               <td className="clr-green"> {item.platformcomm}</td>
             </tr>
           </tbody>
         ))}
         <tfoot>
           <tr className="text-center">
-            <th colSpan={3} className="text-end">
+            <th colSpan={4} className="text-end">
               TOTAL
             </th>
             <th colSpan={1} className="clr-green">

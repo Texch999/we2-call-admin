@@ -16,11 +16,14 @@ import { open, send } from "../../utils/WebSocket";
 import { GET_USER_MESSAGES } from "../../config/endpoints";
 import { call } from "../../config/axios";
 import moment from "moment";
+import ScrollableFeed from "react-scrollable-feed";
+import { BsCheck2All } from "react-icons/bs";
 
 function Chats() {
   let register_id = localStorage?.getItem("register_id");
   let creator_id = localStorage?.getItem("creator_id");
   const [supportData, setSupportData] = useState([]);
+  const [profileImage, setProfileImage] = useState("");
 
   const [messages, setMessages] = useState([
     {
@@ -311,7 +314,7 @@ function Chats() {
               <div className="chat_list">
                 <div className="chat_people">
                   <div className="chat_img">
-                    <img 
+                    <img
                       className="rounded-circle"
                       src={Images.kohli_image}
                       alt="sunil"
@@ -385,7 +388,9 @@ function Chats() {
                     />
                   </div>
                   <div className=" d-flex flex-column clr-white mx-2">
-                    <div className="large-font">Mahendra Singh Baahubali</div>
+                    <div className="large-font">
+                      {localStorage?.getItem("user_name")}
+                    </div>
                     <div className="small-font align-items-center">
                       12 Members,5 Online
                       <PiDotOutlineFill
@@ -402,41 +407,52 @@ function Chats() {
                 </div>
               </div>
             </div>
-            <div className="msg_history px-4 py-3">
-              {supportData?.length > 0 ? (
-                supportData.map((msg, index) => {
-                  let sender = msg.to_user_id === register_id ? true : false;
-                  return (
-                    <div key={index}>
-                      {sender ? (
-                        ""
-                      ) : (
-                        <div className="date-text mt-1">
-                          {/* {moment(msg.ts).format("hh:mm a")} */}
-                        </div>
-                      )}
-                      <div
-                        className={`mt-2 ${
-                          sender ? "incoming_msg" : "outgoing_msg"
-                        }`}
-                      >
-                        <div className={`mt-2 ${sender ? "received_msg" : ""}`}>
+            <div className="msg_history px-4">
+              <ScrollableFeed>
+                {supportData?.length > 0 ? (
+                  supportData.map((msg, index) => {
+                    let sender = msg.to_user_id === register_id ? true : false;
+                    return (
+                      <div key={index}>
+                        {sender ? (
+                          ""
+                        ) : (
+                          <div className="date-text mt-1 d-flex justify-content-center font-12">
+                            {moment(msg.ts).format("hh:mm a")}
+                          </div>
+                        )}
+                        <div
+                          className={`mt-2 ${
+                            sender ? "incoming_msg" : "outgoing_msg"
+                          }`}
+                        >
                           <div
-                            key={index}
-                            className={`mt-2 message ${
-                              sender ? "received_withd_msg" : "sent_msg"
-                            }`}
+                            className={`mt-2 ${sender ? "received_msg" : ""}`}
                           >
-                            {msg?.message}
+                            <div
+                              key={index}
+                              className={`mt-2 message ${
+                                sender ? "received_withd_msg" : "sent_msg"
+                              }`}
+                            >
+                              {msg?.message}
+                            </div>
                           </div>
                         </div>
+                        <div
+                          style={{ fontSize: "10px" }}
+                          className="d-flex justify-content-end align-items-center me-2 mt-1"
+                        >
+                          {moment(msg.ts).format("hh:mm a")}
+                          <BsCheck2All className="d-flex font-10 ms-1" />
+                        </div>
                       </div>
-                    </div>
-                  );
-                })
-              ) : (
-                <></>
-              )}
+                    );
+                  })
+                ) : (
+                  <></>
+                )}
+              </ScrollableFeed>
             </div>
             <div
               className="recent_heading d-flex flex-start align-items-center justify-content-between w-100 header-bg h-8vh"
@@ -471,26 +487,38 @@ function Chats() {
               </div>
               <div className="d-flex flex-row align-items-center w-25 justify-content-around">
                 <div className="button-chat px-2 py-1 rounded mx-2">
-                  <BiSolidCamera className="chat-icon" />
+                  <label htmlFor="upload">
+                    <BiSolidCamera className="chat-icon" />
+                  </label>
                   <input
                     type="file"
-                    id="upload-button"
+                    id="upload"
                     style={{ display: "none" }}
-                    onChange={handleChange}
+                    // onChange={handleChange}
+                    onChange={(e) => {
+                      setProfileImage(e?.target?.files[0]);
+                      // generateSignedUrl();
+                    }}
                   />
                 </div>
-                <div
-                  className="button-chat px-2 py-1 rounded mx-2"
-                  onClick={handleUploadButtonClick}
-                >
-                  <ImAttachment className="chat-icon" />
+
+                <div className="button-chat px-2 py-1 rounded mx-2">
+                  <label htmlFor="attachment">
+                    <ImAttachment className="chat-icon" />
+                  </label>
                   <input
                     type="file"
-                    ref={uploadfileInputRef}
+                    id="attachment"
+                    // ref={uploadfileInputRef}
                     style={{ display: "none" }}
-                    onChange={handleUploadFileSelect}
+                    // onChange={handleFileUpload}
+                    onChange={(e) => {
+                      setProfileImage(e?.target?.files[0]);
+                      // generateSignedUrl();
+                    }}
                   />
                 </div>
+
                 <div className="button-chat px-2 py-1 rounded mx-2">
                   <MdMicNone className="upload-icon" />
                 </div>
