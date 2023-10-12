@@ -215,10 +215,9 @@ function ChatsTours(props) {
       centered
     >
       <Modal.Header>
-        <IoCloseSharp
-          onClick={handleChatPopupClose}
-          className="d-flex justify-content-row-reverse"
-        />
+        <div className="d-flex justify-content-end">
+          <IoCloseSharp onClick={handleChatPopupClose} />
+        </div>
       </Modal.Header>
       <Modal.Body>
         <div className="chat-popup-mesgs">
@@ -241,7 +240,7 @@ function ChatsTours(props) {
                 <div className=" d-flex flex-column clr-white mx-2">
                   <div className="large-font">
                     {localStorage?.getItem("user_name")}
-                      </div>
+                  </div>
                   <div className="small-font align-items-center">
                     12 Members,5 Online
                     <PiDotOutlineFill
@@ -306,9 +305,9 @@ function ChatsTours(props) {
           </div>
           <div
             className="recent_heading d-flex flex-start align-items-center justify-content-between w-100 header-bg h-8vh"
-            onClick={(e) => {
-              e.preventDefault();
-            }}
+            // onClick={(e) => {
+            //   e.preventDefault();
+            // }}
           >
             <div className="type_msg w-75 mx-2 rounded">
               <div className="input_msg_write">
@@ -337,26 +336,38 @@ function ChatsTours(props) {
             </div>
             <div className="d-flex flex-row align-items-center w-25 justify-content-around">
               <div className="button-chat px-2 py-1 rounded mx-2">
-                <BiSolidCamera className="chat-icon" />
+                <label htmlFor="upload">
+                  <BiSolidCamera className="chat-icon" />
+                </label>
                 <input
                   type="file"
-                  id="upload-button"
+                  id="upload"
                   style={{ display: "none" }}
-                  onChange={handleChange}
+                  // onChange={handleChange}
+                  // onChange={(e) => {
+                  //   setProfileImage(e?.target?.files[0]);
+                  //   // generateSignedUrl();
+                  // }}
                 />
               </div>
-              <div
-                className="button-chat px-2 py-1 rounded mx-2"
-                onClick={handleUploadButtonClick}
-              >
-                <ImAttachment className="chat-icon" />
+
+              <div className="button-chat px-2 py-1 rounded mx-2">
+                <label htmlFor="attachment">
+                  <ImAttachment className="chat-icon" />
+                </label>
                 <input
                   type="file"
-                  ref={uploadfileInputRef}
+                  id="attachment"
+                  // ref={uploadfileInputRef}
                   style={{ display: "none" }}
-                  onChange={handleUploadFileSelect}
+                  // onChange={handleFileUpload}
+                  // onChange={(e) => {
+                  //   setProfileImage(e?.target?.files[0]);
+                  //   // generateSignedUrl();
+                  // }}
                 />
               </div>
+
               <div className="button-chat px-2 py-1 rounded mx-2">
                 <MdMicNone className="upload-icon" />
               </div>

@@ -456,9 +456,9 @@ function Chats() {
             </div>
             <div
               className="recent_heading d-flex flex-start align-items-center justify-content-between w-100 header-bg h-8vh"
-              onClick={(e) => {
-                e.preventDefault();
-              }}
+              // onClick={(e) => {
+              //   e.preventDefault();
+              // }}
             >
               <div className="type_msg w-75 mx-2 rounded">
                 <div className="input_msg_write">
@@ -495,10 +495,10 @@ function Chats() {
                     id="upload"
                     style={{ display: "none" }}
                     // onChange={handleChange}
-                    onChange={(e) => {
-                      setProfileImage(e?.target?.files[0]);
-                      // generateSignedUrl();
-                    }}
+                    // onChange={(e) => {
+                    //   setProfileImage(e?.target?.files[0]);
+                    //   // generateSignedUrl();
+                    // }}
                   />
                 </div>
 
@@ -512,10 +512,10 @@ function Chats() {
                     // ref={uploadfileInputRef}
                     style={{ display: "none" }}
                     // onChange={handleFileUpload}
-                    onChange={(e) => {
-                      setProfileImage(e?.target?.files[0]);
-                      // generateSignedUrl();
-                    }}
+                    // onChange={(e) => {
+                    //   setProfileImage(e?.target?.files[0]);
+                    //   // generateSignedUrl();
+                    // }}
                   />
                 </div>
 
