@@ -492,28 +492,17 @@ function Chats() {
                     id="upload"
                     style={{ display: "none" }}
                     // onChange={handleChange}
-                    onChange={(e) => {
-                      setProfileImage(e?.target?.files[0]);
-                      // generateSignedUrl();
-                    }}
-                  /> */}
+                    // onChange={(e) => {
+                    //   setProfileImage(e?.target?.files[0]);
+                    //   // generateSignedUrl();
+                    // }}
+                  />
                 </div>
 
                 <div className="button-chat px-2 py-1 rounded mx-2">
                   {/* <label htmlFor="attachment">
                     <ImAttachment className="chat-icon" />
                   </label> */}
-                  {/* <input
-                    type="file"
-                    id="attachment"
-                    // ref={uploadfileInputRef}
-                    // style={{ display: "none" }}
-                    // onChange={handleFileUpload}
-                    onChange={(e) => {
-                      setProfileImage(e?.target?.files[0]);
-                      // generateSignedUrl();
-                    }}
-                  /> */}
                 </div>
 
                 <div className="button-chat px-2 py-1 rounded mx-2">
