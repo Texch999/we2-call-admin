@@ -1,15 +1,13 @@
 import { useState } from "react";
-import MatchDeclarationPopup from "../match-popups/MatchDeclarationPopup";
-import MatchSubmitPopup from "../match-popups/MatchSubmitPopup";
 import { MATCH_DECLARATION } from "../../config/endpoints";
 import { call } from "../../config/axios";
+import MatchDeclarationPopup from "../match-popups/MatchDeclarationPopup";
 
 function MatchResultInput({ registered_match_id, selectedMatch }) {
   let register_id = localStorage?.getItem("register_id");
   let creator_id = localStorage?.getItem("creator_id");
   let account_role = localStorage?.getItem("account_role");
   const [matchSubmitPopup, setMatchSubmitPopup] = useState(false);
-  const [submitPopup, setSubmitPopup] = useState(false);
   const [matchResultInputData, setMatchResultInputData] = useState({});
   const [error, setError] = useState("");
   const [isProcessing, setIsProcessing] = useState(false);
@@ -30,10 +28,29 @@ function MatchResultInput({ registered_match_id, selectedMatch }) {
       registered_match_id: registered_match_id,
       register_id,
       account_role,
-    });
+      sport_name: matchResultInputData?.sport_name,
+      series_name: matchResultInputData?.series_name,
+      team: matchResultInputData?.team,
+      declarestatus: matchResultInputData?.declarestatus,
+    })
+      .then((res) => {
+        setIsProcessing(false);
+        if (res.data.statusCode === 200) {
+          setMatchSubmitPopup(!matchSubmitPopup);
+          setError("");
+        } else {
+          setError(
+            res?.data?.message ? res?.data?.message : `Something Went Wrong`
+          );
+        }
+      })
+      .catch((err) => {
+        setIsProcessing(false);
+        setError(`Something Went Wrong`);
+        console.log(err);
+      });
   };
-  const handleSubmitPopupOpen = () => {
-    setSubmitPopup(true);
+  const handleMatchDeclarePopupClose = () => {
     setMatchSubmitPopup(false);
   };
   return (
@@ -106,24 +123,24 @@ function MatchResultInput({ registered_match_id, selectedMatch }) {
           </div>
         </div>
         <div className="col d-flex align-items-end">
-          <div
+          <button
             className="cursor-pointer w-100 text-center rounded medium-font p-2 yellow-btn fw-semibold"
             onClick={() => handleMatchDeclarePopupOpen()}
+            disabled={isProcessing}
           >
             Result Declaration
-          </div>
+          </button>
         </div>
+        {error && (
+          <div className="clr-red text-center medium-font">{error}</div>
+        )}
       </div>
       <MatchDeclarationPopup
         header={"Are You Sure You Want Declare The Match"}
+        amount={"1000000"}
         state={matchSubmitPopup}
         setState={setMatchSubmitPopup}
-        handleSubmitPopupOpen={handleSubmitPopupOpen}
-      />
-      <MatchSubmitPopup
-        header={"You Are Successfully Submited Your Match to Win IND"}
-        state={submitPopup}
-        setState={setSubmitPopup}
+        handleMatchDeclarePopupClose={handleMatchDeclarePopupClose}
       />
     </div>
   );
