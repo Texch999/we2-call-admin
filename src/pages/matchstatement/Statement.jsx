@@ -107,14 +107,11 @@ function Statement(props) {
     // You can add your logic here to fetch data for the selected page.
   };
   const handleChange = (e) => {
-    console.log(e, "event");
     setStatementPayload({
       ...statementPayload,
       [e.target.name]: e.target.value,
     });
   };
-
-  console.log(statementPayload, ".......statementPayload");
 
   return (
     <div className="p-2">

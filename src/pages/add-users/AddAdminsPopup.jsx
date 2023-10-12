@@ -27,7 +27,6 @@ function AddAdminsPopup(props) {
   const [adminPasswordToggle, setAdminPasswordToggle] = useState(true);
 
   const handleInputChnage = (e) => {
-    // console.log(e.target.value);
     setInputData({ ...inputData, [e.target.name]: e.target.value });
   };
   let packageList = [
@@ -391,9 +390,8 @@ function AddAdminsPopup(props) {
             }}
           >
             {/* {isProcessing ? "Processing..." : "Add"} */}
-         
+
             {editData === true ? "Update" : "Create"}
-            
           </Button>
         </Form>
       </Modal.Body>

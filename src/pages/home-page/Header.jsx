@@ -270,6 +270,37 @@ function Header() {
     },
   ];
 
+  useEffect(() => {
+    switch (history.location.pathname) {
+      case "/":
+        setActiveHead(0);
+        break;
+      case "/chats":
+        setActiveHead(1);
+        break;
+
+      case "/tours-tournaments":
+        setActiveHead(2);
+        break;
+
+      case "/match-entry":
+        setActiveHead(3);
+        break;
+
+      case "/phub":
+        setActiveHead(4);
+        break;
+
+      case "/horny":
+        setActiveHead(5);
+
+        break;
+
+      default:
+        setActiveHead(0);
+    }
+  }, []);
+
   const [resetPasswordSubmit, setResetPasswordSubmit] = useState();
   const token = isLoggedIn();
   return (

@@ -22,7 +22,6 @@ function AddUserPopUp(props) {
   // const [inputData, setInputData] = useState({});
 
   const handleInputChnage = (e) => {
-    // console.log(e.target.value);
     setInputData({ ...inputData, [e.target.name]: e.target.value });
   };
   const handleUpdateUser = async () => {

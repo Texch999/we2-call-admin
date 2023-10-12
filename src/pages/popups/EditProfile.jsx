@@ -61,7 +61,6 @@ function EditProfile(props) {
       .then(async (res) => {
         setIsProcessing(false);
         let url = res?.data?.data?.result?.signed_url;
-        // console.log({url})
         setSignedUrl(url);
       })
       .catch((err) => {
@@ -139,7 +138,6 @@ function EditProfile(props) {
     }
   };
 
-  // console.log(formData, "formData.....");
 
   return (
     <Modal onHide={close} show={show} centered className="add-user-modal">

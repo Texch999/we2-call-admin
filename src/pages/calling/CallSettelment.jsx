@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import { AiFillEye } from "react-icons/ai";
 import { BiSolidCloudUpload } from "react-icons/bi";
 import UploadScreenShot from "./UploadScreenShot";
+import CustomPagination from "../pagination/CustomPagination";
 
 function CallSettelment() {
   const SETTELMENT_DETAILS = [
@@ -41,6 +42,14 @@ function CallSettelment() {
   };
   const handleUploadButtonClick = () => {
     uploadfileInputRef.current.click();
+  };
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalPages = 5;
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+    // You can add your logic here to fetch data for the selected page.
   };
   return (
     <div className="p-4">
@@ -99,8 +108,9 @@ function CallSettelment() {
           Create Settelment
         </button>
       </div>
-      <div className="w-100 table-bg medium-font">
-        <table className="w-100 match-position-table">
+
+      <div>
+        <table className="w-100 match-position-table medium-font">
           <thead>
             <tr>
               <th scope="col" className="text-center">
@@ -118,11 +128,6 @@ function CallSettelment() {
               <th scope="col" className="text-center"></th>
             </tr>
           </thead>
-        </table>
-      </div>
-
-      <div style={{ height: "150px", overflow: "scroll" }}>
-        <table className="w-100 match-position-table medium-font">
           {SETTELMENT_DETAILS.map((item, index) => (
             <tbody key={index}>
               <tr>
@@ -154,6 +159,20 @@ function CallSettelment() {
             </tbody>
           ))}
         </table>
+      </div>
+      <div className="d-flex justify-content-between align-items-center mt-4">
+        <div className="d-flex justify-content-start font-clr-white total-count-container  py-2 px-4 rounded">
+          <span>
+            Showing <b> {currentPage} </b> 0f <b> {totalPages} </b> Entries....
+          </span>
+        </div>
+        <div className="d-flex justify-content-end mt-2">
+          <CustomPagination
+            totalPages={totalPages}
+            currentPage={currentPage}
+            onPageChange={handlePageChange}
+          />
+        </div>
       </div>
       <UploadScreenShot
         showUploadButton={showUploadButton}
