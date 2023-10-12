@@ -50,6 +50,7 @@ const GET_INDUVISUAL_REPORTS = "/offline-management/get_individual_report";
 const CREATE_REFFERAL = "/offline-management/create_refferal";
 const CHANGE_PASSWORD="/admin/change_password";
 const UPDATE_USER_ADMIN="/admin/update_user_admin"
+const UPDATE_USER_CLIENT="/admin/update_user_client"
 
 // methods
 const DELETE = "DELETE";
@@ -267,6 +268,12 @@ exports.UPDATE_USER_ADMIN = {
   url: UPDATE_USER_ADMIN,
   method: POST,
 };
+
+exports.UPDATE_USER_CLIENT = {
+  url: UPDATE_USER_CLIENT,
+  method: POST,
+};
+
 
 exports.CREATE_PACKAGE_SUBSCRIPTION = {
   url: CREATE_PACKAGE_SUBSCRIPTION,
