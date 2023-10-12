@@ -1,16 +1,31 @@
 import { useState } from "react";
 import SubmitPopup from "../popups/SubmitPopup";
+import Select from "react-select";
 
 function FancyEntryInput() {
   const [submitPopup, setSubmitPopup] = useState(false);
   const [overs, setOvers] = useState([]);
+  const [select, setSelect] = useState([]);
+  const [selectedOptions, setSelectedOptions] = useState();
+
+  const optionList = [
+    { value: "srikanth", label: "srikanth" },
+    { value: "ranjith", label: "ranjith" },
+  ];
+  const handleSelect = (data) => {
+    setSelectedOptions(data);
+  };
   const handleSubmitPopupOpen = () => {
     setSubmitPopup(true);
   };
-
   const handleOvers = (e) => {
     setOvers(e.target.value);
   };
+
+  const handleSelectOvers = (e) => {
+    setOvers([...overs, e.target.value]);
+  };
+
   return (
     <div className="match-position-bg rounded-bottom p-3">
       <div className="row">
@@ -51,15 +66,19 @@ function FancyEntryInput() {
             <div className="custom-select medium-font btn-bg">
               <input
                 className="w-70 custom-select medium-font btn-bg  all-none p-2"
-                value={overs || ""}
+                value={overs || []}
+                name="overs"
+                onChange={(e) => handleOvers(e)}
               ></input>
               <select
+                name="overs"
                 className="w-30 custom-select medium-font btn-bg all-none p-2"
-                onChange={(e) => handleOvers(e)}
+                onChange={(e) => handleSelectOvers(e)}
               >
                 <option>Select</option>
                 <option value="10">10 Overs</option>
                 <option value="20">20 Overs</option>
+                <option value="30">30 Overs</option>
               </select>
             </div>
           </div>
@@ -95,13 +114,24 @@ function FancyEntryInput() {
           </div>
         </div>
         <div className="col">
-          <div>
+          {/* <div>
             <div className="medium-font">Client Name</div>
             <select className="w-100 custom-select medium-font btn-bg rounded all-none p-2">
               <option>Client Name</option>
               <option>Name 1</option>
               <option>Name 2</option>
             </select>
+          </div> */}
+          <div>
+            <div className="medium-font">Client Name</div>
+            <Select
+              className="w-100"
+              options={optionList}
+              placeholder="Client Name"
+              value={selectedOptions}
+              onChange={handleSelect}
+              isSearchable={true}
+            />
           </div>
         </div>
         <div className="col d-flex align-items-end">

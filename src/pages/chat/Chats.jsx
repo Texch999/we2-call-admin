@@ -454,11 +454,12 @@ function Chats() {
                 )}
               </ScrollableFeed>
             </div>
+            <input type="file" id="image-upload"></input>
             <div
               className="recent_heading d-flex flex-start align-items-center justify-content-between w-100 header-bg h-8vh"
-              onClick={(e) => {
-                e.preventDefault();
-              }}
+              // onClick={(e) => {
+              //   e.preventDefault();
+              // }}
             >
               <div className="type_msg w-75 mx-2 rounded">
                 <div className="input_msg_write">
@@ -487,10 +488,10 @@ function Chats() {
               </div>
               <div className="d-flex flex-row align-items-center w-25 justify-content-around">
                 <div className="button-chat px-2 py-1 rounded mx-2">
-                  <label htmlFor="upload">
+                  <label htmlFor="image-upload">
                     <BiSolidCamera className="chat-icon" />
                   </label>
-                  <input
+                  {/* <input
                     type="file"
                     id="upload"
                     style={{ display: "none" }}
@@ -499,24 +500,24 @@ function Chats() {
                       setProfileImage(e?.target?.files[0]);
                       // generateSignedUrl();
                     }}
-                  />
+                  /> */}
                 </div>
 
                 <div className="button-chat px-2 py-1 rounded mx-2">
-                  <label htmlFor="attachment">
+                  {/* <label htmlFor="attachment">
                     <ImAttachment className="chat-icon" />
-                  </label>
-                  <input
+                  </label> */}
+                  {/* <input
                     type="file"
                     id="attachment"
                     // ref={uploadfileInputRef}
-                    style={{ display: "none" }}
+                    // style={{ display: "none" }}
                     // onChange={handleFileUpload}
                     onChange={(e) => {
                       setProfileImage(e?.target?.files[0]);
                       // generateSignedUrl();
                     }}
-                  />
+                  /> */}
                 </div>
 
                 <div className="button-chat px-2 py-1 rounded mx-2">
