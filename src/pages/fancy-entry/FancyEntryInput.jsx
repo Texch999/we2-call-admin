@@ -63,16 +63,17 @@ function FancyEntryInput() {
         <div className="col-1">
           <div>
             <div className="medium-font">Overs</div>
-            <div className="custom-select medium-font btn-bg">
+            <div className="custom-select medium-font btn-bg rounded">
               <input
-                className="w-70 custom-select medium-font btn-bg  all-none p-2"
+                className="w-70 custom-select medium-font btn-bg  all-none p-2 rounded"
+                placeholder="Overs"
                 value={overs || []}
                 name="overs"
                 onChange={(e) => handleOvers(e)}
               ></input>
               <select
                 name="overs"
-                className="w-30 custom-select medium-font btn-bg all-none p-2"
+                className="w-30 custom-select medium-font btn-bg all-none p-2 rounded"
                 onChange={(e) => handleSelectOvers(e)}
               >
                 <option>Select</option>
