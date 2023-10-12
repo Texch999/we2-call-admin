@@ -23,6 +23,7 @@ function Chats() {
   let register_id = localStorage?.getItem("register_id");
   let creator_id = localStorage?.getItem("creator_id");
   const [supportData, setSupportData] = useState([]);
+  const [profileImage, setProfileImage] = useState("");
 
   const [messages, setMessages] = useState([
     {
@@ -485,31 +486,39 @@ function Chats() {
                 </div>
               </div>
               <div className="d-flex flex-row align-items-center w-25 justify-content-around">
-                <label
-                  className="button-chat px-2 py-1 rounded mx-2"
-                  htmlFor="upload"
-                >
-                  <BiSolidCamera className="chat-icon" />
+                <div className="button-chat px-2 py-1 rounded mx-2">
+                  <label htmlFor="upload">
+                    <BiSolidCamera className="chat-icon" />
+                  </label>
                   <input
                     type="file"
                     id="upload"
                     style={{ display: "none" }}
                     // onChange={handleChange}
+                    onChange={(e) => {
+                      setProfileImage(e?.target?.files[0]);
+                      // generateSignedUrl();
+                    }}
                   />
-                </label>
-                <label
-                  className="button-chat px-2 py-1 rounded mx-2"
-                  htmlFor="attachment"
-                >
-                  <ImAttachment className="chat-icon" />
-                </label>
-                <input
+                </div>
+
+                <div className="button-chat px-2 py-1 rounded mx-2">
+                  <label htmlFor="attachment">
+                    <ImAttachment className="chat-icon" />
+                  </label>
+                  <input
                     type="file"
                     id="attachment"
                     // ref={uploadfileInputRef}
                     style={{ display: "none" }}
                     // onChange={handleFileUpload}
+                    onChange={(e) => {
+                      setProfileImage(e?.target?.files[0]);
+                      // generateSignedUrl();
+                    }}
                   />
+                </div>
+
                 <div className="button-chat px-2 py-1 rounded mx-2">
                   <MdMicNone className="upload-icon" />
                 </div>
