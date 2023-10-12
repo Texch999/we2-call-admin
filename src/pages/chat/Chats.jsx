@@ -485,27 +485,31 @@ function Chats() {
                 </div>
               </div>
               <div className="d-flex flex-row align-items-center w-25 justify-content-around">
-                <div className="button-chat px-2 py-1 rounded mx-2">
+                <label
+                  className="button-chat px-2 py-1 rounded mx-2"
+                  htmlFor="upload"
+                >
                   <BiSolidCamera className="chat-icon" />
                   <input
                     type="file"
-                    id="upload-button"
+                    id="upload"
                     style={{ display: "none" }}
-                    onChange={handleChange}
+                    // onChange={handleChange}
                   />
-                </div>
-                <div
+                </label>
+                <label
                   className="button-chat px-2 py-1 rounded mx-2"
-                  onClick={handleUploadButtonClick}
+                  htmlFor="attachment"
                 >
                   <ImAttachment className="chat-icon" />
-                  <input
+                </label>
+                <input
                     type="file"
-                    ref={uploadfileInputRef}
+                    id="attachment"
+                    // ref={uploadfileInputRef}
                     style={{ display: "none" }}
-                    onChange={handleUploadFileSelect}
+                    // onChange={handleFileUpload}
                   />
-                </div>
                 <div className="button-chat px-2 py-1 rounded mx-2">
                   <MdMicNone className="upload-icon" />
                 </div>
