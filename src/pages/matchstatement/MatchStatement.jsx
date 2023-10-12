@@ -29,7 +29,6 @@ function MatchStatement() {
         setFinancialStatementData(
           res?.data?.data?.filter((item) => item?.match_declared === "Y")
         );
-        // console.log(result,"result");
       })
       .catch((err) => {
         throw err;
@@ -58,7 +57,6 @@ function MatchStatement() {
     setActiveReport(report);
   };
 
-  console.log(financialStatementData, ".....financialStatementData");
   return (
     <div className="p-4">
       <h5 className="meetings-heading mb-3">Match Statement</h5>

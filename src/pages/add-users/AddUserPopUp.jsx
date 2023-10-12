@@ -17,7 +17,6 @@ function AddUserPopUp(props) {
   const [inputData, setInputData] = useState({});
 
   const handleInputChnage = (e) => {
-    // console.log(e.target.value);
     setInputData({ ...inputData, [e.target.name]: e.target.value });
   };
 
@@ -38,7 +37,6 @@ function AddUserPopUp(props) {
     }
     setErr("");
     setIsProcessing(true);
-    // console.log({ inputData });
     await call(ACCOUNT_REGISTERATION, {
       account_role: "client",
       ...inputData,

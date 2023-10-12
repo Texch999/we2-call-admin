@@ -187,7 +187,6 @@ function MatchEntryTable(props) {
       field: "delete",
     },
   ];
-  console.log(data, "MATCH_ENTRY_DATA");
   return (
     <div className="p-3">
       <Table data={MATCH_ENTRY_DATA || []} columns={MATCH_ENTRY_HEADING} />

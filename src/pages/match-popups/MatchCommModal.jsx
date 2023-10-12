@@ -3,32 +3,41 @@ import { IoCloseSharp } from "react-icons/io5";
 import MatchTable from "../match-entry/MatchTable";
 
 function MatchCommModal(props) {
-  const { matchCommModal, handleCloseMatchCommModal } = props;
-  const MATCH_POSITION_TABLE_DATA = [
-    {
-      header: "Animesh",
-      clientComm: 50000000,
-      rfComm: 50000000,
-      ulComm: "- -",
-    },
-    {
-      header: "Animesh",
-      clientComm: 50000000,
-      rfComm: 50000000,
-      ulComm: "- -",
-    },
-    {
-      header: "Animesh",
-      clientComm: 50000000,
-      rfComm: 50000000,
-      ulComm: "- -",
-    },
-  ];
+  const { mergedDataArray, matchCommModal, handleCloseMatchCommModal } = props;
+
+  const MATCH_POSITION_TABLE_DATA =
+    mergedDataArray?.length > 0 &&
+    mergedDataArray?.map((client) => ({
+      header: client?.client,
+      clientComm: client?.clientComm?.toFixed(2),
+      rfComm: client?.rfComm?.toFixed(2),
+    }));
+    
+  // const MATCH_POSITION_TABLE_DATA = [
+  //   {
+  //     header: "Animesh",
+  //     clientComm: 50000000,
+  //     rfComm: 50000000,
+  //     // ulComm: "- -",
+  //   },
+  //   {
+  //     header: "Animesh",
+  //     clientComm: 50000000,
+  //     rfComm: 50000000,
+  //     // ulComm: "- -",
+  //   },
+  //   {
+  //     header: "Animesh",
+  //     clientComm: 50000000,
+  //     rfComm: 50000000,
+  //     // ulComm: "- -",
+  //   },
+  // ];
   const MATCH_POSITION_HEADER_DATA = [
     { header: "Client Name", field: "header" },
     { header: "Client Comm", field: "clientComm" },
     { header: "RF Comm", field: "rfComm" },
-    { header: "- -", field: "ulComm" },
+    // { header: "- -", field: "ulComm" },
   ];
   return (
     <Modal

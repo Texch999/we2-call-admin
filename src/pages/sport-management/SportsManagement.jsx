@@ -48,7 +48,6 @@ function SportsManagement() {
         setLiveMatchesData(result?.liveMatches);
         setTodayMatchesData(result?.todaysMatches);
         setUpcomingMatchesData(result?.upCommingMatches);
-        // console.log(res.data);
       })
       .catch((err) => console.log(err));
   };
@@ -220,8 +219,6 @@ function SportsManagement() {
     setScheduleDate(liveMatchesData);
   }, []);
 
-  console.log(matchData, "......setMatchData");
-
   return (
     <div className="p-3">
       <h5 className="meetings-heading">All Admins / Sports Management</h5>
@@ -380,8 +377,6 @@ function SportsManagement() {
           </div>
           <div className="mt-3 ">
             <Table data={tableData || []} columns={columns} />
-
-            {console.log(allMatchesData, "...tabledata")}
           </div>
         </div>
         <div className="col-4 meetings-heading">
