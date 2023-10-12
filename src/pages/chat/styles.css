@@ -217,7 +217,7 @@ img {
 }
 .msg_history {
   height: 69vh;
-  overflow-y: auto;
+  /* overflow-y: auto; */
 }
 .msg_history::-webkit-scrollbar {
   display: none;
