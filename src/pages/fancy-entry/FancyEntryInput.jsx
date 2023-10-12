@@ -3,8 +3,13 @@ import SubmitPopup from "../popups/SubmitPopup";
 
 function FancyEntryInput() {
   const [submitPopup, setSubmitPopup] = useState(false);
+  const [overs, setOvers] = useState([]);
   const handleSubmitPopupOpen = () => {
     setSubmitPopup(true);
+  };
+
+  const handleOvers = (e) => {
+    setOvers(e.target.value);
   };
   return (
     <div className="match-position-bg rounded-bottom p-3">
@@ -34,7 +39,7 @@ function FancyEntryInput() {
             <div className="medium-font">Rate</div>
             <input
               type="number"
-              defaultValue={1.}
+              defaultValue={1}
               className="w-100 medium-font btn-bg rounded all-none p-2"
               placeholder="Rate"
             />
@@ -43,11 +48,20 @@ function FancyEntryInput() {
         <div className="col-1">
           <div>
             <div className="medium-font">Overs</div>
-            <select className="w-100 custom-select medium-font btn-bg rounded all-none p-2">
-              <option>Select</option>
-              <option>10 Overs</option>
-              <option>20 Overs</option>
-            </select>
+            <div className="custom-select medium-font btn-bg">
+              <input
+                className="w-70 custom-select medium-font btn-bg  all-none p-2"
+                value={overs || ""}
+              ></input>
+              <select
+                className="w-30 custom-select medium-font btn-bg all-none p-2"
+                onChange={(e) => handleOvers(e)}
+              >
+                <option>Select</option>
+                <option value="10">10 Overs</option>
+                <option value="20">20 Overs</option>
+              </select>
+            </div>
           </div>
         </div>
         <div className="col">
