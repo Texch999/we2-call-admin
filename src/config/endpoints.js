@@ -48,9 +48,11 @@ const GET_INDUVISUAL_REFERRAL_BY =
   "/offline-management/get_individual_reportby_refferal";
 const GET_INDUVISUAL_REPORTS = "/offline-management/get_individual_report";
 const CREATE_REFFERAL = "/offline-management/create_refferal";
-const CHANGE_PASSWORD="/admin/change_password";
-const UPDATE_USER_ADMIN="/admin/update_user_admin"
-const UPDATE_USER_CLIENT="/admin/update_user_client"
+const CHANGE_PASSWORD = "/admin/change_password";
+const UPDATE_USER_ADMIN = "/admin/update_user_admin";
+const UPDATE_USER_CLIENT = "/admin/update_user_client";
+const RISK_RUNNING_SESSION = "/offline-management/risk_running_session";
+const FANCY_RESULT_PROFIT_LOSS = "/offline-management/fancy_result_profitlose";
 
 // methods
 const DELETE = "DELETE";
@@ -235,7 +237,7 @@ exports.ACCOUNT_REGISTERATION = {
   method: POST,
 };
 exports.GET_ALL_PACKAGES = {
-  url: GET_ALL_PACKAGES,  
+  url: GET_ALL_PACKAGES,
   method: POST,
 };
 
@@ -274,12 +276,21 @@ exports.UPDATE_USER_CLIENT = {
   method: POST,
 };
 
-
 exports.CREATE_PACKAGE_SUBSCRIPTION = {
   url: CREATE_PACKAGE_SUBSCRIPTION,
   method: POST,
 };
 exports.GET_MATCH_POSITION_DATA = {
   url: GET_MATCH_POSITION_DATA,
+  method: POST,
+};
+
+exports.RISK_RUNNING_SESSION = {
+  url: RISK_RUNNING_SESSION,
+  method: GET,
+};
+
+exports.FANCY_RESULT_PROFIT_LOSS = {
+  url: FANCY_RESULT_PROFIT_LOSS,
   method: POST,
 };
