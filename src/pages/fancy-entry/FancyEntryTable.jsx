@@ -1,82 +1,104 @@
 import { MdEdit, MdDelete } from "react-icons/md";
 import Table from "../home-page/Table";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SubmitPopup from "../popups/SubmitPopup";
+import {
+  DELETE_FANCY_ENTRY,
+  GET_FANCY_ENTRY_DATA,
+} from "../../config/endpoints";
+import { call } from "../../config/axios";
 
-function FancyEntryTable() {
+function FancyEntryTable(props) {
+  const {
+    seriesType,
+    selectedMatch,
+    matchAccountData,
+    setSelectedMatchEntry,
+    status,
+    setStatus,
+  } = props;
+
+  let register_id = localStorage?.getItem("register_id");
+
   const [editPopup, setEditPopup] = useState(false);
   const [deletePopup, setDeletePopup] = useState(false);
+  const [data, setData] = useState([]);
+
   const handleEditPopupOpen = () => {
     setEditPopup(true);
   };
   const handleDeletePopupOpen = () => {
     setDeletePopup(true);
   };
-  const MATCH_ENTRY_DATA = [
-    {
-      sNo: 1,
-      over: "30 Over",
-      rate: "- -",
-      team: "India",
-      runs: "150",
-      yesNo: "Y",
-      date: "31-07-2023",
-      time: "12:48:00 PM",
-      client: "Srinivas2346",
-      amount: 50000000.0,
-      edit: (
-        <MdEdit className="edit-icon" onClick={() => handleEditPopupOpen()} />
-      ),
-      delete: (
-        <MdDelete
-          className="edit-icon"
-          onClick={() => handleDeletePopupOpen()}
-        />
-      ),
-    },
-    {
-      sNo: 2,
-      over: "20 Over",
-      rate: "- -",
-      team: "India",
-      runs: "150",
-      yesNo: "Y",
-      date: "31-07-2023",
-      time: "12:48:00 PM",
-      client: "Srinivas2346",
-      amount: 50000000.0,
-      edit: (
-        <MdEdit className="cursor-pointer edit-icon" onClick={() => handleEditPopupOpen()} />
-      ),
-      delete: (
-        <MdDelete
-          className="cursor-pointer edit-icon"
-          onClick={() => handleDeletePopupOpen()}
-        />
-      ),
-    },
-    {
-      sNo: 2,
-      over: "10 Over",
-      rate: "- -",
-      team: "India",
-      runs: "150",
-      yesNo: "Y",
-      date: "31-07-2023",
-      time: "12:48:00 PM",
-      client: "Srinivas2346",
-      amount: 50000000.0,
-      edit: (
-        <MdEdit className="edit-icon" onClick={() => handleEditPopupOpen()} />
-      ),
-      delete: (
-        <MdDelete
-          className="edit-icon"
-          onClick={() => handleDeletePopupOpen()}
-        />
-      ),
-    },
-  ];
+
+  const getFancyEntryDetails = async () => {
+    await call(GET_FANCY_ENTRY_DATA, {
+      registered_match_id: matchAccountData?.registered_match_id,
+      register_id,
+    })
+      .then((res) => {
+        setData(res?.data?.data?.Items);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  useEffect(() => {
+    getFancyEntryDetails();
+  }, [matchAccountData?.registered_match_id, status]);
+
+  const MATCH_ENTRY_DATA =
+    data?.length > 0 &&
+    data?.map((fancy, index) => {
+      return {
+        sNo:
+          fancy?.old_s_no === fancy?.s_no
+            ? fancy?.s_no
+            : fancy?.s_no / fancy?.old_s_no,
+        over: fancy?.over,
+        rate: fancy?.rate,
+        team: fancy?.team,
+        runs: fancy?.runs,
+        yesNo: fancy?.yN,
+        date: fancy?.date,
+        time: fancy?.time,
+        client: fancy?.client_name,
+        amount: fancy?.amount,
+        edit: fancy?.record_status === "active" && (
+          <MdEdit className="edit-icon" onClick={() => handleEditPopupOpen()} />
+        ),
+        delete: fancy?.record_status === "active" && (
+          <MdDelete
+            className="edit-icon"
+            onClick={() => handleDeletePopupOpen()}
+          />
+        ),
+        recordStatus: fancy?.record_status,
+      };
+    });
+
+  // const MATCH_ENTRY_DATA = [
+  //   {
+  //     sNo: 1,
+  //     over: "30 Over",
+  //     rate: "- -",
+  //     team: "India",
+  //     runs: "150",
+  //     yesNo: "Y",
+  //     date: "31-07-2023",
+  //     time: "12:48:00 PM",
+  //     client: "Srinivas2346",
+  //     amount: 50000000.0,
+  //     edit: (
+  //       <MdEdit className="edit-icon" onClick={() => handleEditPopupOpen()} />
+  //     ),
+  //     delete: (
+  //       <MdDelete
+  //         className="edit-icon"
+  //         onClick={() => handleDeletePopupOpen()}
+  //       />
+  //     ),
+  //   }
+  // ];
   const MATCH_ENTRY_HEADING = [
     {
       header: "S.NO",
@@ -129,7 +151,7 @@ function FancyEntryTable() {
   ];
   return (
     <div className="p-3">
-      <Table data={MATCH_ENTRY_DATA} columns={MATCH_ENTRY_HEADING} />
+      <Table data={MATCH_ENTRY_DATA || []} columns={MATCH_ENTRY_HEADING} />
       <SubmitPopup
         state={editPopup}
         setState={setEditPopup}

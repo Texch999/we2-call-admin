@@ -24,6 +24,8 @@ function FancyEntry() {
   const [matchInnings, setMatchInnings] = useState("first");
   const [riskRunningData, setRiskRunningData] = useState([]);
   const [profitLossData, setProfitLossData] = useState([]);
+  const [status, setStatus] = useState(false);
+  const [selectedMatchEntry, setSelectedMatchEntry] = useState("");
 
   let register_id = localStorage?.getItem("register_id");
   let creator_id = localStorage?.getItem("creator_id");
@@ -110,7 +112,14 @@ function FancyEntry() {
         <FancyRiskRunningTable />
       </div>
       <FancyEntries />
-      <FancyEntryTable />
+      <FancyEntryTable
+        selectedMatch={selectedMatch}
+        seriesType={""}
+        status={status}
+        setStatus={setStatus}
+        matchAccountData={matchAccountData}
+        setSelectedMatchEntry={setSelectedMatchEntry}
+      />
     </div>
   );
 }
