@@ -214,8 +214,8 @@ function ChatsTours(props) {
       onHide={handleChatPopupClose}
       centered
     >
-      <Modal.Header>
-        <div className="d-flex justify-content-end">
+      <Modal.Header className="d-flex justify-content-end">
+        <div>
           <IoCloseSharp onClick={handleChatPopupClose} />
         </div>
       </Modal.Header>
