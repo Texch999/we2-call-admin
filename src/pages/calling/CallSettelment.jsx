@@ -52,7 +52,7 @@ function CallSettelment() {
     // You can add your logic here to fetch data for the selected page.
   };
   return (
-    <div className="p-4">
+    <div>
       <h5 className="meetings-heading mb-3">Call Settlement</h5>
 
       <div className="d-flex flex-row justify-content-around mb-4 w-100">

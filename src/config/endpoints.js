@@ -48,6 +48,8 @@ const GET_INDUVISUAL_REFERRAL_BY =
   "/offline-management/get_individual_reportby_refferal";
 const GET_INDUVISUAL_REPORTS = "/offline-management/get_individual_report";
 const CREATE_REFFERAL = "/offline-management/create_refferal";
+const GET_CALL_HISTORY = "/meetings/get_all_meetings";
+const CREATE_CALL_SETTLEMENT = "/group_call/create_call_settlement";
 
 // methods
 const DELETE = "DELETE";
@@ -262,5 +264,13 @@ exports.CREATE_PACKAGE_SUBSCRIPTION = {
 };
 exports.GET_MATCH_POSITION_DATA = {
   url: GET_MATCH_POSITION_DATA,
+  method: POST,
+};
+exports.GET_CALL_HISTORY = {
+  url: GET_CALL_HISTORY,
+  method: POST,
+};
+exports.CREATE_CALL_SETTLEMENT = {
+  url: CREATE_CALL_SETTLEMENT,
   method: POST,
 };

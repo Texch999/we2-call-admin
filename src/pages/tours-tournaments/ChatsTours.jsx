@@ -98,7 +98,7 @@ function ChatsTours(props) {
       setMessages((prevMessages) => [
         ...prevMessages,
 
-        { content: userInput, sender: "user", img: Images.DhoniImage02 },
+        { content: userInput, sender: "user", img: Images.dhoni_image },
       ]);
       setUserInput("");
     }
