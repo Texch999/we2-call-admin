@@ -54,6 +54,7 @@ function CallHistory() {
   //   return item.Date > selectedStartDate && item.Date < selectedEndDate;
   // });
   console.log(CALL_HISTORY_DETAILS, "getting call history Data");
+  console.log(selectedStartDate, selectedEndDate, "dates");
   return (
     <div>
       <h5 className="meetings-heading mb-3">Call History</h5>
@@ -67,7 +68,7 @@ function CallHistory() {
                   className="login-input all-none w-50"
                   selected={selectedStartDate}
                   onChange={(date) => setSelectedStartDate(date)}
-                  dateFormat="yyyy-MM-dd"
+                  dateFormat="mm/dd/yyyy"
                   placeholderText="Select a date"
                 />
                 <FaRegCalendarAlt className="custom-icon p-1" />
@@ -78,13 +79,22 @@ function CallHistory() {
             <div>
               <div className="medium-font mb-2">To</div>
               <div className="date-container d-flex justify-content-around align-items-center rounded all-none p-1 w-100">
-                <DatePicker
+                {/* <DatePicker
                   className="login-input all-none w-50"
                   selected={selectedEndDate}
                   onChange={(date) => setSelectedEndDate(date)}
-                  dateFormat="yyyy-MM-dd"
+                  dateFormat="mm/dd/yyyy"
                   placeholderText="Select a date"
-                />
+                  
+                /> */}
+                <input
+                  className="login-input all-none w-50"
+                  type="date"
+                  name="start_date"
+                  value={selectedEndDate}
+                  // dateFormat="mm-dd-yy"
+                  onChange={(e) => setSelectedEndDate(e.target.value)}
+                ></input>
                 <FaRegCalendarAlt className="custom-icon p-1" />
               </div>
             </div>
