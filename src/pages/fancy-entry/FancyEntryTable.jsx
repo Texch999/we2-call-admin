@@ -58,11 +58,15 @@ function FancyEntryTable(props) {
         rate: fancy?.rate,
         team: fancy?.team,
         runs: fancy?.runs,
-        yesNo: fancy?.yN,
+        yesNo: (
+          <div className={fancy?.yN === "Y" ? "clr-green" : "clr-pink"}>
+            {fancy?.yN}
+          </div>
+        ),
         date: fancy?.date,
         time: fancy?.time,
         client: fancy?.client_name,
-        amount: fancy?.amount,
+        amount: <div className="yellow-clr">{fancy?.amount}</div>,
         edit: fancy?.record_status === "active" && (
           <MdEdit className="edit-icon" onClick={() => handleEditPopupOpen()} />
         ),

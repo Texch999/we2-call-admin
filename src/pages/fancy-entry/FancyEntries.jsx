@@ -4,7 +4,24 @@ import FancyEntryInput from "./FancyEntryInput";
 import FancyResultInput from "./FancyResultInput";
 import { useHistory } from "react-router";
 
-function FancyEntries() {
+function FancyEntries(props) {
+  const {
+    // fancyEntryInputs,
+    // fancyResultInputs,
+    // handleFancyEntryOpen,
+    // handleFancyResultOpen,
+    selectedMatch,
+    matchAccountData,
+    selectedMatchEntry,
+    setStatus,
+    setSelectedMatchEntry,
+    setMatchOver,
+    setMatchInnigs,
+    getRiskRunningData,
+    getFancyProfitLoss,
+    profitLossData,
+    setAfterDeclare,
+  } = props;
   const history = useHistory();
   const [fancyEntryInputs, setFancyEntryInputs] = useState(true);
   const [fancyResultInputs, setFancyResultInputs] = useState(false);
@@ -50,7 +67,21 @@ function FancyEntries() {
         </div>
       </div>
       <hr className="hr-line" />
-      {fancyEntryInputs && <FancyEntryInput />}
+      {fancyEntryInputs && (
+        <FancyEntryInput
+          selectedMatch={selectedMatch}
+          registered_match_id={matchAccountData?.registered_match_id}
+          selectedMatchEntry={selectedMatchEntry}
+          setStatus={setStatus}
+          // inningsHeading={inningsHeading}
+          setSelectedMatchEntry={setSelectedMatchEntry}
+          setMatchOver={setMatchOver}
+          getRiskRunningData={getRiskRunningData}
+          getFancyProfitLoss={getFancyProfitLoss}
+          profitLossData={profitLossData}
+          setAfterDeclare={setAfterDeclare}
+        />
+      )}
       {fancyResultInputs && <FancyResultInput />}
     </div>
   );

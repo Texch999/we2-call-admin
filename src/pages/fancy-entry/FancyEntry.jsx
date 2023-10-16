@@ -111,7 +111,23 @@ function FancyEntry() {
         <FancyResultOversTable />
         <FancyRiskRunningTable />
       </div>
-      <FancyEntries />
+      <FancyEntries
+        // fancyEntryInputs={fancyEntryInputs}
+        // fancyResultInputs={fancyResultInputs}
+        // handleFancyEntryOpen={handleFancyEntryOpen}
+        // handleFancyResultOpen={handleFancyResultOpen}
+        selectedMatch={selectedMatch}
+        matchAccountData={matchAccountData}
+        selectedMatchEntry={selectedMatchEntry}
+        setSelectedMatchEntry={setSelectedMatchEntry}
+        setStatus={setStatus}
+        setMatchInnings={setMatchInnings}
+        setMatchOver={setMatchOver}
+        getRiskRunningData={getRiskRunningData}
+        getFancyProfitLoss={getFancyProfitLoss}
+        profitLossData={profitLossData?.oversObject}
+        setAfterDeclare={setAfterDeclare}
+      />
       <FancyEntryTable
         selectedMatch={selectedMatch}
         seriesType={""}
