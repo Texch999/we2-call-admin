@@ -112,13 +112,13 @@ function FancyEntryInput({
           getFancyProfitLoss();
         } else {
           setError(
-            res?.data?.message ? res?.data?.message : "Something Went Wrong"
+            res?.data?.message ? res?.data?.message : `Something Went Wrong`
           );
         }
       })
       .catch((err) => {
         setIsProcessing(false);
-        setError("Something Went Wrong");
+        setError(`Something Went Wrong`);
         console.log(err);
       });
   };
@@ -138,7 +138,10 @@ function FancyEntryInput({
     }
   }, [selectedMatchEntry]);
 
-  console.log("fancyEntryInputData-->", fancyEntryInputData);
+  // const hs = () => {
+  //   setSubmitPopup(true);
+  // };
+  // console.log("fancyEntryInputData-->", fancyEntryInputData);
 
   return (
     <div className="match-position-bg rounded-bottom p-3">
@@ -166,10 +169,6 @@ function FancyEntryInput({
               type="number"
               defaultValue={1}
               className="w-100 medium-font btn-bg rounded all-none p-2"
-              // placeholder="Rate"
-              // name="rate"
-              // value={fancyEntryInputData?.rate || ""}
-              // onChange={(e) => handleFancyEntryInputDataChange(e)}
               disabled
             />
           </div>
@@ -285,6 +284,7 @@ function FancyEntryInput({
                 : handleFancyEntryUpdate()
             }
             disabled={!selectedMatch?.match_id || isProcessing}
+            // onClick={() => hs()}
           >
             {isProcessing
               ? "Processing..."
@@ -302,8 +302,8 @@ function FancyEntryInput({
         setState={setSubmitPopup}
         header={
           Object.keys(selectedMatchEntry).length === 0
-            ? "Fancy entry added"
-            : "Fancy entry updated"
+            ? "Fancy Entry Added"
+            : "Fancy Entry Updated"
         }
       />
     </div>
