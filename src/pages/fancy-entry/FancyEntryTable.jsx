@@ -182,16 +182,16 @@ function FancyEntryTable(props) {
         state={editPopup}
         setState={setEditPopup}
         header={"Are You Sure You Want To Edit This Fancy Entry"}
-        fancyData={matchEntryData}
-        fancySetSelectedMatchEntry={setSelectedMatchEntry}
+        data={matchEntryData}
+        setSelectedMatchEntry={setSelectedMatchEntry}
       />
       <SubmitPopup
         state={deletePopup}
         setState={setDeletePopup}
         header={"Are You Sure You Want To Delete This Fancy Entry"}
-        fancyDeletedId={selectedId}
-        fancyDeleteApi={deleteApi}
-        fancySetSelectedId={setSelectedId}
+        deletedId={selectedId}
+        deleteApi={deleteApi}
+        setSelectedId={setSelectedId}
       />
     </div>
   );

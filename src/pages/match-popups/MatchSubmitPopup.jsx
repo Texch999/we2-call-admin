@@ -3,7 +3,7 @@ import { IoCloseSharp } from "react-icons/io5";
 import { Images } from "./../../images/index";
 
 function MatchSubmitPopup(props) {
-  const { header, state, setState } = props;
+  const { header, state, setState, isProcessing, error } = props;
   const handleCancel = () => {
     setState(false);
   };
@@ -19,7 +19,11 @@ function MatchSubmitPopup(props) {
             src={Images.CheckedMark}
             alt="Question_Mark"
           />
-          <div className="fs-6 mt-3">{header} </div>
+          {error ? (
+            <div className="clr-red small-font text-center"> {error}</div>
+          ) : (
+            <div className="fs-6 mt-3">{header}</div>
+          )}
           <div className="row d-flex justify-content-between mt-3">
             <div
               className="col rounded yellow-btn p-1"

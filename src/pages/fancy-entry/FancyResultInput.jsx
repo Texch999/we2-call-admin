@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import MatchDeclarationPopup from "../match-popups/MatchDeclarationPopup";
 import MatchSubmitPopup from "../match-popups/MatchSubmitPopup";
+import { FANCY_DECLARATION } from "../../config/endpoints";
+import { call } from "../../config/axios";
 
 function FancyResultInput(props) {
   const {
@@ -11,10 +13,19 @@ function FancyResultInput(props) {
     getFancyProfitLoss,
     setSelectedMatchEntry,
   } = props;
+
+  let register_id = localStorage?.getItem("register_id");
+  let creator_id = localStorage?.getItem("creator_id");
+  let account_role = localStorage?.getItem("account_role");
+
   const [fancyDeclarationPopup, setFancyDeclarationPopup] = useState(false);
   const [fancySubmitPopup, setFancySubmitPopup] = useState(false);
   const [over, setOver] = useState("");
   const [fancyResultInputData, setFancyResultInputData] = useState({});
+  const [confirmDeclaration, setConfirmDeclaration] = useState(false);
+  const [error, setError] = useState("");
+  const [afterConfirm, setAfterConfirm] = useState(false);
+  const [isProcessing, setIsProcessing] = useState(false);
 
   const handleOvers = (e) => {
     setOver(e.target.value);
@@ -22,14 +33,12 @@ function FancyResultInput(props) {
   const handleSelectOvers = (e) => {
     setOver([...over, e.target.value]);
   };
-
   const handleFancyResultInputDataChange = (e) => {
     setFancyResultInputData({
       ...fancyResultInputData,
       [e.target.name]: e.target.value,
     });
   };
-
   const handleFancyDeclarationPopupOpen = () => {
     setFancyDeclarationPopup(true);
   };
@@ -37,6 +46,58 @@ function FancyResultInput(props) {
     setFancySubmitPopup(true);
     setFancyDeclarationPopup(false);
   };
+  const handleConfirmDeclaration = async () => {
+    if (
+      !over ||
+      !fancyResultInputData?.innings ||
+      !fancyResultInputData?.team ||
+      !fancyResultInputData?.runs
+    ) {
+      return setError("Please Enter Required Fields");
+    }
+    setConfirmDeclaration(true);
+  };
+
+  const handleFancyDeclaration = async () => {
+    setConfirmDeclaration(false);
+    setIsProcessing(true);
+    setAfterConfirm(true);
+    setError("");
+    await call(FANCY_DECLARATION, {
+      registered_match_id,
+      register_id,
+      over: over[0],
+      innings: fancyResultInputData?.innings,
+      runs: fancyResultInputData?.runs,
+      team: fancyResultInputData?.team,
+    })
+      .then((res) => {
+        setIsProcessing(false);
+        if (res?.data?.statusCode === 200) {
+          setConfirmDeclaration(false);
+          setStatus((prev) => !prev);
+          getFancyProfitLoss();
+          setTimeout(() => {
+            setAfterConfirm(false);
+          }, 2000);
+        } else {
+          setConfirmDeclaration(false);
+          setError(
+            res?.data?.message ? res?.data?.message : "Something Went Wrong"
+          );
+        }
+      })
+      .catch((err) => {
+        setIsProcessing(false);
+        setError(`Something Went Wrong`);
+        console.log(err);
+      });
+  };
+
+  useEffect(() => {
+    setOver(selectedMatchEntry?.over);
+    setFancyResultInputData(selectedMatch);
+  }, [selectedMatchEntry]);
   console.log("FANCY-->", fancyResultInputData);
   return (
     <div className="match-position-bg rounded-bottom p-3">
@@ -115,24 +176,34 @@ function FancyResultInput(props) {
         <div className="col d-flex align-items-end">
           <div
             className="cursor-pointer w-100 text-center rounded medium-font p-2 yellow-btn fw-semibold"
-            onClick={() => handleFancyDeclarationPopupOpen()}
+            onClick={() => handleConfirmDeclaration()}
+            disabled={isProcessing}
           >
-            Fancy Declaration
+            {isProcessing ? "Declaring..." : "Fancy Declaration"}
           </div>
         </div>
+        {error && (
+          <div className="clr-red small-font text-center mt-2">{error}</div>
+        )}
       </div>
-      <MatchDeclarationPopup
-        header={"Are You Sure You Want to Declare 10th Over +50 Runs Session?"}
-        amount={"+100000"}
-        state={fancyDeclarationPopup}
-        setState={setFancyDeclarationPopup}
-        handleSubmitPopupOpen={handleFancySubmitPopupOpen}
-      />
-      <MatchSubmitPopup
-        header={"You Are Successfully Submited IND 10th Over Session"}
-        state={fancySubmitPopup}
-        setState={setFancySubmitPopup}
-      />
+      {confirmDeclaration && (
+        <MatchDeclarationPopup
+          header={`Are You Sure You Want to Declare ${over}th Over ${fancyResultInputData?.runs} Runs Session?`}
+          // amount={"+100000"}
+          state={confirmDeclaration}
+          setState={setConfirmDeclaration}
+          handleSubmitPopupOpen={handleFancyDeclaration}
+        />
+      )}
+      {afterConfirm && (
+        <MatchSubmitPopup
+          header={isProcessing ? "Declaring..." : "Fancy declared successfully"}
+          isProcessing={isProcessing}
+          error={error}
+          state={afterConfirm}
+          setState={setAfterConfirm}
+        />
+      )}
     </div>
   );
 }

@@ -13,36 +13,36 @@ function SubmitPopup(props) {
     deleteApi,
     setSelectedId,
 
-    fancySetSelectedMatchEntry,
-    fancyData,
-    fancyDeletedId,
-    fancyDeleteApi,
-    fancySetSelectedId,
+    // fancySetSelectedMatchEntry,
+    // fancyData,
+    // fancyDeletedId,
+    // fancyDeleteApi,
+    // fancySetSelectedId,
   } = props;
   const handleCancelPopup = () => {
     setState(false);
   };
   const handleConfirm = () => {
-    if (setSelectedMatchEntry) {
+    // if (setSelectedMatchEntry) {
       setSelectedMatchEntry && setSelectedMatchEntry(data);
       deletedId && deleteApi();
       handleCancelPopup(false);
-    } else if (fancySetSelectedMatchEntry) {
-      fancySetSelectedMatchEntry && fancySetSelectedMatchEntry(fancyData);
-      fancyDeletedId && fancyDeleteApi();
-      handleCancelPopup();
-    }
+    // } else if (fancySetSelectedMatchEntry) {
+    //   fancySetSelectedMatchEntry && fancySetSelectedMatchEntry(fancyData);
+    //   fancyDeletedId && fancyDeleteApi();
+    //   handleCancelPopup();
+    // }
   };
   const handelCancel = () => {
-    if (setSelectedMatchEntry) {
+    // if (setSelectedMatchEntry) {
       setSelectedMatchEntry && setSelectedMatchEntry("");
       deletedId && setSelectedId("");
       handleCancelPopup(false);
-    } else if (fancySetSelectedMatchEntry) {
-      fancySetSelectedMatchEntry && fancySetSelectedMatchEntry("");
-      fancyDeletedId && fancySetSelectedId("");
-      handleCancelPopup();
-    }
+    // } else if (fancySetSelectedMatchEntry) {
+    //   fancySetSelectedMatchEntry && fancySetSelectedMatchEntry("");
+    //   fancyDeletedId && fancySetSelectedId("");
+    //   handleCancelPopup();
+    // }
   };
   return (
     <Modal show={state} className="match-declaration-modal" centered>
