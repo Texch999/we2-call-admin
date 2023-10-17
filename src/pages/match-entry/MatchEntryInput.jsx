@@ -65,7 +65,6 @@ function MatchEntryInput({
   }, []);
 
   const handleMatchSubmitPopup = async () => {
-    console.log({ selectedMatch, selectedOptions, matchEntryInputData, rate });
     if (
       !rate ||
       !matchEntryInputData?.team ||
@@ -112,8 +111,6 @@ function MatchEntryInput({
   };
 
   const handleMatchEntryUpdate = async () => {
-    console.log({ selectedMatch, selectedOptions, matchEntryInputData, rate });
-
     if (
       !rate ||
       !matchEntryInputData?.team ||
@@ -131,7 +128,7 @@ function MatchEntryInput({
       amount: matchEntryInputData?.amount,
       pe: matchEntryInputData?.pe,
       client_id: selectedOptions?.value,
-      client_name: selectedOptions?.label, 
+      client_name: selectedOptions?.label,
       register_id,
       account_role,
       registered_match_id,

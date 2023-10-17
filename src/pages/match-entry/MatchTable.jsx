@@ -2,7 +2,11 @@ function MatchTable(props) {
   const { data, columns } = props;
   const calculateColumnSum = (data, field) => {
     return (
-      data?.length > 0 && data?.reduce((sum, item) => sum + item[field], 0)
+      data?.length > 0 &&
+      data?.reduce(
+        (sum, item) => (parseFloat(sum) + parseFloat(+item[field])).toFixed(2),
+        0
+      )
     );
   };
   const columnKeys = columns?.map((column) => column.field);
@@ -26,7 +30,7 @@ function MatchTable(props) {
                       className={`${
                         isNaN(item[column.field]) > 0
                           ? ""
-                          : +item[column.field] > 0
+                          : +item[column.field] >= 0
                           ? "green-color"
                           : "red-color"
                       }`}
@@ -46,7 +50,7 @@ function MatchTable(props) {
                 className={`${
                   isNaN(calculateColumnSum(data, field)) > 0
                     ? ""
-                    : +calculateColumnSum(data, field) > 0
+                    : +calculateColumnSum(data, field) >= 0
                     ? "green-color"
                     : "red-color"
                 }`}

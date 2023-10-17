@@ -1,11 +1,7 @@
 function Table(props) {
   const { data, columns, tableClassname, editButtons } = props;
-  console.log(data, "Status...");
 
   if (!data?.length) {
-    {
-      console.log(data, "Status...");
-    }
     // return (
     //   <div className="table-body-height">
     //     <table
@@ -18,7 +14,6 @@ function Table(props) {
     //           ))}
     //         </tr>
     //       </thead>
-
     //       <tbody>
     //         {data?.length > 0 ? (
     //           data?.map((item, rowIndex) => (

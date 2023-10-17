@@ -123,10 +123,8 @@ function Chats() {
   };
 
   const addMessage = (message, msg_c = 0) => {
-    // console.log("new message : ", message);
     let temp = { message, ts: new Date().getTime(), msg_c };
     setSupportData((prev) => [...prev, temp]);
-    // console.log(supportData)
   };
 
   const handleInputChange = (e) => {
@@ -145,7 +143,6 @@ function Chats() {
       creator_id,
     })
       .then((res) => {
-        // console.log(res.data.data)
         setSupportData(res?.data?.data);
         // scroll();
       })
@@ -201,7 +198,6 @@ function Chats() {
     uploadfileInputRef.current.click();
   };
 
-  console.log(supportData, "Messages Data");
   return (
     <div className="container w-100">
       <div className="messaging w-100">
@@ -454,6 +450,7 @@ function Chats() {
                 )}
               </ScrollableFeed>
             </div>
+            <input type="file" id="image-upload"></input>
             <div
               className="recent_heading d-flex flex-start align-items-center justify-content-between w-100 header-bg h-8vh"
               // onClick={(e) => {
@@ -487,10 +484,10 @@ function Chats() {
               </div>
               <div className="d-flex flex-row align-items-center w-25 justify-content-around">
                 <div className="button-chat px-2 py-1 rounded mx-2">
-                  <label htmlFor="upload">
+                  <label htmlFor="image-upload">
                     <BiSolidCamera className="chat-icon" />
                   </label>
-                  <input
+                  {/* <input
                     type="file"
                     id="upload"
                     style={{ display: "none" }}
@@ -503,20 +500,9 @@ function Chats() {
                 </div>
 
                 <div className="button-chat px-2 py-1 rounded mx-2">
-                  <label htmlFor="attachment">
+                  {/* <label htmlFor="attachment">
                     <ImAttachment className="chat-icon" />
-                  </label>
-                  <input
-                    type="file"
-                    id="attachment"
-                    // ref={uploadfileInputRef}
-                    style={{ display: "none" }}
-                    // onChange={handleFileUpload}
-                    // onChange={(e) => {
-                    //   setProfileImage(e?.target?.files[0]);
-                    //   // generateSignedUrl();
-                    // }}
-                  />
+                  </label> */}
                 </div>
 
                 <div className="button-chat px-2 py-1 rounded mx-2">

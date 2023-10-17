@@ -24,6 +24,7 @@ function MatchEntry() {
   const [matchAccountData, setMatchAccountData] = useState([]);
   const [selectedMatchEntry, setSelectedMatchEntry] = useState("");
   const [status, setStatus] = useState(false);
+  const [afterDeclare, setAfterDeclare] = useState(false)
 
   // Function to fetch all matches
   const getAllMatches = async () => {
@@ -80,7 +81,7 @@ function MatchEntry() {
       }
     };
     fetchMatchInfo();
-  }, [selectedMatch]);
+  }, [selectedMatch,afterDeclare]);
 
   return (
     <div>
@@ -106,6 +107,7 @@ function MatchEntry() {
         selectedMatch={selectedMatch}
         matchAccountData={matchAccountData}
         selectedMatchEntry={selectedMatchEntry}
+        setAfterDeclare={setAfterDeclare}
       />
       <MatchEntryTable
         team1={selectedMatch?.team1}

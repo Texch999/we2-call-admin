@@ -39,14 +39,6 @@ function SettelmentStatement() {
         Balance: item.pending_amount,
       };
     });
-  // <td>{item.date}</td>
-  // <td>{item.time}</td>
-  // <td>{item.client_name}</td>
-  // <td>{item.payment_type}</td>
-  // <td>{item.dayBalance}</td>
-  // <td>{item.settled_amount}</td>
-  // <td className="clr-green">{item.pending_amount}</td>
-  console.log(settlementHistory, ".......settlementHistory");
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = 5;
 

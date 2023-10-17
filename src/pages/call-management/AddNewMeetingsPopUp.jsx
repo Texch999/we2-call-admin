@@ -5,7 +5,6 @@ import { Images } from "../../images";
 import { useState } from "react";
 
 function AddNewMeetingsPopUp(props) {
-  console.log(props);
   const { meetingType, onHide, show, label, selectData } = props;
   const handleAddUser = () => {
     onHide();

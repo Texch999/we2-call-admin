@@ -5,7 +5,6 @@ import { Images } from "../../images";
 import { useState } from "react";
 
 function AddAdminsPopup(props) {
-  console.log(props);
   const paymentDetailsInputFields = [
     {
       type: "text",
@@ -48,7 +47,6 @@ function AddAdminsPopup(props) {
   };
   const handlePaymentType = (type) => {
     setActiveType(type);
-    console.log(type);
   };
   return (
     <Modal {...props} centered className="add-user-modal mt-4">

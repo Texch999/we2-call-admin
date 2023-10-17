@@ -8,8 +8,9 @@ import FancyRiskRunningTable from "./FancyRiskRunningTable";
 import { useEffect, useState } from "react";
 import {
   GET_ACCOUNT_MATCHES_DATA,
-  GET_MATCH_POSITION_DATA,
   GET_OFFLINE_ALL_MATCHES,
+  RISK_RUNNING_SESSION,
+  FANCY_RESULT_PROFIT_LOSS,
 } from "../../config/endpoints";
 import { call } from "../../config/axios";
 
@@ -17,6 +18,14 @@ function FancyEntry() {
   const [allMatches, setAllMatches] = useState([]);
   const [selectedMatch, setSelectedMatch] = useState([]);
   const [matchPositionData, setMatchPositionData] = useState([]);
+  const [afterDeclare, setAfterDeclare] = useState(false);
+  const [matchAccountData, setMatchAccountData] = useState([]);
+  const [matchOver, setMatchOver] = useState(1);
+  const [matchInnings, setMatchInnings] = useState("first");
+  const [riskRunningData, setRiskRunningData] = useState([]);
+  const [profitLossData, setProfitLossData] = useState([]);
+  const [status, setStatus] = useState(false);
+  const [selectedMatchEntry, setSelectedMatchEntry] = useState("");
 
   let register_id = localStorage?.getItem("register_id");
   let creator_id = localStorage?.getItem("creator_id");
@@ -38,19 +47,58 @@ function FancyEntry() {
       await getAllMatches();
     };
     fetchData();
-  }, []);
+  }, [afterDeclare]);
 
-  const getMatchPositionData = async (ID) => {
-    await call(GET_MATCH_POSITION_DATA, {
-      registered_match_id: ID ? ID : matchPositionData?.registered_match_id,
+  const getRiskRunningData = async (ID) => {
+    await call(RISK_RUNNING_SESSION, {
+      registered_match_id: ID ? ID : matchAccountData?.registered_match_id,
       register_id,
+      match_over: matchOver,
+      innings: matchInnings === "secong" ? "2" : "1",
     })
-      .then((res) => setMatchPositionData(res?.data?.data))
+      .then((res) => {
+        setRiskRunningData(res?.data?.data);
+      })
       .catch((err) => console.log(err));
   };
+
+  const getFancyProfitLoss = async (ID) => {
+    await call(FANCY_RESULT_PROFIT_LOSS, {
+      register_id,
+      registered_match_id: ID ? ID : matchAccountData?.registered_match_id,
+    })
+      .then((res) => {
+        setProfitLossData(res?.data?.data);
+      })
+      .then((err) => console.log(err));
+  };
+
+  const getMatchInfo = async () => {
+    await call(GET_ACCOUNT_MATCHES_DATA, {
+      register_id,
+      match_id: selectedMatch?.match_id,
+    })
+      .then(async (res) => {
+        let temp =
+          res.data && res?.data.data && res?.data.data[0]
+            ? res.data.data[0]
+            : res.data.data;
+        setMatchAccountData(temp);
+        await getRiskRunningData(temp?.registered_match_id);
+        await getFancyProfitLoss(temp?.registered_match_id);
+      })
+      .catch((err) => console.log(err));
+  };
+
   useEffect(() => {
-    getMatchPositionData();
-  }, []);
+    const fetchMatchInfo = async () => {
+      if (selectedMatch) {
+        getMatchInfo();
+      }
+    };
+    fetchMatchInfo();
+  }, [selectedMatch, afterDeclare]);
+
   return (
     <div>
       <MatchScroll
@@ -63,8 +111,31 @@ function FancyEntry() {
         <FancyResultOversTable />
         <FancyRiskRunningTable />
       </div>
-      <FancyEntries />
-      <FancyEntryTable />
+      <FancyEntries
+        // fancyEntryInputs={fancyEntryInputs}
+        // fancyResultInputs={fancyResultInputs}
+        // handleFancyEntryOpen={handleFancyEntryOpen}
+        // handleFancyResultOpen={handleFancyResultOpen}
+        selectedMatch={selectedMatch}
+        matchAccountData={matchAccountData}
+        selectedMatchEntry={selectedMatchEntry}
+        setSelectedMatchEntry={setSelectedMatchEntry}
+        setStatus={setStatus}
+        setMatchInnings={setMatchInnings}
+        setMatchOver={setMatchOver}
+        getRiskRunningData={getRiskRunningData}
+        getFancyProfitLoss={getFancyProfitLoss}
+        profitLossData={profitLossData?.oversObject}
+        setAfterDeclare={setAfterDeclare}
+      />
+      <FancyEntryTable
+        selectedMatch={selectedMatch}
+        seriesType={""}
+        status={status}
+        setStatus={setStatus}
+        matchAccountData={matchAccountData}
+        setSelectedMatchEntry={setSelectedMatchEntry}
+      />
     </div>
   );
 }

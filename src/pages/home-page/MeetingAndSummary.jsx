@@ -99,7 +99,6 @@ function MeetingAndSummary() {
     }
   }, []);
 
-  console.log(meetingUserData, ".......heloLIveMeeting");
   return (
     <div className="row meet-box-height ">
       <div className="col-6 p-2">

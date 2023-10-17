@@ -107,14 +107,11 @@ function Statement(props) {
     // You can add your logic here to fetch data for the selected page.
   };
   const handleChange = (e) => {
-    console.log(e, "event");
     setStatementPayload({
       ...statementPayload,
       [e.target.name]: e.target.value,
     });
   };
-
-  console.log(statementPayload, ".......statementPayload");
 
   return (
     <div className="p-2">
@@ -156,24 +153,6 @@ function Statement(props) {
               </div>
             </div>
           </Col>
-          <Col className="col-lg-1 col-md-3">
-            <div>
-              <div className="medium-font mb-2">Match Name</div>
-              <select
-                className="w-100 custom-select medium-font btn-bg rounded all-none p-2"
-                name="match_name"
-                onChange={(e) => handleChange(e)}
-              >
-                {matchOptions.map((item, index) => {
-                  return (
-                    <option key={index} value={item.value}>
-                      {item.label}
-                    </option>
-                  );
-                })}
-              </select>
-            </div>
-          </Col>
           <Col className="col-lg-2 col-md-3">
             <div>
               <div className="medium-font mb-2">Series Name</div>
@@ -183,6 +162,24 @@ function Statement(props) {
                 onChange={(e) => handleChange(e)}
               >
                 {seriesOptions.map((item, index) => {
+                  return (
+                    <option key={index} value={item.value}>
+                      {item.label}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
+          </Col>
+          <Col className="col-lg-1 col-md-3">
+            <div>
+              <div className="medium-font mb-2">Match Name</div>
+              <select
+                className="w-100 custom-select medium-font btn-bg rounded all-none p-2"
+                name="match_name"
+                onChange={(e) => handleChange(e)}
+              >
+                {matchOptions.map((item, index) => {
                   return (
                     <option key={index} value={item.value}>
                       {item.label}
