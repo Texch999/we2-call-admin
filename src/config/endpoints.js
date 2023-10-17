@@ -48,6 +48,9 @@ const GET_INDUVISUAL_REFERRAL_BY =
   "/offline-management/get_individual_reportby_refferal";
 const GET_INDUVISUAL_REPORTS = "/offline-management/get_individual_report";
 const CREATE_REFFERAL = "/offline-management/create_refferal";
+const GET_CALL_HISTORY = "/meetings/get_all_meetings";
+const CREATE_CALL_SETTLEMENT = "/group_call/create_call_settlement";
+const CREATE_CALL_STATEMENT="/group_call/group_call_statement"
 const CHANGE_PASSWORD = "/admin/change_password";
 const UPDATE_USER_ADMIN = "/admin/update_user_admin";
 const UPDATE_USER_CLIENT = "/admin/update_user_client";
@@ -282,6 +285,18 @@ exports.CREATE_PACKAGE_SUBSCRIPTION = {
 };
 exports.GET_MATCH_POSITION_DATA = {
   url: GET_MATCH_POSITION_DATA,
+  method: POST,
+};
+exports.GET_CALL_HISTORY = {
+  url: GET_CALL_HISTORY,
+  method: POST,
+};
+exports.CREATE_CALL_SETTLEMENT = {
+  url: CREATE_CALL_SETTLEMENT,
+  method: POST,
+};
+exports.CREATE_CALL_STATEMENT = {
+  url: CREATE_CALL_STATEMENT,
   method: POST,
 };
 

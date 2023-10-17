@@ -98,7 +98,7 @@ function ChatsTours(props) {
       setMessages((prevMessages) => [
         ...prevMessages,
 
-        { content: userInput, sender: "user", img: Images.DhoniImage02 },
+        { content: userInput, sender: "user", img: Images.dhoni_image },
       ]);
       setUserInput("");
     }
@@ -214,8 +214,8 @@ function ChatsTours(props) {
       onHide={handleChatPopupClose}
       centered
     >
-      <Modal.Header>
-        <div className="d-flex justify-content-end">
+      <Modal.Header className="d-flex justify-content-end">
+        <div>
           <IoCloseSharp onClick={handleChatPopupClose} />
         </div>
       </Modal.Header>

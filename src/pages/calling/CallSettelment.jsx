@@ -3,6 +3,9 @@ import { AiFillEye } from "react-icons/ai";
 import { BiSolidCloudUpload } from "react-icons/bi";
 import UploadScreenShot from "./UploadScreenShot";
 import CustomPagination from "../pagination/CustomPagination";
+import { call } from "../../config/axios";
+import { CREATE_CALL_SETTLEMENT } from "../../config/endpoints";
+import { useEffect } from "react";
 
 function CallSettelment() {
   const SETTELMENT_DETAILS = [
@@ -31,6 +34,33 @@ function CallSettelment() {
       status: "Rejected",
     },
   ];
+  const register_id = localStorage?.getItem("register_id");
+  const [callSettlementDetails, setCallSettlementDetails] = useState([]);
+  const getCallSettlementData = async () => {
+    await call(CREATE_CALL_SETTLEMENT, { register_id })
+      .then((res) => {
+        if (res?.data?.statusCode === 200) {
+          setCallSettlementDetails(res?.data?.data);
+        }
+      })
+      .catch((err) => {
+        throw err;
+      });
+  };
+  useEffect(() => {
+    getCallSettlementData();
+  }, []);
+  const CALL_SETTLEMENT_DETAILS = callSettlementDetails?.map((item) => {
+    return {
+      Date: "Sangram",
+      Time: "Sangram",
+      MeetingTitle: "Sangram",
+      MeetingDuration: "Sangram",
+      Charges: "Sangram",
+      status: "Sangram",
+    };
+  });
+
   const [showUploadButton, setShowUploadButton] = useState();
   const handleUploadButton = () => {
     setShowUploadButton(true);
@@ -52,7 +82,7 @@ function CallSettelment() {
     // You can add your logic here to fetch data for the selected page.
   };
   return (
-    <div className="p-4">
+    <div>
       <h5 className="meetings-heading mb-3">Call Settlement</h5>
 
       <div className="d-flex flex-row justify-content-around mb-4 w-100">
@@ -128,12 +158,12 @@ function CallSettelment() {
               <th scope="col" className="text-center"></th>
             </tr>
           </thead>
-          {SETTELMENT_DETAILS.map((item, index) => (
+          {CALL_SETTLEMENT_DETAILS.map((item, index) => (
             <tbody key={index}>
               <tr>
-                <td className="text-center">{item.date}</td>
-                <td className="text-center ">{item.time}</td>
-                <td className="text-center">{item.amount}</td>
+                <td className="text-center">{item.Date}</td>
+                <td className="text-center ">{item.Time}</td>
+                <td className="text-center">{item.Charges}</td>
                 <td className="text-center clr-green ">
                   <button
                     className={

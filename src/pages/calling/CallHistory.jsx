@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AiFillPlayCircle } from "react-icons/ai";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import DatePicker from "react-datepicker";
@@ -6,191 +6,16 @@ import { FaRegCalendarAlt } from "react-icons/fa";
 import "react-datepicker/dist/react-datepicker.css";
 import { Col, Container, Modal, Row } from "react-bootstrap";
 import CustomPagination from "../pagination/CustomPagination";
+import { call } from "../../config/axios";
+import { GET_CALL_HISTORY } from "../../config/endpoints";
 import "./styles.css";
 function CallHistory() {
-  const HISTORY_DETAILS = [
-    {
-      datetime: "19 July 2023, 10:00:00 PM",
-      title: "Newzelend vs South Africa Test Series Newzelend Onquard  Stadium",
-      duration: "1 Hour 30 Mintes",
-      charge: "5000",
-      status: "Completed",
-      record: "",
-      delete: "",
-    },
-    {
-      datetime: "19 July 2023, 10:00:00 PM",
-      title: "Newzelend vs South Africa Test Series Newzelend Onquard  Stadium",
-      duration: "1 Hour 30 Mintes",
-      charge: "5000",
-      status: "Completed",
-      record: "",
-      delete: "",
-    },
-    {
-      datetime: "19 July 2023, 10:00:00 PM",
-      title: "Newzelend vs South Africa Test Series Newzelend Onquard  Stadium",
-      duration: "1 Hour 30 Mintes",
-      charge: "5000",
-      status: "Completed",
-      record: "",
-      delete: "",
-    },
-    {
-      datetime: "19 July 2023, 10:00:00 PM",
-      title: "Newzelend vs South Africa Test Series Newzelend Onquard  Stadium",
-      duration: "1 Hour 30 Mintes",
-      charge: "5000",
-      status: "Completed",
-      record: "",
-      delete: "",
-    },
-    {
-      datetime: "19 July 2023, 10:00:00 PM",
-      title: "Newzelend vs South Africa Test Series Newzelend Onquard  Stadium",
-      duration: "1 Hour 30 Mintes",
-      charge: "5000",
-      status: "Completed",
-      record: "",
-      delete: "",
-    },
-    {
-      datetime: "19 July 2023, 10:00:00 PM",
-      title: "Newzelend vs South Africa Test Series Newzelend Onquard  Stadium",
-      duration: "1 Hour 30 Mintes",
-      charge: "5000",
-      status: "Completed",
-      record: "",
-      delete: "",
-    },
-    {
-      datetime: "19 July 2023, 10:00:00 PM",
-      title: "Newzelend vs South Africa Test Series Newzelend Onquard  Stadium",
-      duration: "1 Hour 30 Mintes",
-      charge: "5000",
-      status: "Completed",
-      record: "",
-      delete: "",
-    },
-    {
-      datetime: "19 July 2023, 10:00:00 PM",
-      title: "Newzelend vs South Africa Test Series Newzelend Onquard  Stadium",
-      duration: "1 Hour 30 Mintes",
-      charge: "5000",
-      status: "Completed",
-      record: "",
-      delete: "",
-    },
-    {
-      datetime: "19 July 2023, 10:00:00 PM",
-      title: "Newzelend vs South Africa Test Series Newzelend Onquard  Stadium",
-      duration: "1 Hour 30 Mintes",
-      charge: "5000",
-      status: "Completed",
-      record: "",
-      delete: "",
-    },
-    {
-      datetime: "19 July 2023, 10:00:00 PM",
-      title: "Newzelend vs South Africa Test Series Newzelend Onquard  Stadium",
-      duration: "1 Hour 30 Mintes",
-      charge: "5000",
-      status: "Completed",
-      record: "",
-      delete: "",
-    },
-    {
-      datetime: "19 July 2023, 10:00:00 PM",
-      title: "Newzelend vs South Africa Test Series Newzelend Onquard  Stadium",
-      duration: "1 Hour 30 Mintes",
-      charge: "5000",
-      status: "Completed",
-      record: "",
-      delete: "",
-    },
-    {
-      datetime: "19 July 2023, 10:00:00 PM",
-      title: "Newzelend vs South Africa Test Series Newzelend Onquard  Stadium",
-      duration: "1 Hour 30 Mintes",
-      charge: "5000",
-      status: "Completed",
-      record: "",
-      delete: "",
-    },
-    {
-      datetime: "19 July 2023, 10:00:00 PM",
-      title: "Newzelend vs South Africa Test Series Newzelend Onquard  Stadium",
-      duration: "1 Hour 30 Mintes",
-      charge: "5000",
-      status: "Completed",
-      record: "",
-      delete: "",
-    },
-    {
-      datetime: "19 July 2023, 10:00:00 PM",
-      title: "Newzelend vs South Africa Test Series Newzelend Onquard  Stadium",
-      duration: "1 Hour 30 Mintes",
-      charge: "5000",
-      status: "Completed",
-      record: "",
-      delete: "",
-    },
-    {
-      datetime: "19 July 2023, 10:00:00 PM",
-      title: "Newzelend vs South Africa Test Series Newzelend Onquard  Stadium",
-      duration: "1 Hour 30 Mintes",
-      charge: "5000",
-      status: "Completed",
-      record: "",
-      delete: "",
-    },
-    {
-      datetime: "19 July 2023, 10:00:00 PM",
-      title: "Newzelend vs South Africa Test Series Newzelend Onquard  Stadium",
-      duration: "1 Hour 30 Mintes",
-      charge: "5000",
-      status: "Completed",
-      record: "",
-      delete: "",
-    },
-    {
-      datetime: "19 July 2023, 10:00:00 PM",
-      title: "Newzelend vs South Africa Test Series Newzelend Onquard  Stadium",
-      duration: "1 Hour 30 Mintes",
-      charge: "5000",
-      status: "Completed",
-      record: "",
-      delete: "",
-    },
-    {
-      datetime: "19 July 2023, 10:00:00 PM",
-      title: "Newzelend vs South Africa Test Series Newzelend Onquard  Stadium",
-      duration: "1 Hour 30 Mintes",
-      charge: "5000",
-      status: "Completed",
-      record: "",
-      delete: "",
-    },
-    {
-      datetime: "19 July 2023, 10:00:00 PM",
-      title: "Newzelend vs South Africa Test Series Newzelend Onquard  Stadium",
-      duration: "1 Hour 30 Mintes",
-      charge: "5000",
-      status: "Completed",
-      record: "",
-      delete: "",
-    },
-    {
-      datetime: "19 July 2023, 10:00:00 PM",
-      title: "Newzelend vs South Africa Test Series Newzelend Onquard  Stadium",
-      duration: "1 Hour 30 Mintes",
-      charge: "5000",
-      status: "Completed",
-      record: "",
-      delete: "",
-    },
-  ];
-  const [selectedDate, setSelectedDate] = useState(null);
+  const [callHistoryData, setCallHistoryData] = useState([]);
+  let register_id = localStorage.getItem("register_id");
+
+  const [selectedStartDate, setSelectedStartDate] = useState(null);
+  const [selectedEndDate, setSelectedEndDate] = useState(null);
+
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = 5;
 
@@ -198,8 +23,40 @@ function CallHistory() {
     setCurrentPage(page);
     // You can add your logic here to fetch data for the selected page.
   };
+
+  const getCallHistoryData = async () => {
+    await call(GET_CALL_HISTORY, { register_id })
+      .then((res) => {
+        if (res?.data?.statusCode === 200) {
+          setCallHistoryData(res?.data?.data);
+        }
+      })
+      .catch((err) => {
+        throw err;
+      });
+  };
+  useEffect(() => {
+    getCallHistoryData();
+  }, []);
+
+  const CALL_HISTORY_DETAILS = callHistoryData.map((item) => {
+    return {
+      Date: item?.date,
+      Time: item?.time,
+      Meetingtitle:
+        "Newzelend vs South Africa Test Series Newzelend Onquard  Stadium",
+      Duration: item?.time,
+      price: "5000",
+      status: item?.recording_status,
+    };
+  });
+  // const filterCallhistory = CALL_HISTORY_DETAILS.filter((item) => {
+  //   return item.Date > selectedStartDate && item.Date < selectedEndDate;
+  // });
+  console.log(CALL_HISTORY_DETAILS, "getting call history Data");
+  console.log(selectedStartDate, selectedEndDate, "dates");
   return (
-    <div className="p-4">
+    <div>
       <h5 className="meetings-heading mb-3">Call History</h5>
       <Container fluid className="mt-2 mb-4">
         <Row>
@@ -209,9 +66,9 @@ function CallHistory() {
               <div className="date-container d-flex justify-content-around align-items-center rounded all-none p-1 w-100">
                 <DatePicker
                   className="login-input all-none w-50"
-                  selected={selectedDate}
-                  onChange={(date) => setSelectedDate(date)}
-                  dateFormat="yyyy-MM-dd"
+                  selected={selectedStartDate}
+                  onChange={(date) => setSelectedStartDate(date)}
+                  dateFormat="mm/dd/yyyy"
                   placeholderText="Select a date"
                 />
                 <FaRegCalendarAlt className="custom-icon p-1" />
@@ -222,13 +79,22 @@ function CallHistory() {
             <div>
               <div className="medium-font mb-2">To</div>
               <div className="date-container d-flex justify-content-around align-items-center rounded all-none p-1 w-100">
-                <DatePicker
+                {/* <DatePicker
                   className="login-input all-none w-50"
-                  selected={selectedDate}
-                  onChange={(date) => setSelectedDate(date)}
-                  dateFormat="yyyy-MM-dd"
+                  selected={selectedEndDate}
+                  onChange={(date) => setSelectedEndDate(date)}
+                  dateFormat="mm/dd/yyyy"
                   placeholderText="Select a date"
-                />
+                  
+                /> */}
+                <input
+                  className="login-input all-none w-50"
+                  type="date"
+                  name="start_date"
+                  value={selectedEndDate}
+                  // dateFormat="mm-dd-yy"
+                  onChange={(e) => setSelectedEndDate(e.target.value)}
+                ></input>
                 <FaRegCalendarAlt className="custom-icon p-1" />
               </div>
             </div>
@@ -261,18 +127,23 @@ function CallHistory() {
                 STATUS
               </th>
               <th scope="col" className="text-center"></th>
+              <th scope="col" className="text-center"></th>
             </tr>
           </thead>
-          {HISTORY_DETAILS.map((item, index) => (
+
+          {CALL_HISTORY_DETAILS?.map((item, index) => (
             <tbody key={index} className="small-font">
               <tr>
-                <td className="text-center">{item.datetime}</td>
-                <td className="text-center ">{item.title}</td>
-                <td className="text-center">{item.duration}</td>
-                <td className="text-center clr-green ">{item.charge}</td>
+                <td className="text-center">
+                  {item?.Date}
+                  {item?.Time}
+                </td>
+                <td className="text-center ">{item?.Meetingtitle}</td>
+                <td className="text-center">{item?.Duration}</td>
+                <td className="text-center clr-green ">{item?.price}</td>
                 <td className="text-center clr-green ">
                   <button className="rounded-pill p-1 history-status-approve-button w-100">
-                    {item.status}
+                    {item?.status}
                   </button>
                 </td>
                 <td className="text-center">

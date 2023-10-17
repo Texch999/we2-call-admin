@@ -92,19 +92,25 @@ function Header() {
     },
     {
       icon: <BiPhoneCall className="mr-10 d-flex" />,
-      name: "Call History",
-      path: "/call-history",
+      name: "Call Reports",
+      path: "/call-reports",
     },
-    {
-      icon: <FaRegHandshake className="mr-10 d-flex" />,
-      name: "Call Settlement",
-      path: "/call-settlement",
-    },
-    {
-      icon: <FaRegAddressBook className="mr-10 d-flex" />,
-      name: "Call Statement",
-      path: "/call-statement",
-    },
+    // /call-reports
+    // {
+    //   icon: <BiPhoneCall className="mr-10 d-flex" />,
+    //   name: "Call History",
+    //   path: "/call-history",
+    // },
+    // {
+    //   icon: <FaRegHandshake className="mr-10 d-flex" />,
+    //   name: "Call Settlement",
+    //   path: "/call-settlement",
+    // },
+    // {
+    //   icon: <FaRegAddressBook className="mr-10 d-flex" />,
+    //   name: "Call Statement",
+    //   path: "/call-statement",
+    // },
     {
       icon: <TbReportSearch className="mr-10 d-flex" />,
       name: "Match  Statement",
