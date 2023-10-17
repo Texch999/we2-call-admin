@@ -52,6 +52,15 @@ function SportsManagement() {
       .catch((err) => console.log(err));
   };
 
+  const [typeOfMatch, setTypeOfMatch] = useState();
+
+  const matchType = [
+    { name: "T10", first: [1, 4, 5], second: [2, 3] },
+    { name: "T20", first: [1, 4, 5], second: [2, 3] },
+    { name: "ODI", first: [1, 4, 5, 6, 9], second: [2] },
+    { name: "TEST", first: [], second: [] },
+  ];
+
   const sportsDropdowns = [
     {
       headName: "Sports Name",
@@ -85,18 +94,33 @@ function SportsManagement() {
       }),
     },
   ];
+
   const MatchTypeDropdown = [
-    // {
-    //   heading: "Macth Type",
-    //   cspan: "col-3",
-    // },
     {
       heading: "1st Inn",
       cspan: "col-2",
+      name: "match_fancy_first",
+      overs:
+        matchData?.macth_Type === "T10"
+          ? [1, 5, 8, 10]
+          : matchData?.macth_Type === "T20"
+          ? [1, 5, 8, 10, 15]
+          : matchData?.macth_Type === "ODI"
+          ? [1, 5, 8, 10, 20, 30]
+          : "",
     },
     {
       heading: "2nd Inn",
       cspan: "col-2",
+      name: "match_fancy_second",
+      overs:
+        matchData?.macth_Type === "T10"
+          ? [1, 5]
+          : matchData?.macth_Type === "T20"
+          ? [1, 10]
+          : matchData?.macth_Type === "ODI"
+          ? [1, 5, 8, 10]
+          : "",
     },
   ];
   const tableData =
@@ -193,6 +217,8 @@ function SportsManagement() {
 
   const [createMacthSubmit, setCreateMacthSubmit] = useState(false);
 
+  const [inns, setInns] = useState([]);
+
   const handleActiveHead = (index) => {
     setActiveHead(index);
     {
@@ -202,7 +228,7 @@ function SportsManagement() {
       index === 1 && setScheduleDate(todayMatchesData);
     }
     {
-      index === 1 && setScheduleDate(upcomingMatchesData);
+      index === 2 && setScheduleDate(upcomingMatchesData);
     }
   };
 
@@ -212,12 +238,15 @@ function SportsManagement() {
 
   const handleChange = (e) => {
     setMatchData({ ...matchData, [e.target.name]: e.target.value });
+    console.log(e.target.value, ".....events");
   };
-
   useEffect(() => {
     getAllMatches();
     setScheduleDate(liveMatchesData);
   }, []);
+
+  console.log(matchData, ".....matchData");
+  console.log(inns, ".....inns");
 
   return (
     <div className="p-3">
@@ -333,18 +362,9 @@ function SportsManagement() {
               name="macth_Type"
               onChange={(e) => handleChange(e)}
             >
-              <option value={matchData[matchData?.macth_Type || "male"]}>
-                T10
-              </option>
-              <option value={matchData[matchData?.macth_Type || "feMale"]}>
-                T20
-              </option>
-              <option value={matchData[matchData?.macth_Type || "feMale"]}>
-                ODI
-              </option>
-              <option value={matchData[matchData?.macth_Type || "feMale"]}>
-                TEST
-              </option>
+              {matchType.map((item, index) => {
+                return <option value={item.name}>{item.name}</option>;
+              })}
             </select>
           </div>
         </div>
@@ -352,10 +372,12 @@ function SportsManagement() {
           return (
             <div className={item.cspan}>
               <div>{item.heading}</div>
-              <div className="sport-management-input d-flex p-1">
-                <div className="w-90">Enter</div>
-                <BsChevronDown />
-              </div>
+              <input
+                className="sport-management-input d-flex p-1 w-100"
+                value={item.overs || []}
+                name={item.name}
+                onChange={(e) => handleChange(e)}
+              ></input>
             </div>
           );
         })}
