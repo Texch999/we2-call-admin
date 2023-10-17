@@ -9,6 +9,7 @@ function MatchEntries({
   selectedMatch,
   matchAccountData,
   selectedMatchEntry,
+  setAfterDeclare,
 }) {
   const history = useHistory();
   const [matchEntryInputs, setMatchEntryInputs] = useState(true);
@@ -66,6 +67,8 @@ function MatchEntries({
       {matchResultInputs && (
         <MatchResultInput
           selectedMatch={selectedMatch}
+          selectedMatchEntry={selectedMatchEntry}
+          setAfterDeclare={setAfterDeclare}
           registered_match_id={matchAccountData?.registered_match_id}
         />
       )}

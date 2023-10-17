@@ -3,7 +3,12 @@ import { MATCH_DECLARATION } from "../../config/endpoints";
 import { call } from "../../config/axios";
 import MatchDeclarationPopup from "../match-popups/MatchDeclarationPopup";
 
-function MatchResultInput({ registered_match_id, selectedMatch }) {
+function MatchResultInput({
+  registered_match_id,
+  selectedMatch,
+  selectedMatchEntry,
+  setAfterDeclare,
+}) {
   let register_id = localStorage?.getItem("register_id");
   let creator_id = localStorage?.getItem("creator_id");
   let account_role = localStorage?.getItem("account_role");
@@ -30,13 +35,17 @@ function MatchResultInput({ registered_match_id, selectedMatch }) {
       account_role,
       sport_name: matchResultInputData?.sport_name,
       series_name: matchResultInputData?.series_name,
-      team: matchResultInputData?.team,
+      teamName: matchResultInputData?.teamName,
       declarestatus: matchResultInputData?.declarestatus,
     })
       .then((res) => {
         setIsProcessing(false);
         if (res.data.statusCode === 200) {
-          setMatchSubmitPopup(!matchSubmitPopup);
+          setMatchSubmitPopup(true);
+          // setTimeout(() => {
+          //   setMatchSubmitPopup(false);
+          // }, 1000);
+          setAfterDeclare((prev) => !prev);
           setError("");
         } else {
           setError(
@@ -89,8 +98,8 @@ function MatchResultInput({ registered_match_id, selectedMatch }) {
             <div className="medium-font">Win Team</div>
             <select
               className="w-100 custom-select medium-font btn-bg rounded all-none p-2"
-              name="team"
-              id="team"
+              name="teamName"
+              id="teamName"
               value={matchResultInputData?.team}
               onChange={(e) => handleMatchResultInputDataChange(e)}
             >

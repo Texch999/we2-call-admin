@@ -7,7 +7,7 @@ import AddUserPopUp from "./AddUserPopUp";
 import ChangePassword from "./ChangePassword";
 import MatchSubmitPopup from "../match-popups/MatchSubmitPopup";
 import { call } from "../../config/axios";
-import { GET_ALL_CLIENTS } from "../../config/endpoints";
+import { GET_ALL_CLIENTS, BLOCKUNBLOCK } from "../../config/endpoints";
 
 const AddUsers = () => {
   let register_id = localStorage?.getItem("register_id");
@@ -17,14 +17,30 @@ const AddUsers = () => {
 
   const [filteredValue, setFilteredValue] = useState("");
   const [modalShow, setModalShow] = useState(false);
+  const [addUser, setAddUser] = useState();
   const [showChangePopup, setShowChangePopup] = useState(false);
   const [usersData, setUsersData] = useState([]);
   const [isUserAdded, setIsUserAdded] = useState(false);
+  const [editData, setEditData] = useState(false);
+  const [inputData, setInputData] = useState({});
 
-  const handleCpButton = (value) => {
-    {
-      value === "CP" && setShowChangePopup(true);
-    }
+  const handleCpButton = () => {
+    console.log("testing....");
+    setShowChangePopup(true);
+  };
+
+  const handleEditButton = (data) => {
+    setAddUser(data);
+    setInputData(data);
+    setModalShow(true);
+    setEditData(true);
+  };
+
+  const handleAddUsers = () => {
+    setAddUser(false);
+    setModalShow(true);
+    setEditData(false);
+    setInputData(false);
   };
   const addUsersData =
     usersData?.length > 0 &&
@@ -34,19 +50,43 @@ const AddUsers = () => {
         return {
           s_no: index + 1,
           user_name: user?.user_name,
+          share: user?.share,
+          ul_share: user?.ul_share,
           type: user?.account_role,
-          location: "Hyderabad",
+          location: user?.location,
+          register_id: user?.register_id,
+          creator_id: user?.creator_id,
+          active: user?.active,
           user: "",
           profit_loss: 0,
         };
       });
 
-  const ACTION_LABELS = {
-    cp: "CP",
-    edit: "EDIT",
-    b: "B",
-    ub: "UB",
+  const handleBlock = async (data) => {
+    await call(BLOCKUNBLOCK, {
+      register_id: data?.register_id,
+      creator_id: register_id,
+      active: !data?.active,
+      account_role: data?.type,
+    })
+      .then((res) => {
+        getAllClients();
+      })
+      .catch((err) => console.log(err));
   };
+  const ACTION_LABELS = [
+    {
+      name: "CP",
+    },
+    { 
+      name: "EDIT" 
+    },
+    // b: "B",
+    {
+      name: "UB",
+      onclick: handleBlock,
+    },
+  ];
 
   const [changePasswordSubmit, setChangePasswordSubmit] = useState(false);
   const handleUserChange = (e) => {
@@ -93,7 +133,7 @@ const AddUsers = () => {
 
             <Button
               className="add-new-meetings-button"
-              onClick={() => setModalShow(true)}
+              onClick={() => handleAddUsers()}
             >
               + Add Users
             </Button>
@@ -105,7 +145,7 @@ const AddUsers = () => {
         <Table responsive="md" className="call-management-data">
           <thead>
             <tr>
-              <th></th>
+              <th class="text-center">S NO</th>
               <th className="text-center">USER NAME</th>
               <th className="text-center">TYPE</th>
               <th className="text-center">LOCATION</th>
@@ -128,15 +168,26 @@ const AddUsers = () => {
                   <td className="text-center">{data?.user}</td>
                   <td className="text-center">{data?.profit_loss}</td>
                   <td className="text-center">
-                    {Object.keys(ACTION_LABELS).map((action, index) => (
-                      <Button
-                        key={index}
-                        className={`rounded meeting-status-button ${action}-button me-2`}
-                        onClick={() => handleCpButton(ACTION_LABELS[action])}
-                      >
-                        {ACTION_LABELS[action]}
-                      </Button>
-                    ))}
+                    <Button
+                      className="text-center rounded meeting-status-button EDIT-button me-2"
+                      onClick={() => handleCpButton()}
+                    >
+                      CP
+                    </Button>
+                    <Button
+                      className="text-center rounded meeting-status-button EDIT-button me-2"
+                      onClick={() => handleEditButton(data)}
+                    >
+                      EDIT
+                    </Button>
+                    <Button
+                      className={`text-center rounded meeting-status-button EDIT-button me-2 ${
+                        data?.active ? "clr-blue" : "clr-red"
+                      }`}
+                      onClick={() => handleBlock(data)}
+                    >
+                      {data?.active ? "UB" : "B"}
+                    </Button>
                   </td>
                 </tr>
               ))}
@@ -160,9 +211,20 @@ const AddUsers = () => {
           </tfoot>
           {modalShow && (
             <AddUserPopUp
+              Heading={`${addUser ? "Update Users" : "Add Users"} `}
               show={modalShow}
+              addUser={addUser}
+              usersData={usersData}
+              setModalShow={setModalShow}
+              editData={editData}
+              onhideClick={(e) => {
+                setAddUser({});
+                setModalShow(e);
+              }}
               onHide={() => setModalShow(false)}
               setIsUserAdded={setIsUserAdded}
+              setInputData={setInputData}
+              inputData={inputData}
             />
           )}
         </Table>
