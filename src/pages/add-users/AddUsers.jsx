@@ -25,7 +25,6 @@ const AddUsers = () => {
   const [inputData, setInputData] = useState({});
 
   const handleCpButton = () => {
-    console.log("testing....");
     setShowChangePopup(true);
   };
 

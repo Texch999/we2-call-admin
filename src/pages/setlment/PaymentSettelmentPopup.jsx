@@ -24,7 +24,6 @@ function PaymentSettelmentPopup(props) {
   )?.[0];
   const [settlementObj, setSettlementObj] = useState({});
   const onSubmitBtnClick = () => {
-    // console.log({settlementObj})
     setOfflineSettlePayload({ ...offlineSettlePayload, ...settlementObj });
     setShowPaymentModal(false);
     handleOpenNewModal();

@@ -153,7 +153,6 @@ function Chats() {
   };
 
   const onMessageRecieve = (event) => {
-    console.log("onMessageRecieve : ", event);
     if (!event.data) {
       return;
     }
@@ -184,15 +183,12 @@ function Chats() {
     setWebcamVisible(false);
   };
   const handleFileUpload = (event) => {
-    console.log(event);
     const selectedFile = event.target.files[0];
-    console.log(selectedFile);
   };
   const [selectedDate, setSelectedDate] = useState(null);
   const uploadfileInputRef = useRef(null);
   const handleUploadFileSelect = (e) => {
     const file = e.target.files[0];
-    console.log("selected file", file);
   };
   const handleUploadButtonClick = () => {
     uploadfileInputRef.current.click();

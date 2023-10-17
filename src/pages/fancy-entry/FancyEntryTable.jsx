@@ -23,12 +23,17 @@ function FancyEntryTable(props) {
   const [editPopup, setEditPopup] = useState(false);
   const [deletePopup, setDeletePopup] = useState(false);
   const [data, setData] = useState([]);
+  const [matchEntryData, setMatchEntryData] = useState([]);
+  const [selectedId, setSelectedId] = useState("");
 
-  const handleEditPopupOpen = () => {
-    setEditPopup(true);
+  const handleEditPopupOpen = (DATA) => {
+    setMatchEntryData(DATA);
+    setSelectedMatchEntry(DATA);
+    setEditPopup(!editPopup);
   };
-  const handleDeletePopupOpen = () => {
-    setDeletePopup(true);
+  const handleDeletePopupOpen = (matchId) => {
+    setSelectedId(matchId);
+    setDeletePopup(!deletePopup);
   };
 
   const getFancyEntryDetails = async () => {
@@ -42,43 +47,60 @@ function FancyEntryTable(props) {
       .catch((err) => console.log(err));
   };
 
+  const deleteApi = async () => {
+    await call(DELETE_FANCY_ENTRY, {
+      fancy_entry_id: selectedId,
+      register_id,
+    })
+      .then((res) => {
+        setSelectedId("");
+        setStatus((prev) => !prev);
+      })
+      .catch((err) => console.log(err));
+  };
+
   useEffect(() => {
     getFancyEntryDetails();
   }, [matchAccountData?.registered_match_id, status]);
 
-  const MATCH_ENTRY_DATA =
+  const FANCY_ENTRY_DATA =
     data?.length > 0 &&
-    data?.map((fancy, index) => {
-      return {
-        sNo:
-          fancy?.old_s_no === fancy?.s_no
-            ? fancy?.s_no
-            : fancy?.s_no / fancy?.old_s_no,
-        over: fancy?.over,
-        rate: fancy?.rate,
-        team: fancy?.team,
-        runs: fancy?.runs,
-        yesNo: (
-          <div className={fancy?.yN === "Y" ? "clr-green" : "clr-pink"}>
-            {fancy?.yN}
-          </div>
-        ),
-        date: fancy?.date,
-        time: fancy?.time,
-        client: fancy?.client_name,
-        amount: <div className="yellow-clr">{fancy?.amount}</div>,
-        edit: fancy?.record_status === "active" && (
-          <MdEdit className="edit-icon" onClick={() => handleEditPopupOpen()} />
-        ),
-        delete: fancy?.record_status === "active" && (
-          <MdDelete
-            className="edit-icon"
-            onClick={() => handleDeletePopupOpen()}
-          />
-        ),
-        recordStatus: fancy?.record_status,
-      };
-    });
+    data
+      ?.filter((i) => i.record_status !== "deleted")
+      ?.map((fancy, index) => {
+        return {
+          sNo:
+            fancy?.old_s_no === fancy?.s_no
+              ? fancy?.s_no
+              : `${fancy?.s_no}/${fancy?.old_s_no}`,
+          over: fancy?.over,
+          rate: fancy?.rate,
+          team: fancy?.team,
+          runs: fancy?.runs,
+          yesNo: (
+            <div className={fancy?.yN === "Y" ? "clr-green" : "clr-pink"}>
+              {fancy?.yN}
+            </div>
+          ),
+          date: fancy?.date,
+          time: fancy?.time,
+          client: fancy?.client_name,
+          amount: <div className="yellow-clr">{fancy?.amount}</div>,
+          edit: fancy?.record_status === "active" && (
+            <MdEdit
+              className="edit-icon"
+              onClick={() => handleEditPopupOpen(fancy)}
+            />
+          ),
+          delete: fancy?.record_status === "active" && (
+            <MdDelete
+              className="edit-icon"
+              onClick={() => handleDeletePopupOpen(fancy?.fancy_entry_id)}
+            />
+          ),
+          recordStatus: fancy?.record_status,
+        };
+      });
 
   // const MATCH_ENTRY_DATA = [
   //   {
@@ -103,7 +125,7 @@ function FancyEntryTable(props) {
   //     ),
   //   }
   // ];
-  const MATCH_ENTRY_HEADING = [
+  const FANCY_ENTRY_HEADING = [
     {
       header: "S.NO",
       field: "sNo",
@@ -155,16 +177,21 @@ function FancyEntryTable(props) {
   ];
   return (
     <div className="p-3">
-      <Table data={MATCH_ENTRY_DATA || []} columns={MATCH_ENTRY_HEADING} />
+      <Table data={FANCY_ENTRY_DATA || []} columns={FANCY_ENTRY_HEADING} />
       <SubmitPopup
         state={editPopup}
         setState={setEditPopup}
         header={"Are You Sure You Want To Edit This Fancy Entry"}
+        fancyData={matchEntryData}
+        fancySetSelectedMatchEntry={setSelectedMatchEntry}
       />
       <SubmitPopup
         state={deletePopup}
         setState={setDeletePopup}
         header={"Are You Sure You Want To Delete This Fancy Entry"}
+        fancyDeletedId={selectedId}
+        fancyDeleteApi={deleteApi}
+        fancySetSelectedId={setSelectedId}
       />
     </div>
   );

@@ -114,10 +114,6 @@ const AddAdmins = () => {
     getAllClients();
   }, [adminsData]);
 
-  console.log(addUsersData, ".......addusers");
-
-  console.log(adminsData, ".....adminsData");
-
   return (
     <div className="p-4">
       <div>
@@ -238,7 +234,6 @@ const AddAdmins = () => {
               <th></th>
             </tr>
           </tfoot>
-          {console.log(modalShow, "modalShow")}
           {modalShow && (
             <AddAdminsPopup
               Heading={`${adminsData ? "Update Admins" : "Add Admins"} `}

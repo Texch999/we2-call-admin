@@ -267,7 +267,11 @@ function MatchEntryInput({
             }
             disabled={!selectedMatch?.match_id || isProcessing}
           >
-            Submit
+            {isProcessing
+              ? "Processing..."
+              : Object.keys(selectedMatchEntry).length === 0
+              ? "Submit"
+              : "Update"}
           </div>
         </div>
         {error && (

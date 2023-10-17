@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react";
 import SubmitPopup from "../popups/SubmitPopup";
 import Select from "react-select";
-import { FANCY_ENTRY_DATA, GET_OFFLINE_CLIENTS } from "../../config/endpoints";
+import {
+  FANCY_ENTRY_DATA,
+  GET_OFFLINE_CLIENTS,
+  UPDATE_FANCY_ENTRY,
+} from "../../config/endpoints";
 import { call } from "../../config/axios";
 
 function FancyEntryInput({
@@ -20,8 +24,8 @@ function FancyEntryInput({
   let account_role = localStorage?.getItem("account_role");
 
   const [fancyEntryInputData, setFancyInputEntryData] = useState({});
-  const [submitPopup, setSubmitPopup] = useState(false);
   const [over, setOver] = useState("");
+  const [submitPopup, setSubmitPopup] = useState(false);
   const [selectedOptions, setSelectedOptions] = useState();
   const [existingUsers, setExistingUsers] = useState([]);
   const [error, setError] = useState("");
@@ -123,8 +127,56 @@ function FancyEntryInput({
       });
   };
 
-  const handleFancyEntryUpdate = () => {
-    console.log("FANCY UPDATE");
+  const handleFancyEntryUpdate = async () => {
+    if (
+      !fancyEntryInputData?.innings ||
+      !over ||
+      !fancyEntryInputData?.team ||
+      !fancyEntryInputData?.amount ||
+      !fancyEntryInputData?.yN ||
+      !selectedOptions?.label
+    ) {
+      return setError("Please Enter Required Fields");
+    }
+    setIsProcessing(true);
+    setError("");
+    await call(UPDATE_FANCY_ENTRY, {
+      ...selectedMatch,
+      ...selectedMatchEntry,
+      registered_match_id,
+      register_id,
+      account_role,
+      innings: fancyEntryInputData?.innings,
+      rate: 1,
+      over: over[0],
+      team: fancyEntryInputData?.team,
+      amount: fancyEntryInputData?.amount,
+      runs: fancyEntryInputData?.runs,
+      yN: fancyEntryInputData?.yN,
+      client_id: selectedOptions?.value,
+      client_name: selectedOptions?.label,
+      fancy_entry_id: selectedMatchEntry?.fancy_entry_id,
+    })
+      .then((res) => {
+        setIsProcessing(false);
+        if (res?.data?.statusCode === 200) {
+          setStatus((prev) => !prev);
+          setSubmitPopup(true);
+          setSelectedMatchEntry("");
+          getRiskRunningData();
+          getFancyProfitLoss();
+          resetFields();
+        } else {
+          setError(
+            res?.data?.message ? res?.data?.message : "Something Went Wrong"
+          );
+        }
+      })
+      .catch((err) => {
+        setIsProcessing(false);
+        setError(`Something Went Wrong`);
+        console.log(err);
+      });
   };
 
   useEffect(() => {
@@ -137,11 +189,6 @@ function FancyEntryInput({
       setFancyInputEntryData(selectedMatchEntry);
     }
   }, [selectedMatchEntry]);
-
-  // const hs = () => {
-  //   setSubmitPopup(true);
-  // };
-  // console.log("fancyEntryInputData-->", fancyEntryInputData);
 
   return (
     <div className="match-position-bg rounded-bottom p-3">

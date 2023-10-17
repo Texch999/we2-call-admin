@@ -12,7 +12,6 @@ import {
 
 function AddAdminsPopup(props) {
   const { adminsData, usersData, setModalShow, editData } = props;
-  console.log("Props====>", props);
   let register_id = localStorage?.getItem("register_id");
   let creator_id = localStorage?.getItem("creator_id");
   let account_role = localStorage?.getItem("account_role");
@@ -99,7 +98,6 @@ function AddAdminsPopup(props) {
     setErr("");
     setIsProcessing(true);
     setModalShow(false);
-    // console.log({ inputData });
     await call(ACCOUNT_REGISTERATION, {
       ...inputData,
       creator_id: register_id,
@@ -138,7 +136,6 @@ function AddAdminsPopup(props) {
     setInputData(props.adminsData);
   }, []);
 
-  console.log(props.adminsData, ".........addadminsdata");
   return (
     <Modal
       {...props}
