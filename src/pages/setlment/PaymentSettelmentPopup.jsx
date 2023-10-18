@@ -23,7 +23,6 @@ function PaymentSettelmentPopup(props) {
     clientDetails?.filter((obj) => obj.client_id == clientId)?.[0];
   const [settlementObj, setSettlementObj] = useState({});
   const onSubmitBtnClick = () => {
-    // console.log({settlementObj})
     setOfflineSettlePayload({ ...offlineSettlePayload, ...settlementObj });
     setShowPaymentModal(false);
     handlePaymentSubmitPopupOpen();

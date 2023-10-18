@@ -131,10 +131,10 @@ function FancyEntry() {
       <FancyEntryTable
         selectedMatch={selectedMatch}
         seriesType={""}
-        status={status}
         setStatus={setStatus}
         matchAccountData={matchAccountData}
         setSelectedMatchEntry={setSelectedMatchEntry}
+        status={status}
       />
     </div>
   );

@@ -5,6 +5,9 @@
 .w-90 {
   width: 90%;
 }
+.w-10 {
+  width: 10%;
+}
 .gutter-1rem {
   --bs-gutter-x: 1rem !important;
 }

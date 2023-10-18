@@ -82,7 +82,17 @@ function FancyEntries(props) {
           setAfterDeclare={setAfterDeclare}
         />
       )}
-      {fancyResultInputs && <FancyResultInput />}
+      {fancyResultInputs && (
+        <FancyResultInput
+          registered_match_id={matchAccountData?.registered_match_id}
+          selectedMatch={selectedMatch}
+          setStatus={setStatus}
+          selectedMatchEntry={selectedMatchEntry}
+          setSelectedMatchEntry={setSelectedMatchEntry}
+          getFancyProfitLoss={getFancyProfitLoss}
+          setAfterDeclare={setAfterDeclare}
+        />
+      )}
     </div>
   );
 }

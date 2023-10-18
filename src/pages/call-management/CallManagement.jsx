@@ -92,7 +92,6 @@ const CallManagement = () => {
           };
         })) ||
     [];
-  console.log(ulMeetingsData, "ulMeetingsData");
 
   // const upcomingMeetingsData = [
   //   {
