@@ -29,6 +29,7 @@ import ViewOffers from "../pages/tours-tournaments/ViewOffers";
 import Chats from "../pages/chat/Chats";
 import PackageStatement from "../pages/packagestatement/PackageStatement";
 import CallReports from "../pages/calling/CallReports";
+import PaymentGatewayList from "../pages/PaymentGatewayList/PaymentGatewayList";
 
 export const AgentRoutes = [
   {
@@ -148,4 +149,8 @@ export const AgentRoutes = [
     component: Chats,
   },
   { path: "/call-reports", component: CallReports },
+  {
+    path: "/payment-gateway-list",
+    component: PaymentGatewayList,
+  },
 ];

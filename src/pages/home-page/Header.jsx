@@ -49,6 +49,10 @@ function Header() {
     setShowLoginPopup(true);
   };
 
+  // const handleAddPaymentModelOpen = () => {
+  //   setModalShow(true);
+  // };
+
   const [activeHead, setActiveHead] = useState(0);
   const [matchEntryOpen, setMatchEntryOpen] = useState(false);
   const [matchEntryType, setMatchEntryType] = useState("Match Entry");
@@ -139,6 +143,12 @@ function Header() {
       name: "Add Payment Gateway",
       onClick: "onClick",
     },
+    // /payment-gateway-list
+    {
+      icon: <FaRegHandshake className="mr-10 d-flex" />,
+      name: "Payment Gateway List",
+      path: "/payment-gateway-list",
+    },
     {
       icon: <MdOutlinePrivacyTip className="mr-10 d-flex" />,
       name: "Privacy Policy",
@@ -222,7 +232,7 @@ function Header() {
     navigate(v.path);
   };
 
-  const handleMore = (item) => {
+  const handleMore = (item, index) => {
     setMoreType(item.name);
     setMoreOpen(false);
     navigate(item.path);
@@ -276,36 +286,36 @@ function Header() {
     },
   ];
 
-  useEffect(() => {
-    switch (history.location.pathname) {
-      case "/":
-        setActiveHead(0);
-        break;
-      case "/chats":
-        setActiveHead(1);
-        break;
+  // useEffect(() => {
+  //   switch (history.location.pathname) {
+  //     case "/":
+  //       setActiveHead(0);
+  //       break;
+  //     case "/chats":
+  //       setActiveHead(1);
+  //       break;
 
-      case "/tours-tournaments":
-        setActiveHead(2);
-        break;
+  //     case "/tours-tournaments":
+  //       setActiveHead(2);
+  //       break;
 
-      case "/match-entry":
-        setActiveHead(3);
-        break;
+  //     case "/match-entry":
+  //       setActiveHead(3);
+  //       break;
 
-      case "/phub":
-        setActiveHead(4);
-        break;
+  //     case "/phub":
+  //       setActiveHead(4);
+  //       break;
 
-      case "/horny":
-        setActiveHead(5);
+  //     case "/horny":
+  //       setActiveHead(5);
 
-        break;
+  //       break;
 
-      default:
-        setActiveHead(0);
-    }
-  }, []);
+  //     default:
+  //       setActiveHead(0);
+  //   }
+  // }, []);
 
   const [resetPasswordSubmit, setResetPasswordSubmit] = useState();
   const token = isLoggedIn();
@@ -394,7 +404,7 @@ function Header() {
                   <div
                     key={index}
                     className="d-flex align-items-center mt-2 p-2 cursor-pointer"
-                    onClick={() => handleMore(item)}
+                    onClick={() => handleMore(item, index)}
                   >
                     <span className="me-1">{item.icon}</span>
                     {item.name}
@@ -469,9 +479,8 @@ function Header() {
         state={resetPasswordSubmit}
         setState={setResetPasswordSubmit}
       />
-      {modalShow && (
-        <AddPaymentMode show={modalShow} onHide={() => setModalShow(false)} />
-      )}
+
+      <AddPaymentMode state={modalShow} setState={setModalShow} />
     </div>
   );
 }
