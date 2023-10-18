@@ -80,25 +80,25 @@ function Chats() {
     setFile([...file, e.target.files[0]]);
   };
 
-  const handleUserInput = () => {
-    if (userInput.trim() !== "") {
-      setMessages((prevMessages) => [
-        ...prevMessages,
-        {
-          content: reply,
-          sender: "computer",
-          img: Images.ViratImage02,
-        },
-      ]);
-      const reply = generateReply(userInput);
-      setMessages((prevMessages) => [
-        ...prevMessages,
+  // const handleUserInput = () => {
+  //   if (userInput.trim() !== "") {
+  //     setMessages((prevMessages) => [
+  //       ...prevMessages,
+  //       {
+  //         content: reply,
+  //         sender: "computer",
+  //         img: Images.ViratImage02,
+  //       },
+  //     ]);
+  //     const reply = generateReply(userInput);
+  //     setMessages((prevMessages) => [
+  //       ...prevMessages,
 
-        { content: userInput, sender: "user", img: Images.DhoniImage02 },
-      ]);
-      setUserInput("");
-    }
-  };
+  //       { content: userInput, sender: "user", img: Images.DhoniImage02 },
+  //     ]);
+  //     setUserInput("");
+  //   }
+  // };
   const generateReply = (message) => {
     return message;
   };
@@ -487,22 +487,23 @@ function Chats() {
                   <label htmlFor="image-upload">
                     <BiSolidCamera className="chat-icon" />
                   </label>
-                  {/* <input
+                  <input
                     type="file"
                     id="upload"
                     style={{ display: "none" }}
                     // onChange={handleChange}
-                    // onChange={(e) => {
-                    //   setProfileImage(e?.target?.files[0]);
-                    //   // generateSignedUrl();
-                    // }}
+                    onChange={(e) => {
+                      setUserInput(e?.target?.files[0]);
+                      // generateSignedUrl();
+                    }}
+                    onKeyDown={(e) => userInput && hanldeKeyDown(e)}
                   />
                 </div>
 
                 <div className="button-chat px-2 py-1 rounded mx-2">
-                  {/* <label htmlFor="attachment">
+                  <label htmlFor="attachment">
                     <ImAttachment className="chat-icon" />
-                  </label> */}
+                  </label>
                 </div>
 
                 <div className="button-chat px-2 py-1 rounded mx-2">
