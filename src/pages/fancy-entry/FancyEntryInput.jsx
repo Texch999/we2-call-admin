@@ -106,7 +106,6 @@ function FancyEntryInput({
         setError("");
         setIsProcessing(false);
         if (res?.data?.statusCode === 200) {
-          resetFields();
           setStatus((prev) => !prev);
           setSubmitPopup(true);
           setTimeout(() => {
@@ -114,6 +113,8 @@ function FancyEntryInput({
           }, 1000);
           getRiskRunningData();
           getFancyProfitLoss();
+          resetFields();
+          setError("");
         } else {
           setError(
             res?.data?.message ? res?.data?.message : `Something Went Wrong`
@@ -162,10 +163,14 @@ function FancyEntryInput({
         if (res?.data?.statusCode === 200) {
           setStatus((prev) => !prev);
           setSubmitPopup(true);
+          setTimeout(() => {
+            setSubmitPopup(false);
+          }, 1000);
           setSelectedMatchEntry("");
           getRiskRunningData();
           getFancyProfitLoss();
           resetFields();
+          setError("");
         } else {
           setError(
             res?.data?.message ? res?.data?.message : "Something Went Wrong"
@@ -347,11 +352,7 @@ function FancyEntryInput({
       <SubmitPopup
         state={submitPopup}
         setState={setSubmitPopup}
-        header={
-          Object.keys(selectedMatchEntry).length === 0
-            ? "Fancy Entry Added"
-            : "Fancy Entry Updated"
-        }
+        header={"Your Successfully Submitted Fancy Entry"}
       />
     </div>
   );
