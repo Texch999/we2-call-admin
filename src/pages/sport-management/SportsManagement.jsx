@@ -67,15 +67,8 @@ function SportsManagement() {
       name: "sport_name",
       options: (
         <>
-          <option value={matchData[matchData?.sport_name || "cricket"]}>
-            Cricket
-          </option>
-          <option
-            id="sport_name"
-            value={matchData[matchData?.sport_name || "FootBall"]}
-          >
-            FootBall
-          </option>
+          <option value="cricket">Cricket</option>
+          <option value="football">FootBall</option>
         </>
       ),
     },
@@ -83,14 +76,18 @@ function SportsManagement() {
       headName: "Team1",
       name: "team1",
       options: top_cricket_countries.map((item, index) => {
-        return <option key={index}>{item}</option>;
+        return (
+          <option key={index} value={item || ""}>
+            {item}
+          </option>
+        );
       }),
     },
     {
       headName: "Team2",
       name: "team2",
       options: top_cricket_countries.map((item, index) => {
-        return <option key={index}>{item}</option>;
+        return <option value={item || ""}>{item}</option>;
       }),
     },
   ];
@@ -131,12 +128,16 @@ function SportsManagement() {
         team: match?.match_name,
         sportName: (
           <div>
-            {match?.sport_name},{match?.gender}
+            {match?.sport_name},{match?.gender},
+            <br />
+            {match?.game_object?.match_type}
           </div>
         ),
         matchPlace: (
           <div>
-            {match?.game_object?.match_type},{match?.stadium},
+            <br />
+            {match?.stadium}
+            <br />
             {match?.match_place}
           </div>
         ),
@@ -146,56 +147,61 @@ function SportsManagement() {
             <br /> {match?.time}
           </div>
         ),
-        editButton: <GoPencil className="edit-icon" />,
+        editButton: (
+          <GoPencil
+            className="edit-icon"
+            onClick={() => handleUpadate(match)}
+          />
+        ),
       };
     });
 
-  const scheduledTableData = [
-    {
-      seriesName: (
-        <div>
-          Cricket, Male
-          <br /> T20 World Cup
-          <br /> Oneday
-          <br /> Amhadabad Stadium
-          <br /> 01/08/2023
-          <br />
-          11:46:00 AM
-        </div>
-      ),
-      team: "Newziland  vs  SriLanka",
-      sportName: "Cricket, Male",
-      matchPlace: "One day Amhadabad Stadium",
-      dateTime: (
-        <div>
-          01/08/2023
-          <br /> 11:46:00 AM
-        </div>
-      ),
-      editButton: (
-        <div>
-          <GoPencil />
-        </div>
-      ),
-    },
-    {
-      seriesName: "T20 World Cup",
-      team: "Newziland  vs  SriLanka",
-      sportName: "Cricket, Male",
-      matchPlace: "One day Amhadabad Stadium",
-      dateTime: (
-        <div>
-          01/08/2023
-          <br /> 11:46:00 AM
-        </div>
-      ),
-      editButton: (
-        <div>
-          <GoPencil />
-        </div>
-      ),
-    },
-  ];
+  // const scheduledTableData = [
+  //   {
+  //     seriesName: (
+  //       <div>
+  //         Cricket, Male
+  //         <br /> T20 World Cup
+  //         <br /> Oneday
+  //         <br /> Amhadabad Stadium
+  //         <br /> 01/08/2023
+  //         <br />
+  //         11:46:00 AM
+  //       </div>
+  //     ),
+  //     team: "Newziland  vs  SriLanka",
+  //     sportName: "Cricket, Male",
+  //     matchPlace: "One day Amhadabad Stadium",
+  //     dateTime: (
+  //       <div>
+  //         01/08/2023
+  //         <br /> 11:46:00 AM
+  //       </div>
+  //     ),
+  //     editButton: (
+  //       <div>
+  //         <GoPencil />
+  //       </div>
+  //     ),
+  //   },
+  //   {
+  //     seriesName: "T20 World Cup",
+  //     team: "Newziland  vs  SriLanka",
+  //     sportName: "Cricket, Male",
+  //     matchPlace: "One day Amhadabad Stadium",
+  //     dateTime: (
+  //       <div>
+  //         01/08/2023
+  //         <br /> 11:46:00 AM
+  //       </div>
+  //     ),
+  //     editButton: (
+  //       <div>
+  //         <GoPencil />
+  //       </div>
+  //     ),
+  //   },
+  // ];
   const columns = [
     { header: "Series Name", field: "seriesName" },
     { header: "Team", field: "team" },
@@ -217,6 +223,12 @@ function SportsManagement() {
 
   const [createMacthSubmit, setCreateMacthSubmit] = useState(false);
 
+  const [error, setError] = useState();
+
+  const [isProcessing, setIsProcessing] = useState();
+
+  const [status, setStatus] = useState(false);
+
   const [inns, setInns] = useState([]);
 
   const handleActiveHead = (index) => {
@@ -232,8 +244,71 @@ function SportsManagement() {
     }
   };
 
-  const handleSubmitMatch = () => {
-    setCreateMacthSubmit(true);
+  // const handleSubmitMatch = () => {
+  //   setCreateMacthSubmit(true);
+  // };
+  const handleMacthSubmit = async () => {
+    console.log("subit click");
+    if (
+      !matchData?.series_name ||
+      !matchData?.sport_name ||
+      !matchData?.team1 ||
+      !matchData?.team2 ||
+      !matchData?.match_place ||
+      !matchData?.stadium ||
+      !matchData?.gender ||
+      !matchData?.date ||
+      !matchData?.time ||
+      !matchData?.macth_Type
+    ) {
+      return setError("Please enter required fields");
+    }
+    setIsProcessing(true);
+    setError("");
+    await call(CREATE_OFFLINE_MATCH, {
+      register_id,
+      account_role,
+      // match_id: matchDetails?.match_id,
+      ...matchData,
+      team1: matchData?.team1,
+      team2: matchData?.team2,
+      gender: matchData?.gender === "Female" ? "F" : "M",
+      sport_name: matchData?.sport_name,
+      game_object: {
+        first_innings_fancy_overs: matchData?.match_fancy_first,
+        second_innings_fancy_overs: matchData?.match_fancy_first,
+        match_type: matchData.macth_Type,
+      },
+    })
+      .then((res) => {
+        setIsProcessing(false);
+        if (res?.data?.statusCode === 200) {
+          setStatus((prev) => !prev);
+          setCreateMacthSubmit(true);
+          setTimeout(() => {
+            setCreateMacthSubmit(false);
+          }, 1000);
+          handleResetFields();
+        } else {
+          setError(
+            res?.data?.message ? res?.data?.message : `something wen't wrong`
+          );
+        }
+      })
+      .catch((err) => {
+        setIsProcessing(false);
+        setError(err?.message ? err.message : `something wen't wrong`);
+        console.log(err);
+      });
+  };
+
+  const handleResetFields = () => {
+    setMatchData({});
+  };
+
+  const handleUpadate = (item) => {
+    setMatchData(item);
+    console.log(item, "..........itemEdit");
   };
 
   const handleChange = (e) => {
@@ -246,7 +321,8 @@ function SportsManagement() {
   }, []);
 
   console.log(matchData, ".....matchData");
-  console.log(inns, ".....inns");
+  console.log(allMatchesData, ".......scheduleDate");
+  // console.log(inns, ".....inns");
 
   return (
     <div className="p-3">
@@ -275,6 +351,7 @@ function SportsManagement() {
                 onChange={(e) => handleChange(e)}
                 name={item.name}
               >
+                <option>select</option>
                 {item.options}
               </select>
             </div>
@@ -385,7 +462,7 @@ function SportsManagement() {
         <div className="col-3 d-flex align-items-end">
           <div
             className="sport-management-input w-100 d-flex justify-content-center align-items-center bg-yellow"
-            onClick={() => handleSubmitMatch()}
+            onClick={() => handleMacthSubmit()}
           >
             Submit
           </div>
