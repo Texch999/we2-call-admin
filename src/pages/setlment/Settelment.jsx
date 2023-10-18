@@ -9,7 +9,9 @@ import { useEffect } from "react";
 import { call } from "../../config/axios";
 import CustomPagination from "../pagination/CustomPagination";
 import { sumOfData } from "../../utils";
-import moment from "moment/moment";
+import MatchSubmitPopup from "../match-popups/MatchSubmitPopup";
+import moment from "moment";
+import MatchDeclarationPopup from "../match-popups/MatchDeclarationPopup";
 
 function Settelment() {
   let register_id = localStorage?.getItem("register_id");
@@ -18,10 +20,22 @@ function Settelment() {
   const [clientId, setClientId] = useState([]);
   const [offlineSettlePayload, setOfflineSettlePayload] = useState({});
   const [showPaymentModal, setShowPaymentModal] = useState(false);
+  const [clientDetails, setClientDetails] = useState({});
   const handlePaymentModal = (data) => {
+    setClientId(data.client_id)
     setShowPaymentModal(true);
+    setClientDetails(data);
   };
-
+  const [paymentSubmitPopup, setPaymentSubmitPopup] = useState(false);
+  const [paymentPopup, setPaymentPopup] = useState(false);
+  const handlePaymentPopupOpen = () => {
+    setPaymentPopup(true);
+    setPaymentSubmitPopup(false);
+  };
+  const handlePaymentSubmitPopupOpen = () => {
+    setPaymentSubmitPopup(true);
+    setShowPaymentModal(false);
+  };
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = 5;
 
@@ -48,36 +62,34 @@ function Settelment() {
   useEffect(() => {
     getSettlementData();
   }, []);
+
+  const SETTELMENT_DETAILS = settlementData?.map((item) => {
+    return {
+      ClientName: item.client_name,
+      RolePosition: item.account_role,
+      Amount: item.pending_amount,
+      CreditDebit: item.settled_amount,
+      Balance: <div className="clr-green">{item.total_amount}</div>,
+      File: (
+        <AiFillFileText
+          className="custom-icon"
+          onClick={() => handlePaymentModal(item)}
+        />
+      ),
+    };
+  });
   const handleSettlement = async () => {
     await call(OFFLINE_PAYMENT_SETTLEMENT, {
       ...offlineSettlePayload,
       register_id,
       settledDate: moment(new Date()).format("DD/MM/YYYY"),
-      setteledTime: moment(new Date()).format("hh:mm:ss"),
+      settledTime: moment(new Date()).format("hh:mm:ss"),
     })
       .then((res) => {
         console.log(res);
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => console.log(err));
   };
-  const SETTELMENT_DETAILS = settlementData?.map((item) => {
-    return {
-      ClientName: item.client_name,
-      RolePosition: item.account_role,
-      Amount: item.client_risk_limit,
-      CreditDebit: item.client_risk_limit,
-      Balance: item.client_risk_limit,
-      File: (
-        <AiFillFileText
-          className="custom-icon"
-          onClick={() => handlePaymentModal()}
-        />
-      ),
-    };
-  });
-
   const columns = [
     { header: "CLIENT NAME", field: "ClientName" },
     { header: "ROLE/POSTION", field: "RolePosition" },
@@ -161,13 +173,34 @@ function Settelment() {
           />
         </div>
       </div>
-
       <PaymentSettelmentPopup
         showPaymentModal={showPaymentModal}
+        clientDetails={clientDetails}
+        settlementData={settlementData}
         setShowPaymentModal={setShowPaymentModal}
+        clientId={clientId}
         buttonOne={`Match : IND vs SL`}
         role="Client Name"
         buttonTwo={`Date : 27/07/23`}
+        setOfflineSettlePayload={setOfflineSettlePayload}
+        offlineSettlePayload={offlineSettlePayload}
+        handlePaymentSubmitPopupOpen={handlePaymentSubmitPopupOpen}
+      />
+      {paymentSubmitPopup && (
+        <MatchDeclarationPopup
+          header={`setteled payment for ${SETTELMENT_DETAILS?.[0].ClientName} Are You Sure?`}
+          // amount={"+100000"}
+          handleSettlement={handleSettlement}
+          state={paymentSubmitPopup}
+          setState={setPaymentSubmitPopup}
+          handleSubmitPopupOpen={handlePaymentPopupOpen}
+        />
+      )}
+
+      <MatchSubmitPopup
+        header={"Payment Successfully Completed"}
+        state={paymentPopup}
+        setState={setPaymentPopup}
       />
     </div>
   );

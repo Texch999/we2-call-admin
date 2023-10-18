@@ -14,7 +14,7 @@ function MatchEntryTable(props) {
     team2,
     seriesType,
     selectedMatch,
-    matchAccountData,
+    matchAccountData, 
     setSelectedMatchEntry,
     status,
     setStatus,

@@ -3,7 +3,7 @@ const USER_LOGIN = "/admin/admin_account_login";
 const GET_ALL_CLIENTS = "/offline-management/get_user_list";
 const GET_REFFERAL_DATA = "/offline-management/get_refferal_data";
 const GET_SETTLEMENT_HISTORY = "/offline-management/get_offline_settlement";
-const GET_CLIENTS_DATA = "/offline-users/get-clients-data";
+// const GET_CLIENTS_DATA = "/offline-users/get_clients_data";
 const GET_OFFLINE_CLIENTS = "/offline-management/get_clients_data";
 const CREATE_OFFLINE_CLIENT = "/offline-management/create_client";
 const GET_OFFLINE_CLIENT_DETAILS = "/offline-management/get_clientid_data";
@@ -50,7 +50,7 @@ const GET_INDUVISUAL_REPORTS = "/offline-management/get_individual_report";
 const CREATE_REFFERAL = "/offline-management/create_refferal";
 const GET_CALL_HISTORY = "/meetings/get_all_meetings";
 const CREATE_CALL_SETTLEMENT = "/group_call/create_call_settlement";
-const CREATE_CALL_STATEMENT="/group_call/group_call_statement"
+const CREATE_CALL_STATEMENT = "/group_call/group_call_statement";
 const CHANGE_PASSWORD = "/admin/change_password";
 const UPDATE_USER_ADMIN = "/admin/update_user_admin";
 const UPDATE_USER_CLIENT = "/admin/update_user_client";
@@ -230,10 +230,10 @@ exports.GET_SETTLEMENT_HISTORY = {
   method: POST,
 };
 
-exports.GET_CLIENTS_DATA = {
-  url: GET_CLIENTS_DATA,
-  method: POST,
-};
+// exports.GET_CLIENTS_DATA = {
+//   url: GET_CLIENTS_DATA,
+//   method: POST,
+// };
 
 exports.ACCOUNT_REGISTERATION = {
   url: ACCOUNT_REGISTERATION,

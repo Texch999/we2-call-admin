@@ -15,7 +15,10 @@ function CallHistory() {
 
   const [selectedStartDate, setSelectedStartDate] = useState(null);
   const [selectedEndDate, setSelectedEndDate] = useState(null);
-
+  const [activeButton, setActiveButton] = useState([]);
+  const handleStatusButton = (e) => {
+    setActiveButton(e);
+  };
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = 5;
 
@@ -79,15 +82,14 @@ function CallHistory() {
             <div>
               <div className="medium-font mb-2">To</div>
               <div className="date-container d-flex justify-content-around align-items-center rounded all-none p-1 w-100">
-                {/* <DatePicker
+                <DatePicker
                   className="login-input all-none w-50"
                   selected={selectedEndDate}
                   onChange={(date) => setSelectedEndDate(date)}
-                  dateFormat="mm/dd/yyyy"
+                  dateFormat="dd/MM/yyyy"
                   placeholderText="Select a date"
-                  
-                /> */}
-                <input
+                />
+                {/* <input
                   className="login-input all-none w-50"
                   type="date"
                   name="start_date"
@@ -95,7 +97,7 @@ function CallHistory() {
                   // dateFormat="mm-dd-yy"
                   onChange={(e) => setSelectedEndDate(e.target.value)}
                 ></input>
-                <FaRegCalendarAlt className="custom-icon p-1" />
+                <FaRegCalendarAlt className="custom-icon p-1" /> */}
               </div>
             </div>
           </Col>{" "}
@@ -131,20 +133,27 @@ function CallHistory() {
             </tr>
           </thead>
 
-          {CALL_HISTORY_DETAILS?.map((item, index) => (
+          {CALL_HISTORY_DETAILS.filter((item) => {
+            return item.Date > selectedStartDate && item.Date < selectedEndDate;
+          }).map((item, index) => (
             <tbody key={index} className="small-font">
               <tr>
                 <td className="text-center">
                   {item?.Date}
-                  {item?.Time}
+                  <div className="ms-2"> {item?.Time}</div>
                 </td>
                 <td className="text-center ">{item?.Meetingtitle}</td>
                 <td className="text-center">{item?.Duration}</td>
                 <td className="text-center clr-green ">{item?.price}</td>
                 <td className="text-center clr-green ">
-                  <button className="rounded-pill p-1 history-status-approve-button w-100">
+                  <div
+                    className={`p-1 w-100 ${
+                      item?.status === "started" ? "clr-green" : "clr-red"
+                    }`}
+                  >
                     {item?.status}
-                  </button>
+                  </div>
+                  {/* className={`p-1 w-100 ${ {item?.recording_status} === started : "clr-green" :"clr-red"}`} */}
                 </td>
                 <td className="text-center">
                   <AiFillPlayCircle className="custom-icon" />
