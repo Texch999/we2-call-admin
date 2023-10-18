@@ -154,26 +154,26 @@ function Header() {
       name: "Privacy Policy",
       path: "/privacy-policy",
     },
-    {
-      icon: <MdOutlinePrivacyTip className="mr-10 d-flex" />,
-      name: "Admin One Page Report",
-      path: "/admin-one-page-report",
-    },
-    {
-      icon: <MdOutlinePrivacyTip className="mr-10 d-flex" />,
-      name: "Admin Share Comm Settlement",
-      path: "/admin-share-comm-settlement",
-    },
+    // {
+    //   icon: <MdOutlinePrivacyTip className="mr-10 d-flex" />,
+    //   name: "Admin One Page Report",
+    //   path: "/admin-one-page-report",
+    // },
+    // {
+    //   icon: <MdOutlinePrivacyTip className="mr-10 d-flex" />,
+    //   name: "Admin Share Comm Settlement",
+    //   path: "/admin-share-comm-settlement",
+    // },
     {
       icon: <MdOutlinePrivacyTip className="mr-10 d-flex" />,
       name: "Call Management",
       path: "/call-management",
     },
-    {
-      icon: <MdOutlinePrivacyTip className="mr-10 d-flex" />,
-      name: "Super Admin Call Management",
-      path: "/super-admin-call-management",
-    },
+    // {
+    //   icon: <MdOutlinePrivacyTip className="mr-10 d-flex" />,
+    //   name: "Super Admin Call Management",
+    //   path: "/super-admin-call-management",
+    // },
     {
       icon: <MdOutlinePrivacyTip className="mr-10 d-flex" />,
       name: "Share Risk live mathces",
