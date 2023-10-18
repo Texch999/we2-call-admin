@@ -12,7 +12,7 @@ import {
 
 function AddAdminsPopup(props) {
   const { adminsData, usersData, setModalShow, editData } = props;
-  console.log("Props====>", props);
+  // console.log("Props====>", props);
   let register_id = localStorage?.getItem("register_id");
   let creator_id = localStorage?.getItem("creator_id");
   let account_role = localStorage?.getItem("account_role");

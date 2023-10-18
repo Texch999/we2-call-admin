@@ -48,9 +48,12 @@ const GET_INDUVISUAL_REFERRAL_BY =
   "/offline-management/get_individual_reportby_refferal";
 const GET_INDUVISUAL_REPORTS = "/offline-management/get_individual_report";
 const CREATE_REFFERAL = "/offline-management/create_refferal";
-const CHANGE_PASSWORD="/admin/change_password";
-const UPDATE_USER_ADMIN="/admin/update_user_admin"
-const UPDATE_USER_CLIENT="/admin/update_user_client"
+const CHANGE_PASSWORD = "/admin/change_password";
+const UPDATE_USER_ADMIN = "/admin/update_user_admin";
+const UPDATE_USER_CLIENT = "/admin/update_user_client";
+const ADD_PAYMENT = "/management/add_payment_gateway";
+const GET_ALL_PAYMENT_GATEWAYS = "/management/getall_payments";
+const UPDATE_PAYMENT_GATEWAY = "/management/update_payment_gateway";
 
 // methods
 const DELETE = "DELETE";
@@ -235,7 +238,7 @@ exports.ACCOUNT_REGISTERATION = {
   method: POST,
 };
 exports.GET_ALL_PACKAGES = {
-  url: GET_ALL_PACKAGES,  
+  url: GET_ALL_PACKAGES,
   method: POST,
 };
 
@@ -269,11 +272,20 @@ exports.UPDATE_USER_ADMIN = {
   method: POST,
 };
 
+exports.ADD_PAYMENT = {
+  url: ADD_PAYMENT,
+  method: POST,
+};
+
+exports.GET_ALL_PAYMENT_GATEWAYS = {
+  url: GET_ALL_PAYMENT_GATEWAYS,
+  method: POST,
+};
+
 exports.UPDATE_USER_CLIENT = {
   url: UPDATE_USER_CLIENT,
   method: POST,
 };
-
 
 exports.CREATE_PACKAGE_SUBSCRIPTION = {
   url: CREATE_PACKAGE_SUBSCRIPTION,
@@ -281,5 +293,9 @@ exports.CREATE_PACKAGE_SUBSCRIPTION = {
 };
 exports.GET_MATCH_POSITION_DATA = {
   url: GET_MATCH_POSITION_DATA,
+  method: POST,
+};
+exports.UPDATE_PAYMENT_GATEWAY = {
+  url: UPDATE_PAYMENT_GATEWAY,
   method: POST,
 };
