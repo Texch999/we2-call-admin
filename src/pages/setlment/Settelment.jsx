@@ -9,9 +9,9 @@ import { useEffect } from "react";
 import { call } from "../../config/axios";
 import CustomPagination from "../pagination/CustomPagination";
 import { sumOfData } from "../../utils";
-import MatchSubmitPopup from "../match-popups/MatchSubmitPopup";
 import moment from "moment";
 import MatchDeclarationPopup from "../match-popups/MatchDeclarationPopup";
+import MatchSubmitPopup from "../match-popups/MatchSubmitPopup";
 
 function Settelment() {
   let register_id = localStorage?.getItem("register_id");
@@ -22,7 +22,7 @@ function Settelment() {
   const [showPaymentModal, setShowPaymentModal] = useState(false);
   const [clientDetails, setClientDetails] = useState({});
   const handlePaymentModal = (data) => {
-    setClientId(data.client_id)
+    setClientId(data.client_id);
     setShowPaymentModal(true);
     setClientDetails(data);
   };
@@ -65,6 +65,7 @@ function Settelment() {
 
   const SETTELMENT_DETAILS = settlementData?.map((item) => {
     return {
+      client_id: item.client_id,
       ClientName: item.client_name,
       RolePosition: item.account_role,
       Amount: item.pending_amount,
@@ -179,21 +180,21 @@ function Settelment() {
         settlementData={settlementData}
         setShowPaymentModal={setShowPaymentModal}
         clientId={clientId}
-        buttonOne={`Match : IND vs SL`}
         role="Client Name"
-        buttonTwo={`Date : 27/07/23`}
         setOfflineSettlePayload={setOfflineSettlePayload}
         offlineSettlePayload={offlineSettlePayload}
         handlePaymentSubmitPopupOpen={handlePaymentSubmitPopupOpen}
+        SETTELMENT_DETAILS={SETTELMENT_DETAILS}
       />
       {paymentSubmitPopup && (
         <MatchDeclarationPopup
-          header={`setteled payment for ${SETTELMENT_DETAILS?.[0].ClientName} Are You Sure?`}
+          header={`Setteled Payment for ${clientDetails?.client_name}Are You Sure?`}
           // amount={"+100000"}
           handleSettlement={handleSettlement}
           state={paymentSubmitPopup}
           setState={setPaymentSubmitPopup}
-          handleSubmitPopupOpen={handlePaymentPopupOpen}
+          handleMatchSubmitSuccessPopupOpen={handlePaymentPopupOpen}
+          setPaymentPopup={setPaymentPopup}
         />
       )}
 
