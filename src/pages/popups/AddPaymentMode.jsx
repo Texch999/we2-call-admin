@@ -6,7 +6,7 @@ import { useEffect, useState, useRef } from "react";
 import {
   ADD_PAYMENT,
   UPDATE_PAYMENT_GATEWAY, 
-  GENERATE_SIGNED_URL,
+  GENERATE_SIGNED_URL
 } from "../../config/endpoints";
 import { call } from "../../config/axios";
 import MatchSubmitPopup from "../match-popups/MatchSubmitPopup";
@@ -85,6 +85,7 @@ function AddPaymentMode(props) {
 
   const handleUploadFileSelect = (e) => {
     const file = e.target.files[0];
+    console.log("File====>",file)
     setProfileImage(file);
     generateSignedUrl();
   };
