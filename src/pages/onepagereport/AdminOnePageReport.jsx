@@ -168,7 +168,7 @@ const AdminOnePageReport = () => {
     <div >
       <h6 className="meetings-heading mb-3">Your Share In Admin Book</h6>
       <div className="d-flex align-items-center justify-content-between">
-        <div>
+        {/* <div>
           {reports.map((report, index) => (
             <Button
               key={index}
@@ -180,7 +180,7 @@ const AdminOnePageReport = () => {
               {report}
             </Button>
           ))}
-        </div>
+        </div> */}
         <Button className="all-match-button">All Match</Button>
       </div>
       <hr />
