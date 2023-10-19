@@ -24,15 +24,14 @@ function FancyResultClientTable({ profitLossData, selectedMatch }) {
   const FANCY_CLIENT_TABLE_DATA =
     profitLossData &&
     Object.keys(profitLossData)?.map((key) => {
-      console.log(key, "KKKK", profitLossData);
       let {
         amount,
         clientCommission,
         clientShare,
-        referralShare,
-        referralCommission,
+        referalShare,
+        referralComission,
         totalLossOrProfit,
-        upperLevelShare,
+        upperLevalShare,
       } = profitLossData[key];
       return {
         header: key,
@@ -40,8 +39,12 @@ function FancyResultClientTable({ profitLossData, selectedMatch }) {
         cNet:
           parseFloat(amount) +
           (parseFloat(clientCommission) + parseFloat(clientShare)),
-        rfNet: parseFloat(referralShare) + parseFloat(referralCommission) || 0,
+        rfNet: parseFloat(referalShare) + parseFloat(referralComission) || 0,
         netPL: parseFloat(totalLossOrProfit),
+        // FancyPopupsData
+        clientShare: parseFloat(clientShare),
+        rfShare: parseFloat(referalShare),
+
       };
     });
 
@@ -93,10 +96,14 @@ function FancyResultClientTable({ profitLossData, selectedMatch }) {
         />
       </div>
       <FancyResultNameSharePopup
+        selectedMatch={selectedMatch}
+        clientShareData={FANCY_CLIENT_TABLE_DATA}
         fancyResultSharePopup={fancyResultSharePopup}
         handleFancyResultSharePopupClose={handleFancyResultSharePopupClose}
       />
       <FancyResultCommPopup
+        selectedMatch={selectedMatch}
+        clientCommData={FANCY_CLIENT_TABLE_DATA}
         fancyResultCommPopup={fancyResultCommPopup}
         handleFancyResultCommPopupClose={handleFancyResultCommPopupClose}
       />

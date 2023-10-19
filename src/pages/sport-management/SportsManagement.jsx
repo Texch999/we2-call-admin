@@ -40,7 +40,6 @@ function SportsManagement() {
     await call(GET_ALL_MATCHES, { register_id, account_role })
       .then((res) => {
         let result = res?.data?.data;
-        console.log("all matches", res?.data?.data);
         setAllMatchesData([
           ...result?.liveMatches,
           ...result?.todaysMatches,
@@ -250,7 +249,6 @@ function SportsManagement() {
   // };
 
   const handleMacthSubmit = async () => {
-    console.log("subit click");
     if (
       !matchData?.series_name ||
       !matchData?.sport_name ||
@@ -310,21 +308,15 @@ function SportsManagement() {
 
   const handleUpadate = (item) => {
     setMatchData(item);
-    console.log(item, "..........itemEdit");
   };
 
   const handleChange = (e) => {
     setMatchData({ ...matchData, [e.target.name]: e.target.value });
-    console.log(e.target.value, ".....events");
   };
   useEffect(() => {
     getAllMatches();
     setScheduleDate(liveMatchesData);
   }, []);
-
-  console.log(matchData, ".....matchData");
-  console.log(allMatchesData, ".......scheduleDate");
-  // console.log(inns, ".....inns");
 
   return (
     <div className="p-3">

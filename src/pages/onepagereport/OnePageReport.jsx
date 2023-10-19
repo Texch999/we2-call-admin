@@ -75,7 +75,6 @@ function OnePageReport(props) {
   const handleReportPageShow = () => {
     setShowReportPopup(true);
   };
-  console.log(onePageReportData, "........onePageReportData");
 
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = 5;

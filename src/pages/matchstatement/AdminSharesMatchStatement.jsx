@@ -136,7 +136,6 @@ const AdminSharesMatchStatement = () => {
   };
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    console.log(selectedOptions);
   };
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = 5;

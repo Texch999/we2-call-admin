@@ -4,7 +4,7 @@ import { PiArrowCircleDownBold } from "react-icons/pi";
 import FancyResultSharePopup from "../fancy-popups/FancyResultSharePopup";
 import FancyResultOversCommPopup from "../fancy-popups/FancyResultOversCommPopup";
 
-function FancyResultOversTable() {
+function FancyResultOversTable({ profitLossData, selectedMatch }) {
   const [fancyResultSharePopup, setFancyResultSharePopup] = useState(false);
   const [fancyResultCommPopup, setFancyResultCommPopup] = useState(false);
   const handleFancyResultSharePopupOpen = () => {
@@ -16,43 +16,39 @@ function FancyResultOversTable() {
   const handleFancyResultCommPopupOpen = () => {
     setFancyResultCommPopup(true);
   };
-  const FANCY_OVERS_TABLE_DATA = [
-    {
-      header: "10 Overs",
-      grossPL: 50000000,
-      cNet: 50000000,
-      rfNet: 50000000,
-      netPL: 50000000,
-    },
-    {
-      header: "10 Overs",
-      grossPL: -50000000,
-      cNet: 50000000,
-      rfNet: 50000000,
-      netPL: -50000000,
-    },
-    {
-      header: "10 Overs",
-      grossPL: 50000000,
-      cNet: 50000000,
-      rfNet: 50000000,
-      netPL: 50000000,
-    },
-    {
-      header: "10 Overs",
-      grossPL: 50000000,
-      cNet: 50000000,
-      rfNet: 50000000,
-      netPL: 50000000,
-    },
-    {
-      header: "10 Overs",
-      grossPL: 50000000,
-      cNet: 50000000,
-      rfNet: 50000000,
-      netPL: 50000000,
-    },
-  ];
+
+  const FANCY_OVERS_TABLE_DATA =
+    profitLossData &&
+    Object.keys(profitLossData)?.map((key) => {
+      console.log("KEY-->", key);
+      let {
+        amount,
+        clientCommission,
+        clientShare,
+        referalShare,
+        referralComission,
+        totalLossOrProfit,
+        upperLevalShare,
+      } = profitLossData[key];
+      return {
+        header: key,
+        grossPL: parseFloat(amount),
+        cNet:
+          parseFloat(amount) +
+          (parseFloat(clientCommission) + parseFloat(clientShare)),
+        rfNet: parseFloat(referalShare) + parseFloat(referralComission) || 0,
+        netPL: parseFloat(totalLossOrProfit),
+      };
+    });
+  // const FANCY_OVERS_TABLE_DATA = [
+  //   {
+  //     header: "10 Overs",
+  //     grossPL: 50000000,
+  //     cNet: 50000000,
+  //     rfNet: 50000000,
+  //     netPL: 50000000,
+  //   },
+  // ];
   const FANCY_OVERS_HEADER_DATA = [
     { header: "OVERS", field: "header" },
     { header: "GROSS PL", field: "grossPL" },
@@ -93,7 +89,7 @@ function FancyResultOversTable() {
       </div>
       <div className="mt-3">
         <MatchTable
-          data={FANCY_OVERS_TABLE_DATA}
+          data={FANCY_OVERS_TABLE_DATA || []}
           columns={FANCY_OVERS_HEADER_DATA}
         />
       </div>
