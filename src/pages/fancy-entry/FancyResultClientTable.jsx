@@ -24,7 +24,6 @@ function FancyResultClientTable({ profitLossData, selectedMatch }) {
   const FANCY_CLIENT_TABLE_DATA =
     profitLossData &&
     Object.keys(profitLossData)?.map((key) => {
-      console.log(key, "KKKK", profitLossData);
       let {
         amount,
         clientCommission,

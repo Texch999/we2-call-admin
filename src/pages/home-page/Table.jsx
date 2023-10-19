@@ -25,7 +25,6 @@ function Table(props) {
     //                   : ""
     //               }
     //             >
-    //               {console.log(item?.recordStatus, "item?.recordStatus")}
     //               {columns?.map((column, colIndex) => (
     //                 <td key={colIndex}>
     //                   <div>{item[column?.field]}</div>

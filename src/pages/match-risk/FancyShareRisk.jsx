@@ -362,7 +362,6 @@ const FancyShareRisk = () => {
       setMatchPositionPopUpHeadings(matchPositionCommPopUpHeadings);
       setSubHeading("Fancy Result P/L- IND vs SL");
       setPositionOne("client_name");
-      console.log(positionOne);
     }
   };
   const handleFancyPositionSharePLPopTwo = (buttonType) => {
@@ -378,7 +377,6 @@ const FancyShareRisk = () => {
       setMatchPositionPopUpHeadings(fancyPositionCommPLPopTwoHeadings);
       setSubHeading("Fancy Result P/L- IND vs SL");
       setPositionTwo("over");
-      console.log(positionTwo);
     }
   };
   const handleFancyPositionSharePLPopThree = (buttonType) => {
@@ -394,7 +392,6 @@ const FancyShareRisk = () => {
       setMatchPositionPopUpHeadings(fancyPositionCommPLPopThreeHeadings);
       setSubHeading("Risk Running Position P/L");
       setPositionThree("runs");
-      console.log(positionThree);
     }
   };
   return (

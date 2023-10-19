@@ -91,7 +91,6 @@ function FancyResultInput(props) {
     setOver(selectedMatchEntry?.over);
     setFancyResultInputData(selectedMatch);
   }, [selectedMatchEntry]);
-  console.log("FANCY-->", fancyResultInputData);
   return (
     <div className="match-position-bg rounded-bottom p-3">
       <div className="row">
@@ -116,7 +115,7 @@ function FancyResultInput(props) {
               <input
                 className="w-90 custom-select medium-font btn-bg  all-none p-2 rounded"
                 placeholder="Over"
-                value={over || []}
+                value={over || ""}
                 name="over"
                 onChange={(e) => handleOvers(e)}
               ></input>
@@ -127,8 +126,11 @@ function FancyResultInput(props) {
                 onChange={(e) => handleSelectOvers(e)}
               >
                 <option>Select</option>
+                <option value="5">5 Overs</option>
                 <option value="10">10 Overs</option>
+                <option value="15">15 Overs</option>
                 <option value="20">20 Overs</option>
+                <option value="25">25 Overs</option>
                 <option value="30">30 Overs</option>
               </select>
             </div>

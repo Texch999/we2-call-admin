@@ -68,7 +68,6 @@ function AddUserPopUp(props) {
     setErr("");
     setIsProcessing(true);
     setModalShow(false);
-    // console.log({ inputData });
     await call(ACCOUNT_REGISTERATION, {
       account_role: "client",
       ...inputData,

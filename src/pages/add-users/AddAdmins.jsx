@@ -71,7 +71,6 @@ const AddAdmins = () => {
   };
 
   const handleBlock = async (data) => {
-    console.log(data?.type, "data");
     await call(BLOCKUNBLOCK, {
       register_id: data?.register_id,
       creator_id: register_id,
@@ -178,7 +177,6 @@ const AddAdmins = () => {
             {addUsersData?.length > 0 &&
               addUsersData?.map((data, index) => (
                 <tr key={index}>
-                  {console.log({ data })}
                   <td className="text-center">{data?.s_no}</td>
                   <td className="text-center">
                     {data?.user_name}{" "}

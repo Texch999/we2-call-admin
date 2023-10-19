@@ -56,8 +56,6 @@ function CallHistory() {
   // const filterCallhistory = CALL_HISTORY_DETAILS.filter((item) => {
   //   return item.Date > selectedStartDate && item.Date < selectedEndDate;
   // });
-  console.log(CALL_HISTORY_DETAILS, "getting call history Data");
-  console.log(selectedStartDate, selectedEndDate, "dates");
   return (
     <div>
       <h5 className="meetings-heading mb-3">Call History</h5>
