@@ -10,13 +10,14 @@ function MatchDeclarationPopup(props) {
     amount,
     state,
     setState,
+    setPaymentPopup,
     handleSubmitPopupOpen,
     // handleMatchDeclarePopupClose,
   } = props;
   const [matchSubmitSuccessPopup, setMatchSubmitSuccessPopup] = useState(false);
   const handleMatchSubmitSuccessPopupOpen = () => {
     setMatchSubmitSuccessPopup(true);
-    // setPaymentPopup(true);
+    setPaymentPopup(true);
     setState(false);
   };
   const handleMatchDeclarePopupClose = () => {
