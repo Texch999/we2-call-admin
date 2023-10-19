@@ -11,8 +11,7 @@ function MatchDeclarationPopup(props) {
     state,
     setState,
     handleSubmitPopupOpen,
-    setPaymentPopup,
-    handleMatchDeclarePopupClose,
+    // handleMatchDeclarePopupClose,
   } = props;
   const [matchSubmitSuccessPopup, setMatchSubmitSuccessPopup] = useState(false);
   const handleMatchSubmitSuccessPopupOpen = () => {
@@ -20,13 +19,13 @@ function MatchDeclarationPopup(props) {
     setPaymentPopup(true);
     setState(false);
   };
-  const handleCancel = () => {
+  const handleMatchDeclarePopupClose = () => {
     setState(false);
   };
   return (
     <Modal className="match-declaration-modal" centered show={state}>
       <Modal.Header className="d-flex justify-content-end">
-        <IoCloseSharp onClick={() => handleCancel()} />
+        <IoCloseSharp onClick={() => handleMatchDeclarePopupClose()} />
       </Modal.Header>
       <Modal.Body>
         <center className="px-3">
@@ -40,7 +39,7 @@ function MatchDeclarationPopup(props) {
           <div className="row d-flex justify-content-between mt-3">
             <div
               className="col-5 rounded yellow-btn p-1"
-              onClick={() => handleMatchSubmitSuccessPopupOpen()}
+              onClick={() => handleSubmitPopupOpen()}
             >
               Yes
             </div>

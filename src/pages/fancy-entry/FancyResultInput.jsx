@@ -18,8 +18,6 @@ function FancyResultInput(props) {
   let creator_id = localStorage?.getItem("creator_id");
   let account_role = localStorage?.getItem("account_role");
 
-  const [fancyDeclarationPopup, setFancyDeclarationPopup] = useState(false);
-  const [fancySubmitPopup, setFancySubmitPopup] = useState(false);
   const [over, setOver] = useState("");
   const [fancyResultInputData, setFancyResultInputData] = useState({});
   const [confirmDeclaration, setConfirmDeclaration] = useState(false);
@@ -39,24 +37,6 @@ function FancyResultInput(props) {
       [e.target.name]: e.target.value,
     });
   };
-  const handleFancyDeclarationPopupOpen = () => {
-    setFancyDeclarationPopup(true);
-  };
-  const handleFancySubmitPopupOpen = () => {
-    setFancySubmitPopup(true);
-    setFancyDeclarationPopup(false);
-  };
-  const handleConfirmDeclaration = async () => {
-    if (
-      !over ||
-      !fancyResultInputData?.innings ||
-      !fancyResultInputData?.team ||
-      !fancyResultInputData?.runs
-    ) {
-      return setError("Please Enter Required Fields");
-    }
-    setConfirmDeclaration(true);
-  };
 
   const handleFancyDeclaration = async () => {
     setConfirmDeclaration(false);
@@ -74,12 +54,13 @@ function FancyResultInput(props) {
       .then((res) => {
         setIsProcessing(false);
         if (res?.data?.statusCode === 200) {
-          setConfirmDeclaration(false);
+          setConfirmDeclaration(true);
           setStatus((prev) => !prev);
           getFancyProfitLoss();
           setTimeout(() => {
             setAfterConfirm(false);
           }, 2000);
+          setError("");
         } else {
           setConfirmDeclaration(false);
           setError(
@@ -92,6 +73,18 @@ function FancyResultInput(props) {
         setError(`Something Went Wrong`);
         console.log(err);
       });
+  };
+
+  const handleConfirmDeclaration = async () => {
+    if (
+      !over ||
+      !fancyResultInputData?.innings ||
+      !fancyResultInputData?.team ||
+      !fancyResultInputData?.runs
+    ) {
+      return setError("Please Enter Required Fields");
+    }
+    setConfirmDeclaration(true);
   };
 
   useEffect(() => {

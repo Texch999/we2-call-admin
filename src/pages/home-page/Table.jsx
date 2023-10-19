@@ -67,6 +67,8 @@ function Table(props) {
                 className={
                   item?.recordStatus === "updated"
                     ? "match-entry-edit-color"
+                    : item?.recordStatus === "deleted"
+                    ? "match-entry-delete-color"
                     : ""
                 }
               >

@@ -107,8 +107,14 @@ function FancyEntry() {
         setSelectedMatch={setSelectedMatch}
       />
       <div className="d-flex flex-wrap">
-        <FancyResultClientTable />
-        <FancyResultOversTable />
+        <FancyResultClientTable
+          selectedMatch={selectedMatch}
+          profitLossData={profitLossData?.clientsData}
+        />
+        <FancyResultOversTable
+          selectedMatch={selectedMatch}
+          profitLossData={profitLossData?.oversObject}
+        />
         <FancyRiskRunningTable />
       </div>
       <FancyEntries
