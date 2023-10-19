@@ -115,7 +115,9 @@ function FancyEntry() {
           selectedMatch={selectedMatch}
           profitLossData={profitLossData?.oversObject}
         />
-        <FancyRiskRunningTable />
+        <FancyRiskRunningTable
+          riskRunningData={riskRunningData}
+        />
       </div>
       <FancyEntries
         // fancyEntryInputs={fancyEntryInputs}

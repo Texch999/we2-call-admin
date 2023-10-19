@@ -31,11 +31,24 @@ function FancyResultInput(props) {
   const handleSelectOvers = (e) => {
     setOver([...over, e.target.value]);
   };
+
   const handleFancyResultInputDataChange = (e) => {
     setFancyResultInputData({
       ...fancyResultInputData,
       [e.target.name]: e.target.value,
     });
+  };
+
+  const handleConfirmDeclaration = async () => {
+    if (
+      !fancyResultInputData?.innings ||
+      !over ||
+      !fancyResultInputData?.team ||
+      !fancyResultInputData?.runs
+    ) {
+      return setError("Please Enter Required Fields");
+    }
+    setConfirmDeclaration(true);
   };
 
   const handleFancyDeclaration = async () => {
@@ -75,21 +88,9 @@ function FancyResultInput(props) {
       });
   };
 
-  const handleConfirmDeclaration = async () => {
-    if (
-      !over ||
-      !fancyResultInputData?.innings ||
-      !fancyResultInputData?.team ||
-      !fancyResultInputData?.runs
-    ) {
-      return setError("Please Enter Required Fields");
-    }
-    setConfirmDeclaration(true);
-  };
-
   useEffect(() => {
     setOver(selectedMatchEntry?.over);
-    setFancyResultInputData(selectedMatch);
+    setFancyResultInputData(selectedMatchEntry);
   }, [selectedMatchEntry]);
   return (
     <div className="match-position-bg rounded-bottom p-3">
@@ -115,7 +116,7 @@ function FancyResultInput(props) {
               <input
                 className="w-90 custom-select medium-font btn-bg  all-none p-2 rounded"
                 placeholder="Over"
-                value={over || ""}
+                value={over ||[]}
                 name="over"
                 onChange={(e) => handleOvers(e)}
               ></input>

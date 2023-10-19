@@ -1,44 +1,40 @@
 import MatchTable from "../match-entry/MatchTable";
 import { PiArrowCircleDownBold } from "react-icons/pi";
 
-function FancyRiskRunningTable() {
-  const FANCY_CLIENT_TABLE_DATA = [
-    {
-      header: "50 Runs",
-      amount: 50000000,
-      cPosition: 50000000,
-      rfPosition: 50000000,
-      ursPosition: 50000000,
-    },
-    {
-      header: "50 Runs",
-      amount: 50000000,
-      cPosition: 50000000,
-      rfPosition: 50000000,
-      ursPosition: 50000000,
-    },
-    {
-      header: "50 Runs",
-      amount: 50000000,
-      cPosition: 50000000,
-      rfPosition: 50000000,
-      ursPosition: 50000000,
-    },
-    {
-      header: "50 Runs",
-      amount: 50000000,
-      cPosition: 50000000,
-      rfPosition: 50000000,
-      ursPosition: 50000000,
-    },
-    {
-      header: "50 Runs",
-      amount: 50000000,
-      cPosition: 50000000,
-      rfPosition: 50000000,
-      ursPosition: 50000000,
-    },
-  ];
+function FancyRiskRunningTable({ riskRunningData }) {
+  const FANCY_CLIENT_TABLE_DATA =
+    riskRunningData &&
+    Object.keys(riskRunningData)?.map((key) => {
+      let {
+        amount,
+        clientCommission,
+        clientShare,
+        referalShare,
+        referralComission,
+        totalLossOrProfit,
+        upperLevalShare,
+        ulComm,
+      } = riskRunningData[key];
+      return {
+        header: key,
+        amount: parseFloat(amount || 0),
+        cPosition:
+          parseFloat(clientCommission || 0) + parseFloat(clientShare || 0),
+        rfPosition:
+          parseFloat(referalShare || 0) + parseFloat(referralComission || 0),
+        ursPosition: parseFloat(upperLevalShare || 0) + parseFloat(ulComm || 0),
+      };
+    });
+
+  // const FANCY_CLIENT_TABLE_DATA = [
+  //   {
+  //     header: "50 Runs",
+  //     amount: 50000000,
+  //     cPosition: 50000000,
+  //     rfPosition: 50000000,
+  //     ursPosition: 50000000,
+  //   },
+  // ];
   const FANCY_CLIENT_HEADER_DATA = [
     { header: "RUNS", field: "header" },
     { header: "AMOUNT", field: "amount" },

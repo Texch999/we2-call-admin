@@ -243,8 +243,11 @@ function FancyEntryInput({
                 onChange={(e) => handleSelectOvers(e)}
               >
                 <option>Select</option>
+                <option value="5">5 Overs</option>
                 <option value="10">10 Overs</option>
+                <option value="15">15 Overs</option>
                 <option value="20">20 Overs</option>
+                <option value="25">25 Overs</option>
                 <option value="30">30 Overs</option>
               </select>
             </div>

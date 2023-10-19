@@ -28,10 +28,10 @@ function FancyResultClientTable({ profitLossData, selectedMatch }) {
         amount,
         clientCommission,
         clientShare,
-        referralShare,
-        referralCommission,
+        referalShare,
+        referralComission,
         totalLossOrProfit,
-        upperLevelShare,
+        upperLevalShare,
       } = profitLossData[key];
       return {
         header: key,
@@ -39,7 +39,7 @@ function FancyResultClientTable({ profitLossData, selectedMatch }) {
         cNet:
           parseFloat(amount) +
           (parseFloat(clientCommission) + parseFloat(clientShare)),
-        rfNet: parseFloat(referralShare) + parseFloat(referralCommission) || 0,
+        rfNet: parseFloat(referalShare) + parseFloat(referralComission) || 0,
         netPL: parseFloat(totalLossOrProfit),
       };
     });
