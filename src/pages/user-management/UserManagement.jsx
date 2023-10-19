@@ -155,9 +155,9 @@ function UserManagement() {
     getOfflineClients();
   }, [addClientStatus]);
 
-  console.log(clientData, ".......existing Users DatA");
+  // console.log(clientData, ".......existing Users DatA");
 
-  console.log(refferalData, "referdata.........");
+  // console.log(refferalData, "referdata.........");
 
   console.log(userDetails, "....userDetails");
 
@@ -190,14 +190,16 @@ function UserManagement() {
             <div>Client Type</div>
             <select
               className="sport-management-input d-flex  w-100 sport-management-select cursor-pointer"
-              onChange={(e) => {
-                const selectedIndex = e.target.selectedIndex;
-                setClientTypeSelected(clientSelection[selectedIndex]);
-                setClientData({
-                  ...clientData,
-                  client_type: selectedIndex,
-                });
-              }}
+              name="client_type"
+              // onChange={(e) => {
+              //   const selectedIndex = e.target.selectedIndex;
+              //   setClientTypeSelected(clientSelection[selectedIndex]);
+              //   setClientData({
+              //     ...clientData,
+              //     client_type: selectedIndex,
+              //   });
+              // }}
+              onChange={(e) => handleChange(e)}
             >
               <option className="w-90 ms-1 cursor-pointer" value="">
                 Select...
@@ -206,7 +208,7 @@ function UserManagement() {
                 return (
                   <option
                     className="w-90 ms-1 cursor-pointer"
-                    value={type}
+                    value={type?.value}
                     key={index}
                   >
                     {type?.name}
@@ -343,7 +345,7 @@ function UserManagement() {
             <select
               className="sport-management-input d-flex  w-100 sport-management-select meetings-heading"
               onChange={(e) => handleChange(e)}
-              name="rf_comm"
+              name="deposite_credite"
             >
               <option>select</option>
               <option value="widthdraw">Widthdraw</option>
@@ -358,14 +360,27 @@ function UserManagement() {
             <div className="col">
               <div>Location</div>
               <div className="sport-management-input d-flex ">
-                <input className="w-90 ms-2 " placeholder="Enter"></input>
+                <input
+                  className="w-90 ms-2 "
+                  placeholder="Enter"
+                  onChange={(e) => handleChange(e)}
+                  name="location"
+                  value={userDetails?.location || ""}
+                ></input>
                 <GrLocation />
               </div>
             </div>
             <div className="col">
               <div>Match Risk Limit</div>
               <div className="sport-management-input d-flex ">
-                <input className="w-90 ms-2 " placeholder="Enter"></input>
+                <input
+                  className="w-90 ms-2 "
+                  placeholder="Enter"
+                  onChange={(e) => handleChange(e)}
+                  name="match_risk_limit"
+                  type="number"
+                  value={userDetails?.match_risk_limit || ""}
+                ></input>
                 {/* <AiOutlineUser /> */}
               </div>
             </div>
