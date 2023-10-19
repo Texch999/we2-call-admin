@@ -43,6 +43,7 @@ function UserManagement() {
   const [error, setError] = useState("");
   const [isProcessing, setIsProcessing] = useState(false);
   const [refStatus, setRefStatus] = useState(false);
+  const [userDetails, setUserDetails] = useState({});
 
   const clientSelection = [
     { name: "Regulor", value: 0 },
@@ -94,8 +95,9 @@ function UserManagement() {
     </div>
   );
 
-  const handleChange = (name, value) => {
-    console.log(name, value);
+  const handleChange = (e) => {
+    // console.log(name, value);
+    setUserDetails({ ...userDetails, [e.target.name]: e.target.value });
   };
   const getOfflineClients = async () => {
     await call(GET_OFFLINE_CLIENTS, { register_id })
@@ -155,6 +157,10 @@ function UserManagement() {
 
   console.log(clientData, ".......existing Users DatA");
 
+  console.log(refferalData, "referdata.........");
+
+  console.log(userDetails, "....userDetails");
+
   return (
     <div className="p-3">
       <h5 className="meetings-heading">User Management/Creation</h5>
@@ -211,25 +217,27 @@ function UserManagement() {
           </div>
           <div className="w-55">
             <div>Client Name</div>
-            <select className="sport-management-input d-flex  w-100 sport-management-select cursor-pointer">
-              <option className="w-90 ms-1 cursor-pointer" value="">
-                Select...
-              </option>
+            <select
+              className="sport-management-input d-flex  w-100 sport-management-select cursor-pointer"
+              onChange={(e) => handleChange(e)}
+              name="select_client"
+            >
+              <option className="w-90 ms-1 cursor-pointer">Select...</option>
               {allClients?.length &&
                 allClients
-                  .filter(
-                    (obj) =>
-                      !existingClients.some(
-                        (o) => o.existing_user_id === obj.register_id
-                      )
-                  )
-                  ?.map(({ register_id, user_name }, index) => (
+                  // .filter(
+                  //   (obj) =>
+                  //     !existingClients.some(
+                  //       (o) => o.existing_user_id === obj.register_id
+                  //     )
+                  // )
+                  ?.map(({ first_name }, index) => (
                     <option
                       className="w-90 ms-1 cursor-pointer"
-                      value={register_id}
+                      value={first_name}
                       key={index}
                     >
-                      {user_name}
+                      {first_name}
                     </option>
                   ))}
             </select>
@@ -239,7 +247,13 @@ function UserManagement() {
           <div>
             <div>Alias Name</div>
             <div className="sport-management-input d-flex ">
-              <input className="w-90 ms-2 " placeholder="Enter"></input>
+              <input
+                className="w-90 ms-2 "
+                placeholder="Enter"
+                onChange={(e) => handleChange(e)}
+                name="alias_name"
+                value={userDetails?.alias_name || ""}
+              ></input>
               <AiOutlineUser />
             </div>
           </div>
@@ -256,12 +270,14 @@ function UserManagement() {
             </div>
             <select
               className="sport-management-input d-flex  w-100 sport-management-select cursor-pointer"
-              onChange={(e) => {
-                setClientData({
-                  ...clientData,
-                  referral_name: e.target.value,
-                });
-              }}
+              // onChange={(e) => {
+              //   setClientData({
+              //     ...clientData,
+              //     referral_name: e.target.value,
+              //   });
+              // }}
+              onChange={(e) => handleChange(e)}
+              name="refer_name"
             >
               <option className="w-90 ms-1 cursor-pointer" value="">
                 Select...
@@ -270,19 +286,25 @@ function UserManagement() {
                 return (
                   <option
                     className="w-90 ms-1 cursor-pointer"
-                    value={type}
+                    value={type.referral_name}
                     key={index}
                   >
-                    {type?.name}
+                    {type?.referral_name}
                   </option>
                 );
               })}
             </select>
           </div>
           <div className="w-30">
-            <div>Deposit/Credit</div>
+            <div>Rf Share</div>
             <div className="sport-management-input d-flex ">
-              <input placeholder="Enter" className="w-90" />
+              <input
+                placeholder="Enter"
+                className="w-90"
+                onChange={(e) => handleChange(e)}
+                name="rf_share"
+                value={userDetails?.rf_share || ""}
+              />
               <FaPercent className="me-1" />
             </div>
           </div>
@@ -291,14 +313,26 @@ function UserManagement() {
           <div className="w-40">
             <div>Rf Fancy Comm</div>
             <div className="sport-management-input d-flex ">
-              <input className="w-90" placeholder="Enter"></input>
+              <input
+                className="w-90"
+                placeholder="Enter"
+                onChange={(e) => handleChange(e)}
+                name="rf_fancy_comm"
+                value={userDetails?.rf_fancy_comm || ""}
+              ></input>
               <FaPercent className="me-1" />
             </div>
           </div>
           <div className="w-55">
             <div>Rf Comm</div>
-            <div className="sport-management-input d-flex w-100">
-              <div className="w-90">Enter</div>
+            <div className="sport-management-input d-flex ">
+              <input
+                className="w-90"
+                placeholder="Enter"
+                onChange={(e) => handleChange(e)}
+                name="rf_comm"
+                value={userDetails?.rf_comm || ""}
+              ></input>
               <FaPercent className="me-1" />
             </div>
           </div>
@@ -306,9 +340,14 @@ function UserManagement() {
         <div className="col-3">
           <div>
             <div>Deposit/Credit</div>
-            <select className="sport-management-input d-flex  w-100 sport-management-select meetings-heading">
-              <option>Widthdraw</option>
-              <option>Deposite</option>
+            <select
+              className="sport-management-input d-flex  w-100 sport-management-select meetings-heading"
+              onChange={(e) => handleChange(e)}
+              name="rf_comm"
+            >
+              <option>select</option>
+              <option value="widthdraw">Widthdraw</option>
+              <option value="deposite">Deposite</option>
             </select>
           </div>
         </div>
