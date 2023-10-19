@@ -62,6 +62,49 @@ function ReportPage() {
       .catch((err) => console.log(err));
   };
 
+  const ONE_PAGE_REPORT_DETAILS =
+    onePageReportData.length &&
+    onePageReportData?.map((item) => {
+      const totalAmountAfterCommission =
+        parseFloat(item?.amount || 0) + parseFloat(item?.clientComission || 0);
+      const clienPL =
+        parseFloat(item?.amount || 0) +
+        parseFloat(item?.clientShare || 0) +
+        parseFloat(item?.clientComission || 0);
+      const rfNet =
+        parseFloat(item?.referalShare || 0) +
+        parseFloat(item?.referralComission || 0);
+      return {
+        client: item.client_name,
+        mfrc: (
+          <div
+            className={
+              totalAmountAfterCommission >= 0 ? "clr-green" : "clr-red"
+            }
+          >
+            {totalAmountAfterCommission}
+          </div>
+        ),
+        // mfrc: item.amount,
+        cnet: (
+          <div className={clienPL >= 0 ? "clr-green" : "clr-red"}>
+            {clienPL}
+          </div>
+        ),
+        rfnet: (
+          <div className={rfNet >= 0 ? "clr-green" : "clr-red"}>{rfNet}</div>
+        ),
+        totalpl:
+          (
+            <div
+              className={item?.totalLossOrProfit >= 0 ? "clr-green" : "clr-red"}
+            >
+              {item?.totalLossOrProfit}
+            </div>
+          ) || 0,
+      };
+    });
+
   useEffect(() => {
     getOnePageReportData();
     getIndividualPLReport();
@@ -89,9 +132,9 @@ function ReportPage() {
       </div>
       <div className="hr-line mt-4"></div>
       {activeReport === "One Page Report" ? (
-        <OnePageReport />
+        <OnePageReport ONE_PAGE_REPORT_DETAILS={ONE_PAGE_REPORT_DETAILS} />
       ) : (
-        <IndiviudalPLReport />
+        <IndiviudalPLReport ONE_PAGE_REPORT_DETAILS={ONE_PAGE_REPORT_DETAILS} />
       )}
     </div>
   );

@@ -5,8 +5,10 @@ import { GiClick } from "react-icons/gi";
 import { GET_ONEPAGE_REPORT } from "../../config/endpoints";
 import { call } from "../../config/axios";
 import CustomPagination from "../pagination/CustomPagination";
+import ClientIndPL from "./ClientIndPL";
 
-function OnePageReport() {
+function OnePageReport(props) {
+  const { ONE_PAGE_REPORT_DETAILS } = props;
   const [onePageReportData, setOnePageReportData] = useState([]);
   let register_id = localStorage?.getItem("register_id");
   const getOnePageReportData = async () => {
@@ -24,17 +26,51 @@ function OnePageReport() {
   useEffect(() => {
     getOnePageReportData();
   }, []);
-  const ONE_PAGE_REPORT_DETAILS =
-    onePageReportData.length &&
-    onePageReportData?.map((item) => {
-      return {
-        client: item.client_name,
-        mfrc: item.amount,
-        cnet: item.clientShare,
-        rfnet: item.referralComission,
-        totalpl: item.totalLossOrProfit,
-      };
-    });
+  // const ONE_PAGE_REPORT_DETAILS =
+  //   onePageReportData.length &&
+  //   onePageReportData?.map((item) => {
+  //     const totalAmountAfterCommission =
+  //       parseFloat(item?.amount || 0) + parseFloat(item?.clientComission || 0);
+  //     const clienPL =
+  //       parseFloat(item?.amount || 0) +
+  //       parseFloat(item?.clientShare || 0) +
+  //       parseFloat(item?.clientComission || 0);
+  //     const rfNet =
+  //       parseFloat(item?.referalShare || 0) +
+  //       parseFloat(item?.referralComission || 0);
+  //     return {
+  //       client: item.client_name,
+  //       mfrc: (
+  //         <div
+  //           className={
+  //             totalAmountAfterCommission >= 0 ? "clr-green" : "clr-red"
+  //           }
+  //         >
+  //           {totalAmountAfterCommission}
+  //         </div>
+  //       ),
+  //       // mfrc: item.amount,
+  //       cnet: (
+  //         <div className={clienPL >= 0 ? "clr-green" : "clr-red"}>
+  //           {clienPL}
+  //         </div>
+  //       ),
+  //       rfnet: (
+  //         <div className={rfNet >= 0 ? "clr-green" : "clr-red"}>{rfNet}</div>
+  //       ),
+  //       totalpl:
+  //         (
+  //           <div
+  //             className={item?.totalLossOrProfit >= 0 ? "clr-green" : "clr-red"}
+  //           >
+  //             {item?.totalLossOrProfit}
+  //           </div>
+  //         ) || 0,
+  //     };
+  //   });
+
+  console.log(ONE_PAGE_REPORT_DETAILS, "onepagereport Data");
+
   const [showReportPopup, setShowReportPopup] = useState(false);
   const handleReportPageShow = () => {
     setShowReportPopup(true);
@@ -65,7 +101,10 @@ function OnePageReport() {
             <tbody key={index}>
               <tr className="text-center">
                 <td>{item.client}</td>
-                <td onClick={() => handleReportPageShow()}>
+                <td
+                  onClick={() => handleReportPageShow()}
+                  className="text-center"
+                >
                   {item.mfrc}
                   <GiClick className="custom-click-icon ms-1 mt-2" />
                 </td>

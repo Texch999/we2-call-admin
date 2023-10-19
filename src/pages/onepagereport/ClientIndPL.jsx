@@ -1,15 +1,14 @@
 import React from "react";
 import AdminsTable from "./AdminsTable";
-function ClientIndPL() {
-  const PAGE_REPORT_DETAILS = [
-    { name: "Animesh", pl: "1000000.00" },
-    { name: "Animesh", pl: "1000000.00" },
-    { name: "Animesh", pl: "1000000.00" },
-    { name: "Animesh", pl: "1000000.00" },
-    { name: "Animesh", pl: "1000000.00" },
-    { name: "Animesh", pl: "1000000.00" },
-    { name: "Animesh", pl: "1000000.00" },
-  ];
+function ClientIndPL(props) {
+  const { ONE_PAGE_REPORT_DETAILS } = props;
+  // console.log(ONE_PAGE_REPORT_DETAILS, "one page report details");
+  const PAGE_REPORT_DETAILS = ONE_PAGE_REPORT_DETAILS?.map((item, index) => ({
+    name: item.client,
+    pl: item.totalpl,
+  }));
+  console.log(PAGE_REPORT_DETAILS, "one page report");
+
   const CLIENT_PAGE_REPORT_DETAILS = [
     {
       date: "25-07-2023",
@@ -54,14 +53,15 @@ function ClientIndPL() {
                 <th>TOTAL P/L</th>
               </tr>
             </thead>
-            {PAGE_REPORT_DETAILS.map((item, index) => (
-              <tbody key={index}>
-                <tr className="text-center">
-                  <td>{item.name}</td>
-                  <td className="clr-green">{item.pl}</td>
-                </tr>
-              </tbody>
-            ))}
+            {PAGE_REPORT_DETAILS?.length &&
+              PAGE_REPORT_DETAILS?.map((item, index) => (
+                <tbody key={index}>
+                  <tr className="text-center">
+                    <td>{item.name}</td>
+                    <td className="clr-green">{item.pl}</td>
+                  </tr>
+                </tbody>
+              ))}
             <tfoot>
               <tr className="text-center">
                 <th className="text-center">TOTAL</th>

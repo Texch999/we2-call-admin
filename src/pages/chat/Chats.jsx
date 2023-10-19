@@ -446,7 +446,6 @@ function Chats() {
                 )}
               </ScrollableFeed>
             </div>
-            <input type="file" id="image-upload"></input>
             <div
               className="recent_heading d-flex flex-start align-items-center justify-content-between w-100 header-bg h-8vh"
               // onClick={(e) => {
