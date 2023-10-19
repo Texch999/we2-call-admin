@@ -40,7 +40,7 @@ function MatchDeclarationPopup(props) {
           <div className="row d-flex justify-content-between mt-3">
             <div
               className="col-5 rounded yellow-btn p-1"
-              onClick={() => handleSubmitPopupOpen()}
+              onClick={() => handleMatchSubmitSuccessPopupOpen()}
             >
               Yes
             </div>

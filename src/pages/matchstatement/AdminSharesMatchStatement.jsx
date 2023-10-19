@@ -5,6 +5,7 @@ import AdminPopReports from "../onepagereport/AdminPopReports";
 import CustomPagination from "../pagination/CustomPagination";
 import AdminOnePageReport from "../onepagereport/AdminOnePageReport";
 import AdminShareCommSettlement from "../setlment/AdminShareCommSettlement";
+import AdminComissionReport from "../onepagereport/AdminComissionReport";
 
 const AdminSharesMatchStatement = () => {
   const [adminShareStatementMatchPopUp, setAdminShareStatementMatchPopUp] =
@@ -301,7 +302,7 @@ const AdminSharesMatchStatement = () => {
         </div>
       )}
       {activeReport === "Admins OnePageReport" && <AdminOnePageReport />}
-      {activeReport === "Admins Comm Report" && <AdminOnePageReport />}
+      {activeReport === "Admins Comm Report" && <AdminComissionReport />}
       {activeReport === "Admins Share/Comm Settlement-Statement Report" && (
         <AdminShareCommSettlement />
       )}
