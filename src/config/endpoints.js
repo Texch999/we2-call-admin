@@ -3,7 +3,7 @@ const USER_LOGIN = "/admin/admin_account_login";
 const GET_ALL_CLIENTS = "/offline-management/get_user_list";
 const GET_REFFERAL_DATA = "/offline-management/get_refferal_data";
 const GET_SETTLEMENT_HISTORY = "/offline-management/get_offline_settlement";
-const GET_CLIENTS_DATA = "/offline-users/get-clients-data";
+// const GET_CLIENTS_DATA = "/offline-users/get_clients_data";
 const GET_OFFLINE_CLIENTS = "/offline-management/get_clients_data";
 const CREATE_OFFLINE_CLIENT = "/offline-management/create_client";
 const GET_OFFLINE_CLIENT_DETAILS = "/offline-management/get_clientid_data";
@@ -48,9 +48,17 @@ const GET_INDUVISUAL_REFERRAL_BY =
   "/offline-management/get_individual_reportby_refferal";
 const GET_INDUVISUAL_REPORTS = "/offline-management/get_individual_report";
 const CREATE_REFFERAL = "/offline-management/create_refferal";
+const GET_CALL_HISTORY = "/meetings/get_all_meetings";
+const CREATE_CALL_SETTLEMENT = "/group_call/create_call_settlement";
+const CREATE_CALL_STATEMENT = "/group_call/group_call_statement";
 const CHANGE_PASSWORD = "/admin/change_password";
 const UPDATE_USER_ADMIN = "/admin/update_user_admin";
 const UPDATE_USER_CLIENT = "/admin/update_user_client";
+const RISK_RUNNING_SESSION = "/offline-management/risk_running_session";
+const FANCY_RESULT_PROFIT_LOSS = "/offline-management/fancy_result_profitlose";
+// const CHANGE_PASSWORD = "/admin/change_password";
+// const UPDATE_USER_ADMIN = "/admin/update_user_admin";
+// const UPDATE_USER_CLIENT = "/admin/update_user_client";
 const ADD_PAYMENT = "/management/add_payment_gateway";
 const GET_ALL_PAYMENT_GATEWAYS = "/management/getall_payments";
 const UPDATE_PAYMENT_GATEWAY = "/management/update_payment_gateway";
@@ -228,10 +236,10 @@ exports.GET_SETTLEMENT_HISTORY = {
   method: POST,
 };
 
-exports.GET_CLIENTS_DATA = {
-  url: GET_CLIENTS_DATA,
-  method: POST,
-};
+// exports.GET_CLIENTS_DATA = {
+//   url: GET_CLIENTS_DATA,
+//   method: POST,
+// };
 
 exports.ACCOUNT_REGISTERATION = {
   url: ACCOUNT_REGISTERATION,
@@ -294,6 +302,27 @@ exports.CREATE_PACKAGE_SUBSCRIPTION = {
 exports.GET_MATCH_POSITION_DATA = {
   url: GET_MATCH_POSITION_DATA,
   method: POST,
+};
+exports.GET_CALL_HISTORY = {
+  url: GET_CALL_HISTORY,
+  method: POST,
+};
+exports.CREATE_CALL_SETTLEMENT = {
+  url: CREATE_CALL_SETTLEMENT,
+  method: POST,
+};
+exports.CREATE_CALL_STATEMENT = {
+  url: CREATE_CALL_STATEMENT,
+  method: POST,
+};
+
+exports.RISK_RUNNING_SESSION = {
+  url: RISK_RUNNING_SESSION,
+  method: GET,
+};
+
+exports.FANCY_RESULT_PROFIT_LOSS = {
+  url: FANCY_RESULT_PROFIT_LOSS,
 };
 exports.UPDATE_PAYMENT_GATEWAY = {
   url: UPDATE_PAYMENT_GATEWAY,

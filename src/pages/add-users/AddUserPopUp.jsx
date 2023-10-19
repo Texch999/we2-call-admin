@@ -11,7 +11,6 @@ import {
 
 function AddUserPopUp(props) {
   const { setModalShow, editData, setInputData, inputData } = props;
-  console.log("Props====>", props);
   let register_id = localStorage?.getItem("register_id");
   let creator_id = localStorage?.getItem("creator_id");
   let account_role = localStorage?.getItem("account_role");
@@ -94,8 +93,6 @@ function AddUserPopUp(props) {
         console.log(err);
       });
   };
-
-  console.log(inputData, ".......addUserPopup");
 
   return (
     <Modal {...props} centered className="add-user-modal">

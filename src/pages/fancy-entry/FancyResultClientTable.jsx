@@ -4,9 +4,10 @@ import MatchTable from "../match-entry/MatchTable";
 import { PiArrowCircleDownBold } from "react-icons/pi";
 import FancyResultCommPopup from "../fancy-popups/FancyResultCommPopup";
 
-function FancyResultClientTable() {
+function FancyResultClientTable({ profitLossData, selectedMatch }) {
   const [fancyResultSharePopup, setFancyResultSharePopup] = useState(false);
   const [fancyResultCommPopup, setFancyResultCommPopup] = useState(false);
+
   const handleFancyResultSharePopupOpen = () => {
     setFancyResultSharePopup(true);
   };
@@ -19,43 +20,31 @@ function FancyResultClientTable() {
   const handleFancyResultCommPopupClose = () => {
     setFancyResultCommPopup(false);
   };
-  const FANCY_CLIENT_TABLE_DATA = [
-    {
-      header: "Animesh",
-      grossPL: 50000000,
-      cNet: 50000000,
-      rfNet: 50000000,
-      netPL: 50000000,
-    },
-    {
-      header: "Animesh",
-      grossPL: 50000000,
-      cNet: 50000000,
-      rfNet: 50000000,
-      netPL: 50000000,
-    },
-    {
-      header: "Animesh",
-      grossPL: 50000000,
-      cNet: -50000000,
-      rfNet: -50000000,
-      netPL: 50000000,
-    },
-    {
-      header: "Animesh",
-      grossPL: 50000000,
-      cNet: 50000000,
-      rfNet: 50000000,
-      netPL: 50000000,
-    },
-    {
-      header: "Animesh",
-      grossPL: 50000000,
-      cNet: 50000000,
-      rfNet: 50000000,
-      netPL: 50000000,
-    },
-  ];
+
+  const FANCY_CLIENT_TABLE_DATA =
+    profitLossData &&
+    Object.keys(profitLossData)?.map((key) => {
+      console.log(key, "KKKK", profitLossData);
+      let {
+        amount,
+        clientCommission,
+        clientShare,
+        referralShare,
+        referralCommission,
+        totalLossOrProfit,
+        upperLevelShare,
+      } = profitLossData[key];
+      return {
+        header: key,
+        grossPL: parseFloat(amount),
+        cNet:
+          parseFloat(amount) +
+          (parseFloat(clientCommission) + parseFloat(clientShare)),
+        rfNet: parseFloat(referralShare) + parseFloat(referralCommission) || 0,
+        netPL: parseFloat(totalLossOrProfit),
+      };
+    });
+
   const FANCY_CLIENT_HEADER_DATA = [
     { header: "CLIENT NAME", field: "header" },
     { header: "GROSS PL", field: "grossPL" },
@@ -68,7 +57,10 @@ function FancyResultClientTable() {
       <div className="row d-flex align-items-center match-position-bg p-2 rounded m-1">
         <div className="col-sm-4 col-lg-6">
           <div className="medium-font">
-            Fancy Result P/L - <span className="yellow-clr">IND vs PAK</span>
+            Fancy Result P/L -{" "}
+            <span className="yellow-clr">
+              {selectedMatch?.team1} vs {selectedMatch?.team2}
+            </span>
           </div>
         </div>
         <div className="col">
@@ -96,7 +88,7 @@ function FancyResultClientTable() {
       </div>
       <div className="mt-3">
         <MatchTable
-          data={FANCY_CLIENT_TABLE_DATA}
+          data={FANCY_CLIENT_TABLE_DATA || []}
           columns={FANCY_CLIENT_HEADER_DATA}
         />
       </div>

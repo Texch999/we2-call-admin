@@ -99,7 +99,6 @@ function AddAdminsPopup(props) {
     setErr("");
     setIsProcessing(true);
     setModalShow(false);
-    // console.log({ inputData });
     await call(ACCOUNT_REGISTERATION, {
       ...inputData,
       creator_id: register_id,
@@ -138,7 +137,6 @@ function AddAdminsPopup(props) {
     setInputData(props.adminsData);
   }, []);
 
-  console.log(props.adminsData, ".........addadminsdata");
   return (
     <Modal
       {...props}

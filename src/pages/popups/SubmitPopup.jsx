@@ -12,19 +12,37 @@ function SubmitPopup(props) {
     deletedId,
     deleteApi,
     setSelectedId,
+
+    // fancySetSelectedMatchEntry,
+    // fancyData,
+    // fancyDeletedId,
+    // fancyDeleteApi,
+    // fancySetSelectedId,
   } = props;
   const handleCancelPopup = () => {
     setState(false);
   };
   const handleConfirm = () => {
-    setSelectedMatchEntry && setSelectedMatchEntry(data);
-    deletedId && deleteApi();
-    handleCancelPopup(false);
+    // if (setSelectedMatchEntry) {
+      setSelectedMatchEntry && setSelectedMatchEntry(data);
+      deletedId && deleteApi();
+      handleCancelPopup(false);
+    // } else if (fancySetSelectedMatchEntry) {
+    //   fancySetSelectedMatchEntry && fancySetSelectedMatchEntry(fancyData);
+    //   fancyDeletedId && fancyDeleteApi();
+    //   handleCancelPopup();
+    // }
   };
   const handelCancel = () => {
-    setSelectedMatchEntry && setSelectedMatchEntry("");
-    deletedId && setSelectedId("");
-    handleCancelPopup(false);
+    // if (setSelectedMatchEntry) {
+      setSelectedMatchEntry && setSelectedMatchEntry("");
+      deletedId && setSelectedId("");
+      handleCancelPopup(false);
+    // } else if (fancySetSelectedMatchEntry) {
+    //   fancySetSelectedMatchEntry && fancySetSelectedMatchEntry("");
+    //   fancyDeletedId && fancySetSelectedId("");
+    //   handleCancelPopup();
+    // }
   };
   return (
     <Modal show={state} className="match-declaration-modal" centered>

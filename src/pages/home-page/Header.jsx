@@ -96,19 +96,25 @@ function Header() {
     },
     {
       icon: <BiPhoneCall className="mr-10 d-flex" />,
-      name: "Call History",
-      path: "/call-history",
+      name: "Call Reports",
+      path: "/call-reports",
     },
-    {
-      icon: <FaRegHandshake className="mr-10 d-flex" />,
-      name: "Call Settlement",
-      path: "/call-settlement",
-    },
-    {
-      icon: <FaRegAddressBook className="mr-10 d-flex" />,
-      name: "Call Statement",
-      path: "/call-statement",
-    },
+    // /call-reports
+    // {
+    //   icon: <BiPhoneCall className="mr-10 d-flex" />,
+    //   name: "Call History",
+    //   path: "/call-history",
+    // },
+    // {
+    //   icon: <FaRegHandshake className="mr-10 d-flex" />,
+    //   name: "Call Settlement",
+    //   path: "/call-settlement",
+    // },
+    // {
+    //   icon: <FaRegAddressBook className="mr-10 d-flex" />,
+    //   name: "Call Statement",
+    //   path: "/call-statement",
+    // },
     {
       icon: <TbReportSearch className="mr-10 d-flex" />,
       name: "Match  Statement",
@@ -148,26 +154,26 @@ function Header() {
       name: "Privacy Policy",
       path: "/privacy-policy",
     },
-    {
-      icon: <MdOutlinePrivacyTip className="mr-10 d-flex" />,
-      name: "Admin One Page Report",
-      path: "/admin-one-page-report",
-    },
-    {
-      icon: <MdOutlinePrivacyTip className="mr-10 d-flex" />,
-      name: "Admin Share Comm Settlement",
-      path: "/admin-share-comm-settlement",
-    },
+    // {
+    //   icon: <MdOutlinePrivacyTip className="mr-10 d-flex" />,
+    //   name: "Admin One Page Report",
+    //   path: "/admin-one-page-report",
+    // },
+    // {
+    //   icon: <MdOutlinePrivacyTip className="mr-10 d-flex" />,
+    //   name: "Admin Share Comm Settlement",
+    //   path: "/admin-share-comm-settlement",
+    // },
     {
       icon: <MdOutlinePrivacyTip className="mr-10 d-flex" />,
       name: "Call Management",
       path: "/call-management",
     },
-    {
-      icon: <MdOutlinePrivacyTip className="mr-10 d-flex" />,
-      name: "Super Admin Call Management",
-      path: "/super-admin-call-management",
-    },
+    // {
+    //   icon: <MdOutlinePrivacyTip className="mr-10 d-flex" />,
+    //   name: "Super Admin Call Management",
+    //   path: "/super-admin-call-management",
+    // },
     {
       icon: <MdOutlinePrivacyTip className="mr-10 d-flex" />,
       name: "Share Risk live mathces",

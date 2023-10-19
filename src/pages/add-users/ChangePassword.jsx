@@ -8,7 +8,6 @@ import { call } from "../../config/axios";
 
 function ChangePassword(props) {
   const { showChangePopup, setShowChangePopup, setChangePasswordSubmit} = props;
-  console.log("===>showChangePopup",showChangePopup)
   const [showEye, setShowEye] = useState(false);
   let register_id = localStorage?.getItem("register_id");
   let creator_id = localStorage?.getItem("creator_id");

@@ -11,10 +11,7 @@ const AdminOnePageReport = () => {
   const [role, setRole] = useState("");
   const [adminsData, setAdminsData] = useState("");
   const [adminsHeadings, setAdminsHeadings] = useState("");
-  const reports = [
-    "Admin One Page Report",
-    "UL/Platform Comm Report",
-  ];
+  const reports = ["Admin One Page Report", "UL/Platform Comm Report"];
   const [activeReport, setActiveReport] = useState("Admin One Page Report");
   const [popupHeading, setPopupHeading] = useState(false);
 
@@ -168,10 +165,10 @@ const AdminOnePageReport = () => {
     // You can add your logic here to fetch data for the selected page.
   };
   return (
-    <div className="p-4">
-      <h5 className="meetings-heading mb-3">Your Share In Admin Book</h5>
+    <div >
+      <h6 className="meetings-heading mb-3">Your Share In Admin Book</h6>
       <div className="d-flex align-items-center justify-content-between">
-        <div>
+        {/* <div>
           {reports.map((report, index) => (
             <Button
               key={index}
@@ -183,7 +180,7 @@ const AdminOnePageReport = () => {
               {report}
             </Button>
           ))}
-        </div>
+        </div> */}
         <Button className="all-match-button">All Match</Button>
       </div>
       <hr />
