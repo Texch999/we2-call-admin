@@ -44,7 +44,8 @@ function FancyResultClientTable({ profitLossData, selectedMatch }) {
         // FancyPopupsData
         clientShare: parseFloat(clientShare),
         rfShare: parseFloat(referalShare),
-
+        clientComm: parseFloat(clientCommission),
+        rfComm: parseFloat(referralComission),
       };
     });
 
