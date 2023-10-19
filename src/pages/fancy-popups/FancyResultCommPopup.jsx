@@ -3,7 +3,12 @@ import { IoCloseSharp } from "react-icons/io5";
 import MatchTable from "../match-entry/MatchTable";
 
 function FancyResultCommPopup(props) {
-  const { fancyResultCommPopup, handleFancyResultCommPopupClose } = props;
+  const {
+    fancyResultCommPopup,
+    handleFancyResultCommPopupClose,
+    selectedMatch,
+    clientCommData,
+  } = props;
   const MATCH_POSITION_TABLE_DATA = [
     {
       header: "Jayanth",
@@ -39,7 +44,10 @@ function FancyResultCommPopup(props) {
     >
       <Modal.Header>
         <div className="large-font">
-          Fancy Result P/L- <span className="yellow-clr">IND vs SL</span>
+          Fancy Result P/L-{" "}
+          <span className="yellow-clr">
+            {selectedMatch?.team1} vs {selectedMatch?.team2}
+          </span>
         </div>
         <IoCloseSharp onClick={handleFancyResultCommPopupClose} />
       </Modal.Header>
