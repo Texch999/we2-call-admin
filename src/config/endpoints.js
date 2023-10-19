@@ -56,6 +56,12 @@ const UPDATE_USER_ADMIN = "/admin/update_user_admin";
 const UPDATE_USER_CLIENT = "/admin/update_user_client";
 const RISK_RUNNING_SESSION = "/offline-management/risk_running_session";
 const FANCY_RESULT_PROFIT_LOSS = "/offline-management/fancy_result_profitlose";
+// const CHANGE_PASSWORD = "/admin/change_password";
+// const UPDATE_USER_ADMIN = "/admin/update_user_admin";
+// const UPDATE_USER_CLIENT = "/admin/update_user_client";
+const ADD_PAYMENT = "/management/add_payment_gateway";
+const GET_ALL_PAYMENT_GATEWAYS = "/management/getall_payments";
+const UPDATE_PAYMENT_GATEWAY = "/management/update_payment_gateway";
 
 // methods
 const DELETE = "DELETE";
@@ -274,6 +280,16 @@ exports.UPDATE_USER_ADMIN = {
   method: POST,
 };
 
+exports.ADD_PAYMENT = {
+  url: ADD_PAYMENT,
+  method: POST,
+};
+
+exports.GET_ALL_PAYMENT_GATEWAYS = {
+  url: GET_ALL_PAYMENT_GATEWAYS,
+  method: POST,
+};
+
 exports.UPDATE_USER_CLIENT = {
   url: UPDATE_USER_CLIENT,
   method: POST,
@@ -307,5 +323,8 @@ exports.RISK_RUNNING_SESSION = {
 
 exports.FANCY_RESULT_PROFIT_LOSS = {
   url: FANCY_RESULT_PROFIT_LOSS,
+};
+exports.UPDATE_PAYMENT_GATEWAY = {
+  url: UPDATE_PAYMENT_GATEWAY,
   method: POST,
 };

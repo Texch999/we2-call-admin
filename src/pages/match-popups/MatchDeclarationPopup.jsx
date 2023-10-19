@@ -10,21 +10,23 @@ function MatchDeclarationPopup(props) {
     amount,
     state,
     setState,
+    setPaymentPopup,
     handleSubmitPopupOpen,
-    handleMatchDeclarePopupClose,
+    // handleMatchDeclarePopupClose,
   } = props;
   const [matchSubmitSuccessPopup, setMatchSubmitSuccessPopup] = useState(false);
   const handleMatchSubmitSuccessPopupOpen = () => {
     setMatchSubmitSuccessPopup(true);
+    setPaymentPopup(true);
     setState(false);
   };
-  const handleCancel = () => {
+  const handleMatchDeclarePopupClose = () => {
     setState(false);
   };
   return (
     <Modal className="match-declaration-modal" centered show={state}>
       <Modal.Header className="d-flex justify-content-end">
-        <IoCloseSharp onClick={() => handleCancel()} />
+        <IoCloseSharp onClick={() => handleMatchDeclarePopupClose()} />
       </Modal.Header>
       <Modal.Body>
         <center className="px-3">

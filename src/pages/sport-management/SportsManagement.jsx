@@ -24,15 +24,16 @@ function SportsManagement() {
   const [matchData, setMatchData] = useState({});
   const top_cricket_countries = [
     "India",
-    "Australia",
     "England",
-    "New Zealand",
-    "Pakistan",
-    "South Africa",
-    "Sri Lanka",
-    "West Indies",
-    "Bangladesh",
     "Zimbabwe",
+    "Pakistan",
+    "Australia",
+    "Sri Lanka",
+    "Bangladesh",
+    "Afganisthan",
+    "West Indies",
+    "New Zealand",
+    "South Africa",
   ];
 
   const getAllMatches = async () => {

@@ -1,16 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Col, Container, Modal, Row } from "react-bootstrap";
-import MatchSubmitPopup from "../match-popups/MatchSubmitPopup";
 import moment from "moment";
-
-import MatchDeclarationPopup from "../match-popups/MatchDeclarationPopup";
 
 function PaymentSettelmentPopup(props) {
   const {
     showPaymentModal,
     setShowPaymentModal,
     clientId,
-    clientDetails = [],
+    SETTELMENT_DETAILS = [],
     setOfflineSettlePayload,
     offlineSettlePayload,
     handlePaymentSubmitPopupOpen,
@@ -19,8 +16,8 @@ function PaymentSettelmentPopup(props) {
   const [showPaymentType, setShowPaymentType] = useState(false);
   const [paymentType, setPaymentType] = useState("Payment Mode");
   const selectedObj =
-    clientDetails?.length &&
-    clientDetails?.filter((obj) => obj.client_id == clientId)?.[0];
+    SETTELMENT_DETAILS?.length &&
+    SETTELMENT_DETAILS?.filter((obj) => obj.client_id == clientId)?.[0];
   const [settlementObj, setSettlementObj] = useState({});
   const onSubmitBtnClick = () => {
     setOfflineSettlePayload({ ...offlineSettlePayload, ...settlementObj });
@@ -56,6 +53,8 @@ function PaymentSettelmentPopup(props) {
   const handlePaymentClose = () => {
     setShowPaymentModal(false);
   };
+
+  console.log(settlementObj, ".................settlementObj");
   // const [paymentSubmitPopup, setPaymentSubmitPopup] = useState(false);
   // const [paymentPopup, setPaymentPopup] = useState(false);
   // const handlePaymentSubmitPopupOpen = () => {
@@ -113,7 +112,7 @@ function PaymentSettelmentPopup(props) {
                   <div className="w-100 custom-select small-font btn-bg rounded all-none">
                     <input
                       className="w-100 custom-select small-font btn-bg rounded all-none p-2"
-                      value={settlementObj?.client_name}
+                      value={settlementObj?.ClientName}
                     />
                   </div>
                 </div>
@@ -126,7 +125,7 @@ function PaymentSettelmentPopup(props) {
                       type="number"
                       placeholder="Balance"
                       className="w-100 custom-select small-font btn-bg rounded all-none p-2 small-font"
-                      value={settlementObj?.pending_amount}
+                      value={settlementObj?.Amount}
                     ></input>
                   </Col>
                   <Col className="pe-0">
@@ -134,7 +133,7 @@ function PaymentSettelmentPopup(props) {
                       type="number"
                       placeholder="Net Balance"
                       value={
-                        settlementObj?.pending_amount -
+                        settlementObj?.Amount -
                         (settlementObj?.settled_amount || 0)
                       }
                       className="w-100 custom-select small-font btn-bg rounded all-none p-2"
@@ -151,14 +150,18 @@ function PaymentSettelmentPopup(props) {
                       className="username-img p-2 me-2"
                     />
                   </div>
-                  <select className="w-100 custom-select small-font btn-bg rounded all-none">
-                    <option selected>{settlementObj?.payment_type}</option>
-                    {/* <option>Google Pay</option>
-                    <option>Phone Pe</option>
-                    <option>Paytm</option>
-                    <option>UPI</option>
-                    <option>Credit/Debit Card</option>
-                    <option>NEFT/RTGS</option> */}
+                  <select
+                    className="w-100 custom-select small-font btn-bg rounded all-none"
+                    onChange={(e) => onInputChange(e)}
+                    name="payment_type"
+                  >
+                    {/* <option selected>{settlementObj?.payment_type}</option> */}
+                    <option value="gpay">Google Pay</option>
+                    <option value="ppay">Phone Pe</option>
+                    <option value="paytm">Paytm</option>
+                    <option value="upi">UPI</option>
+                    <option value="card">Credit/Debit Card</option>
+                    <option value="rtgs">NEFT/RTGS</option>
                   </select>
                 </div>
               </div>
@@ -175,6 +178,7 @@ function PaymentSettelmentPopup(props) {
                     <input
                       type="number"
                       placeholder="Enter Amount"
+                      name="settled_amount"
                       onChange={(e) => onInputChange(e)}
                       value={settlementObj?.settled_amount}
                       className="w-100 custom-select small-font btn-bg rounded all-none"

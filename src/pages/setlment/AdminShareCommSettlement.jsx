@@ -75,9 +75,9 @@ const AdminShareCommSettlement = () => {
   };
 
   return (
-    <div className="p-4">
+    <div>
       <div>
-        <h5 className="meetings-heading mb-3">Admins Share/Comm Settlement</h5>
+        <h6 className="meetings-heading mb-3">Admins Share/Comm Settlement</h6>
       </div>
 
       <div className="d-flex mb-2">
