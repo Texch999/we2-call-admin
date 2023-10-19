@@ -9,31 +9,25 @@ function FancyResultCommPopup(props) {
     selectedMatch,
     clientCommData,
   } = props;
-  const MATCH_POSITION_TABLE_DATA = [
-    {
-      header: "Jayanth",
-      clientComm: 50000000,
-      rfComm: 50000000,
-      ulComm: "- - ",
-    },
-    {
-      header: "Jayanth",
-      clientComm: 50000000,
-      rfComm: 50000000,
-      ulComm: "- - ",
-    },
-    {
-      header: "Jayanth",
-      clientComm: 50000000,
-      rfComm: 50000000,
-      ulComm: "- - ",
-    },
-  ];
+
+  const CLIENT_COMM_DATA =
+    clientCommData?.length > 0 &&
+    clientCommData?.map((fancy) => ({
+      header: fancy?.key,
+      clientComm: fancy?.clientComm,
+      rfComm: fancy?.rfComm,
+    }));
+  // const MATCH_POSITION_TABLE_DATA = [
+  //   {
+  //     header: "Jayanth",
+  //     clientComm: 50000000,
+  //     rfComm: 50000000,
+  //   },
+  // ];
   const MATCH_POSITION_HEADER_DATA = [
     { header: "Client Name", field: "header" },
     { header: "Client Comm", field: "clientComm" },
     { header: "RF Comm", field: "rfComm" },
-    { header: "- -", field: "ulComm" },
   ];
   return (
     <Modal
@@ -54,7 +48,7 @@ function FancyResultCommPopup(props) {
       <Modal.Body>
         <div className="p-3">
           <MatchTable
-            data={MATCH_POSITION_TABLE_DATA}
+            data={CLIENT_COMM_DATA || []}
             columns={MATCH_POSITION_HEADER_DATA}
           />
         </div>
