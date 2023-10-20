@@ -12,16 +12,12 @@ function MatchDeclarationPopup(props) {
     setState,
     setPaymentPopup,
     handleSubmitPopupOpen,
+    handleMatchSubmitSuccessPopupOpen,
+    setMatchSubmitSuccessPopup,
     // handleMatchDeclarePopupClose,
   } = props;
-  const [matchSubmitSuccessPopup, setMatchSubmitSuccessPopup] = useState(false);
-  const handleMatchSubmitSuccessPopupOpen = () => {
-    setMatchSubmitSuccessPopup(true);
-    // setPaymentPopup(true);
-    setState(false);
-  };
   const handleMatchDeclarePopupClose = () => {
-    setState(false);
+    setMatchSubmitSuccessPopup(false);
   };
   return (
     <Modal className="match-declaration-modal" centered show={state}>
@@ -53,11 +49,6 @@ function MatchDeclarationPopup(props) {
           </div>
         </center>
       </Modal.Body>
-      <MatchSubmitPopup
-        header={"You Are Successfully Submited Your Match to Win IND"}
-        state={matchSubmitSuccessPopup}
-        setState={setMatchSubmitSuccessPopup}
-      />
     </Modal>
   );
 }
