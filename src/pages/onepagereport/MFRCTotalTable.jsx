@@ -86,7 +86,7 @@ function MFRCTotalTable({ clientData }) {
             18-07-1995
           </div>
         ),
-        cNameMatchPL: <div>{item?.client_name}</div>,
+        cNameMatchPL: <div>{item?.amount}</div>,
         amount1: parseFloat(item?.amount || 0),
         fancyPL: parseFloat(item?.fancyPl || 0),
         refrralFancyComm: parseFloat(item?.fancyComission || 0),
@@ -98,38 +98,44 @@ function MFRCTotalTable({ clientData }) {
       <table className="w-100 match-position-table small-font">
         <thead>
           <tr className="text-center">
-            <th>
+            <th className="w-20">
               Match Name
               <br />
               Date
             </th>
-            <th>Match P/L</th>
-            <th>Fancy P/L</th>
-            <th>M+F Comm</th>
-            <th>Role Comm</th>
-            <th>M+F+C/CRC</th>
+            <th className="w-20">Match P/L</th>
+            <th className="w-20">Fancy P/L</th>
+            <th className="w-20">M+F Comm</th>
+            <th className="w-20">Role Comm</th>
+            <th className="w-20">M+F+C/CRC</th>
           </tr>
         </thead>
-        {MFRC_DETAILS.map((item, index) => (
-          <tbody key={index}>
-            <tr className="text-center">
-              <td>{item.matchName}</td>
-              <td>{item.cNameMatchPL}</td>
-              <td>{item.amount1}</td>
-              <td>{item.fancyPL}</td>
-              <td>{item.refrralFancyComm}</td>
-              <td>{item.masterProfitloss}</td>
-            </tr>
-          </tbody>
-        ))}
-        <tfoot>
+      </table>
+      <div className="table-scroll-content">
+        <table className="w-100 match-position-table small-font">
+          {MFRC_DETAILS?.map((item, index) => (
+            <tbody key={index}>
+              <tr className="text-center">
+                <td className="w-20">{item.matchName}</td>
+                <td className="w-20">{item.masterProfitloss}</td>
+                <td className="w-20">{item.amount1}</td>
+                <td className="w-20">{item.fancyPL}</td>
+                <td className="w-20">{item.refrralFancyComm}</td>
+                <td className="w-20">{item.cNameMatchPL}</td>
+              </tr>
+            </tbody>
+          ))}
+        </table>
+      </div>
+      <table className="w-100 match-position-table small-font">
+        <tfoot className="px-4">
           <tr className="text-center clr-green">
-            <th>TOTAL</th>
-            <th>1000000.00</th>
-            <th>1000000.00</th>
-            <th>1000000.00</th>
-            <th>1000000.00</th>
-            <th>1000000.00</th>
+            <th className="w-20">TOTAL</th>
+            <th className="w-20">1000000.00</th>
+            <th className="w-20">1000000.00</th>
+            <th className="w-20">1000000.00</th>
+            <th className="w-20">1000000.00</th>
+            <th className="w-20">1000000.00</th>
           </tr>
         </tfoot>
       </table>

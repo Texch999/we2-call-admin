@@ -35,8 +35,12 @@ function IndiviudalPLReport(props) {
       {activeReport === "Referal" && (
         <ReferalIndPl ONE_PAGE_REPORT_DETAILS={ONE_PAGE_REPORT_DETAILS} />
       )}
-      {activeReport === "U/L Share" && <ULShareIndPlData />}
-      {activeReport === "Platform Comm P/L" && <PlatformCommPL />}
+      {activeReport === "U/L Share" && (
+        <ULShareIndPlData ONE_PAGE_REPORT_DETAILS={ONE_PAGE_REPORT_DETAILS} />
+      )}
+      {activeReport === "Platform Comm P/L" && (
+        <PlatformCommPL ONE_PAGE_REPORT_DETAILS={ONE_PAGE_REPORT_DETAILS} />
+      )}
     </div>
   );
 }

@@ -44,6 +44,11 @@ function OnePagePopup(props) {
             <div>
               <div className="w-25 mt-2 mb-1">
                 <div className="match-date-button rounded-pill small-font text-center p-1 ">
+                  ClientName:{clientData.client_name}
+                </div>
+              </div>
+              <div className="w-25 mt-2 mb-1">
+                <div className="match-date-button rounded-pill small-font text-center p-1 ">
                   Date : 31/07/2023
                 </div>
               </div>

@@ -1,31 +1,40 @@
 import React from "react";
 
-function PlatformCommPL() {
-  const PAGE_REPORT_DETAILS = [
-    {
-      date: "25-07-2023",
-      matchname: "India vs Sri Lanka",
-      urnetpl: "100000",
-      winteam: "India",
-      platformcomm: "50000000.00",
-    },
-    {
-      date: "25-07-2023",
-      matchname: "India vs Sri Lanka",
-      urnetpl: "100000",
+function PlatformCommPL(props) {
+  const { ONE_PAGE_REPORT_DETAILS } = props;
 
-      winteam: "India",
-      platformcomm: "50000000.00",
-    },
-    {
-      date: "25-07-2023",
-      matchname: "India vs Sri Lanka",
-      urnetpl: "100000",
+  const PAGE_REPORT_DETAILS = ONE_PAGE_REPORT_DETAILS?.map((item, index) => ({
+    date: "25-07-2023",
+    matchname: "India vs Sri Lanka",
+    urnetpl: "100000",
+    winteam: "India",
+    platformcomm: item.rfnet,
+  }));
+  // const PAGE_REPORT_DETAILS = [
+  //   {
+  //     date: "25-07-2023",
+  //     matchname: "India vs Sri Lanka",
+  //     urnetpl: "100000",
+  //     winteam: "India",
+  //     platformcomm: "50000000.00",
+  //   },
+  //   {
+  //     date: "25-07-2023",
+  //     matchname: "India vs Sri Lanka",
+  //     urnetpl: "100000",
 
-      winteam: "India",
-      platformcomm: "50000000.00",
-    },
-  ];
+  //     winteam: "India",
+  //     platformcomm: "50000000.00",
+  //   },
+  //   {
+  //     date: "25-07-2023",
+  //     matchname: "India vs Sri Lanka",
+  //     urnetpl: "100000",
+
+  //     winteam: "India",
+  //     platformcomm: "50000000.00",
+  //   },
+  // ];
   return (
     <div>
       <h6 className="Platform-Comm-PL-">Platform Comm:</h6>
@@ -39,7 +48,7 @@ function PlatformCommPL() {
             <th>Platform Comm</th>
           </tr>
         </thead>
-        {PAGE_REPORT_DETAILS.map((item, index) => (
+        {PAGE_REPORT_DETAILS?.map((item, index) => (
           <tbody key={index}>
             <tr className="text-center">
               <td>{item.date}</td>
