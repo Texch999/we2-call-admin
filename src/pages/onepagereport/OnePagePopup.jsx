@@ -5,7 +5,7 @@ import UlshareTable from "./UlshareTable";
 import MFRCTotalTable from "./MFRCTotalTable";
 
 function OnePagePopup(props) {
-  const { showReportPopup, setShowReportPopup } = props;
+  const { showReportPopup, setShowReportPopup, clientData } = props;
   const handleReportClose = () => {
     setShowReportPopup(false);
   };
@@ -89,8 +89,8 @@ function OnePagePopup(props) {
               </div> */}
             </div>
           </div>
-          {mfrcInputs && <MFRCTotalTable />}
-          {referalNetInputs && <ReferalNetTable />}
+          {mfrcInputs && <MFRCTotalTable clientData={clientData} />}
+          {referalNetInputs && <ReferalNetTable clientData={clientData} />}
           {/* {ulsharereportInputs && <UlshareTable />} */}
         </Modal.Body>
       </Modal>

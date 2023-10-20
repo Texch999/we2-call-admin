@@ -1,64 +1,98 @@
 import React from "react";
 
-function MFRCTotalTable() {
-  const MFRC_DETAILS = [
-    {
-      matchName: (
-        <div>
-          IND vs SL
-          <br />
-          18-07-1995
-        </div>
-      ),
-      amount1: "1000000.00",
-      amount2: "500000.00",
-      comm: "500000.00",
-      roleComm: "500000.00",
-      total: "500000.00",
-    },
-    {
-      matchName: (
-        <div>
-          IND vs SL
-          <br />
-          18-07-1995
-        </div>
-      ),
-      amount1: "1000000.00",
-      amount2: "500000.00",
-      comm: "500000.00",
-      roleComm: "500000.00",
-      total: "500000.00",
-    },
-    {
-      matchName: (
-        <div>
-          IND vs SL
-          <br />
-          18-07-1995
-        </div>
-      ),
-      amount1: "1000000.00",
-      amount2: "500000.00",
-      comm: "500000.00",
-      roleComm: "500000.00",
-      total: "500000.00",
-    },
-    {
-      matchName: (
-        <div>
-          IND vs SL
-          <br />
-          18-07-1995
-        </div>
-      ),
-      amount1: "1000000.00",
-      amount2: "500000.00",
-      comm: "500000.00",
-      roleComm: "500000.00",
-      total: "500000.00",
-    },
-  ];
+function MFRCTotalTable({ clientData }) {
+  console.log("Client Data", clientData);
+  // const MFRC_DETAILS = [
+  //   {
+  //     matchName: (
+  //       <div>
+  //         IND vs SL
+  //         <br />
+  //         18-07-1995
+  //       </div>
+  //     ),
+  //     amount1: "1000000.00",
+  //     amount2: "500000.00",
+  //     comm: "500000.00",
+  //     roleComm: "500000.00",
+  //     total: "500000.00",
+  //   },
+  //   {
+  //     matchName: (
+  //       <div>
+  //         IND vs SL
+  //         <br />
+  //         18-07-1995
+  //       </div>
+  //     ),
+  //     amount1: "1000000.00",
+  //     amount2: "500000.00",
+  //     comm: "500000.00",
+  //     roleComm: "500000.00",
+  //     total: "500000.00",
+  //   },
+  //   {
+  //     matchName: (
+  //       <div>
+  //         IND vs SL
+  //         <br />
+  //         18-07-1995
+  //       </div>
+  //     ),
+  //     amount1: "1000000.00",
+  //     amount2: "500000.00",
+  //     comm: "500000.00",
+  //     roleComm: "500000.00",
+  //     total: "500000.00",
+  //   },
+  //   {
+  //     matchName: (
+  //       <div>
+  //         IND vs SL
+  //         <br />
+  //         18-07-1995
+  //       </div>
+  //     ),
+  //     amount1: "1000000.00",
+  //     amount2: "500000.00",
+  //     comm: "500000.00",
+  //     roleComm: "500000.00",
+  //     total: "500000.00",
+  //   },
+  // ];
+
+  // const firstReferralNetData =
+  // data?.length &&
+  // data?.map((report) => ({
+  //   cNameMatchPL: (
+  //     <div className="client-name-role-container mb-5 mt-5">
+  //       <div>{report?.client_name}</div>
+  //       <div>{report?.amount}</div>
+  //     </div>
+  //   ),
+  //   fancyPL: parseFloat(report?.fancyPl || 0),
+  //   refrralFancyComm: parseFloat(report?.fancyComission || 0),
+  //   masterProfitloss: report?.totalLossOrProfit || 0,
+  // }));
+
+  const MFRC_DETAILS =
+    clientData?.length &&
+    clientData?.map((item, index) => {
+      return {
+        matchName: (
+          <div>
+            IND vs SL
+            <br />
+            18-07-1995
+          </div>
+        ),
+        cNameMatchPL: <div>{item?.client_name}</div>,
+        amount1: parseFloat(item?.amount || 0),
+        fancyPL: parseFloat(item?.fancyPl || 0),
+        refrralFancyComm: parseFloat(item?.fancyComission || 0),
+        masterProfitloss: item?.totalLossOrProfit || 0,
+      };
+    });
   return (
     <div>
       <table className="w-100 match-position-table small-font">
@@ -78,13 +112,13 @@ function MFRCTotalTable() {
         </thead>
         {MFRC_DETAILS.map((item, index) => (
           <tbody key={index}>
-            <tr className="text-center clr-green">
+            <tr className="text-center">
               <td>{item.matchName}</td>
+              <td>{item.cNameMatchPL}</td>
               <td>{item.amount1}</td>
-              <td>{item.amount2}</td>
-              <td>{item.comm}</td>
-              <td>{item.roleComm}</td>
-              <td>{item.total}</td>
+              <td>{item.fancyPL}</td>
+              <td>{item.refrralFancyComm}</td>
+              <td>{item.masterProfitloss}</td>
             </tr>
           </tbody>
         ))}

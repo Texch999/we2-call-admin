@@ -10,7 +10,38 @@ import ClientIndPL from "./ClientIndPL";
 function OnePageReport(props) {
   const { ONE_PAGE_REPORT_DETAILS } = props;
   const [onePageReportData, setOnePageReportData] = useState([]);
+  const [clientName, setClientName] = useState("");
+  const [clientId, setClientId] = useState("");
+  const [netPLInduvisualClient, setNetPLInduvisualClient] = useState(0);
+
   let register_id = localStorage?.getItem("register_id");
+  const handleClientName = (client_name, client_id, netPL) => {
+    setClientName(client_name);
+    setClientId(client_id);
+    setNetPLInduvisualClient(netPL);
+    // console.log("client....", client_name, client_id);
+  };
+  const clientData =
+    onePageReportData?.length > 0 &&
+    onePageReportData?.map((report) => ({
+      client_name: report?.client_name,
+      amount: (
+        <div
+          className={`${
+            report?.totalLossOrProfit >= 0 ? "approved-color" : "red-clr"
+          }`}
+        >
+          {report?.totalLossOrProfit}
+        </div>
+      ),
+      onClick: () =>
+        handleClientName(
+          report?.client_name,
+          report?.client_id,
+          report?.totalLossOrProfit
+        ),
+    }));
+
   const getOnePageReportData = async () => {
     await call(GET_ONEPAGE_REPORT, { register_id })
       .then((res) => {
@@ -137,6 +168,7 @@ function OnePageReport(props) {
         </div>
       </div>
       <OnePagePopup
+        clientData={clientData}
         showReportPopup={showReportPopup}
         setShowReportPopup={setShowReportPopup}
       />

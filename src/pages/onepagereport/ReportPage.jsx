@@ -29,7 +29,33 @@ function ReportPage() {
   );
   const [invidiualReportReferralData, setInvidiualReportReferralData] =
     useState([]);
-
+  // const clientData =
+  //   onePageReportData?.length > 0 &&
+  //   onePageReportData?.map((report) => ({
+  //     client_name: report?.client_name,
+  //     amount: (
+  //       <div
+  //         className={`${
+  //           report?.totalLossOrProfit >= 0 ? "approved-color" : "red-clr"
+  //         }`}
+  //       >
+  //         {report?.totalLossOrProfit}
+  //       </div>
+  //     ),
+  //     onClick: () =>
+  //       handleClientName(
+  //         report?.client_name,
+  //         report?.client_id,
+  //         report?.totalLossOrProfit
+  //       ),
+  //   }));
+  // const getOnePageReportData = async () => {
+  //   await call(GET_ONEPAGE_REPORT, { register_id })
+  //     .then((res) => {
+  //       setOnePageReportData(res?.data?.data?.client_object);
+  //     })
+  //     .catch((err) => console.log(err));
+  // };
   const getOnePageReportData = async () => {
     await call(GET_ONEPAGE_REPORT, { register_id })
       .then((res) => {
@@ -37,7 +63,6 @@ function ReportPage() {
       })
       .catch((err) => console.log(err));
   };
-
   const getIndividualPLReport = async () => {
     await call(GET_INDUVISUAL_REPORTS, { register_id })
       .then((res) => {
