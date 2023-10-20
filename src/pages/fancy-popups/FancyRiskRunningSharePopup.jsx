@@ -2,31 +2,32 @@ import { Modal } from "react-bootstrap";
 import { IoCloseSharp } from "react-icons/io5";
 import MatchTable from "../match-entry/MatchTable";
 
-function FancyResultOversCommPopup(props) {
-  const { state, setState, selectedMatch, oversCommData } = props;
+function FancyRiskRunningSharePopup(props) {
+  const { state, setState, data } = props;
   const handleCancel = () => {
     setState(false);
   };
 
   const OVERS_COMM_DATA =
-    oversCommData?.length > 0 &&
-    oversCommData?.map((fancy) => ({
-      header: `${fancy?.key} Over`,
-      clientComm: fancy?.clientComm.toFixed(2),
-      rfComm: fancy?.rfComm.toFixed(2),
+    data?.length > 0 &&
+    data?.map((fancy) => ({
+      header: fancy?.key,
+      clientShare: fancy?.clientShare,
+      rfShare: fancy?.rfShare,
     }));
-    
+
   // const OVERS_COMM_DATA = [
   //   {
-  //     header: "20 Overs",
-  //     clientComm: 50000000,
-  //     rfComm: 50000000,
+  //     header: "100",
+  //     clientShare: 50000000,
+  //     rfShare: 50000000,
   //   },
   // ];
+
   const MATCH_POSITION_HEADER_DATA = [
-    { header: "Overs", field: "header" },
-    { header: "Client Comm", field: "clientComm" },
-    { header: "RF Comm", field: "rfComm" },
+    { header: "Runs", field: "header" },
+    { header: "Client Share", field: "clientShare" },
+    { header: "RF Share", field: "rfShare" },
   ];
   return (
     <Modal
@@ -36,12 +37,7 @@ function FancyResultOversCommPopup(props) {
       centered
     >
       <Modal.Header>
-        <div className="large-font">
-          Fancy Result P/L-{" "}
-          <span className="yellow-clr">
-            {selectedMatch?.team1} vs {selectedMatch?.team2}
-          </span>
-        </div>
+        <div className="large-font">Risk Running Position P/L</div>
         <IoCloseSharp onClick={() => handleCancel()} />
       </Modal.Header>
       <Modal.Body>
@@ -56,4 +52,4 @@ function FancyResultOversCommPopup(props) {
   );
 }
 
-export default FancyResultOversCommPopup;
+export default FancyRiskRunningSharePopup;

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { MATCH_DECLARATION } from "../../config/endpoints";
 import { call } from "../../config/axios";
 import MatchDeclarationPopup from "../match-popups/MatchDeclarationPopup";
+import MatchSubmitPopup from "../match-popups/MatchSubmitPopup";
 
 function MatchResultInput({
   registered_match_id,
@@ -16,6 +17,11 @@ function MatchResultInput({
   const [matchResultInputData, setMatchResultInputData] = useState({});
   const [error, setError] = useState("");
   const [isProcessing, setIsProcessing] = useState(false);
+  const [matchSubmitSuccessPopup, setMatchSubmitSuccessPopup] = useState(false);
+  const handleMatchSubmitSuccessPopupOpen = () => {
+    setMatchSubmitSuccessPopup(true);
+    setMatchSubmitPopup(false);
+  };
 
   const handleMatchResultInputDataChange = (e) => {
     setMatchResultInputData({
@@ -35,7 +41,7 @@ function MatchResultInput({
       account_role,
       sport_name: matchResultInputData?.sport_name,
       series_name: matchResultInputData?.series_name,
-      teamName: matchResultInputData?.teamName,
+      team: matchResultInputData?.team,
       declarestatus: matchResultInputData?.declarestatus,
     })
       .then((res) => {
@@ -98,8 +104,8 @@ function MatchResultInput({
             <div className="medium-font">Win Team</div>
             <select
               className="w-100 custom-select medium-font btn-bg rounded all-none p-2"
-              name="teamName"
-              id="teamName"
+              name="team"
+              id="team"
               value={matchResultInputData?.team}
               onChange={(e) => handleMatchResultInputDataChange(e)}
             >
@@ -150,6 +156,12 @@ function MatchResultInput({
         state={matchSubmitPopup}
         setState={setMatchSubmitPopup}
         handleMatchDeclarePopupClose={handleMatchDeclarePopupClose}
+        handleMatchSubmitSuccessPopupOpen={handleMatchSubmitSuccessPopupOpen}
+      />
+      <MatchSubmitPopup
+        header={"You Are Successfully Submited Your Match to Win IND"}
+        state={matchSubmitSuccessPopup}
+        setState={setMatchSubmitSuccessPopup}
       />
     </div>
   );

@@ -35,17 +35,23 @@ function FancyResultClientTable({ profitLossData, selectedMatch }) {
       } = profitLossData[key];
       return {
         header: key,
-        grossPL: parseFloat(amount),
+        grossPL: parseFloat(amount).toFixed(2) || 0,
         cNet:
-          parseFloat(amount) +
-          (parseFloat(clientCommission) + parseFloat(clientShare)),
-        rfNet: parseFloat(referalShare) + parseFloat(referralComission) || 0,
-        netPL: parseFloat(totalLossOrProfit),
+          (
+            parseFloat(amount) +
+            (parseFloat(clientCommission) + parseFloat(clientShare))
+          ).toFixed(2) || 0,
+        rfNet:
+          (parseFloat(referalShare) + parseFloat(referralComission)).toFixed(
+            2
+          ) || 0,
+        netPL: parseFloat(totalLossOrProfit).toFixed(2),
+        upperLevalShare: parseFloat(upperLevalShare).toFixed(2),
         // FancyPopupsData
-        clientShare: parseFloat(clientShare),
-        rfShare: parseFloat(referalShare),
-        clientComm: parseFloat(clientCommission),
-        rfComm: parseFloat(referralComission),
+        clientShare: parseFloat(clientShare).toFixed(2) || 0,
+        rfShare: parseFloat(referalShare).toFixed(2) || 0,
+        clientComm: parseFloat(clientCommission).toFixed(2) || 0,
+        rfComm: parseFloat(referralComission).toFixed(2) || 0,
       };
     });
 

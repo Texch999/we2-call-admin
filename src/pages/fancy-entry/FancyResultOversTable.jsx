@@ -20,7 +20,6 @@ function FancyResultOversTable({ profitLossData, selectedMatch }) {
   const FANCY_OVERS_TABLE_DATA =
     profitLossData &&
     Object.keys(profitLossData)?.map((key) => {
-      console.log("KEY-->", key);
       let {
         amount,
         clientCommission,
@@ -38,6 +37,12 @@ function FancyResultOversTable({ profitLossData, selectedMatch }) {
           (parseFloat(clientCommission) + parseFloat(clientShare)),
         rfNet: parseFloat(referalShare) + parseFloat(referralComission) || 0,
         netPL: parseFloat(totalLossOrProfit),
+        upperLevalShare: parseFloat(upperLevalShare),
+        //FancyOversPopupData
+        clientShare: parseFloat(clientShare),
+        rfShare: parseFloat(referalShare),
+        clientComm: parseFloat(clientCommission),
+        rfComm: parseFloat(referralComission),
       };
     });
   // const FANCY_OVERS_TABLE_DATA = [
@@ -61,7 +66,10 @@ function FancyResultOversTable({ profitLossData, selectedMatch }) {
       <div className="row d-flex align-items-center match-position-bg p-2 rounded m-1">
         <div className="col-sm-4 col-lg-6">
           <div className="medium-font">
-            Fancy Result P/L - <span className="yellow-clr">IND vs PAK</span>
+            Fancy Result P/L -{" "}
+            <span className="yellow-clr">
+              {selectedMatch?.team1} vs {selectedMatch?.team2}
+            </span>
           </div>
         </div>
         <div className="col">
@@ -94,10 +102,14 @@ function FancyResultOversTable({ profitLossData, selectedMatch }) {
         />
       </div>
       <FancyResultSharePopup
+        selectedMatch={selectedMatch}
+        oversShareData={FANCY_OVERS_TABLE_DATA}
         fancyResultSharePopup={fancyResultSharePopup}
         handleFancyResultSharePopupClose={handleFancyResultSharePopupClose}
       />
       <FancyResultOversCommPopup
+        selectedMatch={selectedMatch}
+        oversCommData={FANCY_OVERS_TABLE_DATA}
         state={fancyResultCommPopup}
         setState={setFancyResultCommPopup}
       />
