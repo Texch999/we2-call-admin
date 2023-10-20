@@ -38,6 +38,11 @@ function FancyRiskRunningTable({ riskRunningData }) {
         ursPosition: (
           parseFloat(upperLevalShare || 0) + parseFloat(ulComm || 0)
         ).toFixed(2),
+        // Risk Runninng Share Comm Popup Data
+        clientShare: parseFloat(clientShare || 0),
+        rfShare: parseFloat(referalShare || 0),
+        clientComm: parseFloat(clientCommission || 0),
+        rfComm: parseFloat(referralComission || 0),
       };
     });
 
@@ -95,10 +100,12 @@ function FancyRiskRunningTable({ riskRunningData }) {
       <FancyRiskRunningSharePopup
         state={fancyRiskSharePopup}
         setState={setFancyRiskSharePopup}
+        data={FANCY_RISK_RUNNING_DATA}
       />
       <FancyRiskRunningCommPopup
         state={fancyRiskCommPopup}
         setState={setFancyRiskCommPopup}
+        data={FANCY_RISK_RUNNING_DATA}
       />
     </div>
   );

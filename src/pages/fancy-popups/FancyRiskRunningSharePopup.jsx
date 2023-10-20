@@ -3,21 +3,31 @@ import { IoCloseSharp } from "react-icons/io5";
 import MatchTable from "../match-entry/MatchTable";
 
 function FancyRiskRunningSharePopup(props) {
-  const { state, setState } = props;
+  const { state, setState, data } = props;
   const handleCancel = () => {
     setState(false);
   };
-  const OVERS_COMM_DATA = [
-    {
-      header: "20 Overs",
-      clientComm: 50000000,
-      rfComm: 50000000,
-    },
-  ];
+
+  const OVERS_COMM_DATA =
+    data?.length > 0 &&
+    data?.map((fancy) => ({
+      header: fancy?.key,
+      clientShare: fancy?.clientShare,
+      rfShare: fancy?.rfShare,
+    }));
+
+  // const OVERS_COMM_DATA = [
+  //   {
+  //     header: "100",
+  //     clientShare: 50000000,
+  //     rfShare: 50000000,
+  //   },
+  // ];
+
   const MATCH_POSITION_HEADER_DATA = [
-    { header: "Overs", field: "header" },
-    { header: "Client Comm", field: "clientComm" },
-    { header: "RF Comm", field: "rfComm" },
+    { header: "Runs", field: "header" },
+    { header: "Client Share", field: "clientShare" },
+    { header: "RF Share", field: "rfShare" },
   ];
   return (
     <Modal
