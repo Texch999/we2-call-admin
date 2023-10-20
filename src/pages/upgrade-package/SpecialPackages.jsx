@@ -1,7 +1,25 @@
 import { BiSolidCheckCircle } from "react-icons/bi";
 import { Images } from "../../images";
+import { useState, useEffect } from "react";
+import { GET_ALL_PACKAGES } from "../../config/endpoints";
+import { call } from "../../config/axios";
 
 function SpecialPackages() {
+  const [allPackages, setAllPackages] = useState([]);
+
+  const yearlyPacks = allPackages.filter((item) => {
+    return item.package_duration === "yearly";
+  });
+
+  const montlyPacks = allPackages.filter((item) => {
+    return item.package_duration === "monthly";
+  });
+
+  const standardPack = montlyPacks.filter((item) => {
+    return item.package_name === "standard";
+  });
+ 
+
   const PACKAGE_DETAILS = [
     {
       id: 1,
@@ -200,6 +218,30 @@ function SpecialPackages() {
       ),
     },
   ];
+
+  const getAllPackages = async () => {
+    await call(GET_ALL_PACKAGES)
+      .then((res) => {
+        if (res.data.status === 200) {
+          const response = res.data.data;
+          setAllPackages(response);
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+  useEffect(() => {
+    getAllPackages();
+  }, []);
+
+  const [yearly, setYearly] = useState();
+
+  const handleMonthly = (e) => {
+    setYearly(e.target.checked);
+    // console.log(e);
+  };
+
+  console.log(yearly, "...monthly");
+
   return (
     <div>
       <div className="row">
@@ -211,6 +253,7 @@ function SpecialPackages() {
             className="form-check-input"
             type="checkbox"
             role="switch"
+            onChange={(e) => handleMonthly(e)}
             id="flexSwitchCheckDefault"
           />
         </div>
