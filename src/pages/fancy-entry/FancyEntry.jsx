@@ -64,13 +64,13 @@ function FancyEntry() {
 
   const getFancyProfitLoss = async (ID) => {
     await call(FANCY_RESULT_PROFIT_LOSS, {
-      register_id,
       registered_match_id: ID ? ID : matchAccountData?.registered_match_id,
+      register_id,
     })
       .then((res) => {
         setProfitLossData(res?.data?.data);
       })
-      .then((err) => console.log(err));
+      .catch((err) => console.log(err));
   };
 
   const getMatchInfo = async () => {
@@ -115,9 +115,7 @@ function FancyEntry() {
           selectedMatch={selectedMatch}
           profitLossData={profitLossData?.oversObject}
         />
-        <FancyRiskRunningTable
-          riskRunningData={riskRunningData}
-        />
+        <FancyRiskRunningTable riskRunningData={riskRunningData} />
       </div>
       <FancyEntries
         // fancyEntryInputs={fancyEntryInputs}

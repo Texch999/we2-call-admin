@@ -161,15 +161,12 @@ function FancyEntryInput({
       .then((res) => {
         setIsProcessing(false);
         if (res?.data?.statusCode === 200) {
+          resetFields();
           setStatus((prev) => !prev);
           setSubmitPopup(true);
-          setTimeout(() => {
-            setSubmitPopup(false);
-          }, 1000);
           setSelectedMatchEntry("");
           getRiskRunningData();
           getFancyProfitLoss();
-          resetFields();
           setError("");
         } else {
           setError(
