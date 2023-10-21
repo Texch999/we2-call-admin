@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import MatchDeclarationPopup from "../match-popups/MatchDeclarationPopup";
 import MatchSubmitPopup from "../match-popups/MatchSubmitPopup";
 import { FANCY_DECLARATION } from "../../config/endpoints";
@@ -14,9 +14,9 @@ function FancyResultInput(props) {
     setSelectedMatchEntry,
   } = props;
 
-  let register_id = localStorage?.getItem("register_id");
-  let creator_id = localStorage?.getItem("creator_id");
-  let account_role = localStorage?.getItem("account_role");
+  const register_id = localStorage?.getItem("register_id");
+  const creator_id = localStorage?.getItem("creator_id");
+  const account_role = localStorage?.getItem("account_role");
 
   const [over, setOver] = useState("");
   const [fancyResultInputData, setFancyResultInputData] = useState({});
@@ -28,8 +28,9 @@ function FancyResultInput(props) {
   const handleOvers = (e) => {
     setOver(e.target.value);
   };
+
   const handleSelectOvers = (e) => {
-    setOver([...over, e.target.value]);
+    setOver(e.target.value);
   };
 
   const handleFancyResultInputDataChange = (e) => {
@@ -39,16 +40,17 @@ function FancyResultInput(props) {
     });
   };
 
-  const handleConfirmDeclaration = async () => {
+  const handleConfirmDeclaration = () => {
     if (
       !fancyResultInputData?.innings ||
       !over ||
       !fancyResultInputData?.team ||
       !fancyResultInputData?.runs
     ) {
-      return setError("Please Enter Required Fields");
+      setError("Please Enter Required Fields");
+    } else {
+      setConfirmDeclaration(true);
     }
-    setConfirmDeclaration(true);
   };
 
   const handleFancyDeclaration = async () => {
@@ -56,42 +58,42 @@ function FancyResultInput(props) {
     setIsProcessing(true);
     setAfterConfirm(true);
     setError("");
-    await call(FANCY_DECLARATION, {
-      registered_match_id,
-      register_id,
-      over: over[0],
-      innings: fancyResultInputData?.innings,
-      runs: fancyResultInputData?.runs,
-      team: fancyResultInputData?.team,
-    })
-      .then((res) => {
-        setIsProcessing(false);
-        if (res?.data?.statusCode === 200) {
-          setConfirmDeclaration(true);
-          setStatus((prev) => !prev);
-          getFancyProfitLoss();
-          setTimeout(() => {
-            setAfterConfirm(false);
-          }, 2000);
-          setError("");
-        } else {
-          setConfirmDeclaration(false);
-          setError(
-            res?.data?.message ? res?.data?.message : "Something Went Wrong"
-          );
-        }
-      })
-      .catch((err) => {
-        setIsProcessing(false);
-        setError(`Something Went Wrong`);
-        console.log(err);
+    try {
+      const res = await call(FANCY_DECLARATION, {
+        registered_match_id,
+        register_id,
+        over: over,
+        innings: fancyResultInputData?.innings,
+        runs: fancyResultInputData?.runs,
+        team: fancyResultInputData?.team,
       });
+
+      if (res?.data?.statusCode === 200) {
+        setConfirmDeclaration(false);
+        setStatus((prev) => !prev);
+        getFancyProfitLoss();
+        setTimeout(() => {
+          setAfterConfirm(false);
+        }, 2000);
+        setError("");
+      } else {
+        setConfirmDeclaration(false);
+        setError(
+          res?.data?.message ? res?.data?.message : "Something Went Wrong"
+        );
+      }
+    } catch (err) {
+      setIsProcessing(false);
+      setError("Something Went Wrong");
+      console.error(err);
+    }
   };
 
   useEffect(() => {
     setOver(selectedMatchEntry?.over);
     setFancyResultInputData(selectedMatchEntry);
   }, [selectedMatchEntry]);
+
   return (
     <div className="match-position-bg rounded-bottom p-3">
       <div className="row">
@@ -116,7 +118,7 @@ function FancyResultInput(props) {
               <input
                 className="w-90 custom-select medium-font btn-bg  all-none p-2 rounded"
                 placeholder="Over"
-                value={over ||[]}
+                value={over || []}
                 name="over"
                 onChange={(e) => handleOvers(e)}
               ></input>

@@ -34,6 +34,7 @@ function FancyResultClientTable({ profitLossData, selectedMatch }) {
         upperLevalShare,
       } = profitLossData[key];
       return {
+        key: key,
         header: key,
         grossPL: parseFloat(amount).toFixed(2) || 0,
         cNet:
