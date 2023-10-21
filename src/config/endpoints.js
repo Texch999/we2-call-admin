@@ -60,6 +60,7 @@ const UPDATE_PAYMENT_GATEWAY = "/management/update_payment_gateway";
 const GET_REQUEST_PACKAGES =
   "/packages/get_package_histroy_bypackage_requestid";
 const GET_ADMIN_PACKAGE_REQUEST = "/packages/get_all_admin_package_request";
+const GET_REASON_REJECTIONS = "/settings/getall_security_questions";
 
 // methods
 const DELETE = "DELETE";
@@ -332,5 +333,10 @@ exports.GET_REQUEST_PACKAGES = {
 };
 exports.GET_ADMIN_PACKAGE_REQUEST = {
   url: GET_ADMIN_PACKAGE_REQUEST,
+  method: POST,
+};
+
+exports.GET_REASON_REJECTIONS = {
+  url: GET_REASON_REJECTIONS,
   method: POST,
 };
