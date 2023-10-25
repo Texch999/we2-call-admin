@@ -20,7 +20,7 @@ function FancyEntry() {
   const [afterDeclare, setAfterDeclare] = useState(false);
   const [matchAccountData, setMatchAccountData] = useState([]);
   const [matchOver, setMatchOver] = useState(1);
-  const [matchInnings, setMatchInnings] = useState("first");
+  const [matchInnings, setMatchInnings] = useState("1");
   const [riskRunningData, setRiskRunningData] = useState([]);
   const [profitLossData, setProfitLossData] = useState([]);
   const [status, setStatus] = useState(false);
@@ -78,7 +78,7 @@ function FancyEntry() {
       register_id,
       registered_match_id: ID ? ID : matchAccountData?.registered_match_id,
       match_over: matchOver,
-      innings: matchInnings === "second" ? "2" : "1",
+      innings: matchInnings === "2" ? "2" : "1",
     })
       .then((res) => {
         setRiskRunningData(res?.data?.data);
@@ -92,6 +92,7 @@ function FancyEntry() {
       registered_match_id: ID ? ID : matchAccountData?.registered_match_id,
     })
       .then((res) => {
+        console.log(res, "RESPONSE");
         setProfitLossData(res?.data?.data);
       })
       .catch((err) => console.log(err));
@@ -137,6 +138,7 @@ function FancyEntry() {
         getFancyProfitLoss={getFancyProfitLoss}
         profitLossData={profitLossData?.oversObject}
         setAfterDeclare={setAfterDeclare}
+        setMatchInnings={setMatchInnings}
       />
       <FancyEntryTable
         selectedMatch={selectedMatch}

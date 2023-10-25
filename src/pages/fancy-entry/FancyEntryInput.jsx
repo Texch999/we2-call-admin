@@ -17,6 +17,7 @@ function FancyEntryInput({
   setMatchOver,
   getRiskRunningData,
   getFancyProfitLoss,
+  setMatchInnings,
   profitLossData = {},
 }) {
   let register_id = localStorage?.getItem("register_id");
@@ -24,7 +25,7 @@ function FancyEntryInput({
   let account_role = localStorage?.getItem("account_role");
 
   const [fancyEntryInputData, setFancyInputEntryData] = useState({});
-  const [over, setOver] = useState("");
+  // const [over, setOver] = useState({});
   const [submitPopup, setSubmitPopup] = useState(false);
   const [selectedOptions, setSelectedOptions] = useState();
   const [existingUsers, setExistingUsers] = useState([]);
@@ -37,12 +38,12 @@ function FancyEntryInput({
   const handleClientSelect = (data) => {
     setSelectedOptions(data);
   };
-  const handleOvers = (e) => {
-    setOver(e.target.value);
-  };
-  const handleSelectOvers = (e) => {
-    setOver([...over, e.target.value]);
-  };
+  // const handleOvers = (e) => {
+  //   setOver(e.target.value);
+  // };
+  // const handleSelectOvers = (e) => {
+  //   setOver([...over, e.target.value]);
+  // };
   const handleFancyEntryInputDataChange = (e) => {
     setFancyInputEntryData({
       ...fancyEntryInputData,
@@ -69,7 +70,7 @@ function FancyEntryInput({
   }, []);
 
   const resetFields = () => {
-    setOver("");
+    // setOver("");
     selectedOptions("");
     fancyEntryInputData({});
   };
@@ -77,11 +78,12 @@ function FancyEntryInput({
   const handleFancyEntrySubmit = async () => {
     if (
       !fancyEntryInputData?.innings ||
-      !over ||
+      !fancyEntryInputData?.over ||
       !fancyEntryInputData?.team ||
       !fancyEntryInputData?.amount ||
       !fancyEntryInputData?.yN ||
-      !selectedOptions?.label
+      !fancyEntryInputData?.runs ||
+      !selectedOptions?.value
     ) {
       return setError("Please Enter Required Fields");
     }
@@ -94,7 +96,7 @@ function FancyEntryInput({
       account_role,
       innings: fancyEntryInputData?.innings,
       rate: 1,
-      over: over[0],
+      over: fancyEntryInputData?.over,
       team: fancyEntryInputData?.team,
       amount: fancyEntryInputData?.amount,
       runs: fancyEntryInputData?.runs,
@@ -106,6 +108,7 @@ function FancyEntryInput({
         setError("");
         setIsProcessing(false);
         if (res?.data?.statusCode === 200) {
+          resetFields();
           setStatus((prev) => !prev);
           setSubmitPopup(true);
           setTimeout(() => {
@@ -113,8 +116,6 @@ function FancyEntryInput({
           }, 1000);
           getRiskRunningData();
           getFancyProfitLoss();
-          resetFields();
-          setError("");
         } else {
           setError(
             res?.data?.message ? res?.data?.message : `Something Went Wrong`
@@ -131,11 +132,12 @@ function FancyEntryInput({
   const handleFancyEntryUpdate = async () => {
     if (
       !fancyEntryInputData?.innings ||
-      !over ||
+      !fancyEntryInputData?.over ||
       !fancyEntryInputData?.team ||
       !fancyEntryInputData?.amount ||
       !fancyEntryInputData?.yN ||
-      !selectedOptions?.label
+      !fancyEntryInputData?.runs ||
+      !selectedOptions?.value
     ) {
       return setError("Please Enter Required Fields");
     }
@@ -149,7 +151,7 @@ function FancyEntryInput({
       account_role,
       innings: fancyEntryInputData?.innings,
       rate: 1,
-      over: over[0],
+      over: fancyEntryInputData?.over,
       team: fancyEntryInputData?.team,
       amount: fancyEntryInputData?.amount,
       runs: fancyEntryInputData?.runs,
@@ -167,7 +169,7 @@ function FancyEntryInput({
           setSelectedMatchEntry("");
           getRiskRunningData();
           getFancyProfitLoss();
-          setError("");
+          // setError("");
         } else {
           setError(
             res?.data?.message ? res?.data?.message : "Something Went Wrong"
@@ -182,14 +184,12 @@ function FancyEntryInput({
   };
 
   useEffect(() => {
-    if (selectedMatchEntry) {
-      setSelectedOptions({
-        label: selectedMatchEntry?.client_name,
-        value: selectedMatchEntry?.client_id,
-      });
-      setOver(selectedMatchEntry?.over);
-      setFancyInputEntryData(selectedMatchEntry);
-    }
+    setSelectedOptions({
+      label: selectedMatchEntry?.client_name,
+      value: selectedMatchEntry?.client_id,
+    });
+    // setOver(selectedMatchEntry?.over);
+    setFancyInputEntryData(selectedMatchEntry);
   }, [selectedMatchEntry]);
 
   return (
@@ -202,7 +202,6 @@ function FancyEntryInput({
               className="w-100 custom-select medium-font btn-bg rounded all-none p-2"
               name="innings"
               id="innings"
-              value={fancyEntryInputData?.innings || ""}
               onChange={(e) => handleFancyEntryInputDataChange(e)}
             >
               <option>Select</option>
@@ -227,15 +226,15 @@ function FancyEntryInput({
             <div className="medium-font">Overs</div>
             <div className="custom-select medium-font btn-bg rounded">
               <input
-                className="w-70 custom-select medium-font btn-bg  all-none p-2 rounded"
+                className=" custom-select medium-font btn-bg  all-none p-2 rounded"
                 placeholder="Over"
-                value={over || []}
+                value={fancyEntryInputData?.over || ""}
                 name="over"
-                onChange={(e) => handleOvers(e)}
+                onChange={(e) => handleFancyEntryInputDataChange(e)}
               ></input>
-              <select
+              {/* <select
                 name="over"
-                value={over || ""}
+                value={over || []}
                 className="w-30 custom-select medium-font btn-bg all-none p-2 rounded"
                 onChange={(e) => handleSelectOvers(e)}
               >
@@ -246,7 +245,7 @@ function FancyEntryInput({
                 <option value="20">20 Overs</option>
                 <option value="25">25 Overs</option>
                 <option value="30">30 Overs</option>
-              </select>
+              </select> */}
             </div>
           </div>
         </div>
@@ -258,7 +257,6 @@ function FancyEntryInput({
               className="w-100 medium-font btn-bg rounded all-none p-2"
               placeholder="Team"
               name="team"
-              value={fancyEntryInputData?.team || ""}
               onChange={(e) => handleFancyEntryInputDataChange(e)}
             >
               <option>Select Team</option>
@@ -305,7 +303,6 @@ function FancyEntryInput({
             <select
               className="w-100 custom-select medium-font btn-bg rounded all-none p-2"
               name="yN"
-              value={fancyEntryInputData?.yN}
               onChange={(e) => handleFancyEntryInputDataChange(e)}
             >
               <option>Select</option>
@@ -352,7 +349,11 @@ function FancyEntryInput({
       <SubmitPopup
         state={submitPopup}
         setState={setSubmitPopup}
-        header={"Your Successfully Submitted Fancy Entry"}
+        header={
+          Object.keys(selectedMatchEntry).length === 0
+            ? "Fancy Entry Added Successfully"
+            : "Fancy Entry Updated Successfully"
+        }
       />
     </div>
   );

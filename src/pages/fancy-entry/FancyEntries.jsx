@@ -16,6 +16,7 @@ function FancyEntries(props) {
     getFancyProfitLoss,
     profitLossData,
     setAfterDeclare,
+    setMatchInnings,
   } = props;
   const history = useHistory();
   const [fancyEntryInputs, setFancyEntryInputs] = useState(true);
@@ -74,6 +75,7 @@ function FancyEntries(props) {
           getFancyProfitLoss={getFancyProfitLoss}
           profitLossData={profitLossData}
           setAfterDeclare={setAfterDeclare}
+          setMatchInnings={setMatchInnings}
         />
       )}
       {fancyResultInputs && (

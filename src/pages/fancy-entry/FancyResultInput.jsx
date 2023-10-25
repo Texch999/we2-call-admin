@@ -58,35 +58,36 @@ function FancyResultInput(props) {
     setIsProcessing(true);
     setAfterConfirm(true);
     setError("");
-    try {
-      const res = await call(FANCY_DECLARATION, {
-        registered_match_id,
-        register_id,
-        over: over,
-        innings: fancyResultInputData?.innings,
-        runs: fancyResultInputData?.runs,
-        team: fancyResultInputData?.team,
+    await call(FANCY_DECLARATION, {
+      registered_match_id,
+      register_id,
+      over: over,
+      innings: fancyResultInputData?.innings,
+      runs: fancyResultInputData?.runs,
+      team: fancyResultInputData?.team,
+    })
+      .then((res) => {
+        setIsProcessing(false);
+        if (res?.data?.statusCode === 200) {
+          setConfirmDeclaration(false);
+          setStatus((prev) => !prev);
+          getFancyProfitLoss();
+          setTimeout(() => {
+            setAfterConfirm(false);
+          }, 2000);
+          // setError("");
+        } else {
+          setConfirmDeclaration(false);
+          setError(
+            res?.data?.message ? res?.data?.message : "Something Went Wrong"
+          );
+        }
+      })
+      .catch((err) => {
+        setIsProcessing(false);
+        setError(`something wen't wrong`);
+        console.log(err);
       });
-
-      if (res?.data?.statusCode === 200) {
-        setConfirmDeclaration(false);
-        setStatus((prev) => !prev);
-        getFancyProfitLoss();
-        setTimeout(() => {
-          setAfterConfirm(false);
-        }, 2000);
-        setError("");
-      } else {
-        setConfirmDeclaration(false);
-        setError(
-          res?.data?.message ? res?.data?.message : "Something Went Wrong"
-        );
-      }
-    } catch (err) {
-      setIsProcessing(false);
-      setError("Something Went Wrong");
-      console.error(err);
-    }
   };
 
   useEffect(() => {
