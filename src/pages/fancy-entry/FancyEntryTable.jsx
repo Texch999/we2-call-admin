@@ -65,7 +65,7 @@ function FancyEntryTable(props) {
 
   const FANCY_ENTRY_DATA =
     data?.length > 0 &&
-    data?.map((fancy, index) => {
+    data?.map((fancy) => {
       return {
         sNo:
           fancy?.old_s_no === fancy?.s_no
@@ -76,14 +76,14 @@ function FancyEntryTable(props) {
         team: fancy?.team,
         runs: fancy?.runs,
         yesNo: (
-          <div className={fancy?.yN === "Y" ? "clr-green" : "clr-pink"}>
+          <span className={fancy?.yN === "Y" ? "clr-green" : "clr-pink"}>
             {fancy?.yN}
-          </div>
+          </span>
         ),
         date: fancy?.date,
         time: fancy?.time,
         client: fancy?.client_name,
-        amount: <div className="yellow-clr">{fancy?.amount}</div>,
+        amount: <span className="yellow-clr">{fancy?.amount}</span>,
         edit: fancy?.record_status === "active" && (
           <MdEdit
             className="edit-icon"

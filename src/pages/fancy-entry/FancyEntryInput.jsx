@@ -49,6 +49,10 @@ function FancyEntryInput({
       ...fancyEntryInputData,
       [e.target.name]: e.target.value,
     });
+    setMatchInnings(fancyEntryInputData?.innings);
+    setMatchOver(fancyEntryInputData?.over);
+    console.log(fancyEntryInputData?.innings, "MATCH_INNINGS");
+    console.log(fancyEntryInputData?.over, "MATCH_OVER");
   };
 
   const getAllClientsData = async () => {
@@ -71,7 +75,7 @@ function FancyEntryInput({
 
   const resetFields = () => {
     // setOver("");
-    selectedOptions("");
+    setSelectedOptions("");
     fancyEntryInputData({});
   };
 
@@ -205,8 +209,8 @@ function FancyEntryInput({
               onChange={(e) => handleFancyEntryInputDataChange(e)}
             >
               <option>Select</option>
-              <option value="1">1st Inn</option>
-              <option value="2">2nd Inn</option>
+              <option value="1">First</option>
+              <option value="2">Second</option>
             </select>
           </div>
         </div>
@@ -226,12 +230,12 @@ function FancyEntryInput({
             <div className="medium-font">Overs</div>
             <div className="custom-select medium-font btn-bg rounded">
               <input
-                className=" custom-select medium-font btn-bg  all-none p-2 rounded"
+                className="w-100 custom-select medium-font btn-bg  all-none p-2 rounded"
                 placeholder="Over"
                 value={fancyEntryInputData?.over || ""}
                 name="over"
                 onChange={(e) => handleFancyEntryInputDataChange(e)}
-              ></input>
+              />
               {/* <select
                 name="over"
                 value={over || []}

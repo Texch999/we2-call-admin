@@ -20,7 +20,7 @@ function FancyResultClientTable({ profitLossData, selectedMatch }) {
   const handleFancyResultCommPopupClose = () => {
     setFancyResultCommPopup(false);
   };
-  console.log(profitLossData,"RRRRR");
+  // console.log(profitLossData,"RRRRR");
   const FANCY_CLIENT_TABLE_DATA =
     profitLossData &&
     Object.keys(profitLossData)?.map((key) => {
