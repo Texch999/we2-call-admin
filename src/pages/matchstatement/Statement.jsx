@@ -25,43 +25,18 @@ function Statement(props) {
       field: "edit",
     },
   ];
-  // const STATEMENT_DETAILS =
-  //   financialStatementData?.map((item) => {
-  //     return {
-  //       dateTime: item?.sport_name,
-  //       seriesName: item?.series_name,
-  //       teamName: (
-  //         <div>
-  //           {item?.team1} VS {item?.team1}
-  //         </div>
-  //       ),
-  //       matchplace: item?.stadium,
-  //       winTeam: item?.winTeam,
-  //       profitLoss: item?.totalAmount?.totalLossOrProfit,
-  //       edit: (
-  //         <AiFillEdit
-  //           data-toggle="modal"
-  //           data-target=".bd-example-modal-lg"
-  //           className="custom-icon"
-  //           onClick={() => handleShow()}
-  //         />
-  //       ),
-  //     };
-  //   });
-
-  const STATEMENT_DETAILS = [
-    {
-      dateTime: "item?.sport_name",
-      seriesName: "item?.series_name",
+  const STATEMENT_DETAILS = financialStatementData?.map((item) => {
+    return {
+      dateTime: item?.sport_name,
+      seriesName: item?.series_name,
       teamName: (
         <div>
-          {/* {item?.team1} VS {item?.team1} */}
-          team vs team
+          {item?.team1} VS {item?.team1}
         </div>
       ),
-      matchplace: "item?.stadium",
-      winTeam: "item?.winTeam",
-      profitLoss: "item?.totalAmount?.totalLossOrProfit",
+      matchplace: item?.stadium,
+      winTeam: item?.winTeam,
+      profitLoss: item?.totalAmount?.totalLossOrProfit,
       edit: (
         <AiFillEdit
           data-toggle="modal"
@@ -70,8 +45,32 @@ function Statement(props) {
           onClick={() => handleShow()}
         />
       ),
-    },
-  ];
+    };
+  });
+
+  // const STATEMENT_DETAILS = [
+  //   {
+  //     dateTime: "item?.sport_name",
+  //     seriesName: "item?.series_name",
+  //     teamName: (
+  //       <div>
+  //         {/* {item?.team1} VS {item?.team1} */}
+  //         team vs team
+  //       </div>
+  //     ),
+  //     matchplace: "item?.stadium",
+  //     winTeam: "item?.winTeam",
+  //     profitLoss: "item?.totalAmount?.totalLossOrProfit",
+  //     edit: (
+  //       <AiFillEdit
+  //         data-toggle="modal"
+  //         data-target=".bd-example-modal-lg"
+  //         className="custom-icon"
+  //         onClick={() => handleShow()}
+  //       />
+  //     ),
+  //   },
+  // ];
 
   const seriesOptions = [
     { value: "option1", label: "Option 1" },
