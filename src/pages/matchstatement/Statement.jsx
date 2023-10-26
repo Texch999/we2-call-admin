@@ -41,12 +41,14 @@ function Statement(props) {
       winTeam: item?.winTeam,
       profitLoss: item?.totalAmount?.totalLossOrProfit,
       edit: (
-        <AiFillEdit
+        <div
           data-toggle="modal"
           data-target=".bd-example-modal-lg"
-          className="custom-icon"
+          className="clr-yellow"
           onClick={() => handleShow(item)}
-        />
+        >
+          Click Here
+        </div>
       ),
     };
   });
