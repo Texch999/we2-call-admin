@@ -65,6 +65,7 @@ const UPDATE_PAYMENT_GATEWAY = "/management/update_payment_gateway";
 const GET_REQUEST_PACKAGES = "/packages/get_package_histroy_bypackage_requestid";
 const GET_ADMIN_PACKAGE_REQUEST = "/packages/get_all_admin_package_request";
 
+
 // methods
 const DELETE = "DELETE";
 const POST = "POST";

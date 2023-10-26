@@ -9,18 +9,22 @@ function UpgradeYourPackage() {
   const [specialOffer, setSpecialOffer] = useState(false);
   const [specialPackage, setSpecialPackage] = useState(true);
   const [openPopup, setOpenPopup] = useState(false);
+  const [selectPackageName, setSelectPackageName] = useState();
   const handleSpecialOffer = () => {
     setSpecialOffer(true);
     setSpecialPackage(false);
   };
+
+  const [yearly, setYearly] = useState();
+
   const handleSpecialPackage = () => {
     setSpecialPackage(true);
     setSpecialOffer(false);
   };
 
-  const handlePopup = () => {
-    setOpenPopup(true);
-  };
+  // const handlePopup = () => {
+  //   setOpenPopup(true);
+  // };
   return (
     <div>
       <div className="pt-3 px-3">
@@ -42,7 +46,7 @@ function UpgradeYourPackage() {
             <div className="col d-flex align-items-center justify-content-around">
               <div
                 className="w-35 d-flex align-items-center justify-content-around fw-semibold medium-font text-white p-2 rounded yellow-btn"
-                onClick={() => handlePopup()}
+                // onClick={() => handlePopup()}
               >
                 <div>Upgrade</div>
                 <div>
@@ -80,9 +84,22 @@ function UpgradeYourPackage() {
       <hr className="hr-line" />
       <div className="p-3">
         {specialOffer && <SpecialOffers />}
-        {specialPackage && <SpecialPackages />}
+        {specialPackage && (
+          <SpecialPackages
+            setOpenPopup={setOpenPopup}
+            setYearly={setYearly}
+            yearly={yearly}
+            setSelectPackageName={setSelectPackageName}
+          />
+        )}
       </div>
-      <PopupUpgradePackages openPopup={openPopup} setOpenPopup={setOpenPopup} />
+      <PopupUpgradePackages
+        openPopup={openPopup}
+        setOpenPopup={setOpenPopup}
+        selectPackageName={selectPackageName}
+        yearly={yearly}
+        // setOpenPopup={setOpenPopup}
+      />
     </div>
   );
 }

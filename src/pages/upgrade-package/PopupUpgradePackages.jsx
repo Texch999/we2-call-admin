@@ -1,23 +1,105 @@
-import React, { useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Modal } from "react-bootstrap";
 import { IoCloseSharp } from "react-icons/io5";
 import { RxCrossCircled } from "react-icons/rx";
 import { AiOutlineDown, AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 import { BiSolidChevronDown } from "react-icons/bi";
+import {
+  CREATE_PACKAGE_SUBSCRIPTION,
+  GENERATE_SIGNED_URL,
+  GET_ALL_PAYMENT_GATEWAYS,
+} from "../../config/endpoints";
+import { call } from "../../config/axios";
 
 function PopupUpgradePackages(props) {
-  const { openPopup, setOpenPopup } = props;
+  const { openPopup, setOpenPopup, selectPackageName, yearly } = props;
   const [showAvailablePAckages, setShowAvailablePAckages] = useState();
   const [showReducePackage, setShowReducePackage] = useState(false);
-  const packagesType = ["Standerd", "Silver", "Gold", "Diamond", "Vip"];
+  const [paymentType, setPaymentType] = useState();
+  const [allPaymentGateway, setAllPaymentGateway] = useState([]);
+  const [singedUrl, setSignedUrl] = useState(false);
+  const [trxId, setImageTrxId] = useState("");
+  const [image, setImage] = useState("");
+  const register_id = localStorage.getItem("register_id");
+  console.log("selectPackageName====>", selectPackageName);
+  const packagesType = [
+    {
+      value: "neft",
+      label: "NEFT/RTGS",
+    },
+    {
+      value: "phonepe",
+      label: "PhonePe",
+    },
+    {
+      value: "paytm",
+      label: "Paytm",
+    },
+    {
+      value: "gpay",
+      label: "Google Pay",
+    },
+    {
+      value: "qr_code",
+      label: "Qr Code",
+    },
+  ];
+  const fileInputRef = useRef(null);
 
-  const handleAvailablePackage = () => {
-    setShowAvailablePAckages((prev) => !prev);
+  const handleFileSelect = (e) => {
+    const file = e.target.files[0];
+    setImage(file);
+    generateSignedUrl();
   };
 
-  const handleReturnPackages = () => {
-    setShowReducePackage((prev) => !prev);
+  const generateSignedUrl = async () => {
+    const trxId = new Date().getTime();
+    await call(GENERATE_SIGNED_URL, {
+      trxId,
+      event_type: "user_profile_image",
+      folder_name: "payments",
+    })
+      .then(async (res) => {
+        let url = res?.data?.data?.result?.signed_url;
+        setSignedUrl(url);
+        setImageTrxId(trxId);
+      })
+      .catch((err) => console.log("generating signed url error", err));
   };
+  const getAllPaymentData = async () => {
+    const payload = {
+      register_id: localStorage.getItem("creator_id"),
+    };
+    try {
+      const res = await call(GET_ALL_PAYMENT_GATEWAYS, payload);
+      if (res.status) {
+        setAllPaymentGateway(res?.data?.data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getAllPaymentData();
+  }, []);
+
+  console.log(allPaymentGateway, "......allPaymentGateway");
+
+  // const handleAvailablePackage = () => {
+  //   setShowAvailablePAckages((prev) => !prev);
+  // };
+
+  // const handleReturnPackages = () => {
+  //   setShowReducePackage((prev) => !prev);
+  // };
+
+  const handleChange = (e) => {
+    setPaymentType(e.target.value);
+  };
+
+  console.log(paymentType, "paymentType....");
+
   return (
     <Modal className="match-declaration-modal" centered show={openPopup}>
       <Modal.Header className="d-flex justify-content-end">
@@ -25,90 +107,87 @@ function PopupUpgradePackages(props) {
       </Modal.Header>
       <Modal.Body>
         <div className="px-3">
-          <center>
-            <h5>Upgrade Packages</h5>
-          </center>
-          <div className="d-flex align-items-center justify-content-between login-input p-2 mt-2">
-            <div className="small-font">Total Packages Price</div>
-            <div className="small-fontt">150000.00</div>
-          </div>
-          <div className="small-font mt-3">Code Appiled</div>
-          <div className="d-flex align-items-center justify-content-between login-input p-2 mt-2">
-            <div className="small-font">Total Packages Price</div>
-            <RxCrossCircled />
-          </div>
-          <div className="small-font  d-flex justify-content-end">-2250</div>
-          <div className="h-40px">
-            <div
-              className="d-flex align-items-center justify-content-between login-input p-2 mt-2"
-              onClick={() => handleAvailablePackage()}
-            >
-              <div className="small-font">
-                Reduse Available Package <BiSolidChevronDown className="ms-1" />
-              </div>
-              <span>-2442</span>
-            </div>
-            {showAvailablePAckages && (
-              <div className="drop-down-container">
-                {packagesType.map((item, index) => {
-                  return (
-                    <div
-                      key={index}
-                      className="packages-add p-2 small-font d-flex justify-content-between align-items-center"
-                    >
-                      <div>
-                        {item}
-                        <span className="ms-2">8</span>
-                      </div>
-                      <div className="d-flex align-items-center incre-button p-1">
-                        <AiOutlineMinus className="me-1 yellow-clr" />
-                        <div>100</div>
-                        <AiOutlinePlus className="ms-1 yellow-clr" />
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            )}
-          </div>
-          <div className="h-40px">
-            <div
-              className="d-flex align-items-center justify-content-between login-input p-2 mt-2"
-              onClick={() => handleReturnPackages()}
-            >
-              <div className="small-font">
-                Return to Return Package <BiSolidChevronDown className="ms-1" />
-              </div>
-              <span>-2442</span>
-            </div>
-            {showReducePackage && (
-              <div className="drop-down-container">
-                {packagesType.map((item, index) => {
-                  return (
-                    <div
-                      key={index}
-                      className="packages-add p-2 small-font d-flex justify-content-between align-items-center"
-                    >
-                      <div>
-                        {item}
-                        <span className="ms-2">8</span>
-                      </div>
-                      <div className="d-flex align-items-center incre-button p-1">
-                        <AiOutlineMinus className="me-1 yellow-clr" />
-                        <div>100</div>
-                        <AiOutlinePlus className="ms-1 yellow-clr" />
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            )}
-          </div>
+          <h5>Upgrade Packages</h5>
+          <div className="head-name p-2">{selectPackageName?.packageName}</div>
+          <hr className="mt-3 hr-line" />
           <div className="d-flex align-items-center justify-content-between login-input p-2 mt-2">
             <div className="small-font">
-              Return Available Hours <BiSolidChevronDown className="ms-1" />
+              {yearly === true ? "Yearly" : "Monthly"} Subscription
             </div>
-            <span>-2442</span>
+            <div className="small-fontt">{selectPackageName?.rate}</div>
+          </div>
+          <div className="d-flex align-items-center justify-content-between login-input p-2 mt-2">
+            <div className="small-font">Discount 0%</div>
+            <div className="small-fontt">150000.00</div>
+          </div>
+          <div className="d-flex align-items-center justify-content-between login-input p-2 mt-2">
+            <div className="small-font">Special Discount 10%</div>
+            <div className="small-fontt">150000.00</div>
+          </div>
+          <div className="h-40px">
+            <select
+              className="d-flex w-100 align-items-center justify-content-between login-input p-2 mt-2 clr-white border-none"
+              onChange={(e) => handleChange(e)}
+            >
+              <option>Select Payment Method</option>
+              {packagesType.map((item, index) => {
+                return <option value={item.value}>{item.label}</option>;
+              })}
+            </select>
+          </div>
+          {paymentType === "neft" && (
+            <div className="payment-scroll">
+              {allPaymentGateway
+                .filter((item) => item.pg_upi === "neft")
+                .map((item, index) => {
+                  return (
+                    <div className="login-input p-2 mt-1">
+                      Name:{item.account_holder_name}
+                      <br /> Ac.No: {item.account_number}
+                      <br /> IFSC: {item.ifsc_code}
+                      <br /> Bank: {item.bank_name}
+                    </div>
+                  );
+                })}
+            </div>
+          )}
+          {(paymentType === "paytm" || "gpay" || "phonepe") &&
+            paymentType !== "neft" && (
+              <div className="payment-scroll">
+                {allPaymentGateway
+                  .filter((item) => item.pg_upi === paymentType)
+                  .map((item, index) => {
+                    return (
+                      <div className="login-input p-2 mt-1">
+                        Name: {item.account_holder_name}
+                        <br /> Moblie: {item.mobile_number}
+                      </div>
+                    );
+                  })}
+              </div>
+            )}
+          {paymentType === "qr_code" && (
+            <div className="payment-scroll">
+              {allPaymentGateway
+                .filter((item) => item.pg_upi === "qr_code")
+                .map((item, index) => {
+                  return (
+                    <div className="login-input p-2 mt-1">
+                      <center>Upload Qr Code</center>
+                      <img src={item.uploadImage}></img>
+                    </div>
+                  );
+                })}
+            </div>
+          )}
+          <div className="h-40px">
+            <input
+              className="d-flex w-100 align-items-center justify-content-between login-input p-2 mt-2 clr-white border-none"
+              type="file"
+              style={{ display: "none" }}
+              ref={fileInputRef}
+              onChange={handleFileSelect}
+            ></input>
           </div>
           <hr className="mt-3 hr-line" />
           <div className="d-flex justify-content-between">
