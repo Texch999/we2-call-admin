@@ -25,13 +25,16 @@ function Statement(props) {
       field: "edit",
     },
   ];
+
+  const [popupData, setPopupData] = useState();
   const STATEMENT_DETAILS = financialStatementData?.map((item) => {
     return {
       dateTime: item?.sport_name,
       seriesName: item?.series_name,
       teamName: (
         <div>
-          {item?.team1} VS {item?.team1}
+          {/* {item?.team1} VS {item?.team1} */}
+          {item?.match_name}
         </div>
       ),
       matchplace: item?.stadium,
@@ -42,7 +45,7 @@ function Statement(props) {
           data-toggle="modal"
           data-target=".bd-example-modal-lg"
           className="custom-icon"
-          onClick={() => handleShow()}
+          onClick={() => handleShow(item)}
         />
       ),
     };
@@ -94,7 +97,10 @@ function Statement(props) {
   ];
 
   const [showModal, setShowModal] = useState(false);
-  const handleShow = () => setShowModal(true);
+  const handleShow = (item) => {
+    setShowModal(true);
+    setPopupData(item);
+  };
   const [selectedDate, setSelectedDate] = useState(null);
 
   const onChange = (e) => {};
@@ -259,7 +265,11 @@ function Statement(props) {
           />
         </div>
       </div>
-      <StatementPopup showModal={showModal} setShowModal={setShowModal} />
+      <StatementPopup
+        showModal={showModal}
+        setShowModal={setShowModal}
+        popupData={popupData}
+      />
     </div>
   );
 }
