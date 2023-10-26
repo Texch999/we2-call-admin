@@ -229,16 +229,23 @@ function FancyEntryInput({
           <div>
             <div className="medium-font">Overs</div>
             <div className="custom-select medium-font btn-bg rounded">
-              <select
-                className="w-100 custom-select medium-font btn-bg  all-none p-2 rounded"
+              <input
+                className="w-70 custom-select medium-font btn-bg  all-none p-2 rounded"
                 placeholder="Over"
-                // value={fancyEntryInputData?.over || ""}
+                name="over"
+                type="number"
+                value={fancyEntryInputData?.over || ""}
+                onChange={(e) => handleFancyEntryInputDataChange(e)}
+              />
+              <select
+                className="w-30 custom-select medium-font btn-bg  all-none p-2 rounded"
+                placeholder="Over"
                 name="over"
                 onChange={(e) => handleFancyEntryInputDataChange(e)}
               >
-                {(selectedInnings === "1"
-                  ? selectedMatch?.game_object?.first_innings_fancy_overs
-                  : selectedMatch?.game_object?.second_innings_fancy_overs
+                {(selectedInnings === "2"
+                  ? selectedMatch?.game_object?.second_innings_fancy_overs
+                  : selectedMatch?.game_object?.first_innings_fancy_overs
                 )
                   ?.filter(
                     (i) =>

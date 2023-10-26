@@ -77,9 +77,9 @@ function FancyResultClientTable({ profitLossData, selectedMatch }) {
         <div className="col">
           <div
             className="cursor-pointer share-bg rounded-pill d-flex align-items-center justify-content-around p-1"
-            onClick={() => handleFancyResultSharePopupOpen()}
+            onClick={() => handleFancyResultCommPopupOpen()}
           >
-            <div className="medium-font">Share</div>
+            <div className="medium-font">Comm</div>
             <div>
               <PiArrowCircleDownBold className="d-flex large-font" />
             </div>
@@ -88,9 +88,9 @@ function FancyResultClientTable({ profitLossData, selectedMatch }) {
         <div className="col">
           <div
             className="cursor-pointer share-bg rounded-pill d-flex align-items-center justify-content-around p-1"
-            onClick={() => handleFancyResultCommPopupOpen()}
+            onClick={() => handleFancyResultSharePopupOpen()}
           >
-            <div className="medium-font">Comm</div>
+            <div className="medium-font">Share</div>
             <div>
               <PiArrowCircleDownBold className="d-flex large-font" />
             </div>

@@ -97,8 +97,6 @@ function FancyEntry() {
       .catch((err) => console.log(err));
   };
 
-  console.log(profitLossData, "RESPONSE");
-
   useEffect(() => {
     const fetchMatchInfo = async () => {
       if (selectedMatch) {
@@ -109,9 +107,9 @@ function FancyEntry() {
     fetchMatchInfo();
   }, [selectedMatch, afterDeclare]);
 
-  console.log("PROFIT-LOSS", profitLossData);
-  console.log(matchInnings, "MATCH_INNINGS");
-  console.log(matchOver, "MATCH_OVER");
+  // console.log("PROFIT-LOSS", profitLossData);
+  // console.log(matchInnings, "MATCH_INNINGS");
+  // console.log(matchOver, "MATCH_OVER");
   return (
     <div>
       <MatchScroll
