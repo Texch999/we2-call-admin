@@ -20,7 +20,7 @@ function FancyResultClientTable({ profitLossData, selectedMatch }) {
   const handleFancyResultCommPopupClose = () => {
     setFancyResultCommPopup(false);
   };
-
+  // console.log(profitLossData,"RRRRR");
   const FANCY_CLIENT_TABLE_DATA =
     profitLossData &&
     Object.keys(profitLossData)?.map((key) => {
@@ -34,8 +34,9 @@ function FancyResultClientTable({ profitLossData, selectedMatch }) {
         upperLevalShare,
       } = profitLossData[key];
       return {
+        key: key,
         header: key,
-        grossPL: parseFloat(amount).toFixed(2) || 0,
+        grossPL: parseFloat(amount),
         cNet:
           (
             parseFloat(amount) +

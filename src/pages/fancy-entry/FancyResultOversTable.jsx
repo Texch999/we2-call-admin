@@ -30,6 +30,7 @@ function FancyResultOversTable({ profitLossData, selectedMatch }) {
         upperLevalShare,
       } = profitLossData[key];
       return {
+        key: key,
         header: key,
         grossPL: parseFloat(amount),
         cNet:

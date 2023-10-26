@@ -55,11 +55,7 @@ function MatchTable(props) {
                     : "red-color"
                 }`}
               >
-                {field === "header"
-                  ? "TOTAL"
-                  : field === "ulComm"
-                  ? "- -"
-                  : calculateColumnSum(data, field)}
+                {field === "header" ? "TOTAL" : calculateColumnSum(data, field)}
               </th>
             ))}
           </tr>

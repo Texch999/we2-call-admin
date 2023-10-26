@@ -143,7 +143,7 @@ function MatchResultInput({
             onClick={() => handleMatchDeclarePopupOpen()}
             disabled={isProcessing}
           >
-            Result Declaration
+            {isProcessing ? "Processing..." : "Result Declaration"}
           </button>
         </div>
         {error && (
