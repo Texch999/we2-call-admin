@@ -92,7 +92,6 @@ function FancyEntry() {
       registered_match_id: ID ? ID : matchAccountData?.registered_match_id,
     })
       .then((res) => {
-        // console.log(res, "RESPONSE");
         setProfitLossData(res?.data?.data);
       })
       .catch((err) => console.log(err));
@@ -109,6 +108,8 @@ function FancyEntry() {
   }, [selectedMatch, afterDeclare]);
 
   // console.log("PROFIT-LOSS", profitLossData);
+  // console.log(matchInnings, "MATCH_INNINGS");
+  // console.log(matchOver, "MATCH_OVER");
   return (
     <div>
       <MatchScroll

@@ -87,6 +87,8 @@ function FancyEntries(props) {
           setSelectedMatchEntry={setSelectedMatchEntry}
           getFancyProfitLoss={getFancyProfitLoss}
           setAfterDeclare={setAfterDeclare}
+          profitLossData={profitLossData}
+          setMatchInnings={setMatchInnings}
         />
       )}
     </div>
