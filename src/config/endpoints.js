@@ -61,6 +61,7 @@ const GET_REQUEST_PACKAGES =
   "/packages/get_package_histroy_bypackage_requestid";
 const GET_ADMIN_PACKAGE_REQUEST = "/packages/get_all_admin_package_request";
 const GET_REASON_REJECTIONS = "/settings/getall_security_questions";
+const GET_ADMIN_PACKAGES = "/packages/get_admin_packages";
 
 
 // methods
@@ -341,3 +342,8 @@ exports.GET_REASON_REJECTIONS = {
   url: GET_REASON_REJECTIONS,
   method: POST,
 };
+
+exports.GET_ADMIN_PACKAGES = {
+  url: GET_ADMIN_PACKAGES,
+  method: POST,
+}
