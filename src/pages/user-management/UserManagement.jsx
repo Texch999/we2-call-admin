@@ -15,6 +15,7 @@ import {
   GET_OFFLINE_CLIENT_DETAILS,
   GET_ALL_CLIENTS,
   GET_REFFERAL_DATA,
+  CREATE_OFFLINE_CLIENT,
 } from "../../config/endpoints";
 import CreateReferral from "./CreateReferral";
 
@@ -89,7 +90,7 @@ function UserManagement() {
       !userDetails?.location,
       !userDetails?.match_risk_limit)
     ) {
-      setError("Please Enter All Field");
+      return setError("Please Enter All Field");
     }
     let userDeatailsPayload = {
       existing_user_id: clientId[0].register_id,
@@ -102,10 +103,21 @@ function UserManagement() {
       master_share: localStorage?.getItem("share") || 0,
       ul_share: localStorage?.getItem("ul_share") || 0,
     };
+
+    await call(CREATE_OFFLINE_CLIENT, userDeatailsPayload).then((res) => {
+      if (res?.data?.statusCode === 200) {
+        setAddClientStatus((prev) => !prev);
+      }
+    });
   };
+
   const clientId = allClients.filter((item) => {
     return item.first_name === userDetails?.select_client;
   });
+
+  // const clientId = allClients;
+
+  console.log(clientId, "......client id");
 
   const userColumns = [
     { header: "USER NAME", field: "client_name" },
