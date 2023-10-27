@@ -31,13 +31,18 @@ function FancyResultOversTable({ profitLossData, selectedMatch }) {
       } = profitLossData[key];
       return {
         key: key,
-        header: key,
-        grossPL: parseFloat(amount),
+        header: `${key} Overs`,
+        grossPL: parseFloat(amount).toFixed(2),
         cNet:
-          parseFloat(amount) +
-          (parseFloat(clientCommission) + parseFloat(clientShare)),
-        rfNet: parseFloat(referalShare) + parseFloat(referralComission) || 0,
-        netPL: parseFloat(totalLossOrProfit),
+          (
+            parseFloat(amount) +
+            (parseFloat(clientCommission) + parseFloat(clientShare))
+          ).toFixed(2) || 0,
+        rfNet:
+          (parseFloat(referalShare) + parseFloat(referralComission)).toFixed(
+            2
+          ) || 0,
+        netPL: parseFloat(totalLossOrProfit).toFixed(2),
         upperLevalShare: parseFloat(upperLevalShare),
         //FancyOversPopupData
         clientShare: parseFloat(clientShare),

@@ -20,7 +20,7 @@ function FancyResultClientTable({ profitLossData, selectedMatch }) {
   const handleFancyResultCommPopupClose = () => {
     setFancyResultCommPopup(false);
   };
-  // console.log(profitLossData,"RRRRR");
+
   const FANCY_CLIENT_TABLE_DATA =
     profitLossData &&
     Object.keys(profitLossData)?.map((key) => {
@@ -36,7 +36,7 @@ function FancyResultClientTable({ profitLossData, selectedMatch }) {
       return {
         key: key,
         header: key,
-        grossPL: parseFloat(amount),
+        grossPL: parseFloat(amount).toFixed(2) || 0,
         cNet:
           (
             parseFloat(amount) +
@@ -46,8 +46,8 @@ function FancyResultClientTable({ profitLossData, selectedMatch }) {
           (parseFloat(referalShare) + parseFloat(referralComission)).toFixed(
             2
           ) || 0,
-        netPL: parseFloat(totalLossOrProfit).toFixed(2),
-        upperLevalShare: parseFloat(upperLevalShare).toFixed(2),
+        netPL: parseFloat(totalLossOrProfit).toFixed(2) || 0,
+        upperLevalShare: parseFloat(upperLevalShare).toFixed(2) || 0,
         // FancyPopupsData
         clientShare: parseFloat(clientShare).toFixed(2) || 0,
         rfShare: parseFloat(referalShare).toFixed(2) || 0,

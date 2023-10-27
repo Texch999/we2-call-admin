@@ -53,7 +53,6 @@ const CHANGE_PASSWORD = "/admin/change_password";
 const UPDATE_USER_ADMIN = "/admin/update_user_admin";
 const UPDATE_USER_CLIENT = "/admin/update_user_client";
 const RISK_RUNNING_SESSION = "/offline-management/risk_running_session";
-const FANCY_RESULT_PROFIT_LOSS = "/offline-management/fancy_result_profitlose";
 const ADD_PAYMENT = "/management/add_payment_gateway";
 const GET_ALL_PAYMENT_GATEWAYS = "/management/getall_payments";
 const UPDATE_PAYMENT_GATEWAY = "/management/update_payment_gateway";
@@ -61,7 +60,7 @@ const GET_REQUEST_PACKAGES =
   "/packages/get_package_histroy_bypackage_requestid";
 const GET_ADMIN_PACKAGE_REQUEST = "/packages/get_all_admin_package_request";
 const GET_REASON_REJECTIONS = "/settings/getall_security_questions";
-
+const FANCY_RESULT_PROFIT_LOSS = "/offline-management/fancy_result_profitlose";
 
 // methods
 const DELETE = "DELETE";
@@ -323,6 +322,7 @@ exports.RISK_RUNNING_SESSION = {
 
 exports.FANCY_RESULT_PROFIT_LOSS = {
   url: FANCY_RESULT_PROFIT_LOSS,
+  method: POST,
 };
 exports.UPDATE_PAYMENT_GATEWAY = {
   url: UPDATE_PAYMENT_GATEWAY,

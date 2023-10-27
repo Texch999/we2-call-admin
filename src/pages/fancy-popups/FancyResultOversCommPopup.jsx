@@ -11,7 +11,7 @@ function FancyResultOversCommPopup(props) {
   const OVERS_COMM_DATA =
     oversCommData?.length > 0 &&
     oversCommData?.map((fancy) => ({
-      header: `${fancy?.key} Over`,
+      header: `${fancy?.key} Overs`,
       clientComm: fancy?.clientComm.toFixed(2),
       rfComm: fancy?.rfComm.toFixed(2),
     }));
