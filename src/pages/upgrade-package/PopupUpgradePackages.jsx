@@ -12,7 +12,9 @@ import {
 import { call } from "../../config/axios";
 
 function PopupUpgradePackages(props) {
-  const { openPopup, setOpenPopup, selectPackageName, yearly } = props;
+  const { openPopup, setOpenPopup, selectPackageName, yearly, allPackages } =
+    props;
+  console.log(allPackages, "ALLLL");
   const [showAvailablePAckages, setShowAvailablePAckages] = useState();
   const [showReducePackage, setShowReducePackage] = useState(false);
   const [paymentType, setPaymentType] = useState();
@@ -20,6 +22,7 @@ function PopupUpgradePackages(props) {
   const [singedUrl, setSignedUrl] = useState(false);
   const [trxId, setImageTrxId] = useState("");
   const [image, setImage] = useState("");
+  const [discount, setDiscount] = useState(0);
   const register_id = localStorage.getItem("register_id");
   console.log("selectPackageName====>", selectPackageName);
   const packagesType = [
@@ -51,6 +54,17 @@ function PopupUpgradePackages(props) {
     setImage(file);
     generateSignedUrl();
   };
+
+  // const discountValue = parseInt(
+  //   (selectPackageName?.package_cost * discount) / 100
+  // );
+
+  // const splDiscountValue =
+  //   parseInt(
+  //     (selectPackageName?.package_cost * selectPackageName?.discount) / 100
+  //   ) || 0;
+  // const totalPackageCost =
+  //   selectPackageName?.package_cost - splDiscountValue - discountValue;
 
   const generateSignedUrl = async () => {
     const trxId = new Date().getTime();
@@ -114,15 +128,15 @@ function PopupUpgradePackages(props) {
             <div className="small-font">
               {yearly === true ? "Yearly" : "Monthly"} Subscription
             </div>
-            <div className="small-fontt">{selectPackageName?.rate}</div>
+            <div className="small-fontt">{selectPackageName?.rate} INR</div>
           </div>
           <div className="d-flex align-items-center justify-content-between login-input p-2 mt-2">
-            <div className="small-font">Discount 0%</div>
-            <div className="small-fontt">150000.00</div>
+            <div className="small-font">Discount 10%</div>
+            <div className="small-fontt">10000 INR</div>
           </div>
           <div className="d-flex align-items-center justify-content-between login-input p-2 mt-2">
-            <div className="small-font">Special Discount 10%</div>
-            <div className="small-fontt">150000.00</div>
+            <div className="small-font">Special Discount 12%</div>
+            <div className="small-fontt">100000 INR</div>
           </div>
           <div className="h-40px">
             <select
@@ -192,7 +206,7 @@ function PopupUpgradePackages(props) {
           <hr className="mt-3 hr-line" />
           <div className="d-flex justify-content-between">
             <div className="small-font">Total</div>
-            <div className="small-font">107500</div>
+            <div className="small-font">200000 INR</div>
           </div>
           <button className="login-button p-2 mt-2">Confirm and Pay</button>
         </div>

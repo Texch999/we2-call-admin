@@ -1,27 +1,7 @@
 import React from "react";
 import { Images } from "../../images";
-import { useState, useEffect } from "react";
-import { GET_ALL_PACKAGES } from "../../config/endpoints";
-import { call } from "../../config/axios";
 
 function SpecialOffers() {
-  const [allPackages, setAllPackages] = useState([]);
- 
-
-  const getAllPackages = async () => {
-    await call(GET_ALL_PACKAGES)
-      .then((res) => {
-        if (res.data.status === 200) {
-          const response = res.data.data;
-          setAllPackages(response);
-        }
-      })
-      .catch((err) => console.log(err));
-  };
-  useEffect(() => {
-    getAllPackages();
-  }, []);
-
   return (
     <div>
       <div className="row">

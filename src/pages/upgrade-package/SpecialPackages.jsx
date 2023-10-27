@@ -3,9 +3,11 @@ import { Images } from "../../images";
 import { useState, useEffect } from "react";
 import { GET_ALL_PACKAGES } from "../../config/endpoints";
 import { call } from "../../config/axios";
+import PopupUpgradePackages from "./PopupUpgradePackages";
 
 function SpecialPackages(props) {
-  const { setOpenPopup, setSelectPackageName, setYearly, yearly } = props;
+  const { setSelectPackageName, setYearly, yearly } = props;
+  const [openUpgradePopup, setOpenUpgradePopup] = useState(false);
 
   const [allPackages, setAllPackages] = useState([]);
 
@@ -266,7 +268,7 @@ function SpecialPackages(props) {
   }, []);
 
   const handleButtonClick = (item) => {
-    setOpenPopup(true);
+    setOpenUpgradePopup(true);
     setSelectPackageName(item);
   };
 
@@ -346,7 +348,7 @@ function SpecialPackages(props) {
                         className={`rounded-pill p-2 text-center medium-font fw-bold ${item.upgradeBtnColor}`}
                         onClick={() => handleButtonClick(item)}
                       >
-                        upgrade
+                      Upgrade
                       </div>
                     </div>
                     <div className="col">
@@ -376,6 +378,14 @@ function SpecialPackages(props) {
           </div>
         ))}
       </div>
+      <PopupUpgradePackages
+        openPopup={openUpgradePopup}
+        setOpenPopup={setOpenUpgradePopup}
+        // selectPackageName={selectPackageName}
+        allPackages={allPackages}
+        yearly={yearly}
+        // setOpenPopup={setOpenPopup}
+      />
     </div>
   );
 }
