@@ -12,38 +12,33 @@ function FancyResultInput(props) {
     selectedMatchEntry,
     getFancyProfitLoss,
     setSelectedMatchEntry,
+    setMatchInnings,
+    profitLossData = {},
   } = props;
 
   const register_id = localStorage?.getItem("register_id");
   const creator_id = localStorage?.getItem("creator_id");
   const account_role = localStorage?.getItem("account_role");
 
-  const [over, setOver] = useState("");
   const [fancyResultInputData, setFancyResultInputData] = useState({});
   const [confirmDeclaration, setConfirmDeclaration] = useState(false);
   const [error, setError] = useState("");
   const [afterConfirm, setAfterConfirm] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
-
-  const handleOvers = (e) => {
-    setOver(e.target.value);
-  };
-
-  const handleSelectOvers = (e) => {
-    setOver(e.target.value);
-  };
+  let selectedInnings = fancyResultInputData?.innings;
 
   const handleFancyResultInputDataChange = (e) => {
     setFancyResultInputData({
       ...fancyResultInputData,
       [e.target.name]: e.target.value,
     });
+    setMatchInnings(fancyResultInputData?.innings);
   };
 
   const handleConfirmDeclaration = () => {
     if (
       !fancyResultInputData?.innings ||
-      !over ||
+      !fancyResultInputData?.over ||
       !fancyResultInputData?.team ||
       !fancyResultInputData?.runs
     ) {
@@ -52,7 +47,6 @@ function FancyResultInput(props) {
       setConfirmDeclaration(true);
     }
   };
-
   const handleFancyDeclaration = async () => {
     setConfirmDeclaration(false);
     setIsProcessing(true);
@@ -61,7 +55,7 @@ function FancyResultInput(props) {
     await call(FANCY_DECLARATION, {
       registered_match_id,
       register_id,
-      over: over,
+      over: fancyResultInputData?.over,
       innings: fancyResultInputData?.innings,
       runs: fancyResultInputData?.runs,
       team: fancyResultInputData?.team,
@@ -74,7 +68,7 @@ function FancyResultInput(props) {
           getFancyProfitLoss();
           setTimeout(() => {
             setAfterConfirm(false);
-          }, 2000);
+          }, 1000);
         } else {
           setConfirmDeclaration(false);
           setError(
@@ -90,7 +84,6 @@ function FancyResultInput(props) {
   };
 
   useEffect(() => {
-    setOver(selectedMatchEntry?.over);
     setFancyResultInputData(selectedMatchEntry);
   }, [selectedMatchEntry]);
 
@@ -106,8 +99,8 @@ function FancyResultInput(props) {
               onChange={(e) => handleFancyResultInputDataChange(e)}
             >
               <option value="">Select</option>
-              <option value="1">1st Inn</option>
-              <option value="2">2nd Inn</option>
+              <option value="1">First</option>
+              <option value="2">Second</option>
             </select>
           </div>
         </div>
@@ -118,23 +111,27 @@ function FancyResultInput(props) {
               <input
                 className="w-90 custom-select medium-font btn-bg  all-none p-2 rounded"
                 placeholder="Over"
-                value={over || []}
+                value={fancyResultInputData?.over || []}
                 name="over"
-                onChange={(e) => handleOvers(e)}
+                onChange={(e) => handleFancyResultInputDataChange(e)}
               ></input>
               <select
                 name="over"
-                value={over || ""}
                 className="w-10 custom-select medium-font btn-bg all-none p-2 rounded"
-                onChange={(e) => handleSelectOvers(e)}
+                onChange={(e) => handleFancyResultInputDataChange(e)}
               >
-                <option>Select</option>
-                <option value="5">5 Overs</option>
-                <option value="10">10 Overs</option>
-                <option value="15">15 Overs</option>
-                <option value="20">20 Overs</option>
-                <option value="25">25 Overs</option>
-                <option value="30">30 Overs</option>
+                {(selectedInnings === "2"
+                  ? selectedMatch?.game_object?.second_innings_fancy_overs
+                  : selectedMatch?.game_object?.first_innings_fancy_overs
+                )
+                  ?.filter(
+                    (i) =>
+                      Object.keys(profitLossData)?.length === 0 ||
+                      !Object.keys(profitLossData)?.includes(`${i}`)
+                  )
+                  ?.map((over) => (
+                    <option value={over}>{over}</option>
+                  ))}
               </select>
             </div>
           </div>
@@ -184,24 +181,20 @@ function FancyResultInput(props) {
           <div className="clr-red small-font text-center mt-2">{error}</div>
         )}
       </div>
-      {confirmDeclaration && (
-        <MatchDeclarationPopup
-          header={`Are You Sure You Want to Declare ${over}th Over ${fancyResultInputData?.runs} Runs Session?`}
-          // amount={"+100000"}
-          state={confirmDeclaration}
-          setState={setConfirmDeclaration}
-          handleSubmitPopupOpen={handleFancyDeclaration}
-        />
-      )}
-      {afterConfirm && (
-        <MatchSubmitPopup
-          header={isProcessing ? "Declaring..." : "Fancy declared successfully"}
-          isProcessing={isProcessing}
-          error={error}
-          state={afterConfirm}
-          setState={setAfterConfirm}
-        />
-      )}
+      <MatchDeclarationPopup
+        header={`Are You Sure You Want to Declare ${fancyResultInputData?.over}th Over ${fancyResultInputData?.runs} Runs Session?`}
+        // amount={"+100000"}
+        state={confirmDeclaration}
+        setState={setConfirmDeclaration}
+        handleSubmitPopupOpen={handleFancyDeclaration}
+      />
+      <MatchSubmitPopup
+        header={isProcessing ? "Declaring..." : "Fancy declared successfully"}
+        isProcessing={isProcessing}
+        error={error}
+        state={afterConfirm}
+        setState={setAfterConfirm}
+      />
     </div>
   );
 }

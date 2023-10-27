@@ -334,25 +334,54 @@ function AddAdminsPopup(props) {
                   </InputGroup>
                 </Form.Group>
               </Col>
-              <Form.Group className="mb-3" controlId="adminPackages">
-                <Form.Label>Package*</Form.Label> account_role:{" "}
-                {inputData?.account_role || ""}
-                <InputGroup>
-                  <InputGroup.Text id="basic-addon1">
-                    <Image src={Images.packageIcon} style={{ width: "18px" }} />
-                  </InputGroup.Text>
-                  <Form.Select>
-                    <option value="">Select...</option>
-                    {packageList?.map(({ label, value }, index) => {
-                      return (
-                        <option value={value} key={index}>
-                          {label}
-                        </option>
-                      );
-                    })}
-                  </Form.Select>
-                </InputGroup>
-              </Form.Group>
+            </Row>
+            <Row>
+              <Col>
+                <Form.Group className="mb-3" controlId="adminPackages">
+                  <Form.Label>Package*</Form.Label> account_role:{" "}
+                  {inputData?.account_role || ""}
+                  <InputGroup>
+                    <InputGroup.Text id="basic-addon1">
+                      <Image
+                        src={Images.packageIcon}
+                        style={{ width: "18px" }}
+                      />
+                    </InputGroup.Text>
+                    <Form.Select>
+                      <option value="">Select...</option>
+                      {packageList?.map(({ label, value }, index) => {
+                        return (
+                          <option value={value} key={index}>
+                            {label}
+                          </option>
+                        );
+                      })}
+                    </Form.Select>
+                  </InputGroup>
+                </Form.Group>
+              </Col>
+              <Col>
+                {" "}
+                <Form.Group className="mb-3" controlId="myShare">
+                  <Form.Label>Package Discount*</Form.Label>
+                  <InputGroup>
+                    <InputGroup.Text id="basic-addon1">
+                      <Image src={Images.percentIcon} />
+                    </InputGroup.Text>
+                    <Form.Control
+                      type="text"
+                      placeholder="Enter Share"
+                      autoFocus
+                      aria-describedby="platComm"
+                      name="package_discount"
+                      value={inputData?.package_discount || ""}
+                      onChange={(e) => handleInputChnage(e)}
+                    />
+                  </InputGroup>
+                </Form.Group>
+              </Col>
+            </Row>
+            <Row>
               <Form.Group className="mb-3" controlId="adminPassword">
                 <Form.Label>Admin Password*</Form.Label>
                 <InputGroup>
