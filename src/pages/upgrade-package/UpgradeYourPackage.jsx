@@ -2,25 +2,45 @@ import { BsFillRocketTakeoffFill } from "react-icons/bs";
 import { CiPercent } from "react-icons/ci";
 import SpecialOffers from "./SpecialOffers";
 import SpecialPackages from "./SpecialPackages";
-import { useState } from "react";
-import PopupUpgradePackages from "./PopupUpgradePackages";
+import { useState, useEffect } from "react";
+import { GET_ALL_PACKAGES } from "../../config/endpoints";
+import { call } from "../../config/axios";
 
 function UpgradeYourPackage() {
   const [specialOffer, setSpecialOffer] = useState(false);
   const [specialPackage, setSpecialPackage] = useState(true);
   const [openPopup, setOpenPopup] = useState(false);
+  const [selectPackageName, setSelectPackageName] = useState();
+  const [allPackages, setAllPackages] = useState([]);
+
+  const getAllPackages = async () => {
+    await call(GET_ALL_PACKAGES)
+      .then((res) => {
+        if (res.data.status === 200) {
+          const response = res.data.data;
+          setAllPackages(response);
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+  useEffect(() => {
+    getAllPackages();
+  }, []);
   const handleSpecialOffer = () => {
     setSpecialOffer(true);
     setSpecialPackage(false);
   };
+
+  const [yearly, setYearly] = useState();
+
   const handleSpecialPackage = () => {
     setSpecialPackage(true);
     setSpecialOffer(false);
   };
 
-  const handlePopup = () => {
-    setOpenPopup(true);
-  };
+  // const handlePopup = () => {
+  //   setOpenPopup(true);
+  // };
   return (
     <div>
       <div className="pt-3 px-3">
@@ -42,7 +62,7 @@ function UpgradeYourPackage() {
             <div className="col d-flex align-items-center justify-content-around">
               <div
                 className="w-35 d-flex align-items-center justify-content-around fw-semibold medium-font text-white p-2 rounded yellow-btn"
-                onClick={() => handlePopup()}
+                // onClick={() => handlePopup()}
               >
                 <div>Upgrade</div>
                 <div>
@@ -80,9 +100,15 @@ function UpgradeYourPackage() {
       <hr className="hr-line" />
       <div className="p-3">
         {specialOffer && <SpecialOffers />}
-        {specialPackage && <SpecialPackages />}
+        {specialPackage && (
+          <SpecialPackages
+            setOpenPopup={setOpenPopup}
+            setYearly={setYearly}
+            yearly={yearly}
+            setSelectPackageName={setSelectPackageName}
+          />
+        )}
       </div>
-      <PopupUpgradePackages openPopup={openPopup} setOpenPopup={setOpenPopup} />
     </div>
   );
 }
