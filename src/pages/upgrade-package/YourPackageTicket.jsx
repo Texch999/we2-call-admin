@@ -1,37 +1,13 @@
 import { useState } from "react";
 import Table from "../home-page/Table";
 import CustomPagination from "../pagination/CustomPagination";
+import { GET_REQUEST_PACKAGES } from "../../config/endpoints";
+import { call } from "../../config/axios";
+import { useEffect } from "react";
 
 function YourPackageTicket() {
-  const MATCH_ENTRY_DATA = [
-    {
-      dateAndTime: "19 July 2023, 10:00:00 PM",
-      nameRole: "Sri-Agent",
-      trxID: "trx-id-20230627074602133078",
-      packageTRX: "Upgrade Package - 20,000 (Monthly)",
-      payAmount: 20000,
-      status: <div className="rounded-pill p-1 pending-btn">Pending</div>,
-      fundStatus: "Insufficient Balance",
-    },
-    {
-      dateAndTime: "19 July 2023, 10:00:00 PM",
-      nameRole: "Sri-Agent",
-      trxID: "trx-id-20230627074602133078",
-      packageTRX: "Upgrade Package - 20,000 (Monthly)",
-      payAmount: 20000,
-      status: <div className="rounded-pill p-1 reject-btn">Rejected</div>,
-      fundStatus: "Welcome!",
-    },
-    {
-      dateAndTime: "19 July 2023, 10:00:00 PM",
-      nameRole: "Sri-Agent",
-      trxID: "trx-id-20230627074602133078",
-      packageTRX: "Upgrade Package - 20,000 (Monthly)",
-      payAmount: 20000,
-      status: <div className="rounded-pill p-1 completed-btn">Completed</div>,
-      fundStatus: "Insufficient Balance",
-    },
-  ];
+  const [packageTickets, setPackageTickets] = useState([]);
+
   const MATCH_ENTRY_HEADING = [
     {
       header: "DATE & TIME",
@@ -58,7 +34,7 @@ function YourPackageTicket() {
       field: "status",
     },
     {
-      header: "",
+      header: "Reason",
       field: "fundStatus",
     },
   ];
@@ -71,9 +47,44 @@ function YourPackageTicket() {
     // You can add your logic here to fetch data for the selected page.
   };
 
+  const getPackageTicket = async () => {
+    const payload = {
+      register_id: localStorage.getItem("register_id"),
+      creator_id: localStorage.getItem("creator_id"),
+    };
+    await call(GET_REQUEST_PACKAGES, payload)
+      .then((res) => {
+        setPackageTickets(res?.data?.data);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  console.log("--->packageTickets", packageTickets);
+
+  useEffect(() => {
+    getPackageTicket();
+  },[]);
+
+  const TICKETS_DATA = packageTickets.map((obj) => ({
+    dateAndTime: obj.created_date,
+    nameRole: localStorage.getItem("user_name"),
+    trxID: obj.transaction_id,
+    packageTRX: obj.summary.final_package_cost,
+    payAmount: obj.summary.final_package_cost,
+    status:
+      obj?.status === "approve" ? (
+        <div className="rounded-pill p-1 completed-btn">Completed</div>
+      ) : obj?.status === "Reject" ? (
+        <div className="rounded-pill p-1 reject-btn">Reject</div>
+      ) : (
+        <div className="rounded-pill p-1 pending-btn">Pending</div>
+      ),
+    fundStatus: obj?.reason,
+  }));
+
   return (
     <div className="p-3">
-      <Table data={MATCH_ENTRY_DATA} columns={MATCH_ENTRY_HEADING} />
+      <Table data={TICKETS_DATA} columns={MATCH_ENTRY_HEADING} />
       <div className="d-flex justify-content-between align-items-center mt-4">
         <div className="d-flex justify-content-start font-clr-white total-count-container  py-2 px-4 rounded">
           <span>
