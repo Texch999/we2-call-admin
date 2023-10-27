@@ -11,7 +11,7 @@ import CustomPagination from "../pagination/CustomPagination";
 import Table from "../home-page/Table";
 
 function Statement(props) {
-  const { statementPayload, setStatementPayload, financialStatementData } =
+  const { statementPayload, setStatementPayload, financialStatementData } = 
     props;
 
   const tableColumns = [
