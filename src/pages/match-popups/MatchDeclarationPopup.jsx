@@ -3,24 +3,13 @@ import { IoCloseSharp } from "react-icons/io5";
 import { Images } from "./../../images/index";
 
 function MatchDeclarationPopup(props) {
-  const {
-    header,
-    amount,
-    state,
-    setState,
-    setPaymentPopup,
-    handleSubmitPopupOpen,
-    handleMatchSubmitSuccessPopupOpen,
-    setMatchSubmitSuccessPopup,
-    // handleMatchDeclarePopupClose,
-  } = props;
-  const handleMatchDeclarePopupClose = () => {
-    setMatchSubmitSuccessPopup(false);
-  };
+  const { header, amount, state, setState, handleMatchDeclarePopupOpen } =
+    props;
+
   return (
     <Modal className="match-declaration-modal" centered show={state}>
       <Modal.Header className="d-flex justify-content-end">
-        <IoCloseSharp onClick={() => handleMatchDeclarePopupClose()} />
+        <IoCloseSharp onClick={() => setState()} />
       </Modal.Header>
       <Modal.Body>
         <center className="px-3">
@@ -34,13 +23,13 @@ function MatchDeclarationPopup(props) {
           <div className="row d-flex justify-content-between mt-3">
             <div
               className="col-5 rounded yellow-btn p-1"
-              onClick={() => handleSubmitPopupOpen()}
+              onClick={() => handleMatchDeclarePopupOpen()}
             >
               Yes
             </div>
             <div
               className="col-5 rounded share-bg p-1"
-              onClick={() => handleMatchDeclarePopupClose()}
+              onClick={() => setState(false)}
             >
               No
             </div>
