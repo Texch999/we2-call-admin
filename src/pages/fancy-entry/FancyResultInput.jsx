@@ -69,6 +69,7 @@ function FancyResultInput(props) {
           setTimeout(() => {
             setAfterConfirm(false);
           }, 1000);
+          setFancyResultInputData({})
         } else {
           setConfirmDeclaration(false);
           setError(

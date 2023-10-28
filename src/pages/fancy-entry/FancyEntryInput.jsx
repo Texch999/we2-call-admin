@@ -77,7 +77,7 @@ function FancyEntryInput({
   const resetFields = () => {
     // setOver("");
     setSelectedOptions("");
-    fancyEntryInputData({});
+    setFancyInputEntryData({});
   };
 
   const handleFancyEntrySubmit = async () => {
@@ -121,8 +121,11 @@ function FancyEntryInput({
           getRiskRunningData();
           getFancyProfitLoss();
           setError("");
+          console.log(error, "EEERRR");
         } else {
-          setError("Something Went Wrong");
+          setError(
+            res?.data?.message ? res?.data?.message : "Something Went Wrong"
+          );
         }
       })
       .catch((err) => {
@@ -166,18 +169,19 @@ function FancyEntryInput({
       .then((res) => {
         setIsProcessing(false);
         if (res?.data?.statusCode === 200) {
-          resetFields();
           setStatus((prev) => !prev);
           setFancySubmitPopup(true);
           setTimeout(() => {
             setFancySubmitPopup(false);
-          }, 100);
+          }, 1000);
           setSelectedMatchEntry("");
           getRiskRunningData();
           getFancyProfitLoss();
-          // setError("");
+          resetFields();
         } else {
-          setError("Something Went Wrong");
+          setError(
+            res?.data?.message ? res?.data?.message : "Something Went Wrong"
+          );
         }
       })
       .catch((err) => {
