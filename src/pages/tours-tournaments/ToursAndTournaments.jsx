@@ -3,7 +3,6 @@ import "./style.css";
 import TakeTour from "./TakeTour";
 import Football from "./Football";
 import Entertainment from "./Entertainment";
-import { useState } from "react";
 import ChatsTours from "./ChatsTours";
 
 function ToursAndTournaments() {
