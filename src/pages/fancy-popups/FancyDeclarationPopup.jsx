@@ -2,7 +2,7 @@ import { Modal } from "react-bootstrap";
 import { IoCloseSharp } from "react-icons/io5";
 import { Images } from "./../../images/index";
 
-function MatchDeclarationPopup(props) {
+function FancyDeclarationPopup(props) {
   const {
     header,
     amount,
@@ -51,4 +51,4 @@ function MatchDeclarationPopup(props) {
   );
 }
 
-export default MatchDeclarationPopup;
+export default FancyDeclarationPopup;

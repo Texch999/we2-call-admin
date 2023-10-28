@@ -64,6 +64,7 @@ function FancyEntryTable(props) {
   }, [matchAccountData?.registered_match_id, status]);
 
   const FANCY_ENTRY_DATA =
+    data &&
     data?.length > 0 &&
     data
       ?.filter((i) => i?.fancy_status !== "Y")
@@ -101,7 +102,7 @@ function FancyEntryTable(props) {
           recordStatus: fancy?.record_status,
         };
       });
-
+  console.log(data, "DDDTTT");
   // const MATCH_ENTRY_DATA = [
   //   {
   //     sNo: 1,

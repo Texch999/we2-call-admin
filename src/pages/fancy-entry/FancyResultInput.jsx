@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
-import MatchDeclarationPopup from "../match-popups/MatchDeclarationPopup";
-import MatchSubmitPopup from "../match-popups/MatchSubmitPopup";
+import { useState, useEffect } from "react";
 import { FANCY_DECLARATION } from "../../config/endpoints";
 import { call } from "../../config/axios";
+import FancyDeclarationPopup from "../fancy-popups/FancyDeclarationPopup";
+import FancySubmitPopup from "../fancy-popups/FancySubmitPopup";
 
 function FancyResultInput(props) {
   const {
@@ -42,10 +42,9 @@ function FancyResultInput(props) {
       !fancyResultInputData?.team ||
       !fancyResultInputData?.runs
     ) {
-      setError("Please Enter Required Fields");
-    } else {
-      setConfirmDeclaration(true);
+      return setError("Please Enter Required Fields");
     }
+    setConfirmDeclaration(true);
   };
   const handleFancyDeclaration = async () => {
     setConfirmDeclaration(false);
@@ -55,9 +54,9 @@ function FancyResultInput(props) {
     await call(FANCY_DECLARATION, {
       registered_match_id,
       register_id,
-      over: fancyResultInputData?.over,
-      innings: fancyResultInputData?.innings,
-      runs: fancyResultInputData?.runs,
+      over: +fancyResultInputData?.over,
+      innings: +fancyResultInputData?.innings,
+      runs: +fancyResultInputData?.runs,
       team: fancyResultInputData?.team,
     })
       .then((res) => {
@@ -68,8 +67,8 @@ function FancyResultInput(props) {
           getFancyProfitLoss();
           setTimeout(() => {
             setAfterConfirm(false);
-          }, 1000);
-          setFancyResultInputData({})
+          }, 2000);
+          setFancyResultInputData({});
         } else {
           setConfirmDeclaration(false);
           setError(
@@ -93,15 +92,16 @@ function FancyResultInput(props) {
       <div className="row">
         <div className="col-2">
           <div>
-            <div className="medium-font">Inn</div>
+            <div className="medium-font">Innings</div>
             <select
               className="w-100 custom-select medium-font btn-bg rounded all-none p-2"
               name="innings"
+              type="number"
               onChange={(e) => handleFancyResultInputDataChange(e)}
             >
               <option value="">Select</option>
-              <option value="1">First</option>
-              <option value="2">Second</option>
+              <option value={1}>First</option>
+              <option value={2}>Second</option>
             </select>
           </div>
         </div>
@@ -114,13 +114,16 @@ function FancyResultInput(props) {
                 placeholder="Over"
                 value={fancyResultInputData?.over || []}
                 name="over"
+                type="number"
                 onChange={(e) => handleFancyResultInputDataChange(e)}
               ></input>
               <select
                 name="over"
+                type="number"
                 className="w-10 custom-select medium-font btn-bg all-none p-2 rounded"
                 onChange={(e) => handleFancyResultInputDataChange(e)}
               >
+                <option value="">Select</option>
                 {(selectedInnings === "2"
                   ? selectedMatch?.game_object?.second_innings_fancy_overs
                   : selectedMatch?.game_object?.first_innings_fancy_overs
@@ -182,20 +185,24 @@ function FancyResultInput(props) {
           <div className="clr-red small-font text-center mt-2">{error}</div>
         )}
       </div>
-      <MatchDeclarationPopup
-        header={`Are You Sure You Want to Declare ${fancyResultInputData?.over}th Over ${fancyResultInputData?.runs} Runs Session?`}
-        // amount={"+100000"}
-        state={confirmDeclaration}
-        setState={setConfirmDeclaration}
-        handleSubmitPopupOpen={handleFancyDeclaration}
-      />
-      <MatchSubmitPopup
-        header={isProcessing ? "Declaring..." : "Fancy declared successfully"}
-        isProcessing={isProcessing}
-        error={error}
-        state={afterConfirm}
-        setState={setAfterConfirm}
-      />
+      {confirmDeclaration && (
+        <FancyDeclarationPopup
+          header={`Are You Sure You Want to Declare ${fancyResultInputData?.over}th Over ${fancyResultInputData?.runs} Runs Session?`}
+          // amount={"+100000"}
+          state={confirmDeclaration}
+          setState={setConfirmDeclaration}
+          handleSubmitPopupOpen={handleFancyDeclaration}
+        />
+      )}
+      {afterConfirm && (
+        <FancySubmitPopup
+          header={isProcessing ? "Declaring..." : "Fancy declared successfully"}
+          isProcessing={isProcessing}
+          error={error}
+          state={afterConfirm}
+          setState={setAfterConfirm}
+        />
+      )}
     </div>
   );
 }
