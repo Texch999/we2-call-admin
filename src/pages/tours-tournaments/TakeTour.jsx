@@ -40,7 +40,7 @@ function TakeTour() {
             <img className="banner" src={Images.BatBall}></img>
           </div>
           <div className="col-6 p-3">
-            <h3 className="meetings-heading mt-3">Crieket Cup Tour</h3>
+            <h3 className="meetings-heading mt-3">Cricket Cup Tour</h3>
             <span className="medium-font meetings-heading">
               Click on interest buttons to get a changce to a part of our tour
             </span>

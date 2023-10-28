@@ -36,6 +36,7 @@ const BLOCKUNBLOCK="/offline-management/active_inactive_users"
 const EDITPROFILE="/admin/admin_profile_update_info"
 const GET_USER_INFO="/admin/get_admin_accounts_user_info";
 const GET_MEETINGS_DATA= "/meetings/get_meetings";
+const GET_TOURS = "/gettours";
 
 
 
@@ -45,6 +46,10 @@ const POST = "POST";
 const GET = "POST";
 const PUT = "PUT";
 
+exports.GET_TOURS = {
+  url: GET_TOURS,
+  method: POST
+}
 
 exports.GET_UPDATED_MATCHES_DATA = {
   url: GET_UPDATED_MATCHES_DATA,

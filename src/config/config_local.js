@@ -1,1 +1,1 @@
-export const app_base_url = "https://gddigb51ed.execute-api.us-east-2.amazonaws.com/prod";
+export const app_base_url = "https://ebg8p93wu0.execute-api.ap-south-1.amazonaws.com/dev"
