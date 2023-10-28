@@ -65,40 +65,42 @@ function FancyEntryTable(props) {
 
   const FANCY_ENTRY_DATA =
     data?.length > 0 &&
-    data?.map((fancy) => {
-      return {
-        sNo:
-          fancy?.old_s_no === fancy?.s_no
-            ? fancy?.s_no
-            : `${fancy?.s_no}/${fancy?.old_s_no}`,
-        over: fancy?.over,
-        rate: fancy?.rate,
-        team: fancy?.team,
-        runs: fancy?.runs,
-        yesNo: (
-          <span className={fancy?.yN === "Y" ? "clr-green" : "clr-pink"}>
-            {fancy?.yN}
-          </span>
-        ),
-        date: fancy?.date,
-        time: fancy?.time,
-        client: fancy?.client_name,
-        amount: <span className="yellow-clr">{fancy?.amount}</span>,
-        edit: fancy?.record_status === "active" && (
-          <MdEdit
-            className="edit-icon"
-            onClick={() => handleEditPopupOpen(fancy)}
-          />
-        ),
-        delete: fancy?.record_status === "active" && (
-          <MdDelete
-            className="edit-icon"
-            onClick={() => handleDeletePopupOpen(fancy?.fancy_entry_id)}
-          />
-        ),
-        recordStatus: fancy?.record_status,
-      };
-    });
+    data
+      ?.filter((i) => i?.fancy_status !== "Y")
+      .map((fancy) => {
+        return {
+          sNo:
+            fancy?.old_s_no === fancy?.s_no
+              ? fancy?.s_no
+              : `${fancy?.s_no}/${fancy?.old_s_no}`,
+          over: fancy?.over,
+          rate: fancy?.rate,
+          team: fancy?.team,
+          runs: fancy?.runs,
+          yesNo: (
+            <span className={fancy?.yN === "Y" ? "clr-green" : "clr-pink"}>
+              {fancy?.yN}
+            </span>
+          ),
+          date: fancy?.date,
+          time: fancy?.time,
+          client: fancy?.client_name,
+          amount: <span className="yellow-clr">{fancy?.amount}</span>,
+          edit: fancy?.record_status === "active" && (
+            <MdEdit
+              className="edit-icon"
+              onClick={() => handleEditPopupOpen(fancy)}
+            />
+          ),
+          delete: fancy?.record_status === "active" && (
+            <MdDelete
+              className="edit-icon"
+              onClick={() => handleDeletePopupOpen(fancy?.fancy_entry_id)}
+            />
+          ),
+          recordStatus: fancy?.record_status,
+        };
+      });
 
   // const MATCH_ENTRY_DATA = [
   //   {
