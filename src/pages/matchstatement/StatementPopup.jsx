@@ -5,7 +5,7 @@ import ClientPLTable from "./ClientPLTable";
 import RfplTable from "./RfplTable";
 
 function StatementPopup(props) {
-  const { showModal, setShowModal } = props;
+  const { showModal, setShowModal, popupData } = props;
   const handleClose = () => setShowModal(false);
   const [clientInputs, setClientInputs] = useState(true);
   const [rfplInputs, setRfplInputs] = useState(false);
@@ -18,6 +18,8 @@ function StatementPopup(props) {
     setClientInputs(true);
     setRfplInputs(false);
   };
+
+  console.log(popupData, ".....popupData");
   return (
     <div className="modal fade bd-example-modal-lg container mt-5">
       <Modal
@@ -33,7 +35,7 @@ function StatementPopup(props) {
               <div className="w-25 d-flex justify-content-between">
                 <div>
                   <div className="w-100 small-font clr-yellow match-date-button p-1 rounded-pill ms-1 me-1">
-                    Match : IND vs SL
+                    Match : {popupData?.match_name}
                   </div>
                 </div>
                 <div>
@@ -70,7 +72,7 @@ function StatementPopup(props) {
           </div>
         </Modal.Header>
         <Modal.Body className="p-3">
-          {clientInputs && <ClientPLTable />}
+          {clientInputs && <ClientPLTable popupData={popupData} />}
           {rfplInputs && <RfplTable />}
         </Modal.Body>
       </Modal>

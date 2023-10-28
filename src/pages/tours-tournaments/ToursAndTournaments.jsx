@@ -3,38 +3,31 @@ import "./style.css";
 import TakeTour from "./TakeTour";
 import Football from "./Football";
 import Entertainment from "./Entertainment";
-import { call } from "../../config/axios"
-import { GET_TOURS } from "../../config/endpoints";
+import { useState } from "react";
+import ChatsTours from "./ChatsTours";
 
 function ToursAndTournaments() {
-
-  const [data, setData] = useState({})
-
-  const renderingFunction = async()=>{
-    const payload = {
-      website:["www.we2call.com"]    
-    }
-    await call(GET_TOURS, payload)
-            .then((res)=>setData(res?.data?.data))
-  }
-  useEffect(()=>{ renderingFunction() },[])
-  console.log(data)
-  // const crickettours = []
-  // const sportstour = []
-  // const entertainmenttour = []
-  // const casinotour = []
-  // for (let i of data){
-  //   if(i.tour_name === "1.Cricket Tour"){
-  //     crickettours.push(i)
-  //   }
-  // }
-  // console.log(crickettours)
+  const [showChatPopup, setShowChatPopup] = useState(false);
+  const handleChatWithUsButton = () => {
+    setShowChatPopup(true);
+  };
 
   return (
     <div className="pl-1rem tours-main">
       <TakeTour />
       <Football />
       <Entertainment />
+      <div
+        className="d-flex msg-container"
+        onClick={() => handleChatWithUsButton()}
+      >
+        <img src="./assets/chat_icon.png" className="chat-tour-img-icon" />
+        <span className="ms-2 text-clr">Chat With Us</span>
+      </div>
+      <ChatsTours
+        showChatPopup={showChatPopup}
+        setShowChatPopup={setShowChatPopup}
+      />
     </div>
   );
 };

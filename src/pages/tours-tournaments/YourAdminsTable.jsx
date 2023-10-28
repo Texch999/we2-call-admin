@@ -39,18 +39,18 @@ function YourAdminsTable() {
   ];
 
   return (
-    <div className="common-container">
+    <div className="common-container mt-2">
       <div className="row">
-        <div className="col-5">
+        <div className="col-6">
           <div className="your-users-heading">
             <div className="row your-users-head">
               <div className="col-3">
                 <div className="font-12 fw-600">NAME</div>
               </div>
-              <div className="col-2">
+              <div className="col-3">
                 <div className="font-12 fw-600">ROLE</div>
               </div>
-              <div className="col-7">
+              <div className="col-6">
                 <div className="font-12 fw-600">INTRESTED</div>
               </div>
             </div>
@@ -58,14 +58,14 @@ function YourAdminsTable() {
           <div className="meeting-content">
             {ADMIN_DETAILS?.map((item, index) => (
               <div className="your-admins-content" key={index}>
-                <div className="row .your-admin-content">
+                <div className="row your-admin-content">
                   <div className="col-3">
                     <div className="font-12 fw-600">{item.name}</div>
                   </div>
-                  <div className="col-2">
+                  <div className="col-3">
                     <div className="font-12 fw-600">{item.role}</div>
                   </div>
-                  <div className="col-4 flex-center">
+                  <div className="col-3 flex-center">
                     <div
                       className={`${
                         userDetails
@@ -100,7 +100,7 @@ function YourAdminsTable() {
             ))}
           </div>
         </div>
-        <div className="col-5">
+        <div className="col-6">
           {userDetails && <UserDetails />}
           {adminDetails && <AdminDetails />}
         </div>

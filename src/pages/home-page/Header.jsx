@@ -2,7 +2,9 @@ import { useEffect, useState } from "react";
 import Marquee from "react-fast-marquee";
 import { Images } from "../../images";
 import {
+  AiFillEdit,
   AiFillWarning,
+  AiOutlineLogout,
   AiOutlineSetting,
   AiOutlineShareAlt,
 } from "react-icons/ai";
@@ -19,16 +21,18 @@ import { TbReport, TbReportSearch } from "react-icons/tb";
 import { GiArmorUpgrade } from "react-icons/gi";
 import { BiPhoneCall } from "react-icons/bi";
 import { BsFillCreditCard2BackFill } from "react-icons/bs";
-import { MdOutlinePrivacyTip } from "react-icons/md";
+import { MdLockReset, MdOutlinePrivacyTip } from "react-icons/md";
 import ResetPassword from "../log-in/ResetPassword";
 import MatchSubmitPopup from "../match-popups/MatchSubmitPopup";
 import AddPaymentMode from "../popups/AddPaymentMode";
 import { useHistory } from "react-router-dom";
 import { isLoggedIn } from "../../utils/helpers";
 import Login from "../log-in/Login";
+import EditProfile from "../popups/EditProfile";
 
 function Header() {
   const [modalShow, setModalShow] = useState(false);
+  const [editModalShow, setEditModalShow] = useState(false);
   const history = useHistory();
 
   const [currentDateTime, setCurrentDateTime] = useState(new Date());
@@ -45,6 +49,10 @@ function Header() {
     setShowLoginPopup(true);
   };
 
+  // const handleAddPaymentModelOpen = () => {
+  //   setModalShow(true);
+  // };
+
   const [activeHead, setActiveHead] = useState(0);
   const [matchEntryOpen, setMatchEntryOpen] = useState(false);
   const [matchEntryType, setMatchEntryType] = useState("Match Entry");
@@ -52,6 +60,8 @@ function Header() {
   const [reportsType, setReportsType] = useState("Report");
   const [moreOpen, setMoreOpen] = useState(false);
   const [moreType, setMoreType] = useState("More");
+  const [activeUserDropdown, setActiveUserDropdown] = useState(false);
+  const [showeditProfile, setShowEditProfile] = useState(false);
   const headerMenu = [
     "Home",
     "Chat",
@@ -62,12 +72,12 @@ function Header() {
   ];
   const MatchEntryDropdown = [
     {
-      icon: <LiaFolderSolid className="mr-10" />,
+      icon: <LiaFolderSolid className="mr-10 d-flex" />,
       name: "Match Entry",
       path: "/match-entry",
     },
     {
-      icon: <AiFillWarning className="mr-10" />,
+      icon: <AiFillWarning className="mr-10 d-flex" />,
       name: "Share Risk",
       path: "/share-risk-live-matches",
     },
@@ -75,95 +85,112 @@ function Header() {
 
   const ReportsEntryDropdown = [
     {
-      icon: <BiPhoneCall className="mr-10" />,
-      name: "Call History",
-      path: "/call-history",
+      icon: <GiArmorUpgrade className="mr-10 d-flex" />,
+      name: "Upgrade Packages",
+      path: "/upgrade-package",
     },
     {
-      icon: <FaRegHandshake className="mr-10" />,
-      name: "Call Settlement",
-      path: "/call-settlement",
+      icon: <TbReport className="mr-10 d-flex" />,
+      name: "Package Statement",
+      path: "/package-statement",
     },
     {
-      icon: <FaRegAddressBook className="mr-10" />,
-      name: "Call Statement",
-      path: "/call-statement",
+      icon: <BiPhoneCall className="mr-10 d-flex" />,
+      name: "Call Reports",
+      path: "/call-reports",
     },
+    // /call-reports
+    // {
+    //   icon: <BiPhoneCall className="mr-10 d-flex" />,
+    //   name: "Call History",
+    //   path: "/call-history",
+    // },
+    // {
+    //   icon: <FaRegHandshake className="mr-10 d-flex" />,
+    //   name: "Call Settlement",
+    //   path: "/call-settlement",
+    // },
+    // {
+    //   icon: <FaRegAddressBook className="mr-10 d-flex" />,
+    //   name: "Call Statement",
+    //   path: "/call-statement",
+    // },
     {
-      icon: <TbReportSearch className="mr-10" />,
+      icon: <TbReportSearch className="mr-10 d-flex" />,
       name: "Match  Statement",
       path: "/match-statement",
     },
     {
-      icon: <TbReport className="mr-10" />,
+      icon: <TbReport className="mr-10 d-flex" />,
       name: "One Page Reports",
       path: "/report-page",
     },
     {
-      icon: <FaRegHandshake className="mr-10" />,
+      icon: <FaRegHandshake className="mr-10 d-flex" />,
       name: "Settlement",
-      path: "/settelment",
+      path: "/settlement",
     },
     {
-      icon: <FaHandshake className="mr-10" />,
+      icon: <FaHandshake className="mr-10 d-flex" />,
       name: "Settlement Statement",
-      path: "/settelment-statement",
-    },
-    {
-      icon: <GiArmorUpgrade className="mr-10" />,
-      name: "Upgrade Packages",
-      path: "/upgrade-package",
+      path: "/settlement-statement",
     },
   ];
 
   const moreDropdown = [
     {
-      icon: <BsFillCreditCard2BackFill className="mr-10" />,
+      icon: <BsFillCreditCard2BackFill className="mr-10 d-flex" />,
       name: "Add Payment Gateway",
       onClick: "onClick",
     },
+    // /payment-gateway-list
     {
-      icon: <MdOutlinePrivacyTip className="mr-10" />,
+      icon: <FaRegHandshake className="mr-10 d-flex" />,
+      name: "Payment Gateway List",
+      path: "/payment-gateway-list",
+    },
+    {
+      icon: <MdOutlinePrivacyTip className="mr-10 d-flex" />,
       name: "Privacy Policy",
       path: "/privacy-policy",
     },
+    // {
+    //   icon: <MdOutlinePrivacyTip className="mr-10 d-flex" />,
+    //   name: "Admin One Page Report",
+    //   path: "/admin-one-page-report",
+    // },
+    // {
+    //   icon: <MdOutlinePrivacyTip className="mr-10 d-flex" />,
+    //   name: "Admin Share Comm Settlement",
+    //   path: "/admin-share-comm-settlement",
+    // },
     {
-      icon: <MdOutlinePrivacyTip className="mr-10" />,
-      name: "Admin One Page Report",
-      path: "/admin-one-page-report",
-    },
-    {
-      icon: <MdOutlinePrivacyTip className="mr-10" />,
-      name: "Admin Share Comm Settlement",
-      path: "/admin-share-comm-settlement",
-    },
-    {
-      icon: <MdOutlinePrivacyTip className="mr-10" />,
+      icon: <MdOutlinePrivacyTip className="mr-10 d-flex" />,
       name: "Call Management",
       path: "/call-management",
     },
+    // {
+    //   icon: <MdOutlinePrivacyTip className="mr-10 d-flex" />,
+    //   name: "Super Admin Call Management",
+    //   path: "/super-admin-call-management",
+    // },
     {
-      icon: <MdOutlinePrivacyTip className="mr-10" />,
-      name: "Super Admin Call Management",
-      path: "/super-admin-call-management",
-    },
-    {
-      icon: <MdOutlinePrivacyTip className="mr-10" />,
+      icon: <MdOutlinePrivacyTip className="mr-10 d-flex" />,
       name: "Share Risk live mathces",
       path: "/share-risk-live-matches",
     },
     {
-      icon: <MdOutlinePrivacyTip className="mr-10" />,
+      icon: <MdOutlinePrivacyTip className="mr-10 d-flex" />,
       name: "Admin Share Match Statement",
       path: "/admin-share-match-statement",
     },
     {
-      icon: <MdOutlinePrivacyTip className="mr-10" />,
+      icon: <MdOutlinePrivacyTip className="mr-10 d-flex" />,
       name: "Add Users",
       path: "/add-users",
     },
     {
-      icon: <MdOutlinePrivacyTip className="mr-10" />,
+      icon: <MdOutlinePrivacyTip className="mr-10 d-flex" />,
       name: "Add Admins",
       path: "/add-admins",
     },
@@ -177,6 +204,7 @@ function Header() {
     if (!token) return "";
     setActiveHead(index);
     index === 0 && navigate("/");
+    index === 1 && navigate("/chats");
     index === 2 && navigate("/tours-tournaments");
     index === 3 && handleMatchEntry();
     index === 4 && handleReports();
@@ -204,19 +232,90 @@ function Header() {
     navigate(v.path);
   };
 
-  const handleMore = (item) => {
+  const handleMore = (item, index) => {
     setMoreType(item.name);
     setMoreOpen(false);
     navigate(item.path);
-      if (item.onClick) {
-        setModalShow(true);
-      }
+    if (item.onClick) {
+      setModalShow(true);
+    }
   };
   const handleSelectReports = (e) => {
     setReportsType(e.name);
     setReportsOpen(false);
     navigate(e.path);
   };
+
+  const handleSettingsDropdown = () => {
+    setActiveUserDropdown((prev) => !prev);
+  };
+
+  const handleEndDropdown = (item, index) => {
+    setActiveUserDropdown(false);
+    {
+      index === 2 && handleLogout();
+    }
+    {
+      index === 1 && setShowResetPopup(true);
+    }
+    {
+      index === 0 && setEditModalShow(true);
+    }
+  };
+
+  const handleLogout = () => {
+    localStorage.clear();
+    window.location.reload("");
+  };
+
+  const settingsDropdown = [
+    {
+      icon: <AiFillEdit className="mr-10" />,
+      name: "Edit profile",
+      // onClick: "onClick",
+    },
+    {
+      icon: <MdLockReset className="mr-10" />,
+      name: "Reset Password",
+      // path: "/privacy-policy",
+    },
+    {
+      icon: <AiOutlineLogout className="mr-10" />,
+      name: "Logout",
+      // path: "/admin-one-page-report",
+    },
+  ];
+
+  // useEffect(() => {
+  //   switch (history.location.pathname) {
+  //     case "/":
+  //       setActiveHead(0);
+  //       break;
+  //     case "/chats":
+  //       setActiveHead(1);
+  //       break;
+
+  //     case "/tours-tournaments":
+  //       setActiveHead(2);
+  //       break;
+
+  //     case "/match-entry":
+  //       setActiveHead(3);
+  //       break;
+
+  //     case "/phub":
+  //       setActiveHead(4);
+  //       break;
+
+  //     case "/horny":
+  //       setActiveHead(5);
+
+  //       break;
+
+  //     default:
+  //       setActiveHead(0);
+  //   }
+  // }, []);
 
   const [resetPasswordSubmit, setResetPasswordSubmit] = useState();
   const token = isLoggedIn();
@@ -230,16 +329,19 @@ function Header() {
             onClick={() => handleLoginPopup()}
           />
         </div>
-        <div className="date-div mt-2 d-flex align-items-center ms-1">
-          <p className="meetings-heading medium-font header-font">
+        <div className="date-div mt-2 d-flex align-items-center justify-content-center ms-1">
+          <div className="meetings-heading medium-font header-font ms-2">
             {currentDateTime.toLocaleString()}
-          </p>
+          </div>
         </div>
         <div className="h-10vh d-flex align-items-center head-wrap">
           <div className="row w-100 min-h-10vh d-flex align-items-center">
             {headerMenu?.map((item, index) => {
               return (
-                <div className="col meetings-heading cursor-pointer" key={index}>
+                <div
+                  className="col meetings-heading cursor-pointer"
+                  key={index}
+                >
                   <div
                     className={`${
                       activeHead === index ? "active-head-menu" : null
@@ -302,7 +404,7 @@ function Header() {
                   <div
                     key={index}
                     className="d-flex align-items-center mt-2 p-2 cursor-pointer"
-                    onClick={() => handleMore(item)}
+                    onClick={() => handleMore(item, index)}
                   >
                     <span className="me-1">{item.icon}</span>
                     {item.name}
@@ -312,18 +414,43 @@ function Header() {
             </div>
           )}
         </div>
-        <div className="d-flex w-18 p-2">
+        <div className="d-flex justify-content-between p-2">
           <div className="header-avatar align-items-center justify-content-around d-flex w-50">
             <img src={Images.profile} alt="profile" className="me-2" />
-            <div className="meetings-heading header-font">{localStorage?.getItem('user_name')}</div>
+            <div className="meetings-heading header-font">
+              {localStorage?.getItem("user_name")}
+            </div>
           </div>
-          <div className="d-flex align-items-center w-50 justify-content-around">
-            <div className=" icons-share me-2 ms-2">
-              <AiOutlineShareAlt />
+          <div className="h-10vh">
+            <div className="d-flex align-items-center w-50 justify-content-around">
+              <div className=" icons-share me-2 ms-2">
+                <AiOutlineShareAlt />
+              </div>
+              <div
+                className=" icons-share"
+                onClick={() => handleSettingsDropdown()}
+              >
+                <AiOutlineSetting />
+              </div>
             </div>
-            <div className=" icons-share">
-              <AiOutlineSetting />
-            </div>
+            {activeUserDropdown && (
+              <div className="head-dropdown setting-position p-2">
+                {settingsDropdown.map((item, index) => {
+                  return (
+                    <div
+                      key={index}
+                      className="d-flex align-items-center mt-2 p-2 cursor-pointer"
+                      onClick={() => handleEndDropdown(item, index)}
+                    >
+                      {/* {item.icon}
+                    {item.name} */}
+                      <span className="me-1">{item.icon}</span>
+                      {item.name}
+                    </div>
+                  );
+                })}
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -346,14 +473,14 @@ function Header() {
         setShowResetPopup={setShowResetPopup}
         setResetPasswordSubmit={setResetPasswordSubmit}
       />
+      <EditProfile show={editModalShow} close={() => setEditModalShow(false)} />
       <MatchSubmitPopup
         header={"You Are Successfully Reset your Password"}
         state={resetPasswordSubmit}
         setState={setResetPasswordSubmit}
       />
-      {modalShow && (
-        <AddPaymentMode show={modalShow} onHide={() => setModalShow(false)} />
-      )}
+
+      <AddPaymentMode state={modalShow} setState={setModalShow} />
     </div>
   );
 }

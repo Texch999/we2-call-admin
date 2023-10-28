@@ -8,6 +8,7 @@ import { RiDeleteBin6Fill } from "react-icons/ri";
 import { ImBlocked } from "react-icons/im";
 import { BiLock } from "react-icons/bi";
 import MatchSubmitPopup from "../match-popups/MatchSubmitPopup";
+import { GrLocation } from "react-icons/gr";
 import { call } from "../../config/axios";
 import {
   GET_OFFLINE_CLIENTS,
@@ -15,6 +16,7 @@ import {
   GET_ALL_CLIENTS,
   GET_REFFERAL_DATA,
 } from "../../config/endpoints";
+import CreateReferral from "./CreateReferral";
 
 function UserManagement() {
   let register_id = localStorage?.getItem("register_id");
@@ -40,6 +42,8 @@ function UserManagement() {
   const [userCreationSubmitPopup, setUserCreationSubmitPopup] = useState(false);
   const [error, setError] = useState("");
   const [isProcessing, setIsProcessing] = useState(false);
+  const [refStatus, setRefStatus] = useState(false);
+  const [userDetails, setUserDetails] = useState({});
 
   const clientSelection = [
     { name: "Regulor", value: 0 },
@@ -69,15 +73,45 @@ function UserManagement() {
     },
   ];
   const [createUserSubmit, setCreateUserSubmit] = useState(false);
-  const handleSubmitUser = () => {
+  const [showCreateRefer, setShowCreateRefer] = useState(false);
+
+  const handleSubmitUser = async () => {
     setCreateUserSubmit(true);
+    if (
+      (!userDetails?.alias_name,
+      !userDetails?.client_type,
+      !userDetails?.select_client,
+      !userDetails?.refer_name,
+      !userDetails?.rf_share,
+      !userDetails?.rf_fancy_comm,
+      !userDetails?.rf_comm,
+      !userDetails?.deposite_credite,
+      !userDetails?.location,
+      !userDetails?.match_risk_limit)
+    ) {
+      setError("Please Enter All Field");
+    }
+    let userDeatailsPayload = {
+      existing_user_id: clientId[0].register_id,
+      register_id: register_id,
+      account_role: account_role,
+      client_type: userDetails?.client_type,
+      client_name: userDetails?.select_client,
+      referral_name: userDetails?.refer_name,
+      referal_id: selectedRefferal?.refferal_id,
+      master_share: localStorage?.getItem("share") || 0,
+      ul_share: localStorage?.getItem("ul_share") || 0,
+    };
   };
+  const clientId = allClients.filter((item) => {
+    return item.first_name === userDetails?.select_client;
+  });
 
   const userColumns = [
     { header: "USER NAME", field: "client_name" },
     { header: "TYPE", field: "client_type" },
     { header: "ALIAS NAME", field: "alias_name" },
-    { header: "REFFER BY", field: "location" },
+    { header: "LOCATION", field: "location" },
     { header: "ACTION", field: "editButton" },
   ];
 
@@ -90,13 +124,13 @@ function UserManagement() {
     </div>
   );
 
-  const handleChange = (name, value) => {
-    console.log(name, value);
+  const handleChange = (e) => {
+    // console.log(name, value);
+    setUserDetails({ ...userDetails, [e.target.name]: e.target.value });
   };
   const getOfflineClients = async () => {
     await call(GET_OFFLINE_CLIENTS, { register_id })
       .then((res) => {
-        // console.log(res.data);
         setExistingClients(res?.data?.data);
       })
       .catch((err) => console.log(err));
@@ -116,6 +150,10 @@ function UserManagement() {
       .catch((err) => {
         console.log(err);
       });
+  };
+
+  const handleCreateRefer = () => {
+    setShowCreateRefer(true);
   };
 
   const getAllClients = async () => {
@@ -146,7 +184,9 @@ function UserManagement() {
     getOfflineClients();
   }, [addClientStatus]);
 
-  console.log(existingClients);
+  console.log(userDetails, "....userDetails");
+
+  console.log(clientId[0], ".....clientId");
 
   return (
     <div className="p-3">
@@ -177,14 +217,16 @@ function UserManagement() {
             <div>Client Type</div>
             <select
               className="sport-management-input d-flex  w-100 sport-management-select cursor-pointer"
-              onChange={(e) => {
-                const selectedIndex = e.target.selectedIndex;
-                setClientTypeSelected(clientSelection[selectedIndex]);
-                setClientData({
-                  ...clientData,
-                  client_type: selectedIndex,
-                });
-              }}
+              name="client_type"
+              // onChange={(e) => {
+              //   const selectedIndex = e.target.selectedIndex;
+              //   setClientTypeSelected(clientSelection[selectedIndex]);
+              //   setClientData({
+              //     ...clientData,
+              //     client_type: selectedIndex,
+              //   });
+              // }}
+              onChange={(e) => handleChange(e)}
             >
               <option className="w-90 ms-1 cursor-pointer" value="">
                 Select...
@@ -193,7 +235,7 @@ function UserManagement() {
                 return (
                   <option
                     className="w-90 ms-1 cursor-pointer"
-                    value={type}
+                    value={type?.value}
                     key={index}
                   >
                     {type?.name}
@@ -204,25 +246,27 @@ function UserManagement() {
           </div>
           <div className="w-55">
             <div>Client Name</div>
-            <select className="sport-management-input d-flex  w-100 sport-management-select cursor-pointer">
-              <option className="w-90 ms-1 cursor-pointer" value="">
-                Select...
-              </option>
+            <select
+              className="sport-management-input d-flex  w-100 sport-management-select cursor-pointer"
+              onChange={(e) => handleChange(e)}
+              name="select_client"
+            >
+              <option className="w-90 ms-1 cursor-pointer">Select...</option>
               {allClients?.length &&
                 allClients
-                  .filter(
-                    (obj) =>
-                      !existingClients.some(
-                        (o) => o.existing_user_id === obj.register_id
-                      )
-                  )
-                  ?.map(({ register_id, user_name }, index) => (
+                  // .filter(
+                  //   (obj) =>
+                  //     !existingClients.some(
+                  //       (o) => o.existing_user_id === obj.register_id
+                  //     )
+                  // )
+                  ?.map(({ first_name }, index) => (
                     <option
                       className="w-90 ms-1 cursor-pointer"
-                      value={register_id}
+                      value={first_name}
                       key={index}
                     >
-                      {user_name}
+                      {first_name}
                     </option>
                   ))}
             </select>
@@ -232,7 +276,13 @@ function UserManagement() {
           <div>
             <div>Alias Name</div>
             <div className="sport-management-input d-flex ">
-              <input className="w-90 ms-2 " placeholder="Enter"></input>
+              <input
+                className="w-90 ms-2 "
+                placeholder="Enter"
+                onChange={(e) => handleChange(e)}
+                name="alias_name"
+                value={userDetails?.alias_name || ""}
+              ></input>
               <AiOutlineUser />
             </div>
           </div>
@@ -241,16 +291,49 @@ function UserManagement() {
       <div className="row gutter-1rem mt-3 meetings-heading">
         <div className="col-5 d-flex justify-content-between">
           <div className="w-70">
-            <div>Select Referral</div>
-            <div className="sport-management-input d-flex ">
-              <input placeholder="Enter" className="w-90 ms-1" />
-              <FaPercent className="me-1" />
+            <div className="d-flex justify-content-between">
+              <div>Select Referral</div>
+              <div className="create-new" onClick={() => handleCreateRefer()}>
+                Create New
+              </div>
             </div>
+            <select
+              className="sport-management-input d-flex  w-100 sport-management-select cursor-pointer"
+              // onChange={(e) => {
+              //   setClientData({
+              //     ...clientData,
+              //     referral_name: e.target.value,
+              //   });
+              // }}
+              onChange={(e) => handleChange(e)}
+              name="refer_name"
+            >
+              <option className="w-90 ms-1 cursor-pointer" value="">
+                Select...
+              </option>
+              {refferalData?.map((type, index) => {
+                return (
+                  <option
+                    className="w-90 ms-1 cursor-pointer"
+                    value={type.referral_name}
+                    key={index}
+                  >
+                    {type?.referral_name}
+                  </option>
+                );
+              })}
+            </select>
           </div>
           <div className="w-30">
-            <div>Deposit/Credit</div>
+            <div>Rf Share</div>
             <div className="sport-management-input d-flex ">
-              <input placeholder="Enter" className="w-90" />
+              <input
+                placeholder="Enter"
+                className="w-90"
+                onChange={(e) => handleChange(e)}
+                name="rf_share"
+                value={userDetails?.rf_share || ""}
+              />
               <FaPercent className="me-1" />
             </div>
           </div>
@@ -259,14 +342,26 @@ function UserManagement() {
           <div className="w-40">
             <div>Rf Fancy Comm</div>
             <div className="sport-management-input d-flex ">
-              <input className="w-90" placeholder="Enter"></input>
+              <input
+                className="w-90"
+                placeholder="Enter"
+                onChange={(e) => handleChange(e)}
+                name="rf_fancy_comm"
+                value={userDetails?.rf_fancy_comm || ""}
+              ></input>
               <FaPercent className="me-1" />
             </div>
           </div>
           <div className="w-55">
             <div>Rf Comm</div>
-            <div className="sport-management-input d-flex w-100">
-              <div className="w-90">Enter</div>
+            <div className="sport-management-input d-flex ">
+              <input
+                className="w-90"
+                placeholder="Enter"
+                onChange={(e) => handleChange(e)}
+                name="rf_comm"
+                value={userDetails?.rf_comm || ""}
+              ></input>
               <FaPercent className="me-1" />
             </div>
           </div>
@@ -274,11 +369,14 @@ function UserManagement() {
         <div className="col-3">
           <div>
             <div>Deposit/Credit</div>
-            {/* <div className="w-90">Enter</div>
-              <AiOutlineUser /> */}
-            <select className="sport-management-input d-flex  w-100 sport-management-select meetings-heading">
-              <option>Widthdraw</option>
-              <option>Deposite</option>
+            <select
+              className="sport-management-input d-flex  w-100 sport-management-select meetings-heading"
+              onChange={(e) => handleChange(e)}
+              name="deposite_credite"
+            >
+              <option>select</option>
+              <option value="widthdraw">Widthdraw</option>
+              <option value="deposite">Deposite</option>
             </select>
           </div>
         </div>
@@ -289,15 +387,28 @@ function UserManagement() {
             <div className="col">
               <div>Location</div>
               <div className="sport-management-input d-flex ">
-                <div className="w-90">Enter</div>
-                <BsChevronDown />
+                <input
+                  className="w-90 ms-2 "
+                  placeholder="Enter"
+                  onChange={(e) => handleChange(e)}
+                  name="location"
+                  value={userDetails?.location || ""}
+                ></input>
+                <GrLocation />
               </div>
             </div>
             <div className="col">
               <div>Match Risk Limit</div>
               <div className="sport-management-input d-flex ">
-                <div className="w-90">Enter</div>
-                <BsChevronDown />
+                <input
+                  className="w-90 ms-2 "
+                  placeholder="Enter"
+                  onChange={(e) => handleChange(e)}
+                  name="match_risk_limit"
+                  type="number"
+                  value={userDetails?.match_risk_limit || ""}
+                ></input>
+                {/* <AiOutlineUser /> */}
               </div>
             </div>
           </div>
@@ -312,7 +423,9 @@ function UserManagement() {
           </div>
         </div>
       </div>
+      {error}
       <hr className="mt-4" />
+
       <Table
         data={existingClients}
         columns={userColumns}
@@ -322,6 +435,12 @@ function UserManagement() {
         header={"You Are Successfully Created User"}
         state={createUserSubmit}
         setState={setCreateUserSubmit}
+      />
+      <CreateReferral
+        showCreateRefer={showCreateRefer}
+        setShowCreateRefer={setShowCreateRefer}
+        refStatus={refStatus}
+        setRefStatus={setRefStatus}
       />
     </div>
   );

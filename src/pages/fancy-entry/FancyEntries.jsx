@@ -4,7 +4,20 @@ import FancyEntryInput from "./FancyEntryInput";
 import FancyResultInput from "./FancyResultInput";
 import { useHistory } from "react-router";
 
-function FancyEntries() {
+function FancyEntries(props) {
+  const {
+    selectedMatch,
+    matchAccountData,
+    selectedMatchEntry,
+    setStatus,
+    setSelectedMatchEntry,
+    setMatchOver,
+    getRiskRunningData,
+    getFancyProfitLoss,
+    profitLossData,
+    setAfterDeclare,
+    setMatchInnings,
+  } = props;
   const history = useHistory();
   const [fancyEntryInputs, setFancyEntryInputs] = useState(true);
   const [fancyResultInputs, setFancyResultInputs] = useState(false);
@@ -21,7 +34,7 @@ function FancyEntries() {
       <div className="p-3 rounded-top match-position-bg w-100 d-flex align-items-center justify-content-between">
         <div className="w-25 d-flex justify-content-between">
           <div
-            className={`match-entry-btn w-45 d-flex align-items-center justify-content-around rounded-pill p-1 ${
+            className={`cursor-pointer match-entry-btn w-45 d-flex align-items-center justify-content-around rounded-pill p-1 ${
               fancyEntryInputs ? "yellow-btn" : ""
             }`}
             onClick={() => handleFancyEntry()}
@@ -30,7 +43,7 @@ function FancyEntries() {
             <PiArrowCircleDownBold className="d-flex" />
           </div>
           <div
-            className={`match-entry-btn w-45 d-flex align-items-center justify-content-around rounded-pill p-1 ${
+            className={`cursor-pointer match-entry-btn w-45 d-flex align-items-center justify-content-around rounded-pill p-1 ${
               fancyResultInputs ? "yellow-btn" : ""
             }`}
             onClick={() => handleMancyResult()}
@@ -41,7 +54,7 @@ function FancyEntries() {
         </div>
         <div className="w-50 d-flex justify-content-end">
           <div
-            className="w-25 match-entry-btn d-flex align-items-center justify-content-around rounded-pill p-1"
+            className="cursor-pointer w-25 match-entry-btn d-flex align-items-center justify-content-around rounded-pill p-1"
             onClick={() => history.push("/match-entry")}
           >
             <div className="medium-font">Match Entry</div>
@@ -50,8 +63,34 @@ function FancyEntries() {
         </div>
       </div>
       <hr className="hr-line" />
-      {fancyEntryInputs && <FancyEntryInput />}
-      {fancyResultInputs && <FancyResultInput />}
+      {fancyEntryInputs && (
+        <FancyEntryInput
+          selectedMatch={selectedMatch}
+          registered_match_id={matchAccountData?.registered_match_id}
+          selectedMatchEntry={selectedMatchEntry}
+          setStatus={setStatus}
+          setSelectedMatchEntry={setSelectedMatchEntry}
+          setMatchOver={setMatchOver}
+          getRiskRunningData={getRiskRunningData}
+          getFancyProfitLoss={getFancyProfitLoss}
+          profitLossData={profitLossData}
+          setAfterDeclare={setAfterDeclare}
+          setMatchInnings={setMatchInnings}
+        />
+      )}
+      {fancyResultInputs && (
+        <FancyResultInput
+          registered_match_id={matchAccountData?.registered_match_id}
+          selectedMatch={selectedMatch}
+          setStatus={setStatus}
+          selectedMatchEntry={selectedMatchEntry}
+          setSelectedMatchEntry={setSelectedMatchEntry}
+          getFancyProfitLoss={getFancyProfitLoss}
+          setAfterDeclare={setAfterDeclare}
+          profitLossData={profitLossData}
+          setMatchInnings={setMatchInnings}
+        />
+      )}
     </div>
   );
 }

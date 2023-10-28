@@ -2,6 +2,10 @@ import React, { useRef, useState } from "react";
 import { AiFillEye } from "react-icons/ai";
 import { BiSolidCloudUpload } from "react-icons/bi";
 import UploadScreenShot from "./UploadScreenShot";
+import CustomPagination from "../pagination/CustomPagination";
+import { call } from "../../config/axios";
+import { CREATE_CALL_SETTLEMENT } from "../../config/endpoints";
+import { useEffect } from "react";
 
 function CallSettelment() {
   const SETTELMENT_DETAILS = [
@@ -29,103 +33,34 @@ function CallSettelment() {
       amount: "5000",
       status: "Rejected",
     },
-    {
-      date: "27 July 2023",
-      time: "10:00:00 PM",
-      amount: "5000",
-      status: "Approved",
-    },
-    {
-      date: "27 July 2023",
-      time: "10:00:00 PM",
-      amount: "5000",
-      status: "Rejected",
-    },
-    {
-      date: "27 July 2023",
-      time: "10:00:00 PM",
-      amount: "5000",
-      status: "Approved",
-    },
-    {
-      date: "27 July 2023",
-      time: "10:00:00 PM",
-      amount: "5000",
-      status: "Approved",
-    },
-    {
-      date: "27 July 2023",
-      time: "10:00:00 PM",
-      amount: "5000",
-      status: "Approved",
-    },
-    {
-      date: "27 July 2023",
-      time: "10:00:00 PM",
-      amount: "5000",
-      status: "Rejected",
-    },
-    {
-      date: "27 July 2023",
-      time: "10:00:00 PM",
-      amount: "5000",
-      status: "Approved",
-    },
-    {
-      date: "27 July 2023",
-      time: "10:00:00 PM",
-      amount: "5000",
-      status: "Rejected",
-    },
-    {
-      date: "27 July 2023",
-      time: "10:00:00 PM",
-      amount: "5000",
-      status: "Approved",
-    },
-    {
-      date: "27 July 2023",
-      time: "10:00:00 PM",
-      amount: "5000",
-      status: "Rejected",
-    },
-    {
-      date: "27 July 2023",
-      time: "10:00:00 PM",
-      amount: "5000",
-      status: "Approved",
-    },
-    {
-      date: "27 July 2023",
-      time: "10:00:00 PM",
-      amount: "5000",
-      status: "Rejected",
-    },
-    {
-      date: "27 July 2023",
-      time: "10:00:00 PM",
-      amount: "5000",
-      status: "Approved",
-    },
-    {
-      date: "27 July 2023",
-      time: "10:00:00 PM",
-      amount: "5000",
-      status: "Approved",
-    },
-    {
-      date: "27 July 2023",
-      time: "10:00:00 PM",
-      amount: "5000",
-      status: "Approved",
-    },
-    {
-      date: "27 July 2023",
-      time: "10:00:00 PM",
-      amount: "5000",
-      status: "Rejected",
-    },
   ];
+  const register_id = localStorage?.getItem("register_id");
+  const [callSettlementDetails, setCallSettlementDetails] = useState([]);
+  const getCallSettlementData = async () => {
+    await call(CREATE_CALL_SETTLEMENT, { register_id })
+      .then((res) => {
+        if (res?.data?.statusCode === 200) {
+          setCallSettlementDetails(res?.data?.data);
+        }
+      })
+      .catch((err) => {
+        throw err;
+      });
+  };
+  useEffect(() => {
+    getCallSettlementData();
+  }, []);
+  const CALL_SETTLEMENT_DETAILS = callSettlementDetails?.map((item) => {
+    return {
+      Date: "Sangram",
+      Time: "Sangram",
+      MeetingTitle: "Sangram",
+      MeetingDuration: "Sangram",
+      Charges: "Sangram",
+      status: "Sangram",
+    };
+  });
+
   const [showUploadButton, setShowUploadButton] = useState();
   const handleUploadButton = () => {
     setShowUploadButton(true);
@@ -138,9 +73,17 @@ function CallSettelment() {
   const handleUploadButtonClick = () => {
     uploadfileInputRef.current.click();
   };
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalPages = 5;
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+    // You can add your logic here to fetch data for the selected page.
+  };
   return (
-    <div className="p-4">
-         <h5 className="meetings-heading mb-3">Call Settlement</h5>
+    <div>
+      <h5 className="meetings-heading mb-3">Call Settlement</h5>
 
       <div className="d-flex flex-row justify-content-around mb-4 w-100">
         <div className="d-flex flex-column statement-container settelment-container  justify-content-around p-2">
@@ -168,18 +111,18 @@ function CallSettelment() {
           <div className="clr-yellow medium-font">0.00</div>
         </div>
       </div>
-      <div className="d-flex flex-row mb-4 w-35 justify-content-between">
+      <div className="d-flex flex-row mb-4 w-35 justify-content-between p-2">
         <div>
           <div className="medium-font mb-2">Settelment Amount</div>
           <div className="date-container d-flex justify-content-around align-items-center rounded p-2">
-            <div className="small-font d-flex justify-content-start p-2">
+            <div className="small-font d-flex justify-content-start p-3">
               Setteled Amount
             </div>
           </div>
         </div>
         <div onClick={handleUploadButtonClick}>
           <div className="medium-font mb-2">Upload Screenshot</div>
-          <div className="date-container d-flex justify-content-around align-items-center rounded p-2">
+          <div className="date-container d-flex justify-content-around align-items-center rounded p-3">
             <div className="small-font">Upload Screenshot</div>
             <input
               type="file"
@@ -201,16 +144,13 @@ function CallSettelment() {
           <thead>
             <tr>
               <th scope="col" className="text-center">
-                DATE & TIME
+                CREATE DATE
               </th>
               <th scope="col" className="text-center">
-                MEETING TITLE
+                CREATE TIME
               </th>
               <th scope="col" className="text-center">
-                DURATION
-              </th>
-              <th scope="col" className="text-center">
-                PRICE
+                SETTELED AMOUNT
               </th>
               <th scope="col" className="text-center">
                 STATUS
@@ -218,12 +158,12 @@ function CallSettelment() {
               <th scope="col" className="text-center"></th>
             </tr>
           </thead>
-          {SETTELMENT_DETAILS.map((item, index) => (
+          {CALL_SETTLEMENT_DETAILS.map((item, index) => (
             <tbody key={index}>
               <tr>
-                <td className="text-center">{item.date}</td>
-                <td className="text-center ">{item.time}</td>
-                <td className="text-center">{item.amount}</td>
+                <td className="text-center">{item.Date}</td>
+                <td className="text-center ">{item.Time}</td>
+                <td className="text-center">{item.Charges}</td>
                 <td className="text-center clr-green ">
                   <button
                     className={
@@ -249,6 +189,20 @@ function CallSettelment() {
             </tbody>
           ))}
         </table>
+      </div>
+      <div className="d-flex justify-content-between align-items-center mt-4">
+        <div className="d-flex justify-content-start font-clr-white total-count-container  py-2 px-4 rounded">
+          <span>
+            Showing <b> {currentPage} </b> 0f <b> {totalPages} </b> Entries....
+          </span>
+        </div>
+        <div className="d-flex justify-content-end mt-2">
+          <CustomPagination
+            totalPages={totalPages}
+            currentPage={currentPage}
+            onPageChange={handlePageChange}
+          />
+        </div>
       </div>
       <UploadScreenShot
         showUploadButton={showUploadButton}

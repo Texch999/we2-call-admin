@@ -2,12 +2,17 @@ import { Container, Form, Row, Col, InputGroup, Image } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { Images } from "../../images";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IoEyeSharp, IoEyeOffSharp } from "react-icons/io5";
 import { call } from "../../config/axios";
-import { ACCOUNT_REGISTERATION } from "../../config/endpoints";
+import {
+  ACCOUNT_REGISTERATION,
+  UPDATE_USER_ADMIN,
+} from "../../config/endpoints";
 
 function AddAdminsPopup(props) {
+  const { adminsData, usersData, setModalShow, editData } = props;
+  // console.log("Props====>", props);
   let register_id = localStorage?.getItem("register_id");
   let creator_id = localStorage?.getItem("creator_id");
   let account_role = localStorage?.getItem("account_role");
@@ -22,7 +27,6 @@ function AddAdminsPopup(props) {
   const [adminPasswordToggle, setAdminPasswordToggle] = useState(true);
 
   const handleInputChnage = (e) => {
-    // console.log(e.target.value);
     setInputData({ ...inputData, [e.target.name]: e.target.value });
   };
   let packageList = [
@@ -48,14 +52,43 @@ function AddAdminsPopup(props) {
   userRoles =
     finIndex > -1 ? userRoles.slice(finIndex + 1, userRoles.length) : [];
 
+  const handleUpdateUserAdmin = async () => {
+    setErr("");
+    setIsProcessing(true);
+    setModalShow(false);
+    await call(UPDATE_USER_ADMIN, {
+      ...inputData,
+      creator_id: register_id,
+      creator_role: account_role,
+    })
+      .then((res) => {
+        setIsProcessing(false);
+        if (res.data.status === 200) {
+          props?.setIsUserAdded((prev) => !prev);
+          // props.onHide();
+          setInputData({});
+        } else {
+          setErr(
+            res?.data?.message ? res?.data?.message : `Something went wrong`
+          );
+        }
+      })
+      .catch((err) => {
+        setIsProcessing(false);
+        setErr(err?.message ? err?.message : `Something went wrong`);
+        console.log(err);
+      });
+  };
+
   const handleSubmitUserCreation = async () => {
     if (
       !(
         inputData?.first_name &&
         inputData?.user_name &&
         inputData?.share &&
-        inputData?.my_share &&
-        inputData?.creator_password
+        inputData?.ul_share &&
+        inputData?.creator_password &&
+        inputData?.location
       )
     ) {
       return setErr("Please enter required fields");
@@ -65,7 +98,7 @@ function AddAdminsPopup(props) {
     }
     setErr("");
     setIsProcessing(true);
-    // console.log({ inputData });
+    setModalShow(false);
     await call(ACCOUNT_REGISTERATION, {
       ...inputData,
       creator_id: register_id,
@@ -75,7 +108,7 @@ function AddAdminsPopup(props) {
         setIsProcessing(false);
         if (res.data.status === 201) {
           props?.setIsUserAdded((prev) => !prev);
-          props.onHide();
+          // props.onHide();
           setInputData({});
         } else {
           setErr(
@@ -99,33 +132,71 @@ function AddAdminsPopup(props) {
   const handleAdminTogglePassword = () => {
     setAdminPasswordToggle(!adminPasswordToggle);
   };
+
+  useEffect(() => {
+    setInputData(props.adminsData);
+  }, []);
+
   return (
-    <Modal {...props} centered className="add-user-modal">
+    <Modal
+      {...props}
+      centered
+      className="add-user-modal"
+      onHide={() => {
+        setInputData({});
+        props.onhideClick(false);
+      }}
+    >
       <Modal.Header closeButton>
         <Modal.Title className="w-100 text-center">
-          Add Users/Admins
+          {/* Add Users/Admins */}
+          {props.Heading}
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form className="add-user-modal-form-details">
-          <Form.Group className="mb-3" controlId="user_name">
-            <Form.Label>Name*</Form.Label>
-            <InputGroup>
-              <InputGroup.Text id="basic-addon1">
-                <Image src={Images.LoginUserIcon} />
-              </InputGroup.Text>
-              <Form.Control
-                type="text"
-                placeholder="Enter Name"
-                aria-label="Enter Name"
-                aria-describedby="basic-addon1"
-                autoFocus
-                name="first_name"
-                value={inputData["first_name"] || ""}
-                onChange={(e) => handleInputChnage(e)}
-              />
-            </InputGroup>
-          </Form.Group>
+          <Row>
+            <Col>
+              <Form.Group className="mb-3" controlId="user_name">
+                <Form.Label>Name*</Form.Label>
+                <InputGroup>
+                  <InputGroup.Text id="basic-addon1">
+                    <Image src={Images.LoginUserIcon} />
+                  </InputGroup.Text>
+                  <Form.Control
+                    type="text"
+                    placeholder="Enter Name"
+                    aria-label="Enter Name"
+                    aria-describedby="basic-addon1"
+                    autoFocus
+                    name="first_name"
+                    value={inputData?.first_name || ""}
+                    onChange={(e) => handleInputChnage(e)}
+                  />
+                </InputGroup>
+              </Form.Group>
+            </Col>
+            <Col>
+              <Form.Group className="mb-3" controlId="location">
+                <Form.Label>Location*</Form.Label>
+                <InputGroup>
+                  <InputGroup.Text id="basic-addon1">
+                    <Image src={Images.LoginUserIcon} />
+                  </InputGroup.Text>
+                  <Form.Control
+                    type="text"
+                    placeholder="Enter Location"
+                    aria-label="Enter Location"
+                    aria-describedby="basic-addon1"
+                    autoFocus
+                    name="location"
+                    value={inputData?.location || ""}
+                    onChange={(e) => handleInputChnage(e)}
+                  />
+                </InputGroup>
+              </Form.Group>
+            </Col>
+          </Row>
           <Container fluid>
             <Row>
               <Col>
@@ -140,7 +211,7 @@ function AddAdminsPopup(props) {
                       placeholder="Enter Name"
                       autoFocus
                       name="user_name"
-                      value={inputData["user_name"] || ""}
+                      value={inputData?.user_name || ""}
                       onChange={(e) => handleInputChnage(e)}
                     />
                   </InputGroup>
@@ -183,7 +254,7 @@ function AddAdminsPopup(props) {
                       placeholder="Enter password"
                       autoFocus
                       name="password"
-                      value={inputData["password"] || ""}
+                      value={inputData?.password || ""}
                       onChange={(e) => handleInputChnage(e)}
                     />
                     <InputGroup.Text
@@ -207,7 +278,7 @@ function AddAdminsPopup(props) {
                       placeholder="Enter confirm password"
                       autoFocus
                       name="confirm_password"
-                      value={inputData["confirm_password"] || ""}
+                      value={inputData?.confirm_password || ""}
                       onChange={(e) => handleInputChnage(e)}
                     />
                     <InputGroup.Text
@@ -235,7 +306,7 @@ function AddAdminsPopup(props) {
                       autoFocus
                       aria-describedby="sharePercentage"
                       name="share"
-                      value={inputData["share"] || ""}
+                      value={inputData?.share || ""}
                       onChange={(e) => handleInputChnage(e)}
                     />
                   </InputGroup>
@@ -256,31 +327,61 @@ function AddAdminsPopup(props) {
                       placeholder="Enter Share"
                       autoFocus
                       aria-describedby="platComm"
-                      name="my_share"
-                      value={inputData["my_share"] || ""}
+                      name="ul_share"
+                      value={inputData?.ul_share || ""}
                       onChange={(e) => handleInputChnage(e)}
                     />
                   </InputGroup>
                 </Form.Group>
               </Col>
-              <Form.Group className="mb-3" controlId="adminPackages">
-                <Form.Label>Package*</Form.Label> account_role: {inputData['account_role'] || ""}
-                <InputGroup>
-                  <InputGroup.Text id="basic-addon1">
-                    <Image src={Images.packageIcon} style={{ width: "18px" }} />
-                  </InputGroup.Text>
-                  <Form.Select>
-                    <option value="">Select...</option>
-                    {packageList?.map(({ label, value }, index) => {
-                      return (
-                        <option value={value} key={index}>
-                          {label}
-                        </option>
-                      );
-                    })}
-                  </Form.Select>
-                </InputGroup>
-              </Form.Group>
+            </Row>
+            <Row>
+              <Col>
+                <Form.Group className="mb-3" controlId="adminPackages">
+                  <Form.Label>Package*</Form.Label> account_role:{" "}
+                  {inputData?.account_role || ""}
+                  <InputGroup>
+                    <InputGroup.Text id="basic-addon1">
+                      <Image
+                        src={Images.packageIcon}
+                        style={{ width: "18px" }}
+                      />
+                    </InputGroup.Text>
+                    <Form.Select>
+                      <option value="">Select...</option>
+                      {packageList?.map(({ label, value }, index) => {
+                        return (
+                          <option value={value} key={index}>
+                            {label}
+                          </option>
+                        );
+                      })}
+                    </Form.Select>
+                  </InputGroup>
+                </Form.Group>
+              </Col>
+              <Col>
+                {" "}
+                <Form.Group className="mb-3" controlId="myShare">
+                  <Form.Label>Package Discount*</Form.Label>
+                  <InputGroup>
+                    <InputGroup.Text id="basic-addon1">
+                      <Image src={Images.percentIcon} />
+                    </InputGroup.Text>
+                    <Form.Control
+                      type="text"
+                      placeholder="Enter Share"
+                      autoFocus
+                      aria-describedby="platComm"
+                      name="package_discount"
+                      value={inputData?.package_discount || ""}
+                      onChange={(e) => handleInputChnage(e)}
+                    />
+                  </InputGroup>
+                </Form.Group>
+              </Col>
+            </Row>
+            <Row>
               <Form.Group className="mb-3" controlId="adminPassword">
                 <Form.Label>Admin Password*</Form.Label>
                 <InputGroup>
@@ -292,7 +393,7 @@ function AddAdminsPopup(props) {
                     placeholder="Enter Admin Password"
                     autoFocus
                     name="creator_password"
-                    value={inputData["creator_password"] || ""}
+                    value={inputData?.creator_password || ""}
                     onChange={(e) => handleInputChnage(e)}
                   />
                   <InputGroup.Text
@@ -309,9 +410,15 @@ function AddAdminsPopup(props) {
           <Button
             className="w-100 add-user-button"
             disabled={isProcessing}
-            onClick={() => handleSubmitUserCreation()}
+            onClick={() => {
+              editData === true
+                ? handleUpdateUserAdmin()
+                : handleSubmitUserCreation();
+            }}
           >
-            {isProcessing ? "Processing..." : "Add"}
+            {/* {isProcessing ? "Processing..." : "Add"} */}
+
+            {editData === true ? "Update" : "Create"}
           </Button>
         </Form>
       </Modal.Body>

@@ -29,6 +29,18 @@
   color: #080c27 !important;
   font-weight: bold;
 }
+.head-name{
+  background: #112a5e;
+  width: fit-content;
+  border-radius: 20px;
+}
+.payment-scroll{
+  height: 120px;
+  overflow-y: scroll;
+}
+.border-none{
+  border: none;
+}
 .diamond-package-bg {
   background-image: linear-gradient(to left, rgba(232, 220, 233, 1), #fbcdf1);
   color: #080c27;
@@ -49,7 +61,7 @@
   background-color: #00143d;
 }
 .offer-percentage-div {
-  color: #fe6985;
+  color: #fe6985 !important;
   font-weight: bold;
   margin-bottom: -3rem;
   margin-left: 1rem;

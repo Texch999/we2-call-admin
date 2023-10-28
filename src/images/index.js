@@ -65,5 +65,14 @@ export const Images = {
   bankIcon: "./assets/bank.png",
   uploadIcon: "./assets/upload.png",
   callIcon:"./assets/callIcon.png",
-  Congratulations:"./assets/congrats_image.png"
+  Congratulations:"./assets/congrats_image.png",
+  dhawan_image: "./assets/dhawan.png",
+  sachin_image: "./assets/sachin.png",
+  kohli_image: "./assets/kohli.png",
+  dhoni_image: "./assets/dhoni.png",
+  rohit_image: "./assets/rohit.png",
+  raina_image: "./assets/raina.png",
+  no_chat_image: "/assets/no_chat_image.png",
 };
+
+export const ImageBaseUrl = "https://we2-call-images.s3.us-east-2.amazonaws.com";

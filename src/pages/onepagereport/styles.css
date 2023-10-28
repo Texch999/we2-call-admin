@@ -35,7 +35,7 @@
   cursor: pointer !important;
 }
 .yellow-border {
-  border: 1x soild #fce719;
+  border: 2px soild #fce719;
   color: #fce719;
 }
 .Platform-Comm-PL- {
@@ -51,4 +51,8 @@
 .custom-click-icon {
   font-size: 20px;
   color: #fce719;
+}
+.table-scroll-content {
+  height: 30vh;
+  overflow-x: scroll !important;
 }

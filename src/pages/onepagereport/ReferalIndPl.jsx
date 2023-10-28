@@ -1,20 +1,12 @@
 import React from "react";
 
-function ReferalIndPl() {
-  const PAGE_REPORT_DETAILS = [
-    { name: "Animesh", pl: "1000000.00" },
-    { name: "Animesh", pl: "1000000.00" },
-    { name: "Animesh", pl: "1000000.00" },
-    { name: "Animesh", pl: "1000000.00" },
-    { name: "Animesh", pl: "1000000.00" },
-    { name: "Animesh", pl: "1000000.00" },
-    { name: "Animesh", pl: "1000000.00" },
-    { name: "Animesh", pl: "1000000.00" },
-    { name: "Animesh", pl: "1000000.00" },
-    { name: "Animesh", pl: "1000000.00" },
-    { name: "Animesh", pl: "1000000.00" },
-    { name: "Animesh", pl: "1000000.00" },
-  ];
+function ReferalIndPl(props) {
+  const { ONE_PAGE_REPORT_DETAILS } = props;
+
+  const PAGE_REPORT_DETAILS = ONE_PAGE_REPORT_DETAILS?.map((item, index) => ({
+    name: item.client,
+    rfnet: item.rfnet,
+  }));
   const REFERAL_REPORT_DETAILS = [
     { name: "Animesh", pl: "1000000.00" },
     { name: "Animesh", pl: "1000000.00" },
@@ -57,7 +49,7 @@ function ReferalIndPl() {
               <tbody key={index}>
                 <tr className="text-center">
                   <td>{item.name}</td>
-                  <td className="clr-green">{item.pl}</td>
+                  <td className="clr-green">{item.rfnet}</td>
                 </tr>
               </tbody>
             ))}

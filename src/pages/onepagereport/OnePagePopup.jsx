@@ -5,7 +5,7 @@ import UlshareTable from "./UlshareTable";
 import MFRCTotalTable from "./MFRCTotalTable";
 
 function OnePagePopup(props) {
-  const { showReportPopup, setShowReportPopup } = props;
+  const { showReportPopup, setShowReportPopup, clientData } = props;
   const handleReportClose = () => {
     setShowReportPopup(false);
   };
@@ -36,12 +36,17 @@ function OnePagePopup(props) {
         show={showReportPopup}
         onHide={handleReportClose}
         centered
-        className="match-share-modal w-100 close-btn"
+        className="match-share-modal mt-5 w-100 close-btn"
       >
         <Modal.Header closeButton></Modal.Header>
         <Modal.Body className="p-3">
           <div className="w-100">
             <div>
+              <div className="w-25 mt-2 mb-1">
+                <div className="match-date-button rounded-pill small-font text-center p-1 ">
+                  ClientName:{clientData.client_name}
+                </div>
+              </div>
               <div className="w-25 mt-2 mb-1">
                 <div className="match-date-button rounded-pill small-font text-center p-1 ">
                   Date : 31/07/2023
@@ -57,21 +62,27 @@ function OnePagePopup(props) {
                   onClick={() => handleMfrcInputs()}
                 >
                   <div className="medium-font">
-                    Match+Fancy+Referal Comm = Total
+                    User
+                    <br />
+                    Match+Fancy+M Comm & F Comm / Rolling Comm
                   </div>
                 </div>
               </div>
-              <div className="w-25 d-flex justify-content-end">
+              <div className="w-50 d-flex justify-content-end">
                 <div
                   className={`match-entry-btn w-100 d-flex align-items-center justify-content-around rounded p-2 ms-1 me-1 ${
                     referalNetInputs ? "yellow-border" : ""
                   }`}
                   onClick={() => handleReferalReportInputs()}
                 >
-                  <div className="medium-font">Referal Net</div>
+                  <div className="medium-font">
+                    Referal Net
+                    <br />
+                    Match+Fancy+M Comm & F Comm / Rolling Comm
+                  </div>
                 </div>
               </div>
-              <div className="w-25 d-flex justify-content-end">
+              {/* <div className="w-25 d-flex justify-content-end">
                 <div
                   className={`match-entry-btn w-100 d-flex align-items-center justify-content-around rounded p-2 ms-1 me-1 ${
                     ulsharereportInputs ? "yellow-border" : ""
@@ -80,12 +91,12 @@ function OnePagePopup(props) {
                 >
                   <div className="medium-font">UL Share</div>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
-          {mfrcInputs && <MFRCTotalTable />}
-          {referalNetInputs && <ReferalNetTable />}
-          {ulsharereportInputs && <UlshareTable />}
+          {mfrcInputs && <MFRCTotalTable clientData={clientData} />}
+          {referalNetInputs && <ReferalNetTable clientData={clientData} />}
+          {/* {ulsharereportInputs && <UlshareTable />} */}
         </Modal.Body>
       </Modal>
     </div>

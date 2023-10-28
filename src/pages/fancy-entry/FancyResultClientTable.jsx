@@ -4,9 +4,10 @@ import MatchTable from "../match-entry/MatchTable";
 import { PiArrowCircleDownBold } from "react-icons/pi";
 import FancyResultCommPopup from "../fancy-popups/FancyResultCommPopup";
 
-function FancyResultClientTable() {
+function FancyResultClientTable({ profitLossData, selectedMatch }) {
   const [fancyResultSharePopup, setFancyResultSharePopup] = useState(false);
   const [fancyResultCommPopup, setFancyResultCommPopup] = useState(false);
+
   const handleFancyResultSharePopupOpen = () => {
     setFancyResultSharePopup(true);
   };
@@ -19,43 +20,42 @@ function FancyResultClientTable() {
   const handleFancyResultCommPopupClose = () => {
     setFancyResultCommPopup(false);
   };
-  const FANCY_CLIENT_TABLE_DATA = [
-    {
-      header: "Animesh",
-      grossPL: 50000000,
-      cNet: 50000000,
-      rfNet: 50000000,
-      netPL: 50000000,
-    },
-    {
-      header: "Animesh",
-      grossPL: 50000000,
-      cNet: 50000000,
-      rfNet: 50000000,
-      netPL: 50000000,
-    },
-    {
-      header: "Animesh",
-      grossPL: 50000000,
-      cNet: -50000000,
-      rfNet: -50000000,
-      netPL: 50000000,
-    },
-    {
-      header: "Animesh",
-      grossPL: 50000000,
-      cNet: 50000000,
-      rfNet: 50000000,
-      netPL: 50000000,
-    },
-    {
-      header: "Animesh",
-      grossPL: 50000000,
-      cNet: 50000000,
-      rfNet: 50000000,
-      netPL: 50000000,
-    },
-  ];
+  // console.log(profitLossData,"RRRRR");
+  const FANCY_CLIENT_TABLE_DATA =
+    profitLossData &&
+    Object.keys(profitLossData)?.map((key) => {
+      let {
+        amount,
+        clientCommission,
+        clientShare,
+        referalShare,
+        referralComission,
+        totalLossOrProfit,
+        upperLevalShare,
+      } = profitLossData[key];
+      return {
+        key: key,
+        header: key,
+        grossPL: parseFloat(amount),
+        cNet:
+          (
+            parseFloat(amount) +
+            (parseFloat(clientCommission) + parseFloat(clientShare))
+          ).toFixed(2) || 0,
+        rfNet:
+          (parseFloat(referalShare) + parseFloat(referralComission)).toFixed(
+            2
+          ) || 0,
+        netPL: parseFloat(totalLossOrProfit).toFixed(2),
+        upperLevalShare: parseFloat(upperLevalShare).toFixed(2),
+        // FancyPopupsData
+        clientShare: parseFloat(clientShare).toFixed(2) || 0,
+        rfShare: parseFloat(referalShare).toFixed(2) || 0,
+        clientComm: parseFloat(clientCommission).toFixed(2) || 0,
+        rfComm: parseFloat(referralComission).toFixed(2) || 0,
+      };
+    });
+
   const FANCY_CLIENT_HEADER_DATA = [
     { header: "CLIENT NAME", field: "header" },
     { header: "GROSS PL", field: "grossPL" },
@@ -68,23 +68,15 @@ function FancyResultClientTable() {
       <div className="row d-flex align-items-center match-position-bg p-2 rounded m-1">
         <div className="col-sm-4 col-lg-6">
           <div className="medium-font">
-            Fancy Result P/L - <span className="yellow-clr">IND vs PAK</span>
+            Fancy Result P/L -{" "}
+            <span className="yellow-clr">
+              {selectedMatch?.team1} vs {selectedMatch?.team2}
+            </span>
           </div>
         </div>
         <div className="col">
           <div
-            className="share-bg rounded-pill d-flex align-items-center justify-content-around p-1"
-            onClick={() => handleFancyResultSharePopupOpen()}
-          >
-            <div className="medium-font">Share</div>
-            <div>
-              <PiArrowCircleDownBold className="d-flex large-font" />
-            </div>
-          </div>
-        </div>
-        <div className="col">
-          <div
-            className="share-bg rounded-pill d-flex align-items-center justify-content-around p-1"
+            className="cursor-pointer share-bg rounded-pill d-flex align-items-center justify-content-around p-1"
             onClick={() => handleFancyResultCommPopupOpen()}
           >
             <div className="medium-font">Comm</div>
@@ -93,18 +85,33 @@ function FancyResultClientTable() {
             </div>
           </div>
         </div>
+        <div className="col">
+          <div
+            className="cursor-pointer share-bg rounded-pill d-flex align-items-center justify-content-around p-1"
+            onClick={() => handleFancyResultSharePopupOpen()}
+          >
+            <div className="medium-font">Share</div>
+            <div>
+              <PiArrowCircleDownBold className="d-flex large-font" />
+            </div>
+          </div>
+        </div>
       </div>
       <div className="mt-3">
         <MatchTable
-          data={FANCY_CLIENT_TABLE_DATA}
+          data={FANCY_CLIENT_TABLE_DATA || []}
           columns={FANCY_CLIENT_HEADER_DATA}
         />
       </div>
       <FancyResultNameSharePopup
+        selectedMatch={selectedMatch}
+        clientShareData={FANCY_CLIENT_TABLE_DATA}
         fancyResultSharePopup={fancyResultSharePopup}
         handleFancyResultSharePopupClose={handleFancyResultSharePopupClose}
       />
       <FancyResultCommPopup
+        selectedMatch={selectedMatch}
+        clientCommData={FANCY_CLIENT_TABLE_DATA}
         fancyResultCommPopup={fancyResultCommPopup}
         handleFancyResultCommPopupClose={handleFancyResultCommPopupClose}
       />

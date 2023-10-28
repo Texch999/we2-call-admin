@@ -1,26 +1,39 @@
 import React from "react";
 
-function ULShareIndPlData() {
-  const PAGE_REPORT_DETAILS = [
-    {
-      date: "25-07-2023",
-      matchname: "India vs Sri Lanka",
-      winteam: "India",
-      Ulshare: "50000000.00",
-    },
-    {
-      date: "25-07-2023",
-      matchname: "India vs Sri Lanka",
-      winteam: "India",
-      Ulshare: "50000000.00",
-    },
-    {
-      date: "25-07-2023",
-      matchname: "India vs Sri Lanka",
-      winteam: "India",
-      Ulshare: "50000000.00",
-    },
-  ];
+function ULShareIndPlData(props) {
+  // const PAGE_REPORT_DETAILS = [
+  //   {
+  //     date: "25-07-2023",
+  //     matchname: "India vs Sri Lanka",
+  //     urnetpl: "1000000",
+  //     winteam: "India",
+  //     Ulshare: "50000000.00",
+  //   },
+  //   {
+  //     date: "25-07-2023",
+  //     matchname: "India vs Sri Lanka",
+  //     winteam: "India",
+  //     urnetpl: "1000000",
+  //     Ulshare: "50000000.00",
+  //   },
+  //   {
+  //     date: "25-07-2023",
+  //     matchname: "India vs Sri Lanka",
+  //     winteam: "India",
+  //     urnetpl: "1000000",
+
+  //     Ulshare: "50000000.00",
+  //   },
+  // ];
+  const { ONE_PAGE_REPORT_DETAILS } = props;
+  const PAGE_REPORT_DETAILS = ONE_PAGE_REPORT_DETAILS?.map((item, index) => ({
+    date: "25-07-2023",
+    matchname: "India vs Sri Lanka",
+    winteam: "India",
+    urnetpl: "1000000",
+    Ulshare: item.totalpl,
+  }));
+  console.log(PAGE_REPORT_DETAILS, "one page report");
   return (
     <div>
       <h6 className="Platform-Comm-PL-">UL Share P/L :</h6>
@@ -30,22 +43,24 @@ function ULShareIndPlData() {
             <th>DATE</th>
             <th>MATCH NAME</th>
             <th>WIN TEAM</th>
+            <th>Urs Net P/L</th>
             <th>UL SHARE P/L</th>
           </tr>
         </thead>
-        {PAGE_REPORT_DETAILS.map((item, index) => (
+        {PAGE_REPORT_DETAILS?.map((item, index) => (
           <tbody key={index}>
             <tr className="text-center">
               <td>{item.date}</td>
               <td>{item.matchname}</td>
               <td>{item.winteam}</td>
-              <td className="clr-green"> {item.Ulshare}</td>
+              <td>{item.urnetpl}</td>
+              <td> {item.Ulshare}</td>
             </tr>
           </tbody>
         ))}
         <tfoot>
           <tr className="text-center">
-            <th colSpan={3} className="text-end">
+            <th colSpan={4} className="text-end">
               TOTAL
             </th>
             <th colSpan={1} className="clr-green">

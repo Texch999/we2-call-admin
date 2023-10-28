@@ -2,11 +2,9 @@ import { Container, Form, Row, Col, InputGroup, Image } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { Images } from "../../images";
-
 import { useState } from "react";
 
 function AddNewMeetingsPopUp(props) {
-  console.log(props);
   const { meetingType, onHide, show, label, selectData } = props;
   const handleAddUser = () => {
     onHide();
@@ -81,12 +79,6 @@ function AddNewMeetingsPopUp(props) {
                       autoFocus
                       className="fs-8rem"
                     />
-                    {/* <InputGroup.Text id="basic-addon1">
-                      <Image
-                        src={Images.calendarIcon}
-                        className="date-time-icon"
-                      />
-                    </InputGroup.Text> */}
                   </InputGroup>
                 </Form.Group>
               </Col>
@@ -100,12 +92,6 @@ function AddNewMeetingsPopUp(props) {
                       className="fs-8rem"
                       autoFocus
                     />
-                    {/* <InputGroup.Text id="basic-addon1">
-                      <Image
-                        src={Images.clockIcon}
-                        className="date-time-icon"
-                      />
-                    </InputGroup.Text> */}
                   </InputGroup>
                 </Form.Group>
               </Col>

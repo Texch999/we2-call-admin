@@ -7,10 +7,13 @@ import { GiClick } from "react-icons/gi";
 import AddAdminsPopup from "./AddAdminsPopup";
 import { MdArrowForwardIos } from "react-icons/md";
 import PackageViewPopUp from "./PackageViewPopUp";
-import { GET_ALL_CLIENTS } from "../../config/endpoints";
+import { GET_ALL_CLIENTS, BLOCKUNBLOCK } from "../../config/endpoints";
 import { call } from "../../config/axios";
+import ChangePassword from "./ChangePassword";
+import MatchSubmitPopup from "../match-popups/MatchSubmitPopup";
 
 const AddAdmins = () => {
+  console.log("testing... add admins")
   let register_id = localStorage?.getItem("register_id");
   let creator_id = localStorage?.getItem("creator_id");
   let account_role = localStorage?.getItem("account_role");
@@ -21,7 +24,11 @@ const AddAdmins = () => {
   const [packageViewPopShow, setPackageViewPopup] = useState(false);
 
   const [usersData, setUsersData] = useState([]);
+  const [adminsData, setAdminsData] = useState();
   const [isUserAdded, setIsUserAdded] = useState(false);
+  const [changepasswordPopup, setChangepasswordPopup] = useState(false);
+  const [changePasswordSubmit, setChangePasswordSubmit] = useState(false);
+  const [editData, setEditData] = useState(false);
 
   const addUsersData =
     usersData?.length > 0 &&
@@ -32,19 +39,61 @@ const AddAdmins = () => {
           s_no: index + 1,
           user_name: user?.user_name,
           type: user?.account_role,
-          location: "Hyderabad",
-          user: "",
+          share: user?.share,
+          ul_share: user?.ul_share,
+          location: user?.location,
           profit_loss: 0,
           package: 1,
+          register_id: user?.register_id,
+          creator_id: user?.creator_id,
+          active: user?.active,
         };
       });
 
-  const ACTION_LABELS = {
-    cp: "CP",
-    edit: "EDIT",
-    b: "B",
-    ub: "UB",
+  console.log(
+    usersData.filter((obj) => obj.location),
+    "usersData"
+  );
+  const handleCpButton = () => {
+    // eslint-disable-next-line no-lone-blocks
+    setChangepasswordPopup(true);
   };
+
+  const handleEditButton = (data) => {
+    setAdminsData(data);
+    setModalShow(true);
+    setEditData(true);
+  };
+
+  const handleAddAdmins = () => {
+    setAdminsData(false);
+    setModalShow(true);
+    setEditData(false);
+  };
+
+  const handleBlock = async (data) => {
+    await call(BLOCKUNBLOCK, {
+      register_id: data?.register_id,
+      creator_id: register_id,
+      active: !data?.active,
+      account_role: data?.type,
+    })
+      .then((res) => {
+        getAllClients();
+      })
+      .catch((err) => console.log(err));
+  };
+  const ACTION_LABELS = [
+    {
+      name: "CP",
+    },
+    { name: "EDIT" },
+    // b: "B",
+    {
+      name: "UB",
+      onclick: handleBlock,
+    },
+  ];
   const handleUserChange = (e) => {
     setFilteredValue(e.target.value);
   };
@@ -52,7 +101,6 @@ const AddAdmins = () => {
   const getAllClients = async () => {
     await call(GET_ALL_CLIENTS, { register_id, account_role })
       .then((res) => {
-        // console.log(res?.data?.data);
         setUsersData(res?.data?.data);
       })
       .catch((err) => console.log(err));
@@ -61,6 +109,10 @@ const AddAdmins = () => {
   useEffect(() => {
     getAllClients();
   }, [isUserAdded]);
+
+  useEffect(() => {
+    getAllClients();
+  }, [adminsData]);
 
   return (
     <div className="p-4">
@@ -98,9 +150,9 @@ const AddAdmins = () => {
             </div>
             <Button
               className="add-new-meetings-button"
-              onClick={() => setModalShow(true)}
+              onClick={() => handleAddAdmins()}
             >
-              + Add Users/Admins
+              + Add Admins
             </Button>
           </Form>
         </div>
@@ -110,11 +162,13 @@ const AddAdmins = () => {
         <Table responsive="md" className="call-management-data">
           <thead>
             <tr>
-              <th></th>
+              <th class="text-center">S NO</th>
               <th className="text-center">USER NAME</th>
               <th className="text-center">TYPE</th>
-              <th className="text-center">PACKAGE</th>
+              <th className="text-center">C Share</th>
+              <th className="text-center">My Share</th>
               <th className="text-center">LOCATION</th>
+              <th className="text-center">PACKAGE</th>
               <th className="text-center">REFERRAL</th>
               <th className="text-center">P/L</th>
               <th className="text-center">ACTION</th>
@@ -131,19 +185,33 @@ const AddAdmins = () => {
                   </td>
 
                   <td className="text-center">{data?.type}</td>
-                  <td className="text-center">{data?.package}</td>
+                  <td className="text-center">{data?.share}</td>
+                  <td className="text-center">{data?.ul_share}</td>
                   <td className="text-center">{data?.location}</td>
+                  <td className="text-center">{data?.package}</td>
                   <td className="text-center">{data?.user}</td>
                   <td className="text-center">{data?.profit_loss}</td>
                   <td className="text-center">
-                    {Object.keys(ACTION_LABELS).map((action, index) => (
-                      <Button
-                        key={index}
-                        className={`rounded meeting-status-button ${action}-button me-2`}
-                      >
-                        {ACTION_LABELS[action]}
-                      </Button>
-                    ))}
+                    <Button
+                      className="text-center rounded meeting-status-button EDIT-button me-2"
+                      onClick={() => handleCpButton()}
+                    >
+                      CP
+                    </Button>
+                    <Button
+                      className="text-center rounded meeting-status-button EDIT-button me-2"
+                      onClick={() => handleEditButton(data)}
+                    >
+                      EDIT
+                    </Button>
+                    <Button
+                      className={`text-center rounded meeting-status-button EDIT-button me-2 ${
+                        data?.active ? "clr-blue" : "clr-red"
+                      }`}
+                      onClick={() => handleBlock(data)}
+                    >
+                      {data?.active ? "UB" : "B"}
+                    </Button>
                   </td>
                 </tr>
               ))}
@@ -167,8 +235,16 @@ const AddAdmins = () => {
           </tfoot>
           {modalShow && (
             <AddAdminsPopup
+              Heading={`${adminsData ? "Update Admins" : "Add Admins"} `}
               show={modalShow}
-              onHide={() => setModalShow(false)}
+              setModalShow={setModalShow}
+              adminsData={adminsData}
+              usersData={usersData}
+              editData={editData}
+              onhideClick={(e) => {
+                setAdminsData({});
+                setModalShow(e);
+              }}
               setIsUserAdded={setIsUserAdded}
             />
           )}
@@ -178,6 +254,16 @@ const AddAdmins = () => {
               onHide={() => setPackageViewPopup(false)}
             />
           )}
+          <ChangePassword
+            showChangePopup={changepasswordPopup}
+            setShowChangePopup={setChangepasswordPopup}
+            setChangePasswordSubmit={setChangePasswordSubmit}
+          />
+          <MatchSubmitPopup
+            header={"You Are Successfully Changed your Password"}
+            state={changePasswordSubmit}
+            setState={setChangePasswordSubmit}
+          />
         </Table>
       </div>
     </div>
@@ -185,3 +271,5 @@ const AddAdmins = () => {
 };
 
 export default AddAdmins;
+
+
