@@ -61,7 +61,7 @@ const GET_REQUEST_PACKAGES =
   "/packages/get_package_histroy_bypackage_requestid";
 const GET_ADMIN_PACKAGE_REQUEST = "/packages/get_all_admin_package_request";
 const GET_REASON_REJECTIONS = "/settings/getall_security_questions";
-
+const DELETE_OFFLINE_CLIENT = "/offline-management/delete_clients";
 
 // methods
 const DELETE = "DELETE";
@@ -339,5 +339,10 @@ exports.GET_ADMIN_PACKAGE_REQUEST = {
 
 exports.GET_REASON_REJECTIONS = {
   url: GET_REASON_REJECTIONS,
+  method: POST,
+};
+
+exports.DELETE_OFFLINE_CLIENT = {
+  url: DELETE_OFFLINE_CLIENT,
   method: POST,
 };
