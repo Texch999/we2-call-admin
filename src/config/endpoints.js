@@ -236,11 +236,6 @@ exports.GET_SETTLEMENT_HISTORY = {
   method: POST,
 };
 
-// exports.GET_CLIENTS_DATA = {
-//   url: GET_CLIENTS_DATA,
-//   method: POST,
-// };
-
 exports.ACCOUNT_REGISTERATION = {
   url: ACCOUNT_REGISTERATION,
   method: POST,
