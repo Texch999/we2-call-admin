@@ -34,6 +34,7 @@ function FancyResultClientTable({ profitLossData, selectedMatch }) {
         upperLevalShare,
       } = profitLossData[key];
       return {
+        key: key,
         header: key,
         grossPL: parseFloat(amount).toFixed(2) || 0,
         cNet:
@@ -45,8 +46,8 @@ function FancyResultClientTable({ profitLossData, selectedMatch }) {
           (parseFloat(referalShare) + parseFloat(referralComission)).toFixed(
             2
           ) || 0,
-        netPL: parseFloat(totalLossOrProfit).toFixed(2),
-        upperLevalShare: parseFloat(upperLevalShare).toFixed(2),
+        netPL: parseFloat(totalLossOrProfit).toFixed(2) || 0,
+        upperLevalShare: parseFloat(upperLevalShare).toFixed(2) || 0,
         // FancyPopupsData
         clientShare: parseFloat(clientShare).toFixed(2) || 0,
         rfShare: parseFloat(referalShare).toFixed(2) || 0,
@@ -76,9 +77,9 @@ function FancyResultClientTable({ profitLossData, selectedMatch }) {
         <div className="col">
           <div
             className="cursor-pointer share-bg rounded-pill d-flex align-items-center justify-content-around p-1"
-            onClick={() => handleFancyResultSharePopupOpen()}
+            onClick={() => handleFancyResultCommPopupOpen()}
           >
-            <div className="medium-font">Share</div>
+            <div className="medium-font">Comm</div>
             <div>
               <PiArrowCircleDownBold className="d-flex large-font" />
             </div>
@@ -87,9 +88,9 @@ function FancyResultClientTable({ profitLossData, selectedMatch }) {
         <div className="col">
           <div
             className="cursor-pointer share-bg rounded-pill d-flex align-items-center justify-content-around p-1"
-            onClick={() => handleFancyResultCommPopupOpen()}
+            onClick={() => handleFancyResultSharePopupOpen()}
           >
-            <div className="medium-font">Comm</div>
+            <div className="medium-font">Share</div>
             <div>
               <PiArrowCircleDownBold className="d-flex large-font" />
             </div>

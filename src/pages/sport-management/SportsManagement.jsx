@@ -276,7 +276,7 @@ function SportsManagement() {
       sport_name: matchData?.sport_name,
       game_object: {
         first_innings_fancy_overs: matchData?.match_fancy_first,
-        second_innings_fancy_overs: matchData?.match_fancy_first,
+        second_innings_fancy_overs: matchData?.match_fancy_second,
         match_type: matchData.macth_Type,
       },
     })

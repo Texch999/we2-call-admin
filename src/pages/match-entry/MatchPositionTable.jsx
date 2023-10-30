@@ -169,9 +169,9 @@ function MatchPositionTable(props) {
         <div className="col">
           <div
             className="cursor-pointer share-bg rounded-pill d-flex align-items-center justify-content-around p-1"
-            onClick={() => handleOpenMatchShareModal()}
+            onClick={() => handleOpenMatchCommModal()}
           >
-            <div className="medium-font">Share</div>
+            <div className="medium-font">Comm</div>
             <div>
               <PiArrowCircleDownBold className="d-flex large-font" />
             </div>
@@ -180,9 +180,9 @@ function MatchPositionTable(props) {
         <div className="col">
           <div
             className="cursor-pointer share-bg rounded-pill d-flex align-items-center justify-content-around p-1"
-            onClick={() => handleOpenMatchCommModal()}
+            onClick={() => handleOpenMatchShareModal()}
           >
-            <div className="medium-font">Comm</div>
+            <div className="medium-font">Share</div>
             <div>
               <PiArrowCircleDownBold className="d-flex large-font" />
             </div>

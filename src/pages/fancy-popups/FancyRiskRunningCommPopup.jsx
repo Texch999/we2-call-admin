@@ -10,7 +10,7 @@ function FancyRiskRunningCommPopup(props) {
   const OVERS_COMM_DATA =
     data?.length > 0 &&
     data?.map((fancy) => ({
-      header: fancy?.key,
+      header: `${fancy?.key} Runs`,
       clientComm: fancy?.clientComm,
       rfComm: fancy?.rfComm,
     }));
@@ -22,7 +22,7 @@ function FancyRiskRunningCommPopup(props) {
   //     rfComm: 50000000,
   //   },
   // ];
-  
+
   const MATCH_POSITION_HEADER_DATA = [
     { header: "Runs", field: "header" },
     { header: "Client Comm", field: "clientComm" },

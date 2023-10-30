@@ -24,17 +24,20 @@ function MatchEntry() {
   const [matchAccountData, setMatchAccountData] = useState([]);
   const [selectedMatchEntry, setSelectedMatchEntry] = useState("");
   const [status, setStatus] = useState(false);
-  const [afterDeclare, setAfterDeclare] = useState(false)
+  const [afterDeclare, setAfterDeclare] = useState(false);
 
   // Function to fetch all matches
   const getAllMatches = async () => {
     await call(GET_OFFLINE_ALL_MATCHES, { register_id, account_role })
       .then((res) => {
         let result = res?.data?.data;
-        setAllMatches(result?.liveMatches);
-        setSelectedMatch(
-          (result && result?.liveMatches && result?.liveMatches[0]) || ""
+        const temp = result?.liveMatches?.filter(
+          (i) => i.match_declared !== "Y"
         );
+        setAllMatches(temp);
+        // setSelectedMatch(
+        //   (result && result?.liveMatches && result?.liveMatches[0]) || ""
+        // );
       })
       .catch((err) => console.log(err));
   };
@@ -77,11 +80,11 @@ function MatchEntry() {
   useEffect(() => {
     const fetchMatchInfo = async () => {
       if (selectedMatch) {
-        getMatchInfo();
+        await getMatchInfo();
       }
     };
     fetchMatchInfo();
-  }, [selectedMatch,afterDeclare]);
+  }, [selectedMatch?.match_id, afterDeclare]);
 
   return (
     <div>

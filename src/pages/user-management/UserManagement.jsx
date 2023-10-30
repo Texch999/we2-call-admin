@@ -15,6 +15,7 @@ import {
   GET_OFFLINE_CLIENT_DETAILS,
   GET_ALL_CLIENTS,
   GET_REFFERAL_DATA,
+  CREATE_OFFLINE_CLIENT,
 } from "../../config/endpoints";
 import CreateReferral from "./CreateReferral";
 
@@ -74,9 +75,49 @@ function UserManagement() {
   ];
   const [createUserSubmit, setCreateUserSubmit] = useState(false);
   const [showCreateRefer, setShowCreateRefer] = useState(false);
-  const handleSubmitUser = () => {
+
+  const handleSubmitUser = async () => {
     setCreateUserSubmit(true);
+    if (
+      (!userDetails?.alias_name,
+      !userDetails?.client_type,
+      !userDetails?.select_client,
+      !userDetails?.refer_name,
+      !userDetails?.rf_share,
+      !userDetails?.rf_fancy_comm,
+      !userDetails?.rf_comm,
+      !userDetails?.deposite_credite,
+      !userDetails?.location,
+      !userDetails?.match_risk_limit)
+    ) {
+      return setError("Please Enter All Field");
+    }
+    let userDeatailsPayload = {
+      existing_user_id: clientId[0].register_id,
+      register_id: register_id,
+      account_role: account_role,
+      client_type: userDetails?.client_type,
+      client_name: userDetails?.select_client,
+      referral_name: userDetails?.refer_name,
+      referal_id: selectedRefferal?.refferal_id,
+      master_share: localStorage?.getItem("share") || 0,
+      ul_share: localStorage?.getItem("ul_share") || 0,
+    };
+
+    await call(CREATE_OFFLINE_CLIENT, userDeatailsPayload).then((res) => {
+      if (res?.data?.statusCode === 200) {
+        setAddClientStatus((prev) => !prev);
+      }
+    });
   };
+
+  const clientId = allClients.filter((item) => {
+    return item.first_name === userDetails?.select_client;
+  });
+
+  // const clientId = allClients;
+
+  console.log(clientId, "......client id");
 
   const userColumns = [
     { header: "USER NAME", field: "client_name" },
@@ -155,11 +196,9 @@ function UserManagement() {
     getOfflineClients();
   }, [addClientStatus]);
 
-  // console.log(clientData, ".......existing Users DatA");
-
-  // console.log(refferalData, "referdata.........");
-
   console.log(userDetails, "....userDetails");
+
+  console.log(clientId[0], ".....clientId");
 
   return (
     <div className="p-3">
@@ -396,6 +435,7 @@ function UserManagement() {
           </div>
         </div>
       </div>
+      {error}
       <hr className="mt-4" />
 
       <Table

@@ -11,7 +11,7 @@ function FancyRiskRunningSharePopup(props) {
   const OVERS_COMM_DATA =
     data?.length > 0 &&
     data?.map((fancy) => ({
-      header: fancy?.key,
+      header: `${fancy?.key} Runs`,
       clientShare: fancy?.clientShare,
       rfShare: fancy?.rfShare,
     }));

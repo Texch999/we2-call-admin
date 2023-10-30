@@ -27,7 +27,8 @@ function FancyRiskRunningTable({ riskRunningData }) {
         ulComm,
       } = riskRunningData[key];
       return {
-        header: key,
+        key: key,
+        header: `${key} Runs`,
         amount: parseFloat(amount).toFixed(2) || 0,
         cPosition: (
           parseFloat(clientCommission || 0) + parseFloat(clientShare || 0)
@@ -71,9 +72,9 @@ function FancyRiskRunningTable({ riskRunningData }) {
         <div className="col">
           <div
             className="cursor-pointer share-bg rounded-pill d-flex align-items-center justify-content-around p-1"
-            onClick={() => handleFancyRiskSharePopupOpen()}
+            onClick={() => handleFancyRiskCommPopupOpen()}
           >
-            <div className="medium-font">Share</div>
+            <div className="medium-font">Comm</div>
             <div>
               <PiArrowCircleDownBold className="d-flex large-font" />
             </div>
@@ -82,9 +83,9 @@ function FancyRiskRunningTable({ riskRunningData }) {
         <div className="col">
           <div
             className="cursor-pointer share-bg rounded-pill d-flex align-items-center justify-content-around p-1"
-            onClick={() => handleFancyRiskCommPopupOpen()}
+            onClick={() => handleFancyRiskSharePopupOpen()}
           >
-            <div className="medium-font">Comm</div>
+            <div className="medium-font">Share</div>
             <div>
               <PiArrowCircleDownBold className="d-flex large-font" />
             </div>

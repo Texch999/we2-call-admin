@@ -3,7 +3,8 @@ import ClientPLData from "./ClientPLData";
 import AdminsTable from "../onepagereport/AdminsTable";
 import { Col, Container, Row } from "react-bootstrap";
 import { GiClick } from "react-icons/gi";
-function ClientPLTable() {
+function ClientPLTable(props) {
+  const { popupData } = props;
   const CLIENTPL_DETAILS = [
     {
       name: "Animesh",
@@ -125,7 +126,7 @@ function ClientPLTable() {
             <td>90,000</td>
             <td>9000</td>
             <td>0.00</td>
-            <td>81000</td>
+            <td>{popupData?.totalAmount?.totalLossOrProfit}</td>
           </tr>
         </tbody>
       </table>

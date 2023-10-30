@@ -17,11 +17,10 @@ import { call } from "../../config/axios";
 function FancyEntry() {
   const [allMatches, setAllMatches] = useState([]);
   const [selectedMatch, setSelectedMatch] = useState([]);
-  const [matchPositionData, setMatchPositionData] = useState([]);
   const [afterDeclare, setAfterDeclare] = useState(false);
   const [matchAccountData, setMatchAccountData] = useState([]);
   const [matchOver, setMatchOver] = useState(1);
-  const [matchInnings, setMatchInnings] = useState("first");
+  const [matchInnings, setMatchInnings] = useState("1");
   const [riskRunningData, setRiskRunningData] = useState([]);
   const [profitLossData, setProfitLossData] = useState([]);
   const [status, setStatus] = useState(false);
@@ -32,29 +31,54 @@ function FancyEntry() {
   let account_role = localStorage?.getItem("account_role");
 
   const getAllMatches = async () => {
-    await call(GET_OFFLINE_ALL_MATCHES, { register_id, account_role })
+    await call(GET_OFFLINE_ALL_MATCHES, {
+      register_id,
+      account_role,
+    })
       .then((res) => {
         let result = res?.data?.data;
-        setAllMatches(result.liveMatches);
-        setSelectedMatch(
-          result && result?.liveMatches && result?.liveMatches[0]
+        const temp = result?.liveMatches?.filter(
+          (i) => i.match_declared !== "Y"
         );
+        setAllMatches(temp);
+        setSelectedMatch((temp && temp[0]) || "");
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+      });
   };
+
   useEffect(() => {
     const fetchData = async () => {
       await getAllMatches();
     };
+
     fetchData();
   }, [afterDeclare]);
 
+  const getMatchInfo = async () => {
+    await call(GET_ACCOUNT_MATCHES_DATA, {
+      register_id,
+      match_id: selectedMatch?.match_id,
+    })
+      .then(async (res) => {
+        let temp =
+          res?.data && res?.data?.data && res?.data?.data[0]
+            ? res?.data?.data[0]
+            : res?.data?.data;
+        setMatchAccountData(temp);
+        await getRiskRunningData(temp?.registered_match_id);
+        await getFancyProfitLoss(temp?.registered_match_id);
+      })
+      .catch((err) => console.log(err));
+  };
+
   const getRiskRunningData = async (ID) => {
     await call(RISK_RUNNING_SESSION, {
-      registered_match_id: ID ? ID : matchAccountData?.registered_match_id,
       register_id,
+      registered_match_id: ID ? ID : matchAccountData?.registered_match_id,
       match_over: matchOver,
-      innings: matchInnings === "secong" ? "2" : "1",
+      innings: matchInnings === "2" ? "2" : "1",
     })
       .then((res) => {
         setRiskRunningData(res?.data?.data);
@@ -70,32 +94,16 @@ function FancyEntry() {
       .then((res) => {
         setProfitLossData(res?.data?.data);
       })
-      .then((err) => console.log(err));
-  };
-
-  const getMatchInfo = async () => {
-    await call(GET_ACCOUNT_MATCHES_DATA, {
-      register_id,
-      match_id: selectedMatch?.match_id,
-    })
-      .then(async (res) => {
-        let temp =
-          res.data && res?.data.data && res?.data.data[0]
-            ? res.data.data[0]
-            : res.data.data;
-        setMatchAccountData(temp);
-        await getRiskRunningData(temp?.registered_match_id);
-        await getFancyProfitLoss(temp?.registered_match_id);
-      })
       .catch((err) => console.log(err));
   };
 
   useEffect(() => {
     const fetchMatchInfo = async () => {
       if (selectedMatch) {
-        getMatchInfo();
+        await getMatchInfo();
       }
     };
+
     fetchMatchInfo();
   }, [selectedMatch, afterDeclare]);
 
@@ -115,26 +123,20 @@ function FancyEntry() {
           selectedMatch={selectedMatch}
           profitLossData={profitLossData?.oversObject}
         />
-        <FancyRiskRunningTable
-          riskRunningData={riskRunningData}
-        />
+        <FancyRiskRunningTable riskRunningData={riskRunningData} />
       </div>
       <FancyEntries
-        // fancyEntryInputs={fancyEntryInputs}
-        // fancyResultInputs={fancyResultInputs}
-        // handleFancyEntryOpen={handleFancyEntryOpen}
-        // handleFancyResultOpen={handleFancyResultOpen}
         selectedMatch={selectedMatch}
         matchAccountData={matchAccountData}
         selectedMatchEntry={selectedMatchEntry}
         setSelectedMatchEntry={setSelectedMatchEntry}
         setStatus={setStatus}
-        setMatchInnings={setMatchInnings}
         setMatchOver={setMatchOver}
         getRiskRunningData={getRiskRunningData}
         getFancyProfitLoss={getFancyProfitLoss}
         profitLossData={profitLossData?.oversObject}
         setAfterDeclare={setAfterDeclare}
+        setMatchInnings={setMatchInnings}
       />
       <FancyEntryTable
         selectedMatch={selectedMatch}

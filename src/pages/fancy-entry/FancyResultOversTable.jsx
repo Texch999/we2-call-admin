@@ -30,13 +30,19 @@ function FancyResultOversTable({ profitLossData, selectedMatch }) {
         upperLevalShare,
       } = profitLossData[key];
       return {
-        header: key,
-        grossPL: parseFloat(amount),
+        key: key,
+        header: `${key} Overs`,
+        grossPL: parseFloat(amount).toFixed(2),
         cNet:
-          parseFloat(amount) +
-          (parseFloat(clientCommission) + parseFloat(clientShare)),
-        rfNet: parseFloat(referalShare) + parseFloat(referralComission) || 0,
-        netPL: parseFloat(totalLossOrProfit),
+          (
+            parseFloat(amount) +
+            (parseFloat(clientCommission) + parseFloat(clientShare))
+          ).toFixed(2) || 0,
+        rfNet:
+          (parseFloat(referalShare) + parseFloat(referralComission)).toFixed(
+            2
+          ) || 0,
+        netPL: parseFloat(totalLossOrProfit).toFixed(2),
         upperLevalShare: parseFloat(upperLevalShare),
         //FancyOversPopupData
         clientShare: parseFloat(clientShare),
@@ -75,9 +81,9 @@ function FancyResultOversTable({ profitLossData, selectedMatch }) {
         <div className="col">
           <div
             className="cursor-pointer share-bg rounded-pill d-flex align-items-center justify-content-around p-1"
-            onClick={() => handleFancyResultSharePopupOpen()}
+            onClick={() => handleFancyResultCommPopupOpen()}
           >
-            <div className="medium-font">Share</div>
+            <div className="medium-font">Comm</div>
             <div>
               <PiArrowCircleDownBold className="d-flex large-font" />
             </div>
@@ -86,9 +92,9 @@ function FancyResultOversTable({ profitLossData, selectedMatch }) {
         <div className="col">
           <div
             className="cursor-pointer share-bg rounded-pill d-flex align-items-center justify-content-around p-1"
-            onClick={() => handleFancyResultCommPopupOpen()}
+            onClick={() => handleFancyResultSharePopupOpen()}
           >
-            <div className="medium-font">Comm</div>
+            <div className="medium-font">Share</div>
             <div>
               <PiArrowCircleDownBold className="d-flex large-font" />
             </div>

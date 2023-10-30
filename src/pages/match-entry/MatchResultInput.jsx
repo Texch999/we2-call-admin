@@ -18,6 +18,8 @@ function MatchResultInput({
   const [error, setError] = useState("");
   const [isProcessing, setIsProcessing] = useState(false);
   const [matchSubmitSuccessPopup, setMatchSubmitSuccessPopup] = useState(false);
+  const [confirmDeclaration, setConfirmDeclaration] = useState(false);
+  const [afterConfirm, setAfterConfirm] = useState(false);
   const handleMatchSubmitSuccessPopupOpen = () => {
     setMatchSubmitSuccessPopup(true);
     setMatchSubmitPopup(false);
@@ -29,11 +31,16 @@ function MatchResultInput({
       [e.target.name]: e.target.value,
     });
   };
-  const handleMatchDeclarePopupOpen = async () => {
+  const handleConfirmDeclaration = async () => {
     if ((!matchResultInputData?.team, !matchResultInputData?.declarestatus)) {
       return setError("Please Enter Required Fields");
     }
+    setConfirmDeclaration(true);
+  };
+  const handleMatchDeclarePopupOpen = async () => {
+    setConfirmDeclaration(false);
     setIsProcessing(true);
+    setAfterConfirm(true);
     setError("");
     await call(MATCH_DECLARATION, {
       registered_match_id: registered_match_id,
@@ -47,13 +54,13 @@ function MatchResultInput({
       .then((res) => {
         setIsProcessing(false);
         if (res.data.statusCode === 200) {
-          setMatchSubmitPopup(true);
-          // setTimeout(() => {
-          //   setMatchSubmitPopup(false);
-          // }, 1000);
-          setAfterDeclare((prev) => !prev);
+          setConfirmDeclaration(false);
+          setTimeout(() => {
+            setAfterConfirm(false);
+          }, 2000);
           setError("");
         } else {
+          setConfirmDeclaration(false);
           setError(
             res?.data?.message ? res?.data?.message : `Something Went Wrong`
           );
@@ -140,29 +147,39 @@ function MatchResultInput({
         <div className="col d-flex align-items-end">
           <button
             className="cursor-pointer w-100 text-center rounded medium-font p-2 yellow-btn fw-semibold"
-            onClick={() => handleMatchDeclarePopupOpen()}
+            onClick={() => {
+              handleConfirmDeclaration();
+            }}
             disabled={isProcessing}
           >
-            Result Declaration
+            {isProcessing ? "Declaring..." : "Result Declaration"}
           </button>
         </div>
         {error && (
           <div className="clr-red text-center medium-font">{error}</div>
         )}
       </div>
-      <MatchDeclarationPopup
-        header={"Are You Sure You Want Declare The Match"}
-        amount={"1000000"}
-        state={matchSubmitPopup}
-        setState={setMatchSubmitPopup}
-        handleMatchDeclarePopupClose={handleMatchDeclarePopupClose}
-        handleMatchSubmitSuccessPopupOpen={handleMatchSubmitSuccessPopupOpen}
-      />
-      <MatchSubmitPopup
-        header={"You Are Successfully Submited Your Match to Win IND"}
-        state={matchSubmitSuccessPopup}
-        setState={setMatchSubmitSuccessPopup}
-      />
+      {confirmDeclaration && (
+        <MatchDeclarationPopup
+          header={"Are You Sure You Want Declare The Match"}
+          amount={"1000000"}
+          state={confirmDeclaration}
+          setState={setConfirmDeclaration}
+          handleMatchDeclarePopupOpen={handleMatchDeclarePopupOpen}
+        />
+      )}
+      {afterConfirm && (
+        <MatchSubmitPopup
+          header={"You Are Successfully Submited Your Match to Win IND"}
+          state={afterConfirm}
+          setState={setAfterConfirm}
+          isProcessing={isProcessing}
+          error={error}
+          displayData={
+            isProcessing ? "Declaring..." : "Match declared successfully"
+          }
+        />
+      )}
     </div>
   );
 }

@@ -6,61 +6,17 @@ import UpgradeYourPackagePopup from "./UpgradeYourPackagePopup";
 import { GET_ADMIN_PACKAGE_REQUEST } from "../../config/endpoints";
 import { call } from "../../config/axios";
 import { useEffect } from "react";
+import TicketUpgradePopup from "./TicketUpgradePopup";
 
 function AdminSaleTickets() {
-  const [showPackagePopup, setShowPackagePopup] = useState(false);
-  const handleNewButton = () => {
-    setShowPackagePopup(true);
+  const [showTicketPackagePopup, setTicketShowPackagePopup] = useState(false);
+  const [saletickets, setSaletickets] = useState();
+  const handleNewButton = (data) => {
+    setTicketShowPackagePopup(true);
+    setSaletickets(data);
   };
   const [saleTicket, setSaleTicket] = useState([]);
-  // const ADMIN_SALE_TICKETS_DATA = [
-  //   {
-  //     dateAndTime: "19 July 2023, 10:00:00 PM",
-  //     nameRole: "Sri-Agent",
-  //     trxID: "trx-id-20230627074602133078",
-  //     packageTRX: "Upgrade Package - 20,000 (Monthly)",
-  //     payAmount: 20000,
-  //     status: (
-  //       <h5 className="rounded mb-0 py-1 pending-btn d-flex align-items-center justify-content-center">
-  //         <BsFillEyeFill className="d-flex yellow-clr" />
-  //       </h5>
-  //     ),
-  //     newButton: (
-  //       <div
-  //         className="rounded p-1 completed-btn"
-  //         onClick={() => handleNewButton()}
-  //       >
-  //         NEW
-  //       </div>
-  //     ),
-  //   },
-  //   // {
-  //   //   dateAndTime: "19 July 2023, 10:00:00 PM",
-  //   //   nameRole: "Sri-Agent",
-  //   //   trxID: "trx-id-20230627074602133078",
-  //   //   packageTRX: "Upgrade Package - 20,000 (Monthly)",
-  //   //   payAmount: 20000,
-  //   //   status: (
-  //   //     <h5 className="rounded mb-0 py-1 pending-btn d-flex align-items-center justify-content-center">
-  //   //       <BsFillEyeFill className="d-flex yellow-clr" />
-  //   //     </h5>
-  //   //   ),
-  //   //   newButton: <div className="rounded p-1 completed-btn">NEW</div>,
-  //   // },
-  //   // {
-  //   //   dateAndTime: "19 July 2023, 10:00:00 PM",
-  //   //   nameRole: "Sri-Agent",
-  //   //   trxID: "trx-id-20230627074602133078",
-  //   //   packageTRX: "Upgrade Package - 20,000 (Monthly)",
-  //   //   payAmount: 20000,
-  //   //   status: (
-  //   //     <h5 className="rounded mb-0 py-1 pending-btn d-flex align-items-center justify-content-center">
-  //   //       <BsFillEyeFill className="d-flex yellow-clr" />
-  //   //     </h5>
-  //   //   ),
-  //   //   newButton: <div className="rounded p-1 completed-btn">NEW</div>,
-  //   // },
-  // ];
+
   const ADMIN_SALE_TICKETS_HEADING = [
     {
       header: "DATE & TIME",
@@ -132,7 +88,7 @@ function AdminSaleTickets() {
     newButton: (
       <div
         className="rounded p-1 completed-btn"
-        onClick={() => handleNewButton()}
+        onClick={() => handleNewButton(obj)}
       >
         NEW
       </div>
@@ -159,9 +115,10 @@ function AdminSaleTickets() {
           />
         </div>
       </div>
-      <UpgradeYourPackagePopup
-        showPackagePopup={showPackagePopup}
-        setShowPackagePopup={setShowPackagePopup}
+      <TicketUpgradePopup
+        saletickets={saletickets}
+        showTicketPackagePopup={showTicketPackagePopup}
+        setTicketShowPackagePopup={setTicketShowPackagePopup}
       />
     </div>
   );
