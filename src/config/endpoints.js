@@ -62,8 +62,11 @@ const FANCY_RESULT_PROFIT_LOSS = "/offline-management/fancy_result_profitlose";
 const ADD_PAYMENT = "/management/add_payment_gateway";
 const GET_ALL_PAYMENT_GATEWAYS = "/management/getall_payments";
 const UPDATE_PAYMENT_GATEWAY = "/management/update_payment_gateway";
-const GET_REQUEST_PACKAGES = "/packages/get_package_histroy_bypackage_requestid";
+const GET_REQUEST_PACKAGES =
+  "/packages/get_package_histroy_bypackage_requestid";
 const GET_ADMIN_PACKAGE_REQUEST = "/packages/get_all_admin_package_request";
+const GET_COMPLETED_MATCHES_BY_CLEINT =
+  "/offline-management/get_completed_matches_by_client_id";
 
 // methods
 const DELETE = "DELETE";
@@ -71,6 +74,10 @@ const POST = "POST";
 const GET = "POST";
 const PUT = "PUT";
 
+exports.GET_COMPLETED_MATCHES_BY_CLEINT = {
+  url: GET_COMPLETED_MATCHES_BY_CLEINT,
+  method: POST,
+};
 exports.GET_UPDATED_MATCHES_DATA = {
   url: GET_UPDATED_MATCHES_DATA,
   method: POST,
@@ -333,8 +340,8 @@ exports.UPDATE_PAYMENT_GATEWAY = {
 exports.GET_REQUEST_PACKAGES = {
   url: GET_REQUEST_PACKAGES,
   method: POST,
-}
+};
 exports.GET_ADMIN_PACKAGE_REQUEST = {
   url: GET_ADMIN_PACKAGE_REQUEST,
-  method: POST
-}
+  method: POST,
+};
