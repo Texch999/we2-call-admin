@@ -64,6 +64,7 @@ const GET_COMPLETED_MATCHES_BY_CLEINT =
 const GET_REASON_REJECTIONS = "/settings/getall_security_questions";
 const FANCY_RESULT_PROFIT_LOSS = "/offline-management/fancy_result_profitlose";
 const GET_ADMIN_PACKAGES = "/packages/get_admin_packages";
+const DELETE_OFFLINE_CLIENT = "/offline-management/delete_clients";
 
 // methods
 const DELETE = "DELETE";
@@ -242,11 +243,6 @@ exports.GET_SETTLEMENT_HISTORY = {
   method: POST,
 };
 
-// exports.GET_CLIENTS_DATA = {
-//   url: GET_CLIENTS_DATA,
-//   method: POST,
-// };
-
 exports.ACCOUNT_REGISTERATION = {
   url: ACCOUNT_REGISTERATION,
   method: POST,
@@ -348,8 +344,11 @@ exports.GET_REASON_REJECTIONS = {
   url: GET_REASON_REJECTIONS,
   method: POST,
 };
-
 exports.GET_ADMIN_PACKAGES = {
   url: GET_ADMIN_PACKAGES,
+  method: GET,
+};
+exports.DELETE_OFFLINE_CLIENT = {
+  url: DELETE_OFFLINE_CLIENT,
   method: POST,
 };

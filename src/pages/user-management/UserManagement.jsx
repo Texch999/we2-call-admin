@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { FaPercent } from "react-icons/fa6";
 import { AiOutlineUser } from "react-icons/ai";
-import { BsChevronDown } from "react-icons/bs";
 import Table from "../home-page/Table";
 import { GoPencil } from "react-icons/go";
 import { RiDeleteBin6Fill } from "react-icons/ri";
@@ -16,8 +15,13 @@ import {
   GET_ALL_CLIENTS,
   GET_REFFERAL_DATA,
   CREATE_OFFLINE_CLIENT,
+  DELETE_OFFLINE_CLIENT,
+  UPDATE_OFFLINE_CLIENT
 } from "../../config/endpoints";
 import CreateReferral from "./CreateReferral";
+import UserDeletePopup from "./UserDeletePopup";
+import UserEditPopup from "./UserEditPopup";
+import UserSubmitPopup from "./UserSubmitPopup";
 
 function UserManagement() {
   let register_id = localStorage?.getItem("register_id");
@@ -25,26 +29,16 @@ function UserManagement() {
   let account_role = localStorage?.getItem("account_role");
 
   const [existingClients, setExistingClients] = useState([]);
-  const [clientDetails, setClientDetails] = useState({});
   const [editStatus, setEditStatus] = useState(false);
   const [addClientStatus, setAddClientStatus] = useState(false);
-  const [clientData, setClientData] = useState({});
   const [allClients, setAllClients] = useState([]);
-  const [selectedClient, setSelectedClient] = useState({});
   const [refferalData, setRefferalData] = useState([]);
-  const [selectedRefferal, setSelectedRefferal] = useState({});
-  const [showClientTypeDropdoen, setShowClientTypeDropdoen] = useState(false);
-  const [selectedValue, setSelectedValue] = useState("");
-  const [depositOrwidthdraw, setDepositOrwidthdraw] = useState("");
-  const [depositeDropdown, setDepositeDropdown] = useState(false);
-  const [clientTypeSelected, setClientTypeSelected] = useState({});
-  const [showClientDropdown, setShowClientDropdown] = useState(false);
-  const [referalDropDown, setRefferalDropDown] = useState(false);
   const [userCreationSubmitPopup, setUserCreationSubmitPopup] = useState(false);
   const [error, setError] = useState("");
   const [isProcessing, setIsProcessing] = useState(false);
   const [refStatus, setRefStatus] = useState(false);
   const [userDetails, setUserDetails] = useState({});
+  const [selectId, setSelectId] = useState();
 
   const clientSelection = [
     { name: "Regulor", value: 0 },
@@ -75,49 +69,87 @@ function UserManagement() {
   ];
   const [createUserSubmit, setCreateUserSubmit] = useState(false);
   const [showCreateRefer, setShowCreateRefer] = useState(false);
+  // cosnt [selectDeleteId, setSelectDeleteId] = useState("");
 
   const handleSubmitUser = async () => {
-    setCreateUserSubmit(true);
+    // setCreateUserSubmit(true);
     if (
       (!userDetails?.alias_name,
-      !userDetails?.client_type,
       !userDetails?.select_client,
       !userDetails?.refer_name,
-      !userDetails?.rf_share,
-      !userDetails?.rf_fancy_comm,
-      !userDetails?.rf_comm,
-      !userDetails?.deposite_credite,
+      !userDetails?.referral_share,
+      !userDetails?.fancy_refferal_comm,
+      !userDetails?.referral_comm,
+      !userDetails?.deposite_type,
       !userDetails?.location,
-      !userDetails?.match_risk_limit)
+      !userDetails?.client_risk_limit)
     ) {
-      return setError("Please Enter All Field");
+      // return setError("Please Enter All Field");
     }
     let userDeatailsPayload = {
       existing_user_id: clientId[0].register_id,
-      register_id: register_id,
-      account_role: account_role,
+      register_id,
+      account_role,
       client_type: userDetails?.client_type,
       client_name: userDetails?.select_client,
       referral_name: userDetails?.refer_name,
-      referal_id: selectedRefferal?.refferal_id,
+      client_risk_limit: userDetails?.match_risk_limit,
+      referal_id: referalId[0].refferal_id,
+      referral_comm: userDetails?.rf_comm,
+      fancy_refferal_comm: userDetails?.rf_fancy_comm,
+      referral_share: userDetails?.rf_share,
+      alias_name: userDetails?.alias_name,
       master_share: localStorage?.getItem("share") || 0,
       ul_share: localStorage?.getItem("ul_share") || 0,
+      deposit_type: userDetails?.deposite_type,
+      location: userDetails?.location,
+      match_race_comm: 2,
+      client_share:2,
+      fancy_comm:2,
     };
 
-    await call(CREATE_OFFLINE_CLIENT, userDeatailsPayload).then((res) => {
-      if (res?.data?.statusCode === 200) {
-        setAddClientStatus((prev) => !prev);
-      }
-    });
+    console.log({ userDeatailsPayload });
+
+    await call(CREATE_OFFLINE_CLIENT, userDeatailsPayload)
+      .then((res) => {
+        if (res?.data?.statusCode === 200) {
+          setAddClientStatus((prev) => !prev);
+          setUserCreationSubmitPopup(true);
+          setTimeout(() => {
+            setUserCreationSubmitPopup(false);
+          }, 1000);
+          setEditStatus(false);
+          // handleReset();
+        } else {
+          setError(
+            res?.data?.message ? res?.data?.message : `something wen't wrong`
+          );
+        }
+      })
+      .catch((err) => {
+        setIsProcessing(false);
+        console.log(err);
+        setError(err?.message ? err?.message : `something wen't wrong`);
+      });
   };
 
   const clientId = allClients.filter((item) => {
     return item.first_name === userDetails?.select_client;
   });
 
+  const referalId = refferalData?.filter((item) => {
+    return item.referral_name === userDetails?.refer_name;
+  });
+
+  // console.log(referalId[0].refferal_id, ".........referDAta");
+
   // const clientId = allClients;
 
-  console.log(clientId, "......client id");
+  // console.log(clientId.register_id, "......client id");
+
+  const [openDeletePopup, setOpenDeletePopup] = useState(false);
+  const [openEditConfirm, setOpenEditConfirm] = useState(false);
+  const [editClientName, setEditClientName] = useState();
 
   const userColumns = [
     { header: "USER NAME", field: "client_name" },
@@ -127,14 +159,74 @@ function UserManagement() {
     { header: "ACTION", field: "editButton" },
   ];
 
-  const editButtons = (
-    <div className="d-flex justify-content-between">
-      <GoPencil className="edit-icon" />
-      <RiDeleteBin6Fill className="edit-icon" />
-      <ImBlocked className="edit-icon" />
-      <BiLock className="edit-icon" />
-    </div>
-  );
+  const handleEditTable = (item) => {
+    setOpenEditConfirm(true);
+    setEditClientName(item.client_name);
+    setSelectId(item.client_id);
+  };
+
+  const handleConfirmEdit = async () => {
+    getOfflineClients();
+    setOpenEditConfirm(false);
+    await call(GET_OFFLINE_CLIENT_DETAILS, {
+      register_id,
+      client_id: selectId,
+    })
+      .then((res) => {
+        let results = res?.data?.data;
+        setUserDetails(results);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const handleDeleteUser = (clientId) => {
+    setOpenDeletePopup(true);
+    setSelectId(clientId);
+  };
+
+  const handleConfirmDelete = async () => {
+    setOpenDeletePopup(false);
+    await call(DELETE_OFFLINE_CLIENT, {
+      register_id,
+      client_id: selectId,
+    })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((res) => {
+        console.log(res);
+      });
+  };
+
+  const exsitedUsers =
+    existingClients &&
+    existingClients?.length > 0 &&
+    existingClients
+      .filter((i) => i.user_status !== "deleted")
+      .map((item) => {
+        return {
+          client_name: item.client_name,
+          client_type: item.client_type,
+          alias_name: item.alias_name,
+          location: item.location,
+          editButton: (
+            <div className="d-flex justify-content-between">
+              <GoPencil
+                className="edit-icon"
+                onClick={() => handleEditTable(item)}
+              />
+              <RiDeleteBin6Fill
+                className="edit-icon"
+                onClick={() => handleDeleteUser(item.client_id)}
+              />
+              <ImBlocked className="edit-icon" />
+              <BiLock className="edit-icon" />
+            </div>
+          ),
+        };
+      });
 
   const handleChange = (e) => {
     // console.log(name, value);
@@ -146,22 +238,6 @@ function UserManagement() {
         setExistingClients(res?.data?.data);
       })
       .catch((err) => console.log(err));
-  };
-
-  const getClientDetails = async (clientID) => {
-    // console.log({clientID})
-    await call(GET_OFFLINE_CLIENT_DETAILS, {
-      register_id,
-      client_id: clientID,
-    })
-      .then((res) => {
-        let results = res?.data?.data;
-        // console.log({results})
-        setClientDetails(results);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
   };
 
   const handleCreateRefer = () => {
@@ -198,7 +274,9 @@ function UserManagement() {
 
   console.log(userDetails, "....userDetails");
 
-  console.log(clientId[0], ".....clientId");
+  // console.log(refferalData, "...refferalDataList");
+
+  // console.log(clientId[0], ".....clientId");
 
   return (
     <div className="p-3">
@@ -230,18 +308,12 @@ function UserManagement() {
             <select
               className="sport-management-input d-flex  w-100 sport-management-select cursor-pointer"
               name="client_type"
-              // onChange={(e) => {
-              //   const selectedIndex = e.target.selectedIndex;
-              //   setClientTypeSelected(clientSelection[selectedIndex]);
-              //   setClientData({
-              //     ...clientData,
-              //     client_type: selectedIndex,
-              //   });
-              // }}
               onChange={(e) => handleChange(e)}
             >
               <option className="w-90 ms-1 cursor-pointer" value="">
-                Select...
+                {clientSelection.filter(
+                  (i) => i.value === userDetails?.client_type
+                )[0]?.name || "Select..."}
               </option>
               {clientSelection?.map((type, index) => {
                 return (
@@ -263,22 +335,26 @@ function UserManagement() {
               onChange={(e) => handleChange(e)}
               name="select_client"
             >
-              <option className="w-90 ms-1 cursor-pointer">Select...</option>
+              <option className="w-90 ms-1 cursor-pointer">
+                {userDetails?.client_name || "Select..."}
+              </option>
               {allClients?.length &&
                 allClients
-                  // .filter(
-                  //   (obj) =>
-                  //     !existingClients.some(
-                  //       (o) => o.existing_user_id === obj.register_id
-                  //     )
-                  // )
-                  ?.map(({ first_name }, index) => (
+                  .filter(
+                    (obj) =>
+                      existingClients &&
+                      existingClients?.length > 0 &&
+                      !existingClients?.some(
+                        (o) => o.existing_user_id === obj.register_id
+                      )
+                  )
+                  ?.map((item, index) => (
                     <option
                       className="w-90 ms-1 cursor-pointer"
-                      value={first_name}
+                      value={item.first_name}
                       key={index}
                     >
-                      {first_name}
+                      {item.first_name}
                     </option>
                   ))}
             </select>
@@ -311,17 +387,11 @@ function UserManagement() {
             </div>
             <select
               className="sport-management-input d-flex  w-100 sport-management-select cursor-pointer"
-              // onChange={(e) => {
-              //   setClientData({
-              //     ...clientData,
-              //     referral_name: e.target.value,
-              //   });
-              // }}
               onChange={(e) => handleChange(e)}
               name="refer_name"
             >
               <option className="w-90 ms-1 cursor-pointer" value="">
-                Select...
+                {userDetails.referral_name || "Select..."}
               </option>
               {refferalData?.map((type, index) => {
                 return (
@@ -344,7 +414,8 @@ function UserManagement() {
                 className="w-90"
                 onChange={(e) => handleChange(e)}
                 name="rf_share"
-                value={userDetails?.rf_share || ""}
+                type="number"
+                defaultValue={userDetails?.referral_share || ""}
               />
               <FaPercent className="me-1" />
             </div>
@@ -357,9 +428,10 @@ function UserManagement() {
               <input
                 className="w-90"
                 placeholder="Enter"
+                type="number"
                 onChange={(e) => handleChange(e)}
                 name="rf_fancy_comm"
-                value={userDetails?.rf_fancy_comm || ""}
+                defaultValue={userDetails?.fancy_refferal_comm || ""}
               ></input>
               <FaPercent className="me-1" />
             </div>
@@ -372,7 +444,8 @@ function UserManagement() {
                 placeholder="Enter"
                 onChange={(e) => handleChange(e)}
                 name="rf_comm"
-                value={userDetails?.rf_comm || ""}
+                type="number"
+                defaultValue={userDetails?.referral_comm || ""}
               ></input>
               <FaPercent className="me-1" />
             </div>
@@ -384,11 +457,14 @@ function UserManagement() {
             <select
               className="sport-management-input d-flex  w-100 sport-management-select meetings-heading"
               onChange={(e) => handleChange(e)}
-              name="deposite_credite"
+              name="deposite_type"
             >
-              <option>select</option>
-              <option value="widthdraw">Widthdraw</option>
-              <option value="deposite">Deposite</option>
+              <option>
+                {userDetails.deposite_type === 0 ? "Credite" : "Deposite"} ||
+                Select...
+              </option>
+              <option value="0">Credite</option>
+              <option value="1">Deposite</option>
             </select>
           </div>
         </div>
@@ -418,7 +494,7 @@ function UserManagement() {
                   onChange={(e) => handleChange(e)}
                   name="match_risk_limit"
                   type="number"
-                  value={userDetails?.match_risk_limit || ""}
+                  defaultValue={userDetails?.client_risk_limit || ""}
                 ></input>
                 {/* <AiOutlineUser /> */}
               </div>
@@ -437,11 +513,27 @@ function UserManagement() {
       </div>
       {error}
       <hr className="mt-4" />
+      <UserDeletePopup
+        openDeletePopup={openDeletePopup}
+        handleConfirmDelete={handleConfirmDelete}
+        setOpenDeletePopup={setOpenDeletePopup}
+      />
+      <UserEditPopup
+        openEditConfirm={openEditConfirm}
+        setOpenEditConfirm={setOpenEditConfirm}
+        editClientName={editClientName}
+        handleConfirmEdit={handleConfirmEdit}
+      />
+
+      <UserSubmitPopup
+        userCreationSubmitPopup={userCreationSubmitPopup}
+        setUserCreationSubmitPopup={setUserCreationSubmitPopup}
+      />
 
       <Table
-        data={existingClients}
+        data={exsitedUsers}
         columns={userColumns}
-        editButtons={editButtons}
+        // editButtons={editButtons}
       />
       <MatchSubmitPopup
         header={"You Are Successfully Created User"}

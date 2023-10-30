@@ -93,7 +93,11 @@ function YourPackageTransaction() {
   }, []);
 
   const MATCH_ENTRY_DATA = requestedPackages.map((item) => ({
-    dateAndTime: item?.created_date,
+    dateAndTime: (
+      <div>
+        {item.created_date}-{item.created_time}
+      </div>
+    ),
     nameRole: localStorage.getItem("user_name"),
     trxID: item?.transaction_id,
     packageTRX: item?.summary.final_package_cost,

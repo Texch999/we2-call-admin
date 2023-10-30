@@ -101,8 +101,8 @@ function TicketUpgradePopup(props) {
                 <div className="d-flex flex-row justify-content-between w-100 my-1">
                   <div>From</div>
                   <div>
-                    {saletickets?.user_name}-
-                    {saletickets?.requested_account_role}
+                    {saletickets?.user_name}
+                    {saletickets?.package_requester_id}
                   </div>
                 </div>{" "}
                 <div className="d-flex flex-row justify-content-between w-100 my-1">
