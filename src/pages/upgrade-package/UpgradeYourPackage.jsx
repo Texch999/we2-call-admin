@@ -5,6 +5,7 @@ import SpecialPackages from "./SpecialPackages";
 import { useState, useEffect } from "react";
 import { GET_ALL_PACKAGES } from "../../config/endpoints";
 import { call } from "../../config/axios";
+import PopupUpgradePackages from "./PopupUpgradePackages";
 
 function UpgradeYourPackage() {
   const [specialOffer, setSpecialOffer] = useState(false);
@@ -109,6 +110,13 @@ function UpgradeYourPackage() {
           />
         )}
       </div>
+      <PopupUpgradePackages
+        openPopup={openPopup}
+        setOpenPopup={setOpenPopup}
+        selectPackageName={selectPackageName}
+        yearly={yearly}
+        // setOpenPopup={setOpenPopup}
+      />
     </div>
   );
 }

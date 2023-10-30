@@ -6,8 +6,8 @@ import { call } from "../../config/axios";
 import PopupUpgradePackages from "./PopupUpgradePackages";
 
 function SpecialPackages(props) {
-  const { setSelectPackageName, setYearly, yearly } = props;
-  const [openUpgradePopup, setOpenUpgradePopup] = useState(false);
+  const { setSelectPackageName, setYearly, yearly, setOpenPopup } = props;
+  // const [openUpgradePopup, setOpenUpgradePopup] = useState(false);
 
   const [allPackages, setAllPackages] = useState([]);
 
@@ -45,9 +45,6 @@ function SpecialPackages(props) {
       ? yearlyPacks.filter((item) => item.package_name === "vip")
       : montlyPacks.filter((item) => item.package_name === "vip");
 
-  console.log("yearlyPacks===>", yearlyPacks);
-  console.log("montlyPacks===>", yearlyPacks);
-
   const PACKAGE_DETAILS = [
     {
       id: 1,
@@ -56,6 +53,7 @@ function SpecialPackages(props) {
       upgradeBtnColor: "upgrade-btn",
       discountDivColor: "standard-discount-div",
       packageName: "Standard Package",
+      package: standardPack[0],
       rate: standardPack.map((item) => item.package_cost),
       offerImage: Images.DiscountImg,
       offerPercentage: standardPack.map((item) => item.discount + "% OFF"),
@@ -93,6 +91,7 @@ function SpecialPackages(props) {
       upgradeBtnColor: "upgrade-btn",
       discountDivColor: "silver-discount-div",
       packageName: "Silver Package",
+      package: silverPack[0],
       rate: silverPack.map((item) => item.package_cost),
       offerImage: Images.DiscountBlackImg,
       offerPercentage: silverPack.map((item) => item.discount + "% OFF"),
@@ -134,6 +133,7 @@ function SpecialPackages(props) {
       upgradeBtnColor: "upgrade-btn",
       discountDivColor: "gold-discount-div",
       packageName: "Gold Package",
+      package: goldPack[0],
       rate: goldPack.map((item) => item.package_cost),
       offerImage: Images.DiscountBlackImg,
       offerPercentage: goldPack.map((item) => item.discount + "% OFF"),
@@ -181,6 +181,7 @@ function SpecialPackages(props) {
       addPackageBtn: "Add Package",
       packageImage: Images.DiamondPackage,
       packageBackGroundImage: Images.DiamondPackageBG,
+      package: diamondPack[0],
       hours: diamondPack.map((item) => item.package_limits.duration),
       usersText: (
         <div>
@@ -223,6 +224,7 @@ function SpecialPackages(props) {
       addPackageBtn: "Add Package",
       packageImage: Images.VIPPackage,
       packageBackGroundImage: Images.VIPPackageBG,
+      package: vipPack[0],
       hours: vipPack.map((item) => item.package_limits.duration),
       usersText: (
         <div>
@@ -268,8 +270,9 @@ function SpecialPackages(props) {
   }, []);
 
   const handleButtonClick = (item) => {
-    setOpenUpgradePopup(true);
+    // setOpenUpgradePopup(true);
     setSelectPackageName(item);
+    setOpenPopup(true);
   };
 
   return (
@@ -346,9 +349,9 @@ function SpecialPackages(props) {
                     <div className="col-3">
                       <div
                         className={`rounded-pill p-2 text-center medium-font fw-bold ${item.upgradeBtnColor}`}
-                        onClick={() => handleButtonClick(item)}
+                        onClick={() => handleButtonClick(item.package)}
                       >
-                      Upgrade
+                        Upgrade
                       </div>
                     </div>
                     <div className="col">
@@ -378,14 +381,6 @@ function SpecialPackages(props) {
           </div>
         ))}
       </div>
-      <PopupUpgradePackages
-        openPopup={openUpgradePopup}
-        setOpenPopup={setOpenUpgradePopup}
-        // selectPackageName={selectPackageName}
-        allPackages={allPackages}
-        yearly={yearly}
-        // setOpenPopup={setOpenPopup}
-      />
     </div>
   );
 }
