@@ -25,14 +25,16 @@ function ULShareIndPlData(props) {
   //     Ulshare: "50000000.00",
   //   },
   // ];
-  const { ONE_PAGE_REPORT_DETAILS } = props;
-  const PAGE_REPORT_DETAILS = ONE_PAGE_REPORT_DETAILS?.map((item, index) => ({
-    date: "25-07-2023",
-    matchname: "India vs Sri Lanka",
-    winteam: "India",
-    urnetpl: "1000000",
-    Ulshare: item.totalpl,
-  }));
+  const { individualReportULShareData } = props;
+  const PAGE_REPORT_DETAILS = individualReportULShareData?.map(
+    (item, index) => ({
+      date: item.matchDate,
+      matchname: item.matchName,
+      winteam: item.winTeam,
+      urnetpl: item.ULnetPL,
+      Ulshare: item.afterAllSharePL,
+    })
+  );
   console.log(PAGE_REPORT_DETAILS, "one page report");
   return (
     <div>
