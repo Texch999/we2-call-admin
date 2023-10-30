@@ -63,6 +63,7 @@ const GET_REASON_REJECTIONS = "/settings/getall_security_questions";
 const FANCY_RESULT_PROFIT_LOSS = "/offline-management/fancy_result_profitlose";
 const GET_ADMIN_PACKAGES = "/packages/get_admin_packages";
 const DELETE_OFFLINE_CLIENT = "/offline-management/delete_clients";
+const PRIVACY_POLICY = "/management/get_policy_document";
 
 // methods
 const DELETE = "DELETE";
@@ -345,4 +346,8 @@ exports.GET_ADMIN_PACKAGES = {
 exports.DELETE_OFFLINE_CLIENT = {
   url: DELETE_OFFLINE_CLIENT,
   method: POST,
+};
+exports.PRIVACY_POLICY = {
+  url: PRIVACY_POLICY,
+  method: GET,
 };

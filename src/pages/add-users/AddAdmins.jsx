@@ -13,7 +13,6 @@ import ChangePassword from "./ChangePassword";
 import MatchSubmitPopup from "../match-popups/MatchSubmitPopup";
 
 const AddAdmins = () => {
-  console.log("testing... add admins")
   let register_id = localStorage?.getItem("register_id");
   let creator_id = localStorage?.getItem("creator_id");
   let account_role = localStorage?.getItem("account_role");

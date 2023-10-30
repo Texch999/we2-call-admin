@@ -45,8 +45,6 @@ function SpecialPackages(props) {
       ? yearlyPacks.filter((item) => item.package_name === "vip")
       : montlyPacks.filter((item) => item.package_name === "vip");
 
-  console.log("yearlyPacks===>", yearlyPacks);
-  console.log("montlyPacks===>", yearlyPacks);
 
   const PACKAGE_DETAILS = [
     {
