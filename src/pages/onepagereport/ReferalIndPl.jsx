@@ -1,12 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 
 function ReferalIndPl(props) {
-  const { ONE_PAGE_REPORT_DETAILS } = props;
-
-  const PAGE_REPORT_DETAILS = ONE_PAGE_REPORT_DETAILS?.map((item, index) => ({
-    name: item.client,
-    rfnet: item.rfnet,
-  }));
+  const { individualReportReferralData } = props;
+  const [showIndividualReferealData, setShowIndividualReferalData] =
+    useState(false);
+  const handleShowIndividualReferalData = () => {
+    setShowIndividualReferalData(true);
+  };
+  const PAGE_REPORT_DETAILS = individualReportReferralData?.map(
+    (item, index) => ({
+      name: item.referral_id,
+      rfnet: item.amount,
+    })
+  );
   const REFERAL_REPORT_DETAILS = [
     { name: "Animesh", pl: "1000000.00" },
     { name: "Animesh", pl: "1000000.00" },
@@ -45,7 +51,7 @@ function ReferalIndPl(props) {
                 <th>TOTAL P/L</th>
               </tr>
             </thead>
-            {PAGE_REPORT_DETAILS.map((item, index) => (
+            {PAGE_REPORT_DETAILS?.map((item, index) => (
               <tbody key={index}>
                 <tr className="text-center">
                   <td>{item.name}</td>
@@ -53,12 +59,12 @@ function ReferalIndPl(props) {
                 </tr>
               </tbody>
             ))}
-            <tfoot>
+            {/* <tfoot>
               <tr className="text-center">
                 <th className="text-center">TOTAL</th>
                 <th className="clr-green">500000000.00</th>
               </tr>
-            </tfoot>
+            </tfoot> */}
           </table>
         </div>
         <div className="d-flex flex-column w-70">
@@ -75,7 +81,6 @@ function ReferalIndPl(props) {
             </table>
           </div>
           <div>
-            {/* <AdminsTable data={PAGE_REPORT_DETAILS} columns/> */}
             <table className="w-100 match-position-table medium-font">
               <thead>
                 <tr>
@@ -85,7 +90,10 @@ function ReferalIndPl(props) {
               </thead>
               {REFERAL_REPORT_DETAILS.map((item, index) => (
                 <tbody key={index}>
-                  <tr className="text-end">
+                  <tr
+                    className="text-end"
+                    onClick={handleShowIndividualReferalData}
+                  >
                     <td className="text-start">{item.name}</td>
                     <td className="text-end clr-green">{item.pl}</td>
                   </tr>
@@ -99,46 +107,53 @@ function ReferalIndPl(props) {
               </tfoot>
             </table>
           </div>
-          <div className="mt-2 mb-2">
-            <table className="match-position-table medium-font w-100">
-              <thead>
-                <tr className="text-center">
-                  <th className="text-start">Rf - Animesh Match Wise P/L</th>
-                </tr>
-              </thead>
-            </table>
-          </div>
-          <div>
-            {/* <AdminsTable data={PAGE_REPORT_DETAILS} columns/> */}
-            <table className="w-100 match-position-table medium-font">
-              <thead>
-                <tr className="text-center">
-                  <th>DATE</th>
-                  <th>MATCH NAME</th>
-                  <th>WIN TEAM</th>
-                  <th>NET P/L</th>
-                </tr>
-              </thead>
-              {CLIENT_PAGE_REPORT_DETAILS.map((data, index) => (
-                <tbody key={index}>
-                  <tr className="text-center">
-                    <td>{data.date}</td>
-                    <td>{data.matchname}</td>
-                    <td>{data.winteam}</td>
-                    <td className="clr-green">{data.netpl}</td>
-                  </tr>
-                </tbody>
-              ))}
-              <tfoot>
-                <tr className="text-center">
-                  <th colSpan={3} className="text-end">
-                    TOTAL
-                  </th>
-                  <th className="clr-green">500000000.00</th>
-                </tr>
-              </tfoot>
-            </table>
-          </div>
+          {showIndividualReferealData && (
+            <>
+              {" "}
+              <div className="mt-2 mb-2">
+                <table className="match-position-table medium-font w-100">
+                  <thead>
+                    <tr className="text-center">
+                      <th className="text-start">
+                        Rf - Animesh Match Wise P/L
+                      </th>
+                    </tr>
+                  </thead>
+                </table>
+              </div>
+              <div>
+                {/* <AdminsTable data={PAGE_REPORT_DETAILS} columns/> */}
+                <table className="w-100 match-position-table medium-font">
+                  <thead>
+                    <tr className="text-center">
+                      <th>DATE</th>
+                      <th>MATCH NAME</th>
+                      <th>WIN TEAM</th>
+                      <th>NET P/L</th>
+                    </tr>
+                  </thead>
+                  {CLIENT_PAGE_REPORT_DETAILS.map((data, index) => (
+                    <tbody key={index}>
+                      <tr className="text-center">
+                        <td>{data.date}</td>
+                        <td>{data.matchname}</td>
+                        <td>{data.winteam}</td>
+                        <td className="clr-green">{data.netpl}</td>
+                      </tr>
+                    </tbody>
+                  ))}
+                  <tfoot>
+                    <tr className="text-center">
+                      <th colSpan={3} className="text-end">
+                        TOTAL
+                      </th>
+                      <th className="clr-green">500000000.00</th>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
+            </>
+          )}
         </div>
       </div>
     </div>
