@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { Modal } from "react-bootstrap";
 import { IoCloseSharp } from "react-icons/io5";
+import { ImageBaseUrl } from "../../images";
 import { RxCrossCircled } from "react-icons/rx";
 import { AiOutlineDown, AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 import { BiSolidChevronDown } from "react-icons/bi";
@@ -8,23 +9,30 @@ import {
   CREATE_PACKAGE_SUBSCRIPTION,
   GENERATE_SIGNED_URL,
   GET_ALL_PAYMENT_GATEWAYS,
+  GET_USER_INFO,
 } from "../../config/endpoints";
 import { call } from "../../config/axios";
 
 function PopupUpgradePackages(props) {
-  const { openPopup, setOpenPopup, selectPackageName, yearly, allPackages } =
-    props;
-  console.log(allPackages, "ALLLL");
+  const { openPopup, setOpenPopup, selectPackageName, yearly } = props;
+  console.log("selectPackageName===>", selectPackageName);
   const [showAvailablePAckages, setShowAvailablePAckages] = useState();
   const [showReducePackage, setShowReducePackage] = useState(false);
   const [paymentType, setPaymentType] = useState();
+  const [selectedMethodInfo, setSelectedMethodInfo] = useState("");
   const [allPaymentGateway, setAllPaymentGateway] = useState([]);
   const [singedUrl, setSignedUrl] = useState(false);
   const [trxId, setImageTrxId] = useState("");
   const [image, setImage] = useState("");
   const [discount, setDiscount] = useState(0);
+  const [showPaymentOptions, setShowPaymentOptions] = useState(false);
+  const [checked, setChecked] = useState();
   const register_id = localStorage.getItem("register_id");
-  console.log("selectPackageName====>", selectPackageName);
+
+  const handleShowPaymentOptions = () => {
+    setShowPaymentOptions(true);
+  };
+
   const packagesType = [
     {
       value: "neft",
@@ -55,16 +63,44 @@ function PopupUpgradePackages(props) {
     generateSignedUrl();
   };
 
-  // const discountValue = parseInt(
-  //   (selectPackageName?.package_cost * discount) / 100
-  // );
+  const discountValue = parseInt(
+    selectPackageName?.package_cost * (selectPackageName?.discount / 100)
+  );
 
   // const splDiscountValue =
   //   parseInt(
   //     (selectPackageName?.package_cost * selectPackageName?.discount) / 100
   //   ) || 0;
-  // const totalPackageCost =
-  //   selectPackageName?.package_cost - splDiscountValue - discountValue;
+
+  const totalPackageCost = selectPackageName?.package_cost - discountValue;
+
+  const handlePayButton = async () => {
+    await imageUploadBucket();
+    const summary = {
+      total_package_cost: selectPackageName?.package_cost,
+      final_package_cost: totalPackageCost,
+      transaction_img: `${ImageBaseUrl}/${"payments"}/${trxId}.png`,
+      ...selectedMethodInfo,
+      requester_name: localStorage.getItem("user_name"),
+      requester_role: localStorage.getItem("account_role"),
+    };
+    if (!image) {
+      return;
+    }
+    await call(CREATE_PACKAGE_SUBSCRIPTION, {
+      register_id,
+      summary,
+      type: "subscription",
+      packages: [selectPackageName],
+    })
+      .then((res) => {
+        if (res.data.status === 200) {
+          console.log(res);
+        } else {
+        }
+      })
+      .catch((err) => console.log("error while calling payment click", err));
+  };
 
   const generateSignedUrl = async () => {
     const trxId = new Date().getTime();
@@ -79,6 +115,38 @@ function PopupUpgradePackages(props) {
         setImageTrxId(trxId);
       })
       .catch((err) => console.log("generating signed url error", err));
+  };
+
+  const imageUploadBucket = async () => {
+    singedUrl &&
+      image &&
+      (await fetch(singedUrl, {
+        method: "PUT",
+        body: image,
+        headers: {
+          "Content-Type": "image/jpeg",
+          "cache-control": "public, max-age=0",
+        },
+      })
+        .then((res) => {
+          return true;
+        })
+        .catch((err) => {
+          console.log("err: ", err);
+        }));
+  };
+
+  const getProfile = async () => {
+    const payload = {
+      register_id,
+    };
+    try {
+      const res = await call(GET_USER_INFO, payload);
+      const userProfileData = res?.data?.data;
+      setDiscount(userProfileData?.discount || 0);
+    } catch (error) {
+      console.log(error);
+    }
   };
   const getAllPaymentData = async () => {
     const payload = {
@@ -95,10 +163,9 @@ function PopupUpgradePackages(props) {
   };
 
   useEffect(() => {
+    getProfile();
     getAllPaymentData();
   }, []);
-
-  console.log(allPaymentGateway, "......allPaymentGateway");
 
   // const handleAvailablePackage = () => {
   //   setShowAvailablePAckages((prev) => !prev);
@@ -112,103 +179,159 @@ function PopupUpgradePackages(props) {
     setPaymentType(e.target.value);
   };
 
-  console.log(paymentType, "paymentType....");
+  const handleChecked = (e, item) => {
+    setChecked(e);
+    setSelectedMethodInfo(item);
+  };
+
 
   return (
-    <Modal className="match-declaration-modal" centered show={openPopup}>
+    <Modal
+      className="match-declaration-modal z-index"
+      centered
+      show={openPopup}
+    >
       <Modal.Header className="d-flex justify-content-end">
         <IoCloseSharp onClick={() => setOpenPopup(false)} />
       </Modal.Header>
       <Modal.Body>
         <div className="px-3">
           <h5>Upgrade Packages</h5>
-          <div className="head-name p-2">{selectPackageName?.packageName}</div>
+          <div className="head-name p-2">
+            {selectPackageName?.package_name} Pack
+          </div>
           <hr className="mt-3 hr-line" />
           <div className="d-flex align-items-center justify-content-between login-input p-2 mt-2">
             <div className="small-font">
               {yearly === true ? "Yearly" : "Monthly"} Subscription
             </div>
-            <div className="small-fontt">{selectPackageName?.rate} INR</div>
+            <div className="small-fontt">{selectPackageName?.package_cost}</div>
           </div>
           <div className="d-flex align-items-center justify-content-between login-input p-2 mt-2">
-            <div className="small-font">Discount 10%</div>
-            <div className="small-fontt">10000 INR</div>
+            <div className="small-font">
+              Discount {selectPackageName?.discount}%
+            </div>
+            <div className="small-fontt">{discountValue} </div>
           </div>
           <div className="d-flex align-items-center justify-content-between login-input p-2 mt-2">
-            <div className="small-font">Special Discount 12%</div>
-            <div className="small-fontt">100000 INR</div>
-          </div>
-          <div className="h-40px">
-            <select
-              className="d-flex w-100 align-items-center justify-content-between login-input p-2 mt-2 clr-white border-none"
-              onChange={(e) => handleChange(e)}
-            >
-              <option>Select Payment Method</option>
-              {packagesType.map((item, index) => {
-                return <option value={item.value}>{item.label}</option>;
-              })}
-            </select>
-          </div>
-          {paymentType === "neft" && (
-            <div className="payment-scroll">
-              {allPaymentGateway
-                .filter((item) => item.pg_upi === "neft")
-                .map((item, index) => {
-                  return (
-                    <div className="login-input p-2 mt-1">
-                      Name:{item.account_holder_name}
-                      <br /> Ac.No: {item.account_number}
-                      <br /> IFSC: {item.ifsc_code}
-                      <br /> Bank: {item.bank_name}
-                    </div>
-                  );
-                })}
+            <div className="small-font">
+              Special Discount {selectPackageName?.discount}%
             </div>
-          )}
-          {(paymentType === "paytm" || "gpay" || "phonepe") &&
-            paymentType !== "neft" && (
-              <div className="payment-scroll">
-                {allPaymentGateway
-                  .filter((item) => item.pg_upi === paymentType)
-                  .map((item, index) => {
-                    return (
-                      <div className="login-input p-2 mt-1">
-                        Name: {item.account_holder_name}
-                        <br /> Moblie: {item.mobile_number}
-                      </div>
-                    );
-                  })}
-              </div>
-            )}
-          {paymentType === "qr_code" && (
-            <div className="payment-scroll">
-              {allPaymentGateway
-                .filter((item) => item.pg_upi === "qr_code")
-                .map((item, index) => {
-                  return (
-                    <div className="login-input p-2 mt-1">
-                      <center>Upload Qr Code</center>
-                      <img src={item.uploadImage}></img>
-                    </div>
-                  );
-                })}
+            <div className="small-fontt">
+              {selectPackageName?.package_cost *
+                (selectPackageName?.discount / 100)}
             </div>
-          )}
-          <div className="h-40px">
-            <input
-              className="d-flex w-100 align-items-center justify-content-between login-input p-2 mt-2 clr-white border-none"
-              type="file"
-              style={{ display: "none" }}
-              ref={fileInputRef}
-              onChange={handleFileSelect}
-            ></input>
           </div>
-          <hr className="mt-3 hr-line" />
-          <div className="d-flex justify-content-between">
+          <div className="d-flex justify-content-between  login-input mt-1 p-1">
             <div className="small-font">Total</div>
-            <div className="small-font">200000 INR</div>
+            <div className="small-font">{totalPackageCost} </div>
           </div>
-          <button className="login-button p-2 mt-2">Confirm and Pay</button>
+          <button
+            className="login-button p-2 mt-2"
+            onClick={() => handleShowPaymentOptions()}
+          >
+            Confirm and Pay
+          </button>
+          {showPaymentOptions && (
+            <div>
+              <div className="h-40px">
+                <select
+                  className="d-flex w-100 align-items-center justify-content-between login-input p-2 mt-2 clr-white border-none"
+                  onChange={(e) => handleChange(e)}
+                  checked={checked}
+                >
+                  <option>Select Payment Method</option>
+                  {packagesType.map((item, index) => {
+                    return <option value={item.value}>{item.label}</option>;
+                  })}
+                </select>
+              </div>
+              {paymentType === "neft" && (
+                <div className="payment-scroll">
+                  {allPaymentGateway
+                    .filter((item) => item.pg_upi === "neft")
+                    .map((item, index) => {
+                      return (
+                        <div className="d-flex justify-content-between login-input p-2 mt-1">
+                          <div>
+                            Name:{item.account_holder_name}
+                            <br /> Ac.No: {item.account_number}
+                            <br /> IFSC: {item.ifsc_code}
+                            <br /> Bank: {item.bank_name}
+                          </div>
+                          <div>
+                            <div>Select</div>
+                            <input
+                              type="checkbox"
+                              onChange={(e) => handleChecked(e, item)}
+                            />
+                          </div>
+                        </div>
+                      );
+                    })}
+                </div>
+              )}
+              {console.log(
+                allPaymentGateway.filter((item) => item.pg_upi === paymentType),
+                "paymentType"
+              )}
+              {paymentType !== "neft" && (
+                <div className="payment-scroll">
+                  {allPaymentGateway
+                    .filter((item) => item.pg_upi === paymentType)
+                    .map((item, index) => {
+                      return (
+                        <div className="d-flex justify-content-between login-input p-2 mt-1">
+                          <div className="login-input p-2 mt-1">
+                            Name: {item.account_holder_name}
+                            <br /> Moblie: {item.mobile_number}
+                          </div>
+                          <div>
+                            <div>Select</div>
+                            <input
+                              type="checkbox"
+                              onChange={(e) => handleChecked(e, item)}
+                            />
+                          </div>
+                        </div>
+                      );
+                    })}
+                </div>
+              )}
+              <div>
+                {paymentType === "qr_code" && (
+                  <div className="payment-scroll">
+                    {/* {allPaymentGateway
+                    .filter((item) => item.pg_upi === "qr_code")
+                    .map((item, index) => {
+                      return (
+                        <div className="login-input p-2 mt-1">
+                          Name: {item.account_holder_name}
+                        </div>
+                      );
+                    })} */}
+                  </div>
+                )}
+              </div>
+
+              <div className="h-40px">
+                <input
+                  className="d-flex w-100 align-items-center justify-content-between login-input p-2 mt-2 clr-white border-none"
+                  type="file"
+                  style={{ display: "none" }}
+                  ref={fileInputRef}
+                  onChange={handleFileSelect}
+                ></input>
+              </div>
+              <hr className="mt-3 hr-line" />
+              <button
+                className="login-button p-2 mt-2"
+                onClick={() => handlePayButton()}
+              >
+                Pay
+              </button>
+            </div>
+          )}
         </div>
       </Modal.Body>
     </Modal>
