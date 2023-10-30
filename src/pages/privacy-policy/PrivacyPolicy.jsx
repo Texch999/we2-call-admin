@@ -29,8 +29,10 @@ function PrivacyPolicy() {
             Privacy Policy and Terms & Condition
           </h6>
           {privacyPolicyData &&
-            privacyPolicyData?.map((policy) => (
-              <p className="small-font">{policy?.policy_description}</p>
+            privacyPolicyData?.map((policy, index) => (
+              <p className="small-font" key={index}>
+                {policy?.policy_description}
+              </p>
             ))}
         </div>
       </div>
