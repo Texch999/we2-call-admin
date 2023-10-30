@@ -63,10 +63,10 @@ function YourPackageTicket() {
 
   useEffect(() => {
     getPackageTicket();
-  },[]);
+  }, []);
 
   const TICKETS_DATA = packageTickets.map((obj) => ({
-    dateAndTime: obj.created_date,
+    dateAndTime: <div>{obj.created_date}-{obj.created_time}</div>,
     nameRole: localStorage.getItem("user_name"),
     trxID: obj.transaction_id,
     packageTRX: obj.summary.final_package_cost,
