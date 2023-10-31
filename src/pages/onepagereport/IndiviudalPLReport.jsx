@@ -13,6 +13,7 @@ import { useEffect } from "react";
 
 function IndiviudalPLReport(props) {
   const {
+    refData,
     individualReportClientData,
     onePageReportdata1,
     ONE_PAGE_REPORT_DETAILS,
@@ -57,24 +58,18 @@ function IndiviudalPLReport(props) {
       })
       .catch((err) => console.log(err));
   };
-  const getIndividualPLRefferal = async () => {
-    await call(GET_INDUVISUAL_REFERRAL_BY, { register_id, refferal_id: refId })
-      .then((res) => {
-        setClientsDataForRefferal(res?.data?.data);
-      })
-      .catch((err) => console.log(err));
-  };
+  
   useEffect(() => {
     if (clientId || refClientId) {
       getIndivisualMatchReport();
     }
   }, [clientId, refClientId]);
 
-  useEffect(() => {
-    if (refId) {
-      getIndividualPLRefferal();
-    }
-  }, [refId]);
+  // useEffect(() => {
+  //   if (refId) {
+  //     getIndividualPLRefferal();
+  //   }
+  // }, [refId]);
 
   return (
     <div>
@@ -103,6 +98,7 @@ function IndiviudalPLReport(props) {
       )}
       {activeReport === "Referal" && (
         <ReferalIndPl
+          refData={refData}
           individualReportReferralData={individualReportReferralData}
           setClientsDataForRefferal={setClientsDataForRefferal}
           individualRefferralData={individualRefferralData}
