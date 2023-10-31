@@ -25,7 +25,6 @@ import UserSubmitPopup from "./UserSubmitPopup";
 
 function UserManagement() {
   let register_id = localStorage?.getItem("register_id");
-  let creator_id = localStorage?.getItem("creator_id");
   let account_role = localStorage?.getItem("account_role");
 
   const [existingClients, setExistingClients] = useState([]);
@@ -69,20 +68,18 @@ function UserManagement() {
   ];
   const [createUserSubmit, setCreateUserSubmit] = useState(false);
   const [showCreateRefer, setShowCreateRefer] = useState(false);
-  // cosnt [selectDeleteId, setSelectDeleteId] = useState("");
 
   const handleSubmitUser = async () => {
-    // setCreateUserSubmit(true);
     if (
       (!userDetails?.alias_name,
       !userDetails?.select_client,
       !userDetails?.refer_name,
-      !userDetails?.referral_share,
-      !userDetails?.fancy_refferal_comm,
-      !userDetails?.referral_comm,
+      !userDetails?.rf_share,
+      !userDetails?.rf_fancy_comm,
+      !userDetails?.rf_comm,
       !userDetails?.deposite_type,
       !userDetails?.location,
-      !userDetails?.client_risk_limit)
+      !userDetails?.match_risk_limit)
     ) {
       return setError("Please Enter All Field");
     }
@@ -140,14 +137,6 @@ function UserManagement() {
   const referalId = refferalData?.filter((item) => {
     return item.referral_name === userDetails?.refer_name;
   });
-
-  console.log(allClients, "....existing_user_id");
-
-  // console.log(referalId[0].refferal_id, ".........referDAta");
-
-  // const clientId = allClients;
-
-  // console.log(clientId.register_id, "......client id");
 
   const [openDeletePopup, setOpenDeletePopup] = useState(false);
   const [openEditConfirm, setOpenEditConfirm] = useState(false);
@@ -519,7 +508,7 @@ function UserManagement() {
           </div>
         </div>
       </div>
-      {error}
+      {error && <div className="danger">{error}</div>}
       <hr className="mt-4" />
       <UserDeletePopup
         openDeletePopup={openDeletePopup}
