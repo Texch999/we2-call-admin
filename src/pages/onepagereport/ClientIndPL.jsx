@@ -23,7 +23,7 @@ function ClientIndPL(props) {
     individualReportClientData?.map((item, index) => ({
       date: item.matchDate,
       matchname: item.matchName,
-      winTeam: item.matchDate,
+      winteam: item.winTeam,
       netpl: item.amount,
     }));
   console.log(individualReportClientData, "individualReportClientData");
@@ -110,7 +110,7 @@ function ClientIndPL(props) {
                     <th>NET P/L</th>
                   </tr>
                 </thead>
-                {CLIENT_PAGE_REPORT_DETAILS.length &&
+                {CLIENT_PAGE_REPORT_DETAILS?.length &&
                   CLIENT_PAGE_REPORT_DETAILS?.map((data, index) => (
                     <tbody key={index}>
                       <tr className="text-center">

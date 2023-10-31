@@ -28,6 +28,7 @@ function ReportPage() {
   const ulShare = localStorage?.getItem("ul_share") || 0;
 
   const [onePageReportData, setOnePageReportData] = useState([]);
+  // console.log(onePageReportData,"SangraonePageReportData")
   const [individualPlData, setIndividualPlData] = useState([]);
   const [indivisualMatchReportData, setIndivisualMatchReportData] = useState(
     []
@@ -356,6 +357,14 @@ function ReportPage() {
         ),
       };
     });
+
+  const handleClientName = (client_name, client_id, netPL) => {
+    setClientName(client_name);
+    setClientId(client_id);
+    setNetPLInduvisualClient(netPL);
+    // console.log("client....", client_name, client_id);
+  };
+
   const clientData =
     onePageReportData?.length > 0 &&
     onePageReportData?.map((report) => ({
@@ -365,23 +374,19 @@ function ReportPage() {
           className={`${
             report?.totalLossOrProfit >= 0 ? "clr-green" : "clr-red"
           }`}
+          onClick={() =>
+            handleClientName(
+              report?.client_name,
+              report?.client_id,
+              report?.totalLossOrProfit
+            )
+          }
         >
           {report?.totalLossOrProfit}
         </div>
       ),
-      onClick: () =>
-        handleClientName(
-          report?.client_name,
-          report?.client_id,
-          report?.totalLossOrProfit
-        ),
     }));
-  const handleClientName = (client_name, client_id, netPL) => {
-    setClientName(client_name);
-    setClientId(client_id);
-    setNetPLInduvisualClient(netPL);
-    // console.log("client....", client_name, client_id);
-  };
+
   const individualClientNameData = (
     <div>
       <button

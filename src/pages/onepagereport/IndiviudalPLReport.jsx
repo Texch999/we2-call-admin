@@ -30,6 +30,8 @@ function IndiviudalPLReport(props) {
     setActiveReport(report);
   };
 
+  console.log(clientId,"clientIdSangram")
+
   const register_id = localStorage?.getItem("register_id");
   const creator_id = localStorage?.getItem("creator_id");
   const account_role = localStorage?.getItem("account_role");
