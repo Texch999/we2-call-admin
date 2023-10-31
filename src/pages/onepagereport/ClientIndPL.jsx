@@ -7,16 +7,19 @@ function ClientIndPL(props) {
     setShowIndividualClientData(true);
   };
   const {
-    ONE_PAGE_REPORT_DETAILS,
-    individualClientNameData,
+ 
     clientData,
     individualReportClientData,
+    clientName,
+    netPLInduvisualClient,
   } = props;
   // console.log(ONE_PAGE_REPORT_DETAILS, "one page report details");
-  const PAGE_REPORT_DETAILS = clientData?.map((item, index) => ({
-    name: item.client_name,
-    pl: item.amount,
-  }));
+  const PAGE_REPORT_DETAILS =
+    clientData?.length &&
+    clientData?.map((item, index) => ({
+      name: item.client_name,
+      pl: item.amount,
+    }));
   console.log(PAGE_REPORT_DETAILS, "one page report");
   const CLIENT_PAGE_REPORT_DETAILS =
     individualReportClientData.length &&
@@ -94,7 +97,9 @@ function ClientIndPL(props) {
               <table className="match-position-table medium-font w-100">
                 <thead>
                   <tr className="text-center">
-                    <th className="text-start">Animesh - 1000000.00</th>
+                    <th className="text-start">
+                     <span className="clr-yellow">{clientName}</span>  : {netPLInduvisualClient}
+                    </th>
                   </tr>
                 </thead>
               </table>
@@ -126,7 +131,7 @@ function ClientIndPL(props) {
                     <th colSpan={3} className="text-end">
                       TOTAL
                     </th>
-                    <th className="clr-green">500000000.00</th>
+                    <th>{netPLInduvisualClient}</th>
                   </tr>
                 </tfoot>
               </table>
