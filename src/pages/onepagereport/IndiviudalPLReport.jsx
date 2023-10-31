@@ -22,7 +22,6 @@ function IndiviudalPLReport(props) {
     individualClientNameData,
     clientData,
     clientId,
-    clientName,
     refClientId,
     clientName,
     refId,
@@ -99,7 +98,6 @@ function IndiviudalPLReport(props) {
           clientData={clientData}
           clientName={clientName}
           individualReportClientData={individualReportClientData}
-          clientName={clientName}
           netPLInduvisualClient={netPLInduvisualClient}
         />
       )}

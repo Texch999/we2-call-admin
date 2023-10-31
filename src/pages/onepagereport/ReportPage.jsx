@@ -475,7 +475,6 @@ function ReportPage() {
           clientId={clientId}
           refId={refId}
           refClientId={refClientId}
-          clientName={clientName}
           invidiualReportReferralHeading={invidiualReportReferralHeading}
           setIndivisualMatchReportData={setIndivisualMatchReportData}
           netPLInduvisualClient={netPLInduvisualClient}
