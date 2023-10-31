@@ -73,19 +73,19 @@ const AddUsers = () => {
       })
       .catch((err) => console.log(err));
   };
-  const ACTION_LABELS = [
-    {
-      name: "CP",
-    },
-    { 
-      name: "EDIT" 
-    },
-    // b: "B",
-    {
-      name: "UB",
-      onclick: handleBlock,
-    },
-  ];
+  // const ACTION_LABELS = [
+  //   {
+  //     name: "CP",
+  //   },
+  //   { 
+  //     name: "EDIT" 
+  //   },
+  //   // b: "B",
+  //   {
+  //     name: "UB",
+  //     onclick: handleBlock,
+  //   },
+  // ];
 
   const [changePasswordSubmit, setChangePasswordSubmit] = useState(false);
   const handleUserChange = (e) => {
@@ -102,6 +102,7 @@ const AddUsers = () => {
   useEffect(() => {
     getAllClients();
   }, [isUserAdded]);
+
 
   return (
     <div className="p-4">

@@ -107,27 +107,31 @@ function UserManagement() {
 
     console.log({ userDeatailsPayload });
 
-    await call(CREATE_OFFLINE_CLIENT, userDeatailsPayload)
-      .then((res) => {
-        if (res?.data?.statusCode === 200) {
-          setAddClientStatus((prev) => !prev);
-          setUserCreationSubmitPopup(true);
-          setTimeout(() => {
-            setUserCreationSubmitPopup(false);
-          }, 1000);
-          setEditStatus(false);
-          // handleReset();
-        } else {
-          setError(
-            res?.data?.message ? res?.data?.message : `something wen't wrong`
-          );
-        }
-      })
-      .catch((err) => {
-        setIsProcessing(false);
-        console.log(err);
-        setError(err?.message ? err?.message : `something wen't wrong`);
-      });
+    updateUser === true
+      ? await call(UPDATE_OFFLINE_CLIENT, userDeatailsPayload)
+      : await call(CREATE_OFFLINE_CLIENT, userDeatailsPayload)
+          .then((res) => {
+            if (res?.data?.statusCode === 200) {
+              setAddClientStatus((prev) => !prev);
+              setUserCreationSubmitPopup(true);
+              setTimeout(() => {
+                setUserCreationSubmitPopup(false);
+              }, 1000);
+              setEditStatus(false);
+              // handleReset();
+            } else {
+              setError(
+                res?.data?.message
+                  ? res?.data?.message
+                  : `something wen't wrong`
+              );
+            }
+          })
+          .catch((err) => {
+            setIsProcessing(false);
+            console.log(err);
+            setError(err?.message ? err?.message : `something wen't wrong`);
+          });
   };
 
   const clientId = allClients.filter((item) => {
@@ -141,6 +145,7 @@ function UserManagement() {
   const [openDeletePopup, setOpenDeletePopup] = useState(false);
   const [openEditConfirm, setOpenEditConfirm] = useState(false);
   const [editClientName, setEditClientName] = useState();
+  const [updateUser, setUpdateUser] = useState(false);
 
   const userColumns = [
     { header: "USER NAME", field: "client_name" },
@@ -159,6 +164,7 @@ function UserManagement() {
   const handleConfirmEdit = async () => {
     getOfflineClients();
     setOpenEditConfirm(false);
+    setUpdateUser(true);
     await call(GET_OFFLINE_CLIENT_DETAILS, {
       register_id,
       client_id: selectId,
@@ -190,7 +196,7 @@ function UserManagement() {
         console.log(res);
       });
   };
-
+  console.log(existingClients, "..........existingClients");
   const exsitedUsers =
     existingClients &&
     existingClients?.length > 0 &&
@@ -504,7 +510,7 @@ function UserManagement() {
             className="sport-management-input w-100 d-flex justify-content-center align-items-center bg-yellow"
             onClick={() => handleSubmitUser()}
           >
-            Submit
+            {updateUser === true ? "Update" : "Submit"}
           </div>
         </div>
       </div>
