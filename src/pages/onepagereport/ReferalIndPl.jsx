@@ -1,44 +1,50 @@
 import React, { useState } from "react";
 
 function ReferalIndPl(props) {
-  const { individualReportReferralData } = props;
+  const {
+    individualReportReferralData,
+    setClientsDataForRefferal,
+    individualRefferralData,
+    invidiualReportReferralHeading,
+  } = props;
   const [showIndividualReferealData, setShowIndividualReferalData] =
     useState(false);
   const handleShowIndividualReferalData = () => {
     setShowIndividualReferalData(true);
   };
-  const PAGE_REPORT_DETAILS = individualReportReferralData?.map(
-    (item, index) => ({
+  const PAGE_REPORT_DETAILS =
+    individualReportReferralData?.length &&
+    individualReportReferralData?.map((item, index) => ({
       name: item.referral_id,
       rfnet: item.amount,
-    })
-  );
-  const REFERAL_REPORT_DETAILS = [
-    { name: "Animesh", pl: "1000000.00" },
-    { name: "Animesh", pl: "1000000.00" },
-    { name: "Animesh", pl: "1000000.00" },
-    { name: "Animesh", pl: "1000000.00" },
-  ];
-  const CLIENT_PAGE_REPORT_DETAILS = [
-    {
-      date: "25-07-2023",
-      matchname: "India vs Sri Lanka",
-      winteam: "India",
-      netpl: "50000000.00",
-    },
-    {
-      date: "25-07-2023",
-      matchname: "India vs Sri Lanka",
-      winteam: "India",
-      netpl: "50000000.00",
-    },
-    {
-      date: "25-07-2023",
-      matchname: "India vs Sri Lanka",
-      winteam: "India",
-      netpl: "50000000.00",
-    },
-  ];
+    }));
+  const REFERAL_REPORT_DETAILS =
+    individualRefferralData?.length &&
+    individualRefferralData?.map((item, index) => ({
+      name: item.referral_name,
+      pl: item.amount,
+    }));
+  const CLIENT_PAGE_REPORT_DETAILS = [{}];
+  // const CLIENT_PAGE_REPORT_DETAILS = [
+  //   {
+  //     date: "25-07-2023",
+  //     matchname: "India vs Sri Lanka",
+  //     winteam: "India",
+  //     netpl: "50000000.00",
+  //   },
+  //   {
+  //     date: "25-07-2023",
+  //     matchname: "India vs Sri Lanka",
+  //     winteam: "India",
+  //     netpl: "50000000.00",
+  //   },
+  //   {
+  //     date: "25-07-2023",
+  //     matchname: "India vs Sri Lanka",
+  //     winteam: "India",
+  //     netpl: "50000000.00",
+  //   },
+  // ];
   return (
     <div>
       <h6 className="Platform-Comm-PL-">Referal :</h6>
@@ -51,14 +57,18 @@ function ReferalIndPl(props) {
                 <th>TOTAL P/L</th>
               </tr>
             </thead>
-            {PAGE_REPORT_DETAILS?.map((item, index) => (
-              <tbody key={index}>
-                <tr className="text-center">
-                  <td>{item.name}</td>
-                  <td className="clr-green">{item.rfnet}</td>
-                </tr>
-              </tbody>
-            ))}
+            {PAGE_REPORT_DETAILS.length &&
+              PAGE_REPORT_DETAILS?.map((item, index) => (
+                <tbody key={index}>
+                  <tr
+                    className="text-center"
+                    onClick={handleShowIndividualReferalData}
+                  >
+                    <td>{item.name}</td>
+                    <td className="clr-green">{item.rfnet}</td>
+                  </tr>
+                </tbody>
+              ))}
             {/* <tfoot>
               <tr className="text-center">
                 <th className="text-center">TOTAL</th>
@@ -67,49 +77,45 @@ function ReferalIndPl(props) {
             </tfoot> */}
           </table>
         </div>
-        <div className="d-flex flex-column w-70">
-          <div className="mb-2">
-            {/* <div className="all-match-button share-risk-match-button w-25 text-start btn btn-primary">
+        {showIndividualReferealData && (
+          <>
+            <div className="d-flex flex-column w-70">
+              <div className="mb-2">
+                {/* <div className="all-match-button share-risk-match-button w-25 text-start btn btn-primary">
               Referal - Animesh
             </div> */}
-            <table className="match-position-table medium-font w-100">
-              <thead>
-                <tr className="text-center">
-                  <th className="text-start">Referal - Animesh</th>
-                </tr>
-              </thead>
-            </table>
-          </div>
-          <div>
-            <table className="w-100 match-position-table medium-font">
-              <thead>
-                <tr>
-                  <th className="text-start">REFERAL NAME</th>
-                  <th className="text-end">TOTAL P/L</th>
-                </tr>
-              </thead>
-              {REFERAL_REPORT_DETAILS.map((item, index) => (
-                <tbody key={index}>
-                  <tr
-                    className="text-end"
-                    onClick={handleShowIndividualReferalData}
-                  >
-                    <td className="text-start">{item.name}</td>
-                    <td className="text-end clr-green">{item.pl}</td>
-                  </tr>
-                </tbody>
-              ))}
-              <tfoot>
-                <tr className="text-end">
-                  <th className="text-start">TOTAL</th>
-                  <th className="clr-green text-end">500000000.00</th>
-                </tr>
-              </tfoot>
-            </table>
-          </div>
-          {showIndividualReferealData && (
-            <>
-              {" "}
+                <table className="match-position-table medium-font w-100">
+                  <thead>
+                    <tr className="text-center">
+                      <th className="text-start">Referal -</th>
+                    </tr>
+                  </thead>
+                </table>
+              </div>
+              <div>
+                <table className="w-100 match-position-table medium-font">
+                  <thead>
+                    <tr>
+                      <th className="text-start">REFERAL NAME</th>
+                      <th className="text-end">TOTAL P/L</th>
+                    </tr>
+                  </thead>
+                  {REFERAL_REPORT_DETAILS?.map((item, index) => (
+                    <tbody key={index}>
+                      <tr className="text-end">
+                        <td className="text-start">{item.name}</td>
+                        <td className="text-end clr-green">{item.pl}</td>
+                      </tr>
+                    </tbody>
+                  ))}
+                  <tfoot>
+                    <tr className="text-end">
+                      <th className="text-start">TOTAL</th>
+                      <th className="clr-green text-end">500000000.00</th>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>{" "}
               <div className="mt-2 mb-2">
                 <table className="match-position-table medium-font w-100">
                   <thead>
@@ -132,7 +138,7 @@ function ReferalIndPl(props) {
                       <th>NET P/L</th>
                     </tr>
                   </thead>
-                  {CLIENT_PAGE_REPORT_DETAILS.map((data, index) => (
+                  {CLIENT_PAGE_REPORT_DETAILS?.map((data, index) => (
                     <tbody key={index}>
                       <tr className="text-center">
                         <td>{data.date}</td>
@@ -152,9 +158,9 @@ function ReferalIndPl(props) {
                   </tfoot>
                 </table>
               </div>
-            </>
-          )}
-        </div>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );

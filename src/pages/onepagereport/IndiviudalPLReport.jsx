@@ -16,6 +16,7 @@ function IndiviudalPLReport(props) {
     individualReportClientData,
     onePageReportdata1,
     ONE_PAGE_REPORT_DETAILS,
+    netPLInduvisualClient,
     individualReportULShareData,
     individualReportReferralData,
     individualClientNameData,
@@ -23,7 +24,12 @@ function IndiviudalPLReport(props) {
     clientId,
     clientName,
     refClientId,
+    clientName,
+    refId,
     setIndivisualMatchReportData,
+    setClientsDataForRefferal,
+    individualRefferralData,
+    invidiualReportReferralHeading,
   } = props;
   const reportList = ["Client", "Referal", "U/L Share", "Platform Comm P/L"];
   const [activeReport, setActiveReport] = useState("Client");
@@ -31,7 +37,7 @@ function IndiviudalPLReport(props) {
     setActiveReport(report);
   };
 
-  console.log(clientId,"clientIdSangram")
+  console.log(clientId, "clientIdSangram");
 
   const register_id = localStorage?.getItem("register_id");
   const creator_id = localStorage?.getItem("creator_id");
@@ -52,13 +58,25 @@ function IndiviudalPLReport(props) {
       })
       .catch((err) => console.log(err));
   };
+  const getIndividualPLRefferal = async () => {
+    await call(GET_INDUVISUAL_REFERRAL_BY, { register_id, refferal_id: refId })
+      .then((res) => {
+        setClientsDataForRefferal(res?.data?.data);
+      })
+      .catch((err) => console.log(err));
+  };
   useEffect(() => {
     if (clientId || refClientId) {
       getIndivisualMatchReport();
     }
   }, [clientId, refClientId]);
-  console.log(clientId, "clientId");
-  console.log(refClientId, "refClientId");
+
+  useEffect(() => {
+    if (refId) {
+      getIndividualPLRefferal();
+    }
+  }, [refId]);
+
   return (
     <div>
       <hr />
@@ -78,16 +96,19 @@ function IndiviudalPLReport(props) {
 
       {activeReport === "Client" && (
         <ClientIndPL
-          ONE_PAGE_REPORT_DETAILS={ONE_PAGE_REPORT_DETAILS}
-          individualClientNameData={individualClientNameData}
           clientData={clientData}
           clientName={clientName}
           individualReportClientData={individualReportClientData}
+          clientName={clientName}
+          netPLInduvisualClient={netPLInduvisualClient}
         />
       )}
       {activeReport === "Referal" && (
         <ReferalIndPl
           individualReportReferralData={individualReportReferralData}
+          setClientsDataForRefferal={setClientsDataForRefferal}
+          individualRefferralData={individualRefferralData}
+          invidiualReportReferralHeading={invidiualReportReferralHeading}
         />
       )}
       {activeReport === "U/L Share" && (

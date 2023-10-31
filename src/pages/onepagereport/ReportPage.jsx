@@ -28,7 +28,6 @@ function ReportPage() {
   const ulShare = localStorage?.getItem("ul_share") || 0;
 
   const [onePageReportData, setOnePageReportData] = useState([]);
-  // console.log(onePageReportData,"SangraonePageReportData")
   const [individualPlData, setIndividualPlData] = useState([]);
   const [indivisualMatchReportData, setIndivisualMatchReportData] = useState(
     []
@@ -45,6 +44,8 @@ function ReportPage() {
   const [clientId, setClientId] = useState("");
   const [refClientId, setRefClientId] = useState("");
   const [netPLInduvisualClient, setNetPLInduvisualClient] = useState(0);
+  const [refClientName, setRefClientName] = useState("");
+  const [clientsDataForRefferal, setClientsDataForRefferal] = useState([]);
 
   const handleReferralId = (name, refId) => {
     setClientId(clientId);
@@ -357,14 +358,6 @@ function ReportPage() {
         ),
       };
     });
-
-  const handleClientName = (client_name, client_id, netPL) => {
-    setClientName(client_name);
-    setClientId(client_id);
-    setNetPLInduvisualClient(netPL);
-    // console.log("client....", client_name, client_id);
-  };
-
   const clientData =
     onePageReportData?.length > 0 &&
     onePageReportData?.map((report) => ({
@@ -387,7 +380,12 @@ function ReportPage() {
         </div>
       ),
     }));
-
+  const handleClientName = (client_name, client_id, netPL) => {
+    setClientName(client_name);
+    setClientId(client_id);
+    setNetPLInduvisualClient(netPL);
+    // console.log("client....", client_name, client_id);
+  };
   const individualClientNameData = (
     <div>
       <button
@@ -402,6 +400,32 @@ function ReportPage() {
       <div className="hr-line"></div>
     </div>
   );
+  const invidiualReportReferralHeading = (
+    <div>
+      <button
+        className={`common-active-css inactive-css font-12 individual-referral-name
+`}
+      >
+        Client - {refClientName} Match Wise Rf P/L
+      </button>
+    </div>
+  );
+  const individualRefferralData =
+    clientsDataForRefferal &&
+    clientsDataForRefferal?.length > 0 &&
+    clientsDataForRefferal?.map((client) => {
+      return {
+        referral_name: client?.client_name,
+        amount: 100000,
+        onClick: () =>
+          handleReportReferral(client?.client_name, client?.client_id),
+      };
+    });
+  const handleReportReferral = (name, id) => {
+    setRefClientName(name);
+    setRefClientId(id);
+  };
+
   useEffect(() => {
     getOnePageReportData();
     getIndividualPLReport();
@@ -441,7 +465,7 @@ function ReportPage() {
           individualReportULShareData={individualReportULShareData}
           individualReportReferralData={individualReportReferralData}
           individualReportClientData={
-            clientId ? individualReportClientData : ""
+            clientId ? individualReportClientData : individualRefferralData
           }
           clientName={clientName}
           individualClientNameData={individualClientNameData}
@@ -451,7 +475,11 @@ function ReportPage() {
           clientId={clientId}
           refId={refId}
           refClientId={refClientId}
+          clientName={clientName}
+          invidiualReportReferralHeading={invidiualReportReferralHeading}
           setIndivisualMatchReportData={setIndivisualMatchReportData}
+          netPLInduvisualClient={netPLInduvisualClient}
+          setClientsDataForRefferal={setClientsDataForRefferal}
         />
       )}
     </div>
