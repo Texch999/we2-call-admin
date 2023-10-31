@@ -1,37 +1,31 @@
 import { useState } from "react";
 import Table from "../home-page/Table";
 import CustomPagination from "../pagination/CustomPagination";
+import { GET_REQUEST_PACKAGES } from "../../config/endpoints";
+import { useEffect } from "react";
+import { call } from "../../config/axios";
 
 function AdminPackageTickets() {
-  const MATCH_ENTRY_DATA = [
-    {
-      dateAndTime: "19 July 2023, 10:00:00 PM",
-      nameRole: "Sri-Agent",
-      trxID: "trx-id-20230627074602133078",
-      packageTRX: "Upgrade Package - 20,000 (Monthly)",
-      payAmount: 20000,
-      status: <div className="rounded-pill p-1 pending-btn">Pending</div>,
-      fundStatus: "Insufficient Balance",
-    },
-    {
-      dateAndTime: "19 July 2023, 10:00:00 PM",
-      nameRole: "Sri-Agent",
-      trxID: "trx-id-20230627074602133078",
-      packageTRX: "Upgrade Package - 20,000 (Monthly)",
-      payAmount: 20000,
-      status: <div className="rounded-pill p-1 reject-btn">Rejected</div>,
-      fundStatus: "Welcome!",
-    },
-    {
-      dateAndTime: "19 July 2023, 10:00:00 PM",
-      nameRole: "Sri-Agent",
-      trxID: "trx-id-20230627074602133078",
-      packageTRX: "Upgrade Package - 20,000 (Monthly)",
-      payAmount: 20000,
-      status: <div className="rounded-pill p-1 completed-btn">Completed</div>,
-      fundStatus: "Insufficient Balance",
-    },
-  ];
+  const [adminPackageTicket, setadminPackageTicket] = useState([]);
+  console.log(adminPackageTicket, "..........adminPackageTicket");
+
+  const MATCH_ENTRY_DATA = adminPackageTicket.map((obj) => ({
+    dateAndTime:<div>{obj.created_date}-{obj.created_time}</div>,
+    nameRole: localStorage.getItem("user_name"),
+    trxID: obj?.transaction_id,
+    packageTRX: obj.summary.final_package_cost,
+    payAmount: obj.summary.final_package_cost,
+    status:
+      obj?.status === "approve" ? (
+        <div className="rounded-pill p-1 completed-btn">Completed</div>
+      ) : obj?.status === "Reject" ? (
+        <div className="rounded-pill p-1 reject-btn">Reject</div>
+      ) : (
+        <div className="rounded-pill p-1 pending-btn">Pending</div>
+      ),
+    fundStatus: obj?.reason,
+  }));
+
   const MATCH_ENTRY_HEADING = [
     {
       header: "DATE & TIME",
@@ -58,7 +52,7 @@ function AdminPackageTickets() {
       field: "status",
     },
     {
-      header: "",
+      header: "reason",
       field: "fundStatus",
     },
   ];
@@ -70,6 +64,24 @@ function AdminPackageTickets() {
     // You can add your logic here to fetch data for the selected page.
   };
 
+  const getAdminPackageTicket = async () => {
+    const payload = {
+      register_id: localStorage.getItem("register_id"),
+      creator_id: localStorage.getItem("creator_id"),
+    };
+    await call(GET_REQUEST_PACKAGES, payload)
+      .then((res) => {
+        console.log(res, "..........res");
+        setadminPackageTicket(res?.data?.data);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  console.log("--->adminPackageTicket", adminPackageTicket);
+
+  useEffect(() => {
+    getAdminPackageTicket();
+  }, []);
 
   return (
     <div className="mt-3">

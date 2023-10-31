@@ -121,7 +121,6 @@ function PackageStatement() {
   //       throw err;
   //     });
   // };
-  console.log(renderData, "renderData");
   return (
     <div>
       <h3>Package-Statement</h3>

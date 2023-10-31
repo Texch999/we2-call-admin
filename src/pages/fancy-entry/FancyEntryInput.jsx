@@ -25,7 +25,6 @@ function FancyEntryInput({
   let account_role = localStorage?.getItem("account_role");
 
   const [fancyEntryInputData, setFancyInputEntryData] = useState({});
-  // const [over, setOver] = useState({});
   const [fancySubmitPopup, setFancySubmitPopup] = useState(false);
   const [selectedOptions, setSelectedOptions] = useState();
   const [existingUsers, setExistingUsers] = useState([]);
@@ -39,12 +38,7 @@ function FancyEntryInput({
   const handleClientSelect = (data) => {
     setSelectedOptions(data);
   };
-  // const handleOvers = (e) => {
-  //   setOver(e.target.value);
-  // };
-  // const handleSelectOvers = (e) => {
-  //   setOver([...over, e.target.value]);
-  // };
+
   const handleFancyEntryInputDataChange = (e) => {
     setFancyInputEntryData({
       ...fancyEntryInputData,
@@ -52,8 +46,6 @@ function FancyEntryInput({
     });
     setMatchInnings(fancyEntryInputData?.innings);
     setMatchOver(fancyEntryInputData?.over);
-    console.log(fancyEntryInputData?.innings, "MATCH_INNINGS");
-    console.log(fancyEntryInputData?.over, "MATCH_OVER");
   };
 
   const getAllClientsData = async () => {
@@ -75,9 +67,8 @@ function FancyEntryInput({
   }, []);
 
   const resetFields = () => {
-    // setOver("");
     setSelectedOptions("");
-    fancyEntryInputData({});
+    setFancyInputEntryData({});
   };
 
   const handleFancyEntrySubmit = async () => {
@@ -99,12 +90,12 @@ function FancyEntryInput({
       registered_match_id: registered_match_id,
       register_id,
       account_role,
-      innings: fancyEntryInputData?.innings,
+      innings: +fancyEntryInputData?.innings,
       rate: 1,
-      over: fancyEntryInputData?.over,
+      over: +fancyEntryInputData?.over,
       team: fancyEntryInputData?.team,
-      amount: fancyEntryInputData?.amount,
-      runs: fancyEntryInputData?.runs,
+      amount: +fancyEntryInputData?.amount,
+      runs: +fancyEntryInputData?.runs,
       yN: fancyEntryInputData?.yN,
       client_id: selectedOptions?.value,
       client_name: selectedOptions?.label,
@@ -121,8 +112,11 @@ function FancyEntryInput({
           getRiskRunningData();
           getFancyProfitLoss();
           setError("");
+          console.log(error, "EEERRR");
         } else {
-          setError("Something Went Wrong");
+          setError(
+            res?.data?.message ? res?.data?.message : "Something Went Wrong"
+          );
         }
       })
       .catch((err) => {
@@ -152,12 +146,12 @@ function FancyEntryInput({
       registered_match_id,
       register_id,
       account_role,
-      innings: fancyEntryInputData?.innings,
+      innings: +fancyEntryInputData?.innings,
       rate: 1,
-      over: fancyEntryInputData?.over,
-      team: fancyEntryInputData?.team,
-      amount: fancyEntryInputData?.amount,
-      runs: fancyEntryInputData?.runs,
+      over: +fancyEntryInputData?.over,
+      team: +fancyEntryInputData?.team,
+      amount: +fancyEntryInputData?.amount,
+      runs: +fancyEntryInputData?.runs,
       yN: fancyEntryInputData?.yN,
       client_id: selectedOptions?.value,
       client_name: selectedOptions?.label,
@@ -166,18 +160,19 @@ function FancyEntryInput({
       .then((res) => {
         setIsProcessing(false);
         if (res?.data?.statusCode === 200) {
-          resetFields();
           setStatus((prev) => !prev);
           setFancySubmitPopup(true);
           setTimeout(() => {
             setFancySubmitPopup(false);
-          }, 100);
+          }, 1000);
           setSelectedMatchEntry("");
           getRiskRunningData();
           getFancyProfitLoss();
-          // setError("");
+          resetFields();
         } else {
-          setError("Something Went Wrong");
+          setError(
+            res?.data?.message ? res?.data?.message : "Something Went Wrong"
+          );
         }
       })
       .catch((err) => {
@@ -206,11 +201,12 @@ function FancyEntryInput({
               className="w-100 custom-select medium-font btn-bg rounded all-none p-2"
               name="innings"
               id="innings"
+              type="number"
               onChange={(e) => handleFancyEntryInputDataChange(e)}
             >
-              <option>Select</option>
-              <option value="1">First</option>
-              <option value="2">Second</option>
+              <option value="">Select</option>
+              <option value={1}>First</option>
+              <option value={2}>Second</option>
             </select>
           </div>
         </div>
@@ -241,8 +237,10 @@ function FancyEntryInput({
                 className="w-30 custom-select medium-font btn-bg  all-none p-2 rounded"
                 placeholder="Over"
                 name="over"
+                type="number"
                 onChange={(e) => handleFancyEntryInputDataChange(e)}
               >
+                <option value="">Select</option>
                 {(selectedInnings === "2"
                   ? selectedMatch?.game_object?.second_innings_fancy_overs
                   : selectedMatch?.game_object?.first_innings_fancy_overs
@@ -256,20 +254,6 @@ function FancyEntryInput({
                     <option value={over}>{over}</option>
                   ))}
               </select>
-              {/* <select
-                name="over"
-                value={over || []}
-                className="w-30 custom-select medium-font btn-bg all-none p-2 rounded"
-                onChange={(e) => handleSelectOvers(e)}
-              >
-                <option>Select</option>
-                <option value="5">5 Overs</option>
-                <option value="10">10 Overs</option>
-                <option value="15">15 Overs</option>
-                <option value="20">20 Overs</option>
-                <option value="25">25 Overs</option>
-                <option value="30">30 Overs</option>
-              </select> */}
             </div>
           </div>
         </div>
@@ -283,7 +267,7 @@ function FancyEntryInput({
               name="team"
               onChange={(e) => handleFancyEntryInputDataChange(e)}
             >
-              <option>Select Team</option>
+              <option value="">Select Team</option>
               <option value={selectedMatch?.team1}>
                 {selectedMatch?.team1}
               </option>
@@ -329,7 +313,7 @@ function FancyEntryInput({
               name="yN"
               onChange={(e) => handleFancyEntryInputDataChange(e)}
             >
-              <option>Select</option>
+              <option value="">Select</option>
               <option value="Y">Y</option>
               <option value="N">N</option>
             </select>

@@ -27,7 +27,8 @@ function FancyRiskRunningTable({ riskRunningData }) {
         ulComm,
       } = riskRunningData[key];
       return {
-        header: key,
+        key: key,
+        header: `${key} Runs`,
         amount: parseFloat(amount).toFixed(2) || 0,
         cPosition: (
           parseFloat(clientCommission || 0) + parseFloat(clientShare || 0)

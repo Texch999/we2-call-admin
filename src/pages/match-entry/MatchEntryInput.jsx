@@ -80,7 +80,7 @@ function MatchEntryInput({
       ...selectedMatch,
       rate: "1." + rate,
       team: matchEntryInputData?.team,
-      amount: matchEntryInputData?.amount,
+      amount: +matchEntryInputData?.amount,
       pe: matchEntryInputData?.pe,
       client_id: selectedOptions?.value,
       client_name: selectedOptions?.label,
@@ -125,7 +125,7 @@ function MatchEntryInput({
     await call(UPDATE_MATCH_ENTRY, {
       rate: "1." + rate,
       team: matchEntryInputData?.team,
-      amount: matchEntryInputData?.amount,
+      amount: +matchEntryInputData?.amount,
       pe: matchEntryInputData?.pe,
       client_id: selectedOptions?.value,
       client_name: selectedOptions?.label,

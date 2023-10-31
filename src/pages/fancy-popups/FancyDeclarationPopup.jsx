@@ -2,14 +2,25 @@ import { Modal } from "react-bootstrap";
 import { IoCloseSharp } from "react-icons/io5";
 import { Images } from "./../../images/index";
 
-function MatchDeclarationPopup(props) {
-  const { header, amount, state, setState, handleMatchDeclarePopupOpen } =
-    props;
-
+function FancyDeclarationPopup(props) {
+  const {
+    header,
+    amount,
+    state,
+    setState,
+    setPaymentPopup,
+    handleSubmitPopupOpen,
+    handleMatchSubmitSuccessPopupOpen,
+    setMatchSubmitSuccessPopup,
+    // handleMatchDeclarePopupClose,
+  } = props;
+  const handleMatchDeclarePopupClose = () => {
+    setMatchSubmitSuccessPopup(false);
+  };
   return (
     <Modal className="match-declaration-modal" centered show={state}>
       <Modal.Header className="d-flex justify-content-end">
-        <IoCloseSharp onClick={() => setState()} />
+        <IoCloseSharp onClick={() => handleMatchDeclarePopupClose()} />
       </Modal.Header>
       <Modal.Body>
         <center className="px-3">
@@ -23,13 +34,13 @@ function MatchDeclarationPopup(props) {
           <div className="row d-flex justify-content-between mt-3">
             <div
               className="col-5 rounded yellow-btn p-1"
-              onClick={() => handleMatchDeclarePopupOpen()}
+              onClick={() => handleSubmitPopupOpen()}
             >
               Yes
             </div>
             <div
               className="col-5 rounded share-bg p-1"
-              onClick={() => setState(false)}
+              onClick={() => handleMatchDeclarePopupClose()}
             >
               No
             </div>
@@ -40,4 +51,4 @@ function MatchDeclarationPopup(props) {
   );
 }
 
-export default MatchDeclarationPopup;
+export default FancyDeclarationPopup;

@@ -53,15 +53,19 @@ const CHANGE_PASSWORD = "/admin/change_password";
 const UPDATE_USER_ADMIN = "/admin/update_user_admin";
 const UPDATE_USER_CLIENT = "/admin/update_user_client";
 const RISK_RUNNING_SESSION = "/offline-management/risk_running_session";
-const FANCY_RESULT_PROFIT_LOSS = "/offline-management/fancy_result_profitlose";
 const ADD_PAYMENT = "/management/add_payment_gateway";
 const GET_ALL_PAYMENT_GATEWAYS = "/management/getall_payments";
 const UPDATE_PAYMENT_GATEWAY = "/management/update_payment_gateway";
 const GET_REQUEST_PACKAGES =
   "/packages/get_package_histroy_bypackage_requestid";
 const GET_ADMIN_PACKAGE_REQUEST = "/packages/get_all_admin_package_request";
+const GET_COMPLETED_MATCHES_BY_CLEINT =
+  "/offline-management/get_completed_matches_by_client_id";
 const GET_REASON_REJECTIONS = "/settings/getall_security_questions";
+const FANCY_RESULT_PROFIT_LOSS = "/offline-management/fancy_result_profitlose";
+const GET_ADMIN_PACKAGES = "/packages/get_admin_packages";
 const DELETE_OFFLINE_CLIENT = "/offline-management/delete_clients";
+const PRIVACY_POLICY = "/management/get_policy_document";
 
 // methods
 const DELETE = "DELETE";
@@ -69,6 +73,10 @@ const POST = "POST";
 const GET = "POST";
 const PUT = "PUT";
 
+exports.GET_COMPLETED_MATCHES_BY_CLEINT = {
+  url: GET_COMPLETED_MATCHES_BY_CLEINT,
+  method: POST,
+};
 exports.GET_UPDATED_MATCHES_DATA = {
   url: GET_UPDATED_MATCHES_DATA,
   method: POST,
@@ -236,11 +244,6 @@ exports.GET_SETTLEMENT_HISTORY = {
   method: POST,
 };
 
-// exports.GET_CLIENTS_DATA = {
-//   url: GET_CLIENTS_DATA,
-//   method: POST,
-// };
-
 exports.ACCOUNT_REGISTERATION = {
   url: ACCOUNT_REGISTERATION,
   method: POST,
@@ -323,6 +326,7 @@ exports.RISK_RUNNING_SESSION = {
 
 exports.FANCY_RESULT_PROFIT_LOSS = {
   url: FANCY_RESULT_PROFIT_LOSS,
+  method: POST,
 };
 exports.UPDATE_PAYMENT_GATEWAY = {
   url: UPDATE_PAYMENT_GATEWAY,
@@ -341,8 +345,15 @@ exports.GET_REASON_REJECTIONS = {
   url: GET_REASON_REJECTIONS,
   method: POST,
 };
-
+exports.GET_ADMIN_PACKAGES = {
+  url: GET_ADMIN_PACKAGES,
+  method: GET,
+};
 exports.DELETE_OFFLINE_CLIENT = {
   url: DELETE_OFFLINE_CLIENT,
   method: POST,
+};
+exports.PRIVACY_POLICY = {
+  url: PRIVACY_POLICY,
+  method: GET,
 };

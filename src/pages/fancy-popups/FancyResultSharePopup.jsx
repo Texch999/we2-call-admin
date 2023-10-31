@@ -13,7 +13,7 @@ function FancyResultSharePopup(props) {
   const OVERS_SHARE_DATA =
     oversShareData?.length > 0 &&
     oversShareData?.map((fancy) => ({
-      header: `${fancy?.key} "Over"`,
+      header: `${fancy?.key} Overs`,
       clientShare: fancy?.clientShare.toFixed(2),
       rfShare: fancy?.rfShare.toFixed(2),
     }));

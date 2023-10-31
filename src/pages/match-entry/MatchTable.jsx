@@ -29,7 +29,7 @@ function MatchTable(props) {
                     <div
                       className={`${
                         isNaN(item[column.field]) > 0
-                          ? ""
+                          ? "font-white"
                           : +item[column.field] >= 0
                           ? "green-color"
                           : "red-color"
