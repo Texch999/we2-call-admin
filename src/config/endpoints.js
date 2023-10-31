@@ -62,6 +62,8 @@ const GET_REQUEST_PACKAGES =
 const GET_ADMIN_PACKAGE_REQUEST = "/packages/get_all_admin_package_request";
 const GET_REASON_REJECTIONS = "/settings/getall_security_questions";
 const GET_ADMIN_PACKAGES = "/packages/get_admin_packages";
+const GET_TOURS = "/tours/get_tours";
+const ADD_INTERESTED = "/tours/add_interested";
 
 
 // methods
@@ -69,6 +71,16 @@ const DELETE = "DELETE";
 const POST = "POST";
 const GET = "POST";
 const PUT = "PUT";
+
+exports.ADD_INTERESTED = {
+  url:ADD_INTERESTED,
+  method:POST
+}
+
+exports.GET_TOURS = {
+  url:GET_TOURS,
+  method:POST
+};
 
 exports.GET_UPDATED_MATCHES_DATA = {
   url: GET_UPDATED_MATCHES_DATA,

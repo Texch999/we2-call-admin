@@ -39,9 +39,21 @@
   align-items: center;
   justify-content: center;
 }
+.afterintrested {
+  background: linear-gradient(to top, #88ff43, #6cff17) !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 #black-background {
   background: black !important;
 }
+#white-background {
+  background: white !important;
+  color: black;
+}
+
 .w-60 {
   width: 60%;
 }
