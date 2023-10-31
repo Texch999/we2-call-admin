@@ -1,4 +1,4 @@
-import React, { useState,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { Modal } from "react-bootstrap";
 import { IoCloseSharp } from "react-icons/io5";
 import { BiSolidLock } from "react-icons/bi";
@@ -7,16 +7,19 @@ import { CHANGE_PASSWORD } from "../../config/endpoints";
 import { call } from "../../config/axios";
 
 function ChangePassword(props) {
-  const { showChangePopup, setShowChangePopup, setChangePasswordSubmit} = props;
+  const { showChangePopup, setShowChangePopup, setChangePasswordSubmit } =
+    props;
   const [showEye, setShowEye] = useState(false);
+  const [error, setError] = useState("");
   let register_id = localStorage?.getItem("register_id");
   let creator_id = localStorage?.getItem("creator_id");
+  console.log(creator_id, "Creater_ID");
+
   const [passwordData, setPasswordData] = useState({
     new_password: "",
     confirm_password: "",
     admin_password: "",
   });
-  const [error, setError] = useState("");
 
   const handleShowEye = () => {
     setShowEye(!showEye);
@@ -51,18 +54,15 @@ function ChangePassword(props) {
     setError("");
 
     try {
-      const response = await call(
-        CHANGE_PASSWORD,
-        {
-          register_id: "reg-20231006103427425",
-          creator_id: "reg-20230918153256097",
-          // register_id: register_id,
-          // creator_id: creator_id,
-          creator_password: passwordData.admin_password,
-          new_password: passwordData.new_password,
-          confirm_password: passwordData.confirm_password,
-        }
-      );
+      const response = await call(CHANGE_PASSWORD, {
+        // register_id: "reg-20231006103427425",
+        // creator_id: "reg-20230918153256097",
+        register_id: register_id,
+        creator_id: creator_id,
+        creator_password: passwordData.admin_password,
+        new_password: passwordData.new_password,
+        confirm_password: passwordData.confirm_password,
+      });
 
       if (response.status === 200) {
         console.log("Password changed successfully");
@@ -117,7 +117,7 @@ function ChangePassword(props) {
                     placeholder={item.plHolder}
                     type={showEye ? "text" : "password"}
                     name={item.name}
-                    value={passwordData[item.name]}
+                    // value={passwordData[item.name]}
                     onChange={(e) =>
                       setPasswordData({
                         ...passwordData,
@@ -125,11 +125,9 @@ function ChangePassword(props) {
                       })
                     }
                   />
-                  {showEye === true ? (
-                    <AiFillEye onClick={handleShowEye} />
-                  ) : (
-                    <AiFillEyeInvisible onClick={handleShowEye} />
-                  )}
+                  <div onClick={() => handleShowEye()}>
+                    {showEye ? <AiFillEye /> : <AiFillEyeInvisible />}
+                  </div>
                 </div>
               </div>
             );

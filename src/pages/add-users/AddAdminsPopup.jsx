@@ -12,6 +12,7 @@ import {
 
 function AddAdminsPopup(props) {
   const { adminsData, usersData, setModalShow, editData } = props;
+  
   // console.log("Props====>", props);
   let register_id = localStorage?.getItem("register_id");
   let creator_id = localStorage?.getItem("creator_id");
@@ -370,7 +371,7 @@ function AddAdminsPopup(props) {
                     </InputGroup.Text>
                     <Form.Control
                       type="text"
-                      placeholder="Enter Share"
+                      placeholder="Enter Package_Discount"
                       autoFocus
                       aria-describedby="platComm"
                       name="package_discount"
