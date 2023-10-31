@@ -379,6 +379,7 @@ function ReportPage() {
               report?.client_name,
               report?.client_id,
               report?.totalLossOrProfit
+              // report
             )
           }
         >
@@ -442,6 +443,7 @@ function ReportPage() {
           individualReportClientData={
             clientId ? individualReportClientData : ""
           }
+          clientName={clientName}
           individualClientNameData={individualClientNameData}
           onePageReportdata1={onePageReportdata1}
           ONE_PAGE_REPORT_DETAILS={ONE_PAGE_REPORT_DETAILS}

@@ -84,7 +84,7 @@ function UserManagement() {
       !userDetails?.location,
       !userDetails?.client_risk_limit)
     ) {
-      // return setError("Please Enter All Field");
+      return setError("Please Enter All Field");
     }
     let userDeatailsPayload = {
       existing_user_id: clientId[0].register_id,

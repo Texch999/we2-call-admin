@@ -10,6 +10,7 @@ function ClientIndPL(props) {
     ONE_PAGE_REPORT_DETAILS,
     individualClientNameData,
     clientData,
+    clientName,
     individualReportClientData,
   } = props;
   // console.log(ONE_PAGE_REPORT_DETAILS, "one page report details");
@@ -94,7 +95,7 @@ function ClientIndPL(props) {
               <table className="match-position-table medium-font w-100">
                 <thead>
                   <tr className="text-center">
-                    <th className="text-start">Animesh - 1000000.00</th>
+                    <th className="text-start">{clientName} - 1000000.00</th>
                   </tr>
                 </thead>
               </table>

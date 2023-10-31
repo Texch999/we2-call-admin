@@ -21,6 +21,7 @@ function IndiviudalPLReport(props) {
     individualClientNameData,
     clientData,
     clientId,
+    clientName,
     refClientId,
     setIndivisualMatchReportData,
   } = props;
@@ -80,6 +81,7 @@ function IndiviudalPLReport(props) {
           ONE_PAGE_REPORT_DETAILS={ONE_PAGE_REPORT_DETAILS}
           individualClientNameData={individualClientNameData}
           clientData={clientData}
+          clientName={clientName}
           individualReportClientData={individualReportClientData}
         />
       )}
