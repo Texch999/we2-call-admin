@@ -66,6 +66,7 @@ const FANCY_RESULT_PROFIT_LOSS = "/offline-management/fancy_result_profitlose";
 const GET_ADMIN_PACKAGES = "/packages/get_admin_packages";
 const DELETE_OFFLINE_CLIENT = "/offline-management/delete_clients";
 const PRIVACY_POLICY = "/management/get_policy_document";
+const RESET_PASSWORD = "/admin/reset_password";
 
 // methods
 const DELETE = "DELETE";
@@ -356,4 +357,8 @@ exports.DELETE_OFFLINE_CLIENT = {
 exports.PRIVACY_POLICY = {
   url: PRIVACY_POLICY,
   method: GET,
+};
+exports.RESET_PASSWORD = {
+  url: RESET_PASSWORD,
+  method: POST,
 };
