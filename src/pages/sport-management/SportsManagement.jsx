@@ -118,6 +118,8 @@ function SportsManagement() {
       overs: selectOvers[0]?.second,
     },
   ];
+
+  console.log(matchData, "......matchData");
   const tableData =
     allMatchesData?.length > 0 &&
     allMatchesData?.map((match) => ({
@@ -185,8 +187,8 @@ function SportsManagement() {
       !matchData?.stadium ||
       !matchData?.gender ||
       !matchData?.date ||
-      !matchData?.time
-      // !selectMatchType.match_type
+      !matchData?.time ||
+      !selectMatchType.match_type
     ) {
       return setError("Please enter required fields");
     }
