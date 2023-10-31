@@ -16,7 +16,7 @@ import {
   GET_REFFERAL_DATA,
   CREATE_OFFLINE_CLIENT,
   DELETE_OFFLINE_CLIENT,
-  UPDATE_OFFLINE_CLIENT
+  UPDATE_OFFLINE_CLIENT,
 } from "../../config/endpoints";
 import CreateReferral from "./CreateReferral";
 import UserDeletePopup from "./UserDeletePopup";
@@ -104,8 +104,8 @@ function UserManagement() {
       deposit_type: userDetails?.deposite_type,
       location: userDetails?.location,
       match_race_comm: 2,
-      client_share:2,
-      fancy_comm:2,
+      client_share: 2,
+      fancy_comm: 2,
     };
 
     console.log({ userDeatailsPayload });
@@ -140,6 +140,8 @@ function UserManagement() {
   const referalId = refferalData?.filter((item) => {
     return item.referral_name === userDetails?.refer_name;
   });
+
+  console.log(allClients, "....existing_user_id");
 
   // console.log(referalId[0].refferal_id, ".........referDAta");
 
@@ -272,7 +274,13 @@ function UserManagement() {
     getOfflineClients();
   }, [addClientStatus]);
 
+  // useEffect(() => {
+  //   getOfflineClients();
+  // }, [userDetails]);
+
   console.log(userDetails, "....userDetails");
+
+  // console.log(register_id, "....register_id");
 
   // console.log(refferalData, "...refferalDataList");
 
