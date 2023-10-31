@@ -29,16 +29,17 @@
   color: #080c27 !important;
   font-weight: bold;
 }
-.head-name{
+.head-name {
   background: #112a5e;
   width: fit-content;
   border-radius: 20px;
 }
-.payment-scroll{
-  height: 120px;
+.payment-scroll {
+  max-height: 120px;
   overflow-y: scroll;
+  overflow-x: hidden;
 }
-.border-none{
+.border-none {
   border: none;
 }
 .diamond-package-bg {
@@ -270,4 +271,7 @@
 }
 .custom-button-drop .btn:hover {
   background-color: #112a5e !important;
+}
+.z-index{
+  z-index: 9999;
 }
