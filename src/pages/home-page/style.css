@@ -20,6 +20,7 @@
 .sport-management-input {
   background: #112a5e;
   height: 8vh;
+  color: none;
   align-items: center;
   border-radius: 5px;
 }
@@ -416,7 +417,7 @@ option {
   left: 50%;
   transform: translate(-50%, -50%);
 }
-.create-new{
+.create-new {
   background: yellow;
   color: black;
   padding: 0px 10px;
