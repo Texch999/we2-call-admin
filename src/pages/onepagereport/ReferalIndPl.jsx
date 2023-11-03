@@ -96,25 +96,23 @@ function ReferalIndPl(props) {
                 <th>TOTAL P/L</th>
               </tr>
             </thead>
-            {PAGE_REPORT_DETAILS?.length &&
-              PAGE_REPORT_DETAILS?.map((item, index) => (
-                <tbody key={index}>
-                  <tr
-                    className="text-center"
-                    // onClick={handleShowIndividualReferalData}
-                  >
-                    <td>{item.name}</td>
-                    <td className="clr-green">{item.rfnet}</td>
-                  </tr>
-                </tbody>
-              ))}
-            {/* <tfoot>
-              <tr className="text-center">
-                <th className="text-center">TOTAL</th>
-                <th className="clr-green">500000000.00</th>
-              </tr>
-            </tfoot> */}
           </table>
+          <div className="referal-table-scroll-content">
+            <table className="w-100 match-position-table medium-font">
+              {PAGE_REPORT_DETAILS?.length &&
+                PAGE_REPORT_DETAILS?.map((item, index) => (
+                  <tbody key={index}>
+                    <tr
+                      className="text-center"
+                      // onClick={handleShowIndividualReferalData}
+                    >
+                      <td>{item.name}</td>
+                      <td className="clr-green">{item.rfnet}</td>
+                    </tr>
+                  </tbody>
+                ))}
+            </table>
+          </div>
         </div>
         {showIndividualReferealData && (
           <>
@@ -144,15 +142,21 @@ function ReferalIndPl(props) {
                       <th className="text-end">TOTAL P/L</th>
                     </tr>
                   </thead>
-                  {CLIENT_PAGE_REPORT_DETAILS?.length &&
-                    CLIENT_PAGE_REPORT_DETAILS?.map((item, index) => (
-                      <tbody>
-                        <tr>
-                          <td>{item.clientname}</td>
-                          <td className="text-end">{item.totalpl}</td>
-                        </tr>
-                      </tbody>
-                    ))}
+                </table>
+                <div className="table-scroll-content h-15vh">
+                  <table className="w-100 match-position-table medium-font">
+                    {CLIENT_PAGE_REPORT_DETAILS?.length &&
+                      CLIENT_PAGE_REPORT_DETAILS?.map((item, index) => (
+                        <tbody>
+                          <tr>
+                            <td>{item.clientname}</td>
+                            <td className="text-end">{item.totalpl}</td>
+                          </tr>
+                        </tbody>
+                      ))}
+                  </table>
+                </div>
+                <table className="w-100 match-position-table medium-font">
                   <tfoot>
                     <tr className="text-end">
                       <th className="text-start">TOTAL</th>
@@ -178,8 +182,7 @@ function ReferalIndPl(props) {
                       </thead>
                     </table>
                   </div>
-                  <div>
-                    {/* <AdminsTable data={PAGE_REPORT_DETAILS} columns/> */}
+                  <div className="table-scroll-content h-15vh">
                     <table className="w-100 match-position-table medium-font">
                       <thead>
                         <tr className="text-center">
@@ -189,23 +192,30 @@ function ReferalIndPl(props) {
                           <th>NET P/L</th>
                         </tr>
                       </thead>
-                      {REFERAL_REPORT_DETAILS?.length &&
-                        REFERAL_REPORT_DETAILS?.map((item, index) => (
-                          <tbody key={index}>
-                            <tr className="text-center">
-                              <td>{item.matchName}</td>
-                              <td>{item.matchDate}</td>
-                              <td>{item.winTeam}</td>
-                              <td>{item.amount}</td>
-                            </tr>
-                          </tbody>
-                        ))}
+                    </table>
+                    {/* <AdminsTable data={PAGE_REPORT_DETAILS} columns/> */}
+                    <div>
+                      {" "}
+                      <table className="w-100 match-position-table medium-font">
+                        {REFERAL_REPORT_DETAILS?.length &&
+                          REFERAL_REPORT_DETAILS?.map((item, index) => (
+                            <tbody key={index}>
+                              <tr className="text-center">
+                                <td>{item.matchName}</td>
+                                <td>{item.matchDate}</td>
+                                <td>{item.winTeam}</td>
+                                <td>{item.amount}</td>
+                              </tr>
+                            </tbody>
+                          ))}
+                      </table>
+                    </div>
+
+                    <table className="w-100 match-position-table medium-font">
                       <tfoot>
-                        <tr className="text-center">
-                          <th colSpan={3} className="text-end">
-                            TOTAL
-                          </th>
-                          <th className="clr-green">500000000.00</th>
+                        <tr className="text-end">
+                          <th className="text-start">TOTAL</th>
+                          <th className="clr-green text-end">500000000.00</th>
                         </tr>
                       </tfoot>
                     </table>

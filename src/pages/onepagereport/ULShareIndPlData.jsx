@@ -42,32 +42,34 @@ function ULShareIndPlData(props) {
       <table className="w-100 match-position-table medium-font">
         <thead>
           <tr className="text-center">
-            <th>DATE</th>
-            <th>MATCH NAME</th>
-            <th>WIN TEAM</th>
-            <th>Urs Net P/L</th>
-            <th>UL SHARE P/L</th>
+            <th className="w-20">DATE</th>
+            <th className="w-20">MATCH NAME</th>
+            <th className="w-20">WIN TEAM</th>
+            <th className="w-20">Urs Net P/L</th>
+            <th className="w-20">UL SHARE P/L</th>
           </tr>
         </thead>
-        {PAGE_REPORT_DETAILS?.map((item, index) => (
-          <tbody key={index}>
-            <tr className="text-center">
-              <td>{item.date}</td>
-              <td>{item.matchname}</td>
-              <td>{item.winteam}</td>
-              <td>{item.urnetpl}</td>
-              <td> {item.Ulshare}</td>
-            </tr>
-          </tbody>
-        ))}
+      </table>
+      <div className="referal-table-scroll-content">
+        <table className="w-100 match-position-table medium-font">
+          {PAGE_REPORT_DETAILS?.map((item, index) => (
+            <tbody key={index}>
+              <tr className="text-center">
+                <td className="w-20">{item.date}</td>
+                <td className="w-20">{item.matchname}</td>
+                <td className="w-20">{item.winteam}</td>
+                <td className="w-20">{item.urnetpl}</td>
+                <td className="w-20">{item.Ulshare}</td>
+              </tr>
+            </tbody>
+          ))}
+        </table>
+      </div>
+      <table className="w-100 match-position-table medium-font">
         <tfoot>
           <tr className="text-center">
-            <th colSpan={4} className="text-end">
-              TOTAL
-            </th>
-            <th colSpan={1} className="clr-green">
-              50000000.00
-            </th>
+            <th className="text-end">TOTAL</th>
+            <th className="clr-green text-end">50000000.00</th>
           </tr>
         </tfoot>
       </table>

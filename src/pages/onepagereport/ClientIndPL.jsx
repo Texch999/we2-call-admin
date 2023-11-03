@@ -38,22 +38,26 @@ function ClientIndPL(props) {
                 <th>TOTAL P/L</th>
               </tr>
             </thead>
-            {PAGE_REPORT_DETAILS?.length &&
-              PAGE_REPORT_DETAILS?.map((item, index) => (
-                <tbody key={index}>
-                  <tr className="text-center" onClick={handleClientButton}>
-                    <td>{item.name}</td>
-                    <td className="clr-green">{item.pl}</td>
-                  </tr>
-                </tbody>
-              ))}
-            {/* <tfoot>
-              <tr className="text-center">
-                <th className="text-center">TOTAL</th>
-                <th className="clr-green">500000000.00</th>
-              </tr>
-            </tfoot> */}
           </table>
+          <div className="referal-table-scroll-content">
+            <table className="w-100 match-position-table medium-font">
+              {PAGE_REPORT_DETAILS?.length &&
+                PAGE_REPORT_DETAILS?.map((item, index) => (
+                  <tbody key={index}>
+                    <tr className="text-center" onClick={handleClientButton}>
+                      <td>{item.name}</td>
+                      <td className="clr-green">{item.pl}</td>
+                    </tr>
+                  </tbody>
+                ))}
+              {/* <tfoot>
+            <tr className="text-center">
+              <th className="text-center">TOTAL</th>
+              <th className="clr-green">500000000.00</th>
+            </tr>
+          </tfoot> */}
+            </table>
+          </div>
         </div>
         {showIndividualCLientData && (
           <div className="d-flex flex-column w-70">
@@ -62,7 +66,8 @@ function ClientIndPL(props) {
                 <thead>
                   <tr className="text-center">
                     <th className="text-start">
-                     <span className="clr-yellow">{clientName}</span>  : {netPLInduvisualClient}
+                      <span className="clr-yellow">{clientName}</span> :{" "}
+                      {netPLInduvisualClient}
                     </th>
                   </tr>
                 </thead>
@@ -79,26 +84,30 @@ function ClientIndPL(props) {
                     <th>NET P/L</th>
                   </tr>
                 </thead>
-                {CLIENT_PAGE_REPORT_DETAILS?.length &&
-                  CLIENT_PAGE_REPORT_DETAILS?.map((data, index) => (
-                    <tbody key={index}>
-                      <tr className="text-center">
-                        <td>{data.date}</td>
-                        <td>{data.matchname}</td>
-                        <td>{data.winteam}</td>
-                        <td className="clr-green">{data.netpl}</td>
-                      </tr>
-                    </tbody>
-                  ))}
-                <tfoot>
-                  <tr className="text-center">
-                    <th colSpan={3} className="text-end">
-                      TOTAL
-                    </th>
-                    <th>{netPLInduvisualClient}</th>
-                  </tr>
-                </tfoot>
               </table>
+              <div className="individual-client-table">
+                <table className="w-100 match-position-table medium-font">
+                  {CLIENT_PAGE_REPORT_DETAILS?.length &&
+                    CLIENT_PAGE_REPORT_DETAILS?.map((data, index) => (
+                      <tbody key={index}>
+                        <tr className="text-center">
+                          <td>{data.date}</td>
+                          <td>{data.matchname}</td>
+                          <td>{data.winteam}</td>
+                          <td className="clr-green">{data.netpl}</td>
+                        </tr>
+                      </tbody>
+                    ))}
+                  <tfoot>
+                    <tr className="text-center">
+                      <th colSpan={3} className="text-end">
+                        TOTAL
+                      </th>
+                      <th>{netPLInduvisualClient}</th>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
             </div>
           </div>
         )}

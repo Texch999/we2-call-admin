@@ -56,3 +56,17 @@
   height: 30vh;
   overflow-x: scroll !important;
 }
+.referal-table-scroll-content {
+  height: 45vh;
+  overflow-x: scroll !important;
+}
+.individual-client-table {
+  height: 30vh;
+  overflow-x: scroll !important;
+}
+.h-15vh {
+  height: 15vh !important;
+}
+.w-20 {
+  width: 20% !important;
+}

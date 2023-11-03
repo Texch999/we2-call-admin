@@ -119,31 +119,40 @@ function OnePageReport(props) {
       <table className="w-100 match-position-table medium-font">
         <thead>
           <tr className="text-center">
-            <th>CLIENT NAME</th>
-            <th>M+F+RC</th>
-            <th>C NET</th>
-            <th>RF NET</th>
-            <th>TOTAL P/L</th>
+            <th className="w-20">CLIENT NAME</th>
+            <th className="w-20">M+F+RC</th>
+            <th className="w-20">C NET</th>
+            <th className="w-20">RF NET</th>
+            <th className="w-20">TOTAL P/L</th>
           </tr>
         </thead>
-        {ONE_PAGE_REPORT_DETAILS.length &&
-          ONE_PAGE_REPORT_DETAILS?.map((item, index) => (
-            <tbody key={index}>
-              <tr className="text-center">
-                <td>{item.client}</td>
-                <td
-                  onClick={() => handleReportPageShow()}
-                  className="text-center"
-                >
-                  {item.mfrc}
-                  <GiClick className="custom-click-icon ms-1 mt-2" />
-                </td>
-                <td>{item.cnet}</td>
-                <td> {item.rfnet}</td>
-                <td className="clr-green">{item.totalpl}</td>
-              </tr>
-            </tbody>
-          ))}
+      </table>
+      <div className="referal-table-scroll-content">
+        <table className="w-100 match-position-table medium-font">
+          {ONE_PAGE_REPORT_DETAILS.length &&
+            ONE_PAGE_REPORT_DETAILS?.map((item, index) => (
+              <tbody key={index}>
+                <tr className="text-center">
+                  <td className="w-20">{item.client}</td>
+                  <td
+                    onClick={() => handleReportPageShow()}
+                    className="text-center w-20"
+                  >
+                    <div className="d-flex flex-row w-100 justify-content-center">
+                      {item.mfrc}
+                      <GiClick className="custom-click-icon ms-1 mt-2" />
+                    </div>
+                  </td>
+                  <td className="w-20">{item.cnet}</td>
+                  <td className="w-20"> {item.rfnet}</td>
+                  <td className="clr-green w-20">{item.totalpl}</td>
+                </tr>
+              </tbody>
+            ))}
+        </table>
+      </div>
+
+      <table className="w-100 match-position-table medium-font">
         <tfoot>
           <tr className="text-center">
             <th colSpan={4}>TOTAL</th>
