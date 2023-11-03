@@ -479,7 +479,6 @@ function Header() {
         state={resetPasswordSubmit}
         setState={setResetPasswordSubmit}
       />
-
       <AddPaymentMode state={modalShow} setState={setModalShow} />
     </div>
   );
