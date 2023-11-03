@@ -330,6 +330,7 @@ function SportsManagement() {
                 className="sport-management-input d-flex p-1 w-100 sport-management-select meetings-heading"
                 onChange={(e) => handleChange(e)}
                 name={item?.name}
+                value={matchData?.item?.name}
               >
                 {/* <option>select</option>
                 {item.options} */}
@@ -434,7 +435,7 @@ function SportsManagement() {
                 className="sport-management-input d-flex p-1 w-100"
                 name={item.name}
                 value={item.overs}
-                disabled
+                // disabled
                 onChange={(e) => handleChange(e)}
               ></input>
             </div>

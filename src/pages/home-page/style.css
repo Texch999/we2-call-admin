@@ -17,6 +17,13 @@
   outline: none;
   color: #ffffff;
 }
+.see-all {
+  padding: 5px;
+  background: #112e69;
+  width: fit-content;
+  border-radius: 7px;
+  border: 1px solid yellowgreen;
+}
 .sport-management-input {
   background: #112a5e;
   height: 8vh;

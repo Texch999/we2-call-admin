@@ -104,9 +104,9 @@ function MeetingAndSummary() {
       <div className="col-6 p-2">
         <div className="meetings-container ">
           <div className="row p-3 align-center">
-            <h5 className="col-9 meetings-heading">Live/Upcoming Meetings</h5>
-            <div className="col-3 d-flex">
-              <h6 className="meetings-heading">See All</h6>
+            <h5 className="col-10 meetings-heading">Live/Upcoming Meetings</h5>
+            <div className="col-2 d-flex align-items-center justify-content-center see-all">
+              <div className="meetings-heading me-1">See All</div>
               <AiOutlineRight />
             </div>
           </div>
@@ -116,9 +116,9 @@ function MeetingAndSummary() {
       <div className="col-6 p-2">
         <div className="meetings-container p-3">
           <div className="row  align-center mb-3">
-            <h5 className="col-9 meetings-heading">Summary</h5>
-            <div className="col-3 d-flex">
-              <h6 className="meetings-heading">See All</h6>
+            <h5 className="col-10 meetings-heading">Summary</h5>
+            <div className="col-2 d-flex align-items-center justify-content-center see-all">
+              <div className="meetings-heading me-1">See All</div>
               <AiOutlineRight />
             </div>
           </div>
