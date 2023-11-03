@@ -1,80 +1,75 @@
-import React, { useState,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { Modal } from "react-bootstrap";
 import { IoCloseSharp } from "react-icons/io5";
 import { BiSolidLock } from "react-icons/bi";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { CHANGE_PASSWORD } from "../../config/endpoints";
 import { call } from "../../config/axios";
+import ClientIndPL from "./../onepagereport/ClientIndPL";
 
-function ChangePassword(props) {
-  const { showChangePopup, setShowChangePopup, setChangePasswordSubmit} = props;
-  const [showEye, setShowEye] = useState(false);
-  let register_id = localStorage?.getItem("register_id");
-  let creator_id = localStorage?.getItem("creator_id");
-  const [passwordData, setPasswordData] = useState({
-    new_password: "",
-    confirm_password: "",
-    admin_password: "",
-  });
+function ChangePassword({
+  showChangePopup,
+  setShowChangePopup,
+  setChangePasswordSubmit,
+  clientID,
+}) {
+  const register_id = localStorage?.getItem("register_id");
+  const creator_id = localStorage?.getItem("creator_id");
   const [error, setError] = useState("");
-
-  const handleShowEye = () => {
+  const [showEye, setShowEye] = useState(false);
+  const [passwordData, setPasswordData] = useState({});
+  const [isProcessing, setIsProcessing] = useState(false);
+  const handleShowEye = (index) => {
     setShowEye(!showEye);
   };
-
-  useEffect(() => {
-    if (showChangePopup) {
-      setPasswordData({
-        new_password: "",
-        confirm_password: "",
-        admin_password: "",
-      });
-      setError("");
-    }
-  }, []);
-
+  const handlePasswordData = (e) => {
+    setPasswordData({ ...passwordData, [e.target.name]: e.target.value });
+  };
   const handleChangePassword = async () => {
     if (
       !passwordData.new_password ||
       !passwordData.confirm_password ||
       !passwordData.admin_password
     ) {
-      setError("Please fill in all the fields.");
-      return;
+      setError("Please Enter Required Fields");
     }
-
     if (passwordData.new_password !== passwordData.confirm_password) {
-      setError("New password and confirm password must match.");
-      return;
+      setError("New Password And Confirm Password Should Match");
     }
-
+    setIsProcessing(true);
     setError("");
-
-    try {
-      const response = await call(
-        CHANGE_PASSWORD,
-        {
-          register_id: "reg-20231006103427425",
-          creator_id: "reg-20230918153256097",
-          // register_id: register_id,
-          // creator_id: creator_id,
-          creator_password: passwordData.admin_password,
-          new_password: passwordData.new_password,
-          confirm_password: passwordData.confirm_password,
+    await call(CHANGE_PASSWORD, {
+      register_id,
+      creator_id,
+      client_id: clientID,
+      creator_password: passwordData.admin_password,
+      new_password: passwordData.new_password,
+      confirm_password: passwordData.confirm_password,
+    })
+      .then((res) => {
+        if (res?.data?.statusCode === 200) {
+          setIsProcessing(false);
+          // setChangePasswordSubmit(true);
+          // setTimeout(() => {
+          //   setChangePasswordSubmit(false);
+          // }, 2000);
+          setPasswordData({
+            new_password: "",
+            confirm_password: "",
+            admin_password: "",
+          });
+          setError("");
+        } else {
+          setError(
+            res?.data?.message ? res?.data?.message : "Something Went Wrong"
+          );
         }
-      );
-
-      if (response.status === 200) {
-        console.log("Password changed successfully");
-        setChangePasswordSubmit(true);
-        setShowChangePopup(false);
-      } else {
-        setError("Password change failed. Please try again.");
-      }
-    } catch (error) {
-      console.error("API error:", error);
-      setError("Password change failed. Please try again later.");
-    }
+      })
+      .catch((err) => {
+        setIsProcessing(false);
+        console.log(err);
+        setError("Something Went Wrong");
+      });
   };
 
   const passwordInputs = [
@@ -104,7 +99,6 @@ function ChangePassword(props) {
         <div className="p-2">
           <center>
             <h5 className="meetings-heading">Change Password</h5>
-            <span className="font-11">Change Your Password</span>
           </center>
           {passwordInputs.map((item, index) => {
             return (
@@ -117,19 +111,11 @@ function ChangePassword(props) {
                     placeholder={item.plHolder}
                     type={showEye ? "text" : "password"}
                     name={item.name}
-                    value={passwordData[item.name]}
-                    onChange={(e) =>
-                      setPasswordData({
-                        ...passwordData,
-                        [item.name]: e.target.value,
-                      })
-                    }
+                    onChange={(e) => handlePasswordData(e)}
                   />
-                  {showEye === true ? (
-                    <AiFillEye onClick={handleShowEye} />
-                  ) : (
-                    <AiFillEyeInvisible onClick={handleShowEye} />
-                  )}
+                  <div onClick={() => handleShowEye(index)}>
+                    {showEye ? <AiFillEye /> : <AiFillEyeInvisible />}
+                  </div>
                 </div>
               </div>
             );
@@ -137,9 +123,9 @@ function ChangePassword(props) {
           {error && <div className="error-message mt-2">{error}</div>}
           <button
             className="login-button p-1 mt-3 medium-font"
-            onClick={handleChangePassword}
+            onClick={() => handleChangePassword()}
           >
-            Submit
+            {isProcessing ? "Is Processing..." : "Change Password"}
           </button>
         </div>
       </Modal.Body>

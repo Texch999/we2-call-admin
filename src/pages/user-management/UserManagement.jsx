@@ -22,6 +22,7 @@ import CreateReferral from "./CreateReferral";
 import UserDeletePopup from "./UserDeletePopup";
 import UserEditPopup from "./UserEditPopup";
 import UserSubmitPopup from "./UserSubmitPopup";
+import ChangePassword from "../add-users/ChangePassword";
 
 function UserManagement() {
   let register_id = localStorage?.getItem("register_id");
@@ -38,6 +39,10 @@ function UserManagement() {
   const [refStatus, setRefStatus] = useState(false);
   const [userDetails, setUserDetails] = useState({});
   const [selectId, setSelectId] = useState();
+  const [showChangePopup, setShowChangePopup] = useState(false);
+  const [clientID, setClientID] = useState("");
+  const [status, setStatus] = useState(false);
+  console.log(clientID, "CLIENT ID");
 
   const clientSelection = [
     { name: "Regulor", value: 0 },
@@ -196,7 +201,6 @@ function UserManagement() {
         console.log(res);
       });
   };
-  console.log(existingClients, "..........existingClients");
   const exsitedUsers =
     existingClients &&
     existingClients?.length > 0 &&
@@ -219,11 +223,19 @@ function UserManagement() {
                 onClick={() => handleDeleteUser(item.client_id)}
               />
               <ImBlocked className="edit-icon" />
-              <BiLock className="edit-icon" />
+              <BiLock
+                className="edit-icon"
+                onClick={() => handleChangePassword(item?.client_id)}
+              />
             </div>
           ),
         };
       });
+
+  const handleChangePassword = (item) => {
+    setShowChangePopup(true);
+    setClientID(item);
+  };
 
   const handleChange = (e) => {
     // console.log(name, value);
@@ -233,6 +245,7 @@ function UserManagement() {
     await call(GET_OFFLINE_CLIENTS, { register_id })
       .then((res) => {
         setExistingClients(res?.data?.data);
+        setStatus((prev) => !prev);
       })
       .catch((err) => console.log(err));
   };
@@ -267,19 +280,7 @@ function UserManagement() {
 
   useEffect(() => {
     getOfflineClients();
-  }, [addClientStatus]);
-
-  // useEffect(() => {
-  //   getOfflineClients();
-  // }, [userDetails]);
-
-  console.log(userDetails, "....userDetails");
-
-  // console.log(register_id, "....register_id");
-
-  // console.log(refferalData, "...refferalDataList");
-
-  // console.log(clientId[0], ".....clientId");
+  }, [addClientStatus, status]);
 
   return (
     <div className="p-3">
@@ -537,6 +538,12 @@ function UserManagement() {
         data={exsitedUsers}
         columns={userColumns}
         // editButtons={editButtons}
+      />
+      <ChangePassword
+        clientID={clientID}
+        showChangePopup={showChangePopup}
+        setShowChangePopup={setShowChangePopup}
+        // setChangePasswordSubmit={setChangePasswordSubmit}
       />
       <MatchSubmitPopup
         header={"You Are Successfully Created User"}
