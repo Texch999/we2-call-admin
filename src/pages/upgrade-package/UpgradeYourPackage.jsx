@@ -3,7 +3,7 @@ import { CiPercent } from "react-icons/ci";
 import SpecialOffers from "./SpecialOffers";
 import SpecialPackages from "./SpecialPackages";
 import { useState, useEffect } from "react";
-import { GET_ALL_PACKAGES } from "../../config/endpoints";
+import { GET_ADMIN_PACKAGES } from "../../config/endpoints";
 import { call } from "../../config/axios";
 import PopupUpgradePackages from "./PopupUpgradePackages";
 
@@ -12,21 +12,25 @@ function UpgradeYourPackage() {
   const [specialPackage, setSpecialPackage] = useState(true);
   const [openPopup, setOpenPopup] = useState(false);
   const [selectPackageName, setSelectPackageName] = useState();
-  const [allPackages, setAllPackages] = useState([]);
+  const [upgradeType, setUpgradeType] = useState("packages");
+  const packageUserList = [localStorage.getItem("user_name")];
+  console.log("packageUserList===>", packageUserList);
 
-  const getAllPackages = async () => {
-    await call(GET_ALL_PACKAGES)
+  const [adminSubscription, setAdminSubscription] = useState(false);
+  const register_id = localStorage.getItem("register_id");
+
+  const getAdminPackages = async () => {
+    await call(GET_ADMIN_PACKAGES, { register_id })
       .then((res) => {
-        if (res.data.status === 200) {
-          const response = res.data.data;
-          setAllPackages(response);
-        }
+        setAdminSubscription(res?.data?.data?.subscriptions?.[0] || []);
       })
       .catch((err) => console.log(err));
   };
+
   useEffect(() => {
-    getAllPackages();
+    getAdminPackages();
   }, []);
+
   const handleSpecialOffer = () => {
     setSpecialOffer(true);
     setSpecialPackage(false);
@@ -52,11 +56,13 @@ function UpgradeYourPackage() {
                 <div className="d-flex align-items-center justify-content-around p-1">
                   <div>User Name</div>
                   <div>Role</div>
+                  <div>Package</div>
                 </div>
                 <hr className="hr-line" />
                 <div className="d-flex align-items-center justify-content-around p-1">
-                  <div className="yellow-clr">Sai-Offline</div>
-                  <div className="yellow-clr">Agent</div>
+                  <div className="yellow-clr">{localStorage.getItem('user_name')}</div>
+                  <div className="yellow-clr">{localStorage.getItem('account_role')}</div>
+                  <div className="yellow-clr">{adminSubscription?.package_name}</div>
                 </div>
               </div>
             </div>
@@ -71,7 +77,7 @@ function UpgradeYourPackage() {
                 </div>
               </div>
               <div className="w-35 d-flex align-items-center justify-content-around fw-semibold medium-font text-white p-2 rounded num-btn-bg">
-                <div>9999/-</div>
+                <div>{adminSubscription?.package_cost}/-</div>
                 <div>
                   <CiPercent className="d-flex large-font" />
                 </div>
