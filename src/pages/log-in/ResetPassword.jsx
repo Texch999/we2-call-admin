@@ -7,7 +7,12 @@ import { RESET_PASSWORD } from "../../config/endpoints";
 import { call } from "../../config/axios";
 
 function ResetPassword(props) {
-  const { showResetPopup, setShowResetPopup, setResetPasswordSubmit } = props;
+  const {
+    showResetPopup,
+    setShowResetPopup,
+    resetPasswordSubmit,
+    setResetPasswordSubmit,
+  } = props;
   const register_id = localStorage?.getItem("register_id");
   const [resetPasswordData, setResetPasswordData] = useState({});
   const [error, setError] = useState("");
@@ -53,11 +58,12 @@ function ResetPassword(props) {
       .then((res) => {
         if (res?.data?.statusCode === 200) {
           setIsProcessing(false);
+          setResetPasswordData({});
           setResetPasswordSubmit(true);
+          setShowResetPopup(false);
           setTimeout(() => {
             setResetPasswordSubmit(false);
-          }, 1000);
-          setResetPasswordData({});
+          }, 2000);
           setError("");
         } else {
           setError(
@@ -73,11 +79,7 @@ function ResetPassword(props) {
   };
 
   return (
-    <Modal
-      className="match-declaration-modal z-index"
-      centered
-      show={showResetPopup}
-    >
+    <Modal className="match-declaration-modal" centered show={showResetPopup}>
       <Modal.Header className="d-flex justify-content-end">
         <IoCloseSharp onClick={() => setShowResetPopup(false)} />
       </Modal.Header>

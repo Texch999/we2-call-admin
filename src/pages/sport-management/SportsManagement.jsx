@@ -78,6 +78,43 @@ function SportsManagement() {
         </>
       ),
     },
+    // {
+    //   headName: "Team1",
+    //   name: "team1",
+    //   options: top_cricket_countries.map((item, index) => {
+    //     return (
+    //       <option key={index} value={item || ""}>
+    //         {item}
+    //       </option>
+    //     );
+    //   }),
+    // },
+    // {
+    //   headName: "Team2",
+    //   name: "team2",
+    //   options: top_cricket_countries
+    //     ?.filter((country) => country !== matchData?.team1)
+    //     .map((item, index) => {
+    //       return (
+    //         <option key={index} value={item}>
+    //           {item}
+    //         </option>
+    //       );
+    //     }),
+    // },
+  ];
+
+  const sportsInputs = [
+    // {
+    //   headName: "Sports Name",
+    //   name: "sport_name",
+    //   options: (
+    //     <>
+    //       <option value="cricket">Cricket</option>
+    //       <option value="football">FootBall</option>
+    //     </>
+    //   ),
+    // },
     {
       headName: "Team1",
       name: "team1",
@@ -285,6 +322,22 @@ function SportsManagement() {
             </div>
           );
         })}
+        {sportsInputs.map((item, index) => {
+          return (
+            <div key={index} className="col-2 meetings-heading">
+              <div>{item.headName}</div>
+              <input
+                className="sport-management-input d-flex p-1 w-100 sport-management-select meetings-heading"
+                onChange={(e) => handleChange(e)}
+                name={item?.name}
+                value={matchData?.item?.name}
+              >
+                {/* <option>select</option>
+                {item.options} */}
+              </input>
+            </div>
+          );
+        })}
         <div className="col-3 meetings-heading">
           <div>Match Place</div>
           <div className="sport-management-input d-flex p-1">
@@ -382,7 +435,7 @@ function SportsManagement() {
                 className="sport-management-input d-flex p-1 w-100"
                 name={item.name}
                 value={item.overs}
-                disabled
+                // disabled
                 onChange={(e) => handleChange(e)}
               ></input>
             </div>
