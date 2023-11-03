@@ -471,6 +471,7 @@ function Header() {
       <ResetPassword
         showResetPopup={showResetPopup}
         setShowResetPopup={setShowResetPopup}
+        resetPasswordSubmit={resetPasswordSubmit}
         setResetPasswordSubmit={setResetPasswordSubmit}
       />
       <EditProfile show={editModalShow} close={() => setEditModalShow(false)} />
