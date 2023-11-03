@@ -25,6 +25,7 @@ function SportsManagement() {
 
   const [selectMatchType, setSelectMatchType] = useState({});
   console.log(selectMatchType.macth_type, "........selectMatchType");
+  console.log(allMatchesData, ".............allMatchesData");
 
   const top_cricket_countries = [
     "IND",
@@ -117,25 +118,24 @@ function SportsManagement() {
       overs: selectOvers[0]?.second,
     },
   ];
-  const tableData = allMatchesData?.liveMatches?.map((match) => ({
-    ...match,
-    team: (
-      <div className="role-color">
-        <span className="role-color">{match?.match_name}</span>{" "}
-      </div>
-    ),
-    dateAndTime: (
-      <div>
-        {match?.date} <br /> <span>{match?.time}</span>{" "}
-      </div>
-    ),
-    seriesname: match?.series_name,
-    sportsname: match?.sport_name,
-    matchplace: match?.match_place,
-    editButton: (
-      <GoPencil className="edit-icon" onClick={() => handleUpadate(match)} />
-    ),
-  }));
+
+  console.log(matchData, "......matchData");
+  const tableData =
+    allMatchesData?.length > 0 &&
+    allMatchesData?.map((match) => ({
+      seriesName: match?.series_name,
+      team: <span className="role-color">{match?.match_name}</span>,
+      sportName: match?.sport_name,
+      matchPlace: match?.match_place,
+      dateTime: (
+        <div>
+          {match?.date} <br /> <span>{match?.time}</span>{" "}
+        </div>
+      ),
+      editButton: (
+        <GoPencil className="edit-icon" onClick={() => handleUpadate(match)} />
+      ),
+    }));
 
   const columns = [
     { header: "Series Name", field: "seriesName" },
@@ -187,8 +187,8 @@ function SportsManagement() {
       !matchData?.stadium ||
       !matchData?.gender ||
       !matchData?.date ||
-      !matchData?.time
-      // !selectMatchType.match_type
+      !matchData?.time ||
+      !selectMatchType.match_type
     ) {
       return setError("Please enter required fields");
     }
