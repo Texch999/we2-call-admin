@@ -7,20 +7,17 @@ function ClientIndPL(props) {
     setShowIndividualClientData(true);
   };
   const {
- 
     clientData,
     individualReportClientData,
     clientName,
     netPLInduvisualClient,
   } = props;
-  // console.log(ONE_PAGE_REPORT_DETAILS, "one page report details");
   const PAGE_REPORT_DETAILS =
     clientData?.length &&
     clientData?.map((item, index) => ({
       name: item.client_name,
       pl: item.amount,
     }));
-  console.log(PAGE_REPORT_DETAILS, "one page report");
   const CLIENT_PAGE_REPORT_DETAILS =
     individualReportClientData.length &&
     individualReportClientData?.map((item, index) => ({
@@ -29,39 +26,6 @@ function ClientIndPL(props) {
       winteam: item.winTeam,
       netpl: item.amount,
     }));
-  console.log(individualReportClientData, "individualReportClientData");
-  // const CLIENT_PAGE_REPORT_DETAILS = [
-  //   {
-  //     date: "25-07-2023",
-  //     matchname: "India vs Sri Lanka",
-  //     winteam: "India",
-  //     netpl: "50000000.00",
-  //   },
-  //   {
-  //     date: "25-07-2023",
-  //     matchname: "India vs Sri Lanka",
-  //     winteam: "India",
-  //     netpl: "50000000.00",
-  //   },
-  //   {
-  //     date: "25-07-2023",
-  //     matchname: "India vs Sri Lanka",
-  //     winteam: "India",
-  //     netpl: "50000000.00",
-  //   },
-  //   {
-  //     date: "25-07-2023",
-  //     matchname: "India vs Sri Lanka",
-  //     winteam: "India",
-  //     netpl: "50000000.00",
-  //   },
-  //   {
-  //     date: "25-07-2023",
-  //     matchname: "India vs Sri Lanka",
-  //     winteam: "India",
-  //     netpl: "50000000.00",
-  //   },
-  // ];
   return (
     <div>
       <h6 className="Platform-Comm-PL-">Client :</h6>

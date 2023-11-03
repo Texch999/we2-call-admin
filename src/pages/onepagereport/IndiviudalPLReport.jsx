@@ -16,20 +16,15 @@ function IndiviudalPLReport(props) {
     refData,
     individualReportClientData,
     onePageReportdata1,
-    ONE_PAGE_REPORT_DETAILS,
     netPLInduvisualClient,
     individualReportULShareData,
-    individualReportReferralData,
-    individualClientNameData,
     clientData,
     clientId,
     refClientId,
     clientName,
-    refId,
     setIndivisualMatchReportData,
-    setClientsDataForRefferal,
     individualRefferralData,
-    invidiualReportReferralHeading,
+    indReportReferralData,
   } = props;
   const reportList = ["Client", "Referal", "U/L Share", "Platform Comm P/L"];
   const [activeReport, setActiveReport] = useState("Client");
@@ -58,12 +53,12 @@ function IndiviudalPLReport(props) {
       })
       .catch((err) => console.log(err));
   };
-  
-  useEffect(() => {
-    if (clientId || refClientId) {
-      getIndivisualMatchReport();
-    }
-  }, [clientId, refClientId]);
+
+  // useEffect(() => {
+  //   if (clientId || refClientId) {
+  //     getIndivisualMatchReport();
+  //   }
+  // }, [clientId, refClientId]);
 
   // useEffect(() => {
   //   if (refId) {
@@ -99,10 +94,10 @@ function IndiviudalPLReport(props) {
       {activeReport === "Referal" && (
         <ReferalIndPl
           refData={refData}
-          individualReportReferralData={individualReportReferralData}
-          setClientsDataForRefferal={setClientsDataForRefferal}
+          clientId={clientId}
+          refClientId={refClientId}
           individualRefferralData={individualRefferralData}
-          invidiualReportReferralHeading={invidiualReportReferralHeading}
+          indReportReferralData={indReportReferralData}
         />
       )}
       {activeReport === "U/L Share" && (

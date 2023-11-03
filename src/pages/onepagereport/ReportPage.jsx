@@ -73,7 +73,7 @@ function ReportPage() {
       .catch((err) => console.log(err));
   };
 
-  console.log(refData,".....refData")
+  // console.log(refData, ".....refData");
 
   const individualReportReferralData =
     refData &&
@@ -465,7 +465,7 @@ function ReportPage() {
         />
       ) : (
         <IndiviudalPLReport
-        refData={refData}
+          refData={refData}
           individualReportULShareData={individualReportULShareData}
           individualReportReferralData={individualReportReferralData}
           individualReportClientData={
