@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { AiOutlineRight } from "react-icons/ai";
+import { AiOutlineDown, AiOutlineRight } from "react-icons/ai";
 import Table from "./Table";
 import { call } from "../../config/axios";
 import { GET_ALL_CLIENTS, GET_ALL_MEETINGS } from "../../config/endpoints";
@@ -118,8 +118,8 @@ function MeetingAndSummary() {
           <div className="row  align-center mb-3">
             <h5 className="col-10 meetings-heading">Summary</h5>
             <div className="col-2 d-flex align-items-center justify-content-center see-all">
-              <div className="meetings-heading me-1">See All</div>
-              <AiOutlineRight />
+              <div className="meetings-heading me-1">Today</div>
+              <AiOutlineDown />
             </div>
           </div>
           {summaryContent.map((item, index) => {

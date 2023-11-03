@@ -1,5 +1,5 @@
 import React from "react";
-import { AiOutlineRight } from "react-icons/ai";
+import { AiOutlineDown, AiOutlineRight } from "react-icons/ai";
 
 function TopUsersList() {
   const summaryContent = [
@@ -31,8 +31,8 @@ function TopUsersList() {
           <div className="row  align-center mb-3">
             <h5 className="col-10 meetings-heading">Top Winners</h5>
             <div className="col-2 d-flex align-items-center justify-content-center see-all">
-              <div className="meetings-heading me-1">See All</div>
-              <AiOutlineRight />
+              <div className="meetings-heading me-1">Today</div>
+              <AiOutlineDown />
             </div>
           </div>
           {summaryContent.map((item, index) => {
@@ -48,11 +48,14 @@ function TopUsersList() {
       <div className="col-6 p-2 ">
         <div className="meetings-container p-3">
           <div className="row  align-center mb-3">
-            <h5 className="col-10 meetings-heading">Top Lossers</h5>
-            <div className="col-2 d-flex align-items-center justify-content-center see-all">
-              <div className="meetings-heading me-1">See All</div>
-              <AiOutlineRight />
-            </div>
+            <h5 className="col-9 meetings-heading">Top Lossers</h5>
+            <select className="col-3 d-flex align-items-center justify-content-center see-all">
+              {/* <div className="meetings-heading me-1">Today</div> */}
+              {/* <AiOutlineDown /> */}
+              <option value="">Today</option>
+              <option value="">This Week</option>
+              <option value="">This Month</option>
+            </select>
           </div>
           {summaryContent.map((item, index) => {
             return (
