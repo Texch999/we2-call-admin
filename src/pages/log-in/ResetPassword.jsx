@@ -20,7 +20,7 @@ function ResetPassword(props) {
       [e.target.name]: e.target.value,
     });
   };
-  const handleShoeEye = () => {
+  const handleShowEye = (data) => {
     setShowEye(!showEye);
   };
   const handleResetPassword = async () => {
@@ -30,6 +30,17 @@ function ResetPassword(props) {
       !resetPasswordData?.confirm_password
     ) {
       return setError("Please Enter Required Fields");
+    }
+    if (
+      resetPasswordData?.new_password !== resetPasswordData?.confirm_password
+    ) {
+      return setError("New Password And Confirm Password Should Match");
+    }
+    if (
+      resetPasswordData?.old_password === resetPasswordData?.confirm_password &&
+      resetPasswordData?.old_password === resetPasswordData?.new_password
+    ) {
+      return setError("Old Password And New Password Should Not Be Same");
     }
     setIsProcessing(true);
     setError("");
@@ -85,7 +96,7 @@ function ResetPassword(props) {
               name="old_password"
               onChange={(e) => handleResetPasswordChange(e)}
             />
-            <div onClick={() => handleShoeEye()}>
+            <div onClick={(data) => handleShowEye(data)}>
               {showEye ? <AiFillEye /> : <AiFillEyeInvisible />}
             </div>
           </div>
@@ -99,7 +110,7 @@ function ResetPassword(props) {
               name="new_password"
               onChange={(e) => handleResetPasswordChange(e)}
             />
-            <div onClick={() => handleShoeEye()}>
+            <div onClick={() => handleShowEye()}>
               {showEye ? <AiFillEye /> : <AiFillEyeInvisible />}
             </div>
           </div>
@@ -113,7 +124,7 @@ function ResetPassword(props) {
               name="confirm_password"
               onChange={(e) => handleResetPasswordChange(e)}
             />
-            <div onClick={() => handleShoeEye()}>
+            <div onClick={() => handleShowEye()}>
               {showEye ? <AiFillEye /> : <AiFillEyeInvisible />}
             </div>
           </div>
