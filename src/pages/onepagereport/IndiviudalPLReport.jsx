@@ -54,11 +54,11 @@ function IndiviudalPLReport(props) {
       .catch((err) => console.log(err));
   };
 
-  // useEffect(() => {
-  //   if (clientId || refClientId) {
-  //     getIndivisualMatchReport();
-  //   }
-  // }, [clientId, refClientId]);
+  useEffect(() => {
+    if (clientId || refClientId) {
+      getIndivisualMatchReport();
+    }
+  }, [clientId, refClientId]);
 
   // useEffect(() => {
   //   if (refId) {

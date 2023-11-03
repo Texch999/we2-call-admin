@@ -1,17 +1,17 @@
 import React, { useState } from "react";
 import AdminsTable from "./AdminsTable";
 function ClientIndPL(props) {
-  const [showIndividualCLientData, setShowIndividualClientData] =
-    useState(false);
-  const handleClientButton = () => {
-    setShowIndividualClientData(true);
-  };
   const {
     clientData,
     individualReportClientData,
     clientName,
     netPLInduvisualClient,
   } = props;
+  const [showIndividualCLientData, setShowIndividualClientData] =
+    useState(false);
+  const handleClientButton = () => {
+    setShowIndividualClientData(true);
+  };
   const PAGE_REPORT_DETAILS =
     clientData?.length &&
     clientData?.map((item, index) => ({
@@ -26,6 +26,10 @@ function ClientIndPL(props) {
       winteam: item.winTeam,
       netpl: item.amount,
     }));
+  console.log(
+    individualReportClientData,
+    "..................V.................."
+  );
   return (
     <div>
       <h6 className="Platform-Comm-PL-">Client :</h6>
@@ -98,12 +102,12 @@ function ClientIndPL(props) {
                         </tr>
                       </tbody>
                     ))}
+                </table>
+                <table className="w-100 match-position-table medium-font">
                   <tfoot>
                     <tr className="text-center">
-                      <th colSpan={3} className="text-end">
-                        TOTAL
-                      </th>
-                      <th>{netPLInduvisualClient}</th>
+                      <th className="text-end">TOTAL</th>
+                      <th className="text-end">{netPLInduvisualClient}</th>
                     </tr>
                   </tfoot>
                 </table>
