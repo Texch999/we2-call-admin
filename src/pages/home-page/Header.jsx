@@ -421,9 +421,9 @@ function Header() {
               {localStorage?.getItem("user_name")}
             </div>
           </div>
-          <div className="h-10vh">
+          <div className="h-10vh d-flex align-items-center justify-content-center">
             <div className="d-flex align-items-center w-50 justify-content-around">
-              <div className=" icons-share me-2 ms-2">
+              <div className=" icons-share mx-3">
                 <AiOutlineShareAlt />
               </div>
               <div

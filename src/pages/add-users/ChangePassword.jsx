@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from "react";
+import { useState } from "react";
 import { Modal } from "react-bootstrap";
 import { IoCloseSharp } from "react-icons/io5";
 import { BiSolidLock } from "react-icons/bi";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { CHANGE_PASSWORD } from "../../config/endpoints";
 import { call } from "../../config/axios";
-import ClientIndPL from "./../onepagereport/ClientIndPL";
 
 function ChangePassword({
   showChangePopup,
