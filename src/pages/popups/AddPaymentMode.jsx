@@ -15,7 +15,7 @@ function AddPaymentMode(props) {
   const ImageBaseUrl = "https://we2-call-images.s3.us-east-2.amazonaws.com";
   const { state, setState, selectedGateway } = props;
   const status = props.status;
-  const register_id = localStorage.getItem("register_id");
+  const register_id = localStorage?.getItem("register_id");
   const [openTQPopup, setOpenTQPopup] = useState(false);
   const [formData, setFormData] = useState({ pg_upi: "neft" });
   const [paymentId, setPaymentId] = useState("");
@@ -85,7 +85,6 @@ function AddPaymentMode(props) {
 
   const handleUploadFileSelect = (e) => {
     const file = e.target.files[0];
-    console.log("File====>",file)
     setProfileImage(file);
     generateSignedUrl();
   };
