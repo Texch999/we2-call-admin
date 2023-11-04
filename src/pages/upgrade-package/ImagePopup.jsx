@@ -14,7 +14,7 @@ function ImagePopup(props) {
       >
         <Modal.Header closeButton>
           <div className="w-100 yllow-border">
-            <img src="./assets/dog.jpg" />
+            <img src="./assets/transaction_Image.jpeg" />
           </div>
         </Modal.Header>
       </Modal>

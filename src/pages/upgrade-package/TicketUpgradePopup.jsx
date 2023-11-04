@@ -138,7 +138,7 @@ function TicketUpgradePopup(props) {
                 </div>
               </div>
               <div className="my-2 w-100 custom-select small-font btn-bg rounded all-none p-2 h-10vh overflow-hidden relative-position">
-                <img src="./assets/dog.jpg" />
+                <img src="./assets/transaction_Image.jpeg" />
                 <BsArrowsFullscreen
                   className="clr-red image-enlarge-icon"
                   onClick={handleImageModal}
