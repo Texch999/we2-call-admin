@@ -4,6 +4,7 @@ import Table from "./Table";
 import { call } from "../../config/axios";
 import { GET_ALL_CLIENTS, GET_ALL_MEETINGS } from "../../config/endpoints";
 import moment from "moment";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 function MeetingAndSummary() {
   let register_id = localStorage?.getItem("register_id");
@@ -52,6 +53,8 @@ function MeetingAndSummary() {
     { header: "User", field: "user" },
     { header: "Status", field: "status" },
   ];
+
+  const history = useHistory();
 
   const summaryContent = [
     {
@@ -105,7 +108,10 @@ function MeetingAndSummary() {
         <div className="meetings-container ">
           <div className="row p-3 align-center">
             <h5 className="col-10 meetings-heading">Live/Upcoming Meetings</h5>
-            <div className="col-2 d-flex align-items-center justify-content-center see-all">
+            <div
+              className="col-2 d-flex align-items-center justify-content-center see-all"
+              onClick={() => history.push("/call-management")}
+            >
               <div className="meetings-heading me-1">See All</div>
               <AiOutlineRight />
             </div>
@@ -116,11 +122,12 @@ function MeetingAndSummary() {
       <div className="col-6 p-2">
         <div className="meetings-container p-3">
           <div className="row  align-center mb-3">
-            <h5 className="col-10 meetings-heading">Summary</h5>
-            <div className="col-2 d-flex align-items-center justify-content-center see-all">
-              <div className="meetings-heading me-1">Today</div>
-              <AiOutlineDown />
-            </div>
+            <h5 className="col-9 meetings-heading">Summary</h5>
+            <select className="col-3 d-flex align-items-center justify-content-center see-all">
+              <option value="">Today</option>
+              <option value="">This Week</option>
+              <option value="">This Month</option>
+            </select>
           </div>
           {summaryContent.map((item, index) => {
             return (
