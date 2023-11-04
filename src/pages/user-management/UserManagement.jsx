@@ -190,8 +190,12 @@ function UserManagement() {
     await call(ACTIVE_INACTIVE_USERS, {
       register_id,
       client_id: clientID,
+      active: `${status}`,
     })
-      .then((res) => console.log(res))
+      .then((res) => {
+        setStatus((prev) => !prev);
+        console.log(res);
+      })
       .catch((error) => console.log(error));
   };
 
