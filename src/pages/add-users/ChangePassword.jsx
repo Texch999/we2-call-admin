@@ -38,9 +38,9 @@ function ChangePassword({
     setIsProcessing(true);
     setError("");
     await call(CHANGE_PASSWORD, {
-      register_id,
+      register_id:clientID,
       creator_id,
-      client_id: clientID,
+      // client_id: clientID,
       creator_password: passwordData.admin_password,
       new_password: passwordData.new_password,
       confirm_password: passwordData.confirm_password,

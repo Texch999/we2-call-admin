@@ -225,12 +225,13 @@ function UserManagement() {
               <ImBlocked className="edit-icon" />
               <BiLock
                 className="edit-icon"
-                onClick={() => handleChangePassword(item?.client_id)}
+                onClick={() => handleChangePassword(item?.register_id)}
               />
             </div>
           ),
         };
       });
+  console.log(existingClients,"EXIS");
 
   const handleChangePassword = (item) => {
     setShowChangePopup(true);
