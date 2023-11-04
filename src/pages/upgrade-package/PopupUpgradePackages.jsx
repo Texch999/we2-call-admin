@@ -12,10 +12,10 @@ import {
   GET_USER_INFO,
 } from "../../config/endpoints";
 import { call } from "../../config/axios";
+import MatchSubmitPopup from "../match-popups/MatchSubmitPopup";
 
 function PopupUpgradePackages(props) {
   const { openPopup, setOpenPopup, selectPackageName, yearly } = props;
-  console.log("selectPackageName===>", selectPackageName);
   const [showAvailablePAckages, setShowAvailablePAckages] = useState();
   const [showReducePackage, setShowReducePackage] = useState(false);
   const [paymentType, setPaymentType] = useState();
@@ -28,6 +28,9 @@ function PopupUpgradePackages(props) {
   const [showPaymentOptions, setShowPaymentOptions] = useState(false);
   const [checked, setChecked] = useState();
   const register_id = localStorage.getItem("register_id");
+
+  const [successfulupgradedPackages, setSuccessfulupgradedPackages] =
+    useState(false);
 
   const handleShowPaymentOptions = () => {
     setShowPaymentOptions(true);
@@ -74,6 +77,11 @@ function PopupUpgradePackages(props) {
 
   const totalPackageCost = selectPackageName?.package_cost - discountValue;
 
+  // const handlePayButton = () => {
+  //   setSuccessfulupgradedPackages(true);
+  //   setOpenPopup(false);
+  // };
+
   const handlePayButton = async () => {
     await imageUploadBucket();
     const summary = {
@@ -100,6 +108,8 @@ function PopupUpgradePackages(props) {
         }
       })
       .catch((err) => console.log("error while calling payment click", err));
+    setSuccessfulupgradedPackages(true);
+    setOpenPopup(false);
   };
 
   const generateSignedUrl = async () => {
@@ -184,124 +194,128 @@ function PopupUpgradePackages(props) {
     setSelectedMethodInfo(item);
   };
 
-
   return (
-    <Modal
-      className="match-declaration-modal z-index"
-      centered
-      show={openPopup}
-    >
-      <Modal.Header className="d-flex justify-content-end">
-        <IoCloseSharp onClick={() => setOpenPopup(false)} />
-      </Modal.Header>
-      <Modal.Body>
-        <div className="px-3">
-          <h5>Upgrade Packages</h5>
-          <div className="head-name p-2">
-            {selectPackageName?.package_name} Pack
-          </div>
-          <hr className="mt-3 hr-line" />
-          <div className="d-flex align-items-center justify-content-between login-input p-2 mt-2">
-            <div className="small-font">
-              {yearly === true ? "Yearly" : "Monthly"} Subscription
+    <div>
+      <Modal
+        className="match-declaration-modal z-index"
+        centered
+        show={openPopup}
+      >
+        <Modal.Header className="d-flex justify-content-end">
+          <IoCloseSharp onClick={() => setOpenPopup(false)} />
+        </Modal.Header>
+        <Modal.Body>
+          <div className="px-3">
+            <h5>Upgrade Packages</h5>
+            <div className="head-name p-2">
+              {selectPackageName?.package_name} Pack
             </div>
-            <div className="small-fontt">{selectPackageName?.package_cost}</div>
-          </div>
-          <div className="d-flex align-items-center justify-content-between login-input p-2 mt-2">
-            <div className="small-font">
-              Discount {selectPackageName?.discount}%
-            </div>
-            <div className="small-fontt">{discountValue} </div>
-          </div>
-          <div className="d-flex align-items-center justify-content-between login-input p-2 mt-2">
-            <div className="small-font">
-              Special Discount {selectPackageName?.discount}%
-            </div>
-            <div className="small-fontt">
-              {selectPackageName?.package_cost *
-                (selectPackageName?.discount / 100)}
-            </div>
-          </div>
-          <div className="d-flex justify-content-between  login-input mt-1 p-1">
-            <div className="small-font">Total</div>
-            <div className="small-font">{totalPackageCost} </div>
-          </div>
-          <button
-            className="login-button p-2 mt-2"
-            onClick={() => handleShowPaymentOptions()}
-          >
-            Confirm and Pay
-          </button>
-          {showPaymentOptions && (
-            <div>
-              <div className="h-40px">
-                <select
-                  className="d-flex w-100 align-items-center justify-content-between login-input p-2 mt-2 clr-white border-none"
-                  onChange={(e) => handleChange(e)}
-                  checked={checked}
-                >
-                  <option>Select Payment Method</option>
-                  {packagesType.map((item, index) => {
-                    return <option value={item.value}>{item.label}</option>;
-                  })}
-                </select>
+            <hr className="mt-3 hr-line" />
+            <div className="d-flex align-items-center justify-content-between login-input p-2 mt-2">
+              <div className="small-font">
+                {yearly === true ? "Yearly" : "Monthly"} Subscription
               </div>
-              {paymentType === "neft" && (
-                <div className="payment-scroll">
-                  {allPaymentGateway
-                    .filter((item) => item.pg_upi === "neft")
-                    .map((item, index) => {
-                      return (
-                        <div className="d-flex justify-content-between login-input p-2 mt-1">
-                          <div>
-                            Name:{item.account_holder_name}
-                            <br /> Ac.No: {item.account_number}
-                            <br /> IFSC: {item.ifsc_code}
-                            <br /> Bank: {item.bank_name}
-                          </div>
-                          <div>
-                            <div>Select</div>
-                            <input
-                              type="checkbox"
-                              onChange={(e) => handleChecked(e, item)}
-                            />
-                          </div>
-                        </div>
-                      );
-                    })}
-                </div>
-              )}
-              {console.log(
-                allPaymentGateway.filter((item) => item.pg_upi === paymentType),
-                "paymentType"
-              )}
-              {paymentType !== "neft" && (
-                <div className="payment-scroll">
-                  {allPaymentGateway
-                    .filter((item) => item.pg_upi === paymentType)
-                    .map((item, index) => {
-                      return (
-                        <div className="d-flex justify-content-between login-input p-2 mt-1">
-                          <div className="login-input p-2 mt-1">
-                            Name: {item.account_holder_name}
-                            <br /> Moblie: {item.mobile_number}
-                          </div>
-                          <div>
-                            <div>Select</div>
-                            <input
-                              type="checkbox"
-                              onChange={(e) => handleChecked(e, item)}
-                            />
-                          </div>
-                        </div>
-                      );
-                    })}
-                </div>
-              )}
+              <div className="small-fontt">
+                {selectPackageName?.package_cost}
+              </div>
+            </div>
+            <div className="d-flex align-items-center justify-content-between login-input p-2 mt-2">
+              <div className="small-font">
+                Discount {selectPackageName?.discount}%
+              </div>
+              <div className="small-fontt">{discountValue} </div>
+            </div>
+            <div className="d-flex align-items-center justify-content-between login-input p-2 mt-2">
+              <div className="small-font">
+                Special Discount {selectPackageName?.discount}%
+              </div>
+              <div className="small-fontt">
+                {selectPackageName?.package_cost *
+                  (selectPackageName?.discount / 100)}
+              </div>
+            </div>
+            <div className="d-flex justify-content-between  login-input mt-1 p-1">
+              <div className="small-font">Total</div>
+              <div className="small-font">{totalPackageCost} </div>
+            </div>
+            <button
+              className="login-button p-2 mt-2"
+              onClick={() => handleShowPaymentOptions()}
+            >
+              Confirm and Pay
+            </button>
+            {showPaymentOptions && (
               <div>
-                {paymentType === "qr_code" && (
+                <div className="h-40px">
+                  <select
+                    className="d-flex w-100 align-items-center justify-content-between login-input p-2 mt-2 clr-white border-none"
+                    onChange={(e) => handleChange(e)}
+                    checked={checked}
+                  >
+                    <option>Select Payment Method</option>
+                    {packagesType.map((item, index) => {
+                      return <option value={item.value}>{item.label}</option>;
+                    })}
+                  </select>
+                </div>
+                {paymentType === "neft" && (
                   <div className="payment-scroll">
-                    {/* {allPaymentGateway
+                    {allPaymentGateway
+                      .filter((item) => item.pg_upi === "neft")
+                      .map((item, index) => {
+                        return (
+                          <div className="d-flex justify-content-between login-input p-2 mt-1">
+                            <div>
+                              Name:{item.account_holder_name}
+                              <br /> Ac.No: {item.account_number}
+                              <br /> IFSC: {item.ifsc_code}
+                              <br /> Bank: {item.bank_name}
+                            </div>
+                            <div>
+                              <div>Select</div>
+                              <input
+                                type="checkbox"
+                                onChange={(e) => handleChecked(e, item)}
+                              />
+                            </div>
+                          </div>
+                        );
+                      })}
+                  </div>
+                )}
+                {console.log(
+                  allPaymentGateway.filter(
+                    (item) => item.pg_upi === paymentType
+                  ),
+                  "paymentType"
+                )}
+                {paymentType !== "neft" && (
+                  <div className="payment-scroll">
+                    {allPaymentGateway
+                      .filter((item) => item.pg_upi === paymentType)
+                      .map((item, index) => {
+                        return (
+                          <div className="d-flex justify-content-between login-input p-2 mt-1">
+                            <div className="login-input p-2 mt-1">
+                              Name: {item.account_holder_name}
+                              <br /> Moblie: {item.mobile_number}
+                            </div>
+                            <div>
+                              <div>Select</div>
+                              <input
+                                type="checkbox"
+                                onChange={(e) => handleChecked(e, item)}
+                              />
+                            </div>
+                          </div>
+                        );
+                      })}
+                  </div>
+                )}
+                <div>
+                  {paymentType === "qr_code" && (
+                    <div className="payment-scroll">
+                      {/* {allPaymentGateway
                     .filter((item) => item.pg_upi === "qr_code")
                     .map((item, index) => {
                       return (
@@ -310,31 +324,37 @@ function PopupUpgradePackages(props) {
                         </div>
                       );
                     })} */}
-                  </div>
-                )}
-              </div>
+                    </div>
+                  )}
+                </div>
 
-              <div className="h-40px">
-                <input
-                  className="d-flex w-100 align-items-center justify-content-between login-input p-2 mt-2 clr-white border-none"
-                  type="file"
-                  style={{ display: "none" }}
-                  ref={fileInputRef}
-                  onChange={handleFileSelect}
-                ></input>
+                <div className="h-40px">
+                  <input
+                    className="d-flex w-100 align-items-center justify-content-between login-input p-2 mt-2 clr-white border-none"
+                    type="file"
+                    style={{ display: "none" }}
+                    ref={fileInputRef}
+                    onChange={handleFileSelect}
+                  ></input>
+                </div>
+                <hr className="mt-3 hr-line" />
+                <button
+                  className="login-button p-2 mt-2"
+                  onClick={() => handlePayButton()}
+                >
+                  Pay
+                </button>
               </div>
-              <hr className="mt-3 hr-line" />
-              <button
-                className="login-button p-2 mt-2"
-                onClick={() => handlePayButton()}
-              >
-                Pay
-              </button>
-            </div>
-          )}
-        </div>
-      </Modal.Body>
-    </Modal>
+            )}
+          </div>
+        </Modal.Body>
+      </Modal>
+      <MatchSubmitPopup
+        header={"Successfully Upgraded Your Package Ticket"}
+        state={successfulupgradedPackages}
+        setState={setSuccessfulupgradedPackages}
+      />
+    </div>
   );
 }
 

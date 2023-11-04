@@ -34,18 +34,18 @@ function ResetPassword(props) {
       !resetPasswordData?.new_password ||
       !resetPasswordData?.confirm_password
     ) {
-      return setError("Please Enter Required Fields");
+      setError("Please Enter Required Fields");
     }
     if (
       resetPasswordData?.new_password !== resetPasswordData?.confirm_password
     ) {
-      return setError("New Password And Confirm Password Should Match");
+      setError("New Password And Confirm Password Should Match");
     }
     if (
       resetPasswordData?.old_password === resetPasswordData?.confirm_password &&
       resetPasswordData?.old_password === resetPasswordData?.new_password
     ) {
-      return setError("Old Password And New Password Should Not Be Same");
+      setError("Old Password And New Password Should Not Be Same");
     }
     setIsProcessing(true);
     setError("");
@@ -58,7 +58,11 @@ function ResetPassword(props) {
       .then((res) => {
         if (res?.data?.statusCode === 200) {
           setIsProcessing(false);
-          setResetPasswordData({});
+          setResetPasswordData({
+            old_password: "",
+            new_password: "",
+            confirm_password: "",
+          });
           setResetPasswordSubmit(true);
           setShowResetPopup(false);
           setTimeout(() => {

@@ -67,6 +67,8 @@ const GET_ADMIN_PACKAGES = "/packages/get_admin_packages";
 const DELETE_OFFLINE_CLIENT = "/offline-management/delete_clients";
 const PRIVACY_POLICY = "/management/get_policy_document";
 const RESET_PASSWORD = "/admin/reset_password";
+const ACTIVE_INACTIVE_USERS =
+  "/offline-management/offline_active_inactive_users";
 
 // methods
 const DELETE = "DELETE";
@@ -360,5 +362,9 @@ exports.PRIVACY_POLICY = {
 };
 exports.RESET_PASSWORD = {
   url: RESET_PASSWORD,
+  method: POST,
+};
+exports.ACTIVE_INACTIVE_USERS = {
+  url: ACTIVE_INACTIVE_USERS,
   method: POST,
 };

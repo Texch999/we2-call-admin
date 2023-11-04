@@ -266,7 +266,6 @@ function SportsManagement() {
         console.log(err);
       });
   };
-  console.log("............matchData", matchData);
 
   const handleResetFields = () => {
     setMatchData({});
@@ -277,7 +276,6 @@ function SportsManagement() {
   };
 
   const handleChange = (e) => {
-    console.log("e.target.name", e.target.name);
     setMatchData({ ...matchData, [e.target.name]: e.target.value });
   };
 
