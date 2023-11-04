@@ -113,8 +113,6 @@ function UserManagement() {
       fancy_comm: 2,
     };
 
-    console.log({ userDeatailsPayload });
-
     updateUser === true
       ? await call(UPDATE_OFFLINE_CLIENT, userDeatailsPayload)
       : await call(CREATE_OFFLINE_CLIENT, userDeatailsPayload)
