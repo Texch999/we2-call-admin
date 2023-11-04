@@ -23,6 +23,7 @@ import UserDeletePopup from "./UserDeletePopup";
 import UserEditPopup from "./UserEditPopup";
 import UserSubmitPopup from "./UserSubmitPopup";
 import ChangePassword from "../add-users/ChangePassword";
+import PasswordSubmitPopup from "./PasswordSubmitPopup";
 
 function UserManagement() {
   let register_id = localStorage?.getItem("register_id");
@@ -40,9 +41,10 @@ function UserManagement() {
   const [userDetails, setUserDetails] = useState({});
   const [selectId, setSelectId] = useState();
   const [showChangePopup, setShowChangePopup] = useState(false);
-  const [clientID, setClientID] = useState("");
+  const [registerID, setRegisterID] = useState("");
   const [status, setStatus] = useState(false);
-  console.log(clientID, "CLIENT ID");
+  const [changePasswordPopup, setChangePasswordPopup] = useState(false);
+  
 
   const clientSelection = [
     { name: "Regulor", value: 0 },
@@ -231,11 +233,10 @@ function UserManagement() {
           ),
         };
       });
-  console.log(existingClients,"EXIS");
 
   const handleChangePassword = (item) => {
     setShowChangePopup(true);
-    setClientID(item);
+    setRegisterID(item);
   };
 
   const handleChange = (e) => {
@@ -541,10 +542,17 @@ function UserManagement() {
         // editButtons={editButtons}
       />
       <ChangePassword
-        clientID={clientID}
+        registerID={registerID}
         showChangePopup={showChangePopup}
         setShowChangePopup={setShowChangePopup}
         // setChangePasswordSubmit={setChangePasswordSubmit}
+        setChangePasswordPopup={setChangePasswordPopup}
+      />
+      <PasswordSubmitPopup
+        state={changePasswordPopup}
+        setState={setChangePasswordPopup}
+        error={error}
+        header={"You Successfully Changed Password"}
       />
       <MatchSubmitPopup
         header={"You Are Successfully Created User"}
