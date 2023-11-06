@@ -24,7 +24,7 @@ function AddNewMeetingsPopUp(props) {
     setActiveCreation(creation);
   };
   return (
-    <Modal onHide={onHide} show={show} centered className="add-user-modal">
+    <Modal onHide={onHide} show={show} centered className="add-user-modal z-index">
       <Modal.Header closeButton>
         <Modal.Title className="w-100 text-center">
           Add New Meetings

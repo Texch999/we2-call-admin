@@ -252,6 +252,10 @@
   max-height: 250px;
   overflow-y: scroll;
 }
+.call-management-table-height {
+  max-height: 280px;
+  overflow-y: scroll;
+}
 .settelment-table-body-height {
   overflow-y: scroll;
 }

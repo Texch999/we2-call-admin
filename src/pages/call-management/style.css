@@ -25,6 +25,7 @@
 .call-management-data tbody tr td {
   font-size: var(--table-body-font-size);
   font-family: "Barlow-Medium";
+  padding: 5px !important;
 }
 .user-count-number {
   color: #fce719;
@@ -121,10 +122,13 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   opacity: 1;
   -webkit-appearance: none;
 }
-img.date-time-icon{
+img.date-time-icon {
   position: absolute;
   right: 13%;
 }
-.custom-bs-button{
-  --bs-btn-padding-x:0.6rem;
+.custom-bs-button {
+  --bs-btn-padding-x: 0.6rem;
+}
+input[type="date"] {
+  text-transform: uppercase;
 }

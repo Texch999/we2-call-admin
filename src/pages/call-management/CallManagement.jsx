@@ -18,9 +18,19 @@ import {
 const CallManagement = () => {
   const register_id = localStorage.getItem("register_id");
   const account_role = localStorage.getItem("account_role");
-  const [modalShow, setModalShow] = useState(false);
+  // const [modalShow, setModalShow] = useState(false);
   const [upcomingMeetings, setUpcomingMeetings] = useState([]);
   const [listOfUsers, setListOfUsers] = useState([]);
+  const [personalMeeting, setPersonalMeeting] = useState(false);
+  const [professionalMeeting, setprofessionalMeeting] = useState(true);
+  const handlePersonalMeeting = () => {
+    setPersonalMeeting(true);
+    setprofessionalMeeting(false);
+  };
+  const handleProfessionalMeeting = () => {
+    setprofessionalMeeting(true);
+    setPersonalMeeting(false);
+  };
 
   const getAdminUsersList = async () => {
     await call(GET_ALL_CLIENTS, { register_id, account_role })
@@ -101,25 +111,8 @@ const CallManagement = () => {
   //     date: "19 July 2023, 10:00:00 PM",
   //     user: "Lokesh, Srinivas",
   //     status: "Join",
-  //   },
-  //   {
-  //     title: "Sriagent",
-  //     event_name:
-  //       "Newzelend vs South Africa Test Series Newzelend Onquard  Stadium",
-  //     date: "19 July 2023, 10:00:00 PM",
-  //     user: "Lokesh, Srinivas",
-  //     status: "Join",
-  //   },
-  //   {
-  //     title: "Sri Agent",
-  //     event_name:
-  //       "Newzelend vs South Africa Test Series Newzelend Onquard  Stadium",
-  //     date: "19 July 2023, 10:00:00 PM",
-  //     user: "Lokesh, Srinivas",
-  //     status: "Join",
-  //   },
+  //   }
   // ];
-
   // const ulNewMeetingsData = [
   //   {
   //     title: "UL",
@@ -128,125 +121,194 @@ const CallManagement = () => {
   //     date: "19 July 2023, 10:00:00 PM",
   //     user: "Sri Agent",
   //     status: "Join",
-  //   },
-  //   {
-  //     title: "UL",
-  //     event_name:
-  //       "Newzelend vs South Africa Test Series Newzelend Onquard  Stadium",
-  //     date: "19 July 2023, 10:00:00 PM",
-  //     user: "Sri Agent",
-  //     status: "Join",
-  //   },
-  //   {
-  //     title: "UL",
-  //     event_name:
-  //       "Newzelend vs South Africa Test Series Newzelend Onquard  Stadium",
-  //     date: "19 July 2023, 10:00:00 PM",
-  //     user: "Sri Agent",
-  //     status: "Join",
-  //   },
+  //   }
   // ];
   const meetingType = ["Personal", "Professional"];
   const addusersData = ["select", "animesh", "sri", "jayanth"];
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = 5;
-
   const handlePageChange = (page) => {
     setCurrentPage(page);
-    // You can add your logic here to fetch data for the selected page.
   };
   return (
-    <div className="p-4">
+    <div className="px-3 py-2">
       <div className="d-flex align-items-center justify-content-between">
-        <h5 className="meetings-heading">Call Management</h5>
-        <Button
+        <h5 className="meetings-heading">Add New Meeting</h5>
+        {/* <Button
           className="add-new-meetings-button"
           onClick={() => setModalShow(true)}
         >
           + Add New Meetings
-        </Button>
+        </Button> */}
       </div>
-      <hr />
-      <div>
+      <div className="mt-1">
+        <div className="w-25 d-flex align-items-center justify-content-between">
+          <div
+            className={`cursor-pointer fw-semibold btn-bg medium-font text-white text-center py-1 px-3 rounded-pill ${
+              professionalMeeting ? "yellow-btn" : ""
+            }`}
+            onClick={() => handleProfessionalMeeting()}
+          >
+            Professional
+          </div>
+          <div
+            className={`cursor-pointer fw-semibold btn-bg medium-font text-white text-center py-1 px-3 rounded-pill ${
+              personalMeeting ? "yellow-btn" : ""
+            }`}
+            onClick={() => handlePersonalMeeting()}
+          >
+            Personal
+          </div>
+        </div>
+        <div className="row mt-2">
+          <div className="col">
+            <div className="d-flex flex-column">
+              <div className="medium-font">Meeting\Event Name</div>
+              {personalMeeting && (
+                <input
+                  className="custom-select medium-font btn-bg  all-none p-2 rounded"
+                  placeholder="Personal Meeting Name"
+                  type="text"
+                />
+              )}
+              {professionalMeeting && (
+                <input
+                  className="custom-select medium-font btn-bg  all-none p-2 rounded"
+                  placeholder="Professional Meeting Name"
+                  type="text"
+                />
+              )}
+            </div>
+          </div>
+          <div className="col">
+            <div className="d-flex flex-column">
+              <div className="medium-font">Date</div>
+              <input
+                className="custom-select medium-font btn-bg  all-none p-2 rounded"
+                placeholder="Enter Meeting Name"
+                type="date"
+              />
+            </div>
+          </div>
+          <div className="col">
+            <div className="d-flex flex-column">
+              <div className="medium-font">Time</div>
+              <input
+                className="custom-select medium-font btn-bg  all-none p-2 rounded"
+                placeholder="Enter Meeting Name"
+                type="time"
+              />
+            </div>
+          </div>
+          <div className="col">
+            <div className="d-flex flex-column">
+              <div className="medium-font">Add Users</div>
+              <input
+                className="custom-select medium-font btn-bg  all-none p-2 rounded"
+                placeholder="Enter Meeting Name"
+                type="text"
+              />
+            </div>
+          </div>
+          <div className="col">
+            <div className="d-flex flex-column">
+              <div className="medium-font">Select Call Type</div>
+              <select className="custom-select medium-font btn-bg  all-none p-2 rounded pb-2">
+                <option>Select</option>
+                <option>Audio Only</option>
+                <option>Audio + Video</option>
+              </select>
+            </div>
+          </div>
+          <div className="col d-flex align-items-end">
+            <div className="cursor-pointer w-100 text-center rounded medium-font p-2 yellow-btn fw-semibold">
+              Submit
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="mt-3">
         <h5 className="mb-3 meetings-heading">Upcoming Meetings</h5>
-        <Table responsive="md" className="call-management-data">
-          <thead>
-            <tr>
-              <th className="text-center">URS</th>
-              <th className="text-center">EVENT NAME</th>
-              <th className="text-center">START DATE & TIME</th>
-              <th className="text-center">USER</th>
-              <th className="text-center">STATUS</th>
-              <th className="text-center"></th>
-            </tr>
-          </thead>
-          <tbody>
-            {upcomingMeetingsData?.length > 0 &&
-              upcomingMeetingsData?.map((data, index) => (
-                <tr key={index}>
-                  <td className="text-center">{data?.urs}</td>
-                  <td className="text-center">{data?.event_name}</td>
-                  <td className="text-center">
-                    {data?.date},{data?.time}
-                  </td>
-                  <td className="text-center">
-                    <Dropdown size="lg" className="user-dropdown-toggle">
-                      <Dropdown.Toggle>
-                        {data?.user[0]}
-                        <span className="ms-1 user-count-number">
-                          + {data?.user?.length - 1}
-                        </span>
-                        <Button
-                          type="button"
-                          size="sm"
-                          className="ms-2 text-warning bg-transparent rounded-circle border border-warning arrow-dropdown-icon-button"
-                        >
-                          <MdArrowDownward size={16} />
+        <div className="call-management-table-height">
+          <Table responsive="md" className="call-management-data fixed-table">
+            <thead>
+              <tr>
+                <th className="text-center">URS</th>
+                <th className="text-center">EVENT NAME</th>
+                <th className="text-center">START DATE & TIME</th>
+                <th className="text-center">USERS</th>
+                <th className="text-center">STATUS</th>
+                <th className="text-center"></th>
+              </tr>
+            </thead>
+            <tbody>
+              {upcomingMeetingsData?.length > 0 &&
+                upcomingMeetingsData?.map((data, index) => (
+                  <tr key={index}>
+                    <td className="text-center">{data?.urs}</td>
+                    <td className="text-center">{data?.event_name}</td>
+                    <td className="text-center">
+                      {data?.date},{data?.time}
+                    </td>
+                    <td className="text-center">
+                      <Dropdown size="lg" className="user-dropdown-toggle">
+                        <Dropdown.Toggle>
+                          {data?.user[0]}
+                          <span className="ms-1 user-count-number">
+                            + {data?.user?.length - 1}
+                          </span>
+                          <Button
+                            type="button"
+                            size="sm"
+                            className="ms-2 text-warning bg-transparent rounded-circle border border-warning arrow-dropdown-icon-button"
+                          >
+                            <MdArrowDownward size={16} />
+                          </Button>
+                        </Dropdown.Toggle>
+                        <Dropdown.Menu>
+                          {data?.user?.map((userObj) => (
+                            <Dropdown.Item href="#action1">
+                              {userObj}
+                            </Dropdown.Item>
+                          ))}
+                        </Dropdown.Menu>
+                      </Dropdown>
+                    </td>
+                    <td className="text-center">
+                      {data?.recording_status === "started" ? (
+                        <Button className="rounded-pill meeting-status-button">
+                          Started
                         </Button>
-                      </Dropdown.Toggle>
-                      <Dropdown.Menu>
-                        {data?.user?.map((userObj) => (
-                          <Dropdown.Item href="#action1">
-                            {userObj}
-                          </Dropdown.Item>
-                        ))}
-                      </Dropdown.Menu>
-                    </Dropdown>
-                  </td>
-                  <td className="text-center">
-                    {data?.recording_status === "started" ? (
-                      <Button className="rounded-pill meeting-status-button">
-                        Started
+                      ) : (
+                        <Button className="rounded-pill meeting-status-button">
+                          Upcoming
+                        </Button>
+                      )}
+                      {data?.recording_status === "upcoming" && (
+                        <Button className="rounded-pill meeting-status-button">
+                          Upcoming
+                        </Button>
+                      )}
+                      {data?.recording_status === "join" && (
+                        <Button className="rounded-pill meeting-status-button">
+                          Join
+                        </Button>
+                      )}
+                    </td>
+                    <td className="text-center">
+                      <Button
+                        type="button"
+                        className="text-warning rounded-circle border-0 meetings-edit-button"
+                      >
+                        <MdModeEditOutline size={18} />
                       </Button>
-                    ) : (
-                      <Button className="rounded-pill meeting-status-button">
-                        Upcoming
-                      </Button>
-                    )}
-                    {data?.recording_status === "upcoming" && (
-                      <Button className="rounded-pill meeting-status-button">
-                        Upcoming
-                      </Button>
-                    )}
-                    {data?.recording_status === "join" && (
-                      <Button className="rounded-pill meeting-status-button">
-                        Join
-                      </Button>
-                    )}
-                  </td>
-                  <td className="text-center">
-                    <Button
-                      type="button"
-                      className="text-warning rounded-circle border-0 meetings-edit-button"
-                    >
-                      <MdModeEditOutline size={18} />
-                    </Button>
-                  </td>
-                </tr>
-              ))}
-          </tbody>
-        </Table>
-        <div className="d-flex justify-content-between align-items-center mt-4">
+                    </td>
+                  </tr>
+                ))}
+            </tbody>
+          </Table>
+        </div>
+        {/* <div className="d-flex justify-content-between align-items-center mt-4">
           <div className="d-flex justify-content-start font-clr-white total-count-container  py-2 px-4 rounded">
             <span>
               Showing <b> {currentPage} </b> 0f <b> {totalPages} </b>{" "}
@@ -260,43 +322,44 @@ const CallManagement = () => {
               onPageChange={handlePageChange}
             />
           </div>
+        </div> */}
+      </div>
+      <div className="mt-3">
+        <h5 className="mb-3 meetings-heading">UL New Meetings</h5>
+        <div className="call-management-table-height">
+          <Table responsive="md" className="call-management-data fixed-table">
+            <thead>
+              <tr>
+                <th className="text-center">UL</th>
+                <th className="text-center">EVENT NAME</th>
+                <th className="text-center">START DATE & TIME</th>
+                <th className="text-center">USER</th>
+                <th className="text-center">STATUS</th>
+                <th className="text-center"></th>
+              </tr>
+            </thead>
+            <tbody>
+              {ulMeetingsData?.length > 0 &&
+                ulMeetingsData?.map((data, index) => (
+                  <tr key={index}>
+                    <td className="text-center">{data?.ul}</td>
+                    <td className="text-center">{data?.event_name}</td>
+                    <td className="text-center">
+                      {data?.date},{data?.time}
+                    </td>
+                    <td className="text-center">{data?.user}</td>
+                    <td className="text-center" colSpan={2}>
+                      <Button className="rounded-pill meeting-status-button">
+                        {data?.action}
+                      </Button>
+                    </td>
+                  </tr>
+                ))}
+            </tbody>
+          </Table>
         </div>
       </div>
-
-      <div>
-        <h5 className="mb-3 meetings-heading">UL New Meetings</h5>
-        <Table responsive="md" className="call-management-data">
-          <thead>
-            <tr>
-              <th className="text-center">UL</th>
-              <th className="text-center">EVENT NAME</th>
-              <th className="text-center">START DATE & TIME</th>
-              <th className="text-center">USER</th>
-              <th className="text-center">STATUS</th>
-              <th className="text-center"></th>
-            </tr>
-          </thead>
-          <tbody>
-            {ulMeetingsData?.length > 0 &&
-              ulMeetingsData?.map((data, index) => (
-                <tr key={index}>
-                  <td className="text-center">{data?.ul}</td>
-                  <td className="text-center">{data?.event_name}</td>
-                  <td className="text-center">
-                    {data?.date},{data?.time}
-                  </td>
-                  <td className="text-center">{data?.user}</td>
-                  <td className="text-center" colSpan={2}>
-                    <Button className="rounded-pill meeting-status-button">
-                      {data?.action}
-                    </Button>
-                  </td>
-                </tr>
-              ))}
-          </tbody>
-        </Table>
-      </div>
-      <div className="d-flex justify-content-between align-items-center mt-4">
+      {/* <div className="d-flex justify-content-between align-items-center mt-4">
         <div className="d-flex justify-content-start font-clr-white total-count-container  py-2 px-4 rounded">
           <span>
             Showing <b> {currentPage} </b> 0f <b> {totalPages} </b> Entries....
@@ -309,9 +372,8 @@ const CallManagement = () => {
             onPageChange={handlePageChange}
           />
         </div>
-      </div>
-
-      {modalShow && (
+      </div> */}
+      {/* {modalShow && (
         <AddNewMeetingsPopUp
           meetingType={meetingType}
           label="Add Users*"
@@ -319,7 +381,7 @@ const CallManagement = () => {
           selectData={addusersData}
           onHide={() => setModalShow(false)}
         />
-      )}
+      )} */}
     </div>
   );
 };
