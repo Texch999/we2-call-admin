@@ -2,11 +2,8 @@ import React from "react";
 
 function MFRCTotalTable(props) {
   const {
-    clientData,
     onePageReportdata1,
-    individualClientData,
-    induvisualClientStatus,
-    induvisualClientName,
+
   } = props;
   const MFRC_DETAILS =
     onePageReportdata1?.length &&
