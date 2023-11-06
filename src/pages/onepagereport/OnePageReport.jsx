@@ -28,12 +28,11 @@ function OnePageReport(props) {
   const handleIndividualOnePageData = async (item) => {
     setShowReportPopup(true);
     setShowIndividualOnepageReportData(true);
-    setSelectedClientData(item);
-
+    setSelectedClientData(item); 
     await call(GET_COMPLETED_MATCHES_BY_CLEINT, {
       register_id,
       account_role,
-      client_id: item.client_Id,
+      // client_id: item.client_Id,
     })
       .then((res) => {
         setShowOnePageReportData(res?.data?.data);

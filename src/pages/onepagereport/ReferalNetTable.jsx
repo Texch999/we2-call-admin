@@ -1,16 +1,16 @@
 import React from "react";
 
-function ReferalNetTable({ clientData }) {
+function ReferalNetTable({ firstReferralNetData }) {
   const REFERALNET_DETAILS =
-    clientData?.length &&
-    clientData?.map((item, index) => {
+    firstReferralNetData?.length &&
+    firstReferralNetData?.map((item, index) => {
       return {
-        clientName: <div>{item?.client_name}</div>,
-        cNameMatchPL: <div>{item?.amount}</div>,
-        amount1: parseFloat(item?.amount || 0),
-        fancyPL: parseFloat(item?.fancyPl || 0),
-        refrralFancyComm: parseFloat(item?.fancyComission || 0),
-        masterProfitloss: item?.totalLossOrProfit || 0,
+        clientName: item?.client_name,
+        cNameMatchPL: item?.cNameMatchPL,
+        fancyPL: item?.fancyPL,
+        refrralFancyComm: item?.mfComm,
+        rollcom: item?.roleComm,
+        netpl: item?.masterProfitloss,
       };
     });
   return (
@@ -33,11 +33,11 @@ function ReferalNetTable({ clientData }) {
             <tbody key={index}>
               <tr className="text-center w-100">
                 <td className="w-20">{item.clientName}</td>
-                <td className="w-20">{item.masterProfitloss}</td>
-                <td className="w-20">{item.amount1}</td>
+                <td className="w-20">{item.cNameMatchPL}</td>
                 <td className="w-20">{item.fancyPL}</td>
                 <td className="w-20">{item.refrralFancyComm}</td>
-                <td className="w-20">{item.cNameMatchPL}</td>
+                <td className="w-20">{item.rollcom}</td>
+                <td className="w-20">{item.netpl}</td>
               </tr>
             </tbody>
           ))}

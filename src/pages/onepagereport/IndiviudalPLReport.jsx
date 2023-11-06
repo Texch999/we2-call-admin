@@ -46,10 +46,10 @@ function IndiviudalPLReport(props) {
     })
       .then((res) => {
         // console.log("res?.data?.data",[...res?.data?.data?.topLosers, ...res?.data?.data?.topWinners])
-        setIndivisualMatchReportData([
-          ...res?.data?.data?.topLosers,
-          ...res?.data?.data?.topWinners,
-        ]);
+        // setIndivisualMatchReportData([
+        //   ...res?.data?.data?.topLosers,
+        //   ...res?.data?.data?.topWinners,
+        // ]);
       })
       .catch((err) => console.log(err));
   };

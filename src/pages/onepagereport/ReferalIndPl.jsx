@@ -42,7 +42,7 @@ function ReferalIndPl(props) {
       .then((res) => {
         // console.log("res?.data?.data",[...res?.data?.data?.topLosers, ...res?.data?.data?.topWinners])
         setIndivisualMatchReportData([
-          ...res?.data?.data,
+          ...res?.data?.data?.data,
           // ...res?.data?.data?.topWinners,
         ]);
       })
@@ -195,7 +195,6 @@ function ReferalIndPl(props) {
                     </table>
                     {/* <AdminsTable data={PAGE_REPORT_DETAILS} columns/> */}
                     <div>
-                      {" "}
                       <table className="w-100 match-position-table medium-font">
                         {REFERAL_REPORT_DETAILS?.length &&
                           REFERAL_REPORT_DETAILS?.map((item, index) => (

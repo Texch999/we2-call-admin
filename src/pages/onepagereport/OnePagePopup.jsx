@@ -39,9 +39,7 @@ function OnePagePopup(props) {
         matchPl: (
           <div
             className={
-              +client?.matchEntryResult?.amount >= 0
-                ? "approved-color"
-                : "red-clr"
+              +client?.matchEntryResult?.amount >= 0 ? "clr-green" : "clr-red"
             }
           >
             // {client?.matchEntryResult?.amount}
@@ -51,16 +49,14 @@ function OnePagePopup(props) {
         fancyPL: (
           <div
             className={
-              +client?.fancyEntryResult?.amount >= 0
-                ? "approved-color"
-                : "red-clr"
+              +client?.fancyEntryResult?.amount >= 0 ? "clr-green" : "clr-red"
             }
           >
             {+client?.fancyEntryResult?.amount}
           </div>
         ),
         mfComm: (
-          <div className={+netCommission >= 0 ? "approved-color" : "red-clr"}>
+          <div className={+netCommission >= 0 ? "clr-green" : "clr-red"}>
             {+netCommission}
           </div>
         ),
@@ -68,8 +64,8 @@ function OnePagePopup(props) {
           <div
             className={
               +client?.fancyEntryResult?.clientCommission >= 0
-                ? "approved-color"
-                : "red-clr"
+                ? "clr-green"
+                : "clr-red"
             }
           >
             {client?.fancyEntryResult?.clientCommission}
@@ -78,10 +74,69 @@ function OnePagePopup(props) {
         masterProfitloss: (
           <div
             className={
-              +totalAmountAfterCommission >= 0 ? "approved-color" : "red-clr"
+              +totalAmountAfterCommission >= 0 ? "clr-green" : "clr-red"
             }
           >
             {totalAmountAfterCommission}
+          </div>
+        ),
+      };
+    });
+  const firstReferralNetData =
+    showOnepageReportData &&
+    showOnepageReportData?.length > 0 &&
+    showOnepageReportData?.map((client) => {
+      const netCommission = +client?.fancyEntryResult?.referralComission
+        ? +client?.referralComission - +client?.referralFancyComission
+        : client?.referralComission;
+      const netRef =
+        netCommission + +client?.fancyEntryResult?.referralComission;
+      return {
+        cNameMatchPL: (
+          <div className="client-name-role-container mb-5 mt-5">
+            <div>{`${client?.team1} vs ${client?.team2}`}</div>
+            <div
+              className={
+                +client?.matchEntryResult?.amount >= 0
+                  ? "clr-green"
+                  : "clr-red"
+              }
+            >
+              {client?.matchEntryResult?.amount}
+            </div>
+            <div>{moment(+client?.matchTimeStamp).format("DD-MM-YYYY")}</div>
+          </div>
+        ),
+        fancyPL: (
+          <div
+            className={
+              +client?.fancyEntryResult?.amount >= 0
+                ? "clr-green"
+                : "clr-red"
+            }
+          >
+            {+client?.fancyEntryResult?.amount}
+          </div>
+        ),
+        mfComm: (
+          <div className={+netCommission >= 0 ? "clr-green" : "clr-red"}>
+            {netCommission}
+          </div>
+        ),
+        roleComm: (
+          <div
+            className={
+              +client?.fancyEntryResult?.referralComission >= 0
+                ? "clr-green"
+                : "clr-red"
+            }
+          >
+            {client?.fancyEntryResult?.referralComission}
+          </div>
+        ),
+        masterProfitloss: (
+          <div className={+netRef >= 0 ? "clr-green" : "clr-red"}>
+            {netRef}
           </div>
         ),
       };
@@ -120,7 +175,10 @@ function OnePagePopup(props) {
             <div>
               <div className="w-25 mt-2 mb-1">
                 <div className="match-date-button rounded-pill small-font text-center p-1 ">
-                  ClientName:{selectedClientData?.client}
+                  ClientName :-
+                  <span className="medium-font clr-yellow ms-1">
+                    {selectedClientData?.client}
+                  </span>
                 </div>
               </div>
               <div className="w-25 mt-2 mb-1">
@@ -164,7 +222,7 @@ function OnePagePopup(props) {
             <MFRCTotalTable induvisualClientData={induvisualClientData} />
           )}
           {referalNetInputs && (
-            <ReferalNetTable induvisualClientData={induvisualClientData} />
+            <ReferalNetTable firstReferralNetData={firstReferralNetData} />
           )}
           {/* {ulsharereportInputs && <UlshareTable />} */}
         </Modal.Body>
