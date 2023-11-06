@@ -1,22 +1,20 @@
 import React from "react";
 
 function MFRCTotalTable(props) {
-  const {
-    onePageReportdata1,
-
-  } = props;
+  const { induvisualClientData } = props;
   const MFRC_DETAILS =
-    onePageReportdata1?.length &&
-    onePageReportdata1?.map((item, index) => {
+    induvisualClientData?.length &&
+    induvisualClientData?.map((item, index) => {
       return {
-        cNameMatchPL: item.referralComission,
-        fancyPL: item.clientShare,
-        mfcomm: item.referalShare,
+        cNameMatchPL: item.cNameMatchPL,
+        matchPl: item.matchPl,
+        fancyPL: item.fancyPL,
+        mfcomm: item.mfComm,
         rolecomm: item.roleComm,
         mfc_crc: item.masterProfitloss,
       };
     });
-
+  console.log("induvisualClientData", induvisualClientData);
   return (
     <div>
       <table className="w-100 match-position-table small-font">
@@ -42,6 +40,7 @@ function MFRCTotalTable(props) {
               <tr className="text-center">
                 {/* <td className="w-20">{item.matchName}</td> */}
                 <td className="w-20">{item.cNameMatchPL}</td>
+                <td className="w-20">{item.matchPl}</td>
                 <td className="w-20">{item.fancyPL}</td>
                 <td className="w-20">{item.mfcomm}</td>
                 <td className="w-20">{item.rolecomm}</td>

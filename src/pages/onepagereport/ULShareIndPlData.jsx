@@ -1,30 +1,6 @@
 import React from "react";
 
 function ULShareIndPlData(props) {
-  // const PAGE_REPORT_DETAILS = [
-  //   {
-  //     date: "25-07-2023",
-  //     matchname: "India vs Sri Lanka",
-  //     urnetpl: "1000000",
-  //     winteam: "India",
-  //     Ulshare: "50000000.00",
-  //   },
-  //   {
-  //     date: "25-07-2023",
-  //     matchname: "India vs Sri Lanka",
-  //     winteam: "India",
-  //     urnetpl: "1000000",
-  //     Ulshare: "50000000.00",
-  //   },
-  //   {
-  //     date: "25-07-2023",
-  //     matchname: "India vs Sri Lanka",
-  //     winteam: "India",
-  //     urnetpl: "1000000",
-
-  //     Ulshare: "50000000.00",
-  //   },
-  // ];
   const { individualReportULShareData } = props;
   const PAGE_REPORT_DETAILS = individualReportULShareData?.map(
     (item, index) => ({
@@ -65,14 +41,14 @@ function ULShareIndPlData(props) {
           ))}
         </table>
       </div>
-      <table className="w-100 match-position-table medium-font">
+      {/* <table className="w-100 match-position-table medium-font">
         <tfoot>
           <tr className="text-center">
             <th className="text-end">TOTAL</th>
             <th className="clr-green text-end">50000000.00</th>
           </tr>
         </tfoot>
-      </table>
+      </table> */}
     </div>
   );
 }
