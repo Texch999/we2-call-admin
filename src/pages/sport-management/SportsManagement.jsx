@@ -11,21 +11,19 @@ import {
   // UPDATE_MATCH,
 } from "../../config/endpoints";
 import { call } from "../../config/axios";
-import ScheduleMatchesTable from "./ScheduleMatchesTable";
 
 function SportsManagement() {
   let register_id = localStorage?.getItem("register_id");
   let account_role = localStorage?.getItem("account_role");
 
-  const [liveMatchesData, setLiveMatchesData] = useState([]);
-  const [upcomingMatchesData, setUpcomingMatchesData] = useState([]);
-  const [todayMatchesData, setTodayMatchesData] = useState([]);
-  const [allMatchesData, setAllMatchesData] = useState([]);
-  const [matchData, setMatchData] = useState({});
+  // ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓  Create Match Related ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ //
 
+  const [matchData, setMatchData] = useState({});
   const [selectMatchType, setSelectMatchType] = useState({});
-  console.log(selectMatchType.macth_type, "........selectMatchType");
-  console.log(allMatchesData, ".............allMatchesData");
+  const [createMacthSubmit, setCreateMacthSubmit] = useState(false);
+  const [Error, setError] = useState();
+  const [isProcessing, setIsProcessing] = useState();
+  const [status, setStatus] = useState(false);
 
   const top_cricket_countries = [
     "IND",
@@ -39,22 +37,6 @@ function SportsManagement() {
     "BAN",
     "AFG",
   ];
-
-  const getAllMatches = async () => {
-    await call(GET_ALL_MATCHES, { register_id, account_role })
-      .then((res) => {
-        let result = res?.data?.data;
-        setAllMatchesData([
-          ...result?.liveMatches,
-          ...result?.todaysMatches,
-          ...result?.upCommingMatches,
-        ]);
-        setLiveMatchesData(result?.liveMatches);
-        setTodayMatchesData(result?.todaysMatches);
-        setUpcomingMatchesData(result?.upCommingMatches);
-      })
-      .catch((err) => console.log(err));
-  };
 
   const matchType = [
     { name: "T10", first: [1, 4, 5], second: [2, 3] },
@@ -78,43 +60,9 @@ function SportsManagement() {
         </>
       ),
     },
-    // {
-    //   headName: "Team1",
-    //   name: "team1",
-    //   options: top_cricket_countries.map((item, index) => {
-    //     return (
-    //       <option key={index} value={item || ""}>
-    //         {item}
-    //       </option>
-    //     );
-    //   }),
-    // },
-    // {
-    //   headName: "Team2",
-    //   name: "team2",
-    //   options: top_cricket_countries
-    //     ?.filter((country) => country !== matchData?.team1)
-    //     .map((item, index) => {
-    //       return (
-    //         <option key={index} value={item}>
-    //           {item}
-    //         </option>
-    //       );
-    //     }),
-    // },
   ];
 
   const sportsInputs = [
-    // {
-    //   headName: "Sports Name",
-    //   name: "sport_name",
-    //   options: (
-    //     <>
-    //       <option value="cricket">Cricket</option>
-    //       <option value="football">FootBall</option>
-    //     </>
-    //   ),
-    // },
     {
       headName: "Team1",
       name: "team1",
@@ -155,64 +103,6 @@ function SportsManagement() {
       overs: selectOvers[0]?.second,
     },
   ];
-
-  console.log(matchData, "......matchData");
-  const tableData =
-    allMatchesData?.length > 0 &&
-    allMatchesData?.map((match) => ({
-      seriesName: match?.series_name,
-      team: <span className="role-color">{match?.match_name}</span>,
-      sportName: match?.sport_name,
-      matchPlace: match?.match_place,
-      dateTime: (
-        <div>
-          {match?.date} <br /> <span>{match?.time}</span>{" "}
-        </div>
-      ),
-      editButton: (
-        <GoPencil className="edit-icon" onClick={() => handleUpadate(match)} />
-      ),
-    }));
-
-  const columns = [
-    { header: "Series Name", field: "seriesName" },
-    { header: "Team", field: "team" },
-    { header: "Sports Name", field: "sportName" },
-    { header: "Match Place", field: "matchPlace" },
-    { header: "Date & Time", field: "dateTime" },
-    { field: "editButton" },
-  ];
-  const scheduledColumns = [
-    { header: "Series Name", field: "seriesName" },
-    { header: "Match Name", field: "match_name" },
-  ];
-
-  const headings = ["LIVE", "TODAY", "UPCOMING"];
-
-  const [activeHead, setActiveHead] = useState(0);
-
-  const [scheduleDate, setScheduleDate] = useState(liveMatchesData);
-
-  const [createMacthSubmit, setCreateMacthSubmit] = useState(false);
-
-  const [Error, setError] = useState();
-
-  const [isProcessing, setIsProcessing] = useState();
-
-  const [status, setStatus] = useState(false);
-
-  const handleActiveHead = (index) => {
-    setActiveHead(index);
-    {
-      index === 0 && setScheduleDate(liveMatchesData);
-    }
-    {
-      index === 1 && setScheduleDate(todayMatchesData);
-    }
-    {
-      index === 2 && setScheduleDate(upcomingMatchesData);
-    }
-  };
 
   const handleMacthSubmit = async () => {
     if (
@@ -266,7 +156,6 @@ function SportsManagement() {
         console.log(err);
       });
   };
-  console.log("............matchData", matchData);
 
   const handleResetFields = () => {
     setMatchData({});
@@ -277,16 +166,120 @@ function SportsManagement() {
   };
 
   const handleChange = (e) => {
-    console.log("e.target.name", e.target.name);
     setMatchData({ ...matchData, [e.target.name]: e.target.value });
   };
 
   const handleMatchChange = (e) => {
     setSelectMatchType({ [e.target.name]: e.target.value });
   };
+
+  // ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑  Create Match Related ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ //
+
+  // ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓  getting Table data && table related UI maps ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ //
+
+  const [liveMatchesData, setLiveMatchesData] = useState([]);
+  const [upcomingMatchesData, setUpcomingMatchesData] = useState([]);
+  const [todayMatchesData, setTodayMatchesData] = useState([]);
+  const [allMatchesData, setAllMatchesData] = useState([]);
+  const headings = ["LIVE", "TODAY", "UPCOMING"];
+  const [activeHead, setActiveHead] = useState(0);
+  const [scheduleDate, setScheduleDate] = useState(liveMatchesData);
+
+  const handleActiveHead = (index) => {
+    setActiveHead(index);
+
+    {
+      index === 0 && setScheduleDate(liveMatchesData);
+    }
+    {
+      index === 1 && setScheduleDate(todayMatchesData);
+    }
+    {
+      index === 2 && setScheduleDate(upcomingMatchesData);
+    }
+  };
+
+  const getAllMatches = async () => {
+    await call(GET_ALL_MATCHES, { register_id, account_role })
+      .then((res) => {
+        let result = res?.data?.data;
+        setAllMatchesData([
+          ...result?.liveMatches,
+          ...result?.todaysMatches,
+          ...result?.upCommingMatches,
+        ]);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const getScheduleMatches = async () => {
+    await call(GET_ALL_MATCHES, {
+      register_id: "company",
+      account_role: "company",
+    })
+      .then((res) => {
+        let result = res?.data?.data;
+        setLiveMatchesData(result?.liveMatches);
+        setTodayMatchesData(result?.todaysMatches);
+        setUpcomingMatchesData(result?.upCommingMatches);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const columns = [
+    { header: "Series Name", field: "seriesName" },
+    { header: "Team", field: "team" },
+    { header: "Sports Name", field: "sportName" },
+    { header: "Match Place", field: "matchPlace" },
+    { header: "Date & Time", field: "dateTime" },
+    { field: "editButton" },
+  ];
+
+  const tableData =
+    allMatchesData?.length > 0 &&
+    allMatchesData?.map((match) => ({
+      seriesName: match?.series_name,
+      team: <span className="role-color">{match?.match_name}</span>,
+      sportName: match?.sport_name,
+      matchPlace: match?.match_place,
+      dateTime: (
+        <div>
+          {match?.date} <br /> <span>{match?.time}</span>{" "}
+        </div>
+      ),
+      editButton: (
+        <GoPencil className="edit-icon" onClick={() => handleUpadate(match)} />
+      ),
+    }));
+
+  const scheduledColumns = [
+    { header: "Series Name", field: "series_name" },
+    { header: "Match Name", field: "match_name" },
+  ];
+
+  const scheduleTable = liveMatchesData.map((item) => {
+    return {
+      series_name: (
+        <div>
+          {item.match_name},{item.gender}
+          <br />
+          {item.game_object.match_type},{item.stadium}
+          <br />
+          <div className="clr-yellow">
+            {item.date},{item.time}
+          </div>
+        </div>
+      ),
+      match_name: item.match_name,
+    };
+  });
+
+  // ↑↑↑↑↑↑↑↑↑↑↑↑↑↑  getting Table data && table related UI maps ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ //
+
   useEffect(() => {
     getAllMatches();
-    setScheduleDate(liveMatchesData);
+    getScheduleMatches();
+    setActiveHead(0);
   }, []);
 
   return (
@@ -331,10 +324,7 @@ function SportsManagement() {
                 onChange={(e) => handleChange(e)}
                 name={item?.name}
                 value={matchData?.item?.name}
-              >
-                {/* <option>select</option>
-                {item.options} */}
-              </input>
+              ></input>
             </div>
           );
         })}
@@ -416,9 +406,6 @@ function SportsManagement() {
               name="macth_type"
               onChange={(e) => handleMatchChange(e)}
             >
-              {/* {matchType.map((item, index) => {
-                return <option value={item.name}>{item.name}</option>;
-              })} */}
               <option value="select">select</option>
               <option value="T10">T10</option>
               <option value="T20">T20</option>
@@ -482,10 +469,7 @@ function SportsManagement() {
             })}
           </div>
           <div className="mt-2">
-            <ScheduleMatchesTable
-              data={scheduleDate}
-              columns={scheduledColumns}
-            />
+            <Table data={scheduleTable || []} columns={scheduledColumns} />
           </div>
           <MatchSubmitPopup
             header={"You Are Successfully Created Your Match"}
