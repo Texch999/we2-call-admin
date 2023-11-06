@@ -1,54 +1,17 @@
 import React from "react";
 
-function MFRCTotalTable({
-  clientData,
-  firstReferralNetData,
-  induvisualClientData,
-  induvisualClientStatus,
-}) {
-  console.log("Client Data", clientData);
-  console.log("irstReferralNet Data", firstReferralNetData);
+function MFRCTotalTable(props) {
+  const {
+    onePageReportdata1,
 
-  // const firstReferralNetData =
-  // data?.length &&
-  // data?.map((report) => ({
-  //   cNameMatchPL: (
-  //     <div className="client-name-role-container mb-5 mt-5">
-  //       <div>{report?.client_name}</div>
-  //       <div>{report?.amount}</div>
-  //     </div>
-  //   ),
-  //   fancyPL: parseFloat(report?.fancyPl || 0),
-  //   refrralFancyComm: parseFloat(report?.fancyComission || 0),
-  //   masterProfitloss: report?.totalLossOrProfit || 0,
-  // }));
-
-  // const MFRC_DETAILS =
-  //   clientData?.length &&
-  //   clientData?.map((item, index) => {
-  //     return {
-  //       matchName: (
-  //         <div>
-  //           IND vs SL
-  //           <br />
-  //           18-07-1995
-  //         </div>
-  //       ),
-  //       cNameMatchPL: <div>{item?.amount}</div>,
-  //       amount1: parseFloat(item?.amount || 0),
-  //       fancyPL: parseFloat(item?.fancyPl || 0),
-  //       refrralFancyComm: parseFloat(item?.fancyComission || 0),
-  //       masterProfitloss: item?.totalLossOrProfit || 0,
-  //     };
-  //   });
-
+  } = props;
   const MFRC_DETAILS =
-    induvisualClientData?.length &&
-    induvisualClientData?.map((item, index) => {
+    onePageReportdata1?.length &&
+    onePageReportdata1?.map((item, index) => {
       return {
-        cNameMatchPL: item.cNameMatchPL,
-        fancyPL: item.fancyPL,
-        mfcomm: parseFloat(item?.mfComm || 0),
+        cNameMatchPL: item.referralComission,
+        fancyPL: item.clientShare,
+        mfcomm: item.referalShare,
         rolecomm: item.roleComm,
         mfc_crc: item.masterProfitloss,
       };

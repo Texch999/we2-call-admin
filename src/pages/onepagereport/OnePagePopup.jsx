@@ -5,7 +5,15 @@ import UlshareTable from "./UlshareTable";
 import MFRCTotalTable from "./MFRCTotalTable";
 
 function OnePagePopup(props) {
-  const { showReportPopup, setShowReportPopup, clientData } = props;
+  const {
+    showReportPopup,
+    setShowReportPopup,
+    clientData,
+    onePageReportdata1,
+    individualClientData,
+    induvisualClientStatus,
+    induvisualClientName,
+  } = props;
   const handleReportClose = () => {
     setShowReportPopup(false);
   };
@@ -44,7 +52,7 @@ function OnePagePopup(props) {
             <div>
               <div className="w-25 mt-2 mb-1">
                 <div className="match-date-button rounded-pill small-font text-center p-1 ">
-                  ClientName:{clientData.client_name}
+                  ClientName:
                 </div>
               </div>
               <div className="w-25 mt-2 mb-1">
@@ -82,20 +90,10 @@ function OnePagePopup(props) {
                   </div>
                 </div>
               </div>
-              {/* <div className="w-25 d-flex justify-content-end">
-                <div
-                  className={`match-entry-btn w-100 d-flex align-items-center justify-content-around rounded p-2 ms-1 me-1 ${
-                    ulsharereportInputs ? "yellow-border" : ""
-                  }`}
-                  onClick={() => handleUlshareReportInputs()}
-                >
-                  <div className="medium-font">UL Share</div>
-                </div>
-              </div> */}
             </div>
           </div>
-          {mfrcInputs && <MFRCTotalTable clientData={clientData} />}
-          {referalNetInputs && <ReferalNetTable clientData={clientData} />}
+          {mfrcInputs && <MFRCTotalTable />}
+          {referalNetInputs && <ReferalNetTable />}
           {/* {ulsharereportInputs && <UlshareTable />} */}
         </Modal.Body>
       </Modal>

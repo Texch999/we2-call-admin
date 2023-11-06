@@ -15,7 +15,6 @@ function IndiviudalPLReport(props) {
   const {
     refData,
     individualReportClientData,
-    onePageReportdata1,
     netPLInduvisualClient,
     individualReportULShareData,
     clientData,
@@ -54,11 +53,11 @@ function IndiviudalPLReport(props) {
       .catch((err) => console.log(err));
   };
 
-  // useEffect(() => {
-  //   if (clientId || refClientId) {
-  //     getIndivisualMatchReport();
-  //   }
-  // }, [clientId, refClientId]);
+  useEffect(() => {
+    if (clientId || refClientId) {
+      getIndivisualMatchReport();
+    }
+  }, [clientId, refClientId]);
 
   // useEffect(() => {
   //   if (refId) {
@@ -105,9 +104,7 @@ function IndiviudalPLReport(props) {
           individualReportULShareData={individualReportULShareData}
         />
       )}
-      {activeReport === "Platform Comm P/L" && (
-        <PlatformCommPL onePageReportdata1={onePageReportdata1} />
-      )}
+      {activeReport === "Platform Comm P/L" && <PlatformCommPL />}
     </div>
   );
 }

@@ -2,111 +2,167 @@ import React, { useEffect, useState } from "react";
 import "./styles.css";
 import OnePagePopup from "./OnePagePopup";
 import { GiClick } from "react-icons/gi";
-import { GET_ONEPAGE_REPORT } from "../../config/endpoints";
+import {
+  GET_ONEPAGE_REPORT,
+  GET_COMPLETED_MATCHES_BY_CLEINT,
+} from "../../config/endpoints";
 import { call } from "../../config/axios";
 import CustomPagination from "../pagination/CustomPagination";
 import ClientIndPL from "./ClientIndPL";
 
 function OnePageReport(props) {
   const { ONE_PAGE_REPORT_DETAILS } = props;
-  const [onePageReportData, setOnePageReportData] = useState([]);
-  const [clientName, setClientName] = useState("");
-  const [clientId, setClientId] = useState("");
-  const [netPLInduvisualClient, setNetPLInduvisualClient] = useState(0);
+  // const [onePageReportData, setOnePageReportData] = useState([]);
+  // const [individualClientData, setIndividualClientData] = useState([]);
+  // const [induvisualClientStatus, setInduvisualClientStatus] = useState(false);
+  // const [induvisualClientName, setInduvisualClientName] = useState("");
 
-  let register_id = localStorage?.getItem("register_id");
-  const handleClientName = (client_name, client_id, netPL) => {
-    setClientName(client_name);
-    setClientId(client_id);
-    setNetPLInduvisualClient(netPL);
-    // console.log("client....", client_name, client_id);
-  };
-  const clientData =
-    onePageReportData?.length > 0 &&
-    onePageReportData?.map((report) => ({
-      client_name: report?.client_name,
-      amount: (
-        <div
-          className={`${
-            report?.totalLossOrProfit >= 0 ? "approved-color" : "red-clr"
-          }`}
-        >
-          {report?.totalLossOrProfit}
-        </div>
-      ),
-      onClick: () =>
-        handleClientName(
-          report?.client_name,
-          report?.client_id,
-          report?.totalLossOrProfit
-        ),
-    }));
+  // const [clientName, setClientName] = useState("");
+  // const [clientId, setClientId] = useState("");
+  // const [netPLInduvisualClient, setNetPLInduvisualClient] = useState(0);
 
-  const getOnePageReportData = async () => {
-    await call(GET_ONEPAGE_REPORT, { register_id })
-      .then((res) => {
-        if (res?.data?.statusCode == 200) {
-          setOnePageReportData(res?.data?.data?.client_object);
-        }
-      })
-      .catch((err) => {
-        console.log(err, "error");
-        throw err;
-      });
-  };
-  useEffect(() => {
-    getOnePageReportData();
-  }, []);
-  // const ONE_PAGE_REPORT_DETAILS =
-  //   onePageReportData.length &&
-  //   onePageReportData?.map((item) => {
+  // const handleClientName = (client_name, client_id, netPL) => {
+  //   setClientName(client_name);
+  //   setClientId(client_id);
+  //   setNetPLInduvisualClient(netPL);
+  //   // console.log("client....", client_name, client_id);
+  // };
+  // const clientData =
+  //   onePageReportData?.length > 0 &&
+  //   onePageReportData?.map((report) => ({
+  //     client_name: report?.client_name,
+  //     amount: (
+  //       <div
+  //         className={`${
+  //           report?.totalLossOrProfit >= 0 ? "approved-color" : "red-clr"
+  //         }`}
+  //       >
+  //         {report?.totalLossOrProfit}
+  //       </div>
+  //     ),
+  //     onClick: () =>
+  //       handleClientName(
+  //         report?.client_name,
+  //         report?.client_id,
+  //         report?.totalLossOrProfit
+  //       ),
+  //   }));
+
+  // const getOnePageReportData = async () => {
+  //   await call(GET_ONEPAGE_REPORT, { register_id })
+  //     .then((res) => {
+  //       if (res?.data?.statusCode == 200) {
+  //         setOnePageReportData(res?.data?.data?.client_object);
+  //       }
+  //     })
+  //     .catch((err) => {
+  //       console.log(err, "error");
+  //       throw err;
+  //     });
+  // };
+
+  // const getIndividualPLReport = async (clientId) => {
+  //   await call(GET_COMPLETED_MATCHES_BY_CLEINT, {
+  //     register_id,
+  //     account_role,
+  //     client_id: clientId,
+  //   })
+  //     .then((res) => {
+  //       console.log("res.data.data", res.data);
+  //       setIndividualClientData(res?.data?.data);
+  //       setInduvisualClientStatus((prev) => !prev);
+  //     })
+  //     .catch((err) => console.log(err));
+  // };
+
+  // const onePageReportdata1 =
+  //   onePageReportData?.length > 0 &&
+  //   onePageReportData?.map((report) => {
   //     const totalAmountAfterCommission =
-  //       parseFloat(item?.amount || 0) + parseFloat(item?.clientComission || 0);
+  //       parseFloat(report?.amount || 0) +
+  //       parseFloat(report?.clientComission || 0);
   //     const clienPL =
-  //       parseFloat(item?.amount || 0) +
-  //       parseFloat(item?.clientShare || 0) +
-  //       parseFloat(item?.clientComission || 0);
+  //       parseFloat(report?.amount || 0) +
+  //       parseFloat(report?.clientShare || 0) +
+  //       parseFloat(report?.clientComission || 0);
   //     const rfNet =
-  //       parseFloat(item?.referalShare || 0) +
-  //       parseFloat(item?.referralComission || 0);
+  //       parseFloat(report?.referalShare || 0) +
+  //       parseFloat(report?.referralComission || 0);
   //     return {
-  //       client: item.client_name,
-  //       mfrc: (
+  //       referralComission: (
   //         <div
-  //           className={
-  //             totalAmountAfterCommission >= 0 ? "clr-green" : "clr-red"
-  //           }
+  //           className="client-name-role-container mb-5 mt-5"
+  //           onClick={() => {
+  //             getIndividualPLReport(report?.client_id);
+  //             setInduvisualClientName(report?.client_name);
+  //           }}
   //         >
-  //           {totalAmountAfterCommission}
+  //           <div>{report?.client_name}</div>
+  //           <div
+  //             className={
+  //               totalAmountAfterCommission >= 0 ? "green-clr" : "clr-red"
+  //             }
+  //           >
+  //             {totalAmountAfterCommission}
+  //           </div>
   //         </div>
   //       ),
-  //       // mfrc: item.amount,
-  //       cnet: (
-  //         <div className={clienPL >= 0 ? "clr-green" : "clr-red"}>
+  //       clientShare: (
+  //         <div className={clienPL >= 0 ? "green-clr" : "clr-red"}>
   //           {clienPL}
   //         </div>
   //       ),
-  //       rfnet: (
-  //         <div className={rfNet >= 0 ? "clr-green" : "clr-red"}>{rfNet}</div>
+  //       referalShare: (
+  //         <div className={rfNet >= 0 ? "green-clr" : "clr-red"}>{rfNet}</div>
   //       ),
-  //       totalpl:
+  //       masterProfitloss:
   //         (
   //           <div
-  //             className={item?.totalLossOrProfit >= 0 ? "clr-green" : "clr-red"}
+  //             className={
+  //               report?.totalLossOrProfit >= 0 ? "green-clr" : "clr-red"
+  //             }
   //           >
-  //             {item?.totalLossOrProfit}
+  //             {report?.totalLossOrProfit}
   //           </div>
   //         ) || 0,
   //     };
   //   });
 
+  // useEffect(() => {
+  //   getOnePageReportData();
+  //   getIndividualPLReport();
+  // }, []);
+
   console.log(ONE_PAGE_REPORT_DETAILS, "onepagereport Data");
 
-  const [showReportPopup, setShowReportPopup] = useState(false);
-  const handleReportPageShow = () => {
-    setShowReportPopup(true);
-  };
+  let register_id = localStorage?.getItem("register_id");
+  let account_role = localStorage?.getItem("account_role");
 
+  const [showReportPopup, setShowReportPopup] = useState(false);
+  const [showIndividualOnepageReportData, setShowIndividualOnepageReportData] =
+    useState();
+  const [showOnepageReportData, setShowOnePageReportData] = useState([]);
+  console.log(account_role, "account_role");
+  console.log(register_id, "register_id");
+  // console.log(client_id, "client_id");
+  const handleIndividualOnePageData = async (item) => {
+    setShowReportPopup(true);
+    setShowIndividualOnepageReportData(true);
+
+    await call(GET_COMPLETED_MATCHES_BY_CLEINT, {
+      register_id,
+      account_role,
+      // client_id: item.client_id,
+    })
+      .then((res) => {
+        setShowOnePageReportData(res?.data?.data);
+      })
+      .catch((err) => console.log(err));
+  };
+  console.log(
+    showOnepageReportData,
+    "...................sangram data balle balle"
+  );
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = 5;
 
@@ -135,7 +191,7 @@ function OnePageReport(props) {
                 <tr className="text-center">
                   <td className="w-20">{item.client}</td>
                   <td
-                    onClick={() => handleReportPageShow()}
+                    onClick={() => handleIndividualOnePageData(item)}
                     className="text-center w-20"
                   >
                     <div className="d-flex flex-row w-100 justify-content-center">
@@ -177,7 +233,6 @@ function OnePageReport(props) {
         </div>
       </div>
       <OnePagePopup
-        clientData={clientData}
         showReportPopup={showReportPopup}
         setShowReportPopup={setShowReportPopup}
       />
