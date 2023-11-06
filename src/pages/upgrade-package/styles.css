@@ -275,6 +275,9 @@
 .z-index {
   z-index: 9999;
 }
+.z-index-small {
+  z-index: 9990;
+}
 .yllow-border {
   border: solid 1px yellow !important;
 }

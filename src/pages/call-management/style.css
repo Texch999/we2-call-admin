@@ -132,3 +132,28 @@ img.date-time-icon {
 input[type="date"] {
   text-transform: uppercase;
 }
+.css-3w2yfm-ValueContainer {
+  display: flex;
+}
+.css-1p3m7a8-multiValue {
+  background-color: #00143d !important;
+}
+.css-wsp0cs-MultiValueGeneric {
+  color: #ffffff !important;
+}
+.css-3w2yfm-ValueContainer {
+  z-index: 9999;
+  border: 1px solid #fce719;
+  background-color: #112a5e;
+  max-height: 120px;
+  overflow-y: scroll !important;
+}
+.css-15lsz6c-indicatorContainer {
+  color: #ffffff !important;
+}
+.css-1xc3v61-indicatorContainer {
+  color: #ffffff !important;
+}
+.css-1xc3v61-indicatorContainer:hover {
+  color: #ffffff !important;
+}

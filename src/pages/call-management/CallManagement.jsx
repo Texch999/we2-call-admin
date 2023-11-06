@@ -6,23 +6,51 @@ import { MdModeEditOutline, MdArrowDownward } from "react-icons/md";
 import AddNewMeetingsPopUp from "./AddNewMeetingsPopUp";
 import { call } from "../../config/axios";
 import CustomPagination from "../pagination/CustomPagination";
-
+import Select from "react-select";
+import moment from "moment";
 import {
   CREATE_MEETING,
   GET_ADMIN_PACKAGES,
   GET_ALL_CLIENTS,
   GET_ALL_MEETINGS,
   UPDATE_MEETING,
+  GET_ALL_MATCHES,
+  MANAGEMENT_MATCHES,
 } from "../../config/endpoints";
 
 const CallManagement = () => {
   const register_id = localStorage.getItem("register_id");
   const account_role = localStorage.getItem("account_role");
-  // const [modalShow, setModalShow] = useState(false);
   const [upcomingMeetings, setUpcomingMeetings] = useState([]);
   const [listOfUsers, setListOfUsers] = useState([]);
   const [personalMeeting, setPersonalMeeting] = useState(false);
   const [professionalMeeting, setprofessionalMeeting] = useState(true);
+  const [meetingList, setMeetingList] = useState();
+  const [matchesData, setMatchesData] = useState([]);
+  const [selectedUsers, setSelectedUsers] = useState();
+
+  const meetingOptionsList = matchesData?.map((item) => {
+    return {
+      value: item?.match_id,
+      label: (
+        <div className="d-flex align-items-center justify-content-between medium-font">
+          <div>{item.sport_name}</div>
+          <div>{item.match_name}</div>
+        </div>
+      ),
+    };
+  });
+
+  const usersList =
+    listOfUsers?.length > 0 &&
+    listOfUsers?.map((item) => {
+      return { value: item?.register_id, label: item?.user_name };
+    });
+
+  const handleSelectedUsers = (data) => {
+    setSelectedUsers(data);
+  };
+
   const handlePersonalMeeting = () => {
     setPersonalMeeting(true);
     setprofessionalMeeting(false);
@@ -55,9 +83,30 @@ const CallManagement = () => {
       .catch((err) => console.log(err));
   };
 
+  const getAllMatches = async () => {
+    return await call(MANAGEMENT_MATCHES, {
+      account_role: "management",
+    })
+      .then((res) => {
+        return res?.data?.data;
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const getAllAdminMatches = async () => {
+    await call(GET_ALL_MATCHES, { account_role, register_id })
+      .then(async (res) => {
+        const getManagementMatches = await getAllMatches();
+        let result = res?.data?.data;
+        setMatchesData([...result?.liveMatches, ...getManagementMatches]);
+      })
+      .catch((err) => console.log(err));
+  };
+
   useEffect(() => {
     getAllMeetingsData();
     getAdminUsersList();
+    getAllAdminMatches();
   }, []);
 
   const upcomingMeetingsData =
@@ -103,26 +152,6 @@ const CallManagement = () => {
         })) ||
     [];
 
-  // const upcomingMeetingsData = [
-  //   {
-  //     title: "Sri Agent",
-  //     event_name:
-  //       "Newzelend vs South Africa Test Series Newzelend Onquard  Stadium",
-  //     date: "19 July 2023, 10:00:00 PM",
-  //     user: "Lokesh, Srinivas",
-  //     status: "Join",
-  //   }
-  // ];
-  // const ulNewMeetingsData = [
-  //   {
-  //     title: "UL",
-  //     event_name:
-  //       "Newzelend vs South Africa Test Series Newzelend Onquard  Stadium",
-  //     date: "19 July 2023, 10:00:00 PM",
-  //     user: "Sri Agent",
-  //     status: "Join",
-  //   }
-  // ];
   const meetingType = ["Personal", "Professional"];
   const addusersData = ["select", "animesh", "sri", "jayanth"];
   const [currentPage, setCurrentPage] = useState(1);
@@ -130,16 +159,11 @@ const CallManagement = () => {
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
+
   return (
     <div className="px-3 py-2">
       <div className="d-flex align-items-center justify-content-between">
         <h5 className="meetings-heading">Add New Meeting</h5>
-        {/* <Button
-          className="add-new-meetings-button"
-          onClick={() => setModalShow(true)}
-        >
-          + Add New Meetings
-        </Button> */}
       </div>
       <div className="mt-1">
         <div className="w-25 d-flex align-items-center justify-content-between">
@@ -164,17 +188,20 @@ const CallManagement = () => {
           <div className="col">
             <div className="d-flex flex-column">
               <div className="medium-font">Meeting\Event Name</div>
+              {professionalMeeting && (
+                <Select
+                  className="w-100"
+                  options={meetingOptionsList}
+                  placeholder="Professional Meeting Name..."
+                  value={meetingList}
+                  // onChange={handleMatchSelect}
+                  isSearchable={true}
+                />
+              )}
               {personalMeeting && (
                 <input
                   className="custom-select medium-font btn-bg  all-none p-2 rounded"
                   placeholder="Personal Meeting Name"
-                  type="text"
-                />
-              )}
-              {professionalMeeting && (
-                <input
-                  className="custom-select medium-font btn-bg  all-none p-2 rounded"
-                  placeholder="Professional Meeting Name"
                   type="text"
                 />
               )}
@@ -203,10 +230,14 @@ const CallManagement = () => {
           <div className="col">
             <div className="d-flex flex-column">
               <div className="medium-font">Add Users</div>
-              <input
-                className="custom-select medium-font btn-bg  all-none p-2 rounded"
-                placeholder="Enter Meeting Name"
-                type="text"
+              <Select
+                className="w-100"
+                placeholder="Enter Users Name"
+                isSearchable={true}
+                isMulti={true}
+                options={usersList}
+                value={selectedUsers}
+                onChange={() => handleSelectedUsers()}
               />
             </div>
           </div>
@@ -231,7 +262,7 @@ const CallManagement = () => {
         <h5 className="mb-3 meetings-heading">Upcoming Meetings</h5>
         <div className="call-management-table-height">
           <Table responsive="md" className="call-management-data fixed-table">
-            <thead>
+            <thead className="z-index-small">
               <tr>
                 <th className="text-center">URS</th>
                 <th className="text-center">EVENT NAME</th>
@@ -373,15 +404,6 @@ const CallManagement = () => {
           />
         </div>
       </div> */}
-      {/* {modalShow && (
-        <AddNewMeetingsPopUp
-          meetingType={meetingType}
-          label="Add Users*"
-          show={modalShow}
-          selectData={addusersData}
-          onHide={() => setModalShow(false)}
-        />
-      )} */}
     </div>
   );
 };
