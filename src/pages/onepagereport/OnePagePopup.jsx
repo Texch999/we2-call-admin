@@ -8,6 +8,7 @@ function OnePagePopup(props) {
   const {
     showReportPopup,
     setShowReportPopup,
+    selectedClientData,
     clientData,
     onePageReportdata1,
     individualClientData,
@@ -37,6 +38,8 @@ function OnePagePopup(props) {
     setUlShareReportInputs(false);
     setReferalNetInputs(true);
   };
+
+  // console.log(selectedClientData, "...........selectedClientData");
   return (
     <div className="modal fade bd-example-modal-lg container mt-5">
       <Modal
@@ -52,7 +55,7 @@ function OnePagePopup(props) {
             <div>
               <div className="w-25 mt-2 mb-1">
                 <div className="match-date-button rounded-pill small-font text-center p-1 ">
-                  ClientName:
+                  ClientName:{selectedClientData?.client}
                 </div>
               </div>
               <div className="w-25 mt-2 mb-1">

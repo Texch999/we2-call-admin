@@ -200,33 +200,6 @@ function ReportPage() {
         ),
       };
     });
-  // const clientData =
-  //   onePageReportData?.length > 0 &&
-  //   onePageReportData?.map((report) => ({
-  //     client_name: report?.client_name,
-  //     amount: (
-  //       <div
-  //         className={`${
-  //           report?.totalLossOrProfit >= 0 ? "clr-green" : "clr-red"
-  //         }`}
-  //       >
-  //         {report?.totalLossOrProfit}
-  //       </div>
-  //     ),
-  //     onClick: () =>
-  //       handleClientName(
-  //         report?.client_name,
-  //         report?.client_id,
-  //         report?.totalLossOrProfit
-  //       ),
-  //   }));
-  // const getOnePageReportData = async () => {
-  //   await call(GET_ONEPAGE_REPORT, { register_id })
-  //     .then((res) => {
-  //       setOnePageReportData(res?.data?.data?.client_object);
-  //     })
-  //     .catch((err) => console.log(err));
-  // };
   const getOnePageReportData = async () => {
     await call(GET_ONEPAGE_REPORT, { register_id })
       .then((res) => {
@@ -251,6 +224,7 @@ function ReportPage() {
   //     .catch((err) => console.log(err));
   // };
 
+  console.log(onePageReportData, "........SAngramonePageReportData");
   const ONE_PAGE_REPORT_DETAILS =
     onePageReportData.length &&
     onePageReportData?.map((item) => {
@@ -264,6 +238,7 @@ function ReportPage() {
         parseFloat(item?.referalShare || 0) +
         parseFloat(item?.referralComission || 0);
       return {
+        clientId: item.client_id,
         client: item.client_name,
         mfrc: (
           <div
