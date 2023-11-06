@@ -2,7 +2,10 @@ import React, { useEffect, useState } from "react";
 import "./styles.css";
 import OnePagePopup from "./OnePagePopup";
 import { GiClick } from "react-icons/gi";
-import { GET_ONEPAGE_REPORT } from "../../config/endpoints";
+import {
+  GET_ONEPAGE_REPORT,
+  GET_COMPLETED_MATCHES_BY_CLEINT,
+} from "../../config/endpoints";
 import { call } from "../../config/axios";
 import CustomPagination from "../pagination/CustomPagination";
 import ClientIndPL from "./ClientIndPL";
@@ -10,11 +13,17 @@ import ClientIndPL from "./ClientIndPL";
 function OnePageReport(props) {
   const { ONE_PAGE_REPORT_DETAILS } = props;
   const [onePageReportData, setOnePageReportData] = useState([]);
+  const [individualClientData, setIndividualClientData] = useState([]);
+  const [induvisualClientStatus, setInduvisualClientStatus] = useState(false);
+  const [induvisualClientName, setInduvisualClientName] = useState("");
+
   const [clientName, setClientName] = useState("");
   const [clientId, setClientId] = useState("");
   const [netPLInduvisualClient, setNetPLInduvisualClient] = useState(0);
 
   let register_id = localStorage?.getItem("register_id");
+  let account_role = localStorage?.getItem("account_role");
+
   const handleClientName = (client_name, client_id, netPL) => {
     setClientName(client_name);
     setClientId(client_id);
@@ -54,51 +63,78 @@ function OnePageReport(props) {
         throw err;
       });
   };
+
+  const getIndividualPLReport = async (clientId) => {
+    await call(GET_COMPLETED_MATCHES_BY_CLEINT, {
+      register_id,
+      account_role,
+      client_id: clientId,
+    })
+      .then((res) => {
+        console.log("res.data.data", res.data);
+        setIndividualClientData(res?.data?.data);
+        setInduvisualClientStatus((prev) => !prev);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const onePageReportdata1 =
+    onePageReportData?.length > 0 &&
+    onePageReportData?.map((report) => {
+      const totalAmountAfterCommission =
+        parseFloat(report?.amount || 0) +
+        parseFloat(report?.clientComission || 0);
+      const clienPL =
+        parseFloat(report?.amount || 0) +
+        parseFloat(report?.clientShare || 0) +
+        parseFloat(report?.clientComission || 0);
+      const rfNet =
+        parseFloat(report?.referalShare || 0) +
+        parseFloat(report?.referralComission || 0);
+      return {
+        referralComission: (
+          <div
+            className="client-name-role-container mb-5 mt-5"
+            onClick={() => {
+              getIndividualPLReport(report?.client_id);
+              setInduvisualClientName(report?.client_name);
+            }}
+          >
+            <div>{report?.client_name}</div>
+            <div
+              className={
+                totalAmountAfterCommission >= 0 ? "green-clr" : "clr-red"
+              }
+            >
+              {totalAmountAfterCommission}
+            </div>
+          </div>
+        ),
+        clientShare: (
+          <div className={clienPL >= 0 ? "green-clr" : "clr-red"}>
+            {clienPL}
+          </div>
+        ),
+        referalShare: (
+          <div className={rfNet >= 0 ? "green-clr" : "clr-red"}>{rfNet}</div>
+        ),
+        masterProfitloss:
+          (
+            <div
+              className={
+                report?.totalLossOrProfit >= 0 ? "green-clr" : "clr-red"
+              }
+            >
+              {report?.totalLossOrProfit}
+            </div>
+          ) || 0,
+      };
+    });
+
   useEffect(() => {
     getOnePageReportData();
+    getIndividualPLReport();
   }, []);
-  // const ONE_PAGE_REPORT_DETAILS =
-  //   onePageReportData.length &&
-  //   onePageReportData?.map((item) => {
-  //     const totalAmountAfterCommission =
-  //       parseFloat(item?.amount || 0) + parseFloat(item?.clientComission || 0);
-  //     const clienPL =
-  //       parseFloat(item?.amount || 0) +
-  //       parseFloat(item?.clientShare || 0) +
-  //       parseFloat(item?.clientComission || 0);
-  //     const rfNet =
-  //       parseFloat(item?.referalShare || 0) +
-  //       parseFloat(item?.referralComission || 0);
-  //     return {
-  //       client: item.client_name,
-  //       mfrc: (
-  //         <div
-  //           className={
-  //             totalAmountAfterCommission >= 0 ? "clr-green" : "clr-red"
-  //           }
-  //         >
-  //           {totalAmountAfterCommission}
-  //         </div>
-  //       ),
-  //       // mfrc: item.amount,
-  //       cnet: (
-  //         <div className={clienPL >= 0 ? "clr-green" : "clr-red"}>
-  //           {clienPL}
-  //         </div>
-  //       ),
-  //       rfnet: (
-  //         <div className={rfNet >= 0 ? "clr-green" : "clr-red"}>{rfNet}</div>
-  //       ),
-  //       totalpl:
-  //         (
-  //           <div
-  //             className={item?.totalLossOrProfit >= 0 ? "clr-green" : "clr-red"}
-  //           >
-  //             {item?.totalLossOrProfit}
-  //           </div>
-  //         ) || 0,
-  //     };
-  //   });
 
   console.log(ONE_PAGE_REPORT_DETAILS, "onepagereport Data");
 
@@ -180,6 +216,10 @@ function OnePageReport(props) {
         clientData={clientData}
         showReportPopup={showReportPopup}
         setShowReportPopup={setShowReportPopup}
+        onePageReportdata1={onePageReportdata1}
+        individualClientData={individualClientData}
+        induvisualClientStatus={induvisualClientStatus}
+        induvisualClientName={induvisualClientName}
       />
     </div>
   );
