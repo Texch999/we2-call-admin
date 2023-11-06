@@ -10,7 +10,8 @@ function ChangePassword({
   showChangePopup,
   setShowChangePopup,
   setChangePasswordSubmit,
-  clientID,
+  registerID,
+  setChangePasswordPopup,
 }) {
   const register_id = localStorage?.getItem("register_id");
   const creator_id = localStorage?.getItem("creator_id");
@@ -38,9 +39,8 @@ function ChangePassword({
     setIsProcessing(true);
     setError("");
     await call(CHANGE_PASSWORD, {
-      register_id,
+      register_id: registerID,
       creator_id,
-      client_id: clientID,
       creator_password: passwordData.admin_password,
       new_password: passwordData.new_password,
       confirm_password: passwordData.confirm_password,
@@ -48,15 +48,12 @@ function ChangePassword({
       .then((res) => {
         if (res?.data?.statusCode === 200) {
           setIsProcessing(false);
-          // setChangePasswordSubmit(true);
-          // setTimeout(() => {
-          //   setChangePasswordSubmit(false);
-          // }, 2000);
-          setPasswordData({
-            new_password: "",
-            confirm_password: "",
-            admin_password: "",
-          });
+          setChangePasswordPopup(true);
+          setShowChangePopup(false);
+          setTimeout(() => {
+            setChangePasswordPopup(false);
+          }, 2000);
+          setPasswordData({});
           setError("");
         } else {
           setError(

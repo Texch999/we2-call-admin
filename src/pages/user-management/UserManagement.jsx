@@ -17,12 +17,14 @@ import {
   CREATE_OFFLINE_CLIENT,
   DELETE_OFFLINE_CLIENT,
   UPDATE_OFFLINE_CLIENT,
+  ACTIVE_INACTIVE_USERS,
 } from "../../config/endpoints";
 import CreateReferral from "./CreateReferral";
 import UserDeletePopup from "./UserDeletePopup";
 import UserEditPopup from "./UserEditPopup";
 import UserSubmitPopup from "./UserSubmitPopup";
 import ChangePassword from "../add-users/ChangePassword";
+import PasswordSubmitPopup from "./PasswordSubmitPopup";
 
 function UserManagement() {
   let register_id = localStorage?.getItem("register_id");
@@ -40,9 +42,10 @@ function UserManagement() {
   const [userDetails, setUserDetails] = useState({});
   const [selectId, setSelectId] = useState();
   const [showChangePopup, setShowChangePopup] = useState(false);
+  const [registerID, setRegisterID] = useState("");
   const [clientID, setClientID] = useState("");
   const [status, setStatus] = useState(false);
-  console.log(clientID, "CLIENT ID");
+  const [changePasswordPopup, setChangePasswordPopup] = useState(false);
 
   const clientSelection = [
     { name: "Regulor", value: 0 },
@@ -109,8 +112,6 @@ function UserManagement() {
       client_share: 2,
       fancy_comm: 2,
     };
-
-    console.log({ userDeatailsPayload });
 
     updateUser === true
       ? await call(UPDATE_OFFLINE_CLIENT, userDeatailsPayload)
@@ -183,6 +184,21 @@ function UserManagement() {
       });
   };
 
+  const handleBlockUnblockUser = async (item) => {
+    setClientID(item);
+    console.log(clientID, "CLIENT");
+    await call(ACTIVE_INACTIVE_USERS, {
+      register_id,
+      client_id: clientID,
+      active: `${status}`,
+    })
+      .then((res) => {
+        setStatus((prev) => !prev);
+        console.log(res);
+      })
+      .catch((error) => console.log(error));
+  };
+
   const handleDeleteUser = (clientId) => {
     setOpenDeletePopup(true);
     setSelectId(clientId);
@@ -201,6 +217,7 @@ function UserManagement() {
         console.log(res);
       });
   };
+  console.log(existingClients, "EEEEE");
   const exsitedUsers =
     existingClients &&
     existingClients?.length > 0 &&
@@ -222,10 +239,15 @@ function UserManagement() {
                 className="edit-icon"
                 onClick={() => handleDeleteUser(item.client_id)}
               />
-              <ImBlocked className="edit-icon" />
+              <ImBlocked
+                className={`${
+                  item?.active === "true" ? "edit-icon" : "edit-icon red-color"
+                }`}
+                onClick={() => handleBlockUnblockUser(item?.client_id)}
+              />
               <BiLock
                 className="edit-icon"
-                onClick={() => handleChangePassword(item?.client_id)}
+                onClick={() => handleChangePassword(item?.register_id)}
               />
             </div>
           ),
@@ -234,7 +256,7 @@ function UserManagement() {
 
   const handleChangePassword = (item) => {
     setShowChangePopup(true);
-    setClientID(item);
+    setRegisterID(item);
   };
 
   const handleChange = (e) => {
@@ -540,10 +562,17 @@ function UserManagement() {
         // editButtons={editButtons}
       />
       <ChangePassword
-        clientID={clientID}
+        registerID={registerID}
         showChangePopup={showChangePopup}
         setShowChangePopup={setShowChangePopup}
         // setChangePasswordSubmit={setChangePasswordSubmit}
+        setChangePasswordPopup={setChangePasswordPopup}
+      />
+      <PasswordSubmitPopup
+        state={changePasswordPopup}
+        setState={setChangePasswordPopup}
+        error={error}
+        header={"You Successfully Changed Password"}
       />
       <MatchSubmitPopup
         header={"You Are Successfully Created User"}
