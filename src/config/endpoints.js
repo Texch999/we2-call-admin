@@ -76,12 +76,12 @@ const POST = "POST";
 const GET = "POST";
 const PUT = "PUT";
 
-exports.GET_COMPLETED_MATCHES_BY_CLEINT = {
-  url: GET_COMPLETED_MATCHES_BY_CLEINT,
-  method: POST,
-};
 exports.GET_UPDATED_MATCHES_DATA = {
   url: GET_UPDATED_MATCHES_DATA,
+  method: POST,
+};
+exports.GET_COMPLETED_MATCHES_BY_CLEINT = {
+  url: GET_COMPLETED_MATCHES_BY_CLEINT,
   method: POST,
 };
 exports.CREATE_REFFERAL = {

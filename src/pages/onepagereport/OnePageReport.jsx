@@ -21,10 +21,15 @@ function OnePageReport(props) {
   const [showIndividualOnepageReportData, setShowIndividualOnepageReportData] =
     useState();
   const [showOnepageReportData, setShowOnePageReportData] = useState([]);
+  const [selectedClientData, setSelectedClientData] = useState();
+  // console.log(account_role, "account_role");
+  // console.log(register_id, "register_id");
   // console.log(client_id, "client_id");
   const handleIndividualOnePageData = async (item) => {
     setShowReportPopup(true);
     setShowIndividualOnepageReportData(true);
+    setSelectedClientData(item);
+
     await call(GET_COMPLETED_MATCHES_BY_CLEINT, {
       register_id,
       account_role,
@@ -64,12 +69,12 @@ function OnePageReport(props) {
           {ONE_PAGE_REPORT_DETAILS.length &&
             ONE_PAGE_REPORT_DETAILS?.map((item, index) => (
               <tbody key={index}>
-                <tr className="text-center">
+                <tr
+                  className="text-center"
+                  onClick={() => handleIndividualOnePageData(item)}
+                >
                   <td className="w-20">{item.client}</td>
-                  <td
-                    onClick={() => handleIndividualOnePageData(item)}
-                    className="text-center w-20"
-                  >
+                  <td className="text-center w-20">
                     <div className="d-flex flex-row w-100 justify-content-center">
                       {item.mfrc}
                       <GiClick className="custom-click-icon ms-1 mt-2" />
@@ -112,6 +117,7 @@ function OnePageReport(props) {
         showOnepageReportData={showOnepageReportData}
         showReportPopup={showReportPopup}
         setShowReportPopup={setShowReportPopup}
+        selectedClientData={selectedClientData}
       />
     </div>
   );

@@ -6,7 +6,12 @@ import MFRCTotalTable from "./MFRCTotalTable";
 import moment from "moment";
 
 function OnePagePopup(props) {
-  const { showReportPopup, setShowReportPopup, showOnepageReportData } = props;
+  const {
+    showReportPopup,
+    setShowReportPopup,
+    showOnepageReportData,
+    selectedClientData,
+  } = props;
   const handleReportClose = () => {
     setShowReportPopup(false);
   };
@@ -98,6 +103,8 @@ function OnePagePopup(props) {
     setUlShareReportInputs(false);
     setReferalNetInputs(true);
   };
+
+  // console.log(selectedClientData, "...........selectedClientData");
   return (
     <div className="modal fade bd-example-modal-lg container mt-5">
       <Modal
@@ -113,7 +120,7 @@ function OnePagePopup(props) {
             <div>
               <div className="w-25 mt-2 mb-1">
                 <div className="match-date-button rounded-pill small-font text-center p-1 ">
-                  ClientName:
+                  ClientName:{selectedClientData?.client}
                 </div>
               </div>
               <div className="w-25 mt-2 mb-1">
