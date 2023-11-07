@@ -26,6 +26,7 @@ const CallManagement = () => {
   const [listOfUsers, setListOfUsers] = useState([]);
   const [personalMeeting, setPersonalMeeting] = useState(false);
   const [professionalMeeting, setprofessionalMeeting] = useState(true);
+  const [meetingType, setMeetingType] = useState("Professional");
   const [meetingList, setMeetingList] = useState();
   const [matchesData, setMatchesData] = useState([]);
   const [selectedUsers, setSelectedUsers] = useState();
@@ -81,10 +82,12 @@ const CallManagement = () => {
   };
 
   const handlePersonalMeeting = () => {
+    setMeetingType("Personal");
     setPersonalMeeting(true);
     setprofessionalMeeting(false);
   };
   const handleProfessionalMeeting = () => {
+    setMeetingType("Professional");
     setprofessionalMeeting(true);
     setPersonalMeeting(false);
   };
@@ -108,7 +111,9 @@ const CallManagement = () => {
 
   const getAllMeetingsData = async () => {
     await call(GET_ALL_MEETINGS, { register_id })
-      .then((res) => setUpcomingMeetings(res?.data?.data))
+      .then((res) => {
+        setUpcomingMeetings(res?.data?.data);
+      })
       .catch((err) => console.log(err));
   };
 
@@ -199,10 +204,32 @@ const CallManagement = () => {
       setError("Please Select Package");
       return;
     }
+    const meetingUserIds =
+      selectedUsers?.length > 0 && selectedUsers?.map((obj) => obj?.value);
+    const payload = {
+      ...meetingInput,
+      meetingUserIds,
+      register_id,
+      isvideo_enable: "yes",
+      meeting_type: meetingType,
+      package_id: selectedPackages?.package_id,
+      video_call_type: meetingInput?.video_call_type === 0 ? false : true,
+    };
+    const url = CREATE_MEETING;
+    await call(url, { payload })
+      .then((res) => {
+        if (res?.data?.statusCode === 200) {
+          setMeetingInput({});
+          setSelectedPackages({});
+          getAllMeetingsData();
+          setError({ message: res?.data?.message });
+        } else {
+          setError({ message: res?.data?.data?.message });
+        }
+      })
+      .catch((err) => console.log(err));
   };
 
-  const meetingType = ["Personal", "Professional"];
-  const addusersData = ["select", "animesh", "sri", "jayanth"];
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = 5;
   const handlePageChange = (page) => {
@@ -254,7 +281,7 @@ const CallManagement = () => {
                   type="text"
                   name="event_name"
                   value={meetingInput?.event_name}
-                  onChange={() => handleChange()}
+                  onChange={(e) => handleChange(e)}
                 />
               )}
             </div>
@@ -268,7 +295,7 @@ const CallManagement = () => {
                 type="date"
                 name="date"
                 value={meetingInput?.date}
-                onChange={() => handleChange()}
+                onChange={(e) => handleChange(e)}
               />
             </div>
           </div>
@@ -281,7 +308,7 @@ const CallManagement = () => {
                 type="time"
                 name="time"
                 value={meetingInput?.time}
-                onChange={() => handleChange()}
+                onChange={(e) => handleChange(e)}
               />
             </div>
           </div>
@@ -303,10 +330,14 @@ const CallManagement = () => {
           <div className="col-lg-2 col-md-2  col-sm-4">
             <div className="d-flex flex-column">
               <div className="medium-font">Select Call Type</div>
-              <select className="custom-select medium-font btn-bg  all-none p-2 rounded pb-2">
+              <select
+                className="custom-select medium-font btn-bg  all-none p-2 rounded pb-2"
+                name="video_call_type"
+                onChange={(e) => handleChange(e)}
+              >
                 <option>Select</option>
-                <option>Audio Only</option>
-                <option>Audio + Video</option>
+                <option value={0}>Audio Only</option>
+                <option value={1}>Audio + Video</option>
               </select>
             </div>
           </div>
@@ -319,6 +350,9 @@ const CallManagement = () => {
             </div>
           </div>
         </div>
+        {error && (
+          <div className="red-color text-center medium-font">{error}</div>
+        )}
       </div>
       <div className="mt-3">
         <h5 className="mb-3 meetings-heading">Upcoming Meetings</h5>
@@ -471,7 +505,7 @@ const CallManagement = () => {
         setSelectYourPackagePopup={setSelectYourPackagePopup}
         error={error}
         adminSubscription={adminSubscription}
-        handlePackageSelection={(e) => handlePackageSelection()}
+        handlePackageSelection={(e) => handlePackageSelection(e)}
         handleSubmitButton={() => handleSubmitButton()}
       />
     </div>

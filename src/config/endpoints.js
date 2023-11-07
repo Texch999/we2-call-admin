@@ -70,6 +70,7 @@ const RESET_PASSWORD = "/admin/reset_password";
 const ACTIVE_INACTIVE_USERS =
   "/offline-management/offline_active_inactive_users";
 const MANAGEMENT_MATCHES = "/management/get_matches_by_accountrole";
+const CREATE_MEETING = "/meetings/create_meeting";
 
 // methods
 const DELETE = "DELETE";
@@ -371,5 +372,9 @@ exports.ACTIVE_INACTIVE_USERS = {
 };
 exports.MANAGEMENT_MATCHES = {
   url: MANAGEMENT_MATCHES,
+  method: POST,
+};
+exports.CREATE_MEETING = {
+  url: CREATE_MEETING,
   method: POST,
 };
