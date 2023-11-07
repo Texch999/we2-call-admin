@@ -6,12 +6,21 @@ import CustomPagination from "../pagination/CustomPagination";
 import AdminOnePageReport from "../onepagereport/AdminOnePageReport";
 import AdminShareCommSettlement from "../setlment/AdminShareCommSettlement";
 import AdminComissionReport from "../onepagereport/AdminComissionReport";
+import { GET_FINANCIAL_STATEMENT_BY_DATE, GET_OFFLINE_CLIENTS } from "../../config/endpoints";
+import { call } from "../../config/axios";
+import { useEffect } from "react";
 
 const AdminSharesMatchStatement = () => {
   const [adminShareStatementMatchPopUp, setAdminShareStatementMatchPopUp] =
     useState(false);
   const [activeReport, setActiveReport] = useState("Admins Share Statement");
   const [selectedOptions, setSelectedOptions] = useState({});
+  const [clientsData, setClientsData] = useState([]);
+  const [adminShareStatement , setadminShareStatement] = useState({});
+
+  let register_id = localStorage?.getItem("register_id");
+  let account_role = localStorage?.getItem("account_role");
+
   const reports = [
     "Admins Share Statement",
     "Admins OnePageReport",
@@ -58,7 +67,18 @@ const AdminSharesMatchStatement = () => {
       id: "clientName",
     },
   ];
-  const adminSharesMatchStatementData = [
+  const adminSharesMatchStatementData  = 
+  // adminShareStatement.map((item)=>{
+  //   return {
+  //     date_time : item.date,
+  //     series_name : item?.series_name,
+  //     team_name : item?.team1,
+  //     match_place : item?.match_place,
+  //     win_team :item?.win_team,
+  //     profit_loss : item?.profit_loss,
+  //   }
+  // })
+  [
     {
       date_time: "19 July 2023, 10:00:00 PM",
       series_name: "T20 World Cup 2023",
@@ -91,7 +111,36 @@ const AdminSharesMatchStatement = () => {
       win_team: "India",
       profit_loss: 1000000.0,
     },
-  ];
+  ]
+  
+  const getAdminShare = async ()=>{
+    await call (GET_FINANCIAL_STATEMENT_BY_DATE,{
+      register_id,
+      account_role,
+      ...adminShareStatement
+    }).then((res)=>{
+      setadminShareStatement(res?.data?.filter((items)=> items.match_declared=== "Y"))
+    })
+    .catch((err)=>console.log(err));
+  }
+
+  const getAllClientsData = async () => {
+    call(GET_OFFLINE_CLIENTS, {
+      register_id,
+      account_role,
+    })
+      .then((res) => {
+        setClientsData(res?.data?.data);
+      })
+      .catch((err) => console.log(err));
+  };
+  console.log("clientsData",clientsData);
+
+  useEffect(()=>{
+    getAdminShare();
+    getAllClientsData();
+  },[])
+
   const adminSharepopupHeadings = [
     { header: "Admins Name", field: "admin_name" },
     { header: "Role", field: "role" },
