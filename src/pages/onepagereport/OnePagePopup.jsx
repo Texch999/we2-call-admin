@@ -3,16 +3,14 @@ import { Modal } from "react-bootstrap";
 import ReferalNetTable from "./ReferalNetTable";
 import UlshareTable from "./UlshareTable";
 import MFRCTotalTable from "./MFRCTotalTable";
+import moment from "moment";
 
 function OnePagePopup(props) {
   const {
     showReportPopup,
     setShowReportPopup,
-    clientData,
-    onePageReportdata1,
-    individualClientData,
-    induvisualClientStatus,
-    induvisualClientName,
+    showOnepageReportData,
+    selectedClientData,
   } = props;
   const handleReportClose = () => {
     setShowReportPopup(false);
@@ -20,6 +18,129 @@ function OnePagePopup(props) {
   const [mfrcInputs, setMfrcInputs] = useState(true);
   const [ulsharereportInputs, setUlShareReportInputs] = useState(false);
   const [referalNetInputs, setReferalNetInputs] = useState(false);
+
+  const induvisualClientData =
+    showOnepageReportData &&
+    showOnepageReportData?.length > 0 &&
+    showOnepageReportData?.map((client) => {
+      const netCommission = +client?.fancyEntryResult?.clientCommission
+        ? +client?.clientComission - +client?.clientFancyComission
+        : client?.clientComission;
+      const totalAmountAfterCommission =
+        parseFloat(+client?.amount || 0) +
+        parseFloat(+client?.clientComission || 0);
+      return {
+        cNameMatchPL: (
+          <div>
+            <div>{`${client?.team1} vs ${client?.team2}`}</div>
+            <div>{moment(+client?.matchTimeStamp).format("DD-MM-YYYY")}</div>
+          </div>
+        ),
+        matchPl: (
+          <div
+            className={
+              +client?.matchEntryResult?.amount >= 0 ? "clr-green" : "clr-red"
+            }
+          >
+            // {client?.matchEntryResult?.amount}
+            1000
+          </div>
+        ),
+        fancyPL: (
+          <div
+            className={
+              +client?.fancyEntryResult?.amount >= 0 ? "clr-green" : "clr-red"
+            }
+          >
+            {+client?.fancyEntryResult?.amount}
+          </div>
+        ),
+        mfComm: (
+          <div className={+netCommission >= 0 ? "clr-green" : "clr-red"}>
+            {+netCommission}
+          </div>
+        ),
+        roleComm: (
+          <div
+            className={
+              +client?.fancyEntryResult?.clientCommission >= 0
+                ? "clr-green"
+                : "clr-red"
+            }
+          >
+            {client?.fancyEntryResult?.clientCommission}
+          </div>
+        ),
+        masterProfitloss: (
+          <div
+            className={
+              +totalAmountAfterCommission >= 0 ? "clr-green" : "clr-red"
+            }
+          >
+            {totalAmountAfterCommission}
+          </div>
+        ),
+      };
+    });
+  const firstReferralNetData =
+    showOnepageReportData &&
+    showOnepageReportData?.length > 0 &&
+    showOnepageReportData?.map((client) => {
+      const netCommission = +client?.fancyEntryResult?.referralComission
+        ? +client?.referralComission - +client?.referralFancyComission
+        : client?.referralComission;
+      const netRef =
+        netCommission + +client?.fancyEntryResult?.referralComission;
+      return {
+        cNameMatchPL: (
+          <div className="client-name-role-container mb-5 mt-5">
+            <div>{`${client?.team1} vs ${client?.team2}`}</div>
+            <div
+              className={
+                +client?.matchEntryResult?.amount >= 0
+                  ? "clr-green"
+                  : "clr-red"
+              }
+            >
+              {client?.matchEntryResult?.amount}
+            </div>
+            <div>{moment(+client?.matchTimeStamp).format("DD-MM-YYYY")}</div>
+          </div>
+        ),
+        fancyPL: (
+          <div
+            className={
+              +client?.fancyEntryResult?.amount >= 0
+                ? "clr-green"
+                : "clr-red"
+            }
+          >
+            {+client?.fancyEntryResult?.amount}
+          </div>
+        ),
+        mfComm: (
+          <div className={+netCommission >= 0 ? "clr-green" : "clr-red"}>
+            {netCommission}
+          </div>
+        ),
+        roleComm: (
+          <div
+            className={
+              +client?.fancyEntryResult?.referralComission >= 0
+                ? "clr-green"
+                : "clr-red"
+            }
+          >
+            {client?.fancyEntryResult?.referralComission}
+          </div>
+        ),
+        masterProfitloss: (
+          <div className={+netRef >= 0 ? "clr-green" : "clr-red"}>
+            {netRef}
+          </div>
+        ),
+      };
+    });
 
   const handleMfrcInputs = () => {
     setMfrcInputs(true);
@@ -37,6 +158,8 @@ function OnePagePopup(props) {
     setUlShareReportInputs(false);
     setReferalNetInputs(true);
   };
+
+  // console.log(selectedClientData, "...........selectedClientData");
   return (
     <div className="modal fade bd-example-modal-lg container mt-5">
       <Modal
@@ -52,7 +175,10 @@ function OnePagePopup(props) {
             <div>
               <div className="w-25 mt-2 mb-1">
                 <div className="match-date-button rounded-pill small-font text-center p-1 ">
-                  ClientName:{clientData.client_name}
+                  ClientName :-
+                  <span className="medium-font clr-yellow ms-1">
+                    {selectedClientData?.client}
+                  </span>
                 </div>
               </div>
               <div className="w-25 mt-2 mb-1">
@@ -90,35 +216,13 @@ function OnePagePopup(props) {
                   </div>
                 </div>
               </div>
-              {/* <div className="w-25 d-flex justify-content-end">
-                <div
-                  className={`match-entry-btn w-100 d-flex align-items-center justify-content-around rounded p-2 ms-1 me-1 ${
-                    ulsharereportInputs ? "yellow-border" : ""
-                  }`}
-                  onClick={() => handleUlshareReportInputs()}
-                >
-                  <div className="medium-font">UL Share</div>
-                </div>
-              </div> */}
             </div>
           </div>
           {mfrcInputs && (
-            <MFRCTotalTable
-              clientData={clientData}
-              onePageReportdata1={onePageReportdata1}
-              individualClientData={individualClientData}
-              induvisualClientStatus={induvisualClientStatus}
-              induvisualClientName={induvisualClientName}
-            />
+            <MFRCTotalTable induvisualClientData={induvisualClientData} />
           )}
           {referalNetInputs && (
-            <ReferalNetTable
-              clientData={clientData}
-              onePageReportdata1={onePageReportdata1}
-              individualClientData={individualClientData}
-              induvisualClientStatus={induvisualClientStatus}
-              induvisualClientName={induvisualClientName}
-            />
+            <ReferalNetTable firstReferralNetData={firstReferralNetData} />
           )}
           {/* {ulsharereportInputs && <UlshareTable />} */}
         </Modal.Body>

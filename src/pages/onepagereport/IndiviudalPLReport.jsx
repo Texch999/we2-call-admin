@@ -17,6 +17,7 @@ function IndiviudalPLReport(props) {
     individualReportClientData,
     netPLInduvisualClient,
     individualReportULShareData,
+    individualReportPlatformCommData,
     clientData,
     clientId,
     refClientId,
@@ -104,7 +105,11 @@ function IndiviudalPLReport(props) {
           individualReportULShareData={individualReportULShareData}
         />
       )}
-      {activeReport === "Platform Comm P/L" && <PlatformCommPL />}
+      {activeReport === "Platform Comm P/L" && (
+        <PlatformCommPL
+          individualReportPlatformCommData={individualReportPlatformCommData}
+        />
+      )}
     </div>
   );
 }

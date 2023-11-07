@@ -200,33 +200,6 @@ function ReportPage() {
         ),
       };
     });
-  // const clientData =
-  //   onePageReportData?.length > 0 &&
-  //   onePageReportData?.map((report) => ({
-  //     client_name: report?.client_name,
-  //     amount: (
-  //       <div
-  //         className={`${
-  //           report?.totalLossOrProfit >= 0 ? "clr-green" : "clr-red"
-  //         }`}
-  //       >
-  //         {report?.totalLossOrProfit}
-  //       </div>
-  //     ),
-  //     onClick: () =>
-  //       handleClientName(
-  //         report?.client_name,
-  //         report?.client_id,
-  //         report?.totalLossOrProfit
-  //       ),
-  //   }));
-  // const getOnePageReportData = async () => {
-  //   await call(GET_ONEPAGE_REPORT, { register_id })
-  //     .then((res) => {
-  //       setOnePageReportData(res?.data?.data?.client_object);
-  //     })
-  //     .catch((err) => console.log(err));
-  // };
   const getOnePageReportData = async () => {
     await call(GET_ONEPAGE_REPORT, { register_id })
       .then((res) => {
@@ -251,6 +224,7 @@ function ReportPage() {
   //     .catch((err) => console.log(err));
   // };
 
+  console.log(onePageReportData, "........SAngramonePageReportData");
   const ONE_PAGE_REPORT_DETAILS =
     onePageReportData.length &&
     onePageReportData?.map((item) => {
@@ -264,6 +238,7 @@ function ReportPage() {
         parseFloat(item?.referalShare || 0) +
         parseFloat(item?.referralComission || 0);
       return {
+        clientId: item.client_id,
         client: item.client_name,
         mfrc: (
           <div
@@ -309,6 +284,40 @@ function ReportPage() {
         throw err;
       });
   };
+  const individualReportPlatformCommData =
+    completeMatchesData &&
+    completeMatchesData?.length > 0 &&
+    completeMatchesData?.map((match) => {
+      const netAmount = +match?.totalAmount?.totalLossOrProfit;
+      return {
+        matchName: (
+          <div>
+            <div>{match?.match_name}</div>
+          </div>
+        ),
+        matchDate: (
+          <div>{moment(match?.matchTimeStamp).format("DD-MM-YYYY")}</div>
+        ),
+
+        netPL: (
+          <div className={+netAmount >= 0 ? "clr-green" : "clr-red"}>
+            {netAmount?.toFixed(2) || 0}
+          </div>
+        ),
+        winTeam: match?.winTeam,
+        individualReportPlatformComm: (
+          <div
+            className={
+              +match?.totalAmount?.platformCommission >= 0
+                ? "clr-green"
+                : "clr-red"
+            }
+          >
+            {match?.totalAmount?.platformCommission?.toFixed(2) || 0}
+          </div>
+        ),
+      };
+    });
   const individualReportULShareData =
     completeMatchesData &&
     completeMatchesData?.length > 0 &&
@@ -482,6 +491,7 @@ function ReportPage() {
           setIndivisualMatchReportData={setIndivisualMatchReportData}
           netPLInduvisualClient={netPLInduvisualClient}
           setClientsDataForRefferal={setClientsDataForRefferal}
+          individualReportPlatformCommData={individualReportPlatformCommData}
         />
       )}
     </div>
