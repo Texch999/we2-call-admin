@@ -41,7 +41,19 @@ function CallHistory() {
   useEffect(() => {
     getCallHistoryData();
   }, []);
-
+  // const CALL_HISTORY_DETAILS = [{}];
+  console.log(
+    callHistoryData,
+    "...................Sangram Call History Data............................."
+  );
+  console.log(
+    selectedStartDate,
+    "................................selectedStartDate..........................."
+  );
+  console.log(
+    selectedEndDate,
+    "................................selectedEndDate..........................."
+  );
   const CALL_HISTORY_DETAILS = callHistoryData.map((item) => {
     return {
       Date: item?.date,
@@ -56,6 +68,10 @@ function CallHistory() {
   // const filterCallhistory = CALL_HISTORY_DETAILS.filter((item) => {
   //   return item.Date > selectedStartDate && item.Date < selectedEndDate;
   // });
+  // const handleVerfiyButton = CALL_HISTORY_DETAILS.filter((item) => {
+  //   return item.Date > selectedStartDate && item.Date > selectedEndDate;
+  // });
+
   return (
     <div>
       <h5 className="meetings-heading mb-3">Call History</h5>
@@ -66,13 +82,22 @@ function CallHistory() {
               <div className="medium-font mb-2">From</div>
               <div className="date-container d-flex justify-content-around align-items-center rounded all-none p-1 w-100">
                 <DatePicker
-                  className="login-input all-none w-50"
+                  className="login-input all-none w-100"
                   selected={selectedStartDate}
                   onChange={(date) => setSelectedStartDate(date)}
-                  dateFormat="mm/dd/yyyy"
+                  dateFormat="dd/MM/yyyy"
                   placeholderText="Select a date"
                 />
                 <FaRegCalendarAlt className="custom-icon p-1" />
+                {/* <input
+                  className="login-input all-none w-100"
+                  type="date"
+                  name="start_date"
+                  value={selectedStartDate}
+                  dateFormat="dd/MM/yyyy"
+                  onChange={(e) => setSelectedStartDate(e.target.value)}
+                ></input>
+                <FaRegCalendarAlt className="custom-icon p-1" /> */}
               </div>
             </div>
           </Col>
@@ -81,18 +106,19 @@ function CallHistory() {
               <div className="medium-font mb-2">To</div>
               <div className="date-container d-flex justify-content-around align-items-center rounded all-none p-1 w-100">
                 <DatePicker
-                  className="login-input all-none w-50"
+                  className="login-input all-none w-100"
                   selected={selectedEndDate}
                   onChange={(date) => setSelectedEndDate(date)}
                   dateFormat="dd/MM/yyyy"
-                  placeholderText="Select a date"
-                />
+                  placeholderText="End date"
+                />{" "}
+                <FaRegCalendarAlt className="custom-icon p-1" />
                 {/* <input
-                  className="login-input all-none w-50"
+                  className="login-input all-none w-100"
                   type="date"
                   name="start_date"
                   value={selectedEndDate}
-                  // dateFormat="mm-dd-yy"
+                  dateFormat="dd/MM/yyyy"
                   onChange={(e) => setSelectedEndDate(e.target.value)}
                 ></input>
                 <FaRegCalendarAlt className="custom-icon p-1" /> */}
@@ -131,9 +157,7 @@ function CallHistory() {
             </tr>
           </thead>
 
-          {CALL_HISTORY_DETAILS.filter((item) => {
-            return item.Date > selectedStartDate && item.Date < selectedEndDate;
-          }).map((item, index) => (
+          {CALL_HISTORY_DETAILS?.map((item, index) => (
             <tbody key={index} className="small-font">
               <tr>
                 <td className="text-center">

@@ -31,7 +31,6 @@ function ReferalIndPl(props) {
       })
       .catch((err) => console.log(err));
   };
-
   const handleClientID = async (item) => {
     setIndClientdata(item);
     setShowMatchWiseRfPl(true);
@@ -67,10 +66,6 @@ function ReferalIndPl(props) {
         totalpl: "10000",
       };
     });
-  // console.log(
-  //   clientsDataForRefferal,
-  //   ".............clientsDataForRefferal........................."
-  // );
   const REFERAL_REPORT_DETAILS =
     indivisualMatchReportData?.length > 0 &&
     indivisualMatchReportData?.map((item, index) => ({
@@ -79,10 +74,6 @@ function ReferalIndPl(props) {
       winTeam: "",
       amount: "",
     }));
-  console.log(
-    REFERAL_REPORT_DETAILS,
-    "..................REFERAL_REPORT_DETAILS"
-  );
 
   return (
     <div>
