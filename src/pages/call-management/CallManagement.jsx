@@ -17,6 +17,7 @@ import {
   GET_ALL_MATCHES,
   MANAGEMENT_MATCHES,
 } from "../../config/endpoints";
+import SelectYourPackagePopup from "./SelectYourPackagePopup";
 
 const CallManagement = () => {
   const register_id = localStorage.getItem("register_id");
@@ -28,6 +29,19 @@ const CallManagement = () => {
   const [meetingList, setMeetingList] = useState();
   const [matchesData, setMatchesData] = useState([]);
   const [selectedUsers, setSelectedUsers] = useState();
+  const [meetingInput, setMeetingInput] = useState({});
+  const [adminSubscription, setAdminSubscription] = useState([]);
+  const [selectedPackages, setSelectedPackages] = useState([]);
+  const [error, setError] = useState("");
+  const [selectYourPackagePopup, setSelectYourPackagePopup] = useState(false);
+
+  const handleChange = (e) => {
+    setMeetingInput({ ...meetingInput, [e.target.name]: e.target.value });
+  };
+
+  const handlePackageSelection = (e) => {
+    setSelectedPackages(e);
+  };
 
   const meetingOptionsList = matchesData?.map((item) => {
     return {
@@ -40,6 +54,21 @@ const CallManagement = () => {
       ),
     };
   });
+
+  const handleMatchSelect = (data) => {
+    setMeetingList(data);
+    const selectedManagementMeeting = matchesData?.find(
+      (obj) => obj?.match_id === data?.value
+    );
+    setMeetingInput({
+      ...meetingInput,
+      event_name: selectedManagementMeeting?.series_name,
+      match_name: selectedManagementMeeting?.match_name,
+      date: moment(selectedManagementMeeting?.date).format("DD-MM-YYYY"),
+      time: moment(selectedManagementMeeting?.matchTimeStamp).format("hh:mm"),
+      match_id: selectedManagementMeeting?.match_id,
+    });
+  };
 
   const usersList =
     listOfUsers?.length > 0 &&
@@ -107,6 +136,7 @@ const CallManagement = () => {
     getAllMeetingsData();
     getAdminUsersList();
     getAllAdminMatches();
+    getAdminPackages();
   }, []);
 
   const upcomingMeetingsData =
@@ -152,6 +182,25 @@ const CallManagement = () => {
         })) ||
     [];
 
+  const getAdminPackages = async () => {
+    await call(GET_ADMIN_PACKAGES, { register_id })
+      .then((res) => {
+        setAdminSubscription(res?.data?.data?.subscriptions || []);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const handleOpenSelectYourPackage = () => {
+    setSelectYourPackagePopup(true);
+  };
+
+  const handleSubmitButton = async () => {
+    if (!selectedPackages?.package_id) {
+      setError("Please Select Package");
+      return;
+    }
+  };
+
   const meetingType = ["Personal", "Professional"];
   const addusersData = ["select", "animesh", "sri", "jayanth"];
   const [currentPage, setCurrentPage] = useState(1);
@@ -185,17 +234,17 @@ const CallManagement = () => {
           </div>
         </div>
         <div className="row mt-2">
-          <div className="col">
+          <div className="col-lg-2 col-md-2 col-sm-4">
             <div className="d-flex flex-column">
               <div className="medium-font">Meeting\Event Name</div>
               {professionalMeeting && (
                 <Select
                   className="w-100"
-                  options={meetingOptionsList}
                   placeholder="Professional Meeting Name..."
-                  value={meetingList}
-                  // onChange={handleMatchSelect}
                   isSearchable={true}
+                  options={meetingOptionsList}
+                  value={meetingList}
+                  onChange={() => handleMatchSelect()}
                 />
               )}
               {personalMeeting && (
@@ -203,45 +252,55 @@ const CallManagement = () => {
                   className="custom-select medium-font btn-bg  all-none p-2 rounded"
                   placeholder="Personal Meeting Name"
                   type="text"
+                  name="event_name"
+                  value={meetingInput?.event_name}
+                  onChange={() => handleChange()}
                 />
               )}
             </div>
           </div>
-          <div className="col">
+          <div className="col-lg-2 col-md-2  col-sm-4">
             <div className="d-flex flex-column">
               <div className="medium-font">Date</div>
               <input
                 className="custom-select medium-font btn-bg  all-none p-2 rounded"
                 placeholder="Enter Meeting Name"
                 type="date"
+                name="date"
+                value={meetingInput?.date}
+                onChange={() => handleChange()}
               />
             </div>
           </div>
-          <div className="col">
+          <div className="col-lg-2 col-md-2  col-sm-4">
             <div className="d-flex flex-column">
               <div className="medium-font">Time</div>
               <input
                 className="custom-select medium-font btn-bg  all-none p-2 rounded"
                 placeholder="Enter Meeting Name"
                 type="time"
+                name="time"
+                value={meetingInput?.time}
+                onChange={() => handleChange()}
               />
             </div>
           </div>
-          <div className="col">
+          <div className="col-lg-2 col-md-2  col-sm-4">
             <div className="d-flex flex-column">
               <div className="medium-font">Add Users</div>
               <Select
                 className="w-100"
                 placeholder="Enter Users Name"
                 isSearchable={true}
-                isMulti={true}
+                closeMenuOnSelect={false}
+                isMulti
                 options={usersList}
                 value={selectedUsers}
                 onChange={() => handleSelectedUsers()}
               />
             </div>
           </div>
-          <div className="col">
+          <div className="col-lg-2 col-md-2  col-sm-4">
             <div className="d-flex flex-column">
               <div className="medium-font">Select Call Type</div>
               <select className="custom-select medium-font btn-bg  all-none p-2 rounded pb-2">
@@ -251,8 +310,11 @@ const CallManagement = () => {
               </select>
             </div>
           </div>
-          <div className="col d-flex align-items-end">
-            <div className="cursor-pointer w-100 text-center rounded medium-font p-2 yellow-btn fw-semibold">
+          <div className="col-lg-2 col-md-2 col-sm-4 d-flex align-items-end">
+            <div
+              className="cursor-pointer w-100 text-center rounded medium-font p-2 yellow-btn fw-semibold"
+              onClick={() => handleOpenSelectYourPackage()}
+            >
               Submit
             </div>
           </div>
@@ -404,6 +466,14 @@ const CallManagement = () => {
           />
         </div>
       </div> */}
+      <SelectYourPackagePopup
+        selectYourPackagePopup={selectYourPackagePopup}
+        setSelectYourPackagePopup={setSelectYourPackagePopup}
+        error={error}
+        adminSubscription={adminSubscription}
+        handlePackageSelection={(e) => handlePackageSelection()}
+        handleSubmitButton={() => handleSubmitButton()}
+      />
     </div>
   );
 };

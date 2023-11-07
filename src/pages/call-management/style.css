@@ -21,6 +21,13 @@
   font-size: var(--table-head-font-size);
   font-family: "Barlow-SemiBold";
 }
+.select-package-heading {
+  background-color: #082051;
+  border: 1px solid rgb(111, 111, 176);
+}
+.select-package-body {
+  border: 1px solid rgb(111, 111, 176);
+}
 
 .call-management-data tbody tr td {
   font-size: var(--table-body-font-size);

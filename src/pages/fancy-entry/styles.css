@@ -1,8 +1,10 @@
 .match-share-modal .modal-content,
+.select-your-package .modal-content,
 .match-declaration-modal .modal-content {
   background-color: #00143d;
 }
 .match-declaration-modal .modal-header,
+.select-your-package .modal-header,
 .match-share-modal .modal-header {
   padding: 5px 15px !important;
   border-bottom: none;
@@ -13,6 +15,9 @@
 .match-declaration-modal .modal-content {
   width: 60%;
   margin-left: 18%;
+}
+.select-your-package .modal-content {
+  width: 100%;
 }
 .h-10vh {
   height: 11vh;
