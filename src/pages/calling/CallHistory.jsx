@@ -59,17 +59,21 @@ function CallHistory() {
   useEffect(() => {
     getCallHistoryData();
   }, []);
+
   const CALL_HISTORY_DETAILS = callHistoryData.map((item) => {
     return {
       Date: item?.date,
       Time: item?.time,
+      // MeetingTitle: item?.Meeting_title,
       Meetingtitle:
         "Newzelend vs South Africa Test Series Newzelend Onquard  Stadium",
       Duration: item?.time,
-      price: "5000",
+      // price: item?.price,
+      price: "item?.price",
       status: item?.recording_status,
     };
   });
+
   // const filterCallhistory = CALL_HISTORY_DETAILS.filter((item) => {
   //   return item.Date > selectedStartDate && item.Date < selectedEndDate;
   // });
@@ -90,9 +94,9 @@ function CallHistory() {
                     handleChange({ target: { name: "start_date", value: e } })
                   }
                   dateFormat="dd/MM/yyyy"
-                  placeholderText="Select a date"
+                  placeholderText="Start Date"
                 />
-                {/* <FaRegCalendarAlt className="custom-icon p-1 msn-1" /> */}
+                <FaRegCalendarAlt className="custom-icon p-1 ms-n2" />
               </div>
             </div>
           </Col>
@@ -101,14 +105,15 @@ function CallHistory() {
               <div className="medium-font mb-2">To</div>
               <div className="date-container d-flex justify-content-around align-items-center rounded all-none p-1 w-100">
                 <DatePicker
-                  className="login-input all-none w-50"
+                  className="login-input all-none w-100"
                   selected={dateObject.end_date}
                   onChange={(e) =>
                     handleChange({ target: { name: "end_date", value: e } })
                   }
                   dateFormat="dd/MM/yyyy"
-                  placeholderText="Select a date"
-                />
+                  placeholderText="End Date"
+                />{" "}
+                <FaRegCalendarAlt className="custom-icon p-1 ms-n2" />
               </div>
             </div>
           </Col>
@@ -158,7 +163,7 @@ function CallHistory() {
                   <div
                     className={`p-1 w-100 ${
                       item?.status === "started" ? "clr-green" : "clr-red"
-                    }`}
+                    }`}  
                   >
                     {item?.status}
                   </div>
