@@ -257,6 +257,7 @@ function SportsManagement() {
     { header: "Match Name", field: "match_name" },
   ];
 
+
   const scheduleTable = liveMatchesData.map((item) => {
     return {
       series_name: (
@@ -283,7 +284,7 @@ function SportsManagement() {
   }, []);
 
   return (
-    <div className="p-3"> 
+    <div className="p-3">
       <h5 className="meetings-heading">All Admins / Sports Management</h5>
       <div className="row gutter-1rem">
         <div className="col-3">
@@ -420,7 +421,7 @@ function SportsManagement() {
             <div className={item.cspan}>
               <div>{item.heading}</div>
               <input
-                className="sport-management-input d-flex p-1 w-100"
+                className="sport-management-input d-flex p-1 w-100 sport-management-select meetings-heading"
                 name={item.name}
                 value={item.overs}
                 // disabled
