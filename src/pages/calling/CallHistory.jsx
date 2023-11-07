@@ -59,19 +59,6 @@ function CallHistory() {
   useEffect(() => {
     getCallHistoryData();
   }, []);
-  // const CALL_HISTORY_DETAILS = [{}];
-  console.log(
-    callHistoryData,
-    "...................Sangram Call History Data............................."
-  );
-  console.log(
-    selectedStartDate,
-    "................................selectedStartDate..........................."
-  );
-  console.log(
-    selectedEndDate,
-    "................................selectedEndDate..........................."
-  );
   const CALL_HISTORY_DETAILS = callHistoryData.map((item) => {
     return {
       Date: item?.date,
@@ -85,9 +72,6 @@ function CallHistory() {
   });
   // const filterCallhistory = CALL_HISTORY_DETAILS.filter((item) => {
   //   return item.Date > selectedStartDate && item.Date < selectedEndDate;
-  // });
-  // const handleVerfiyButton = CALL_HISTORY_DETAILS.filter((item) => {
-  //   return item.Date > selectedStartDate && item.Date > selectedEndDate;
   // });
 
   return (
