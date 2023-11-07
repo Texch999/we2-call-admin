@@ -252,6 +252,10 @@
   max-height: 250px;
   overflow-y: scroll;
 }
+.call-management-table-height {
+  max-height: 280px;
+  overflow-y: scroll;
+}
 .settelment-table-body-height {
   overflow-y: scroll;
 }
@@ -294,7 +298,7 @@
   outline: none !important;
   border-style: none !important;
   display: flex !important;
-  align-items: center !important;
+  /* align-items: center !important; */
 }
 .css-t3ipsp-control {
   min-height: 33px !important;
@@ -319,6 +323,7 @@
   background-color: #112a5e !important;
   border-radius: 5px !important;
   outline: none !important;
+  z-index: 9999 !important;
 }
 .css-t3ipsp-control {
   color: #ffffff !important;
@@ -342,4 +347,11 @@
 }
 .css-tr4s17-option {
   background: none !important;
+}
+.css-1hb7zxy-IndicatorsContainer {
+  align-items: flex-start !important;
+}
+.css-1u9des2-indicatorSeparator {
+  width: 0px;
+  display: none;
 }

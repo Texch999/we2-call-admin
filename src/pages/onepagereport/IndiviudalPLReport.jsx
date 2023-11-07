@@ -15,7 +15,6 @@ function IndiviudalPLReport(props) {
   const {
     refData,
     individualReportClientData,
-    onePageReportdata1,
     netPLInduvisualClient,
     individualReportULShareData,
     clientData,
@@ -105,9 +104,7 @@ function IndiviudalPLReport(props) {
           individualReportULShareData={individualReportULShareData}
         />
       )}
-      {activeReport === "Platform Comm P/L" && (
-        <PlatformCommPL onePageReportdata1={onePageReportdata1} />
-      )}
+      {activeReport === "Platform Comm P/L" && <PlatformCommPL />}
     </div>
   );
 }

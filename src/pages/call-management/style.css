@@ -25,6 +25,7 @@
 .call-management-data tbody tr td {
   font-size: var(--table-body-font-size);
   font-family: "Barlow-Medium";
+  padding: 5px !important;
 }
 .user-count-number {
   color: #fce719;
@@ -121,10 +122,38 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   opacity: 1;
   -webkit-appearance: none;
 }
-img.date-time-icon{
+img.date-time-icon {
   position: absolute;
   right: 13%;
 }
-.custom-bs-button{
-  --bs-btn-padding-x:0.6rem;
+.custom-bs-button {
+  --bs-btn-padding-x: 0.6rem;
+}
+input[type="date"] {
+  text-transform: uppercase;
+}
+.css-3w2yfm-ValueContainer {
+  display: flex;
+}
+.css-1p3m7a8-multiValue {
+  background-color: #00143d !important;
+}
+.css-wsp0cs-MultiValueGeneric {
+  color: #ffffff !important;
+}
+.css-3w2yfm-ValueContainer {
+  z-index: 9999;
+  border: 1px solid #fce719;
+  background-color: #112a5e;
+  max-height: 120px;
+  overflow-y: scroll !important;
+}
+.css-15lsz6c-indicatorContainer {
+  color: #ffffff !important;
+}
+.css-1xc3v61-indicatorContainer {
+  color: #ffffff !important;
+}
+.css-1xc3v61-indicatorContainer:hover {
+  color: #ffffff !important;
 }
