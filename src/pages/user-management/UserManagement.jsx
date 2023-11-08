@@ -489,8 +489,8 @@ function UserManagement() {
                 {userDetails.deposite_type === 0 ? "Credite" : "Deposite"} ||
                 Select...
               </option>
-              <option value="0">Credite</option>
-              <option value="1">Deposite</option>
+              <option value="0">Credit</option>
+              <option value="1">Deposit</option>
             </select>
           </div>
         </div>
