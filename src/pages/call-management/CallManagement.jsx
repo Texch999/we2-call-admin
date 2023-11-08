@@ -59,18 +59,17 @@ const CallManagement = () => {
   const handleMatchSelect = (data) => {
     setMeetingList(data);
     const selectedManagementMeeting = matchesData?.find(
-      (obj) => obj?.match_id === data?.value
+      (obj) => obj?.match_id == data?.value
     );
     setMeetingInput({
       ...meetingInput,
       event_name: selectedManagementMeeting?.series_name,
       match_name: selectedManagementMeeting?.match_name,
-      date: moment(selectedManagementMeeting?.date).format("DD-MM-YYYY"),
+      date: moment(selectedManagementMeeting?.date).format("YYYY-MM-DD"),
       time: moment(selectedManagementMeeting?.matchTimeStamp).format("hh:mm"),
       match_id: selectedManagementMeeting?.match_id,
     });
   };
-
   const usersList =
     listOfUsers?.length > 0 &&
     listOfUsers?.map((item) => {
@@ -213,7 +212,7 @@ const CallManagement = () => {
       isvideo_enable: "yes",
       meeting_type: meetingType,
       package_id: selectedPackages?.package_id,
-      video_call_type: meetingInput?.video_call_type === 0 ? false : true,
+      video_call_type: meetingInput?.video_call_type === 0 ? true : false,
     };
     const url = CREATE_MEETING;
     await call(url, { payload })
@@ -271,7 +270,7 @@ const CallManagement = () => {
                   isSearchable={true}
                   options={meetingOptionsList}
                   value={meetingList}
-                  onChange={() => handleMatchSelect()}
+                  onChange={(e) => handleMatchSelect(e)}
                 />
               )}
               {personalMeeting && (
@@ -323,7 +322,7 @@ const CallManagement = () => {
                 isMulti
                 options={usersList}
                 value={selectedUsers}
-                onChange={() => handleSelectedUsers()}
+                onChange={(e) => handleSelectedUsers(e)}
               />
             </div>
           </div>
