@@ -18,6 +18,7 @@ import {
   MANAGEMENT_MATCHES,
 } from "../../config/endpoints";
 import SelectYourPackagePopup from "./SelectYourPackagePopup";
+import CallEditPopup from "./CallEditPopup";
 
 const CallManagement = () => {
   const register_id = localStorage.getItem("register_id");
@@ -34,7 +35,16 @@ const CallManagement = () => {
   const [adminSubscription, setAdminSubscription] = useState([]);
   const [selectedPackages, setSelectedPackages] = useState([]);
   const [error, setError] = useState("");
+  const [meetingEditPopup, setMeetingEditPopup] = useState(false);
+  const [selectedMeeting, setSelectedMeeting] = useState("");
   const [selectYourPackagePopup, setSelectYourPackagePopup] = useState(false);
+
+  useEffect(() => {
+    getAllMeetingsData();
+    getAdminUsersList();
+    getAllAdminMatches();
+    getAdminPackages();
+  }, []);
 
   const handleChange = (e) => {
     setMeetingInput({ ...meetingInput, [e.target.name]: e.target.value });
@@ -136,13 +146,6 @@ const CallManagement = () => {
       .catch((err) => console.log(err));
   };
 
-  useEffect(() => {
-    getAllMeetingsData();
-    getAdminUsersList();
-    getAllAdminMatches();
-    getAdminPackages();
-  }, []);
-
   const upcomingMeetingsData =
     upcomingMeetings?.length >= 0 &&
     upcomingMeetings
@@ -167,7 +170,7 @@ const CallManagement = () => {
       });
 
   const ulMeetingsData =
-    (upcomingMeetings?.length > 0 &&
+    (upcomingMeetings?.length >= 0 &&
       upcomingMeetings
         ?.filter((obj) => obj?.p_id !== register_id)
         ?.sort(
@@ -214,12 +217,13 @@ const CallManagement = () => {
       package_id: selectedPackages?.package_id,
       video_call_type: meetingInput?.video_call_type === 0 ? true : false,
     };
-    const url = CREATE_MEETING;
+    const url = selectedMeeting ? UPDATE_MEETING : CREATE_MEETING;
     await call(url, { payload })
       .then((res) => {
         if (res?.data?.statusCode === 200) {
           setMeetingInput({});
           setSelectedPackages({});
+          setSelectedMeeting({});
           getAllMeetingsData();
           setError({ message: res?.data?.message });
         } else {
@@ -227,6 +231,21 @@ const CallManagement = () => {
         }
       })
       .catch((err) => console.log(err));
+  };
+
+  const onEditClick = () => {
+    setMeetingEditPopup(!meetingEditPopup);
+    const obj = {
+      ...selectedMeeting,
+      date: selectedMeeting?.date,
+      time: selectedMeeting?.time,
+    };
+    setMeetingInput({ ...meetingInput, ...obj });
+  };
+
+  const handleEditPopupOpen = (data) => {
+    setMeetingEditPopup(true);
+    setSelectedMeeting(data);
   };
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -422,12 +441,15 @@ const CallManagement = () => {
                       )}
                     </td>
                     <td className="text-center">
-                      <Button
-                        type="button"
-                        className="text-warning rounded-circle border-0 meetings-edit-button"
-                      >
-                        <MdModeEditOutline size={18} />
-                      </Button>
+                      {register_id == data?.p_id && (
+                        <Button
+                          type="button"
+                          className="text-warning rounded-circle border-0 meetings-edit-button p-2"
+                          onClick={() => handleEditPopupOpen(data)}
+                        >
+                          <MdModeEditOutline className="d-flex" size={18} />
+                        </Button>
+                      )}
                     </td>
                   </tr>
                 ))}
@@ -506,6 +528,10 @@ const CallManagement = () => {
         adminSubscription={adminSubscription}
         handlePackageSelection={(e) => handlePackageSelection(e)}
         handleSubmitButton={() => handleSubmitButton()}
+      />
+      <CallEditPopup
+        meetingEditPopup={meetingEditPopup}
+        setMeetingEditPopup={onEditClick}
       />
     </div>
   );

@@ -71,6 +71,7 @@ const ACTIVE_INACTIVE_USERS =
   "/offline-management/offline_active_inactive_users";
 const MANAGEMENT_MATCHES = "/management/get_matches_by_accountrole";
 const CREATE_MEETING = "/meetings/create_meeting";
+const UPDATE_MEETING = "/meetings/update_call_meetings";
 
 // methods
 const DELETE = "DELETE";
@@ -376,5 +377,9 @@ exports.MANAGEMENT_MATCHES = {
 };
 exports.CREATE_MEETING = {
   url: CREATE_MEETING,
+  method: POST,
+};
+exports.UPDATE_MEETING = {
+  url: UPDATE_MEETING,
   method: POST,
 };
