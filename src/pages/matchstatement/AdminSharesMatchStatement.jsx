@@ -6,25 +6,27 @@ import CustomPagination from "../pagination/CustomPagination";
 import AdminOnePageReport from "../onepagereport/AdminOnePageReport";
 import AdminShareCommSettlement from "../setlment/AdminShareCommSettlement";
 import AdminComissionReport from "../onepagereport/AdminComissionReport";
-import { GET_FINANCIAL_STATEMENT_BY_DATE, GET_OFFLINE_CLIENTS } from "../../config/endpoints";
+import {
+  GET_FINANCIAL_STATEMENT_BY_DATE,
+  GET_OFFLINE_CLIENTS,
+} from "../../config/endpoints";
 import { call } from "../../config/axios";
 import { useEffect } from "react";
 
 const AdminSharesMatchStatement = () => {
   const [adminShareStatementMatchPopUp, setAdminShareStatementMatchPopUp] =
     useState(false);
-  const [activeReport, setActiveReport] = useState("Admins Share Statement");
+  const [activeReport, setActiveReport] = useState("Admins OnePageReport");
   const [selectedOptions, setSelectedOptions] = useState({});
   const [clientsData, setClientsData] = useState([]);
-  const [adminShareStatement , setadminShareStatement] = useState({});
+  const [adminShareStatement, setadminShareStatement] = useState({});
 
   let register_id = localStorage?.getItem("register_id");
   let account_role = localStorage?.getItem("account_role");
 
   const reports = [
-    "Admins Share Statement",
     "Admins OnePageReport",
-    "Admins Comm Report",
+    "U/L Comm Report",
     "Admins Share/Comm Settlement-Statement Report",
   ];
 
@@ -67,62 +69,65 @@ const AdminSharesMatchStatement = () => {
       id: "clientName",
     },
   ];
-  const adminSharesMatchStatementData  = 
-  // adminShareStatement.map((item)=>{
-  //   return {
-  //     date_time : item.date,
-  //     series_name : item?.series_name,
-  //     team_name : item?.team1,
-  //     match_place : item?.match_place,
-  //     win_team :item?.win_team,
-  //     profit_loss : item?.profit_loss,
-  //   }
-  // })
-  [
-    {
-      date_time: "19 July 2023, 10:00:00 PM",
-      series_name: "T20 World Cup 2023",
-      team_name: "India vs England",
-      match_place: "Hyderabad",
-      win_team: "India",
-      profit_loss: 1000000.0,
-    },
-    {
-      date_time: "19 July 2023, 10:00:00 PM",
-      series_name: "T20 World Cup 2023",
-      team_name: "India vs England",
-      match_place: "Hyderabad",
-      win_team: "India",
-      profit_loss: 1000000.0,
-    },
-    {
-      date_time: "19 July 2023, 10:00:00 PM",
-      series_name: "T20 World Cup 2023",
-      team_name: "India vs England",
-      match_place: "Hyderabad",
-      win_team: "India",
-      profit_loss: 1000000.0,
-    },
-    {
-      date_time: "19 July 2023, 10:00:00 PM",
-      series_name: "T20 World Cup 2023",
-      team_name: "India vs England",
-      match_place: "Hyderabad",
-      win_team: "India",
-      profit_loss: 1000000.0,
-    },
-  ]
-  
-  const getAdminShare = async ()=>{
-    await call (GET_FINANCIAL_STATEMENT_BY_DATE,{
+  const adminSharesMatchStatementData =
+    // adminShareStatement.map((item)=>{
+    //   return {
+    //     date_time : item.date,
+    //     series_name : item?.series_name,
+    //     team_name : item?.team1,
+    //     match_place : item?.match_place,
+    //     win_team :item?.win_team,
+    //     profit_loss : item?.profit_loss,
+    //   }
+    // })
+    [
+      {
+        date_time: "19 July 2023, 10:00:00 PM",
+        series_name: "T20 World Cup 2023",
+        team_name: "India vs England",
+        match_place: "Hyderabad",
+        win_team: "India",
+        profit_loss: 1000000.0,
+      },
+      {
+        date_time: "19 July 2023, 10:00:00 PM",
+        series_name: "T20 World Cup 2023",
+        team_name: "India vs England",
+        match_place: "Hyderabad",
+        win_team: "India",
+        profit_loss: 1000000.0,
+      },
+      {
+        date_time: "19 July 2023, 10:00:00 PM",
+        series_name: "T20 World Cup 2023",
+        team_name: "India vs England",
+        match_place: "Hyderabad",
+        win_team: "India",
+        profit_loss: 1000000.0,
+      },
+      {
+        date_time: "19 July 2023, 10:00:00 PM",
+        series_name: "T20 World Cup 2023",
+        team_name: "India vs England",
+        match_place: "Hyderabad",
+        win_team: "India",
+        profit_loss: 1000000.0,
+      },
+    ];
+
+  const getAdminShare = async () => {
+    await call(GET_FINANCIAL_STATEMENT_BY_DATE, {
       register_id,
       account_role,
-      ...adminShareStatement
-    }).then((res)=>{
-      setadminShareStatement(res?.data?.filter((items)=> items.match_declared=== "Y"))
+      ...adminShareStatement,
     })
-    .catch((err)=>console.log(err));
-  }
+      .then((res) => {
+        setadminShareStatement(
+          res?.data?.filter((items) => items.match_declared === "Y")
+        );
+      })
+      .catch((err) => console.log(err));
+  };
 
   const getAllClientsData = async () => {
     call(GET_OFFLINE_CLIENTS, {
@@ -134,12 +139,12 @@ const AdminSharesMatchStatement = () => {
       })
       .catch((err) => console.log(err));
   };
-  console.log("clientsData",clientsData);
+  console.log("clientsData", clientsData);
 
-  useEffect(()=>{
+  useEffect(() => {
     getAdminShare();
     getAllClientsData();
-  },[])
+  }, []);
 
   const adminSharepopupHeadings = [
     { header: "Admins Name", field: "admin_name" },
@@ -214,7 +219,7 @@ const AdminSharesMatchStatement = () => {
         ))}
       </div>
 
-      {activeReport === "Admins Share Statement" && (
+      {/* {activeReport === "Admins Share Statement" && (
         <div>
           {" "}
           <div>
@@ -348,9 +353,9 @@ const AdminSharesMatchStatement = () => {
             </div>
           </div>
         </div>
-      )}
+      )} */}
       {activeReport === "Admins OnePageReport" && <AdminOnePageReport />}
-      {activeReport === "Admins Comm Report" && <AdminComissionReport />}
+      {activeReport === "U/L Comm Report" && <AdminComissionReport />}
       {activeReport === "Admins Share/Comm Settlement-Statement Report" && (
         <AdminShareCommSettlement />
       )}

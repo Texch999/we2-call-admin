@@ -83,6 +83,10 @@ exports.GET_UPDATED_MATCHES_DATA = {
   url: GET_UPDATED_MATCHES_DATA,
   method: POST,
 };
+exports.GET_FINANCIAL_STATEMENT_BY_DATE = {
+  url: GET_FINANCIAL_STATEMENT_BY_DATE,
+  method: POST,
+};
 exports.GET_COMPLETED_MATCHES_BY_CLEINT = {
   url: GET_COMPLETED_MATCHES_BY_CLEINT,
   method: POST,
@@ -132,10 +136,6 @@ exports.GENERATE_SIGNED_URL = {
   method: POST,
 };
 
-exports.GET_FINANCIAL_STATEMENT_BY_DATE = {
-  url: GET_FINANCIAL_STATEMENT_BY_DATE,
-  method: POST,
-};
 exports.GET_USER_INFO = {
   url: GET_USER_INFO,
   method: POST,
