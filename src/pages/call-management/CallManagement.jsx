@@ -3,7 +3,6 @@ import { Button, Table, Dropdown } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./style.css";
 import { MdModeEditOutline, MdArrowDownward } from "react-icons/md";
-import AddNewMeetingsPopUp from "./AddNewMeetingsPopUp";
 import { call } from "../../config/axios";
 import CustomPagination from "../pagination/CustomPagination";
 import Select from "react-select";
