@@ -23,7 +23,8 @@ import CallEditPopup from "./CallEditPopup";
 const CallManagement = () => {
   const register_id = localStorage.getItem("register_id");
   const account_role = localStorage.getItem("account_role");
-  const [upcomingMeetings, setUpcomingMeetings] = useState([]);
+
+  //const [upcomingMeetings, setUpcomingMeetings] = useState([]);
   const [listOfUsers, setListOfUsers] = useState([]);
   const [personalMeeting, setPersonalMeeting] = useState(false);
   const [professionalMeeting, setprofessionalMeeting] = useState(true);
@@ -40,7 +41,7 @@ const CallManagement = () => {
   const [selectYourPackagePopup, setSelectYourPackagePopup] = useState(false);
 
   useEffect(() => {
-    getAllMeetingsData();
+    //getAllMeetingsData();
     getAdminUsersList();
     getAllAdminMatches();
     getAdminPackages();
@@ -118,13 +119,13 @@ const CallManagement = () => {
       .catch((err) => console.log(err));
   };
 
-  const getAllMeetingsData = async () => {
-    await call(GET_ALL_MEETINGS, { register_id })
-      .then((res) => {
-        setUpcomingMeetings(res?.data?.data);
-      })
-      .catch((err) => console.log(err));
-  };
+  // const getAllMeetingsData = async () => {
+  //   await call(GET_ALL_MEETINGS, { register_id })
+  //     .then((res) => {
+  //       setUpcomingMeetings(res?.data?.data);
+  //     })
+  //     .catch((err) => console.log(err));
+  // };
 
   const getAllMatches = async () => {
     return await call(MANAGEMENT_MATCHES, {
@@ -146,48 +147,48 @@ const CallManagement = () => {
       .catch((err) => console.log(err));
   };
 
-  const upcomingMeetingsData =
-    upcomingMeetings?.length >= 0 &&
-    upcomingMeetings
-      ?.filter((obj) => obj.p_id == register_id)
-      ?.sort(
-        (a, b) => new Date(b.given_time_stamp) - new Date(a.given_time_stamp)
-      )
-      ?.map((obj) => {
-        const meetingUserData = listOfUsers?.filter((item) =>
-          obj.meetingUserIds.includes(item.register_id)
-        );
-        return {
-          ...obj,
-          urs: obj?.createdBy,
-          event_name: obj?.event_name,
-          date: obj?.date,
-          time: obj?.time,
-          user: meetingUserData.map((obj) => <>{obj?.user_name}</>),
-          recording_status: obj?.recording_status,
-          action: "edit",
-        };
-      });
+  // const upcomingMeetingsData =
+  //   upcomingMeetings?.length >= 0 &&
+  //   upcomingMeetings
+  //     ?.filter((obj) => obj.p_id == register_id)
+  //     ?.sort(
+  //       (a, b) => new Date(b.given_time_stamp) - new Date(a.given_time_stamp)
+  //     )
+  //     ?.map((obj) => {
+  //       const meetingUserData = listOfUsers?.filter((item) =>
+  //         obj.meetingUserIds.includes(item.register_id)
+  //       );
+  //       return {
+  //         ...obj,
+  //         urs: obj?.createdBy,
+  //         event_name: obj?.event_name,
+  //         date: obj?.date,
+  //         time: obj?.time,
+  //         user: meetingUserData.map((obj) => <>{obj?.user_name}</>),
+  //         recording_status: obj?.recording_status,
+  //         action: "edit",
+  //       };
+  //     });
 
-  const ulMeetingsData =
-    (upcomingMeetings?.length >= 0 &&
-      upcomingMeetings
-        ?.filter((obj) => obj?.p_id !== register_id)
-        ?.sort(
-          (a, b) => new Date(b.given_time_stamp) - new Date(a.given_time_stamp)
-        )
-        ?.map((obj) => {
-          return {
-            ...obj,
-            ul: obj?.createdBy,
-            event_name: obj?.event_name,
-            date: obj?.date,
-            time: obj?.time,
-            user: localStorage.getItem("user_name"),
-            action: "JOIN",
-          };
-        })) ||
-    [];
+  // const ulMeetingsData =
+  //   (upcomingMeetings?.length >= 0 &&
+  //     upcomingMeetings
+  //       ?.filter((obj) => obj?.p_id !== register_id)
+  //       ?.sort(
+  //         (a, b) => new Date(b.given_time_stamp) - new Date(a.given_time_stamp)
+  //       )
+  //       ?.map((obj) => {
+  //         return {
+  //           ...obj,
+  //           ul: obj?.createdBy,
+  //           event_name: obj?.event_name,
+  //           date: obj?.date,
+  //           time: obj?.time,
+  //           user: localStorage.getItem("user_name"),
+  //           action: "JOIN",
+  //         };
+  //       })) ||
+  //   [];
 
   const getAdminPackages = async () => {
     await call(GET_ADMIN_PACKAGES, { register_id })
@@ -224,7 +225,7 @@ const CallManagement = () => {
           setMeetingInput({});
           setSelectedPackages({});
           setSelectedMeeting({});
-          getAllMeetingsData();
+          //getAllMeetingsData();
           setError({ message: res?.data?.message });
         } else {
           setError({ message: res?.data?.data?.message });
@@ -232,6 +233,7 @@ const CallManagement = () => {
       })
       .catch((err) => console.log(err));
   };
+  console.log("........selectedMeeting",selectedMeeting);
 
   const onEditClick = () => {
     setMeetingEditPopup(!meetingEditPopup);
@@ -386,7 +388,7 @@ const CallManagement = () => {
                 <th className="text-center"></th>
               </tr>
             </thead>
-            <tbody>
+            {/* <tbody>
               {upcomingMeetingsData?.length > 0 &&
                 upcomingMeetingsData?.map((data, index) => (
                   <tr key={index}>
@@ -453,7 +455,7 @@ const CallManagement = () => {
                     </td>
                   </tr>
                 ))}
-            </tbody>
+            </tbody> */}
           </Table>
         </div>
         {/* <div className="d-flex justify-content-between align-items-center mt-4">
@@ -486,7 +488,7 @@ const CallManagement = () => {
                 <th className="text-center"></th>
               </tr>
             </thead>
-            <tbody>
+            {/* <tbody>
               {ulMeetingsData?.length > 0 &&
                 ulMeetingsData?.map((data, index) => (
                   <tr key={index}>
@@ -503,7 +505,7 @@ const CallManagement = () => {
                     </td>
                   </tr>
                 ))}
-            </tbody>
+            </tbody> */}
           </Table>
         </div>
       </div>
