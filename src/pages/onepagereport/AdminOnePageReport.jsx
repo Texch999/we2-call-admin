@@ -86,6 +86,38 @@ const AdminOnePageReport = () => {
       profit_loss: 50000000,
       urs_profilt_loss: 50000000,
     },
+    {
+      series_name: "T20 world cup",
+      date_time: "02/08/2023 11:32:00 AM",
+      team: "india",
+      win_team: "india",
+      profit_loss: 50000000,
+      urs_profilt_loss: 50000000,
+    },
+    {
+      series_name: "T20 world cup",
+      date_time: "02/08/2023 11:32:00 AM",
+      team: "india",
+      win_team: "india",
+      profit_loss: 50000000,
+      urs_profilt_loss: 50000000,
+    },
+    {
+      series_name: "T20 world cup",
+      date_time: "02/08/2023 11:32:00 AM",
+      team: "india",
+      win_team: "india",
+      profit_loss: 50000000,
+      urs_profilt_loss: 50000000,
+    },
+    {
+      series_name: "T20 world cup",
+      date_time: "02/08/2023 11:32:00 AM",
+      team: "india",
+      win_team: "india",
+      profit_loss: 50000000,
+      urs_profilt_loss: 50000000,
+    },
   ];
   const adminOnePageReportIndividualHeadings = [
     { header: "Series Name", field: "series_name" },
@@ -96,6 +128,46 @@ const AdminOnePageReport = () => {
     { header: "Urs P/L", field: "urs_profilt_loss" },
   ];
   const adminUlPlatformCommData = [
+    {
+      series_name: "T20 world cup",
+      date_time: "02/08/2023 11:32:00 AM",
+      team: "india",
+      win_team: "india",
+      profit_loss: 50000000,
+      urs_profilt_loss: 50000000,
+    },
+    {
+      series_name: "T20 world cup",
+      date_time: "02/08/2023 11:32:00 AM",
+      team: "india",
+      win_team: "india",
+      profit_loss: 50000000,
+      urs_profilt_loss: 50000000,
+    },
+    {
+      series_name: "T20 world cup",
+      date_time: "02/08/2023 11:32:00 AM",
+      team: "india",
+      win_team: "india",
+      profit_loss: 50000000,
+      urs_profilt_loss: 50000000,
+    },
+    {
+      series_name: "T20 world cup",
+      date_time: "02/08/2023 11:32:00 AM",
+      team: "india",
+      win_team: "india",
+      profit_loss: 50000000,
+      urs_profilt_loss: 50000000,
+    },
+    {
+      series_name: "T20 world cup",
+      date_time: "02/08/2023 11:32:00 AM",
+      team: "india",
+      win_team: "india",
+      profit_loss: 50000000,
+      urs_profilt_loss: 50000000,
+    },
     {
       series_name: "T20 world cup",
       date_time: "02/08/2023 11:32:00 AM",
@@ -165,7 +237,7 @@ const AdminOnePageReport = () => {
     // You can add your logic here to fetch data for the selected page.
   };
   return (
-    <div >
+    <div>
       <h6 className="meetings-heading mb-3">Your Share In Admin Book</h6>
       <div className="d-flex align-items-center justify-content-between">
         {/* <div>

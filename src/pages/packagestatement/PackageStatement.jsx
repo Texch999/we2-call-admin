@@ -68,6 +68,17 @@ function PackageStatement() {
         paid_amount: "1,00,000",
         sell_amount: "--",
       },
+      {
+        pkg_trans: "Sale S7 Admin",
+        date_time: (
+          <div>
+            <div>29-09-23</div>
+            <div>11.45pm</div>
+          </div>
+        ),
+        paid_amount: "--",
+        sell_amount: "1,25,000",
+      },
     ];
     return packageStatementData;
   };

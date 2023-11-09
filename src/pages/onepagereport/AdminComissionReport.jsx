@@ -40,7 +40,7 @@ function AdminComissionReport() {
   return (
     <div>
       <div>
-        <h6 className="meetings-heading mb-3">Admins Commission Report</h6>
+        <h6 className="meetings-heading mb-3">U/L Commission Report</h6>
       </div>
       <hr />
       <div>
@@ -67,8 +67,8 @@ function AdminComissionReport() {
               <tr>
                 <td className="text-center ">{item?.adminname}</td>
                 <td className="text-center">{item?.role}</td>
-                <td className="text-center clr-green ">{item?.adminpl}</td>
-                <td className="text-center clr-green "> {item?.ulnetpl}</td>
+                <td className="text-center clr-green">{item?.adminpl}</td>
+                <td className="text-center clr-green"> {item?.ulnetpl}</td>
               </tr>
             </tbody>
           ))}

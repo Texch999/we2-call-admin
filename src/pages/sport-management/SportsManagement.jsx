@@ -257,23 +257,22 @@ function SportsManagement() {
     { header: "Match Name", field: "match_name" },
   ];
 
-
-  const scheduleTable = liveMatchesData.map((item) => {
-    return {
-      series_name: (
-        <div>
-          {item.match_name},{item.gender}
-          <br />
-          {item.game_object.match_type},{item.stadium}
-          <br />
-          <div className="clr-yellow">
-            {item.date},{item.time}
-          </div>
-        </div>
-      ),
-      match_name: item.match_name,
-    };
-  });
+  // const scheduleTable = liveMatchesData.map((item) => {
+  //   return {
+  //     series_name: (
+  //       <div>
+  //         {item.match_name},{item.gender}
+  //         <br />
+  //         {item.game_object.match_type},{item.stadium}
+  //         <br />
+  //         <div className="clr-yellow">
+  //           {item.date},{item.time}
+  //         </div>
+  //       </div>
+  //     ),
+  //     match_name: item.match_name,
+  //   };
+  // });
 
   // ↑↑↑↑↑↑↑↑↑↑↑↑↑↑  getting Table data && table related UI maps ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ //
 
@@ -471,7 +470,7 @@ function SportsManagement() {
             })}
           </div>
           <div className="mt-2">
-            <Table data={scheduleTable || []} columns={scheduledColumns} />
+            <Table data={tableData || []} columns={scheduledColumns} />
           </div>
           <MatchSubmitPopup
             header={"You Are Successfully Created Your Match"}
