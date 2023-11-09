@@ -45,6 +45,11 @@ const CallManagement = () => {
     getAdminPackages();
   }, []);
 
+  // const resetFields = () => {
+  //   setMeetingInput({});
+  //   setSelectedUsers("");
+  // };
+
   const handleChange = (e) => {
     setMeetingInput({ ...meetingInput, [e.target.name]: e.target.value });
   };
@@ -81,9 +86,10 @@ const CallManagement = () => {
   };
   const usersList =
     listOfUsers?.length > 0 &&
-    listOfUsers?.map((item) => {
-      return { value: item?.register_id, label: item?.user_name };
-    });
+    listOfUsers?.map((item) => ({
+      value: item?.register_id,
+      label: item?.user_name,
+    }));
 
   const handleSelectedUsers = (data) => {
     setSelectedUsers(data);
@@ -220,13 +226,17 @@ const CallManagement = () => {
     await call(url, { payload })
       .then((res) => {
         if (res?.data?.statusCode === 200) {
-          setMeetingInput({});
           setSelectedPackages({});
           setSelectedMeeting({});
           getAllMeetingsData();
-          setError({ message: res?.data?.message });
+          setMeetingInput({});
+          setError(
+            res?.data?.message ? res?.data?.message : "Something Went Wrong"
+          );
         } else {
-          setError({ message: res?.data?.data?.message });
+          setError(
+            res?.data?.message ? res?.data?.message : "Something Went Wrong"
+          );
         }
       })
       .catch((err) => console.log(err));
@@ -368,7 +378,7 @@ const CallManagement = () => {
           </div>
         </div>
         {error && (
-          <div className="red-color text-center medium-font">{error}</div>
+          <div className="red-color text-center medium-font mt-1">{error}</div>
         )}
       </div>
       <div className="mt-3">
