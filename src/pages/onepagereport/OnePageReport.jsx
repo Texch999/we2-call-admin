@@ -12,7 +12,6 @@ import ClientIndPL from "./ClientIndPL";
 
 function OnePageReport(props) {
   const { ONE_PAGE_REPORT_DETAILS } = props;
-
   console.log(ONE_PAGE_REPORT_DETAILS, "onepagereport Data");
 
   let register_id = localStorage?.getItem("register_id");
@@ -29,12 +28,11 @@ function OnePageReport(props) {
   const handleIndividualOnePageData = async (item) => {
     setShowReportPopup(true);
     setShowIndividualOnepageReportData(true);
-    setSelectedClientData(item);
-
+    setSelectedClientData(item); 
     await call(GET_COMPLETED_MATCHES_BY_CLEINT, {
       register_id,
       account_role,
-      client_id: item.client_Id,
+      // client_id: item.client_Id,
     })
       .then((res) => {
         setShowOnePageReportData(res?.data?.data);
@@ -115,6 +113,7 @@ function OnePageReport(props) {
         </div>
       </div>
       <OnePagePopup
+        showOnepageReportData={showOnepageReportData}
         showReportPopup={showReportPopup}
         setShowReportPopup={setShowReportPopup}
         selectedClientData={selectedClientData}

@@ -69,6 +69,9 @@ const PRIVACY_POLICY = "/management/get_policy_document";
 const RESET_PASSWORD = "/admin/reset_password";
 const ACTIVE_INACTIVE_USERS =
   "/offline-management/offline_active_inactive_users";
+const MANAGEMENT_MATCHES = "/management/get_matches_by_accountrole";
+const CREATE_MEETING = "/meetings/create_meeting";
+const UPDATE_MEETING = "/meetings/update_call_meetings";
 
 // methods
 const DELETE = "DELETE";
@@ -366,5 +369,17 @@ exports.RESET_PASSWORD = {
 };
 exports.ACTIVE_INACTIVE_USERS = {
   url: ACTIVE_INACTIVE_USERS,
+  method: POST,
+};
+exports.MANAGEMENT_MATCHES = {
+  url: MANAGEMENT_MATCHES,
+  method: POST,
+};
+exports.CREATE_MEETING = {
+  url: CREATE_MEETING,
+  method: POST,
+};
+exports.UPDATE_MEETING = {
+  url: UPDATE_MEETING,
   method: POST,
 };

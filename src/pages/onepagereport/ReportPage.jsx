@@ -284,6 +284,40 @@ function ReportPage() {
         throw err;
       });
   };
+  const individualReportPlatformCommData =
+    completeMatchesData &&
+    completeMatchesData?.length > 0 &&
+    completeMatchesData?.map((match) => {
+      const netAmount = +match?.totalAmount?.totalLossOrProfit;
+      return {
+        matchName: (
+          <div>
+            <div>{match?.match_name}</div>
+          </div>
+        ),
+        matchDate: (
+          <div>{moment(match?.matchTimeStamp).format("DD-MM-YYYY")}</div>
+        ),
+
+        netPL: (
+          <div className={+netAmount >= 0 ? "clr-green" : "clr-red"}>
+            {netAmount?.toFixed(2) || 0}
+          </div>
+        ),
+        winTeam: match?.winTeam,
+        individualReportPlatformComm: (
+          <div
+            className={
+              +match?.totalAmount?.platformCommission >= 0
+                ? "clr-green"
+                : "clr-red"
+            }
+          >
+            {match?.totalAmount?.platformCommission?.toFixed(2) || 0}
+          </div>
+        ),
+      };
+    });
   const individualReportULShareData =
     completeMatchesData &&
     completeMatchesData?.length > 0 &&
@@ -457,6 +491,7 @@ function ReportPage() {
           setIndivisualMatchReportData={setIndivisualMatchReportData}
           netPLInduvisualClient={netPLInduvisualClient}
           setClientsDataForRefferal={setClientsDataForRefferal}
+          individualReportPlatformCommData={individualReportPlatformCommData}
         />
       )}
     </div>

@@ -112,7 +112,6 @@ function FancyEntryInput({
           getRiskRunningData();
           getFancyProfitLoss();
           setError("");
-          console.log(error, "EEERRR");
         } else {
           setError(
             res?.data?.message ? res?.data?.message : "Something Went Wrong"
