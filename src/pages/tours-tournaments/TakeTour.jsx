@@ -63,11 +63,22 @@ function TakeTour() {
             <img className="banner" src={Images.BatBall}></img>
           </div>
           <div className="col-6 p-3">
-            <h3 className="meetings-heading mt-3">Crieket Cup Tour</h3>
+            <h3 className="meetings-heading mt-3">Cricket Cup Tour</h3>
+            <div className="d-flex align-items-center">
+              <div
+                className="click-button p-1 me-1"
+                onClick={() => history.push("/offers")}
+              >
+                Click Here
+              </div>
+              <h6 className="meetings-heading mt-3 d-inline">For Details</h6>
+            </div>
             <span className="medium-font meetings-heading">
               Click on interest buttons to get a changce to a part of our tour
             </span>
-            <div className="w-60 intrested meetings-heading mt-1">
+            <div className="w-60 intrested meetings-heading mt-1"
+                  onClick={() => handleIntrestButton()}
+            >
               I’m Interested
             </div>
             <div className="small-font meetings-heading mt-2">

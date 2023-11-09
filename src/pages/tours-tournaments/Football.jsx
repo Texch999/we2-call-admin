@@ -1,8 +1,17 @@
 import React from "react";
 import { Images } from "../../images";
 import { HiThumbUp } from "react-icons/hi";
+import { useHistory } from "react-router";
+import { useState } from "react";
+import ToursListPopup from "./ToursListPopup";
 
 function Football() {
+  const history = useHistory();
+  const [openToursPopup, setOpenToursPopup] = useState(false)
+  const handleIntrestButton = () =>{
+    setOpenToursPopup(true)
+  }
+
   return (
     <div className="row  p-2 tour-cricket">
       <div className="col-sm-12 col-md-4">
@@ -16,12 +25,22 @@ function Football() {
           </div>
           <div className="col-7 p-3">
             <h3 className="meetings-heading mt-3">Football Cup Tour</h3>
+            <div className="d-flex align-items-center">
+              <div
+                className="click-button p-1 me-1"
+                onClick={() => history.push("/offers")}
+              >
+                Click Here
+              </div>
+              <h6 className="meetings-heading mt-3 d-inline">For Details</h6>
+            </div>
             <span className="medium-font meetings-heading">
               Click on interest buttons to get a changce to a part of our tour
             </span>
             <div
               className="w-60 intrested meetings-heading mt-1"
               id="black-background"
+              onClick={()=>{handleIntrestButton()}}
             >
               I’m Interested
             </div>
@@ -35,11 +54,22 @@ function Football() {
         <div className="w-100 h-100per casino-tournie row d-flex align-items-center">
           <div className="col-5 p-3">
             <h3 className="meetings-heading mt-3">Casino Tournament</h3>
+            <div className="d-flex align-items-center">
+              <div
+                className="click-button p-1 me-1"
+                onClick={() => history.push("/offers")}
+              >
+                Click Here
+              </div>
+              <h6 className="meetings-heading mt-3 d-inline">For Details</h6>
+            </div>
             <h4 className="large-font meetings-heading">
               Play and get a chance to join with tour
             </h4>
             <div className="w-90 like-button mt-2 d-flex">
-              <div className="w-60 intrested meetings-heading">
+              <div className="w-60 intrested meetings-heading"
+                    onClick={()=>{handleIntrestButton()}}
+              >
                 I’m Interested
               </div>
               <div className="w-40">
@@ -58,6 +88,7 @@ function Football() {
           </div>
         </div>
       </div>
+      <ToursListPopup openToursPopup={openToursPopup} setOpenToursPopup={setOpenToursPopup}/>
     </div>
   );
 }

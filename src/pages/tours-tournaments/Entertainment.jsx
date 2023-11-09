@@ -1,8 +1,18 @@
 import React from "react";
 import { Images } from "../../images";
 import { HiThumbUp } from "react-icons/hi";
+import ToursListPopup from "./ToursListPopup";
+import { useHistory } from "react-router";
+import { useState } from "react";
 
 function Entertainment() {
+  const history = useHistory();
+  const [openToursPopup, setOpenToursPopup] = useState(false)
+
+  const handleIntrestButton = () =>{
+    setOpenToursPopup(true)
+  }
+
   return (
     <div className="row  p-3 tour-cricket">
       <div className="row entertain-ment">
@@ -13,10 +23,21 @@ function Entertainment() {
           <div className="mid-div">
             <center className="mt-3">
               <h3 className="meetings-heading mt-3">Entertainment Tour</h3>
+              <div className="d-flex align-items-center width-fit-content">
+                <div
+                  className="click-button p-1 me-1"
+                  onClick={() => history.push("/offers")}
+                >
+                  Click Here
+                </div>
+                <h6 className="meetings-heading mt-3 d-inline">For Details</h6>
+              </div>
               <h4 className="large-font meetings-heading">
                 Play and get a chance to join with tour
               </h4>
-              <div className="w-60 intrested meetings-heading">
+              <div className="w-60 intrested meetings-heading"
+                    onClick={()=>{handleIntrestButton()}}
+              >
                 I’m Interested
               </div>
               <div className="count-container d-flex p-3 mt-2">
@@ -34,6 +55,7 @@ function Entertainment() {
           <img className="banner" src={Images.Emojis}></img>
         </div>
       </div>
+      <ToursListPopup openToursPopup={openToursPopup} setOpenToursPopup={setOpenToursPopup}/>
     </div>
   );
 }
