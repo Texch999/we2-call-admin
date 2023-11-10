@@ -26,6 +26,26 @@ function MatchEntry() {
   const [status, setStatus] = useState(false);
   const [afterDeclare, setAfterDeclare] = useState(false);
 
+  useEffect(() => {
+    getMatchPositionData();
+  }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await getAllMatches();
+    };
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    const fetchMatchInfo = async () => {
+      if (selectedMatch) {
+        await getMatchInfo();
+      }
+    };
+    fetchMatchInfo();
+  }, [selectedMatch?.match_id, afterDeclare]);
+
   // Function to fetch all matches
   const getAllMatches = async () => {
     await call(GET_OFFLINE_ALL_MATCHES, { register_id, account_role })
@@ -50,13 +70,9 @@ function MatchEntry() {
     })
       .then((res) => {
         setMatchPositionData(res?.data?.data);
-        setStatus((prev) => !prev);
       })
       .catch((err) => console.log(err));
   };
-  useEffect(() => {
-    getMatchPositionData();
-  }, [status]);
 
   const getMatchInfo = async () => {
     await call(GET_ACCOUNT_MATCHES_DATA, {
@@ -73,22 +89,6 @@ function MatchEntry() {
       })
       .catch((err) => console.log(err));
   };
-
-  useEffect(() => {
-    const fetchData = async () => {
-      await getAllMatches();
-    };
-    fetchData();
-  }, [status]);
-
-  useEffect(() => {
-    const fetchMatchInfo = async () => {
-      if (selectedMatch) {
-        await getMatchInfo();
-      }
-    };
-    fetchMatchInfo();
-  }, [selectedMatch?.match_id, afterDeclare, status]);
 
   return (
     <div>

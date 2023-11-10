@@ -40,6 +40,17 @@ function MatchEntryInput({
     });
   };
 
+  const handleInputChange = (e) => {
+    if (e.target.value.length <= 4) {
+      let value = e.target.value;
+      if (value?.startsWith("1.")) {
+        setRate(value?.substring(2));
+      } else {
+        setRate(value);
+      }
+    }
+  };
+
   const resetFields = () => {
     setRate("");
     setMatchEntryInputData({});
@@ -56,13 +67,6 @@ function MatchEntryInput({
       })
       .catch((err) => console.log(err));
   };
-
-  useEffect(() => {
-    const fetchData = async () => {
-      await getAllClientsData();
-    };
-    fetchData();
-  }, []);
 
   const handleMatchSubmitPopup = async () => {
     if (
@@ -155,6 +159,13 @@ function MatchEntryInput({
   };
 
   useEffect(() => {
+    const fetchData = async () => {
+      await getAllClientsData();
+    };
+    fetchData();
+  }, []);
+
+  useEffect(() => {
     if (selectedMatchEntry) {
       setSelectedOptions({
         label: selectedMatchEntry?.client_name,
@@ -164,17 +175,6 @@ function MatchEntryInput({
       setMatchEntryInputData(selectedMatchEntry);
     }
   }, [selectedMatchEntry]);
-
-  const handleInputChange = (e) => {
-    if (e.target.value.length <= 4) {
-      let value = e.target.value;
-      if (value?.startsWith("1.")) {
-        setRate(value?.substring(2));
-      } else {
-        setRate(value);
-      }
-    }
-  };
 
   return (
     <div className="match-position-bg rounded-bottom p-3">
