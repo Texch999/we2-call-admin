@@ -259,7 +259,7 @@ function UserManagement() {
     setRegisterID(item);
   };
 
-  const handleChange = (e) => {
+  const  handleChange = (e) => {
     // console.log(name, value);
     setUserDetails({ ...userDetails, [e.target.name]: e.target.value });
   };
