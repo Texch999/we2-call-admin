@@ -16,7 +16,7 @@ function SelectYourPackagePopup(props) {
     props.handleSubmitButton();
     setSelectYourPackagePopup(false);
   };
-  console.log(error, "ERROR");
+  
   return (
     <Modal
       className="select-your-package z-index"
