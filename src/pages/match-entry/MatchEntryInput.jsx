@@ -201,7 +201,7 @@ function MatchEntryInput({
               className="w-100 custom-select medium-font btn-bg rounded all-none p-2"
               name="team"
               id="team"
-              value={matchEntryInputData?.team}
+              value={matchEntryInputData?.team || ""}
               onChange={(e) => handleMatchEntryInputDataChange(e)}
             >
               <option value="">Enter Team</option>
@@ -235,7 +235,7 @@ function MatchEntryInput({
               className="w-100 custom-select medium-font btn-bg rounded all-none p-2"
               name="pe"
               id="pe"
-              value={matchEntryInputData?.pe}
+              value={matchEntryInputData?.pe || ""}
               onChange={(e) => handleMatchEntryInputDataChange(e)}
             >
               <option value="">Select</option>

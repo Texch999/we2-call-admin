@@ -35,6 +35,7 @@ function MatchEntry() {
           (i) => i.match_declared !== "Y"
         );
         setAllMatches(temp);
+        setStatus((prev) => !prev);
         // setSelectedMatch(
         //   (result && result?.liveMatches && result?.liveMatches[0]) || ""
         // );
@@ -47,12 +48,15 @@ function MatchEntry() {
       registered_match_id: ID ? ID : matchPositionData?.registered_match_id,
       register_id,
     })
-      .then((res) => setMatchPositionData(res?.data?.data))
+      .then((res) => {
+        setMatchPositionData(res?.data?.data);
+        setStatus((prev) => !prev);
+      })
       .catch((err) => console.log(err));
   };
   useEffect(() => {
     getMatchPositionData();
-  }, []);
+  }, [status]);
 
   const getMatchInfo = async () => {
     await call(GET_ACCOUNT_MATCHES_DATA, {
@@ -75,7 +79,7 @@ function MatchEntry() {
       await getAllMatches();
     };
     fetchData();
-  }, []);
+  }, [status]);
 
   useEffect(() => {
     const fetchMatchInfo = async () => {
@@ -84,7 +88,7 @@ function MatchEntry() {
       }
     };
     fetchMatchInfo();
-  }, [selectedMatch?.match_id, afterDeclare]);
+  }, [selectedMatch?.match_id, afterDeclare, status]);
 
   return (
     <div>

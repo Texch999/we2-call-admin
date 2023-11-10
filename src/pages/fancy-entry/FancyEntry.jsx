@@ -42,6 +42,7 @@ function FancyEntry() {
         );
         setAllMatches(temp);
         setSelectedMatch((temp && temp[0]) || "");
+        setStatus((prev) => !prev);
       })
       .catch((err) => {
         console.log(err);
@@ -54,7 +55,7 @@ function FancyEntry() {
     };
 
     fetchData();
-  }, [afterDeclare]);
+  }, [afterDeclare,status]);
 
   const getMatchInfo = async () => {
     await call(GET_ACCOUNT_MATCHES_DATA, {
@@ -82,6 +83,7 @@ function FancyEntry() {
     })
       .then((res) => {
         setRiskRunningData(res?.data?.data);
+        setStatus((prev) => !prev);
       })
       .catch((err) => console.log(err));
   };
@@ -93,6 +95,7 @@ function FancyEntry() {
     })
       .then((res) => {
         setProfitLossData(res?.data?.data);
+        setStatus((prev) => !prev);
       })
       .catch((err) => console.log(err));
   };
@@ -105,7 +108,7 @@ function FancyEntry() {
     };
 
     fetchMatchInfo();
-  }, [selectedMatch, afterDeclare]);
+  }, [selectedMatch, afterDeclare,status,status]);
 
   return (
     <div>
