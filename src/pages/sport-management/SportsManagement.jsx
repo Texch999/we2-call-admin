@@ -293,7 +293,7 @@ function SportsManagement() {
       seriesName: match?.series_name,
       team: (
         <span className="role-color">
-          {match?.team1} vs  {match?.team2}
+          {match?.team1} vs {match?.team2}
         </span>
       ),
       sportName: match?.sport_name,
@@ -337,6 +337,10 @@ function SportsManagement() {
     getScheduleMatches();
     setActiveHead(0);
   }, []);
+
+  useEffect(() => {
+    getScheduleMatches();
+  }, [status]);
 
   console.log(matchData, "......matchData");
 
