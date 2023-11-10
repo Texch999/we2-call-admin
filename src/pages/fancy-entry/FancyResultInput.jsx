@@ -97,6 +97,7 @@ function FancyResultInput(props) {
               className="w-100 custom-select medium-font btn-bg rounded all-none p-2"
               name="innings"
               type="number"
+              value={fancyResultInputData?.innings || ""}
               onChange={(e) => handleFancyResultInputDataChange(e)}
             >
               <option value="">Select</option>

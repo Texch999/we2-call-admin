@@ -18,10 +18,12 @@ import {
 } from "../../config/endpoints";
 import SelectYourPackagePopup from "./SelectYourPackagePopup";
 import CallEditPopup from "./CallEditPopup";
+import MatchSubmitPopup from "./../match-popups/MatchSubmitPopup";
 
 const CallManagement = () => {
   const register_id = localStorage.getItem("register_id");
   const account_role = localStorage.getItem("account_role");
+  const [status, setStatus] = useState(false);
   const [upcomingMeetings, setUpcomingMeetings] = useState([]);
   const [listOfUsers, setListOfUsers] = useState([]);
   const [personalMeeting, setPersonalMeeting] = useState(false);
@@ -36,19 +38,18 @@ const CallManagement = () => {
   const [error, setError] = useState("");
   const [meetingEditPopup, setMeetingEditPopup] = useState(false);
   const [selectedMeeting, setSelectedMeeting] = useState("");
+  const [meetingSuccessPopup, setMeetingSuccessPopup] = useState(false);
   const [selectYourPackagePopup, setSelectYourPackagePopup] = useState(false);
 
   useEffect(() => {
-    getAllMeetingsData();
     getAdminUsersList();
     getAllAdminMatches();
     getAdminPackages();
   }, []);
 
-  // const resetFields = () => {
-  //   setMeetingInput({});
-  //   setSelectedUsers("");
-  // };
+  useEffect(() => {
+    getAllMeetingsData();
+  }, [status]);
 
   const handleChange = (e) => {
     setMeetingInput({ ...meetingInput, [e.target.name]: e.target.value });
@@ -56,6 +57,12 @@ const CallManagement = () => {
 
   const handlePackageSelection = (e) => {
     setSelectedPackages(e);
+  };
+
+  const resetFields = () => {
+    setMeetingInput({});
+    setMeetingList("");
+    setSelectedUsers("");
   };
 
   const meetingOptionsList = matchesData?.map((item) => {
@@ -127,6 +134,7 @@ const CallManagement = () => {
     await call(GET_ALL_MEETINGS, { register_id })
       .then((res) => {
         setUpcomingMeetings(res?.data?.data);
+        setStatus((prev) => !prev);
       })
       .catch((err) => console.log(err));
   };
@@ -170,7 +178,7 @@ const CallManagement = () => {
           time: obj?.time,
           user: meetingUserData.map((obj) => <>{obj?.user_name}</>),
           recording_status: obj?.recording_status,
-          action: "edit",
+          action: <MdModeEditOutline className="d-flex" size={18} />,
         };
       });
 
@@ -223,16 +231,23 @@ const CallManagement = () => {
       video_call_type: meetingInput?.video_call_type === 0 ? true : false,
     };
     const url = selectedMeeting ? UPDATE_MEETING : CREATE_MEETING;
-    await call(url, { payload })
+    await call(url, payload)
       .then((res) => {
         if (res?.data?.statusCode === 200) {
           setSelectedPackages({});
           setSelectedMeeting({});
           getAllMeetingsData();
-          setMeetingInput({});
+          resetFields();
+          setMeetingSuccessPopup(true);
+          setTimeout(() => {
+            setMeetingSuccessPopup(false);
+          }, 1000);
           setError(
             res?.data?.message ? res?.data?.message : "Something Went Wrong"
           );
+          setTimeout(() => {
+            setError("");
+          }, 1000);
         } else {
           setError(
             res?.data?.message ? res?.data?.message : "Something Went Wrong"
@@ -242,19 +257,12 @@ const CallManagement = () => {
       .catch((err) => console.log(err));
   };
 
-  const onEditClick = () => {
-    setMeetingEditPopup(!meetingEditPopup);
+  const handleEditButton = (data) => {
     const obj = {
-      ...selectedMeeting,
-      date: selectedMeeting?.date,
-      time: selectedMeeting?.time,
+      date: data?.date,
+      time: data?.time,
     };
-    setMeetingInput({ ...meetingInput, ...obj });
-  };
-
-  const handleEditPopupOpen = (data) => {
-    setMeetingEditPopup(true);
-    setSelectedMeeting(data);
+    setMeetingInput({ ...obj });
   };
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -297,7 +305,7 @@ const CallManagement = () => {
                   placeholder="Professional Meeting Name..."
                   isSearchable={true}
                   options={meetingOptionsList}
-                  value={meetingList}
+                  value={meetingList || ""}
                   onChange={(e) => handleMatchSelect(e)}
                 />
               )}
@@ -307,7 +315,7 @@ const CallManagement = () => {
                   placeholder="Personal Meeting Name"
                   type="text"
                   name="event_name"
-                  value={meetingInput?.event_name}
+                  value={meetingInput?.event_name || ""}
                   onChange={(e) => handleChange(e)}
                 />
               )}
@@ -321,7 +329,7 @@ const CallManagement = () => {
                 placeholder="Enter Meeting Name"
                 type="date"
                 name="date"
-                value={meetingInput?.date}
+                value={meetingInput?.date || ""}
                 onChange={(e) => handleChange(e)}
               />
             </div>
@@ -334,7 +342,7 @@ const CallManagement = () => {
                 placeholder="Enter Meeting Name"
                 type="time"
                 name="time"
-                value={meetingInput?.time}
+                value={meetingInput?.time || ""}
                 onChange={(e) => handleChange(e)}
               />
             </div>
@@ -349,7 +357,7 @@ const CallManagement = () => {
                 closeMenuOnSelect={false}
                 isMulti
                 options={usersList}
-                value={selectedUsers}
+                value={selectedUsers || ""}
                 onChange={(e) => handleSelectedUsers(e)}
               />
             </div>
@@ -360,9 +368,10 @@ const CallManagement = () => {
               <select
                 className="custom-select medium-font btn-bg  all-none p-2 rounded pb-2"
                 name="video_call_type"
+                value={meetingInput?.video_call_type || ""}
                 onChange={(e) => handleChange(e)}
               >
-                <option>Select</option>
+                <option value="">Select</option>
                 <option value={0}>Audio Only</option>
                 <option value={1}>Audio + Video</option>
               </select>
@@ -454,9 +463,9 @@ const CallManagement = () => {
                         <Button
                           type="button"
                           className="text-warning rounded-circle border-0 meetings-edit-button p-2"
-                          onClick={() => handleEditPopupOpen(data)}
+                          onClick={() => handleEditButton(data)}
                         >
-                          <MdModeEditOutline className="d-flex" size={18} />
+                          {data?.action}
                         </Button>
                       )}
                     </td>
@@ -540,7 +549,12 @@ const CallManagement = () => {
       />
       <CallEditPopup
         meetingEditPopup={meetingEditPopup}
-        setMeetingEditPopup={onEditClick}
+        setMeetingEditPopup={setMeetingEditPopup}
+      />
+      <MatchSubmitPopup
+        header={"Meeting Created Succesfully"}
+        state={meetingSuccessPopup}
+        setState={setMeetingSuccessPopup}
       />
     </div>
   );

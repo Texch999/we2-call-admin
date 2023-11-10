@@ -9,36 +9,16 @@ function MatchCommModal(props) {
     mergedDataArray?.length > 0 &&
     mergedDataArray?.map((client) => ({
       header: client?.client,
-      clientComm: client?.clientComm?.toFixed(2),
-      rfComm: client?.rfComm?.toFixed(2),
+      clientComm: client?.clientComm?.toFixed(2) || 0,
+      rfComm: client?.rfComm?.toFixed(2) || 0,
     }));
-    
-  // const MATCH_POSITION_TABLE_DATA = [
-  //   {
-  //     header: "Animesh",
-  //     clientComm: 50000000,
-  //     rfComm: 50000000,
-  //     // ulComm: "- -",
-  //   },
-  //   {
-  //     header: "Animesh",
-  //     clientComm: 50000000,
-  //     rfComm: 50000000,
-  //     // ulComm: "- -",
-  //   },
-  //   {
-  //     header: "Animesh",
-  //     clientComm: 50000000,
-  //     rfComm: 50000000,
-  //     // ulComm: "- -",
-  //   },
-  // ];
+
   const MATCH_POSITION_HEADER_DATA = [
     { header: "Client Name", field: "header" },
     { header: "Client Comm", field: "clientComm" },
     { header: "RF Comm", field: "rfComm" },
-    // { header: "- -", field: "ulComm" },
   ];
+  
   return (
     <Modal
       className="match-share-modal modal-lg"
