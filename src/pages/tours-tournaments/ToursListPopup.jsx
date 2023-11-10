@@ -11,110 +11,111 @@ import {
 import { MdOutlineEdit } from "react-icons/md";
 
 function ToursListPopup(props) {
-  const { openToursPopup, setOpenToursPopup } = props;
-  const TableHeads = [
+  const { openToursPopup, setOpenToursPopup, toursList } = props;
+  const TableHeads = toursList&&toursList.length>0?[
     {
       label: "SNO",
       field: "s_no",
     },
     {
-      label: "Tour Name",
-      field: "tour_name",
+      label: "Tour Title",
+      field: "tour_title",
     },
     {
       label: "Location",
       field: "location",
     },
     {
-      label: "Date",
-      field: "date",
+      label: "Start Date",
+      field: "schedule_from",
+    },
+    {
+      label: "End Date",
+      field: "schedule_upto",
     },
     {
       field: "button",
     },
+  ]:[{
+    label: "TOURS",
+    field: "tours",
+  }];
+
+  const TableData = toursList && toursList.length > 0
+  ? toursList.map((tour, index) => {
+      if (tour) {
+        return {
+          s_no: index+1,
+          tour_title: tour.tour_title,
+          location: tour.country,
+          schedule_from: tour.schedule_from,
+          schedule_upto: tour.schedule_upto,
+          button: <button key={index} className="table-button rounded">I am Interested</button>,
+        };
+      } else {
+        return null;
+      }
+    })
+  : [
+    {tours:"No Tours to Display"}
   ];
 
-  const TableData = [
-    {
-      s_no: "1",
-      tour_name: "india vs aus",
-      location: "melborn",
-      date: "20-2-2023",
-      button: <button className="table-button rounded">Iam Intrested</button>,
-    },
-    {
-      s_no: "1",
-      tour_name: "india vs aus",
-      location: "melborn",
-      date: "20-2-2023",
-      button: <button className="table-button rounded">Iam Intrested</button>,
-    },
-
-    {
-      s_no: "1",
-      tour_name: "india vs ausppppp",
-      location: "melborn",
-      date: "20-2-2023",
-      button: <button className="table-button rounded">Iam Intrested</button>,
-    },
-    {
-      s_no: "1",
-      tour_name: "india vs aus",
-      location: "melborn",
-      date: "20-2-2023",
-      button: <button className="table-button rounded">Iam Intrested</button>,
-    },
-  ];
+  
   return (
-    <Modal
-      onHide={() => setOpenToursPopup(false)}
-      show={openToursPopup}
-      centered
-      className="add-user-modal"
-    >
-      <Modal.Header closeButton>
-        <Modal.Title className="w-100 text-center">Tours List</Modal.Title>
-      </Modal.Header>
-      <center>Select Your Tours</center>
-      <div className="p-2 w-100">
-        <table className="w-100">
-          <thead id="home-table-head">
-            <tr>
-              {TableHeads.map((item, i) => {
-                return <th className="text-center">{item.label}</th>;
-              })}
-            </tr>
-          </thead>
-          {TableData.map((item, i) => {
-            return (
-              <tr className="tr-item ">
-                {TableHeads.map((headItem, i) => {
-                  return <td className="td-item p-1">{item[headItem.field]}</td>;
+    <div className="modal fade bd-example-modal-lg container mt-5">
+      <Modal
+        onHide={() => setOpenToursPopup(false)}
+        show={openToursPopup}
+        centered
+        size="xl"
+        className="match-share-modal w-100 close-btn"
+      >
+        <Modal.Header closeButton>
+          <Modal.Title className="w-100 text-center">Tours List</Modal.Title>
+        </Modal.Header>
+        <center>Select Your Tours</center>
+        <div className="p-2 w-100">
+          <table className="w-100">
+            <thead id="home-table-head" className="p-3">
+              <tr>
+                {TableHeads.map((item, i) => {
+                  return <th key={i} className="text-center">{item.label}</th>;
                 })}
               </tr>
-            );
-          })}
-        </table>
-        <Row className="mt-2 p-2">
-          <Col>
-            <Button
-              className="add-user-button w-100"
-              onClick={() => setOpenToursPopup(false)}
-            >
-              Submit
-            </Button>
-          </Col>
-          <Col>
-            <Button
-              className="cancel-button w-100"
-              onClick={() => setOpenToursPopup(false)}
-            >
-              Cancel
-            </Button>
-          </Col>
-        </Row>
-      </div>
-    </Modal>
+            </thead>
+            <tbody className="p-3">
+              {TableData.map((item, i) => {
+                return (
+                  <tr key={i} className="tr-item">
+                    {TableHeads.map((headItem, i) => {
+                      return <td key={i} className="td-item p-2">{item[headItem.field]}</td>;
+                    })}
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+          <Row className="mt-2 p-2">
+            <Col>
+              <Button
+                className="add-user-button w-100"
+                onClick={() => setOpenToursPopup(false)}
+              >
+                Submit
+              </Button>
+            </Col>
+            <Col>
+              <Button
+                className="cancel-button w-100"
+                onClick={() => setOpenToursPopup(false)}
+              >
+                Cancel
+              </Button>
+            </Col>
+          </Row>
+        </div>
+      </Modal>
+    </div>
   );
 }
 

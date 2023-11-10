@@ -67,6 +67,7 @@ const GET_ADMIN_PACKAGES = "/packages/get_admin_packages";
 const DELETE_OFFLINE_CLIENT = "/offline-management/delete_clients";
 const PRIVACY_POLICY = "/management/get_policy_document";
 const RESET_PASSWORD = "/admin/reset_password";
+const GET_TOURS = "/tours/get_tours";
 
 // methods
 const DELETE = "DELETE";
@@ -74,6 +75,10 @@ const POST = "POST";
 const GET = "POST";
 const PUT = "PUT";
 
+exports.GET_TOURS = {
+  url:GET_TOURS,
+  method: POST
+}
 exports.GET_COMPLETED_MATCHES_BY_CLEINT = {
   url: GET_COMPLETED_MATCHES_BY_CLEINT,
   method: POST,

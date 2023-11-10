@@ -5,12 +5,28 @@ import { useHistory } from "react-router";
 import { useState } from "react";
 import ToursListPopup from "./ToursListPopup";
 
-function Football() {
+function Football(props) {
+  const { tours } = props;
   const history = useHistory();
   const [openToursPopup, setOpenToursPopup] = useState(false)
-  const handleIntrestButton = () =>{
-    setOpenToursPopup(true)
-  }
+  const [filteredTours, setFilteredTours] = useState([])
+  const handleIntrestButton = (tourName) => {
+    setFilteredTours(tours
+      .filter((tour)=>tour.tour_name===tourName)
+      .filter((tour)=>tour.status==="active")
+      .filter((tour)=>{
+        const publishStartDate = new Date(tour.publish_from)
+        const publishStartTimestamp = publishStartDate.getTime()
+        const publishEndDate = new Date(tour.publish_upto)
+        const publishEndTimestamp = publishEndDate.getTime()
+        const currentTimestamp = Date.now()
+        if(currentTimestamp>publishStartTimestamp&&currentTimestamp<publishEndTimestamp){
+          return tour
+        }
+      })
+    )
+    setOpenToursPopup(true);
+  };
 
   return (
     <div className="row  p-2 tour-cricket">
@@ -40,13 +56,13 @@ function Football() {
             <div
               className="w-60 intrested meetings-heading mt-1"
               id="black-background"
-              onClick={()=>{handleIntrestButton()}}
+              onClick={()=>{handleIntrestButton("3.Sports Tour")}}
             >
               I’m Interested
             </div>
-            <div className="small-font meetings-heading mt-2">
+            {/* <div className="small-font meetings-heading mt-2">
               Tour Starting Date
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
@@ -68,7 +84,7 @@ function Football() {
             </h4>
             <div className="w-90 like-button mt-2 d-flex">
               <div className="w-60 intrested meetings-heading"
-                    onClick={()=>{handleIntrestButton()}}
+                    onClick={()=>{handleIntrestButton("4.Casino Tour")}}
               >
                 I’m Interested
               </div>
@@ -79,16 +95,19 @@ function Football() {
                 <span className="small-font">are interested</span>
               </div>
             </div>
-            <div className="small-font meetings-heading mt-3">
+            {/* <div className="small-font meetings-heading mt-3">
               Tour Start Date: 2nd Aug, 2023
-            </div>
+            </div> */}
           </div>
           <div className="col-6 d-flex align-items-center">
             <img className="banner" src={Images.CasinoBanner}></img>
           </div>
         </div>
       </div>
-      <ToursListPopup openToursPopup={openToursPopup} setOpenToursPopup={setOpenToursPopup}/>
+      <ToursListPopup openToursPopup={openToursPopup} 
+                      setOpenToursPopup={setOpenToursPopup}
+                      toursList={filteredTours}              
+      />
     </div>
   );
 }

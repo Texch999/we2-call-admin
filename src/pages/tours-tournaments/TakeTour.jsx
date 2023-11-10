@@ -5,12 +5,30 @@ import { useHistory } from "react-router";
 import { useState } from "react";
 import ToursListPopup from "./ToursListPopup";
 
-function TakeTour() {
+function TakeTour(props) {
+  const {tours} = props
+  // console.log(tours,'......tours')
   const history = useHistory();
   const [openToursPopup, setOpenToursPopup] = useState(false);
-  const handleIntrestButton = () => {
+  const [filteredTours, setFilteredTours] = useState([])
+  const handleIntrestButton = (tourName) => {
+    setFilteredTours(tours
+      .filter((tour)=>tour.tour_name===tourName)
+      .filter((tour)=>tour.status==="active")
+      .filter((tour)=>{
+        const publishStartDate = new Date(tour.publish_from)
+        const publishStartTimestamp = publishStartDate.getTime()
+        const publishEndDate = new Date(tour.publish_upto)
+        const publishEndTimestamp = publishEndDate.getTime()
+        const currentTimestamp = Date.now()
+        if(currentTimestamp>publishStartTimestamp&&currentTimestamp<publishEndTimestamp){
+          return tour
+        }
+      })
+    )
     setOpenToursPopup(true);
   };
+
   return (
     <div className="row  p-2 tour-cricket">
       <div className="col-sm-12 col-md-7">
@@ -18,7 +36,7 @@ function TakeTour() {
           <div className="col-6 p-3">
             {/* <div className="d-inline align-items-center"> */}
             <h3 className="meetings-heading mt-3 d-inline">
-              Take a Part in Our Tour
+              Take Part in Our Tours
             </h3>
             <div className="d-flex align-items-center">
               <div
@@ -37,7 +55,7 @@ function TakeTour() {
             <div className="w-90 like-button mt-2 d-flex">
               <div
                 className="w-60 intrested meetings-heading"
-                onClick={() => handleIntrestButton()}
+                onClick={() => handleIntrestButton("1.Take Part in Our Tour")}
               >
                 I’m Interested
               </div>
@@ -48,9 +66,9 @@ function TakeTour() {
                 <span className="small-font">are interested</span>
               </div>
             </div>
-            <div className="small-font meetings-heading mt-3">
+            {/* <div className="small-font meetings-heading mt-3">
               Goa 23-10-2023, Srilanka 29-11-2023
-            </div>
+            </div> */}
           </div>
           <div className="col-4 d-flex align-items-center">
             <img className="banner" src={Images.travel_banner}></img>
@@ -77,17 +95,20 @@ function TakeTour() {
               Click on interest buttons to get a changce to a part of our tour
             </span>
             <div className="w-60 intrested meetings-heading mt-1"
-                  onClick={() => handleIntrestButton()}
+                  onClick={() => handleIntrestButton("2.Cricket Tour")}
             >
               I’m Interested
             </div>
-            <div className="small-font meetings-heading mt-2">
+            {/* <div className="small-font meetings-heading mt-2">
               Tour Starting Date
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
-      <ToursListPopup openToursPopup={openToursPopup} setOpenToursPopup={setOpenToursPopup}/>
+      <ToursListPopup openToursPopup={openToursPopup} 
+                      setOpenToursPopup={setOpenToursPopup}
+                      toursList={filteredTours}
+      />
     </div>
   );
 }
