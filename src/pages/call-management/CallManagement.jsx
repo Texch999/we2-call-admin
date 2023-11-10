@@ -211,9 +211,18 @@ const CallManagement = () => {
   };
 
   const handleOpenSelectYourPackage = () => {
+    if (
+      !meetingList ||
+      !selectedUsers ||
+      !meetingInput?.date ||
+      !meetingInput?.time ||
+      !meetingInput?.video_call_type
+    ) {
+      setError("Please Enter Required Fields");
+      return;
+    }
     setSelectYourPackagePopup(true);
   };
-
   const handleSubmitButton = async () => {
     if (!selectedPackages?.package_id) {
       setError("Please Select Package");
@@ -257,12 +266,13 @@ const CallManagement = () => {
       .catch((err) => console.log(err));
   };
 
-  const handleEditButton = (data) => {
+  const handleEditButton = () => {
     const obj = {
-      date: data?.date,
-      time: data?.time,
+      ...selectedMeeting,
+      date: selectedMeeting.date,
+      time: selectedMeeting.time,
     };
-    setMeetingInput({ ...obj });
+    setMeetingInput({ ...meetingInput, ...obj });
   };
 
   const [currentPage, setCurrentPage] = useState(1);
