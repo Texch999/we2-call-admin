@@ -81,11 +81,11 @@ function UserManagement() {
     if (
       (!userDetails?.alias_name,
       !userDetails?.select_client,
-      !userDetails?.refer_name,
+      !userDetails?.referral_name,
       !userDetails?.rf_share,
       !userDetails?.rf_fancy_comm,
       !userDetails?.rf_comm,
-      !userDetails?.deposite_type,
+      !userDetails?.deposit_type,
       !userDetails?.location,
       !userDetails?.match_risk_limit)
     ) {
@@ -97,7 +97,7 @@ function UserManagement() {
       account_role,
       client_type: userDetails?.client_type,
       client_name: userDetails?.select_client,
-      referral_name: userDetails?.refer_name,
+      referral_name: userDetails?.referral_name,
       client_risk_limit: userDetails?.match_risk_limit,
       referal_id: referalId[0].refferal_id,
       referral_comm: userDetails?.rf_comm,
@@ -106,38 +106,52 @@ function UserManagement() {
       alias_name: userDetails?.alias_name,
       master_share: localStorage?.getItem("share") || 0,
       ul_share: localStorage?.getItem("ul_share") || 0,
-      deposit_type: userDetails?.deposite_type,
+      deposit_type: userDetails?.deposit_type,
       location: userDetails?.location,
       match_race_comm: 2,
       client_share: 2,
       fancy_comm: 2,
     };
+    await call(CREATE_OFFLINE_CLIENT, userDeatailsPayload)
+      .then((res) => {
+        if (res?.data?.statusCode === 200) {
+          setAddClientStatus((prev) => !prev);
+          setUserCreationSubmitPopup(true);
+          setTimeout(() => {
+            setUserCreationSubmitPopup(false);
+          }, 1000);
+          setEditStatus(false);
+          // handleReset();
+        } else {
+          setError(
+            res?.data?.message ? res?.data?.message : `something wen't wrong`
+          );
+        }
+      })
+      .catch((err) => {
+        setIsProcessing(false);
+        console.log(err);
+        setError(err?.message ? err?.message : `something wen't wrong`);
+      });
+  };
 
-    updateUser === true
-      ? await call(UPDATE_OFFLINE_CLIENT, userDeatailsPayload)
-      : await call(CREATE_OFFLINE_CLIENT, userDeatailsPayload)
-          .then((res) => {
-            if (res?.data?.statusCode === 200) {
-              setAddClientStatus((prev) => !prev);
-              setUserCreationSubmitPopup(true);
-              setTimeout(() => {
-                setUserCreationSubmitPopup(false);
-              }, 1000);
-              setEditStatus(false);
-              // handleReset();
-            } else {
-              setError(
-                res?.data?.message
-                  ? res?.data?.message
-                  : `something wen't wrong`
-              );
-            }
-          })
-          .catch((err) => {
-            setIsProcessing(false);
-            console.log(err);
-            setError(err?.message ? err?.message : `something wen't wrong`);
-          });
+  const handleUpdateUser = async () => {
+    if (
+      (!userDetails?.alias_name,
+      // !userDetails?.select_client,
+      !userDetails?.referral_name,
+      !userDetails?.rf_share,
+      !userDetails?.rf_fancy_comm,
+      !userDetails?.rf_comm,
+      !userDetails?.deposit_type,
+      !userDetails?.location,
+      !userDetails?.match_risk_limit)
+    ) {
+      return setError("Please Enter All Field");
+    } else {
+      return setError("Success full");
+    }
+    // setError("success ful");
   };
 
   const clientId = allClients.filter((item) => {
@@ -218,6 +232,9 @@ function UserManagement() {
       });
   };
   console.log(existingClients, "EEEEE");
+
+  console.log(userDetails, "userDetails..");
+
   const exsitedUsers =
     existingClients &&
     existingClients?.length > 0 &&
@@ -259,7 +276,7 @@ function UserManagement() {
     setRegisterID(item);
   };
 
-  const  handleChange = (e) => {
+  const handleChange = (e) => {
     // console.log(name, value);
     setUserDetails({ ...userDetails, [e.target.name]: e.target.value });
   };
@@ -302,7 +319,7 @@ function UserManagement() {
 
   useEffect(() => {
     getOfflineClients();
-  }, [addClientStatus, status]);
+  }, [addClientStatus]);
 
   return (
     <div className="p-3">
@@ -414,7 +431,7 @@ function UserManagement() {
             <select
               className="sport-management-input d-flex  w-100 sport-management-select cursor-pointer"
               onChange={(e) => handleChange(e)}
-              name="refer_name"
+              name="referral_name"
             >
               <option className="w-90 ms-1 cursor-pointer" value="">
                 {userDetails.referral_name || "Select..."}
@@ -483,11 +500,16 @@ function UserManagement() {
             <select
               className="sport-management-input d-flex  w-100 sport-management-select meetings-heading"
               onChange={(e) => handleChange(e)}
-              name="deposite_type"
+              name="deposit_type"
             >
               <option>
-                {userDetails.deposite_type === 0 ? "Credite" : "Deposite"} ||
-                Select...
+                {userDetails?.deposit_type === 0
+                  ? "Credite"
+                  : userDetails?.deposit_type === 0
+                  ? "Deposite"
+                  : "Select.."}
+                ||
+                {/* Select... */}
               </option>
               <option value="0">Credit</option>
               <option value="1">Deposit</option>
@@ -531,7 +553,11 @@ function UserManagement() {
         <div className="col-3 d-flex align-items-end">
           <div
             className="sport-management-input w-100 d-flex justify-content-center align-items-center bg-yellow"
-            onClick={() => handleSubmitUser()}
+            onClick={
+              updateUser === true
+                ? () => handleUpdateUser()
+                : () => handleSubmitUser()
+            }
           >
             {updateUser === true ? "Update" : "Submit"}
           </div>
