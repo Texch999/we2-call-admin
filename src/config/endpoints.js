@@ -72,6 +72,10 @@ const ACTIVE_INACTIVE_USERS =
 const MANAGEMENT_MATCHES = "/management/get_matches_by_accountrole";
 const CREATE_MEETING = "/meetings/create_meeting";
 const UPDATE_MEETING = "/meetings/update_call_meetings";
+const GET_LIVE_MATCH_RISK_POSITION =
+  "/offline-management/live_match_risk_position";
+const GET_STATEMENT_BY_MATCH_ID =
+  "/offline-management/get_statement_bymatch_id";
 
 // methods
 const DELETE = "DELETE";
@@ -79,6 +83,14 @@ const POST = "POST";
 const GET = "POST";
 const PUT = "PUT";
 
+exports.GET_LIVE_MATCH_RISK_POSITION = {
+  url: GET_LIVE_MATCH_RISK_POSITION,
+  method: POST,
+};
+exports.GET_STATEMENT_BY_MATCH_ID = {
+  url: GET_STATEMENT_BY_MATCH_ID,
+  method: POST,
+};
 exports.GET_UPDATED_MATCHES_DATA = {
   url: GET_UPDATED_MATCHES_DATA,
   method: POST,

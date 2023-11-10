@@ -4,8 +4,15 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import AdminPopReports from "./AdminPopReports";
 import { GiClick } from "react-icons/gi";
 import CustomPagination from "../pagination/CustomPagination";
+import {
+  GET_LIVE_MATCH_RISK_POSITION,
+  GET_OFFLINE_CLIENTS,
+} from "../../config/endpoints";
+import { call } from "../../config/axios";
+import { useEffect } from "react";
 
 const AdminOnePageReport = () => {
+  const [allUsers, setAllUsers] = useState([]);
   const [adminOnePageReportPopUp, setAdminOnePageReportPopUp] = useState(false);
   const [adminName, setAdminName] = useState("");
   const [role, setRole] = useState("");
@@ -14,45 +21,71 @@ const AdminOnePageReport = () => {
   const reports = ["Admin One Page Report", "UL/Platform Comm Report"];
   const [activeReport, setActiveReport] = useState("Admin One Page Report");
   const [popupHeading, setPopupHeading] = useState(false);
+  const register_id = localStorage.getItem("register_id");
 
-  const adminOnePageReportData = [
-    {
-      admin_name: "Animesh",
-      admin_role: "Agent",
-      profit_loss: 500000.0,
-      ul_share: 200000.0,
-    },
-    {
-      admin_name: "Sri8647",
-      admin_role: "Master",
-      profit_loss: 500000.0,
-      ul_share: 200000.0,
-    },
-    {
-      admin_name: "Ganesh",
-      admin_role: "Super Master",
-      profit_loss: 500000.0,
-      ul_share: 200000.0,
-    },
-    {
-      admin_name: "Lokesh",
-      admin_role: "Super Admin",
-      profit_loss: 500000.0,
-      ul_share: 200000.0,
-    },
-    {
-      admin_name: "Lokesh",
-      admin_role: "Super Admin",
-      profit_loss: 500000.0,
-      ul_share: 200000.0,
-    },
-    {
-      admin_name: "Dona456",
-      admin_role: "Super Master",
-      profit_loss: 500000.0,
-      ul_share: 200000.0,
-    },
-  ];
+  // const adminOnePageReportData = [
+  //   {
+  //     admin_name: "Animesh",
+  //     admin_role: "Agent",
+  //     profit_loss: 500000.0,
+  //     ul_share: 200000.0,
+  //   },
+  //   {
+  //     admin_name: "Sri8647",
+  //     admin_role: "Master",
+  //     profit_loss: 500000.0,
+  //     ul_share: 200000.0,
+  //   },
+  //   {
+  //     admin_name: "Ganesh",
+  //     admin_role: "Super Master",
+  //     profit_loss: 500000.0,
+  //     ul_share: 200000.0,
+  //   },
+  //   {
+  //     admin_name: "Lokesh",
+  //     admin_role: "Super Admin",
+  //     profit_loss: 500000.0,
+  //     ul_share: 200000.0,
+  //   },
+  //   {
+  //     admin_name: "Lokesh",
+  //     admin_role: "Super Admin",
+  //     profit_loss: 500000.0,
+  //     ul_share: 200000.0,
+  //   },
+  //   {
+  //     admin_name: "Dona456",
+  //     admin_role: "Super Master",
+  //     profit_loss: 500000.0,
+  //     ul_share: 200000.0,
+  //   },
+  // ];
+  const getUlShare = (netPl, ulShare) => {
+    const netAmount = (+netPl || 0 * +ulShare || 0) / 100;
+    return netAmount;
+  };
+  const adminOnePageReportData =
+    allUsers &&
+    allUsers?.length > 0 &&
+    allUsers?.map((user) => {
+      const netPL = getUlShare(user?.total_amount, user?.ul_share);
+      return {
+        admin_name: <div>{user?.client_name}</div>,
+        admin_role: <div>{`${user?.account_role}`}</div>,
+        net_pl: (
+          <div className={user?.total_amount >= 0 ? "clr-green" : "clr-red"}>
+            {user?.total_amount || 0}
+          </div>
+        ),
+        ul_share: (
+          <div className={netPL >= 0 ? "clr-green" : "clr-red"}>{netPL}</div>
+        ),
+        // onClick: () =>
+        //   handleIndividualAdminOnePageReport(user?.register_id, user?.ul_share),
+      };
+    });
+
   const adminOnePageReportIndividualData = [
     {
       series_name: "T20 world cup",
@@ -209,13 +242,35 @@ const AdminOnePageReport = () => {
     { header: "Admin P/L", field: "profit_loss" },
     { header: "UL/Plat Comm", field: "urs_profilt_loss" },
   ];
+  const getAllUsers = async () => {
+    await call(GET_OFFLINE_CLIENTS, { register_id })
+      .then((res) => {
+        // console.log(res.data);
+        let results = res?.data?.data?.filter(
+          (item) => item.user_status !== "deleted"
+        );
+        setAllUsers(results);
+      })
+      .catch((err) => console.log(err));
+  };
+  const getUserMatches = async (userId) => {
+    await call(GET_LIVE_MATCH_RISK_POSITION, { user_id: userId })
+      .then((res) => {
+        console.log(res.data.data);
+      })
+      .catch((err) => console.log(err));
+  };
+  useEffect(() => {
+    getAllUsers();
+    getUserMatches();
+  });
   const handleReport = (report) => {
     setActiveReport(report);
   };
   const handleAdminReports = (data) => {
     if (activeReport === "Admin One Page Report") {
       setAdminName(data?.admin_name);
-      setRole(data?.admin_role);
+      // setRole(data?.admin_role);
       setAdminOnePageReportPopUp(true);
       setAdminsData(adminOnePageReportIndividualData);
       setAdminsHeadings(adminOnePageReportIndividualHeadings);
@@ -272,24 +327,21 @@ const AdminOnePageReport = () => {
             </tr>
           </thead>
           <tbody>
-            {adminOnePageReportData?.map((data, index) => (
-              <tr key={index}>
-                <td
-                  className="text-center cursor-pointer"
-                  onClick={() => handleAdminReports(data)}
-                >
-                  {data?.admin_name}{" "}
-                  <GiClick className="custom-click-icon ms-1 mt-2" />
-                </td>
-                <td className="text-center">{data?.admin_role}</td>
-                <td className="text-center">
-                  {parseFloat(data?.profit_loss).toFixed(2)}
-                </td>
-                <td className="text-center">
-                  {parseFloat(data?.ul_share).toFixed(2)}
-                </td>
-              </tr>
-            ))}
+            {adminOnePageReportData.length &&
+              adminOnePageReportData?.map((data, index) => (
+                <tr key={index}>
+                  <td
+                    className="cursor-pointer d-flex flex-row justify-content-center align-items-center"
+                    onClick={() => handleAdminReports(data)}
+                  >
+                    {data?.admin_name}{" "}
+                    <GiClick className="custom-click-icon ms-1 mt-2" />
+                  </td>
+                  <td className="text-center">{data?.admin_role}</td>
+                  <td className="text-center">{data?.net_pl} </td>
+                  <td className="text-center">{data?.ul_share} </td>
+                </tr>
+              ))}
           </tbody>
           <tfoot>
             <tr>
@@ -297,20 +349,22 @@ const AdminOnePageReport = () => {
                 TOTAL
               </th>
               <th className="text-center clr-green">
-                {adminOnePageReportData
-                  ?.reduce(
-                    (total, data) => total + parseFloat(data?.profit_loss),
-                    0
-                  )
-                  .toFixed(2)}
+                {adminOnePageReportData.length &&
+                  adminOnePageReportData
+                    ?.reduce(
+                      (total, data) => total + parseFloat(data?.profit_loss),
+                      0
+                    )
+                    .toFixed(2)}
               </th>
               <th className="text-center clr-green">
-                {adminOnePageReportData
-                  ?.reduce(
-                    (total, data) => total + parseFloat(data?.ul_share),
-                    0
-                  )
-                  .toFixed(2)}
+                {adminOnePageReportData.length &&
+                  adminOnePageReportData
+                    ?.reduce(
+                      (total, data) => total + parseFloat(data?.ul_share),
+                      0
+                    )
+                    .toFixed(2)}
               </th>
             </tr>
           </tfoot>
