@@ -10,6 +10,7 @@ import {
 } from "../../config/endpoints";
 import { call } from "../../config/axios";
 import { useEffect } from "react";
+import moment from "moment";
 
 const AdminOnePageReport = () => {
   const [allUsers, setAllUsers] = useState([]);
@@ -22,6 +23,7 @@ const AdminOnePageReport = () => {
   const [activeReport, setActiveReport] = useState("Admin One Page Report");
   const [popupHeading, setPopupHeading] = useState(false);
   const register_id = localStorage.getItem("register_id");
+  const [induvisualUserReport, setInduvisualUserReport] = useState([]);
 
   // const adminOnePageReportData = [
   //   {
@@ -65,6 +67,27 @@ const AdminOnePageReport = () => {
     const netAmount = (+netPl || 0 * +ulShare || 0) / 100;
     return netAmount;
   };
+  const [ulShare, setUlShare] = useState(0);
+  const [userName, setUserName] = useState("");
+  const [userRole, setUserRole] = useState("");
+
+  // const handleIndividualAdminOnePageReport = (
+  //   userId,
+  //   ulShare,
+  //   username,
+  //   role
+  // )
+  //  => {
+  //   getUserMatches(userId);
+  //   setUlShare(ulShare);
+  //   setUserName(username);
+  //   setUserRole(role);
+
+  // };
+  const handleIndividualAdminOnePageReport = (user) => {
+    console.log(user, ".......user");
+  };
+
   const adminOnePageReportData =
     allUsers &&
     allUsers?.length > 0 &&
@@ -81,84 +104,154 @@ const AdminOnePageReport = () => {
         ul_share: (
           <div className={netPL >= 0 ? "clr-green" : "clr-red"}>{netPL}</div>
         ),
-        // onClick: () =>
-        //   handleIndividualAdminOnePageReport(user?.register_id, user?.ul_share),
+        onClick: () =>
+          handleIndividualAdminOnePageReport(
+            // user?.register_id,
+            // user?.ul_share,
+            // user?.client_name,
+            // user?.account_role
+            user
+          ),
       };
     });
 
-  const adminOnePageReportIndividualData = [
-    {
-      series_name: "T20 world cup",
-      date_time: "02/08/2023 11:32:00 AM",
-      team: "india",
-      win_team: "india",
-      profit_loss: 50000000,
-      urs_profilt_loss: 50000000,
-    },
-    {
-      series_name: "T20 world cup",
-      date_time: "02/08/2023 11:32:00 AM",
-      team: "india",
-      win_team: "india",
-      profit_loss: 50000000,
-      urs_profilt_loss: 50000000,
-    },
-    {
-      series_name: "T20 world cup",
-      date_time: "02/08/2023 11:32:00 AM",
-      team: "india",
-      win_team: "india",
-      profit_loss: 50000000,
-      urs_profilt_loss: 50000000,
-    },
-    {
-      series_name: "T20 world cup",
-      date_time: "02/08/2023 11:32:00 AM",
-      team: "india",
-      win_team: "india",
-      profit_loss: 50000000,
-      urs_profilt_loss: 50000000,
-    },
-    {
-      series_name: "T20 world cup",
-      date_time: "02/08/2023 11:32:00 AM",
-      team: "india",
-      win_team: "india",
-      profit_loss: 50000000,
-      urs_profilt_loss: 50000000,
-    },
-    {
-      series_name: "T20 world cup",
-      date_time: "02/08/2023 11:32:00 AM",
-      team: "india",
-      win_team: "india",
-      profit_loss: 50000000,
-      urs_profilt_loss: 50000000,
-    },
-    {
-      series_name: "T20 world cup",
-      date_time: "02/08/2023 11:32:00 AM",
-      team: "india",
-      win_team: "india",
-      profit_loss: 50000000,
-      urs_profilt_loss: 50000000,
-    },
-    {
-      series_name: "T20 world cup",
-      date_time: "02/08/2023 11:32:00 AM",
-      team: "india",
-      win_team: "india",
-      profit_loss: 50000000,
-      urs_profilt_loss: 50000000,
-    },
-  ];
+  // const adminOnePageReportIndividualData = [
+  //   {
+  //     series_name: "T20 world cup",
+  //     date_time: "02/08/2023 11:32:00 AM",
+  //     team: "india",
+  //     win_team: "india",
+  //     profit_loss: 50000000,
+  //     urs_profilt_loss: 50000000,
+  //   },
+  //   {
+  //     series_name: "T20 world cup",
+  //     date_time: "02/08/2023 11:32:00 AM",
+  //     team: "india",
+  //     win_team: "india",
+  //     profit_loss: 50000000,
+  //     urs_profilt_loss: 50000000,
+  //   },
+  //   {
+  //     series_name: "T20 world cup",
+  //     date_time: "02/08/2023 11:32:00 AM",
+  //     team: "india",
+  //     win_team: "india",
+  //     profit_loss: 50000000,
+  //     urs_profilt_loss: 50000000,
+  //   },
+  //   {
+  //     series_name: "T20 world cup",
+  //     date_time: "02/08/2023 11:32:00 AM",
+  //     team: "india",
+  //     win_team: "india",
+  //     profit_loss: 50000000,
+  //     urs_profilt_loss: 50000000,
+  //   },
+  //   {
+  //     series_name: "T20 world cup",
+  //     date_time: "02/08/2023 11:32:00 AM",
+  //     team: "india",
+  //     win_team: "india",
+  //     profit_loss: 50000000,
+  //     urs_profilt_loss: 50000000,
+  //   },
+  //   {
+  //     series_name: "T20 world cup",
+  //     date_time: "02/08/2023 11:32:00 AM",
+  //     team: "india",
+  //     win_team: "india",
+  //     profit_loss: 50000000,
+  //     urs_profilt_loss: 50000000,
+  //   },
+  //   {
+  //     series_name: "T20 world cup",
+  //     date_time: "02/08/2023 11:32:00 AM",
+  //     team: "india",
+  //     win_team: "india",
+  //     profit_loss: 50000000,
+  //     urs_profilt_loss: 50000000,
+  //   },
+  //   {
+  //     series_name: "T20 world cup",
+  //     date_time: "02/08/2023 11:32:00 AM",
+  //     team: "india",
+  //     win_team: "india",
+  //     profit_loss: 50000000,
+  //     urs_profilt_loss: 50000000,
+  //   },
+  // ];
+  // console.log(
+  //   induvisualUserReport,
+  //   "Sangram ...................induvisualUserReport"
+  // );
+  const AdminOnePagePoupupData =
+    induvisualUserReport &&
+    induvisualUserReport?.length &&
+    induvisualUserReport?.map((match) => {
+      // console.log(match?.totalAmount?.totalLossOrProfit, ulShare)
+      return {
+        series_name: match?.series_name,
+        match_place: match?.match_place,
+        date: moment(match?.matchTimeStamp).format("DD-MM-YYYY"),
+        time: moment(match?.matchTimeStamp).format("mm:ss A"),
+        team: `${match?.team1} vs ${match?.team2}`,
+        win_team: match?.winTeam,
+        admin_pl: match?.totalAmount?.totalLossOrProfit || 0,
+        urs_pl: (+match?.totalAmount?.totalLossOrProfit * +ulShare) / 100,
+      };
+    });
+  const adminOnePageReportIndividualData =
+    AdminOnePagePoupupData &&
+    AdminOnePagePoupupData?.length > 0 &&
+    AdminOnePagePoupupData?.map((adminUldata) => ({
+      series_name: <div>{adminUldata?.series_name}</div>,
+      match_place: <div>{adminUldata?.match_place}</div>,
+      date_time: (
+        <div className="d-flex flex-column">
+          <div>{adminUldata?.date}</div>
+          <div>{adminUldata?.time}</div>
+        </div>
+      ),
+      team: <div>{adminUldata?.team}</div>,
+      win_team: (
+        <div>
+          <div>{adminUldata?.team}</div>
+          <div>
+            <span>Win - </span>
+            <span className="clr-green">{adminUldata?.win_team}</span>
+          </div>
+        </div>
+      ),
+      admin_pl: (
+        <div
+          className={`${+adminUldata?.admin_pl >= 0 ? "green-clr" : "red-clr"}`}
+        >
+          {adminUldata?.admin_pl ? adminUldata?.admin_pl?.toFixed(2) : 0}
+        </div>
+      ),
+      urs_pl: (
+        <div
+          className={`${+adminUldata?.urs_pl >= 0 ? "green-clr" : "red-clr"}`}
+        >
+          {adminUldata?.urs_pl ? adminUldata?.urs_pl?.toFixed(2) : 0}
+        </div>
+      ),
+    }));
+
+  console.log(
+    induvisualUserReport,
+    "induvisualUserReport..................................."
+  );
+
   const adminOnePageReportIndividualHeadings = [
     { header: "Series Name", field: "series_name" },
+    { header: "Match Place", field: "match_place" },
     { header: "Date & Time", field: "date_time" },
     { header: "Team", field: "team" },
     { header: "Win Team", field: "win_team" },
-    { header: "Admin P/L", field: "profit_loss" },
-    { header: "Urs P/L", field: "urs_profilt_loss" },
+    { header: "Admin P/L", field: "admin_pl" },
+    { header: "Urs P/L", field: "urs_pl" },
   ];
   const adminUlPlatformCommData = [
     {
@@ -256,14 +349,14 @@ const AdminOnePageReport = () => {
   const getUserMatches = async (userId) => {
     await call(GET_LIVE_MATCH_RISK_POSITION, { user_id: userId })
       .then((res) => {
-        console.log(res.data.data);
+        console.log(res.data.data, "Response from popup");
+        setInduvisualUserReport(res.data.data);
       })
       .catch((err) => console.log(err));
   };
   useEffect(() => {
     getAllUsers();
-    getUserMatches();
-  });
+  }, []);
   const handleReport = (report) => {
     setActiveReport(report);
   };
