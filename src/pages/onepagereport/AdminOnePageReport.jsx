@@ -347,9 +347,10 @@ const AdminOnePageReport = () => {
     await call(GET_OFFLINE_CLIENTS, { register_id })
       .then((res) => {
         // console.log(res.data);
-        let results = res?.data?.data?.filter(
-          (item) => item.user_status !== "deleted"
-        );
+        // let results = res?.data?.data?.filter(
+        //   (item) => item.user_status !== "deleted"
+        // );
+        let results = res?.data?.data;
         setAllUsers(results);
       })
       .catch((err) => console.log(err));
@@ -380,22 +381,22 @@ const AdminOnePageReport = () => {
     setAdminsData(adminOnePageReportIndividualData);
     setAdminsHeadings(adminOnePageReportIndividualHeadings);
     setPopupHeading("Match Wise Share P/L");
-    // if (activeReport === "Admin One Page Report") {
-    //   setAdminName(data?.admin_name);
-    //   // setRole(data?.admin_role);
-    //   setAdminOnePageReportPopUp(true);
-    //   setAdminsData(adminOnePageReportIndividualData);
-    //   setAdminsHeadings(adminOnePageReportIndividualHeadings);
-    //   setPopupHeading("Match Wise Share P/L");
-    // } else {
-    //   setAdminName(data?.admin_name);
-    //   setRole(data?.admin_role);
-    //   setAdminOnePageReportPopUp(true);
-    //   setAdminsData(adminUlPlatformCommData);
-    //   setAdminsHeadings(adminUlPlatformCommHeadings);
-    //   setPopupHeading("Match Wise UL/Platform Com");
-    // }
   };
+  const ulPlatformComm =
+    allUsers &&
+    allUsers?.length > 0 &&
+    allUsers?.map((user) => {
+      const netPL = getUlShare(user?.total_amount, user?.ul_share);
+      return {
+        admin_name: user?.client_name,
+        admin_role: user?.account_role,
+        ul_platform_comm: (
+          <div className={netPL >= 0 ? "green-clr" : "red-clr"}>
+            {netPL ? netPL?.toFixed(2) : 0}
+          </div>
+        ),
+      };
+    });
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = 5;
 

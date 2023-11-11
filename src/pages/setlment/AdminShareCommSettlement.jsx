@@ -5,7 +5,7 @@ import { AiFillFileText } from "react-icons/ai";
 import PaymentSettelmentPopup from "./PaymentSettelmentPopup";
 import CustomPagination from "../pagination/CustomPagination";
 
-const AdminShareCommSettlement = () => {
+const AdminShareCommSettlement = ({ AdminCommSattlementStatementData }) => {
   const adminShareSummaryData = [
     {
       title: "Account Summary Client/Referal",
@@ -23,58 +23,71 @@ const AdminShareCommSettlement = () => {
       amount: 1000000.0,
     },
   ];
-  const adminShareCommSettlementData = [
-    {
-      admin_name: "Animesh",
-      role: "agent",
-      amount: 1000000.0,
-      ulplatfrom: 100000.0,
-      amountul: 100000.0,
-      credit_debit: 1000000.0,
-      balance: 1000000.0,
-    },
-    {
-      admin_name: "Sri23465",
-      role: "Master",
-      amount: 1000000.0,
-      ulplatfrom: 100000.0,
-      amountul: 100000.0,
+  // const adminShareCommSettlementData = [
+  //   {
+  //     admin_name: "Animesh",
+  //     role: "agent",
+  //     amount: 1000000.0,
+  //     ulplatfrom: 100000.0,
+  //     amountul: 100000.0,
+  //     credit_debit: 1000000.0,
+  //     balance: 1000000.0,
+  //   },
+  //   {
+  //     admin_name: "Sri23465",
+  //     role: "Master",
+  //     amount: 1000000.0,
+  //     ulplatfrom: 100000.0,
+  //     amountul: 100000.0,
 
-      credit_debit: 1000000.0,
-      balance: 1000000.0,
-    },
-    {
-      admin_name: "Srinivash",
-      role: "SM",
-      amount: 1000000.0,
-      ulplatfrom: 100000.0,
-      amountul: 100000.0,
+  //     credit_debit: 1000000.0,
+  //     balance: 1000000.0,
+  //   },
+  //   {
+  //     admin_name: "Srinivash",
+  //     role: "SM",
+  //     amount: 1000000.0,
+  //     ulplatfrom: 100000.0,
+  //     amountul: 100000.0,
 
-      credit_debit: 1000000.0,
-      balance: 1000000.0,
-    },
+  //     credit_debit: 1000000.0,
+  //     balance: 1000000.0,
+  //   },
 
-    {
-      admin_name: "Sri23465",
-      role: "Master",
-      amount: 1000000.0,
-      ulplatfrom: 100000.0,
-      amountul: 100000.0,
+  //   {
+  //     admin_name: "Sri23465",
+  //     role: "Master",
+  //     amount: 1000000.0,
+  //     ulplatfrom: 100000.0,
+  //     amountul: 100000.0,
 
-      credit_debit: 1000000.0,
-      balance: 1000000.0,
-    },
-    {
-      admin_name: "Srikanth",
-      role: "Sub A",
-      amount: 1000000.0,
-      ulplatfrom: 100000.0,
-      amountul: 100000.0,
+  //     credit_debit: 1000000.0,
+  //     balance: 1000000.0,
+  //   },
+  //   {
+  //     admin_name: "Srikanth",
+  //     role: "Sub A",
+  //     amount: 1000000.0,
+  //     ulplatfrom: 100000.0,
+  //     amountul: 100000.0,
 
-      credit_debit: 1000000.0,
-      balance: 1000000.0,
-    },
-  ];
+  //     credit_debit: 1000000.0,
+  //     balance: 1000000.0,
+  //   },
+  // ];
+  const adminShareCommSettlementData = AdminCommSattlementStatementData.map(
+    (item) => {
+      return {
+        admin_name: item.admin_name,
+        role: item.admin_role,
+        amount: item.amount,
+        ulplatfrom: item.ul_pf_comm,
+        amountul: item.amount,
+        credit_debit: item.credit_debit,
+        balance: item.balance,
+      };
+    }
+  );
   const [showPaymentModal, setShowPaymentModal] = useState(false);
   const handlePaymentModal = () => {
     setShowPaymentModal(true);

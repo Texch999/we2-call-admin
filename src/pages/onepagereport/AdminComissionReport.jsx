@@ -1,30 +1,38 @@
 import React, { useState } from "react";
 import CustomPagination from "../pagination/CustomPagination";
 
-function AdminComissionReport() {
-  const ADMIN_COMM_REPORT__DETAILS = [
-    {
-      adminname: "Animesh",
-      role: "Agent",
-      ulnetpl: "0",
-    },
-    {
-      adminname: "Sri8867",
-      role: "Master",
-      ulnetpl: "5000.00",
-    },
-    {
-      adminname: "Ganesh",
-      role: "Super Master",
-      ulnetpl: "7500.00",
-    },
-    {
-      adminname: "Lokesh",
-      role: "Super Admin",
-      ulnetpl: "10000.00",
-    },
-  ];
-
+function AdminComissionReport(props) {
+  const { ulPlatformComm } = props;
+  // const ADMIN_COMM_REPORT__DETAILS = [
+  //   {
+  //     adminname: "Animesh",
+  //     role: "Agent",
+  //     ulnetpl: "0",
+  //   },
+  //   {
+  //     adminname: "Sri8867",
+  //     role: "Master",
+  //     ulnetpl: "5000.00",
+  //   },
+  //   {
+  //     adminname: "Ganesh",
+  //     role: "Super Master",
+  //     ulnetpl: "7500.00",
+  //   },
+  //   {
+  //     adminname: "Lokesh",
+  //     role: "Super Admin",
+  //     ulnetpl: "10000.00",
+  //   },
+  // ];
+  const ADMIN_COMM_REPORT__DETAILS = ulPlatformComm.map((item) => {
+    return {
+      adminname: item.admin_name,
+      role: item.admin_role,
+      ulnetpl: item.ul_platform_comm,
+    };
+  });
+  console.log(ADMIN_COMM_REPORT__DETAILS, "ADMIN_COMM_REPORT__DETAILS");
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = 5;
 
@@ -58,7 +66,7 @@ function AdminComissionReport() {
             </tr>
           </thead>
 
-          {ADMIN_COMM_REPORT__DETAILS.map((item, index) => (
+          {ADMIN_COMM_REPORT__DETAILS?.map((item, index) => (
             <tbody key={index} className="small-font">
               <tr>
                 <td className="text-center ">{item?.adminname}</td>
