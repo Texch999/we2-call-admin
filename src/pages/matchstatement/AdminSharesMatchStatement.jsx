@@ -247,8 +247,8 @@ const AdminSharesMatchStatement = () => {
         admin_name: user?.client_name,
         admin_role: user?.account_role,
         amount: netPL,
-        ul_pf_comm: 1000000.0,
-        credit_debit: 10000,
+        ul_pf_comm: 0,
+        credit_debit: 0,
         balance: "100100",
       };
     });
