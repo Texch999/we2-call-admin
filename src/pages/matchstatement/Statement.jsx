@@ -49,7 +49,6 @@ function Statement(props) {
   const [popupData, setPopupData] = useState();
   console.log(
     financialStatementData,
-    "..............................financialStatementData......................."
   );
   const STATEMENT_DETAILS = financialStatementData?.map((item) => {
     return {
@@ -229,8 +228,7 @@ function Statement(props) {
   //       // clientName: item.client_name,
   //     });
   //   });
-  console.log(existingUsers, "srikant..............existingUsers");
-  console.log(clientOptions, "sangram...........clientOptions");
+  
   return (
     <div className="p-2">
       <hr />
