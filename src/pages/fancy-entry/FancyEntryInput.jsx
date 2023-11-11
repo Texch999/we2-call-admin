@@ -201,6 +201,7 @@ function FancyEntryInput({
               name="innings"
               id="innings"
               type="number"
+              value={fancyEntryInputData?.innings || ""}
               onChange={(e) => handleFancyEntryInputDataChange(e)}
             >
               <option value="">Select</option>
@@ -237,6 +238,7 @@ function FancyEntryInput({
                 placeholder="Over"
                 name="over"
                 type="number"
+                value={fancyEntryInputData?.over || ""}
                 onChange={(e) => handleFancyEntryInputDataChange(e)}
               >
                 <option value="">Select</option>
@@ -264,6 +266,7 @@ function FancyEntryInput({
               className="w-100 medium-font btn-bg rounded all-none p-2"
               placeholder="Team"
               name="team"
+              value={fancyEntryInputData?.team || ""}
               onChange={(e) => handleFancyEntryInputDataChange(e)}
             >
               <option value="">Select Team</option>
@@ -310,6 +313,7 @@ function FancyEntryInput({
             <select
               className="w-100 custom-select medium-font btn-bg rounded all-none p-2"
               name="yN"
+              value={fancyEntryInputData?.yN || ""}
               onChange={(e) => handleFancyEntryInputDataChange(e)}
             >
               <option value="">Select</option>

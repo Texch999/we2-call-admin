@@ -43,6 +43,7 @@ function FancyEntryTable(props) {
     })
       .then((res) => {
         setData(res?.data?.data?.Items);
+        setStatus((prev) => !prev);
       })
       .catch((err) => console.log(err));
   };

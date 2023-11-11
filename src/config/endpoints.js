@@ -56,6 +56,7 @@ const RISK_RUNNING_SESSION = "/offline-management/risk_running_session";
 const ADD_PAYMENT = "/management/add_payment_gateway";
 const GET_ALL_PAYMENT_GATEWAYS = "/management/getall_payments";
 const UPDATE_PAYMENT_GATEWAY = "/management/update_payment_gateway";
+const UPDATE_MATCH = "/offline-management/update_matchid_data";
 const GET_REQUEST_PACKAGES =
   "/packages/get_package_histroy_bypackage_requestid";
 const GET_ADMIN_PACKAGE_REQUEST = "/packages/get_all_admin_package_request";
@@ -72,6 +73,10 @@ const ACTIVE_INACTIVE_USERS =
 const MANAGEMENT_MATCHES = "/management/get_matches_by_accountrole";
 const CREATE_MEETING = "/meetings/create_meeting";
 const UPDATE_MEETING = "/meetings/update_call_meetings";
+const GET_LIVE_MATCH_RISK_POSITION =
+  "/offline-management/live_match_risk_position";
+const GET_STATEMENT_BY_MATCH_ID =
+  "/offline-management/get_statement_bymatch_id";
 
 // methods
 const DELETE = "DELETE";
@@ -79,8 +84,20 @@ const POST = "POST";
 const GET = "POST";
 const PUT = "PUT";
 
+exports.GET_LIVE_MATCH_RISK_POSITION = {
+  url: GET_LIVE_MATCH_RISK_POSITION,
+  method: POST,
+};
+exports.GET_STATEMENT_BY_MATCH_ID = {
+  url: GET_STATEMENT_BY_MATCH_ID,
+  method: POST,
+};
 exports.GET_UPDATED_MATCHES_DATA = {
   url: GET_UPDATED_MATCHES_DATA,
+  method: POST,
+};
+exports.UPDATE_MATCH = {
+  url: UPDATE_MATCH,
   method: POST,
 };
 exports.GET_FINANCIAL_STATEMENT_BY_DATE = {

@@ -7,7 +7,6 @@ function SelectYourPackagePopup(props) {
     selectYourPackagePopup,
     setSelectYourPackagePopup,
     adminSubscription,
-    handlePackageSelection,
   } = props;
 
   const handleCancel = () => {
@@ -17,7 +16,7 @@ function SelectYourPackagePopup(props) {
     props.handleSubmitButton();
     setSelectYourPackagePopup(false);
   };
-  console.log(error, "ERROR");
+  
   return (
     <Modal
       className="select-your-package z-index"
@@ -67,13 +66,15 @@ function SelectYourPackagePopup(props) {
                   <div className="col d-flex align-items-center justify-content-center">
                     <input
                       type="checkbox"
-                      onChange={() => handlePackageSelection(item)}
+                      onChange={() => props.handlePackageSelection(item)}
                     />
                   </div>
                 </div>
               ))}
           </div>
-          {error && <div className="red-color text-center medium-font">{error}</div>}
+          {error && (
+            <div className="red-color text-center medium-font">{error}</div>
+          )}
           <button
             className="w-100 login-button mt-3 medium-font py-2"
             onClick={() => handleSubmitButton()}

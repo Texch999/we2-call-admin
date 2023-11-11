@@ -18,12 +18,13 @@ import {
 } from "../../config/endpoints";
 import SelectYourPackagePopup from "./SelectYourPackagePopup";
 import CallEditPopup from "./CallEditPopup";
+import MatchSubmitPopup from "./../match-popups/MatchSubmitPopup";
 
 const CallManagement = () => {
   const register_id = localStorage.getItem("register_id");
   const account_role = localStorage.getItem("account_role");
-
-  //const [upcomingMeetings, setUpcomingMeetings] = useState([]);
+  const [status, setStatus] = useState(false);
+  const [upcomingMeetings, setUpcomingMeetings] = useState([]);
   const [listOfUsers, setListOfUsers] = useState([]);
   const [personalMeeting, setPersonalMeeting] = useState(false);
   const [professionalMeeting, setprofessionalMeeting] = useState(true);
@@ -37,14 +38,18 @@ const CallManagement = () => {
   const [error, setError] = useState("");
   const [meetingEditPopup, setMeetingEditPopup] = useState(false);
   const [selectedMeeting, setSelectedMeeting] = useState("");
+  const [meetingSuccessPopup, setMeetingSuccessPopup] = useState(false);
   const [selectYourPackagePopup, setSelectYourPackagePopup] = useState(false);
 
   useEffect(() => {
-    //getAllMeetingsData();
     getAdminUsersList();
     getAllAdminMatches();
     getAdminPackages();
   }, []);
+
+  useEffect(() => {
+    getAllMeetingsData();
+  }, [status]);
 
   const handleChange = (e) => {
     setMeetingInput({ ...meetingInput, [e.target.name]: e.target.value });
@@ -52,6 +57,12 @@ const CallManagement = () => {
 
   const handlePackageSelection = (e) => {
     setSelectedPackages(e);
+  };
+
+  const resetFields = () => {
+    setMeetingInput({});
+    setMeetingList("");
+    setSelectedUsers("");
   };
 
   const meetingOptionsList = matchesData?.map((item) => {
@@ -82,9 +93,10 @@ const CallManagement = () => {
   };
   const usersList =
     listOfUsers?.length > 0 &&
-    listOfUsers?.map((item) => {
-      return { value: item?.register_id, label: item?.user_name };
-    });
+    listOfUsers?.map((item) => ({
+      value: item?.register_id,
+      label: item?.user_name,
+    }));
 
   const handleSelectedUsers = (data) => {
     setSelectedUsers(data);
@@ -118,13 +130,14 @@ const CallManagement = () => {
       .catch((err) => console.log(err));
   };
 
-  // const getAllMeetingsData = async () => {
-  //   await call(GET_ALL_MEETINGS, { register_id })
-  //     .then((res) => {
-  //       setUpcomingMeetings(res?.data?.data);
-  //     })
-  //     .catch((err) => console.log(err));
-  // };
+  const getAllMeetingsData = async () => {
+    await call(GET_ALL_MEETINGS, { register_id })
+      .then((res) => {
+        setUpcomingMeetings(res?.data?.data);
+        setStatus((prev) => !prev);
+      })
+      .catch((err) => console.log(err));
+  };
 
   const getAllMatches = async () => {
     return await call(MANAGEMENT_MATCHES, {
@@ -146,28 +159,28 @@ const CallManagement = () => {
       .catch((err) => console.log(err));
   };
 
-  // const upcomingMeetingsData =
-  //   upcomingMeetings?.length >= 0 &&
-  //   upcomingMeetings
-  //     ?.filter((obj) => obj.p_id == register_id)
-  //     ?.sort(
-  //       (a, b) => new Date(b.given_time_stamp) - new Date(a.given_time_stamp)
-  //     )
-  //     ?.map((obj) => {
-  //       const meetingUserData = listOfUsers?.filter((item) =>
-  //         obj.meetingUserIds.includes(item.register_id)
-  //       );
-  //       return {
-  //         ...obj,
-  //         urs: obj?.createdBy,
-  //         event_name: obj?.event_name,
-  //         date: obj?.date,
-  //         time: obj?.time,
-  //         user: meetingUserData.map((obj) => <>{obj?.user_name}</>),
-  //         recording_status: obj?.recording_status,
-  //         action: "edit",
-  //       };
-  //     });
+  const upcomingMeetingsData =
+    upcomingMeetings?.length >= 0 &&
+    upcomingMeetings
+      ?.filter((obj) => obj.p_id == register_id)
+      ?.sort(
+        (a, b) => new Date(b.given_time_stamp) - new Date(a.given_time_stamp)
+      )
+      ?.map((obj) => {
+        const meetingUserData = listOfUsers?.filter((item) =>
+          obj.meetingUserIds.includes(item.register_id)
+        );
+        return {
+          ...obj,
+          urs: obj?.createdBy,
+          event_name: obj?.event_name,
+          date: obj?.date,
+          time: obj?.time,
+          user: meetingUserData.map((obj) => <>{obj?.user_name}</>),
+          recording_status: obj?.recording_status,
+          action: <MdModeEditOutline className="d-flex" size={18} />,
+        };
+      });
 
   // const ulMeetingsData =
   //   (upcomingMeetings?.length >= 0 &&
@@ -198,9 +211,18 @@ const CallManagement = () => {
   };
 
   const handleOpenSelectYourPackage = () => {
+    if (
+      !meetingList ||
+      !selectedUsers ||
+      !meetingInput?.date ||
+      !meetingInput?.time ||
+      !meetingInput?.video_call_type
+    ) {
+      setError("Please Enter Required Fields");
+      return;
+    }
     setSelectYourPackagePopup(true);
   };
-
   const handleSubmitButton = async () => {
     if (!selectedPackages?.package_id) {
       setError("Please Select Package");
@@ -218,35 +240,40 @@ const CallManagement = () => {
       video_call_type: meetingInput?.video_call_type === 0 ? true : false,
     };
     const url = selectedMeeting ? UPDATE_MEETING : CREATE_MEETING;
-    await call(url, { payload })
+    await call(url, payload)
       .then((res) => {
         if (res?.data?.statusCode === 200) {
-          setMeetingInput({});
           setSelectedPackages({});
           setSelectedMeeting({});
-          //getAllMeetingsData();
-          setError({ message: res?.data?.message });
+          getAllMeetingsData();
+          resetFields();
+          setMeetingSuccessPopup(true);
+          setTimeout(() => {
+            setMeetingSuccessPopup(false);
+          }, 1000);
+          setError(
+            res?.data?.message ? res?.data?.message : "Something Went Wrong"
+          );
+          setTimeout(() => {
+            setError("");
+          }, 1000);
         } else {
-          setError({ message: res?.data?.data?.message });
+          setError(
+            res?.data?.message ? res?.data?.message : "Something Went Wrong"
+          );
         }
       })
       .catch((err) => console.log(err));
   };
   console.log("........selectedMeeting",selectedMeeting);
 
-  const onEditClick = () => {
-    setMeetingEditPopup(!meetingEditPopup);
+  const handleEditButton = () => {
     const obj = {
       ...selectedMeeting,
-      date: selectedMeeting?.date,
-      time: selectedMeeting?.time,
+      date: selectedMeeting.date,
+      time: selectedMeeting.time,
     };
     setMeetingInput({ ...meetingInput, ...obj });
-  };
-
-  const handleEditPopupOpen = (data) => {
-    setMeetingEditPopup(true);
-    setSelectedMeeting(data);
   };
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -289,7 +316,7 @@ const CallManagement = () => {
                   placeholder="Professional Meeting Name..."
                   isSearchable={true}
                   options={meetingOptionsList}
-                  value={meetingList}
+                  value={meetingList || ""}
                   onChange={(e) => handleMatchSelect(e)}
                 />
               )}
@@ -299,7 +326,7 @@ const CallManagement = () => {
                   placeholder="Personal Meeting Name"
                   type="text"
                   name="event_name"
-                  value={meetingInput?.event_name}
+                  value={meetingInput?.event_name || ""}
                   onChange={(e) => handleChange(e)}
                 />
               )}
@@ -313,7 +340,7 @@ const CallManagement = () => {
                 placeholder="Enter Meeting Name"
                 type="date"
                 name="date"
-                value={meetingInput?.date}
+                value={meetingInput?.date || ""}
                 onChange={(e) => handleChange(e)}
               />
             </div>
@@ -326,7 +353,7 @@ const CallManagement = () => {
                 placeholder="Enter Meeting Name"
                 type="time"
                 name="time"
-                value={meetingInput?.time}
+                value={meetingInput?.time || ""}
                 onChange={(e) => handleChange(e)}
               />
             </div>
@@ -341,7 +368,7 @@ const CallManagement = () => {
                 closeMenuOnSelect={false}
                 isMulti
                 options={usersList}
-                value={selectedUsers}
+                value={selectedUsers || ""}
                 onChange={(e) => handleSelectedUsers(e)}
               />
             </div>
@@ -352,9 +379,10 @@ const CallManagement = () => {
               <select
                 className="custom-select medium-font btn-bg  all-none p-2 rounded pb-2"
                 name="video_call_type"
+                value={meetingInput?.video_call_type || ""}
                 onChange={(e) => handleChange(e)}
               >
-                <option>Select</option>
+                <option value="">Select</option>
                 <option value={0}>Audio Only</option>
                 <option value={1}>Audio + Video</option>
               </select>
@@ -370,7 +398,7 @@ const CallManagement = () => {
           </div>
         </div>
         {error && (
-          <div className="red-color text-center medium-font">{error}</div>
+          <div className="red-color text-center medium-font mt-1">{error}</div>
         )}
       </div>
       <div className="mt-3">
@@ -446,9 +474,9 @@ const CallManagement = () => {
                         <Button
                           type="button"
                           className="text-warning rounded-circle border-0 meetings-edit-button p-2"
-                          onClick={() => handleEditPopupOpen(data)}
+                          onClick={() => handleEditButton(data)}
                         >
-                          <MdModeEditOutline className="d-flex" size={18} />
+                          {data?.action}
                         </Button>
                       )}
                     </td>
@@ -532,7 +560,12 @@ const CallManagement = () => {
       />
       <CallEditPopup
         meetingEditPopup={meetingEditPopup}
-        setMeetingEditPopup={onEditClick}
+        setMeetingEditPopup={setMeetingEditPopup}
+      />
+      <MatchSubmitPopup
+        header={"Meeting Created Succesfully"}
+        state={meetingSuccessPopup}
+        setState={setMeetingSuccessPopup}
       />
     </div>
   );

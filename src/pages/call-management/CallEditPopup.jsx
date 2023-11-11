@@ -27,7 +27,12 @@ function CallEditPopup(props) {
             Are You Sure You Want To Edit This Meeting
           </div>
           <div className="row d-flex justify-content-between mt-3">
-            <div className="col-5 rounded yellow-btn p-1">Yes</div>
+            <div
+              className="col-5 rounded yellow-btn p-1"
+              onClick={() => handleCancel()}
+            >
+              Yes
+            </div>
             <div
               className="col-5 rounded share-bg p-1"
               onClick={() => handleCancel()}
