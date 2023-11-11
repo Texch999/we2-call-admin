@@ -12,7 +12,6 @@ import ClientIndPL from "./ClientIndPL";
 
 function OnePageReport(props) {
   const { ONE_PAGE_REPORT_DETAILS } = props;
-  console.log(ONE_PAGE_REPORT_DETAILS, "onepagereport Data");
 
   let register_id = localStorage?.getItem("register_id");
   let account_role = localStorage?.getItem("account_role");
@@ -22,13 +21,11 @@ function OnePageReport(props) {
     useState();
   const [showOnepageReportData, setShowOnePageReportData] = useState([]);
   const [selectedClientData, setSelectedClientData] = useState();
-  // console.log(account_role, "account_role");
-  // console.log(register_id, "register_id");
-  // console.log(client_id, "client_id");
+
   const handleIndividualOnePageData = async (item) => {
     setShowReportPopup(true);
     setShowIndividualOnepageReportData(true);
-    setSelectedClientData(item); 
+    setSelectedClientData(item);
     await call(GET_COMPLETED_MATCHES_BY_CLEINT, {
       register_id,
       account_role,
@@ -39,10 +36,7 @@ function OnePageReport(props) {
       })
       .catch((err) => console.log(err));
   };
-  console.log(
-    showOnepageReportData,
-    "...................sangram data balle balle"
-  );
+
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = 5;
 

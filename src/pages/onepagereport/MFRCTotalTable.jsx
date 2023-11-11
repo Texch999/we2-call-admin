@@ -14,7 +14,7 @@ function MFRCTotalTable(props) {
         mfc_crc: item.masterProfitloss,
       };
     });
-  console.log("induvisualClientData", induvisualClientData);
+    
   return (
     <div>
       <table className="w-100 match-position-table small-font">

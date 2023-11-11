@@ -97,9 +97,7 @@ function OnePagePopup(props) {
             <div>{`${client?.team1} vs ${client?.team2}`}</div>
             <div
               className={
-                +client?.matchEntryResult?.amount >= 0
-                  ? "clr-green"
-                  : "clr-red"
+                +client?.matchEntryResult?.amount >= 0 ? "clr-green" : "clr-red"
               }
             >
               {client?.matchEntryResult?.amount}
@@ -110,9 +108,7 @@ function OnePagePopup(props) {
         fancyPL: (
           <div
             className={
-              +client?.fancyEntryResult?.amount >= 0
-                ? "clr-green"
-                : "clr-red"
+              +client?.fancyEntryResult?.amount >= 0 ? "clr-green" : "clr-red"
             }
           >
             {+client?.fancyEntryResult?.amount}
@@ -135,9 +131,7 @@ function OnePagePopup(props) {
           </div>
         ),
         masterProfitloss: (
-          <div className={+netRef >= 0 ? "clr-green" : "clr-red"}>
-            {netRef}
-          </div>
+          <div className={+netRef >= 0 ? "clr-green" : "clr-red"}>{netRef}</div>
         ),
       };
     });
@@ -167,27 +161,29 @@ function OnePagePopup(props) {
         show={showReportPopup}
         onHide={handleReportClose}
         centered
-        className="match-share-modal mt-5 w-100 close-btn"
+        className="match-share-modal mt-5 w-100 close-btn z-index"
       >
         <Modal.Header closeButton></Modal.Header>
         <Modal.Body className="p-3">
           <div className="w-100">
             <div>
-              <div className="w-25 mt-2 mb-1">
-                <div className="match-date-button rounded-pill small-font text-center p-1 ">
-                  ClientName :-
-                  <span className="medium-font clr-yellow ms-1">
-                    {selectedClientData?.client}
-                  </span>
+              <div className="row">
+                <div className="col-3">
+                  <div className="match-date-button rounded-pill small-font text-center p-1 ">
+                    ClientName :
+                    <span className="medium-font clr-yellow ms-1">
+                      {selectedClientData?.client}
+                    </span>
+                  </div>
                 </div>
-              </div>
-              <div className="w-25 mt-2 mb-1">
-                <div className="match-date-button rounded-pill small-font text-center p-1 ">
-                  Date : 31/07/2023
+                <div className="col-3">
+                  <div className="match-date-button rounded-pill small-font text-center p-1 ">
+                    Date : 31/07/2023
+                  </div>
                 </div>
               </div>
             </div>
-            <div className="w-100 d-flex justify-content-start mt-4 mb-1">
+            <div className="w-100 d-flex justify-content-start mt-2 mb-2">
               <div className="w-50 d-flex justify-content-end">
                 <div
                   className={`match-entry-btn w-100 d-flex align-items-center justify-content-around rounded p-2 ms-1 me-1 ${

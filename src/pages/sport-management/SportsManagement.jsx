@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { BsChevronDown } from "react-icons/bs";
 import { FaLocationDot, FaTrophy } from "react-icons/fa6";
 import { MdStadium } from "react-icons/md";
 import Table from "../home-page/Table";
@@ -16,12 +15,9 @@ function SportsManagement() {
   let register_id = localStorage?.getItem("register_id");
   let account_role = localStorage?.getItem("account_role");
 
-  // ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓  Create Match Related ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ //
-
   const [matchData, setMatchData] = useState({});
-  const [selectMatchType, setSelectMatchType] = useState({});
   const [createMacthSubmit, setCreateMacthSubmit] = useState(false);
-  const [Error, setError] = useState();
+  const [error, setError] = useState();
   const [isProcessing, setIsProcessing] = useState();
   const [status, setStatus] = useState(false);
   const [oversChange, setOversChange] = useState({});
@@ -35,18 +31,11 @@ function SportsManagement() {
     { name: "TEST", first: [], second: [] },
   ];
 
-  // const handleOversChange = (e) => {
-  //   setOversChange({ [e.target.name]: e.target.value });
-  // };
-
-  console.log(oversChange, ".....oversChange");
-
   const selectOvers = matchType.filter((i) => i.name === matchData?.macth_type);
 
   const handleOversChange = (e) => {
     setOversChange({ [e.target.name]: e.target.value });
     if (e.target.name === "first_fancy") {
-      // const selover =
     }
   };
 
@@ -73,6 +62,7 @@ function SportsManagement() {
       name: "team2",
     },
   ];
+
   const MatchTypeDropdown = [
     {
       heading: "1st Inn",
@@ -101,7 +91,7 @@ function SportsManagement() {
       !matchData?.time ||
       !matchData.macth_type
     ) {
-      return setError("Please enter required fields");
+      return setError("Please Enter Required Fields");
     }
     setIsProcessing(true);
     setError("");
@@ -135,16 +125,17 @@ function SportsManagement() {
           handleResetFields();
         } else {
           setError(
-            res?.data?.message ? res?.data?.message : `something wen't wrong`
+            res?.data?.message ? res?.data?.message : `Something wen't wrong`
           );
         }
       })
       .catch((err) => {
         setIsProcessing(false);
-        setError(err?.message ? err.message : `something wen't wrong`);
+        setError(err?.message ? err.message : `Something wen't wrong`);
         console.log(err);
       });
   };
+
   const handleMacthUpdate = async () => {
     if (
       !matchData?.series_name ||
@@ -216,18 +207,7 @@ function SportsManagement() {
 
   const handleChange = (e) => {
     setMatchData({ ...matchData, [e.target.name]: e.target.value });
-    // if (e.target.name === "macth_type") {
-
-    // }
   };
-
-  const handleMatchChange = (e) => {
-    setSelectMatchType({ [e.target.name]: e.target.value });
-  };
-
-  // ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑  Create Match Related ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ //
-
-  // ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓  getting Table data && table related UI maps ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ //
 
   const [liveMatchesData, setLiveMatchesData] = useState([]);
   const [upcomingMatchesData, setUpcomingMatchesData] = useState([]);
@@ -239,7 +219,6 @@ function SportsManagement() {
 
   const handleActiveHead = (index) => {
     setActiveHead(index);
-
     {
       index === 0 && setScheduleDate(liveMatchesData);
     }
@@ -260,6 +239,7 @@ function SportsManagement() {
           ...result?.todaysMatches,
           ...result?.upCommingMatches,
         ]);
+        setStatus((prev) => !prev);
       })
       .catch((err) => console.log(err));
   };
@@ -304,7 +284,10 @@ function SportsManagement() {
         </div>
       ),
       editButton: (
-        <GoPencil className="edit-icon" onClick={() => handleUpadate(match)} />
+        <GoPencil
+          className="edit-icon cursor-pointer"
+          onClick={() => handleUpadate(match)}
+        />
       ),
     }));
 
@@ -330,19 +313,15 @@ function SportsManagement() {
     };
   });
 
-  // ↑↑↑↑↑↑↑↑↑↑↑↑↑↑  getting Table data && table related UI maps ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ //
-
   useEffect(() => {
     getAllMatches();
     getScheduleMatches();
     setActiveHead(0);
-  }, []);
+  }, [status]);
 
   useEffect(() => {
     getScheduleMatches();
   }, [status]);
-
-  console.log(matchData, "......matchData");
 
   return (
     <div className="p-3">
@@ -352,7 +331,7 @@ function SportsManagement() {
           <div className="meetings-heading">Series Name</div>
           <div className="sport-management-input d-flex ">
             <input
-              placeholder="Enter"
+              placeholder="Enter Series Name"
               className="w-90"
               name="series_name"
               id="series_name"
@@ -370,9 +349,8 @@ function SportsManagement() {
                 className="sport-management-input d-flex p-1 w-100 sport-management-select meetings-heading"
                 onChange={(e) => handleChange(e)}
                 name={item?.name}
-                // multiple
               >
-                <option>select</option>
+                <option>Select</option>
                 {item.options}
               </select>
             </div>
@@ -396,7 +374,7 @@ function SportsManagement() {
           <div>Match Place</div>
           <div className="sport-management-input d-flex p-1">
             <input
-              placeholder="Enter"
+              placeholder="Enter Match Place"
               className="w-90"
               type="text"
               name="match_place"
@@ -413,7 +391,7 @@ function SportsManagement() {
           <div>Stadium</div>
           <div className="sport-management-input d-flex p-1">
             <input
-              placeholder="Enter"
+              placeholder="Enter Stadium"
               className="w-90"
               name="stadium"
               id="stadium"
@@ -486,7 +464,7 @@ function SportsManagement() {
         </div>
         {MatchTypeDropdown.map((item, index) => {
           return (
-            <div className={item.cspan}>
+            <div className={item.cspan} key={index}>
               <div>{item.heading}</div>
               <input
                 className="sport-management-input d-flex p-1 w-100 sport-management-select meetings-heading"
@@ -500,11 +478,10 @@ function SportsManagement() {
         })}
         <div className="col-2"></div>
         <div className="col-3 d-flex align-items-end">
-          {Error && <div className="danger">{Error}</div>}
           <div
             className="sport-management-input w-100 d-flex justify-content-center align-items-center bg-yellow"
             onClick={
-              isProcessing === true
+              IsMatchEditing === false
                 ? () => handleMacthSubmit()
                 : () => handleMacthUpdate()
             }
@@ -516,22 +493,23 @@ function SportsManagement() {
               : "Submit"}
           </div>
         </div>
+        {error && <div className="danger text-center mt-1">{error}</div>}
       </div>
       <hr className="mt-3" />
       <div className="row gutter-1rem d-flex justify-content-around">
         <div className="col-8">
           <div className="sport-management-input meetings-heading p-2">
-            <h5>Created Matches</h5>
+            <h5 className="mb-1">Your Created Matches</h5>
           </div>
-          <div className="mt-3 ">
+          <div className="mt-2">
             <Table data={tableData || []} columns={columns} />
           </div>
         </div>
         <div className="col-4 meetings-heading">
-          <div className="sport-management-input p-2">
+          {/* <div className="sport-management-input p-2">
             <h5>Scheduled Matches</h5>
-          </div>
-          <div className="sport-management-input mt-2 d-flex">
+          </div> */}
+          <div className="sport-management-input  d-flex">
             {headings.map((item, index) => {
               return (
                 <div
