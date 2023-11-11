@@ -84,9 +84,12 @@ const AdminOnePageReport = () => {
   //   setUserRole(role);
 
   // };
+
   const handleIndividualAdminOnePageReport = (user) => {
-    console.log(user, ".......user");
+    console.log(user, ".......user sangram");
   };
+
+  console.log(allUsers, "........allUsers");
 
   const adminOnePageReportData =
     allUsers &&
@@ -94,7 +97,11 @@ const AdminOnePageReport = () => {
     allUsers?.map((user) => {
       const netPL = getUlShare(user?.total_amount, user?.ul_share);
       return {
-        admin_name: <div>{user?.client_name}</div>,
+        admin_name: (
+          <div onClick={() => handleAdminReports(user)}>
+            {user?.client_name}
+          </div>
+        ),
         admin_role: <div>{`${user?.account_role}`}</div>,
         net_pl: (
           <div className={user?.total_amount >= 0 ? "clr-green" : "clr-red"}>
@@ -112,6 +119,19 @@ const AdminOnePageReport = () => {
             // user?.account_role
             user
           ),
+      };
+    });
+
+  const adminOnePageReportIndividualData =
+    induvisualUserReport.length > 0 &&
+    induvisualUserReport.map((item) => {
+      return {
+        series_name: item.series_name,
+        date_time: "02/08/2023 11:32:00 AM",
+        team: "india",
+        win_team: "india",
+        profit_loss: 50000000,
+        urs_profilt_loss: 50000000,
       };
     });
 
@@ -181,10 +201,7 @@ const AdminOnePageReport = () => {
   //     urs_profilt_loss: 50000000,
   //   },
   // ];
-  // console.log(
-  //   induvisualUserReport,
-  //   "Sangram ...................induvisualUserReport"
-  // );
+
   const AdminOnePagePoupupData =
     induvisualUserReport &&
     induvisualUserReport?.length &&
@@ -201,43 +218,43 @@ const AdminOnePageReport = () => {
         urs_pl: (+match?.totalAmount?.totalLossOrProfit * +ulShare) / 100,
       };
     });
-  const adminOnePageReportIndividualData =
-    AdminOnePagePoupupData &&
-    AdminOnePagePoupupData?.length > 0 &&
-    AdminOnePagePoupupData?.map((adminUldata) => ({
-      series_name: <div>{adminUldata?.series_name}</div>,
-      match_place: <div>{adminUldata?.match_place}</div>,
-      date_time: (
-        <div className="d-flex flex-column">
-          <div>{adminUldata?.date}</div>
-          <div>{adminUldata?.time}</div>
-        </div>
-      ),
-      team: <div>{adminUldata?.team}</div>,
-      win_team: (
-        <div>
-          <div>{adminUldata?.team}</div>
-          <div>
-            <span>Win - </span>
-            <span className="clr-green">{adminUldata?.win_team}</span>
-          </div>
-        </div>
-      ),
-      admin_pl: (
-        <div
-          className={`${+adminUldata?.admin_pl >= 0 ? "green-clr" : "red-clr"}`}
-        >
-          {adminUldata?.admin_pl ? adminUldata?.admin_pl?.toFixed(2) : 0}
-        </div>
-      ),
-      urs_pl: (
-        <div
-          className={`${+adminUldata?.urs_pl >= 0 ? "green-clr" : "red-clr"}`}
-        >
-          {adminUldata?.urs_pl ? adminUldata?.urs_pl?.toFixed(2) : 0}
-        </div>
-      ),
-    }));
+  // const adminOnePageReportIndividualData =
+  //   AdminOnePagePoupupData &&
+  //   AdminOnePagePoupupData?.length > 0 &&
+  //   AdminOnePagePoupupData?.map((adminUldata) => ({
+  //     series_name: <div>{adminUldata?.series_name}</div>,
+  //     match_place: <div>{adminUldata?.match_place}</div>,
+  //     date_time: (
+  //       <div className="d-flex flex-column">
+  //         <div>{adminUldata?.date}</div>
+  //         <div>{adminUldata?.time}</div>
+  //       </div>
+  //     ),
+  //     team: <div>{adminUldata?.team}</div>,
+  //     win_team: (
+  //       <div>
+  //         <div>{adminUldata?.team}</div>
+  //         <div>
+  //           <span>Win - </span>
+  //           <span className="clr-green">{adminUldata?.win_team}</span>
+  //         </div>
+  //       </div>
+  //     ),
+  //     admin_pl: (
+  //       <div
+  //         className={`${+adminUldata?.admin_pl >= 0 ? "green-clr" : "red-clr"}`}
+  //       >
+  //         {adminUldata?.admin_pl ? adminUldata?.admin_pl?.toFixed(2) : 0}
+  //       </div>
+  //     ),
+  //     urs_pl: (
+  //       <div
+  //         className={`${+adminUldata?.urs_pl >= 0 ? "green-clr" : "red-clr"}`}
+  //       >
+  //         {adminUldata?.urs_pl ? adminUldata?.urs_pl?.toFixed(2) : 0}
+  //       </div>
+  //     ),
+  //   }));
 
   console.log(
     induvisualUserReport,
@@ -360,22 +377,29 @@ const AdminOnePageReport = () => {
   const handleReport = (report) => {
     setActiveReport(report);
   };
+
+  const [induvisualAdminData, setInduvisualAdminData] = useState({});
   const handleAdminReports = (data) => {
-    if (activeReport === "Admin One Page Report") {
-      setAdminName(data?.admin_name);
-      // setRole(data?.admin_role);
-      setAdminOnePageReportPopUp(true);
-      setAdminsData(adminOnePageReportIndividualData);
-      setAdminsHeadings(adminOnePageReportIndividualHeadings);
-      setPopupHeading("Match Wise Share P/L");
-    } else {
-      setAdminName(data?.admin_name);
-      setRole(data?.admin_role);
-      setAdminOnePageReportPopUp(true);
-      setAdminsData(adminUlPlatformCommData);
-      setAdminsHeadings(adminUlPlatformCommHeadings);
-      setPopupHeading("Match Wise UL/Platform Com");
-    }
+    console.log(data, "......data");
+    setAdminOnePageReportPopUp(true);
+    setInduvisualAdminData(data);
+    getUserMatches(data.register_id);
+
+    // if (activeReport === "Admin One Page Report") {
+    //   setAdminName(data?.admin_name);
+    //   // setRole(data?.admin_role);
+    //   setAdminOnePageReportPopUp(true);
+    //   setAdminsData(adminOnePageReportIndividualData);
+    //   setAdminsHeadings(adminOnePageReportIndividualHeadings);
+    //   setPopupHeading("Match Wise Share P/L");
+    // } else {
+    //   setAdminName(data?.admin_name);
+    //   setRole(data?.admin_role);
+    //   setAdminOnePageReportPopUp(true);
+    //   setAdminsData(adminUlPlatformCommData);
+    //   setAdminsHeadings(adminUlPlatformCommHeadings);
+    //   setPopupHeading("Match Wise UL/Platform Com");
+    // }
   };
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = 5;
@@ -423,10 +447,7 @@ const AdminOnePageReport = () => {
             {adminOnePageReportData.length &&
               adminOnePageReportData?.map((data, index) => (
                 <tr key={index}>
-                  <td
-                    className="cursor-pointer d-flex flex-row justify-content-center align-items-center"
-                    onClick={() => handleAdminReports(data)}
-                  >
+                  <td className="cursor-pointer d-flex flex-row justify-content-center align-items-center">
                     {data?.admin_name}{" "}
                     <GiClick className="custom-click-icon ms-1 mt-2" />
                   </td>
@@ -464,13 +485,17 @@ const AdminOnePageReport = () => {
           {adminOnePageReportPopUp && (
             <AdminPopReports
               show={adminOnePageReportPopUp}
+              induvisualAdminData={induvisualAdminData}
               onHide={() => setAdminOnePageReportPopUp(false)}
-              data={adminsData}
-              columns={adminsHeadings}
-              adminName={adminName}
-              role={role}
-              heading={popupHeading}
-              totalPosition="series_name"
+              adminOnePageReportIndividualData={
+                adminOnePageReportIndividualData
+              }
+              // data={adminsData}
+              // columns={adminsHeadings}
+              // adminName={adminName}
+              // role={role}
+              // heading={popupHeading}
+              // totalPosition="series_name"
             />
           )}
         </Table>

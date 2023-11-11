@@ -6,12 +6,14 @@ function AdminPopReports(props) {
   const {
     show,
     onHide,
-    data,
-    columns,
-    adminName,
-    role,
-    heading,
-    totalPosition,
+    induvisualAdminData,
+    
+    // data,
+    // columns,
+    // adminName,
+    // role,
+    // heading,
+    // totalPosition,
   } = props;
   return (
     <Modal
@@ -22,20 +24,19 @@ function AdminPopReports(props) {
     >
       <Modal.Header closeButton>
         <Modal.Title className="w-100 mb-2">
-          {adminName && (
-            <Button className="rounded-pill">
-              {adminName} - {role}
-            </Button>
-          )}
+          <Button className="rounded-pill">
+            {induvisualAdminData.client_name} -{" "}
+            {induvisualAdminData.account_role}
+          </Button>
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <h6 className="mb-3 fw-semibold">{heading}</h6>
-        <AdminsTable
+        <h6 className="mb-3 fw-semibold">Heading</h6>
+        {/* <AdminsTable
           data={data}
           columns={columns}
           totalPosition={totalPosition}
-        />
+        /> */}
       </Modal.Body>
     </Modal>
   );
