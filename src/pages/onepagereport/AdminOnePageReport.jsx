@@ -71,22 +71,21 @@ const AdminOnePageReport = () => {
   const [userName, setUserName] = useState("");
   const [userRole, setUserRole] = useState("");
 
-  // const handleIndividualAdminOnePageReport = (
-  //   userId,
-  //   ulShare,
-  //   username,
-  //   role
-  // )
-  //  => {
-  //   getUserMatches(userId);
-  //   setUlShare(ulShare);
-  //   setUserName(username);
-  //   setUserRole(role);
-
-  // };
-  const handleIndividualAdminOnePageReport = (user) => {
-    console.log(user, ".......user");
+  const handleIndividualAdminOnePageReport = (
+    userId,
+    ulShare,
+    username,
+    role
+  ) => {
+    console.log("CLicked Me");
+    getUserMatches(userId);
+    setUlShare(ulShare);
+    setUserName(username);
+    setUserRole(role);
   };
+  // const handleIndividualAdminOnePageReport = (user) => {
+  //   console.log(user, ".......user");
+  // };
 
   const adminOnePageReportData =
     allUsers &&
@@ -106,11 +105,10 @@ const AdminOnePageReport = () => {
         ),
         onClick: () =>
           handleIndividualAdminOnePageReport(
-            // user?.register_id,
-            // user?.ul_share,
-            // user?.client_name,
-            // user?.account_role
-            user
+            user?.register_id,
+            user?.ul_share,
+            user?.client_name,
+            user?.account_role
           ),
       };
     });
