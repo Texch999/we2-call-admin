@@ -12,7 +12,7 @@ function TakeTour(props) {
   const [openToursPopup, setOpenToursPopup] = useState(false);
   const [filteredTours, setFilteredTours] = useState([])
   const handleIntrestButton = (tourName) => {
-    setFilteredTours(tours
+    setFilteredTours(tours && tours.length>0 && tours
       .filter((tour)=>tour.tour_name===tourName)
       .filter((tour)=>tour.status==="active")
       .filter((tour)=>{
