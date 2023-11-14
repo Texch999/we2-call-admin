@@ -43,6 +43,9 @@
   align-items: center;
   justify-content: center;
 }
+.intrested2 {
+  background: green !important;
+}
 #black-background {
   background: black !important;
 }

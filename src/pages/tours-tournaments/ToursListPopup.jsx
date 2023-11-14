@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Button,
   Col,
@@ -12,6 +12,12 @@ import { MdOutlineEdit } from "react-icons/md";
 
 function ToursListPopup(props) {
   const { openToursPopup, setOpenToursPopup, toursList } = props;
+  const [clicked, setClicked] = useState(false)
+  const [activeIndex, setActiveIndex] = useState()
+  const handleClick = (index)=>{
+    setClicked(true)
+    setActiveIndex(index)
+  }
   const TableHeads = toursList&&toursList.length>0?[
     {
       label: "SNO",
@@ -50,7 +56,11 @@ function ToursListPopup(props) {
           location: tour.country,
           schedule_from: tour.schedule_from,
           schedule_upto: tour.schedule_upto,
-          button: <button key={index} className="table-button rounded">I am Interested</button>,
+          button: <button key={index} 
+                          onClick={()=>handleClick(index)} 
+                          className={activeIndex===index && clicked?"table-button table-button-clicked rounded":"table-button rounded"}
+          
+                  >I’m Interested</button>,
         };
       } else {
         return null;

@@ -10,6 +10,7 @@ function Football(props) {
   const history = useHistory();
   const [openToursPopup, setOpenToursPopup] = useState(false)
   const [filteredTours, setFilteredTours] = useState([])
+  const [clicked, setClicked] = useState(false)
   const handleIntrestButton = (tourName) => {
     setFilteredTours(tours
       .filter((tour)=>tour.tour_name===tourName)
@@ -26,6 +27,7 @@ function Football(props) {
       })
     )
     setOpenToursPopup(true);
+    setClicked(true)
   };
 
   return (
@@ -54,7 +56,7 @@ function Football(props) {
               Click on interest buttons to get a changce to a part of our tour
             </span>
             <div
-              className="w-60 intrested meetings-heading mt-1"
+              className="ww-60 intrested meetings-heading mt-1"
               id="black-background"
               onClick={()=>{handleIntrestButton("3.Sports Tour")}}
             >
