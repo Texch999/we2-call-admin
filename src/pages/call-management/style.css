@@ -164,3 +164,7 @@ input[type="date"] {
 .css-1xc3v61-indicatorContainer:hover {
   color: #ffffff !important;
 }
+.meeting-user-list {
+  height: 150px;
+  overflow-y: scroll;
+}
