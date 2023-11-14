@@ -68,12 +68,18 @@ const DELETE_OFFLINE_CLIENT = "/offline-management/delete_clients";
 const PRIVACY_POLICY = "/management/get_policy_document";
 const RESET_PASSWORD = "/admin/reset_password";
 const GET_TOURS = "/tours/get_tours";
+const ADD_INTERESTED = "/tours/add_interested";
 
 // methods
 const DELETE = "DELETE";
 const POST = "POST";
 const GET = "POST";
 const PUT = "PUT";
+
+exports.ADD_INTERESTED = {
+  url: ADD_INTERESTED,
+  method: POST
+}
 
 exports.GET_TOURS = {
   url:GET_TOURS,

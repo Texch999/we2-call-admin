@@ -81,7 +81,7 @@ function TakeTour(props) {
             <img className="banner" src={Images.BatBall}></img>
           </div>
           <div className="col-6 p-3">
-            <h3 className="meetings-heading mt-3">Cricket Cup Tour</h3>
+            <h3 className="meetings-heading mt-3">Cricket Tours</h3>
             <div className="d-flex align-items-center">
               <div
                 className="click-button p-1 me-1"

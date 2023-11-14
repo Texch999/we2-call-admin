@@ -38,7 +38,7 @@ function Entertainment(props) {
         <div className="col-4 p-3 d-felx align-items-center ">
           <div className="mid-div">
             <center className="mt-3">
-              <h3 className="meetings-heading mt-3">Entertainment Tour</h3>
+              <h3 className="meetings-heading mt-3">Entertainment Tours</h3>
               <div className="d-flex align-items-center width-fit-content">
                 <div
                   className="click-button p-1 me-1"

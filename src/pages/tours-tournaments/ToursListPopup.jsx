@@ -9,15 +9,33 @@ import {
   Row,
 } from "react-bootstrap";
 import { MdOutlineEdit } from "react-icons/md";
+import { call } from "../../config/axios";
+import { ADD_INTERESTED } from "../../config/endpoints";
 
 function ToursListPopup(props) {
   const { openToursPopup, setOpenToursPopup, toursList } = props;
-  const [clicked, setClicked] = useState(false)
-  const [activeIndex, setActiveIndex] = useState()
-  const handleClick = (index)=>{
-    setClicked(true)
-    setActiveIndex(index)
+  const [buttonColor, setButtonColor] = useState([])
+
+  const handleClick = async(tourId)=>{
+    const isSelected = buttonColor.includes(tourId)
+    setButtonColor(isSelected?[...buttonColor]:[...buttonColor,tourId])
+    let registerId = localStorage.getItem("register_id")
+    let accountRole = localStorage.getItem("account_role")
+    let userName = localStorage.getItem("user_name")
+    const payload = {
+      register_id: registerId,
+      tour_id: tourId,
+      website: "www.we2call.com",
+      account_role: accountRole,
+      user_name: userName,
+      im_interested: true
+    }
+    console.log(payload,'......payload')
+    await call(ADD_INTERESTED, payload)
+            .then((res)=>console.log(res))
+            .catch((err)=>console.log.log(err))
   }
+
   const TableHeads = toursList&&toursList.length>0?[
     {
       label: "SNO",
@@ -57,8 +75,8 @@ function ToursListPopup(props) {
           schedule_from: tour.schedule_from,
           schedule_upto: tour.schedule_upto,
           button: <button key={index} 
-                          onClick={()=>handleClick(index)} 
-                          className={activeIndex===index && clicked?"table-button table-button-clicked rounded":"table-button rounded"}
+                          onClick={()=>handleClick(tour.tour_id)} 
+                          className={buttonColor.includes(tour.tour_id)?"table-button table-button-clicked rounded":"table-button rounded"}
           
                   >I’m Interested</button>,
         };
@@ -105,11 +123,11 @@ function ToursListPopup(props) {
               })}
             </tbody>
           </table>
-          <Row className="mt-2 p-2">
+          {/* <Row className="mt-2 p-2">
             <Col>
               <Button
                 className="add-user-button w-100"
-                onClick={() => setOpenToursPopup(false)}
+                onClick={() => handleSubmit()}
               >
                 Submit
               </Button>
@@ -122,7 +140,7 @@ function ToursListPopup(props) {
                 Cancel
               </Button>
             </Col>
-          </Row>
+          </Row> */}
         </div>
       </Modal>
     </div>

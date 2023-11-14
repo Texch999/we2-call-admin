@@ -42,7 +42,7 @@ function Football(props) {
             ></img>
           </div>
           <div className="col-7 p-3">
-            <h3 className="meetings-heading mt-3">Football Cup Tour</h3>
+            <h3 className="meetings-heading mt-3">Sports Tours</h3>
             <div className="d-flex align-items-center">
               <div
                 className="click-button p-1 me-1"
@@ -71,7 +71,7 @@ function Football(props) {
       <div className="col-sm-12 col-md-8">
         <div className="w-100 h-100per casino-tournie row d-flex align-items-center">
           <div className="col-5 p-3">
-            <h3 className="meetings-heading mt-3">Casino Tournament</h3>
+            <h3 className="meetings-heading mt-3">Casino Tournaments</h3>
             <div className="d-flex align-items-center">
               <div
                 className="click-button p-1 me-1"
