@@ -150,7 +150,6 @@ function Statement(props) {
       })
       .catch((err) => console.log(err));
   };
-
   useEffect(() => {
     getAllClientsData();
   }, []);

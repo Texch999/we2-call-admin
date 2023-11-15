@@ -17,6 +17,7 @@ function StatementPopup(props) {
   const { showModal, setShowModal, popupData, statementData } = props;
   const { id, match, date, winTeam } = useParams();
   let register_id = localStorage?.getItem("register_id");
+  const [isProcessing, setIsProcessing] = useState(false);
 
   const [selectedClientId, setSelectedClientId] = useState("");
   const [selectedClientName, setSelectedClientName] = useState("");
@@ -36,17 +37,20 @@ function StatementPopup(props) {
     setRfplInputs(false);
   };
 
-  console.log(popupData, ".....popupData");
+  console.log(onePageData, ".....onePageData");
 
   const getStatementByMatchIdData = async () => {
+    setIsProcessing(true);
     await call(GET_STATEMENT_BY_MATCH_ID, {
       register_id,
       registered_match_id: id,
     })
       .then((res) => {
+        setIsProcessing(false);
         setOnePageData(res?.data?.data?.client_object);
       })
       .catch((err) => {
+        setIsProcessing(false);
         console.log(err);
       });
   };
@@ -64,7 +68,7 @@ function StatementPopup(props) {
     refPL = 0,
     matchPL = 0;
 
-  const clientFinancialStatementData =
+  const clientMatchStatementData =
     onePageData &&
     onePageData?.length > 0 &&
     onePageData?.map((report) => {
@@ -78,21 +82,24 @@ function StatementPopup(props) {
       );
       const amount = report?.matchEntryResult?.amount;
       return {
+        name: <div>{report?.client_name}</div>,
         masterProfitLoss: (
           <div
-            className="settlemt-statement-client-data"
             onClick={() =>
               handleClientMatch(report?.client_id, report?.client_name)
             }
           >
-            <div>{report?.client_name}</div>
-            <div className={`${amount >= 0 ? "green-clr" : "red-clr"}`}>
+            <div className={`${amount >= 0 ? "clr-green" : "clr-red"}`}>
               {amount}
             </div>
-            Share{" "}
+          </div>
+        ),
+        share: (
+          <div>
+            Share
             <div
               className={`${
-                report?.clientShare >= 0 ? "green-clr" : "red-clr"
+                report?.clientShare >= 0 ? "clr-green" : "clr-red"
               }`}
             >
               {report?.clientShare}
@@ -103,7 +110,7 @@ function StatementPopup(props) {
           <div className="flex-center" onClick={() => handleFancyInnings()}>
             <div
               className={
-                report?.fancyEntryResult?.amount >= 0 ? "green-clr" : "red-clr"
+                report?.fancyEntryResult?.amount >= 0 ? "clr-green" : "clr-red"
               }
             >
               {report?.fancyEntryResult?.amount}
@@ -113,7 +120,7 @@ function StatementPopup(props) {
         fancyReferralComm: (
           <div
             className={`${
-              report?.clientComission >= 0 ? "green-clr" : "red-clr"
+              report?.clientComission >= 0 ? "clr-green" : "clr-red"
             }`}
           >
             {report?.clientComission}
@@ -121,7 +128,7 @@ function StatementPopup(props) {
         ),
         amount: (
           <div
-            className={`${report?.clientNet >= 0 ? "green-clr" : "red-clr"}`}
+            className={`${report?.clientNet >= 0 ? "clr-green" : "clr-red"}`}
           >
             {report?.clientNet}
           </div>
@@ -181,7 +188,11 @@ function StatementPopup(props) {
           </div>
         </Modal.Header>
         <Modal.Body className="p-3">
-          {clientInputs && <ClientPLTable popupData={popupData} />}
+          {clientInputs && (
+            <ClientPLTable
+              clientMatchStatementData={clientMatchStatementData}
+            />
+          )}
           {rfplInputs && <RfplTable />}
         </Modal.Body>
       </Modal>
