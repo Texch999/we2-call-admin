@@ -80,8 +80,6 @@ const AdminShareCommSettlement = ({ AdminCommSattlementStatementData }) => {
       return {
         admin_name: item.admin_name,
         role: item.admin_role,
-        amount: item.amount,
-        ulplatfrom: item.ul_pf_comm,
         amountul: item.amount,
         credit_debit: item.credit_debit,
         balance: item.balance,
@@ -133,9 +131,7 @@ const AdminShareCommSettlement = ({ AdminCommSattlementStatementData }) => {
             <tr>
               <th className="text-center">ADMIN NAME</th>
               <th className="text-center">ROLE/POSITION</th>
-              <th className="text-center">AMOUNT</th>
-              <th className="text-center">U/L Platfrom Comm</th>
-              <th className="text-center">Amount + U/L comm</th>
+              <th className="text-center">Share + U/L comm</th>
               <th className="text-center">CREDIT/DEBIT</th>
               <th className="text-center">BALANCE</th>
               <th></th>
@@ -146,10 +142,10 @@ const AdminShareCommSettlement = ({ AdminCommSattlementStatementData }) => {
               <tr key={index}>
                 <td className="text-center">{data?.admin_name}</td>
                 <td className="text-center">{data?.role}</td>
-                <td className="text-center">
+                {/* <td className="text-center">
                   {parseFloat(data?.amount).toFixed(2)}
                 </td>
-                <td className="text-center">{data?.ulplatfrom}</td>
+                <td className="text-center">{data?.ulplatfrom}</td> */}
                 <td className="text-center">{data?.amountul}</td>
                 <td
                   className={`text-center ${
@@ -179,7 +175,7 @@ const AdminShareCommSettlement = ({ AdminCommSattlementStatementData }) => {
                 TOTAL
               </th>
 
-              <th className="text-center clr-green">
+              {/* <th className="text-center clr-green">
                 {adminShareCommSettlementData
                   .reduce((total, data) => total + parseFloat(data?.amount), 0)
                   .toFixed(2)}
@@ -191,7 +187,7 @@ const AdminShareCommSettlement = ({ AdminCommSattlementStatementData }) => {
                     0
                   )
                   .toFixed(2)}
-              </th>
+              </th> */}
               <th className="text-center clr-green">
                 {adminShareCommSettlementData
                   .reduce(

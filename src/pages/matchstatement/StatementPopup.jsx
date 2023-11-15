@@ -14,36 +14,33 @@ import {
 import { useEffect } from "react";
 
 function StatementPopup(props) {
-  const { showModal, setShowModal, popupData, statementData } = props;
+  const { showModal, setShowModal, popupData } = props;
   const { id, match, date, winTeam } = useParams();
   let register_id = localStorage?.getItem("register_id");
-  const [isProcessing, setIsProcessing] = useState(false);
 
   const [selectedClientId, setSelectedClientId] = useState("");
   const [selectedClientName, setSelectedClientName] = useState("");
-
+  const [isrProcessing, setIsProcessing] = useState();
   const handleClose = () => setShowModal(false);
   const [clientInputs, setClientInputs] = useState(true);
   const [rfplInputs, setRfplInputs] = useState(false);
   const [onePageData, setOnePageData] = useState([]);
-
   const handleRfplResult = () => {
     setClientInputs(false);
     setRfplInputs(true);
   };
-
   const handleClientEntry = () => {
     setClientInputs(true);
     setRfplInputs(false);
   };
-
-  console.log(onePageData, ".....onePageData");
-
+  let clientPL = 0,
+    refPL = 0,
+    matchPL = 0;
   const getStatementByMatchIdData = async () => {
     setIsProcessing(true);
     await call(GET_STATEMENT_BY_MATCH_ID, {
       register_id,
-      registered_match_id: id,
+      // registered_match_id: id,
     })
       .then((res) => {
         setIsProcessing(false);
@@ -57,17 +54,6 @@ function StatementPopup(props) {
   useEffect(() => {
     getStatementByMatchIdData();
   }, []);
-
-  const handleClientMatch = (clientID, clientName) => {
-    setSelectedClientId(clientID);
-    setSelectedClientName(clientName);
-  };
-  const handleFancyInnings = () => {};
-
-  let clientPL = 0,
-    refPL = 0,
-    matchPL = 0;
-
   const clientMatchStatementData =
     onePageData &&
     onePageData?.length > 0 &&
@@ -85,9 +71,9 @@ function StatementPopup(props) {
         name: <div>{report?.client_name}</div>,
         masterProfitLoss: (
           <div
-            onClick={() =>
-              handleClientMatch(report?.client_id, report?.client_name)
-            }
+          // onClick={() =>
+          //   handleClientMatch(report?.client_id, report?.client_name)
+          // }
           >
             <div className={`${amount >= 0 ? "clr-green" : "clr-red"}`}>
               {amount}
@@ -107,7 +93,8 @@ function StatementPopup(props) {
           </div>
         ),
         fancyProfitLoss: (
-          <div className="flex-center" onClick={() => handleFancyInnings()}>
+          // <div className="flex-center" onClick={() => handleFancyInnings()}>
+          <div className="flex-center">
             <div
               className={
                 report?.fancyEntryResult?.amount >= 0 ? "clr-green" : "clr-red"
@@ -135,7 +122,15 @@ function StatementPopup(props) {
         ),
       };
     });
+  const handleClientMatch = (clientID, clientName) => {
+    setSelectedClientId(clientID);
+    setSelectedClientName(clientName);
+  };
+  const handleFancyInnings = () => {};
 
+  console.log(onePageData, ".....................onePageData................");
+
+  // const clientMatchStatementData = [];
   return (
     <div className="modal fade bd-example-modal-lg container mt-5">
       <Modal
@@ -151,7 +146,7 @@ function StatementPopup(props) {
               <div className="w-25 d-flex justify-content-between">
                 <div>
                   <div className="w-100 small-font clr-yellow match-date-button p-1 rounded-pill ms-1 me-1">
-                    Match : {statementData?.match_name}
+                    Match : {popupData?.match_name}
                   </div>
                 </div>
                 <div>

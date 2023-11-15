@@ -238,6 +238,32 @@ const AdminSharesMatchStatement = () => {
         ),
       };
     });
+  // const AdminCommSattlementStatementData =
+  //   allUsers &&
+  //   allUsers?.length > 0 &&
+  //   allUsers?.map((user) => {
+  //     const netPL = getUlShare(user?.total_amount, user?.ul_share);
+  //     return {
+  //       admin_name: <div>{user?.client_name}</div>,
+  //       admin_role: <div>{user?.account_role}</div>,
+  //       amount: (
+  //         <div className={netPL >= 0 ? "clr-green" : "clr-red"}>
+  //           {netPL ? netPL?.toFixed(3) : 0}
+  //         </div>
+  //       ),
+  //       credit_debit: 10000,
+  //       balance: "100100",
+  //       // pay: (
+  //       //   <div
+  //       //     className="account-summary-main-container"
+  //       //     onClick={() => handlePaymentPopup()}
+  //       //   >
+  //       //     pay
+  //       //   </div>
+  //       // ),
+  //     };
+  //   });
+
   const AdminCommSattlementStatementData =
     allUsers &&
     allUsers?.length > 0 &&
@@ -246,10 +272,13 @@ const AdminSharesMatchStatement = () => {
       return {
         admin_name: user?.client_name,
         admin_role: user?.account_role,
-        amount: netPL,
-        ul_pf_comm: 0,
-        credit_debit: 0,
-        balance: "100100",
+        amount: (
+          <div className={netPL >= 0 ? "clr-green" : "clr-red"}>
+            {netPL ? netPL?.toFixed(3) : 0}
+          </div>
+        ),
+        credit_debit: "100000.00",
+        balance: "100000.00",
       };
     });
   return (

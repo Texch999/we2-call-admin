@@ -5,17 +5,18 @@ import { Col, Container, Row } from "react-bootstrap";
 import { GiClick } from "react-icons/gi";
 function ClientPLTable(props) {
   const { popupData, clientMatchStatementData } = props;
-  const CLIENTPL_DETAILS = clientMatchStatementData.map((item) => {
-    return {
-      name: item.name,
-      masterProfitLoss: item.masterProfitLoss,
-      share: item.share,
-      fancyProfitLoss: item.fancyProfitLoss,
-      fancyReferralComm: item.fancyReferralComm,
-      amount: item.amount,
-    };
-  });
-
+  const CLIENTPL_DETAILS =
+    clientMatchStatementData.length &&
+    clientMatchStatementData?.map((item) => {
+      return {
+        name: item.name,
+        masterProfitLoss: item.masterProfitLoss,
+        share: item.share,
+        fancyProfitLoss: item.fancyProfitLoss,
+        fancyReferralComm: item.fancyReferralComm,
+        amount: item.amount,
+      };
+    });
   // const CLIENTPL_DETAILS = [
   //   {
   //     name: "Animesh",
@@ -89,7 +90,7 @@ function ClientPLTable(props) {
             <th>C Net P/L</th>
           </tr>
         </thead>
-        {CLIENTPL_DETAILS.map((item, index) => (
+        {CLIENTPL_DETAILS?.map((item, index) => (
           <tbody key={index}>
             <tr className="text-center">
               <td>{item.name}</td>
