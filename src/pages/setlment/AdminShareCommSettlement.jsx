@@ -75,8 +75,9 @@ const AdminShareCommSettlement = ({ AdminCommSattlementStatementData }) => {
   //     balance: 1000000.0,
   //   },
   // ];
-  const adminShareCommSettlementData = AdminCommSattlementStatementData.map(
-    (item) => {
+  const adminShareCommSettlementData =
+    AdminCommSattlementStatementData.length &&
+    AdminCommSattlementStatementData?.map((item) => {
       return {
         admin_name: item.admin_name,
         role: item.admin_role,
@@ -84,8 +85,7 @@ const AdminShareCommSettlement = ({ AdminCommSattlementStatementData }) => {
         credit_debit: item.credit_debit,
         balance: item.balance,
       };
-    }
-  );
+    });
   const [showPaymentModal, setShowPaymentModal] = useState(false);
   const handlePaymentModal = () => {
     setShowPaymentModal(true);
@@ -190,7 +190,7 @@ const AdminShareCommSettlement = ({ AdminCommSattlementStatementData }) => {
               </th> */}
               <th className="text-center clr-green">
                 {adminShareCommSettlementData
-                  .reduce(
+                  ?.reduce(
                     (total, data) => total + parseFloat(data?.amountul),
                     0
                   )
@@ -199,7 +199,7 @@ const AdminShareCommSettlement = ({ AdminCommSattlementStatementData }) => {
               <th className="text-center clr-green">
                 {" "}
                 {adminShareCommSettlementData
-                  .reduce(
+                  ?.reduce(
                     (total, data) => total + parseFloat(data?.credit_debit),
                     0
                   )
@@ -208,7 +208,10 @@ const AdminShareCommSettlement = ({ AdminCommSattlementStatementData }) => {
               <th className="text-center clr-green">
                 {" "}
                 {adminShareCommSettlementData
-                  .reduce((total, data) => total + parseFloat(data?.balance), 0)
+                  ?.reduce(
+                    (total, data) => total + parseFloat(data?.balance),
+                    0
+                  )
                   .toFixed(2)}
               </th>
               <th className="text-center"></th>

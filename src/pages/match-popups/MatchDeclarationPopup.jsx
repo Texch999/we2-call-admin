@@ -3,7 +3,7 @@ import { IoCloseSharp } from "react-icons/io5";
 import { Images } from "./../../images/index";
 
 function MatchDeclarationPopup(props) {
-  const { header, amount, state, setState, handleMatchDeclarePopupOpen } =
+  const { header, amount, state, setState, handleMatchSubmitSuccessPopupOpen } =
     props;
 
   return (
@@ -23,7 +23,7 @@ function MatchDeclarationPopup(props) {
           <div className="row d-flex justify-content-between mt-3">
             <div
               className="col-5 rounded yellow-btn p-1"
-              onClick={() => handleMatchDeclarePopupOpen()}
+              onClick={() => handleMatchSubmitSuccessPopupOpen()}
             >
               Yes
             </div>

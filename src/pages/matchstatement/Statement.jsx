@@ -46,10 +46,7 @@ function Statement(props) {
   ];
 
   const [popupData, setPopupData] = useState();
-  // console.log(
-  //   financialStatementData,
-  //   "........................statementData..............."
-  // );
+
   let totalMatchResultData = 0;
   const statementData =
     financialStatementData &&
@@ -64,16 +61,13 @@ function Statement(props) {
         series: (
           <div>
             {match?.series_name}
-            <br />
+            {/* <br />
             {match?.stadium}
-            <br />
-            {match?.match_place}
-            <br />
-            {moment(match?.matchTimeStamp).format("DD-MM-YYYY")}
-            <br />
-            <span> {moment(match?.matchTimeStamp).format("hh:mm:ss A")}</span>
+            <br /> */}
           </div>
         ),
+        venue: match?.stadium,
+        matchPlace: match?.match_place,
         teamName: match?.match_name,
         winTeam: match?.winTeam,
         porL: match?.totalAmount?.totalLossOrProfit,
@@ -82,8 +76,13 @@ function Statement(props) {
         matchTimeStamp: match?.matchTimeStamp,
       };
     });
+
+  const handleShow = (item) => {
+    setShowModal(true);
+    setPopupData(item);
+  };
   const STATEMENT_DETAILS =
-    statementData.length &&
+    statementData?.length &&
     statementData?.map((item) => {
       return {
         dateTime: (
@@ -94,24 +93,18 @@ function Statement(props) {
         ),
 
         // dateTime: item?.sport_name,
-        seriesName: item?.series_name,
+        seriesName: item?.series,
         teamName: (
           <div>
             {/* {item?.team1} VS {item?.team1} */}
-            {item?.match_name}
+            {item?.teamName}
           </div>
         ),
-        matchplace: item?.stadium,
+        matchplace: item?.matchPlace,
         winTeam: item?.winTeam,
         profitLoss: (
-          <div
-            className={
-              item?.totalAmount?.totalLossOrProfit >= 0
-                ? "clr-green"
-                : "clr-red"
-            }
-          >
-            {item?.totalAmount?.totalLossOrProfit}
+          <div className={item?.porL >= 0 ? "clr-green" : "clr-red"}>
+            {item?.porL}
           </div>
         ),
 
@@ -129,11 +122,7 @@ function Statement(props) {
       };
     });
   const [showModal, setShowModal] = useState(false);
-  const handleShow = (item) => {
-    setShowModal(true);
-    setPopupData(item);
-  };
-  console.log(popupData, "statemnt-popupData");
+
   const [selectedDate, setSelectedDate] = useState(null);
 
   const onChange = (e) => {};

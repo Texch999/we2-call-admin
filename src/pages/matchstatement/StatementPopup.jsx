@@ -17,7 +17,6 @@ function StatementPopup(props) {
   const { showModal, setShowModal, popupData } = props;
   const { id, match, date, winTeam } = useParams();
   let register_id = localStorage?.getItem("register_id");
-
   const [selectedClientId, setSelectedClientId] = useState("");
   const [selectedClientName, setSelectedClientName] = useState("");
   const [isrProcessing, setIsProcessing] = useState();
@@ -40,7 +39,7 @@ function StatementPopup(props) {
     setIsProcessing(true);
     await call(GET_STATEMENT_BY_MATCH_ID, {
       register_id,
-      // registered_match_id: id,
+      registered_match_id: popupData,
     })
       .then((res) => {
         setIsProcessing(false);
@@ -53,7 +52,7 @@ function StatementPopup(props) {
   };
   useEffect(() => {
     getStatementByMatchIdData();
-  }, []);
+  }, [popupData]);
   const clientMatchStatementData =
     onePageData &&
     onePageData?.length > 0 &&
@@ -128,7 +127,6 @@ function StatementPopup(props) {
   };
   const handleFancyInnings = () => {};
 
-  console.log(onePageData, ".....................onePageData................");
 
   // const clientMatchStatementData = [];
   return (
