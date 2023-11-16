@@ -28,6 +28,10 @@ function Entertainment(props) {
     setOpenToursPopup(true);
   };
 
+  const handleBooking = () =>{
+    // state===false?"":
+  }
+
 
   return (
     <div className="row  p-3 tour-cricket">
@@ -42,11 +46,12 @@ function Entertainment(props) {
               <div className="d-flex align-items-center width-fit-content">
                 <div
                   className="click-button p-1 me-1"
-                  onClick={() => history.push("/offers")}
+                  // onClick={() => history.push("/offers")}
+                  onClick={()=>handleBooking()}
+                  // aria-disabled
                 >
                   Book Now
                 </div>
-                <h6 className="meetings-heading mt-3 d-inline">For Details</h6>
               </div>
               <h4 className="large-font meetings-heading">
                 Play and get a chance to join with tour
