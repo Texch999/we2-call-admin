@@ -48,7 +48,7 @@ function Football(props) {
                 className="click-button p-1 me-1"
                 onClick={() => history.push("/offers")}
               >
-                Click Here
+                Book Now
               </div>
               <h6 className="meetings-heading mt-3 d-inline">For Details</h6>
             </div>
@@ -77,7 +77,7 @@ function Football(props) {
                 className="click-button p-1 me-1"
                 onClick={() => history.push("/offers")}
               >
-                Click Here
+                Book Now
               </div>
               <h6 className="meetings-heading mt-3 d-inline">For Details</h6>
             </div>

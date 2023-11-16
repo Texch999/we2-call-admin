@@ -9,8 +9,9 @@
   border: solid 2px #2b3967;
 }
 .click-button {
-  background: rgb(50, 89, 247);
+  background: rgb(200, 200, 201);
   border-radius: 5px;
+  color: #000000;
 }
 .cricket-cup {
   background: linear-gradient(to right, #e762e5, #4f64f0);
