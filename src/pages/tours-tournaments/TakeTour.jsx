@@ -4,28 +4,36 @@ import "./styles.css";
 import { useHistory } from "react-router";
 import { useState } from "react";
 import ToursListPopup from "./ToursListPopup";
+import { useParams } from "react-router-dom";
 
 function TakeTour(props) {
-  const {tours} = props
+  const { tours } = props;
   // console.log(tours,'......tours')
   const history = useHistory();
   const [openToursPopup, setOpenToursPopup] = useState(false);
-  const [filteredTours, setFilteredTours] = useState([])
+  const [filteredTours, setFilteredTours] = useState([]);
+
   const handleIntrestButton = (tourName) => {
-    setFilteredTours(tours && tours.length>0 && tours
-      .filter((tour)=>tour.tour_name===tourName)
-      .filter((tour)=>tour.status==="active")
-      .filter((tour)=>{
-        const publishStartDate = new Date(tour.publish_from)
-        const publishStartTimestamp = publishStartDate.getTime()
-        const publishEndDate = new Date(tour.publish_upto)
-        const publishEndTimestamp = publishEndDate.getTime()
-        const currentTimestamp = Date.now()
-        if(currentTimestamp>publishStartTimestamp&&currentTimestamp<publishEndTimestamp){
-          return tour
-        }
-      })
-    )
+    setFilteredTours(
+      tours &&
+        tours.length > 0 &&
+        tours
+          .filter((tour) => tour.tour_name === tourName)
+          .filter((tour) => tour.status === "active")
+          .filter((tour) => {
+            const publishStartDate = new Date(tour.publish_from);
+            const publishStartTimestamp = publishStartDate.getTime();
+            const publishEndDate = new Date(tour.publish_upto);
+            const publishEndTimestamp = publishEndDate.getTime();
+            const currentTimestamp = Date.now();
+            if (
+              currentTimestamp > publishStartTimestamp &&
+              currentTimestamp < publishEndTimestamp
+            ) {
+              return tour;
+            }
+          })
+    );
     setOpenToursPopup(true);
   };
 
@@ -41,14 +49,12 @@ function TakeTour(props) {
             <div className="d-flex align-items-center">
               <div
                 className="click-button p-1 me-1"
-                onClick={() => history.push("/offers")}
+                onClick={()=>history.push("/offers/1.Take Part in Our Tour")}
               >
                 Book Now
               </div>
               <h6 className="meetings-heading mt-3 d-inline">For Details</h6>
             </div>
-            {/* <a>Click Here</a> For Details */}
-            {/* </div> */}
             <h4 className="large-font meetings-heading">
               Play and get a chance to join with tour
             </h4>
@@ -85,7 +91,7 @@ function TakeTour(props) {
             <div className="d-flex align-items-center">
               <div
                 className="click-button p-1 me-1"
-                onClick={() => history.push("/offers")}
+                onClick={() => history.push("/offers/2.Cricket Tour")}
               >
                 Book Now
               </div>
@@ -94,8 +100,9 @@ function TakeTour(props) {
             <span className="medium-font meetings-heading">
               Click on interest buttons to get a changce to a part of our tour
             </span>
-            <div className="w-60 intrested meetings-heading mt-1"
-                  onClick={() => handleIntrestButton("2.Cricket Tour")}
+            <div
+              className="w-60 intrested meetings-heading mt-1"
+              onClick={() => handleIntrestButton("2.Cricket Tour")}
             >
               I’m Interested
             </div>
@@ -105,9 +112,10 @@ function TakeTour(props) {
           </div>
         </div>
       </div>
-      <ToursListPopup openToursPopup={openToursPopup} 
-                      setOpenToursPopup={setOpenToursPopup}
-                      toursList={filteredTours}
+      <ToursListPopup
+        openToursPopup={openToursPopup}
+        setOpenToursPopup={setOpenToursPopup}
+        toursList={filteredTours}
       />
     </div>
   );

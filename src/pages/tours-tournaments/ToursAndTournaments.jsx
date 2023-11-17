@@ -6,30 +6,30 @@ import Entertainment from "./Entertainment";
 import { useState } from "react";
 import ChatsTours from "./ChatsTours";
 import { call } from "../../config/axios";
-import { GET_TOURS } from "../../config/endpoints"
+import { GET_TOURS } from "../../config/endpoints";
 
 function ToursAndTournaments() {
   const [showChatPopup, setShowChatPopup] = useState(false);
-  const [tours, setTours] = useState([])
+  const [tours, setTours] = useState([]);
+  // const [bookTourType, setBookTourType] = useState();
   const handleChatWithUsButton = () => {
     setShowChatPopup(true);
   };
 
-  const getTours = async() =>{
-    const payload = {}
-    await call(GET_TOURS, payload)
-          .then((res)=>setTours(res.data.data))
-  }
-  console.log(tours,'......tours')
-  useEffect(()=>{
-    getTours()
-  },[])
+  const getTours = async () => {
+    const payload = {};
+    await call(GET_TOURS, payload).then((res) => setTours(res.data.data));
+  };
+  console.log(tours, "......tours");
+  useEffect(() => {
+    getTours();
+  }, []);
 
   return (
     <div className="pl-1rem tours-main">
-      <TakeTour tours={tours}/>
-      <Football tours={tours}/>
-      <Entertainment tours={tours}/>
+      <TakeTour tours={tours} />
+      <Football tours={tours} />
+      <Entertainment tours={tours} />
       <div
         className="d-flex msg-container"
         onClick={() => handleChatWithUsButton()}

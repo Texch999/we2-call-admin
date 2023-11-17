@@ -445,3 +445,6 @@
 .tr-item {
   border-bottom: 1px solid grey;
 }
+.title-color {
+  color: #ffa743 !important;
+}

@@ -2,10 +2,13 @@ import { useState } from "react";
 import OfferDetails from "./OfferDetails";
 import MessagePopup from "../tour-popups/MessagePopup";
 import { Images } from "../../images";
-import { useHistory } from "react-router";
+import { useHistory,useParams } from "react-router";
+// import { useParams } from "react-router-dom";
 
 function ViewOffers() {
   const history = useHistory();
+  const { tourname } = useParams();
+  console.log(tourname,'......tourType')
   const [messagePopup, setMessagePopup] = useState(false);
   const [viewOffers, setViewOffers] = useState(true);
   const handleViewOffersOpen = () => {

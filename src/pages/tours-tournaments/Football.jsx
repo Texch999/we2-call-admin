@@ -46,7 +46,7 @@ function Football(props) {
             <div className="d-flex align-items-center">
               <div
                 className="click-button p-1 me-1"
-                onClick={() => history.push("/offers")}
+                onClick={() => history.push("/offers/3.Sports Tour")}
               >
                 Book Now
               </div>
@@ -75,7 +75,7 @@ function Football(props) {
             <div className="d-flex align-items-center">
               <div
                 className="click-button p-1 me-1"
-                onClick={() => history.push("/offers")}
+                onClick={() => history.push("/offers/4.Casino Tour")}
               >
                 Book Now
               </div>

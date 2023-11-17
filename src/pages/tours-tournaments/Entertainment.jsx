@@ -46,12 +46,11 @@ function Entertainment(props) {
               <div className="d-flex align-items-center width-fit-content">
                 <div
                   className="click-button p-1 me-1"
-                  // onClick={() => history.push("/offers")}
-                  onClick={()=>handleBooking()}
-                  // aria-disabled
+                  onClick={() => history.push("/offers/5.Entertainment Tour")}
                 >
                   Book Now
                 </div>
+                <h6 className="meetings-heading mt-3 d-inline">For Details</h6>
               </div>
               <h4 className="large-font meetings-heading">
                 Play and get a chance to join with tour

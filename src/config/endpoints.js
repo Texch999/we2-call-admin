@@ -69,12 +69,18 @@ const PRIVACY_POLICY = "/management/get_policy_document";
 const RESET_PASSWORD = "/admin/reset_password";
 const GET_TOURS = "/tours/get_tours";
 const ADD_INTERESTED = "/tours/add_interested";
+const GET_SELECTEDMEMBERS = "/tours/get_booknow_of_selectedteam"
 
 // methods
 const DELETE = "DELETE";
 const POST = "POST";
 const GET = "POST";
 const PUT = "PUT";
+
+exports.GET_SELECTEDMEMBERS = {
+  url: GET_SELECTEDMEMBERS,
+  method: POST
+}
 
 exports.ADD_INTERESTED = {
   url: ADD_INTERESTED,
