@@ -3,7 +3,8 @@ import YourDetailsPopup from "./../tour-popups/YourDetailsPopup";
 import { call } from "../../config/axios";
 import { GET_SELECTEDMEMBERS } from "../../config/endpoints";
 
-function YourIntrested() {
+function YourIntrested(props) {
+  const {tourname} = props;
   const [yourDetailsPopup, setYourDetailsPopup] = useState();
   const [selectedMembers,setSelectedMembers] = useState([])
   const handleYourDetailsPopupOpen = () => {
@@ -23,6 +24,7 @@ function YourIntrested() {
   const tourdetailsAddedMembers = selectedMembers
                                     .filter((item)=>item.selected===true)
                                     .filter((item)=>item.tour_details!==false)
+                                    .filter((item)=>item.tour_name===tourname)
                                     .filter((item)=>{
                                       const tourScheduleEnd = item.schedule_end
                                       const tourEndDate = new Date(tourScheduleEnd)

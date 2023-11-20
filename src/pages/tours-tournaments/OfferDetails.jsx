@@ -3,9 +3,10 @@ import NoOffer from "./NoOffer";
 import { HiThumbUp } from "react-icons/hi";
 import YourIntrested from "./YourIntrested";
 import TeamIntrested from "./TeamIntrested";
-import { Images } from "../../images";
+import { Images } from "../../images/index";
 
-function OfferDetails() {
+function OfferDetails(props) {
+  const { tourname } = props;
   const [yourIntrested, setYourIntrested] = useState(true);
   const [teamIntrested, setTeamIntrested] = useState(false);
   const handleYouIntrested = () => {
@@ -24,7 +25,7 @@ function OfferDetails() {
           <div className="w-100 d-flex justify-content-between align-items-center take-tour-div h-55vh">
             <div className="w-45 tour-content">
               <div className="font-clr-white tour-heading-text">
-                Take a part in our tour
+                {tourname}
               </div>
               <div className="w-75 fw-600 font-clr-white font-14 mt-1">
                 Play and get a chance to join with tour
@@ -65,7 +66,7 @@ function OfferDetails() {
       </div>
       <hr className="hr-line mt-2" />
       <div className="mt-2">
-        {yourIntrested && <YourIntrested />}
+        {yourIntrested && <YourIntrested tourname={ tourname }/>}
         {teamIntrested && <TeamIntrested />}
       </div>
     </div>

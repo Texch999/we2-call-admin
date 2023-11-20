@@ -4,7 +4,6 @@ import "./styles.css";
 import { useHistory } from "react-router";
 import { useState } from "react";
 import ToursListPopup from "./ToursListPopup";
-import { useParams } from "react-router-dom";
 
 function TakeTour(props) {
   const { tours } = props;
@@ -49,7 +48,7 @@ function TakeTour(props) {
             <div className="d-flex align-items-center">
               <div
                 className="click-button p-1 me-1"
-                onClick={()=>history.push("/offers/1.Take Part in Our Tour")}
+                onClick={()=>history.push("/offers/qwerty")}
               >
                 Book Now
               </div>
