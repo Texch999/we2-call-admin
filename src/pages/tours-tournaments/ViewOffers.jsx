@@ -36,7 +36,7 @@ function ViewOffers() {
         <div onClick={() => handleOpenMessagePopup()}>
           <img
             className="offers-msg-img"chat_icon
-            src={Images.chat_icon}
+            src={"../assets/chat_icon.png"}
             alt="Message"
           />
         </div>

@@ -48,7 +48,7 @@ function TakeTour(props) {
             <div className="d-flex align-items-center">
               <div
                 className="click-button p-1 me-1"
-                onClick={()=>history.push("/offers/qwerty")}
+                onClick={()=>history.push("/offers/1.Take Part in Our Tour")}
               >
                 Book Now
               </div>

@@ -59,7 +59,7 @@ function FillDetails(props) {
   };
 
   const handlePackageOptions = () => {
-    setPackageOptionsOpen(true);
+    setPackageOptionsOpen(!packageOptionsOpen);
   };
 
   const handleSelectOption = (item, index) => {
@@ -84,7 +84,7 @@ function FillDetails(props) {
     {
       label: (
         <div className="d-flex justify-content-between aline-items-center">
-          100000-200000 <div className="p-1 border-ylw">1</div>
+          Regular Pack <div className="p-1 border-ylw">1</div>
         </div>
       ),
       value: 1,
@@ -92,7 +92,7 @@ function FillDetails(props) {
     {
       label: (
         <div className="d-flex justify-content-between aline-items-center">
-          200000-300000 <div className="p-1 border-ylw">3</div>
+          Premium Pack <div className="p-1 border-ylw">3</div>
         </div>
       ),
       value: 3,
@@ -100,7 +100,7 @@ function FillDetails(props) {
     {
       label: (
         <div className="d-flex justify-content-between aline-items-center">
-          300000-400000 <div className="p-1 border-ylw">5</div>
+          Luxury Pack <div className="p-1 border-ylw">5</div>
         </div>
       ),
       value: 5,
@@ -108,7 +108,7 @@ function FillDetails(props) {
     {
       label: (
         <div className="d-flex justify-content-between aline-items-center">
-          400000-500000 <div className="p-1 border-ylw">7</div>
+          Vip Pack <div className="p-1 border-ylw">7</div>
         </div>
       ),
       value: 7,
@@ -116,7 +116,7 @@ function FillDetails(props) {
     {
       label: (
         <div className="d-flex justify-content-between aline-items-center">
-          500000-700000 <div className="p-1 border-ylw">10</div>
+          Vvip Pack <div className="p-1 border-ylw">10</div>
         </div>
       ),
       value: 10,
@@ -172,7 +172,7 @@ function FillDetails(props) {
               </div>
             )}
           </div>
-          <div className="col">
+          {/* <div className="col">
             <div
               className="by-id-btn d-flex justify-content-between p-2"
               onClick={() => handleRegisteredOpen()}
@@ -200,7 +200,7 @@ function FillDetails(props) {
                 </div>
               </div>
             )}
-          </div>
+          </div> */}
         </div>
         {NUMBER_OF_MEMBERS?.map((item, index) => (
           <div key={index}>
