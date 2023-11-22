@@ -8,7 +8,7 @@ function MatchSubmitPopup(props) {
     setState(false);
   };
   return (
-    <Modal show={state} className="match-declaration-modal" centered>
+    <Modal show={state} className="match-declaration-modal z-index" centered>
       <Modal.Header className="d-flex justify-content-end">
         <IoCloseSharp onClick={() => handleCancel()} />
       </Modal.Header>

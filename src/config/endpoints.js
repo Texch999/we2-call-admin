@@ -56,6 +56,7 @@ const RISK_RUNNING_SESSION = "/offline-management/risk_running_session";
 const ADD_PAYMENT = "/management/add_payment_gateway";
 const GET_ALL_PAYMENT_GATEWAYS = "/management/getall_payments";
 const UPDATE_PAYMENT_GATEWAY = "/management/update_payment_gateway";
+const UPDATE_MATCH = "/offline-management/update_matchid_data";
 const GET_REQUEST_PACKAGES =
   "/packages/get_package_histroy_bypackage_requestid";
 const GET_ADMIN_PACKAGE_REQUEST = "/packages/get_all_admin_package_request";
@@ -71,6 +72,15 @@ const GET_TOURS = "/tours/get_tours";
 const ADD_INTERESTED = "/tours/add_interested";
 const GET_SELECTEDMEMBERS = "/tours/get_booknow_of_selectedteam";
 const GET_TOUR_BY_ID = "/tours/get_toursbyid"
+const ACTIVE_INACTIVE_USERS =
+  "/offline-management/offline_active_inactive_users";
+const MANAGEMENT_MATCHES = "/management/get_matches_by_accountrole";
+const CREATE_MEETING = "/meetings/create_meeting";
+const UPDATE_MEETING = "/meetings/update_call_meetings";
+const GET_LIVE_MATCH_RISK_POSITION =
+  "/offline-management/live_match_risk_position";
+const GET_STATEMENT_BY_MATCH_ID =
+  "/offline-management/get_statement_bymatch_id";
 
 // methods
 const DELETE = "DELETE";
@@ -99,10 +109,30 @@ exports.GET_TOURS = {
 }
 exports.GET_COMPLETED_MATCHES_BY_CLEINT = {
   url: GET_COMPLETED_MATCHES_BY_CLEINT,
+  method: POST
+}
+exports.GET_LIVE_MATCH_RISK_POSITION = {
+  url: GET_LIVE_MATCH_RISK_POSITION,
+  method: POST,
+};
+exports.GET_STATEMENT_BY_MATCH_ID = {
+  url: GET_STATEMENT_BY_MATCH_ID,
   method: POST,
 };
 exports.GET_UPDATED_MATCHES_DATA = {
   url: GET_UPDATED_MATCHES_DATA,
+  method: POST,
+};
+exports.UPDATE_MATCH = {
+  url: UPDATE_MATCH,
+  method: POST,
+};
+exports.GET_FINANCIAL_STATEMENT_BY_DATE = {
+  url: GET_FINANCIAL_STATEMENT_BY_DATE,
+  method: POST,
+};
+exports.GET_COMPLETED_MATCHES_BY_CLEINT = {
+  url: GET_COMPLETED_MATCHES_BY_CLEINT,
   method: POST,
 };
 exports.CREATE_REFFERAL = {
@@ -150,10 +180,6 @@ exports.GENERATE_SIGNED_URL = {
   method: POST,
 };
 
-exports.GET_FINANCIAL_STATEMENT_BY_DATE = {
-  url: GET_FINANCIAL_STATEMENT_BY_DATE,
-  method: POST,
-};
 exports.GET_USER_INFO = {
   url: GET_USER_INFO,
   method: POST,
@@ -383,5 +409,21 @@ exports.PRIVACY_POLICY = {
 };
 exports.RESET_PASSWORD = {
   url: RESET_PASSWORD,
+  method: POST,
+};
+exports.ACTIVE_INACTIVE_USERS = {
+  url: ACTIVE_INACTIVE_USERS,
+  method: POST,
+};
+exports.MANAGEMENT_MATCHES = {
+  url: MANAGEMENT_MATCHES,
+  method: POST,
+};
+exports.CREATE_MEETING = {
+  url: CREATE_MEETING,
+  method: POST,
+};
+exports.UPDATE_MEETING = {
+  url: UPDATE_MEETING,
   method: POST,
 };

@@ -52,19 +52,19 @@ function ReportPage() {
     setRefName(name);
     setRefId(refId);
   };
-  const getIndividualPLReport = async (clientId) => {
-    await call(GET_COMPLETED_MATCHES_BY_CLEINT, {
-      register_id,
-      account_role,
-      client_id: clientId,
-    })
-      .then((res) => {
-        console.log("res.data.data", res.data);
-        setIndividualClientData(res?.data?.data);
-        setInduvisualClientStatus((prev) => !prev);
-      })
-      .catch((err) => console.log(err));
-  };
+  // const getIndividualPLReport = async (clientId) => {
+  //   await call(GET_COMPLETED_MATCHES_BY_CLEINT, {
+  //     register_id,
+  //     account_role,
+  //     client_id: clientId,
+  //   })
+  //     .then((res) => {
+  //       console.log("res.data.data", res.data);
+  //       setIndividualClientData(res?.data?.data);
+  //       setInduvisualClientStatus((prev) => !prev);
+  //     })
+  //     .catch((err) => console.log(err));
+  // };
   const getRefferalData = async () => {
     await call(GET_REFFERAL_DATA, { register_id })
       .then((res) => {
@@ -87,58 +87,58 @@ function ReportPage() {
     });
   const [clientName, setClientName] = useState("");
 
-  const onePageReportdata1 =
-    onePageReportData?.length > 0 &&
-    onePageReportData?.map((report) => {
-      const totalAmountAfterCommission =
-        parseFloat(report?.amount || 0) +
-        parseFloat(report?.clientComission || 0);
-      const clienPL =
-        parseFloat(report?.amount || 0) +
-        parseFloat(report?.clientShare || 0) +
-        parseFloat(report?.clientComission || 0);
-      const rfNet =
-        parseFloat(report?.referalShare || 0) +
-        parseFloat(report?.referralComission || 0);
-      return {
-        referralComission: (
-          <div
-            className="client-name-role-container mb-5 mt-5"
-            onClick={() => {
-              getIndividualPLReport(report?.client_id);
-              setInduvisualClientName(report?.client_name);
-            }}
-          >
-            <div>{report?.client_name}</div>
-            <div
-              className={
-                totalAmountAfterCommission >= 0 ? "green-clr" : "clr-red"
-              }
-            >
-              {totalAmountAfterCommission}
-            </div>
-          </div>
-        ),
-        clientShare: (
-          <div className={clienPL >= 0 ? "green-clr" : "clr-red"}>
-            {clienPL}
-          </div>
-        ),
-        referalShare: (
-          <div className={rfNet >= 0 ? "green-clr" : "clr-red"}>{rfNet}</div>
-        ),
-        masterProfitloss:
-          (
-            <div
-              className={
-                report?.totalLossOrProfit >= 0 ? "green-clr" : "clr-red"
-              }
-            >
-              {report?.totalLossOrProfit}
-            </div>
-          ) || 0,
-      };
-    });
+  // const onePageReportdata1 =
+  //   onePageReportData?.length > 0 &&
+  //   onePageReportData?.map((report) => {
+  //     const totalAmountAfterCommission =
+  //       parseFloat(report?.amount || 0) +
+  //       parseFloat(report?.clientComission || 0);
+  //     const clienPL =
+  //       parseFloat(report?.amount || 0) +
+  //       parseFloat(report?.clientShare || 0) +
+  //       parseFloat(report?.clientComission || 0);
+  //     const rfNet =
+  //       parseFloat(report?.referalShare || 0) +
+  //       parseFloat(report?.referralComission || 0);
+  //     return {
+  //       referralComission: (
+  //         <div
+  //           className="client-name-role-container mb-5 mt-5"
+  //           onClick={() => {
+  //             getIndividualPLReport(report?.client_id);
+  //             setInduvisualClientName(report?.client_name);
+  //           }}
+  //         >
+  //           <div>{report?.client_name}</div>
+  //           <div
+  //             className={
+  //               totalAmountAfterCommission >= 0 ? "green-clr" : "clr-red"
+  //             }
+  //           >
+  //             {totalAmountAfterCommission}
+  //           </div>
+  //         </div>
+  //       ),
+  //       clientShare: (
+  //         <div className={clienPL >= 0 ? "green-clr" : "clr-red"}>
+  //           {clienPL}
+  //         </div>
+  //       ),
+  //       referalShare: (
+  //         <div className={rfNet >= 0 ? "green-clr" : "clr-red"}>{rfNet}</div>
+  //       ),
+  //       masterProfitloss:
+  //         (
+  //           <div
+  //             className={
+  //               report?.totalLossOrProfit >= 0 ? "green-clr" : "clr-red"
+  //             }
+  //           >
+  //             {report?.totalLossOrProfit}
+  //           </div>
+  //         ) || 0,
+  //     };
+  //   });
 
   const induvisualClientData =
     individualClientData &&
@@ -200,33 +200,6 @@ function ReportPage() {
         ),
       };
     });
-  // const clientData =
-  //   onePageReportData?.length > 0 &&
-  //   onePageReportData?.map((report) => ({
-  //     client_name: report?.client_name,
-  //     amount: (
-  //       <div
-  //         className={`${
-  //           report?.totalLossOrProfit >= 0 ? "clr-green" : "clr-red"
-  //         }`}
-  //       >
-  //         {report?.totalLossOrProfit}
-  //       </div>
-  //     ),
-  //     onClick: () =>
-  //       handleClientName(
-  //         report?.client_name,
-  //         report?.client_id,
-  //         report?.totalLossOrProfit
-  //       ),
-  //   }));
-  // const getOnePageReportData = async () => {
-  //   await call(GET_ONEPAGE_REPORT, { register_id })
-  //     .then((res) => {
-  //       setOnePageReportData(res?.data?.data?.client_object);
-  //     })
-  //     .catch((err) => console.log(err));
-  // };
   const getOnePageReportData = async () => {
     await call(GET_ONEPAGE_REPORT, { register_id })
       .then((res) => {
@@ -251,6 +224,7 @@ function ReportPage() {
   //     .catch((err) => console.log(err));
   // };
 
+  console.log(onePageReportData, "........SAngramonePageReportData");
   const ONE_PAGE_REPORT_DETAILS =
     onePageReportData.length &&
     onePageReportData?.map((item) => {
@@ -264,6 +238,7 @@ function ReportPage() {
         parseFloat(item?.referalShare || 0) +
         parseFloat(item?.referralComission || 0);
       return {
+        clientId: item.client_id,
         client: item.client_name,
         mfrc: (
           <div
@@ -309,6 +284,40 @@ function ReportPage() {
         throw err;
       });
   };
+  const individualReportPlatformCommData =
+    completeMatchesData &&
+    completeMatchesData?.length > 0 &&
+    completeMatchesData?.map((match) => {
+      const netAmount = +match?.totalAmount?.totalLossOrProfit;
+      return {
+        matchName: (
+          <div>
+            <div>{match?.match_name}</div>
+          </div>
+        ),
+        matchDate: (
+          <div>{moment(match?.matchTimeStamp).format("DD-MM-YYYY")}</div>
+        ),
+
+        netPL: (
+          <div className={+netAmount >= 0 ? "clr-green" : "clr-red"}>
+            {netAmount?.toFixed(2) || 0}
+          </div>
+        ),
+        winTeam: match?.winTeam,
+        individualReportPlatformComm: (
+          <div
+            className={
+              +match?.totalAmount?.platformCommission >= 0
+                ? "clr-green"
+                : "clr-red"
+            }
+          >
+            {match?.totalAmount?.platformCommission?.toFixed(2) || 0}
+          </div>
+        ),
+      };
+    });
   const individualReportULShareData =
     completeMatchesData &&
     completeMatchesData?.length > 0 &&
@@ -431,7 +440,7 @@ function ReportPage() {
 
   useEffect(() => {
     getOnePageReportData();
-    getIndividualPLReport();
+    // getIndividualPLReport();
     getIndividualPLRefferal();
     // getIndivisualMatchReport();
     getCompleteMatches();
@@ -473,7 +482,6 @@ function ReportPage() {
           }
           clientName={clientName}
           individualClientNameData={individualClientNameData}
-          onePageReportdata1={onePageReportdata1}
           ONE_PAGE_REPORT_DETAILS={ONE_PAGE_REPORT_DETAILS}
           clientData={clientData}
           clientId={clientId}
@@ -483,6 +491,7 @@ function ReportPage() {
           setIndivisualMatchReportData={setIndivisualMatchReportData}
           netPLInduvisualClient={netPLInduvisualClient}
           setClientsDataForRefferal={setClientsDataForRefferal}
+          individualReportPlatformCommData={individualReportPlatformCommData}
         />
       )}
     </div>

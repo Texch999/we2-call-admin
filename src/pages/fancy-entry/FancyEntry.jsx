@@ -30,6 +30,24 @@ function FancyEntry() {
   let creator_id = localStorage?.getItem("creator_id");
   let account_role = localStorage?.getItem("account_role");
 
+  useEffect(() => {
+    const fetchData = async () => {
+      await getAllMatches();
+    };
+
+    fetchData();
+  }, [afterDeclare]);
+
+  useEffect(() => {
+    const fetchMatchInfo = async () => {
+      if (selectedMatch) {
+        await getMatchInfo();
+      }
+    };
+
+    fetchMatchInfo();
+  }, [selectedMatch, afterDeclare]);
+
   const getAllMatches = async () => {
     await call(GET_OFFLINE_ALL_MATCHES, {
       register_id,
@@ -47,14 +65,6 @@ function FancyEntry() {
         console.log(err);
       });
   };
-
-  useEffect(() => {
-    const fetchData = async () => {
-      await getAllMatches();
-    };
-
-    fetchData();
-  }, [afterDeclare]);
 
   const getMatchInfo = async () => {
     await call(GET_ACCOUNT_MATCHES_DATA, {
@@ -96,16 +106,6 @@ function FancyEntry() {
       })
       .catch((err) => console.log(err));
   };
-
-  useEffect(() => {
-    const fetchMatchInfo = async () => {
-      if (selectedMatch) {
-        await getMatchInfo();
-      }
-    };
-
-    fetchMatchInfo();
-  }, [selectedMatch, afterDeclare]);
 
   return (
     <div>

@@ -6,25 +6,21 @@ function AdminComissionReport() {
     {
       adminname: "Animesh",
       role: "Agent",
-      adminpl: "1000000.00",
       ulnetpl: "0",
     },
     {
       adminname: "Sri8867",
       role: "Master",
-      adminpl: "1000000.00",
       ulnetpl: "5000.00",
     },
     {
       adminname: "Ganesh",
       role: "Super Master",
-      adminpl: "1000000.00",
       ulnetpl: "7500.00",
     },
     {
       adminname: "Lokesh",
       role: "Super Admin",
-      adminpl: "1000000.00",
       ulnetpl: "10000.00",
     },
   ];
@@ -40,7 +36,7 @@ function AdminComissionReport() {
   return (
     <div>
       <div>
-        <h6 className="meetings-heading mb-3">Admins Commission Report</h6>
+        <h6 className="meetings-heading mb-3">U/L Commission Report</h6>
       </div>
       <hr />
       <div>
@@ -53,9 +49,9 @@ function AdminComissionReport() {
               <th scope="col" className="text-center">
                 ROLE
               </th>
-              <th scope="col" className="text-center">
+              {/* <th scope="col" className="text-center">
                 ADMIN NET P/L
-              </th>
+              </th> */}
               <th scope="col" className="text-center">
                 U/L PLATFORM COMM
               </th>
@@ -67,8 +63,8 @@ function AdminComissionReport() {
               <tr>
                 <td className="text-center ">{item?.adminname}</td>
                 <td className="text-center">{item?.role}</td>
-                <td className="text-center clr-green ">{item?.adminpl}</td>
-                <td className="text-center clr-green "> {item?.ulnetpl}</td>
+                {/* <td className="text-center clr-green">{item?.adminpl}</td> */}
+                <td className="text-center clr-green"> {item?.ulnetpl}</td>
               </tr>
             </tbody>
           ))}

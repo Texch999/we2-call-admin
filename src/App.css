@@ -18,15 +18,15 @@ body {
 }
 @font-face {
   font-family: "Barlow-Medium";
-  src: url("./pages/call-management/Barlow-Medium.ttf");
+  src: url("./pages/call-management/assets/Barlow-Medium.ttf");
 }
 @font-face {
   font-family: "Barlow-Regular";
-  src: url("./pages/call-management/Barlow-Regular.ttf");
+  src: url("./pages/call-management/assets/Barlow-Regular.ttf");
 }
 @font-face {
   font-family: "Barlow-SemiBold";
-  src: url("./pages/call-management/Barlow-SemiBold.ttf");
+  src: url("./pages/call-management/assets/Barlow-SemiBold.ttf");
 }
 .font-white {
   color: #ffffff !important;

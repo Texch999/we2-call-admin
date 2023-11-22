@@ -28,6 +28,8 @@ const AdminShareCommSettlement = () => {
       admin_name: "Animesh",
       role: "agent",
       amount: 1000000.0,
+      ulplatfrom: 100000.0,
+      amountul: 100000.0,
       credit_debit: 1000000.0,
       balance: 1000000.0,
     },
@@ -35,6 +37,9 @@ const AdminShareCommSettlement = () => {
       admin_name: "Sri23465",
       role: "Master",
       amount: 1000000.0,
+      ulplatfrom: 100000.0,
+      amountul: 100000.0,
+
       credit_debit: 1000000.0,
       balance: 1000000.0,
     },
@@ -42,6 +47,9 @@ const AdminShareCommSettlement = () => {
       admin_name: "Srinivash",
       role: "SM",
       amount: 1000000.0,
+      ulplatfrom: 100000.0,
+      amountul: 100000.0,
+
       credit_debit: 1000000.0,
       balance: 1000000.0,
     },
@@ -50,6 +58,9 @@ const AdminShareCommSettlement = () => {
       admin_name: "Sri23465",
       role: "Master",
       amount: 1000000.0,
+      ulplatfrom: 100000.0,
+      amountul: 100000.0,
+
       credit_debit: 1000000.0,
       balance: 1000000.0,
     },
@@ -57,6 +68,9 @@ const AdminShareCommSettlement = () => {
       admin_name: "Srikanth",
       role: "Sub A",
       amount: 1000000.0,
+      ulplatfrom: 100000.0,
+      amountul: 100000.0,
+
       credit_debit: 1000000.0,
       balance: 1000000.0,
     },
@@ -107,6 +121,8 @@ const AdminShareCommSettlement = () => {
               <th className="text-center">ADMIN NAME</th>
               <th className="text-center">ROLE/POSITION</th>
               <th className="text-center">AMOUNT</th>
+              <th className="text-center">U/L Platfrom Comm</th>
+              <th className="text-center">Amount + U/L comm</th>
               <th className="text-center">CREDIT/DEBIT</th>
               <th className="text-center">BALANCE</th>
               <th></th>
@@ -120,6 +136,8 @@ const AdminShareCommSettlement = () => {
                 <td className="text-center">
                   {parseFloat(data?.amount).toFixed(2)}
                 </td>
+                <td className="text-center">{data?.ulplatfrom}</td>
+                <td className="text-center">{data?.amountul}</td>
                 <td
                   className={`text-center ${
                     data?.admin_name === "Sri23465" ? "clr-red" : "clr-green"
@@ -151,6 +169,22 @@ const AdminShareCommSettlement = () => {
               <th className="text-center clr-green">
                 {adminShareCommSettlementData
                   .reduce((total, data) => total + parseFloat(data?.amount), 0)
+                  .toFixed(2)}
+              </th>
+              <th className="text-center clr-green">
+                {adminShareCommSettlementData
+                  .reduce(
+                    (total, data) => total + parseFloat(data?.ulplatfrom),
+                    0
+                  )
+                  .toFixed(2)}
+              </th>
+              <th className="text-center clr-green">
+                {adminShareCommSettlementData
+                  .reduce(
+                    (total, data) => total + parseFloat(data?.amountul),
+                    0
+                  )
                   .toFixed(2)}
               </th>
               <th className="text-center clr-green">

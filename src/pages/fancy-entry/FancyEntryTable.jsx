@@ -43,6 +43,7 @@ function FancyEntryTable(props) {
     })
       .then((res) => {
         setData(res?.data?.data?.Items);
+        setStatus((prev) => !prev);
       })
       .catch((err) => console.log(err));
   };
@@ -54,7 +55,6 @@ function FancyEntryTable(props) {
     })
       .then((res) => {
         setSelectedId("");
-        setStatus((prev) => !prev);
       })
       .catch((err) => console.log(err));
   };
@@ -102,30 +102,7 @@ function FancyEntryTable(props) {
           recordStatus: fancy?.record_status,
         };
       });
-  console.log(data, "DDDTTT");
-  // const MATCH_ENTRY_DATA = [
-  //   {
-  //     sNo: 1,
-  //     over: "30 Over",
-  //     rate: "- -",
-  //     team: "India",
-  //     runs: "150",
-  //     yesNo: "Y",
-  //     date: "31-07-2023",
-  //     time: "12:48:00 PM",
-  //     client: "Srinivas2346",
-  //     amount: 50000000.0,
-  //     edit: (
-  //       <MdEdit className="edit-icon" onClick={() => handleEditPopupOpen()} />
-  //     ),
-  //     delete: (
-  //       <MdDelete
-  //         className="edit-icon"
-  //         onClick={() => handleDeletePopupOpen()}
-  //       />
-  //     ),
-  //   }
-  // ];
+
   const FANCY_ENTRY_HEADING = [
     {
       header: "S.NO",
