@@ -5,13 +5,18 @@ import FillDetails from "./FillDetails";
 import BookingCompleteMsg from "./BookingCompleteMsg";
 import { Modal } from "react-bootstrap";
 import AddedUserList from "./AddedUserList";
+import { GET_TOUR_BY_ID } from "../../config/endpoints";
+import { call } from "../../config/axios"
 
 function YourDetailsPopup(props) {
-  const { yourDetailsPopup, setYourDetailsPopup } = props;
+  const { yourDetailsPopup, setYourDetailsPopup, tour } = props;
   const [fillDetails, setFillDetails] = useState(true);
   const [paymentDetails, setPaymentDetails] = useState(false);
   const [bookingComplete, setBookingComplete] = useState(false);
   const [addedUsersList, setAddedUsersList] = useState(false);
+  const [usersDetails,setusersDetails]=useState({})
+  // console.log(tour,'.....tour from yourdetails pop up')
+
   const handleFillDetails = () => {
     setFillDetails(true);
     setAddedUsersList(false);
@@ -53,7 +58,7 @@ function YourDetailsPopup(props) {
     >
       <div className="p-3">
         {fillDetails && (
-          <FillDetails handlePaymentDetails={handlePaymentDetails} />
+          <FillDetails handlePaymentDetails={handlePaymentDetails} setusersDetails={setusersDetails} tour={tour}/>
         )}
         {addedUsersList && (
           <AddedUserList

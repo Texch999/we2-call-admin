@@ -30,7 +30,7 @@ function ToursListPopup(props) {
       user_name: userName,
       im_interested: true
     }
-    console.log(payload,'......payload')
+    // console.log(payload,'......payload')
     await call(ADD_INTERESTED, payload)
             .then((res)=>console.log(res))
             .catch((err)=>console.log.log(err))

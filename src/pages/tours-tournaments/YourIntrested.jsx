@@ -1,13 +1,27 @@
 import { useEffect, useState } from "react";
 import YourDetailsPopup from "./../tour-popups/YourDetailsPopup";
 import { call } from "../../config/axios";
-import { GET_SELECTEDMEMBERS } from "../../config/endpoints";
+import { GET_SELECTEDMEMBERS,GET_TOUR_BY_ID } from "../../config/endpoints";
 
 function YourIntrested(props) {
   const {tourname} = props;
   const [yourDetailsPopup, setYourDetailsPopup] = useState();
   const [selectedMembers,setSelectedMembers] = useState([])
-  const handleYourDetailsPopupOpen = () => {
+  const [tourDetails, setTourDetails] = useState({})
+  const [tour, setTour] = useState({})
+
+  const gettingTourById = async(item)=>{
+    // console.log(item.tour_id,'....item')
+    const payload = {
+      tour_id:item.tour_id
+    }
+    await call(GET_TOUR_BY_ID, payload)
+            .then((res)=>setTour(res?.data?.data))
+            .catch((error)=>console.log(error))
+  }
+  
+  const handleYourDetailsPopupOpen = async(item) => {
+    gettingTourById(item);
     setYourDetailsPopup(true);
   };
 
@@ -57,7 +71,7 @@ function YourIntrested(props) {
             <div className="w-30 p-1">
               <div
                 className="normal-button yellow-clr font-14"
-                onClick={() => handleYourDetailsPopupOpen()}
+                onClick={() => handleYourDetailsPopupOpen(item)}
               >
                 Book Now
               </div>
@@ -65,6 +79,7 @@ function YourIntrested(props) {
             <YourDetailsPopup
               yourDetailsPopup={yourDetailsPopup}
               setYourDetailsPopup={setYourDetailsPopup}
+              tour={tour}
             />
         </div>
         )

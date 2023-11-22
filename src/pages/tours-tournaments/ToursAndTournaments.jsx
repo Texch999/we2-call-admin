@@ -17,8 +17,11 @@ function ToursAndTournaments() {
   };
 
   const getTours = async () => {
-    const payload = {};
-    await call(GET_TOURS, payload).then((res) => setTours(res.data.data));
+    const payload = {
+      website:"www.we2call.com"
+    };
+    await call(GET_TOURS, payload)
+            .then((res)=>setTours(res?.data?.data));
   };
   console.log(tours, "......tours");
   useEffect(() => {

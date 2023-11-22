@@ -10,7 +10,7 @@ import { useState } from "react";
 import { AiTwotoneSave } from "react-icons/ai";
 
 function FillDetails(props) {
-  const { handlePaymentDetails } = props;
+  const { handlePaymentDetails,setusersDetails,tour } = props;
   const [activeIndex, setActiveIndex] = useState(0);
   const [membersOpen, setMembersOpen] = useState(false);
   const [numberOfMembers, setNumberOfMembers] = useState();
@@ -24,7 +24,21 @@ function FillDetails(props) {
   const [packageOptionsOpen, setPackageOptionsOpen] = useState(false);
   const [packageType, setPackageType] = useState(0);
   const [arrey, setArrey] = useState([]);
+  // const [tour, setTour] = useState({})
   let NUMBER_OF_MEMBERS = arrey;
+
+  // // const getToursById = async()=>{
+  // //   const payload = {
+  // //     tour_id:tourdetails.tour_id
+  // //   }
+  // //   await call(GET_TOUR_BY_ID, payload)
+  // //           .then((res)=>setTour(res?.data?.data))
+  // //           .catch((error)=>console.log(error))
+  // // }
+  // // useEffect(()=>{
+  // //   getToursById();
+  // // },[])
+  console.log(tour,'.....tour from filldetails')
 
   const handleMembersOpen = () => {
     setMembersOpen(!membersOpen);
@@ -72,8 +86,11 @@ function FillDetails(props) {
         arr.push({});
       }
       setArrey(arr);
+      
+      // console.log(arr,'.........arr')
     }
   };
+  // console.log(arrey,'......arrey')
 
   const handleAddMore = () => {
     let arr = [];
@@ -84,42 +101,47 @@ function FillDetails(props) {
     {
       label: (
         <div className="d-flex justify-content-between aline-items-center">
-          Regular Pack <div className="p-1 border-ylw">1</div>
+          Regular Pack 
+          {/* <div className="p-1 border-ylw"></div> */}
         </div>
       ),
-      value: 1,
+      value: tour?.packages?.regularpack?.allowedpersons||1,
     },
     {
       label: (
         <div className="d-flex justify-content-between aline-items-center">
-          Premium Pack <div className="p-1 border-ylw">3</div>
+          Premium Pack 
+          {/* <div className="p-1 border-ylw"></div> */}
         </div>
       ),
-      value: 3,
+      value: tour?.packages?.premiumpack?.allowedpersons||3,
     },
     {
       label: (
         <div className="d-flex justify-content-between aline-items-center">
-          Luxury Pack <div className="p-1 border-ylw">5</div>
+          Luxury Pack 
+          {/* <div className="p-1 border-ylw"></div> */}
         </div>
       ),
-      value: 5,
+      value: tour?.packages?.luxurypack?.allowedpersons||5,
     },
     {
       label: (
         <div className="d-flex justify-content-between aline-items-center">
-          Vip Pack <div className="p-1 border-ylw">7</div>
+          Vip Pack 
+          {/* <div className="p-1 border-ylw"></div> */}
         </div>
       ),
-      value: 7,
+      value: tour?.packages?.vippack?.allowedpersons||7,
     },
     {
       label: (
         <div className="d-flex justify-content-between aline-items-center">
-          Vvip Pack <div className="p-1 border-ylw">10</div>
+          Vvip Pack 
+          {/* <div className="p-1 border-ylw"></div> */}
         </div>
       ),
-      value: 10,
+      value: tour?.packages?.vvippack?.allowedpersons||10,
     },
   ];
 
@@ -211,7 +233,7 @@ function FillDetails(props) {
               {index != 0 ? (
                 <div className="col-5">
                   <select className="by-id-btn d-flex justify-content-between p-1 mt-1 all-none w-100 me-2">
-                    <option>Alreay Registered</option>
+                    <option>Already Registered</option>
                     <option>sangram</option>
                     <option>ravi</option>
                   </select>

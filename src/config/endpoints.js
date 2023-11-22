@@ -69,13 +69,19 @@ const PRIVACY_POLICY = "/management/get_policy_document";
 const RESET_PASSWORD = "/admin/reset_password";
 const GET_TOURS = "/tours/get_tours";
 const ADD_INTERESTED = "/tours/add_interested";
-const GET_SELECTEDMEMBERS = "/tours/get_booknow_of_selectedteam"
+const GET_SELECTEDMEMBERS = "/tours/get_booknow_of_selectedteam";
+const GET_TOUR_BY_ID = "/tours/get_toursbyid"
 
 // methods
 const DELETE = "DELETE";
 const POST = "POST";
 const GET = "POST";
 const PUT = "PUT";
+
+exports.GET_TOUR_BY_ID = {
+  url: GET_TOUR_BY_ID,
+  method: POST
+}
 
 exports.GET_SELECTEDMEMBERS = {
   url: GET_SELECTEDMEMBERS,
