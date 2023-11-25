@@ -10,35 +10,24 @@ import { useState } from "react";
 import { AiTwotoneSave } from "react-icons/ai";
 
 function FillDetails(props) {
-  const { handlePaymentDetails,setusersDetails,tour } = props;
+  const { handlePaymentDetails, tour } = props;
   const [activeIndex, setActiveIndex] = useState(0);
-  const [membersOpen, setMembersOpen] = useState(false);
   const [numberOfMembers, setNumberOfMembers] = useState();
-  const [registeredOpen, setRegisteredOpen] = useState(false);
   const [registeredNames, setRegisteredNames] = useState();
-  const [genderOpen, setGenderOpen] = useState(false);
   const [genderType, setGenderType] = useState();
-  const [proofOpen, setProofOpen] = useState(false);
   const [proofType, setProofType] = useState();
+  const [packageType, setPackageType] = useState(0);
+  const [membersOpen, setMembersOpen] = useState(false);
+  const [registeredOpen, setRegisteredOpen] = useState(false);
+  const [genderOpen, setGenderOpen] = useState(false);
+  const [proofOpen, setProofOpen] = useState(false);
   const [selectedPackage, setSelectedPackage] = useState(false);
   const [packageOptionsOpen, setPackageOptionsOpen] = useState(false);
-  const [packageType, setPackageType] = useState(0);
-  const [arrey, setArrey] = useState([]);
-  // const [tour, setTour] = useState({})
-  let NUMBER_OF_MEMBERS = arrey;
+  const [inputData, setInputData] = useState({});
 
-  // // const getToursById = async()=>{
-  // //   const payload = {
-  // //     tour_id:tourdetails.tour_id
-  // //   }
-  // //   await call(GET_TOUR_BY_ID, payload)
-  // //           .then((res)=>setTour(res?.data?.data))
-  // //           .catch((error)=>console.log(error))
-  // // }
-  // // useEffect(()=>{
-  // //   getToursById();
-  // // },[])
-  console.log(tour,'.....tour from filldetails')
+  const [arrey, setArrey] = useState([]);
+  let NUMBER_OF_MEMBERS = arrey;
+  // console.log(tour,'.....tour from filldetails')
 
   const handleMembersOpen = () => {
     setMembersOpen(!membersOpen);
@@ -83,14 +72,16 @@ function FillDetails(props) {
     {
       let arr = [];
       for (let i = 0; i < item.value; i++) {
-        arr.push({});
+        arr.push({
+            username: item.name + "username" + (i+1),
+            userdob: item.name + "userdob" + (i+1),
+            usergender: item.name + "usergender" + (i+1),
+            useridproof: item.name + "useridproof" + (i+1),
+        });
       }
       setArrey(arr);
-      
-      // console.log(arr,'.........arr')
     }
   };
-  // console.log(arrey,'......arrey')
 
   const handleAddMore = () => {
     let arr = [];
@@ -101,50 +92,58 @@ function FillDetails(props) {
     {
       label: (
         <div className="d-flex justify-content-between aline-items-center">
-          Regular Pack 
+          Regular Pack
           {/* <div className="p-1 border-ylw"></div> */}
         </div>
       ),
-      value: tour?.packages?.regularpack?.allowedpersons||1,
+      name:'regularPack',
+      value: tour?.packages?.regularpack?.allowedpersons || 1,
     },
     {
       label: (
         <div className="d-flex justify-content-between aline-items-center">
-          Premium Pack 
+          Premium Pack
           {/* <div className="p-1 border-ylw"></div> */}
         </div>
       ),
-      value: tour?.packages?.premiumpack?.allowedpersons||3,
+      name:'premiumPack',
+      value: tour?.packages?.premiumpack?.allowedpersons || 3,
     },
     {
       label: (
         <div className="d-flex justify-content-between aline-items-center">
-          Luxury Pack 
+          Luxury Pack
           {/* <div className="p-1 border-ylw"></div> */}
         </div>
       ),
-      value: tour?.packages?.luxurypack?.allowedpersons||5,
+      name:'luxuryPack',
+      value: tour?.packages?.luxurypack?.allowedpersons || 5,
     },
     {
       label: (
         <div className="d-flex justify-content-between aline-items-center">
-          Vip Pack 
+          Vip Pack
           {/* <div className="p-1 border-ylw"></div> */}
         </div>
       ),
-      value: tour?.packages?.vippack?.allowedpersons||7,
+      name:'vipPack',
+      value: tour?.packages?.vippack?.allowedpersons || 7,
     },
     {
       label: (
         <div className="d-flex justify-content-between aline-items-center">
-          Vvip Pack 
+          Vvip Pack
           {/* <div className="p-1 border-ylw"></div> */}
         </div>
       ),
-      value: tour?.packages?.vvippack?.allowedpersons||10,
+      name:'vvipPack',
+      value: tour?.packages?.vvippack?.allowedpersons || 10,
     },
   ];
-
+  const handleInputsChange = (e) => {
+    setInputData({ ...inputData, [e.target.name]: e.target.value });
+  };
+  // console.log(inputData,'....input dataaaa')
   return (
     <div className="p-3">
       <div className="w-100 d-flex justify-content-between mt-2">
@@ -251,33 +250,47 @@ function FillDetails(props) {
                     className="all-none bg-none"
                     placeholder="Name"
                     type="text"
+                    name={item.username}
+                    value={inputData[item.username]}
+                    onChange={(e) => handleInputsChange(e)}
                   />
                 </div>
               </div>
               <div className="col-3">
-                <div className="font-10 mt-1">Age</div>
+                <div className="font-10 mt-1">DoB</div>
                 <div className="by-id-btn d-flex justify-content-between p-2 mt-1">
                   <input
                     className="all-none date-input bg-none"
                     type="date"
                     placeholder="Date"
+                    name={item.userdob}
+                    value={inputData[item.userdob]}
+                    onChange={(e) => handleInputsChange(e)}
                   />
                 </div>
               </div>
               <div className="col-3 ">
                 <div className="font-10 mt-1">Gender</div>
-                <select className="by-id-btn d-flex justify-content-between p-1 mt-1 all-none w-100 ">
-                  <option>Male</option>
-                  <option>FeMale</option>
+                <select className="by-id-btn d-flex justify-content-between p-1 mt-1 all-none w-100 "
+                        name={item.usergender}
+                        onChange={(e)=>handleInputsChange(e)}
+                >
+                  <option selected>Select gender</option>
+                  <option value={'male'}>Male</option>
+                  <option value={'female'}>FeMale</option>
                 </select>
               </div>
             </div>
             <div className="row mt-2">
               <div className="col-6">
                 <div className="font-10 mt-1">ID Proof</div>
-                <select className="by-id-btn d-flex justify-content-between p-1 mt-1 all-none w-100 me-2">
-                  <option>Adhaar Card</option>
-                  <option>PAN Card</option>
+                <select className="by-id-btn d-flex justify-content-between p-1 mt-1 all-none w-100 me-2"
+                        name={item.useridproof}
+                        onChange={(e)=>handleInputsChange(e)}
+                >
+                  <option selected>Select proof</option>
+                  <option value={'aadharcard'}>Adhaar Card</option>
+                  <option value={'pancard'}>PAN Card</option>
                 </select>
               </div>
               <div className="col-6">
@@ -298,7 +311,10 @@ function FillDetails(props) {
       {/* <div className="login-btn mt-2" onClick={() => handlePaymentDetails()}>
         Submit
       </div> */}
-      <div className="login-btn mt-2" onClick={() => handlePaymentDetails()}>
+      <div
+        className="login-btn mt-2"
+        onClick={() => handlePaymentDetails(inputData)}
+      >
         Save
       </div>
     </div>

@@ -12,7 +12,7 @@ function Football(props) {
   const [filteredTours, setFilteredTours] = useState([])
   const [clicked, setClicked] = useState(false)
   const handleIntrestButton = (tourName) => {
-    setFilteredTours(tours
+    setFilteredTours(tours && tours.length>0 && tours
       .filter((tour)=>tour.tour_name===tourName)
       .filter((tour)=>tour.status==="active")
       .filter((tour)=>{

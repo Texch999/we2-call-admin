@@ -21,7 +21,8 @@ function ToursAndTournaments() {
       website:"www.we2call.com"
     };
     await call(GET_TOURS, payload)
-            .then((res)=>setTours(res?.data?.data));
+            .then((res)=>setTours(res?.data?.data))
+            .catch((error)=>console.log(error))
   };
   console.log(tours, "......tours");
   useEffect(() => {

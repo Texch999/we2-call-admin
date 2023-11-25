@@ -34,8 +34,11 @@ function YourIntrested(props) {
             .then((res)=>setSelectedMembers(res?.data?.data))
             .catch((error)=>console.log(error))
   }
-  // console.log(selectedMembers,'.....selectedmembers')
-  const tourdetailsAddedMembers = selectedMembers
+  useEffect(()=>{
+    gettingSelectedTourMembers();
+  },[])
+  console.log(selectedMembers,'.....selectedmembers')
+  const tourdetailsAddedMembers = selectedMembers && selectedMembers.length>0 && selectedMembers
                                     .filter((item)=>item.selected===true)
                                     .filter((item)=>item.tour_details!==false)
                                     .filter((item)=>item.tour_name===tourname)
@@ -49,10 +52,6 @@ function YourIntrested(props) {
                                       }
                                     })
   // console.log(tourdetailsAddedMembers,'....tourdetailsaddedmembers')
-
-  useEffect(()=>{
-    gettingSelectedTourMembers();
-  },[])
 
   return (
     <div>
