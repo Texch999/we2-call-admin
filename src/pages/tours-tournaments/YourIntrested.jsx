@@ -19,6 +19,7 @@ function YourIntrested(props) {
             .then((res)=>setTour(res?.data?.data))
             .catch((error)=>console.log(error))
   }
+  // console.log(tour,'......tour')
   
   const handleYourDetailsPopupOpen = async(item) => {
     gettingTourById(item);
@@ -37,7 +38,7 @@ function YourIntrested(props) {
   useEffect(()=>{
     gettingSelectedTourMembers();
   },[])
-  console.log(selectedMembers,'.....selectedmembers')
+  // console.log(selectedMembers,'.....selectedmembers')
   const tourdetailsAddedMembers = selectedMembers && selectedMembers.length>0 && selectedMembers
                                     .filter((item)=>item.selected===true)
                                     .filter((item)=>item.tour_details!==false)

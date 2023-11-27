@@ -24,6 +24,7 @@ function FillDetails(props) {
   const [selectedPackage, setSelectedPackage] = useState(false);
   const [packageOptionsOpen, setPackageOptionsOpen] = useState(false);
   const [inputData, setInputData] = useState({});
+  const [image, setImage] = useState("")
 
   const [arrey, setArrey] = useState([]);
   let NUMBER_OF_MEMBERS = arrey;
@@ -82,6 +83,7 @@ function FillDetails(props) {
       setArrey(arr);
     }
   };
+  console.log(NUMBER_OF_MEMBERS,'....numberof members')
 
   const handleAddMore = () => {
     let arr = [];
@@ -97,7 +99,7 @@ function FillDetails(props) {
         </div>
       ),
       name:'regularPack',
-      value: tour?.packages?.regularpack?.allowedpersons || 1,
+      value: tour[0]?.packages?.regularpack?.allowedpersons,
     },
     {
       label: (
@@ -107,7 +109,7 @@ function FillDetails(props) {
         </div>
       ),
       name:'premiumPack',
-      value: tour?.packages?.premiumpack?.allowedpersons || 3,
+      value: tour[0]?.packages?.premiumpack?.allowedpersons,
     },
     {
       label: (
@@ -117,7 +119,7 @@ function FillDetails(props) {
         </div>
       ),
       name:'luxuryPack',
-      value: tour?.packages?.luxurypack?.allowedpersons || 5,
+      value: tour[0]?.packages?.luxurypack?.allowedpersons,
     },
     {
       label: (
@@ -127,7 +129,7 @@ function FillDetails(props) {
         </div>
       ),
       name:'vipPack',
-      value: tour?.packages?.vippack?.allowedpersons || 7,
+      value: tour[0]?.packages?.vippack?.allowedpersons,
     },
     {
       label: (
@@ -137,13 +139,17 @@ function FillDetails(props) {
         </div>
       ),
       name:'vvipPack',
-      value: tour?.packages?.vvippack?.allowedpersons || 10,
+      value: tour[0]?.packages?.vvippack?.allowedpersons,
     },
   ];
   const handleInputsChange = (e) => {
     setInputData({ ...inputData, [e.target.name]: e.target.value });
   };
-  // console.log(inputData,'....input dataaaa')
+  const handleUploadImage = (e)=>{
+    // setImage(e.target.file[0])
+    console.log(e.target)
+  }
+  // console.log(image,'.....image')
   return (
     <div className="p-3">
       <div className="w-100 d-flex justify-content-between mt-2">
@@ -296,9 +302,14 @@ function FillDetails(props) {
               <div className="col-6">
                 <div className="font-10 mt-1">Upload Screenshot</div>
                 <div className="d-flex justify-content-between align-items-center neft-div mt-1 p-1">
-                  <div className="font-10">
+                  <div className="font-10"
+                  
+                  >
                     Upload Screenshot
-                    <input type="file" className="display-none" />
+                    <input  type="file" 
+                            className="display-none" 
+                            onClick={(e)=>handleUploadImage(e)}
+                    />
                   </div>
                   <BiSolidCloudUpload className="type-file font-25" />
                 </div>
