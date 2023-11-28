@@ -6,8 +6,10 @@ import {
   FaCheck,
 } from "react-icons/fa6";
 import { MdOutlinePayment } from "react-icons/md";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { AiTwotoneSave } from "react-icons/ai";
+import { call } from "../../config/axios";
+import { GENERATE_SIGNED_URL } from "../../config/endpoints";
 
 function FillDetails(props) {
   const { handlePaymentDetails, tour } = props;
@@ -24,8 +26,6 @@ function FillDetails(props) {
   const [selectedPackage, setSelectedPackage] = useState(false);
   const [packageOptionsOpen, setPackageOptionsOpen] = useState(false);
   const [inputData, setInputData] = useState({});
-  const [image, setImage] = useState("")
-
   const [arrey, setArrey] = useState([]);
   let NUMBER_OF_MEMBERS = arrey;
   // console.log(tour,'.....tour from filldetails')
@@ -74,16 +74,17 @@ function FillDetails(props) {
       let arr = [];
       for (let i = 0; i < item.value; i++) {
         arr.push({
-            username: item.name + "username" + (i+1),
-            userdob: item.name + "userdob" + (i+1),
-            usergender: item.name + "usergender" + (i+1),
-            useridproof: item.name + "useridproof" + (i+1),
+          username: item.name + "username" + (i + 1),
+          userdob: item.name + "userdob" + (i + 1),
+          usergender: item.name + "usergender" + (i + 1),
+          useridproof: item.name + "useridproof" + (i + 1),
+          userimageinfo: item.name + "userimage" + (i + 1),
         });
       }
       setArrey(arr);
     }
   };
-  console.log(NUMBER_OF_MEMBERS,'....numberof members')
+  // console.log(NUMBER_OF_MEMBERS, "....numberof members");
 
   const handleAddMore = () => {
     let arr = [];
@@ -98,7 +99,7 @@ function FillDetails(props) {
           {/* <div className="p-1 border-ylw"></div> */}
         </div>
       ),
-      name:'regularPack',
+      name: "regularPack",
       value: tour[0]?.packages?.regularpack?.allowedpersons,
     },
     {
@@ -108,7 +109,7 @@ function FillDetails(props) {
           {/* <div className="p-1 border-ylw"></div> */}
         </div>
       ),
-      name:'premiumPack',
+      name: "premiumPack",
       value: tour[0]?.packages?.premiumpack?.allowedpersons,
     },
     {
@@ -118,7 +119,7 @@ function FillDetails(props) {
           {/* <div className="p-1 border-ylw"></div> */}
         </div>
       ),
-      name:'luxuryPack',
+      name: "luxuryPack",
       value: tour[0]?.packages?.luxurypack?.allowedpersons,
     },
     {
@@ -128,7 +129,7 @@ function FillDetails(props) {
           {/* <div className="p-1 border-ylw"></div> */}
         </div>
       ),
-      name:'vipPack',
+      name: "vipPack",
       value: tour[0]?.packages?.vippack?.allowedpersons,
     },
     {
@@ -138,18 +139,47 @@ function FillDetails(props) {
           {/* <div className="p-1 border-ylw"></div> */}
         </div>
       ),
-      name:'vvipPack',
+      name: "vvipPack",
       value: tour[0]?.packages?.vvippack?.allowedpersons,
     },
   ];
   const handleInputsChange = (e) => {
     setInputData({ ...inputData, [e.target.name]: e.target.value });
   };
-  const handleUploadImage = (e)=>{
-    // setImage(e.target.file[0])
-    console.log(e.target)
-  }
-  // console.log(image,'.....image')
+
+  const handleUploadchange = async (e, index) => {
+    const imagefile = e.target.files[0];
+    console.log(e.target.files)
+    const imageId = Date.now();
+    const imageuploadingurl = await generatesignedurl(imageId);
+
+    imageuploadingurl &&
+      setInputData({
+        ...inputData,
+        [e.target.name]: {
+          imagefile: imagefile,
+          imageregisterid: imageId,
+          imageuploadingurl: imageuploadingurl,
+        },
+      });
+  };
+
+  const generatesignedurl = async (imageId) => {
+    const payload = {
+      register_id: `${imageId}`,
+      event_type: "user_profile_image",
+      folder_name: "tours_user_docs",
+    };
+    try {
+      const res = await call(GENERATE_SIGNED_URL, payload);
+      const url = res?.data?.data?.result?.signed_url;
+      return url;
+    } catch (error) {
+      console.log("error while creating the signed url", error);
+      return "";
+    }
+  };
+  // console.log(inputData,'......inputdata')
   return (
     <div className="p-3">
       <div className="w-100 d-flex justify-content-between mt-2">
@@ -277,42 +307,50 @@ function FillDetails(props) {
               </div>
               <div className="col-3 ">
                 <div className="font-10 mt-1">Gender</div>
-                <select className="by-id-btn d-flex justify-content-between p-1 mt-1 all-none w-100 "
-                        name={item.usergender}
-                        onChange={(e)=>handleInputsChange(e)}
+                <select
+                  className="by-id-btn d-flex justify-content-between p-1 mt-1 all-none w-100 "
+                  name={item.usergender}
+                  onChange={(e) => handleInputsChange(e)}
                 >
                   <option selected>Select gender</option>
-                  <option value={'male'}>Male</option>
-                  <option value={'female'}>FeMale</option>
+                  <option value={"male"}>Male</option>
+                  <option value={"female"}>FeMale</option>
                 </select>
               </div>
             </div>
             <div className="row mt-2">
               <div className="col-6">
                 <div className="font-10 mt-1">ID Proof</div>
-                <select className="by-id-btn d-flex justify-content-between p-1 mt-1 all-none w-100 me-2"
-                        name={item.useridproof}
-                        onChange={(e)=>handleInputsChange(e)}
+                <select
+                  className="by-id-btn d-flex justify-content-between p-1 mt-1 all-none w-100 me-2"
+                  name={item.useridproof}
+                  onChange={(e) => handleInputsChange(e)}
                 >
                   <option selected>Select proof</option>
-                  <option value={'aadharcard'}>Adhaar Card</option>
-                  <option value={'pancard'}>PAN Card</option>
+                  <option value={"aadharcard"}>Adhaar Card</option>
+                  <option value={"pancard"}>PAN Card</option>
                 </select>
               </div>
               <div className="col-6">
                 <div className="font-10 mt-1">Upload Screenshot</div>
-                <div className="d-flex justify-content-between align-items-center neft-div mt-1 p-1">
-                  <div className="font-10"
-                  
-                  >
-                    Upload Screenshot
-                    <input  type="file" 
-                            className="display-none" 
-                            onClick={(e)=>handleUploadImage(e)}
+                <label
+                  className="d-flex justify-content-between align-items-center neft-div mt-1 p-1"
+                  htmlFor={item.userimageinfo}
+                >
+                  <div className="font-10">
+                    <div>
+                      {inputData[item?.userimageinfo]?.imagefile?.name || "select Image"}
+                    </div>
+                    <input
+                      type="file"
+                      name={item.userimageinfo}
+                      id={item.userimageinfo}
+                      className="display-none"
+                      onChange={(e) => handleUploadchange(e, index)}
                     />
                   </div>
                   <BiSolidCloudUpload className="type-file font-25" />
-                </div>
+                </label>
               </div>
             </div>
           </div>

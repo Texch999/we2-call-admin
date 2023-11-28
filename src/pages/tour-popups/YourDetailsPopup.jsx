@@ -100,7 +100,7 @@ function YourDetailsPopup(props) {
   const luxurypackmemberscount = luxurypackmembers.length
   const vippackmemberscount = vippackmembers.length
   const vvippackmemberscount = vvippackmembers.length
-  // console.log(usersDetails,'.......usersdetails')
+  console.log(usersDetails,'.......usersdetails')
   const packagesDetailsinuseState = ()=>{
     setPackageCount({
       regularpackcount,
