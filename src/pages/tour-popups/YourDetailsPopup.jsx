@@ -169,7 +169,7 @@ function YourDetailsPopup(props) {
   return (
     <Modal
       show={yourDetailsPopup}
-      className="add-user-modal"
+      className="add-user-modal z-index"
       footer={null}
       centered
       onCancel={() => handleCancel()}

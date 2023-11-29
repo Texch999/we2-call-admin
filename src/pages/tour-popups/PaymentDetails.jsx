@@ -2,9 +2,28 @@ import { FaCheck, FaChevronDown, FaRegUser } from "react-icons/fa6";
 import { BiSolidCloudUpload } from "react-icons/bi";
 import { MdOutlinePayment } from "react-icons/md";
 import { AiTwotoneSave } from "react-icons/ai";
+import { GET_ALL_PAYMENT_GATEWAYS } from "../../config/endpoints";
+import { call } from "../../config/axios";
+import { useEffect, useState } from "react";
 
 function PaymentDetails(props) {
   const { handleBookingComplete } = props;
+  const [allPayments, setAllPayments] = useState([])
+
+  const getCompanyAllowedPayments = async () => {
+    const payload = {
+      register_id: "company",
+    };
+    await call(GET_ALL_PAYMENT_GATEWAYS, payload)
+      .then((res) => setAllPayments(res?.data?.data))
+      .catch((error) => console.log(error));
+  };
+  console.log(allPayments,'.....allpayments')
+  useEffect(() => {
+    getCompanyAllowedPayments();
+  }, []);
+  const uniquePaymentDropdown =[...new Set(allPayments.map((item)=>(item.pg_upi)))]
+  console.log(uniquePaymentDropdown,'........unique')
   return (
     <div>
       <div className="w-100 d-flex justify-content-between mt-2">
@@ -36,14 +55,66 @@ function PaymentDetails(props) {
           <div className="w-15 flex-center font-10 details-text p-1">
             Details
           </div>
-          <div className="row mt-2">
-            <div className="col-6 flex-start">
-              <FaCheck className="type-file" />
-              <div className="font-10 ms-1">Member 1</div>
+          <div className="members-conatainer">
+            <div className="row mt-2">
+              <div className="col-6 flex-start">
+                <FaCheck className="type-file" />
+                <div className="font-10 ms-1">Member 1</div>
+              </div>
+              <div className="col-6 flex-start">
+                <div className="font-10">Jayanta, Male, 24</div>
+                <div className="font-10 ms-1 viewid-text p-1">View ID</div>
+              </div>
             </div>
-            <div className="col-6 flex-start">
-              <div className="font-10">Jayanta, Male, 24</div>
-              <div className="font-10 ms-1 viewid-text p-1">View ID</div>
+            <div className="row mt-2">
+              <div className="col-6 flex-start">
+                <FaCheck className="type-file" />
+                <div className="font-10 ms-1">Member 1</div>
+              </div>
+              <div className="col-6 flex-start">
+                <div className="font-10">Jayanta, Male, 24</div>
+                <div className="font-10 ms-1 viewid-text p-1">View ID</div>
+              </div>
+            </div>
+            <div className="row mt-2">
+              <div className="col-6 flex-start">
+                <FaCheck className="type-file" />
+                <div className="font-10 ms-1">Member 1</div>
+              </div>
+              <div className="col-6 flex-start">
+                <div className="font-10">Jayanta, Male, 24</div>
+                <div className="font-10 ms-1 viewid-text p-1">View ID</div>
+              </div>
+            </div>
+            <div className="row mt-2">
+              <div className="col-6 flex-start">
+                <FaCheck className="type-file" />
+                <div className="font-10 ms-1">Member 1</div>
+              </div>
+              <div className="col-6 flex-start">
+                <div className="font-10">Jayanta, Male, 24</div>
+                <div className="font-10 ms-1 viewid-text p-1">View ID</div>
+              </div>
+            </div>
+            <div className="row mt-2">
+              <div className="col-6 flex-start">
+                <FaCheck className="type-file" />
+                <div className="font-10 ms-1">Member 1</div>
+              </div>
+              <div className="col-6 flex-start">
+                <div className="font-10">Jayanta, Male, 24</div>
+                <div className="font-10 ms-1 viewid-text p-1">View ID</div>
+              </div>
+            </div>
+            <div className="row mt-2">
+              <div className="col-6 flex-start">
+                <FaCheck className="type-file" />
+                <div className="font-10 ms-1">Member 1</div>
+              </div>
+              <div className="col-6 flex-start">
+                <div className="font-10">Jayanta, Male, 24</div>
+                <div className="font-10 ms-1 viewid-text p-1">View ID</div>
+              </div>
             </div>
           </div>
         </div>
@@ -73,29 +144,67 @@ function PaymentDetails(props) {
           </div>
         </div>
       </div>
-      <div className="login-btn mt-2">Confirm & Pay</div>
+      {/* <div className="login-btn mt-2">Confirm & Pay</div> */}
       <hr className="hr-line mt-1" />
       <div className="font-10 mt-1">Payment Mode*</div>
       <div className="row">
         <div className="col-12" span={24}>
-          <div className="d-flex justify-content-between p-1 font-10 neft-div">
-            <div>NEFT/RTGS</div>
-            <div>
+          <select className="d-flex justify-content-between p-1 font-10 neft-div w-100 all-none">
+            <option selected>Select Payment Mode</option>
+            {uniquePaymentDropdown.map((item)=>(
+              <option className="d-flex justify-content-between p-1 font-10 neft-div w-50 all-none" 
+                      value={item}>
+                        {item}
+              </option>
+            ))}
+            {/* <option>NEFT/RTGS</option>
+            <option>NEFT/RTGS</option>
+            <option>NEFT/RTGS</option> */}
+            
+            {/* <div>
               <FaChevronDown />
+            </div> */}
+          </select>
+        </div>
+      </div>
+      <div className="members-conatainer">
+        <div className="row">
+          <div className="col-12">
+            <div className=" p-2 font-10 neft-div mt-1">
+              <div className="d-flex justify-content-between">
+                <div>Name: Jayanta Pal</div>
+                <input type="checkbox" className="yellow-clr"></input>
+              </div>
+              <div>A/C No: 34311236216</div>
+              <div>Bank: SBI</div>
+              <div>IFSC Code: SBIN001111</div>
             </div>
           </div>
         </div>
-      </div>
-      <div className="row">
-        <div className="col-12">
-          <div className=" p-2 font-10 neft-div mt-1">
-            <div className="d-flex justify-content-between">
-              <div>Name: Jayanta Pal</div>
-              <div className="yellow-clr">Select</div>
+        <div className="row">
+          <div className="col-12">
+            <div className=" p-2 font-10 neft-div mt-1">
+              <div className="d-flex justify-content-between">
+                <div>Name: Jayanta Pal</div>
+                <input type="checkbox" className="yellow-clr"></input>
+              </div>
+              <div>A/C No: 34311236216</div>
+              <div>Bank: SBI</div>
+              <div>IFSC Code: SBIN001111</div>
             </div>
-            <div>A/C No: 34311236216</div>
-            <div>Bank: SBI</div>
-            <div>IFSC Code: SBIN001111</div>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-12">
+            <div className=" p-2 font-10 neft-div mt-1">
+              <div className="d-flex justify-content-between">
+                <div>Name: Jayanta Pal</div>
+                <input type="checkbox" className="yellow-clr"></input>
+              </div>
+              <div>A/C No: 34311236216</div>
+              <div>Bank: SBI</div>
+              <div>IFSC Code: SBIN001111</div>
+            </div>
           </div>
         </div>
       </div>
