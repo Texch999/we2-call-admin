@@ -9,6 +9,21 @@ import { useEffect, useState } from "react";
 function PaymentDetails(props) {
   const { handleBookingComplete } = props;
   const [allPayments, setAllPayments] = useState([])
+  const [dropdownOption, setDropdownOption] = useState('')
+  console.log(dropdownOption,'.....dropdown')
+  if(dropdownOption=='neft'){
+    const accountDetails = {
+      name: Name,
+      accountnumber: A/C-No,
+      bank:Bank,
+      ifsccode: IFSC-Code
+    }
+  }else{
+    const accountDetails = {
+      upiId: UPI-Id,
+      mobilenumber: MobileNumber
+    }
+  }
 
   const getCompanyAllowedPayments = async () => {
     const payload = {
@@ -18,12 +33,18 @@ function PaymentDetails(props) {
       .then((res) => setAllPayments(res?.data?.data))
       .catch((error) => console.log(error));
   };
+
   console.log(allPayments,'.....allpayments')
+
   useEffect(() => {
     getCompanyAllowedPayments();
   }, []);
-  const uniquePaymentDropdown =[...new Set(allPayments.map((item)=>(item.pg_upi)))]
-  console.log(uniquePaymentDropdown,'........unique')
+
+  const uniquePaymentDropdown = [...new Set(allPayments.map((item)=>(item.pg_upi)))]
+  const filteredPayments = allPayments.filter((item)=>{
+    return item.pg_upi === dropdownOption
+  })
+  console.log(filteredPayments,'.....filteredpayments')
   return (
     <div>
       <div className="w-100 d-flex justify-content-between mt-2">
@@ -149,12 +170,16 @@ function PaymentDetails(props) {
       <div className="font-10 mt-1">Payment Mode*</div>
       <div className="row">
         <div className="col-12" span={24}>
-          <select className="d-flex justify-content-between p-1 font-10 neft-div w-100 all-none">
+          <select className="d-flex justify-content-between p-1 font-10 neft-div w-100 all-none"
+                  name="dropdownoption"
+                  onChange={(e)=>setDropdownOption(e.target.value)}
+          >
             <option selected>Select Payment Mode</option>
             {uniquePaymentDropdown.map((item)=>(
               <option className="d-flex justify-content-between p-1 font-10 neft-div w-50 all-none" 
-                      value={item}>
-                        {item}
+                      value={item}
+              >
+                {item}
               </option>
             ))}
             {/* <option>NEFT/RTGS</option>
@@ -168,45 +193,38 @@ function PaymentDetails(props) {
         </div>
       </div>
       <div className="members-conatainer">
-        <div className="row">
-          <div className="col-12">
-            <div className=" p-2 font-10 neft-div mt-1">
-              <div className="d-flex justify-content-between">
-                <div>Name: Jayanta Pal</div>
-                <input type="checkbox" className="yellow-clr"></input>
+        {filteredPayments.map((item)=>{
+          return(
+            <div className="row">
+              <div className="col-12">
+                <div className=" p-2 font-10 neft-div mt-1">
+                  {dropdownOption==='neft'? (
+                    <div>
+                      <div className="d-flex justify-content-between">
+                        <div>Name: Jayanta Pal</div>
+                        <input type="checkbox" className="yellow-clr"></input>
+                      </div>
+                      <div>A/C No: 34311236216</div>
+                      <div>Bank: SBI</div>
+                      <div>IFSC Code: SBIN001111</div>
+                    </div>
+                  )
+                  :(
+                    <div>
+                      <div className="d-flex justify-content-between">
+                        <div>Name: Jayanta Pal</div>
+                        <input type="checkbox" className="yellow-clr"></input>
+                      </div>
+                      <div>A/C No: 34311236216</div>
+                      <div>Bank: SBI</div>
+                      <div>IFSC Code: SBIN001111</div>
+                    </div>
+                  )}
+                </div>
               </div>
-              <div>A/C No: 34311236216</div>
-              <div>Bank: SBI</div>
-              <div>IFSC Code: SBIN001111</div>
             </div>
-          </div>
-        </div>
-        <div className="row">
-          <div className="col-12">
-            <div className=" p-2 font-10 neft-div mt-1">
-              <div className="d-flex justify-content-between">
-                <div>Name: Jayanta Pal</div>
-                <input type="checkbox" className="yellow-clr"></input>
-              </div>
-              <div>A/C No: 34311236216</div>
-              <div>Bank: SBI</div>
-              <div>IFSC Code: SBIN001111</div>
-            </div>
-          </div>
-        </div>
-        <div className="row">
-          <div className="col-12">
-            <div className=" p-2 font-10 neft-div mt-1">
-              <div className="d-flex justify-content-between">
-                <div>Name: Jayanta Pal</div>
-                <input type="checkbox" className="yellow-clr"></input>
-              </div>
-              <div>A/C No: 34311236216</div>
-              <div>Bank: SBI</div>
-              <div>IFSC Code: SBIN001111</div>
-            </div>
-          </div>
-        </div>
+          )
+        })}
       </div>
       <div className="row">
         <div className="col-12">
