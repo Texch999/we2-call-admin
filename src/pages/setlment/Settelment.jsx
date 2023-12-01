@@ -21,6 +21,9 @@ function Settelment() {
   const [offlineSettlePayload, setOfflineSettlePayload] = useState({});
   const [showPaymentModal, setShowPaymentModal] = useState(false);
   const [clientDetails, setClientDetails] = useState({});
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [error, setError] = useState("");
+
   const handlePaymentModal = (data) => {
     setClientId(data.client_id);
     setShowPaymentModal(true);
@@ -43,6 +46,7 @@ function Settelment() {
     setCurrentPage(page);
     // You can add your logic here to fetch data for the selected page.
   };
+  const [settlementStatus, setSettlementStatus] = useState(false);
 
   const getSettlementData = async () => {
     await call(GET_OFFLINE_CLIENTS, {
@@ -79,7 +83,20 @@ function Settelment() {
       ),
     };
   });
+  // const handleSettlement = async () => {
+  //   await call(OFFLINE_PAYMENT_SETTLEMENT, {
+  //     ...offlineSettlePayload,
+  //     register_id,
+  //     settledDate: moment(new Date()).format("DD/MM/YYYY"),
+  //     settledTime: moment(new Date()).format("hh:mm:ss"),
+  //   })
+  //     .then((res) => {
+  //       console.log(res);
+  //     })
+  //     .catch((err) => console.log(err));
+  // };
   const handleSettlement = async () => {
+    setIsProcessing(true);
     await call(OFFLINE_PAYMENT_SETTLEMENT, {
       ...offlineSettlePayload,
       register_id,
@@ -87,9 +104,22 @@ function Settelment() {
       settledTime: moment(new Date()).format("hh:mm:ss"),
     })
       .then((res) => {
-        console.log(res);
+        setIsProcessing(false);
+        setPaymentPopup(false);
+        if (res?.data?.error === "true") {
+          setError(res?.data?.message);
+        } else {
+          console.log(res);
+          // setShowPaymentSettlementModal(false)
+          // openSuccessfullPaymentModal()
+          // props.setSettlementStatus((prev)=>!prev)
+        }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        setError(err);
+        setIsProcessing(false);
+      });
   };
   const columns = [
     { header: "CLIENT NAME", field: "ClientName" },

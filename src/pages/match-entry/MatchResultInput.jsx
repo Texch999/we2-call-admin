@@ -165,7 +165,7 @@ function MatchResultInput({
           amount={"1000000"}
           state={confirmDeclaration}
           setState={setConfirmDeclaration}
-          handleMatchDeclarePopupOpen={handleMatchDeclarePopupOpen}
+          handleMatchSubmitSuccessPopupOpen={handleMatchDeclarePopupOpen}
         />
       )}
       {afterConfirm && (
