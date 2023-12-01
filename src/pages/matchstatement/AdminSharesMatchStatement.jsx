@@ -202,7 +202,59 @@ const AdminSharesMatchStatement = () => {
   const handleMatchStatementButton = () => {
     setShowMatchStatement((prev) => !prev);
   };
+  const [allUsers, setAllUsers] = useState([]);
 
+  const getAllUsers = async () => {
+    await call(GET_OFFLINE_CLIENTS, { register_id })
+      .then((res) => {
+        // console.log(res.data);
+        // let results = res?.data?.data?.filter(
+        //   (item) => item.user_status !== "deleted"
+        // );
+        let results = res?.data?.data;
+        setAllUsers(results);
+      })
+      .catch((err) => console.log(err));
+  };
+  useEffect(() => {
+    getAllUsers();
+  }, []);
+  const getUlShare = (netPl, ulShare) => {
+    const netAmount = (+netPl || 0 * +ulShare || 0) / 100;
+    return netAmount;
+  };
+  const ulPlatformComm =
+    allUsers &&
+    allUsers?.length > 0 &&
+    allUsers?.map((user) => {
+      const netPL = getUlShare(user?.total_amount, user?.ul_share);
+      return {
+        admin_name: user?.client_name,
+        admin_role: user?.account_role,
+        ul_platform_comm: (
+          <div className={netPL >= 0 ? "clr-green" : "clr-red"}>
+            {netPL ? netPL?.toFixed(2) : 0}
+          </div>
+        ),
+      };
+    });
+  const AdminCommSattlementStatementData =
+    allUsers &&
+    allUsers?.length > 0 &&
+    allUsers?.map((user) => {
+      const netPL = getUlShare(user?.total_amount, user?.ul_share);
+      return {
+        admin_name: user?.client_name,
+        admin_role: user?.account_role,
+        amount: (
+          <div className={netPL >= 0 ? "clr-green" : "clr-red"}>
+            {netPL ? netPL?.toFixed(3) : 0}
+          </div>
+        ),
+        credit_debit: "100000.00",
+        balance: "100000.00",
+      };
+    });
   return (
     <div className="p-4">
       <div className="mb-3">
@@ -355,9 +407,13 @@ const AdminSharesMatchStatement = () => {
         </div>
       )} */}
       {activeReport === "Admins OnePageReport" && <AdminOnePageReport />}
-      {activeReport === "U/L Comm Report" && <AdminComissionReport />}
+      {activeReport === "U/L Comm Report" && (
+        <AdminComissionReport ulPlatformComm={ulPlatformComm} />
+      )}
       {activeReport === "Admins Share/Comm Settlement-Statement Report" && (
-        <AdminShareCommSettlement />
+        <AdminShareCommSettlement
+          AdminCommSattlementStatementData={AdminCommSattlementStatementData}
+        />
       )}
     </div>
   );

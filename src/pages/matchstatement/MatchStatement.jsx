@@ -18,7 +18,10 @@ function MatchStatement() {
   const [financialStatementData, setFinancialStatementData] = useState([]);
   const [existingUsers, setExistingUsers] = useState([]);
 
-  const [statementPayload, setStatementPayload] = useState({});
+  const [statementPayload, setStatementPayload] = useState({
+    startDate: new Date(),
+    endDate: new Date(),
+  });
 
   const getStatementData = async () => {
     setIsProcessing(true);

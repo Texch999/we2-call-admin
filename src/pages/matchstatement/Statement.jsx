@@ -23,13 +23,12 @@ function Statement(props) {
     statementPayload,
     setStatementPayload,
     financialStatementData,
-    isProcessing,
     getStatementData,
+    isProcessing,
   } = props;
   const history = useHistory();
   const { id, match, date, winTeam } = useParams();
   const [onePageData, setOnePageData] = useState([]);
-
 
   let register_id = localStorage?.getItem("register_id");
   let creator_id = localStorage?.getItem("creator_id");
@@ -47,82 +46,83 @@ function Statement(props) {
   ];
 
   const [popupData, setPopupData] = useState();
-  console.log(
-    financialStatementData,
-  );
-  const STATEMENT_DETAILS = financialStatementData?.map((item) => {
-    return {
-      dateTime: (
-        <div className="d-flex flex-column">
-          <div> {moment(item?.matchTimeStamp).format("DD-MM-YYYY")}</div>
-          <div> {moment(item?.matchTimeStamp).format("hh:mm:ss A")}</div>
-        </div>
-      ),
 
-      // dateTime: item?.sport_name,
-      seriesName: item?.series_name,
-      teamName: (
-        <div>
-          {/* {item?.team1} VS {item?.team1} */}
-          {item?.match_name}
-        </div>
-      ),
-      matchplace: item?.stadium,
-      winTeam: item?.winTeam,
-      profitLoss: (
-        <div
-          className={
-            item?.totalAmount?.totalLossOrProfit >= 0 ? "clr-green" : "clr-red"
-          }
-        >
-          {item?.totalAmount?.totalLossOrProfit}
-        </div>
-      ),
+  let totalMatchResultData = 0;
+  const statementData =
+    financialStatementData &&
+    financialStatementData?.length > 0 &&
+    financialStatementData?.map((match) => {
+      totalMatchResultData = financialStatementData.reduce(
+        (acc, obj) => acc + (obj.totalAmount?.totalLossOrProfit || 0),
+        0
+      );
 
-      // profitLoss: item?.totalAmount?.totalLossOrProfit,
-      edit: (
-        <div
-          data-toggle="modal"
-          data-target=".bd-example-modal-lg"
-          className="clr-yellow"
-          onClick={() =>
-            handleShow(
-              `${item?.match_id}/${item?.match_name}/${item?.matchTimeStamp}/${item?.winTeam}`
-            )
-          }
-          // onClick={() =>
-          //   history.push(
-          //     `/statement-popup/${item?.match_id}/${item?.match_name}/${item?.matchTimeStamp}/${item?.winTeam}`
-          //   )
-          // }
-        >
-          Click Here
-        </div>
-      ),
-    };
-  });
-  // const matchOptions = [
-  //   { value: "India-srilanka", label: "IND vs SL" },
+      return {
+        series: (
+          <div>
+            {match?.series_name}
+            {/* <br />
+            {match?.stadium}
+            <br /> */}
+          </div>
+        ),
+        venue: match?.stadium,
+        matchPlace: match?.match_place,
+        teamName: match?.match_name,
+        winTeam: match?.winTeam,
+        porL: match?.totalAmount?.totalLossOrProfit,
+        matchId: match?.registered_match_id,
+        match_name: match?.match_name,
+        matchTimeStamp: match?.matchTimeStamp,
+      };
+    });
 
-  //   { value: "pak-aus", label: "PAK vs AUS" },
-  //   { value: "sounth africa-newzeland", label: "SA vs NZ" },
-  // ];
-  // const fancyOptions = [
-  //   { value: "option1", label: "Option 1" },
-  //   { value: "option2", label: "Option 2" },
-  //   { value: "option3", label: "Option 3" },
-  // ];
-  // const clientOptions = [
-  //   { value: "option1", label: "Option 1" },
-  //   { value: "option2", label: "Option 2" },
-  //   { value: "option3", label: "Option 3" },
-  // ];
-
-  const [showModal, setShowModal] = useState(false);
   const handleShow = (item) => {
     setShowModal(true);
     setPopupData(item);
   };
+  const STATEMENT_DETAILS =
+    statementData?.length &&
+    statementData?.map((item) => {
+      return {
+        dateTime: (
+          <div className="d-flex flex-column">
+            <div> {moment(item?.matchTimeStamp).format("DD-MM-YYYY")}</div>
+            <div> {moment(item?.matchTimeStamp).format("hh:mm:ss A")}</div>
+          </div>
+        ),
+
+        // dateTime: item?.sport_name,
+        seriesName: item?.series,
+        teamName: (
+          <div>
+            {/* {item?.team1} VS {item?.team1} */}
+            {item?.teamName}
+          </div>
+        ),
+        matchplace: item?.matchPlace,
+        winTeam: item?.winTeam,
+        profitLoss: (
+          <div className={item?.porL >= 0 ? "clr-green" : "clr-red"}>
+            {item?.porL}
+          </div>
+        ),
+
+        // profitLoss: item?.totalAmount?.totalLossOrProfit,
+        edit: (
+          <div
+            data-toggle="modal"
+            data-target=".bd-example-modal-lg"
+            className="clr-yellow"
+            onClick={() => handleShow(item.matchId)}
+          >
+            Click Here
+          </div>
+        ),
+      };
+    });
+  const [showModal, setShowModal] = useState(false);
+
   const [selectedDate, setSelectedDate] = useState(null);
 
   const onChange = (e) => {};
@@ -154,6 +154,9 @@ function Statement(props) {
   useEffect(() => {
     getAllClientsData();
   }, []);
+  let clientPL = 0,
+    refPL = 0,
+    matchPL = 0;
 
   const clientOptions =
     existingUsers &&
@@ -184,51 +187,7 @@ function Statement(props) {
           matchName: item.match_name,
         };
       });
-  let totalMatchResultData = 0;
 
-  const statementData =
-    financialStatementData &&
-    financialStatementData?.length > 0 &&
-    financialStatementData?.map((match) => {
-      totalMatchResultData = financialStatementData.reduce(
-        (acc, obj) => acc + (obj.totalAmount?.totalLossOrProfit || 0),
-        0
-      );
-
-      return {
-        series: (
-          <div>
-            {match?.series_name}
-            <br />
-            {match?.stadium}
-            <br />
-            {match?.match_place}
-            <br />
-            {moment(match?.matchTimeStamp).format("DD-MM-YYYY")}
-            <br />
-            <span> {moment(match?.matchTimeStamp).format("hh:mm:ss A")}</span>
-          </div>
-        ),
-        teamName: match?.match_name,
-        winTeam: match?.winTeam,
-        porL: match?.totalAmount?.totalLossOrProfit,
-        matchId: match?.registered_match_id,
-        match_name: match?.match_name,
-        matchTimeStamp: match?.matchTimeStamp,
-      };
-    });
-
-  // const clientOptions =
-  //   existingUsers &&
-  //   existingUsers.length > 0 &&
-  //   existingUsers?.map((item, index) => {
-  //     return setStatementPayload({
-  //       ...statementPayload,
-  //       clientId: item.client_id,
-  //       // clientName: item.client_name,
-  //     });
-  //   });
-  
   return (
     <div className="p-2">
       <hr />
@@ -239,13 +198,13 @@ function Statement(props) {
               <div className="medium-font mb-2">From</div>
               <div className="date-container d-flex justify-content-around align-items-center rounded all-none p-1 w-100">
                 <DatePicker
-                  className="login-input all-none w-50"
-                  name="start_date"
-                  id="start_date"
-                  value={statementPayload["start_date"] || ""}
-                  selected={statementPayload?.start_date}
+                  className="login-input all-none w-100"
+                  name="startDate"
+                  id="startDate"
+                  value={statementPayload["startDate"] || ""}
+                  selected={statementPayload?.startDate}
                   onChange={(e) =>
-                    handleChange({ target: { name: "start_date", value: e } })
+                    handleChange({ target: { name: "startDate", value: e } })
                   }
                   dateFormat="dd-MM-yy"
                   placeholderText="Select a date"
@@ -259,13 +218,13 @@ function Statement(props) {
               <div className="medium-font mb-2">To</div>
               <div className="date-container d-flex justify-content-around align-items-center rounded all-none p-1 w-100">
                 <DatePicker
-                  className="login-input all-none w-50"
-                  selected={statementPayload?.end_date}
-                  name="end_date"
-                  id="end_date"
-                  value={statementPayload["end_date"] || ""}
+                  className="login-input all-none w-100"
+                  selected={statementPayload?.endDate}
+                  name="endDate"
+                  id="endDate"
+                  value={statementPayload["endDate"] || ""}
                   onChange={(e) =>
-                    handleChange({ target: { name: "end_date", value: e } })
+                    handleChange({ target: { name: "endDate", value: e } })
                   }
                   dateFormat="dd-MM-yy"
                   placeholderText="Select a date"
@@ -424,6 +383,7 @@ function Statement(props) {
         setShowModal={setShowModal}
         popupData={popupData}
         statementData={statementData}
+        statementPayload={statementPayload}
       />
     </div>
   );

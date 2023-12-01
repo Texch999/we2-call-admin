@@ -4,10 +4,16 @@ import { GiClick } from "react-icons/gi";
 import "./style.css";
 import { useHistory } from "react-router";
 import CustomPagination from "../pagination/CustomPagination";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { call } from "../../config/axios";
+import { GET_LIVE_MATCH_RISK_POSITION } from "../../config/endpoints";
+import moment from "moment";
 
 const ShareRiskLiveMatches = () => {
   const history = useHistory();
+  const register_id = localStorage?.getItem("register_id");
+  const [liveMatches, setLiveMatches] = useState([]);
+
   const shareRiskLiveMatchData = [
     {
       date_time: "19 July 2023, 10:00:00 PM",
@@ -81,7 +87,104 @@ const ShareRiskLiveMatches = () => {
     "",
     "",
   ];
+  const getUlShare = (netPl, ulShare) => {
+    const netAmount = (+netPl * +ulShare) / 100;
+    return netAmount;
+  };
 
+  const totalWin =
+    liveMatches &&
+    liveMatches?.length > 0 &&
+    liveMatches?.reduce(
+      (acc, obj) =>
+        acc +
+        (getUlShare(
+          obj?.matchRiskObject?.winCalculation?.profiltLoss,
+          obj?.ul_share
+        ) || 0),
+      0
+    );
+  const totalLoss =
+    liveMatches &&
+    liveMatches?.length > 0 &&
+    liveMatches?.reduce(
+      (acc, obj) =>
+        acc +
+        (getUlShare(
+          obj?.matchRiskObject?.winCalculation?.profiltLoss,
+          obj?.ul_share
+        ) || 0),
+      0
+    );
+  console.log({ totalLoss, totalWin });
+  const matchDetails =
+    liveMatches &&
+    liveMatches?.length > 0 &&
+    liveMatches?.map((match) => {
+      return {
+        match: `${match?.team1} vs ${match?.team2}`,
+        matchMode: match?.series_name,
+        venue: match?.stadium,
+        date: moment(match?.matchTimeStamp).format("DD-MM-YYYY"),
+        time: moment(match?.matchTimeStamp).format("hh:mm A"),
+        user: (
+          <div className="flex-start flex-column">
+            <div>{match?.user_name}</div>
+          </div>
+        ),
+        role: match?.account_role,
+        teama: (
+          <div
+            className={`font-size-12 w-20 flex-center ${
+              getUlShare(
+                match?.matchRiskObject?.winCalculation?.profiltLoss,
+                match?.ul_share
+              ) >= 0
+                ? "clr-green"
+                : "clr-red"
+            }`}
+          >
+            {getUlShare(
+              match?.matchRiskObject?.winCalculation?.profiltLoss,
+              match?.ul_share
+            )}
+          </div>
+        ),
+        teamb: (
+          <div
+            className={`font-size-12 w-20 flex-center ${
+              getUlShare(
+                match?.matchRiskObject?.loseCalcultion?.profiltLoss,
+                match?.ul_share
+              ) >= 0
+                ? "clr-green"
+                : "clr-red"
+            }`}
+          >
+            {getUlShare(
+              match?.matchRiskObject?.loseCalcultion?.profiltLoss,
+              match?.ul_share
+            )}
+          </div>
+        ),
+      };
+    });
+  const getLiveMatches = async () => {
+    await call(GET_LIVE_MATCH_RISK_POSITION, {
+      register_id,
+    })
+      .then(async (res) => {
+        const results = res?.data?.data.filter(
+          (i) => i?.match_declared !== "Y"
+        );
+        setLiveMatches(results);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  useEffect(() => {
+    getLiveMatches();
+  }, []);
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = 5;
 
@@ -103,7 +206,7 @@ const ShareRiskLiveMatches = () => {
         <Table responsive="md" className="call-management-data">
           <thead>
             <tr>
-              {shareRiskLiveMatchHeadings.map((headings, index) => (
+              {shareRiskLiveMatchHeadings?.map((headings, index) => (
                 <th className="text-center" key={index}>
                   {headings}
                 </th>
@@ -111,34 +214,37 @@ const ShareRiskLiveMatches = () => {
             </tr>
           </thead>
           <tbody>
-            {shareRiskLiveMatchData?.map((data, index) => (
-              <tr key={index}>
-                <td className="text-center">{data?.date_time}</td>
-                <td className="text-center">{data?.series_name}</td>
-                <td
-                  className="text-center clr-yellow cursor-pointer"
-                  onClick={() =>
-                    history.push(
-                      `/match-share-risk/${encodeURIComponent(data?.team_name)}`
-                    )
-                  }
-                >
-                  {data?.team_name}{" "}
-                  <GiClick className="custom-click-icon ms-1 mt-2" />
-                </td>
-                <td className="text-center">{data?.match_place}</td>
+            {matchDetails?.length &&
+              matchDetails?.map((data, index) => (
+                <tr key={index}>
+                  <td className="text-center">{data?.date}{data?.time}</td>
+                  <td className="text-center">{data?.matchMode}</td>
+                  <td
+                    className="text-center clr-yellow cursor-pointer"
+                    onClick={() =>
+                      history.push(
+                        `/match-share-risk/${encodeURIComponent(
+                          data?.match
+                        )}`
+                      )
+                    }
+                  >
+                    {data?.match}{" "}
+                    <GiClick className="custom-click-icon ms-1 mt-2" />
+                  </td>
+                  <td className="text-center">{data?.venue}</td>
 
-                <td className="text-center ">{data?.team_one}</td>
+                  <td className="text-center ">{data?.teama}</td>
 
-                <td className="clr-green">
-                  {parseFloat(data?.amount).toFixed(2)}
-                </td>
-                <td className="text-center">{data?.team_two}</td>
-                <td className="clr-red">
-                  {parseFloat(data?.profit).toFixed(2)}
-                </td>
-              </tr>
-            ))}
+                  <td className="clr-green">
+                    {parseFloat(data?.amount).toFixed(2)}
+                  </td>
+                  <td className="text-center">{data?.teamb}</td>
+                  <td className="clr-red">
+                    {parseFloat(data?.profit).toFixed(2)}
+                  </td>
+                </tr>
+              ))}
           </tbody>
         </Table>
       </div>

@@ -7,13 +7,12 @@ function AdminPopReports(props) {
     show,
     onHide,
     induvisualAdminData,
-    
-    // data,
-    // columns,
-    // adminName,
-    // role,
-    // heading,
-    // totalPosition,
+    data,
+    columns,
+    adminName,
+    role,
+    heading,
+    totalPosition,
   } = props;
   return (
     <Modal
@@ -31,12 +30,12 @@ function AdminPopReports(props) {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <h6 className="mb-3 fw-semibold">Heading</h6>
-        {/* <AdminsTable
+        <h6 className="mb-3 fw-semibold">{heading}</h6>
+        <AdminsTable
           data={data}
           columns={columns}
           totalPosition={totalPosition}
-        /> */}
+        />
       </Modal.Body>
     </Modal>
   );
