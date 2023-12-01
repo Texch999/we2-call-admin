@@ -11,16 +11,20 @@ import { GET_ALL_CLIENTS, BLOCKUNBLOCK } from "../../config/endpoints";
 import { call } from "../../config/axios";
 import ChangePassword from "./ChangePassword";
 import MatchSubmitPopup from "../match-popups/MatchSubmitPopup";
+import AddUserSuccessPopUp from "./AddUserSuccessPopUp";
+import BlockUnBlockPopUp from "./BlockUnBlockPopUp";
+import ChangePasswordSuccessPopUp from "./ChangePasswordSuccessPopUp";
 
 const AddAdmins = () => {
-  let register_id = localStorage?.getItem("register_id");
-  let creator_id = localStorage?.getItem("creator_id");
-  let account_role = localStorage?.getItem("account_role");
-  let user_name = localStorage?.getItem("user_name");
-
+  const register_id = localStorage?.getItem("register_id");
+  const creator_id = localStorage?.getItem("creator_id");
+  const account_role = localStorage?.getItem("account_role");
+  const user_name = localStorage?.getItem("user_name");
+  const [showChangePopup, setShowChangePopup] = useState(false);
   const [filteredValue, setFilteredValue] = useState("");
   const [modalShow, setModalShow] = useState(false);
   const [packageViewPopShow, setPackageViewPopup] = useState(false);
+  const [inputData, setInputData] = useState({});
 
   const [usersData, setUsersData] = useState([]);
   const [adminsData, setAdminsData] = useState();
@@ -28,8 +32,13 @@ const AddAdmins = () => {
   const [changepasswordPopup, setChangepasswordPopup] = useState(false);
   const [changePasswordSubmit, setChangePasswordSubmit] = useState(false);
   const [editData, setEditData] = useState(false);
+  const [editStatus, setEditStatus] = useState(false);
+  const [addSuccessPopUp, setAddSuccessPopUp] = useState(false);
+  const [blockStatus, setBlockStatus] = useState(false);
+  const [selectedUser, setSelectedUser] = useState("");
+  const [isProcessing, setIsProcessing] = useState(false);
 
-  const addUsersData =
+  const allUsersData =
     usersData?.length > 0 &&
     usersData
       ?.filter((i) => i.account_role !== "client")
@@ -46,73 +55,83 @@ const AddAdmins = () => {
           register_id: user?.register_id,
           creator_id: user?.creator_id,
           active: user?.active,
+          first_name: user?.first_name,
+          password: user?.password,
+          account_role: user?.account_role,
         };
       });
 
-  console.log(
-    usersData.filter((obj) => obj.location),
-    "usersData"
-  );
   const handleCpButton = () => {
     // eslint-disable-next-line no-lone-blocks
     setChangepasswordPopup(true);
   };
 
   const handleEditButton = (data) => {
-    setAdminsData(data);
+    setEditStatus(true);
+    setInputData(data);
     setModalShow(true);
-    setEditData(true);
   };
 
-  const handleAddAdmins = () => {
-    setAdminsData(false);
+  const handleAddUsers = () => {
     setModalShow(true);
-    setEditData(false);
+  };
+  const handleUserChange = (e) => {
+    setFilteredValue(e.target.value);
   };
 
   const handleBlock = async (data) => {
-    console.log(data?.type, "data");
+    setIsProcessing(true);
     await call(BLOCKUNBLOCK, {
-      register_id: data?.register_id,
+      register_id: selectedUser?.register_id,
       creator_id: register_id,
-      active: !data?.active,
-      account_role: data?.type,
+      active: !selectedUser?.active,
+      account_role: selectedUser?.type,
     })
       .then((res) => {
-        getAllClients();
+        setIsProcessing(false);
+        setBlockStatus(false);
+        setIsUserAdded((prev) => !prev);
       })
-      .catch((err) => console.log(err));
-  };
-  const ACTION_LABELS = [
-    {
-      name: "CP",
-    },
-    { name: "EDIT" },
-    // b: "B",
-    {
-      name: "UB",
-      onclick: handleBlock,
-    },
-  ];
-  const handleUserChange = (e) => {
-    setFilteredValue(e.target.value);
+      .catch((err) => {
+        setSelectedUser("");
+        setIsProcessing(false);
+        console.log(err);
+      });
   };
 
   const getAllClients = async () => {
     await call(GET_ALL_CLIENTS, { register_id, account_role })
       .then((res) => {
-        setUsersData(res?.data?.data);
+        const results =
+          res?.data &&
+          res?.data?.data?.length > 0 &&
+          res?.data?.data?.filter((i) => i.account_role !== "client");
+        setUsersData(results);
       })
       .catch((err) => console.log(err));
   };
 
-  useEffect(() => {
-    getAllClients();
-  }, [isUserAdded]);
+  const getFilteredUsers = () => {
+    if (!filteredValue) {
+      return allUsersData; // If search value is empty, return all data
+    }
+
+    // Filter users based on the search input
+    const filteredUsers =
+      allUsersData &&
+      allUsersData?.length > 0 &&
+      allUsersData?.filter((user) =>
+        user.user_name.toLowerCase().includes(filteredValue.toLowerCase())
+      );
+
+    return filteredUsers;
+  };
+
+  const filteredUsersData = getFilteredUsers();
 
   useEffect(() => {
     getAllClients();
-  }, [adminsData]);
+  }, [isUserAdded]);
 
   return (
     <div className="p-4">
@@ -150,7 +169,7 @@ const AddAdmins = () => {
             </div>
             <Button
               className="add-new-meetings-button"
-              onClick={() => handleAddAdmins()}
+              onClick={() => handleAddUsers()}
             >
               + Add Admins
             </Button>
@@ -167,18 +186,18 @@ const AddAdmins = () => {
               <th className="text-center">TYPE</th>
               <th className="text-center">C Share</th>
               <th className="text-center">My Share</th>
-              <th className="text-center">LOCATION</th>
-              <th className="text-center">PACKAGE</th>
-              <th className="text-center">REFERRAL</th>
-              <th className="text-center">P/L</th>
+              {/* <th className="text-center">LOCATION</th> */}
+              {/* <th className="text-center">PACKAGE</th> */}
+              {/* <th className="text-center">REFERRAL</th> */}
+              {/* <th className="text-center">P/L</th> */}
               <th className="text-center">ACTION</th>
             </tr>
           </thead>
           <tbody>
-            {addUsersData?.length > 0 &&
-              addUsersData?.map((data, index) => (
+            {filteredUsersData &&
+              filteredUsersData?.length > 0 &&
+              filteredUsersData?.map((data, index) => (
                 <tr key={index}>
-                  {console.log({ data })}
                   <td className="text-center">{data?.s_no}</td>
                   <td className="text-center">
                     {data?.user_name}{" "}
@@ -188,14 +207,17 @@ const AddAdmins = () => {
                   <td className="text-center">{data?.type}</td>
                   <td className="text-center">{data?.share}</td>
                   <td className="text-center">{data?.ul_share}</td>
-                  <td className="text-center">{data?.location}</td>
-                  <td className="text-center">{data?.package}</td>
-                  <td className="text-center">{data?.user}</td>
-                  <td className="text-center">{data?.profit_loss}</td>
+                  {/* <td className="text-center">{data?.location}</td> */}
+                  {/* <td className="text-center">{data?.package}</td> */}
+                  {/* <td className="text-center">{data?.user}</td> */}
+                  {/* <td className="text-center">{data?.profit_loss}</td> */}
                   <td className="text-center">
                     <Button
                       className="text-center rounded meeting-status-button EDIT-button me-2"
-                      onClick={() => handleCpButton()}
+                      onClick={() => {
+                        setShowChangePopup(true);
+                        setSelectedUser(data);
+                      }}
                     >
                       CP
                     </Button>
@@ -209,7 +231,10 @@ const AddAdmins = () => {
                       className={`text-center rounded meeting-status-button EDIT-button me-2 ${
                         data?.active ? "clr-blue" : "clr-red"
                       }`}
-                      onClick={() => handleBlock(data)}
+                      onClick={() => {
+                        setBlockStatus(true);
+                        setSelectedUser(data);
+                      }}
                     >
                       {data?.active ? "UB" : "B"}
                     </Button>
@@ -217,7 +242,9 @@ const AddAdmins = () => {
                 </tr>
               ))}
           </tbody>
-          <tfoot>
+        </Table>
+
+        {/* <tfoot>
             <tr>
               <th colSpan={6} className="text-center">
                 TOTAL
@@ -233,44 +260,74 @@ const AddAdmins = () => {
               </th>
               <th></th>
             </tr>
-          </tfoot>
-          {modalShow && (
-            <AddAdminsPopup
-              Heading={`${adminsData ? "Update Admins" : "Add Admins"} `}
-              show={modalShow}
-              setModalShow={setModalShow}
-              adminsData={adminsData}
-              usersData={usersData}
-              editData={editData}
-              onhideClick={(e) => {
-                setAdminsData({});
-                setModalShow(e);
-              }}
-              setIsUserAdded={setIsUserAdded}
-            />
-          )}
-          {packageViewPopShow && (
-            <PackageViewPopUp
-              show={packageViewPopShow}
-              onHide={() => setPackageViewPopup(false)}
-            />
-          )}
-          <ChangePassword
-            showChangePopup={changepasswordPopup}
-            setShowChangePopup={setChangepasswordPopup}
-            setChangePasswordSubmit={setChangePasswordSubmit}
+          </tfoot> */}
+        {modalShow && (
+          <AddAdminsPopup
+            heading={`${editStatus ? "Update User" : "Add User"} `}
+            show={modalShow}
+            usersData={usersData}
+            setModalShow={setModalShow}
+            editStatus={editStatus}
+            editData={editData}
+            onhideClick={(e) => {
+              setModalShow(e);
+              setInputData({});
+              setEditStatus(false);
+            }}
+            onHide={() => setModalShow(false)}
+            setIsUserAdded={setIsUserAdded}
+            setInputData={setInputData}
+            inputData={inputData}
+            setAddSuccessPopUp={setAddSuccessPopUp}
+            setEditStatus={setEditStatus}
           />
-          <MatchSubmitPopup
-            header={"You Are Successfully Changed your Password"}
-            state={changePasswordSubmit}
-            setState={setChangePasswordSubmit}
+        )}
+        {packageViewPopShow && (
+          <PackageViewPopUp
+            show={packageViewPopShow}
+            onHide={() => setPackageViewPopup(false)}
           />
-        </Table>
+        )}
+
+        {addSuccessPopUp && (
+          <AddUserSuccessPopUp
+            open={addSuccessPopUp}
+            handleConfimr={() => setAddSuccessPopUp(false)}
+            handleCancel={() => setAddSuccessPopUp()}
+            heading="Successfully Added"
+            flag={false}
+          />
+        )}
+        <ChangePassword
+          showChangePopup={showChangePopup}
+          setShowChangePopup={setShowChangePopup}
+          setChangePasswordSubmit={setChangePasswordSubmit}
+          selectedUser={selectedUser}
+          setSelectedUser={setSelectedUser}
+        />
+        <ChangePasswordSuccessPopUp
+          header={"You Are Successfully Changed your Password"}
+          state={changePasswordSubmit}
+          setState={setChangePasswordSubmit}
+        />
+        {blockStatus && (
+          <BlockUnBlockPopUp
+            open={blockStatus}
+            isProcessing={isProcessing}
+            handleConfirm={() => handleBlock()}
+            handleCancel={() => {
+              setSelectedUser("");
+              setBlockStatus(false);
+            }}
+            heading={`Are you sure you want to "${selectedUser?.first_name}" ${
+              selectedUser?.active ? "block" : "un-block"
+            }`}
+            flag={true}
+          />
+        )}
       </div>
     </div>
   );
 };
 
 export default AddAdmins;
-
-

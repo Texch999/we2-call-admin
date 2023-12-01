@@ -13,10 +13,10 @@ import BlockUnBlockPopUp from "./BlockUnBlockPopUp";
 import ChangePasswordSuccessPopUp from "./ChangePasswordSuccessPopUp";
 
 const AddUsers = () => {
-  let register_id = localStorage?.getItem("register_id");
-  let creator_id = localStorage?.getItem("creator_id");
-  let account_role = localStorage?.getItem("account_role");
-  let user_name = localStorage?.getItem("user_name");
+  const register_id = localStorage?.getItem("register_id");
+  const creator_id = localStorage?.getItem("creator_id");
+  const account_role = localStorage?.getItem("account_role");
+  const user_name = localStorage?.getItem("user_name");
 
   const [filteredValue, setFilteredValue] = useState("");
   const [modalShow, setModalShow] = useState(false);
@@ -102,12 +102,13 @@ const AddUsers = () => {
     }
   
     // Filter users based on the search input
-    const filteredUsers = allUsersData.filter((user) =>
+    const filteredUsers = allUsersData && allUsersData?.length > 0 && allUsersData?.filter((user) =>
       user.user_name.toLowerCase().includes(filteredValue.toLowerCase())
     );
   
     return filteredUsers;
   };
+
 
   const filteredUsersData = getFilteredUsers();
 

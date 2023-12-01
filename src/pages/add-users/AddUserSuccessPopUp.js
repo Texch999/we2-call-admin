@@ -25,19 +25,11 @@ const AddUserSuccessPopUp = ({
           <div className="fs-6 mt-3">{heading} </div>
           <div className="row d-flex justify-content-between mt-3">
             <div
-              className="col-5 rounded yellow-btn p-1"
+              className="col-12 rounded yellow-btn p-1"
               onClick={() => handleConfirm()}
             >
-              Yes
+              Go Back
             </div>
-            {flag && (
-              <div
-                className="col-5 rounded share-bg p-1"
-                onClick={() => handleCancel()}
-              >
-                No
-              </div>
-            )}
           </div>
         </center>
       </Modal.Body>

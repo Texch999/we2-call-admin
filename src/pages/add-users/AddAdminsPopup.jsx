@@ -11,21 +11,32 @@ import {
 } from "../../config/endpoints";
 
 function AddAdminsPopup(props) {
-  const { adminsData, usersData, setModalShow, editData } = props;
-  let register_id = localStorage?.getItem("register_id");
-  let creator_id = localStorage?.getItem("creator_id");
-  let account_role = localStorage?.getItem("account_role");
+  const {
+    setModalShow,
+    editData,
+    setInputData,
+    inputData,
+    setIsUserAdded,
+    editStatus,
+    setAddSuccessPopUp,
+    setEditStatus,
+    show,
+  } = props;
+
+  // console.log("input data", inputData)
+
+  const register_id = localStorage?.getItem("register_id");
+  const creator_id = localStorage?.getItem("creator_id");
+  const account_role = localStorage?.getItem("account_role");
 
   const [isProcessing, setIsProcessing] = useState(false);
   const [err, setErr] = useState("");
-
-  const [inputData, setInputData] = useState({});
-
   const [togglePassword, setTogglePassword] = useState(true);
   const [cnfPasswordToggle, setCnfPasswordToggle] = useState(true);
   const [adminPasswordToggle, setAdminPasswordToggle] = useState(true);
 
   const handleInputChnage = (e) => {
+    console.log(e.target.name, e.target.value);
     setInputData({ ...inputData, [e.target.name]: e.target.value });
   };
   let packageList = [
@@ -45,16 +56,22 @@ function AddAdminsPopup(props) {
     { label: "Master", value: "master" },
     { label: "Agent", value: "agent" },
   ];
-  const finIndex = userRoles.findIndex(
+  const finIndex = userRoles?.findIndex(
     (obj) => obj.value === localStorage.getItem("account_role")
   );
   userRoles =
     finIndex > -1 ? userRoles.slice(finIndex + 1, userRoles.length) : [];
 
-  const handleUpdateUserAdmin = async () => {
+  const handleSuccessPopUp = () => {
+    setAddSuccessPopUp(true);
+    setTimeout(() => {
+      setAddSuccessPopUp(false);
+    }, 2000);
+  };
+
+  const handleUpdateUser = async () => {
     setErr("");
     setIsProcessing(true);
-    setModalShow(false);
     await call(UPDATE_USER_ADMIN, {
       ...inputData,
       creator_id: register_id,
@@ -63,7 +80,8 @@ function AddAdminsPopup(props) {
       .then((res) => {
         setIsProcessing(false);
         if (res.data.status === 200) {
-          props?.setIsUserAdded((prev) => !prev);
+          setModalShow(false);
+          setIsUserAdded((prev) => !prev);
           // props.onHide();
           setInputData({});
         } else {
@@ -80,14 +98,13 @@ function AddAdminsPopup(props) {
   };
 
   const handleSubmitUserCreation = async () => {
+    // console.log("inputData", inputData)
     if (
       !(
         inputData?.first_name &&
         inputData?.user_name &&
-        inputData?.share &&
-        inputData?.ul_share &&
-        inputData?.creator_password &&
-        inputData?.location
+        inputData?.password &&
+        inputData?.creator_password
       )
     ) {
       return setErr("Please enter required fields");
@@ -97,17 +114,19 @@ function AddAdminsPopup(props) {
     }
     setErr("");
     setIsProcessing(true);
-    setModalShow(false);
     await call(ACCOUNT_REGISTERATION, {
       ...inputData,
       creator_id: register_id,
       creator_role: account_role,
+      share: 100 - +inputData["ul_share"],
     })
       .then((res) => {
         setIsProcessing(false);
-        if (res.data.status === 201) {
-          props?.setIsUserAdded((prev) => !prev);
-          // props.onHide();
+        if (res?.data?.status === 201) {
+          setIsUserAdded((prev) => !prev);
+          setModalShow(false);
+          handleSuccessPopUp();
+          props.onHide();
           setInputData({});
         } else {
           setErr(
@@ -138,12 +157,13 @@ function AddAdminsPopup(props) {
 
   return (
     <Modal
-      {...props}
+      show={show}
       centered
       className="add-user-modal"
       onHide={() => {
+        setEditStatus(false);
         setInputData({});
-        props.onhideClick(false);
+        setModalShow(false);
       }}
     >
       <Modal.Header closeButton>
@@ -169,27 +189,7 @@ function AddAdminsPopup(props) {
                     aria-describedby="basic-addon1"
                     autoFocus
                     name="first_name"
-                    value={inputData?.first_name || ""}
-                    onChange={(e) => handleInputChnage(e)}
-                  />
-                </InputGroup>
-              </Form.Group>
-            </Col>
-            <Col>
-              <Form.Group className="mb-3" controlId="location">
-                <Form.Label>Location*</Form.Label>
-                <InputGroup>
-                  <InputGroup.Text id="basic-addon1">
-                    <Image src={Images.LoginUserIcon} />
-                  </InputGroup.Text>
-                  <Form.Control
-                    type="text"
-                    placeholder="Enter Location"
-                    aria-label="Enter Location"
-                    aria-describedby="basic-addon1"
-                    autoFocus
-                    name="location"
-                    value={inputData?.location || ""}
+                    defaultValue={inputData?.first_name || ""}
                     onChange={(e) => handleInputChnage(e)}
                   />
                 </InputGroup>
@@ -210,7 +210,7 @@ function AddAdminsPopup(props) {
                       placeholder="Enter Name"
                       autoFocus
                       name="user_name"
-                      value={inputData?.user_name || ""}
+                      defaultValue={inputData?.user_name || ""}
                       onChange={(e) => handleInputChnage(e)}
                     />
                   </InputGroup>
@@ -253,7 +253,7 @@ function AddAdminsPopup(props) {
                       placeholder="Enter password"
                       autoFocus
                       name="password"
-                      value={inputData?.password || ""}
+                      defaultValue={inputData?.password || ""}
                       onChange={(e) => handleInputChnage(e)}
                     />
                     <InputGroup.Text
@@ -277,7 +277,7 @@ function AddAdminsPopup(props) {
                       placeholder="Enter confirm password"
                       autoFocus
                       name="confirm_password"
-                      value={inputData?.confirm_password || ""}
+                      defaultValue={inputData?.confirm_password || ""}
                       onChange={(e) => handleInputChnage(e)}
                     />
                     <InputGroup.Text
@@ -294,7 +294,7 @@ function AddAdminsPopup(props) {
               <Col>
                 <Form.Group className="mb-3" controlId="share">
                   <Form.Label>Share*</Form.Label>
-                  <Form.Text id="sharePercentage">10%</Form.Text>
+                  {/* <Form.Text id="sharePercentage">10%</Form.Text> */}
                   <InputGroup>
                     <InputGroup.Text id="basic-addon1">
                       <Image src={Images.percentIcon} />
@@ -305,7 +305,7 @@ function AddAdminsPopup(props) {
                       autoFocus
                       aria-describedby="sharePercentage"
                       name="share"
-                      value={inputData?.share || ""}
+                      defaultValue={100 - +inputData?.ul_share || 100}
                       onChange={(e) => handleInputChnage(e)}
                     />
                   </InputGroup>
@@ -314,9 +314,9 @@ function AddAdminsPopup(props) {
               <Col>
                 <Form.Group className="mb-3" controlId="myShare">
                   <Form.Label>My Share*</Form.Label>
-                  <Form.Text id="platComm" className="platform-comm">
+                  {/* <Form.Text id="platComm" className="platform-comm">
                     Plat Comm-<span className="yellow-clr">2%</span>
-                  </Form.Text>
+                  </Form.Text> */}
                   <InputGroup>
                     <InputGroup.Text id="basic-addon1">
                       <Image src={Images.percentIcon} />
@@ -327,7 +327,7 @@ function AddAdminsPopup(props) {
                       autoFocus
                       aria-describedby="platComm"
                       name="ul_share"
-                      value={inputData?.ul_share || ""}
+                      defaultValue={inputData?.ul_share || ""}
                       onChange={(e) => handleInputChnage(e)}
                     />
                   </InputGroup>
@@ -363,7 +363,7 @@ function AddAdminsPopup(props) {
                     placeholder="Enter Admin Password"
                     autoFocus
                     name="creator_password"
-                    value={inputData?.creator_password || ""}
+                    defaultValue={inputData?.creator_password || ""}
                     onChange={(e) => handleInputChnage(e)}
                   />
                   <InputGroup.Text
@@ -381,14 +381,10 @@ function AddAdminsPopup(props) {
             className="w-100 add-user-button"
             disabled={isProcessing}
             onClick={() => {
-              editData === true
-                ? handleUpdateUserAdmin()
-                : handleSubmitUserCreation();
+              editStatus ? handleUpdateUser() : handleSubmitUserCreation();
             }}
           >
-            {/* {isProcessing ? "Processing..." : "Add"} */}
-
-            {editData === true ? "Update" : "Create"}
+            {isProcessing ? "Processing..." : editStatus ? "Update" : "Add"}
           </Button>
         </Form>
       </Modal.Body>
