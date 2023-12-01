@@ -1,10 +1,20 @@
 import React, { useState } from "react";
 import ClientPLData from "./ClientPLData";
-import AdminsTable from "../onepagereport/AdminsTable";
-import { Col, Container, Row } from "react-bootstrap";
 import { GiClick } from "react-icons/gi";
+
 function ClientPLTable(props) {
-  const { popupData, clientMatchStatementData } = props;
+  const { popupData, clientMatchStatementData, matchDetails } = props;
+  const [selectedClientID, setSelectedClientID] = useState("");
+  const [selectedClientName, setSelectedClientName] = useState("");
+  const [showClientPL, setShowClientPL] = useState(false);
+  const handleClientData = (clientID, clientName) => {
+    setShowClientPL((prev) => !prev);
+    setSelectedClientID(clientID);
+    setSelectedClientName(clientName);
+  };
+  let clientPL = 0,
+    refPL = 0,
+    matchPL = 0;
   const CLIENTPL_DETAILS =
     clientMatchStatementData.length &&
     clientMatchStatementData?.map((item) => {
@@ -17,62 +27,7 @@ function ClientPLTable(props) {
         amount: item.amount,
       };
     });
-  // const CLIENTPL_DETAILS = [
-  //   {
-  //     name: "Animesh",
-  //     matchpl: "1000000.00",
-  //     sixover: "500000.00",
-  //     tenover: "500000.00",
-  //     fifteenover: "500000.00",
-  //     sixoverone: "500000.00",
-  //     tenoverone: "500000.00",
-  //     fifteenoverone: "500000.00",
-  //     fancycom: "500000.00",
-  //     mfc: "500000.00",
-  //   },
-  //   {
-  //     name: "Animesh",
-  //     matchpl: "1000000.00",
-  //     sixover: "500000.00",
-  //     tenover: "500000.00",
-  //     fifteenover: "500000.00",
-  //     sixoverone: "500000.00",
-  //     tenoverone: "500000.00",
-  //     fifteenoverone: "500000.00",
-  //     fancycom: "500000.00",
-  //     mfc: "500000.00",
-  //   },
-  //   {
-  //     name: "Animesh",
-  //     matchpl: "1000000.00",
-  //     sixover: "500000.00",
-  //     tenover: "500000.00",
-  //     fifteenover: "500000.00",
-  //     sixoverone: "500000.00",
-  //     tenoverone: "500000.00",
-  //     fifteenoverone: "500000.00",
-  //     fancycom: "500000.00",
-  //     mfc: "500000.00",
-  //   },
-  //   {
-  //     name: "Animesh",
-  //     matchpl: "1000000.00",
-  //     sixover: "500000.00",
-  //     tenover: "500000.00",
-  //     fifteenover: "500000.00",
-  //     sixoverone: "500000.00",
-  //     tenoverone: "500000.00",
-  //     fifteenoverone: "500000.00",
-  //     fancycom: "500000.00",
-  //     mfc: "500000.00",
-  //   },
-  // ];
 
-  console.log(CLIENTPL_DETAILS, "..............CLIENTPL_DETAILS............");
-  const [showClientPL, setShowClientPL] = useState(false);
-  const handleClientData = () => {
-    setShowClientPL((prev) => !prev);
-  };
   return (
     <div className="d-flex flex-column">
       <table className="w-100 match-position-table small-font">
@@ -103,7 +58,12 @@ function ClientPLTable(props) {
               <td className="clr-green"> {item.amount}</td>
               <td className="clr-green"> {item.fifteenoverone}</td>
               <td className="clr-green"> {item.fancyReferralComm}</td>
-              <td className="clr-green" onClick={() => handleClientData()}>
+              <td
+                className="clr-green"
+                onClick={() =>
+                  handleClientData(item?.client_id, item?.client_name)
+                }
+              >
                 {item.amount}
                 <GiClick className="custom-click-icon ms-1 mt-2" />
               </td>
@@ -145,7 +105,13 @@ function ClientPLTable(props) {
           </tr>
         </tbody>
       </table>
-      {showClientPL && <ClientPLData />}
+      {showClientPL && (
+        <ClientPLData
+          matchDetails={matchDetails}
+          selectedClientID={selectedClientID}
+          selectedClientName={selectedClientName}
+        />
+      )}
     </div>
   );
 }

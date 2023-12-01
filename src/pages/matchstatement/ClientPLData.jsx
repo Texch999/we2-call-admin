@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import MatchBetTable from "./MatchBetTable";
 import FancyBetTable from "./FancyBetTable";
 
-function ClientPLData() {
+function ClientPLData({ selectedClientID, selectedClientName }) {
   const [matchBetInputs, setMatchBetInputs] = useState(true);
   const [fancyBetInputs, setFancyBetInputs] = useState(false);
   const handleMatchBet = () => {
@@ -15,7 +15,9 @@ function ClientPLData() {
   };
   return (
     <div>
-      <div className="medium-font mt-3 mb-2">Client Name : Animesh</div>
+      <div className="medium-font mt-3 mb-2">
+        Client Name : {selectedClientName}
+      </div>
       <div className="w-50 d-flex justify-content-start mt-2 mb-3">
         <div className="w-25 d-flex justify-content-end">
           <div

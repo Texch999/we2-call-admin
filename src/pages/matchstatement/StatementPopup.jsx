@@ -14,7 +14,7 @@ import {
 import { useEffect } from "react";
 
 function StatementPopup(props) {
-  const { showModal, setShowModal, popupData } = props;
+  const { showModal, setShowModal, popupData, matchDetails } = props;
   const { id, match, date, winTeam } = useParams();
   let register_id = localStorage?.getItem("register_id");
   const [selectedClientId, setSelectedClientId] = useState("");
@@ -69,11 +69,7 @@ function StatementPopup(props) {
       return {
         name: <div>{report?.client_name}</div>,
         masterProfitLoss: (
-          <div
-          // onClick={() =>
-          //   handleClientMatch(report?.client_id, report?.client_name)
-          // }
-          >
+          <div>
             <div className={`${amount >= 0 ? "clr-green" : "clr-red"}`}>
               {amount}
             </div>
@@ -92,7 +88,6 @@ function StatementPopup(props) {
           </div>
         ),
         fancyProfitLoss: (
-          // <div className="flex-center" onClick={() => handleFancyInnings()}>
           <div className="flex-center">
             <div
               className={
@@ -125,10 +120,7 @@ function StatementPopup(props) {
     setSelectedClientId(clientID);
     setSelectedClientName(clientName);
   };
-  const handleFancyInnings = () => {};
-
-
-  // const clientMatchStatementData = [];
+  console.log(popupData, matchDetails, "POPUP");
   return (
     <div className="modal fade bd-example-modal-lg container mt-5">
       <Modal
@@ -136,21 +128,18 @@ function StatementPopup(props) {
         show={showModal}
         onHide={handleClose}
         centered
-        className="match-share-modal w-100 close-btn"
+        className="z-index match-share-modal w-100 close-btn"
       >
         <Modal.Header closeButton>
           <div className="w-100">
             <div className="p-2 rounded-top w-100 d-flex align-items-center justify-content-between">
-              <div className="w-25 d-flex justify-content-between">
-                <div>
-                  <div className="w-100 small-font clr-yellow match-date-button p-1 rounded-pill ms-1 me-1">
-                    Match : {popupData?.match_name}
-                  </div>
+              <div className="w-50 d-flex">
+                <div className="w-25 small-font clr-yellow match-date-button p-1 rounded-pill ms-1 me-1">
+                  Match : {matchDetails?.match_name}
                 </div>
-                <div>
-                  <div className="w-100 small-font clr-yellow match-date-button p-1 rounded-pill ms-1 me-1">
-                    date : <div>{moment(+date).format("DD-MM-YYYY")}</div>
-                  </div>
+                <div className="w-50 small-font clr-yellow match-date-button p-1 rounded-pill ms-1 me-1">
+                  Date :
+                  {moment(+matchDetails?.matchTimeStamp).format("DD-MM-YYYY")}
                 </div>
               </div>
               <div className="w-50 d-flex justify-content-end">
@@ -183,6 +172,7 @@ function StatementPopup(props) {
         <Modal.Body className="p-3">
           {clientInputs && (
             <ClientPLTable
+              matchDetails={matchDetails}
               clientMatchStatementData={clientMatchStatementData}
             />
           )}
