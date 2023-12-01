@@ -27,7 +27,6 @@ function AddUserPopUp(props) {
 
   const [isProcessing, setIsProcessing] = useState(false);
   const [err, setErr] = useState("");
-  console.log("inputData", inputData);
   // const [inputData, setInputData] = useState({});
 
   const handleInputChnage = (e) => {
