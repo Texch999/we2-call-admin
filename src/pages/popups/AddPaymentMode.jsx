@@ -5,7 +5,6 @@ import { Images } from "../../images";
 import { useState } from "react";
 
 function AddAdminsPopup(props) {
-    console.log(props)
   const paymentDetailsInputFields = [
     {
       type: "text",
@@ -48,25 +47,19 @@ function AddAdminsPopup(props) {
   };
   const handlePaymentType = (type) => {
     setActiveType(type);
-    console.log(type);
   };
   return (
-    <Modal
-      {...props}
-      centered
-      className="add-user-modal"
-     
-    >
+    <Modal {...props} centered className="add-user-modal mt-4">
       <Modal.Header closeButton>
         <Modal.Title className="w-100 text-center">
           Add Payment Mode
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <p className="text-center">Add Your Payment Details</p>
+        <div className="text-center me-4">Add Your Payment Details</div>
         <Form className="add-user-modal-form-details">
-          <Form.Group className="mb-3">
-            <Form.Label>Select Type**</Form.Label>
+          <Form.Group className="mb-2">
+            <Form.Label>Select Type*</Form.Label>
             <InputGroup>
               <InputGroup.Text id="basic-addon1">
                 <Image src={Images.transactionIcon} style={{ width: "18px" }} />
@@ -81,7 +74,7 @@ function AddAdminsPopup(props) {
           {activeType === "NEFT / RTGS" ? (
             paymentDetailsInputFields.map((field, index) => {
               return (
-                <Form.Group className="mb-3" key={index}>
+                <Form.Group className="mb-2" key={index}>
                   <Form.Label>{field?.label}</Form.Label>
                   <InputGroup>
                     <InputGroup.Text>
@@ -99,7 +92,7 @@ function AddAdminsPopup(props) {
               );
             })
           ) : activeType === "QR Code" ? (
-            <Form.Group className="mb-3">
+            <Form.Group className="mb-2">
               <Form.Label>Upload Photo*</Form.Label>
               <InputGroup>
                 <Form.Control
@@ -113,13 +106,13 @@ function AddAdminsPopup(props) {
                   <Image
                     src={Images.uploadIcon}
                     style={{ width: "18px" }}
-                    className="me-3"
+                    className="mb-2"
                   />
                 </InputGroup.Text>
               </InputGroup>
             </Form.Group>
           ) : (
-            <Form.Group className="mb-3">
+            <Form.Group className="mb-2">
               <Form.Label>UPI Name*</Form.Label>
               <InputGroup>
                 <InputGroup.Text>
@@ -133,7 +126,7 @@ function AddAdminsPopup(props) {
                   autoFocus
                 />
               </InputGroup>
-              <Form.Label className="mt-3">Phone Number*</Form.Label>
+              <Form.Label className="mt-2">Phone Number*</Form.Label>
               <InputGroup>
                 <InputGroup.Text>
                   <Image src={Images.callIcon} style={{ width: "18px" }} />
@@ -150,14 +143,13 @@ function AddAdminsPopup(props) {
           )}
 
           <Button
-            className="w-100 add-user-button mt-3"
+            className="w-100 add-user-button mt-2"
             onClick={() => handleAddUser()}
           >
             Submit
           </Button>
         </Form>
       </Modal.Body>
-      
     </Modal>
   );
 }

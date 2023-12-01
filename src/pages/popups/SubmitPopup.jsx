@@ -3,14 +3,51 @@ import { IoCloseSharp } from "react-icons/io5";
 import { Images } from "./../../images/index";
 
 function SubmitPopup(props) {
-  const { header, state, setState } = props;
-  const handleCancel = () => {
+  const {
+    header,
+    state,
+    setState,
+    data,
+    setSelectedMatchEntry,
+    deletedId,
+    deleteApi,
+    setSelectedId,
+
+    // fancySetSelectedMatchEntry,
+    // fancyData,
+    // fancyDeletedId,
+    // fancyDeleteApi,
+    // fancySetSelectedId,
+  } = props;
+  const handleCancelPopup = () => {
     setState(false);
+  };
+  const handleConfirm = () => {
+    // if (setSelectedMatchEntry) {
+      setSelectedMatchEntry && setSelectedMatchEntry(data);
+      deletedId && deleteApi();
+      handleCancelPopup(false);
+    // } else if (fancySetSelectedMatchEntry) {
+    //   fancySetSelectedMatchEntry && fancySetSelectedMatchEntry(fancyData);
+    //   fancyDeletedId && fancyDeleteApi();
+    //   handleCancelPopup();
+    // }
+  };
+  const handelCancel = () => {
+    // if (setSelectedMatchEntry) {
+      setSelectedMatchEntry && setSelectedMatchEntry("");
+      deletedId && setSelectedId("");
+      handleCancelPopup(false);
+    // } else if (fancySetSelectedMatchEntry) {
+    //   fancySetSelectedMatchEntry && fancySetSelectedMatchEntry("");
+    //   fancyDeletedId && fancySetSelectedId("");
+    //   handleCancelPopup();
+    // }
   };
   return (
     <Modal show={state} className="match-declaration-modal" centered>
       <Modal.Header className="d-flex justify-content-end">
-        <IoCloseSharp onClick={() => handleCancel()} />
+        <IoCloseSharp onClick={() => handleCancelPopup()} />
       </Modal.Header>
       <Modal.Body>
         <center className="px-3">
@@ -23,13 +60,13 @@ function SubmitPopup(props) {
           <div className="row d-flex justify-content-between mt-3">
             <div
               className="col-5 rounded yellow-btn p-1"
-              onClick={() => handleCancel()}
+              onClick={() => handleConfirm()}
             >
               Yes
             </div>
             <div
               className="col-5 rounded share-bg p-1"
-              onClick={() => handleCancel()}
+              onClick={() => handelCancel()}
             >
               No
             </div>

@@ -65,14 +65,14 @@ function ClientPLTable() {
           <tr className="text-center">
             <th>Name</th>
             <th>Match P/L</th>
-            <th>6 Over</th>
-            <th>10 Over</th>
-            <th>15 Over</th>
-            <th>6 Over</th>
-            <th>10 Over</th>
-            <th>15 Over</th>
-            <th>FancyR-Com</th>
-            <th>M+F+C</th>
+            <th>Fancy P/L 1st</th>
+            <th>Fancy P/L 2nd</th>
+            <th>Total Fancy P/L</th>
+            <th>Match Com/Fancy Comm</th>
+            <th>Rolling Comm</th>
+            <th>M+F+C/RC</th>
+            <th>C-Share</th>
+            <th>C Net P/L</th>
           </tr>
         </thead>
         {CLIENTPL_DETAILS.map((item, index) => (
@@ -87,10 +87,7 @@ function ClientPLTable() {
               <td className="clr-green"> {item.tenoverone}</td>
               <td className="clr-green"> {item.fifteenoverone}</td>
               <td className="clr-green"> {item.fancycom}</td>
-              <td
-                className="clr-green"
-                onClick={() => handleClientData()}
-              >
+              <td className="clr-green" onClick={() => handleClientData()}>
                 {item.mfc}
                 <GiClick className="custom-click-icon ms-1 mt-2" />
               </td>
@@ -111,6 +108,26 @@ function ClientPLTable() {
             <th>50000000.00</th>
           </tr>
         </tfoot>
+      </table>
+      <table className="w-100 match-position-table small-font mt-2">
+        <thead>
+          <tr className="text-center">
+            <th>Referal M+F+C/RC</th>
+            <th>After Referral</th>
+            <th>UL Share</th>
+            <th>UL Comm</th>
+            <th>Yours Net P/L</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr className="text-center">
+            <td>10,000</td>
+            <td>90,000</td>
+            <td>9000</td>
+            <td>0.00</td>
+            <td>81000</td>
+          </tr>
+        </tbody>
       </table>
       {showClientPL && <ClientPLData />}
     </div>

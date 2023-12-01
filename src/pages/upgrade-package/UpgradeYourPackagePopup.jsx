@@ -87,7 +87,7 @@ function UpgradeYourPackagePopup(props) {
                 <Dropdown.Toggle>
                   <div className="d-flex align-itens-center justify-content-between p-1">
                     <div>
-                      Reduse Available Package{" "}
+                      Reduse Available Package
                       <RiArrowDropDownLine style={{ fontSize: "20px" }} />
                     </div>
 
@@ -124,7 +124,7 @@ function UpgradeYourPackagePopup(props) {
                 <Dropdown.Toggle>
                   <div className="d-flex align-itens-center justify-content-between p-1">
                     <div>
-                      Reduse Available Package{" "}
+                      Reduse Available Package
                       <RiArrowDropDownLine style={{ fontSize: "20px" }} />
                     </div>
 

@@ -1,6 +1,7 @@
 import { MdOutlinePayment } from "react-icons/md";
 import { FaRegUser, FaCheck } from "react-icons/fa6";
 import { Images } from "../../images";
+import { AiTwotoneSave } from "react-icons/ai";
 
 function BookingCompleteMsg(props) {
   const { handleCancel } = props;
@@ -9,6 +10,10 @@ function BookingCompleteMsg(props) {
       <div className="w-100 d-flex justify-content-between mt-2">
         <div className="flex-center payment-icon active-payment-icon font-25">
           <FaRegUser />
+        </div>
+        <div className="active-line-clr"></div>
+        <div className="flex-center payment-icon active-payment-icon font-25">
+          <AiTwotoneSave />
         </div>
         <div className="active-line-clr"></div>
         <div className="flex-center payment-icon active-payment-icon font-25">

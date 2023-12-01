@@ -3,6 +3,7 @@ import { Button, Table } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import AdminPopReports from "./AdminPopReports";
 import { GiClick } from "react-icons/gi";
+import CustomPagination from "../pagination/CustomPagination";
 
 const AdminOnePageReport = () => {
   const [adminOnePageReportPopUp, setAdminOnePageReportPopUp] = useState(false);
@@ -11,12 +12,12 @@ const AdminOnePageReport = () => {
   const [adminsData, setAdminsData] = useState("");
   const [adminsHeadings, setAdminsHeadings] = useState("");
   const reports = [
-    "Client One Page Report",
     "Admin One Page Report",
     "UL/Platform Comm Report",
   ];
   const [activeReport, setActiveReport] = useState("Admin One Page Report");
   const [popupHeading, setPopupHeading] = useState(false);
+
   const adminOnePageReportData = [
     {
       admin_name: "Animesh",
@@ -159,9 +160,16 @@ const AdminOnePageReport = () => {
       setPopupHeading("Match Wise UL/Platform Com");
     }
   };
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalPages = 5;
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+    // You can add your logic here to fetch data for the selected page.
+  };
   return (
     <div className="p-4">
-      <h5 className="meetings-heading mb-3">One Page Report</h5>
+      <h5 className="meetings-heading mb-3">Your Share In Admin Book</h5>
       <div className="d-flex align-items-center justify-content-between">
         <div>
           {reports.map((report, index) => (
@@ -201,7 +209,8 @@ const AdminOnePageReport = () => {
                   className="text-center cursor-pointer"
                   onClick={() => handleAdminReports(data)}
                 >
-                  {data?.admin_name}     <GiClick className="custom-click-icon ms-1 mt-2" />
+                  {data?.admin_name}{" "}
+                  <GiClick className="custom-click-icon ms-1 mt-2" />
                 </td>
                 <td className="text-center">{data?.admin_role}</td>
                 <td className="text-center">
@@ -215,7 +224,9 @@ const AdminOnePageReport = () => {
           </tbody>
           <tfoot>
             <tr>
-              <th colSpan={2} className="text-center">TOTAL</th>
+              <th colSpan={2} className="text-center">
+                TOTAL
+              </th>
               <th className="text-center clr-green">
                 {adminOnePageReportData
                   ?.reduce(
@@ -243,10 +254,24 @@ const AdminOnePageReport = () => {
               adminName={adminName}
               role={role}
               heading={popupHeading}
-              totalPosition ="series_name"
+              totalPosition="series_name"
             />
           )}
         </Table>
+      </div>
+      <div className="d-flex justify-content-between align-items-center mt-4">
+        <div className="d-flex justify-content-start font-clr-white total-count-container  py-2 px-4 rounded">
+          <span>
+            Showing <b> {currentPage} </b> 0f <b> {totalPages} </b> Entries....
+          </span>
+        </div>
+        <div className="d-flex justify-content-end mt-2">
+          <CustomPagination
+            totalPages={totalPages}
+            currentPage={currentPage}
+            onPageChange={handlePageChange}
+          />
+        </div>
       </div>
     </div>
   );

@@ -1,86 +1,146 @@
 import { MdEdit, MdDelete } from "react-icons/md";
 import Table from "./../home-page/Table";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SubmitPopup from "./../popups/SubmitPopup";
+import { call } from "../../config/axios";
+import {
+  DELETE_MATCH_ENTRY,
+  GET_MATCH_ENTRY_DETAILS,
+} from "../../config/endpoints";
 
-function MatchEntryTable() {
+function MatchEntryTable(props) {
+  const {
+    team1,
+    team2,
+    seriesType,
+    selectedMatch,
+    matchAccountData, 
+    setSelectedMatchEntry,
+    status,
+    setStatus,
+  } = props;
+
+  let register_id = localStorage?.getItem("register_id");
+  let creator_id = localStorage?.getItem("creator_id");
+  let account_role = localStorage?.getItem("account_role");
+
   const [editPopup, setEditPopup] = useState(false);
   const [deletePopup, setDeletePopup] = useState(false);
-  const handleEditPopupOpen = () => {
-    setEditPopup(true);
+  const [data, setData] = useState([]);
+  const [matchEntryData, setMatchEntryData] = useState([]);
+  const [selectedId, setSelectedId] = useState("");
+
+  const handleOpenEditPopup = (DATA) => {
+    setMatchEntryData(DATA);
+    setEditPopup(!editPopup);
   };
-  const handleDeletePopupOpen = () => {
-    setDeletePopup(true);
+  const handleOpenDeletePopup = (matchId) => {
+    setSelectedId(matchId);
+    setDeletePopup(!deletePopup);
   };
-  const MATCH_ENTRY_DATA = [
-    {
-      sNo: 1,
-      rate: 1.5,
-      client: "Srinivas2346",
-      amount: 50000000.0,
-      team: "India",
-      playEat: "P",
-      date: "31-07-2023",
-      time: "12:48:00 PM",
-      ind: 50000000.0,
-      pak: 50000000.0,
-      edit: (
-        <MdEdit className="edit-icon" onClick={() => handleEditPopupOpen()} />
-      ),
-      delete: (
-        <MdDelete
-          className="edit-icon"
-          onClick={() => handleDeletePopupOpen()}
-        />
-      ),
-    },
-    {
-      sNo: 1,
-      rate: 1.5,
-      client: "Srinivas2346",
-      amount: 50000000.0,
-      team: "India",
-      playEat: "P",
-      date: "31-07-2023",
-      time: "12:48:00 PM",
-      ind: 50000000.0,
-      pak: 50000000.0,
-      edit: (
-        <MdEdit className="edit-icon" onClick={() => handleEditPopupOpen()} />
-      ),
-      delete: (
-        <MdDelete
-          className="edit-icon"
-          onClick={() => handleDeletePopupOpen()}
-        />
-      ),
-    },
-    {
-      sNo: 1,
-      rate: 1.5,
-      client: "Srinivas2346",
-      amount: 50000000.0,
-      team: "India",
-      playEat: "P",
-      date: "31-07-2023",
-      time: "12:48:00 PM",
-      ind: 50000000.0,
-      pak: 50000000.0,
-      edit: (
-        <MdEdit className="edit-icon" onClick={() => handleEditPopupOpen()} />
-      ),
-      delete: (
-        <MdDelete
-          className="edit-icon"
-          onClick={() => handleDeletePopupOpen()}
-        />
-      ),
-    },
-  ];
+
+  const deleteApi = async () => {
+    await call(DELETE_MATCH_ENTRY, {
+      match_entry_id: selectedId,
+      register_id,
+    })
+      .then((res) => {
+        setSelectedId("");
+        setStatus((prev) => !prev);
+        console.log(res.data);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const getMatchEntryDetails = async () => {
+    await call(GET_MATCH_ENTRY_DETAILS, {
+      registered_match_id: matchAccountData?.registered_match_id,
+      register_id,
+    })
+      .then((res) => {
+        setData(res?.data?.data?.Items);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  useEffect(() => {
+    getMatchEntryDetails();
+  }, [matchAccountData?.registered_match_id, status]);
+
+  const MATCH_ENTRY_DATA =
+    data?.length >= 0 &&
+    data
+      ?.filter((i) => i.record_status !== "deleted")
+      ?.map((match) => ({
+        s_no: (
+          <div>
+            {match?.old_s_no === match?.s_no
+              ? match?.s_no
+              : `${match?.s_no}/${match?.old_s_no}`}
+          </div>
+        ),
+        rate: match.rate,
+        client: match.client_name,
+        amount: <div className="yellow-clr">{match.amount}</div>,
+        team: match.team,
+        playEat: (
+          <div
+            className={
+              match?.pe.toUpperCase() === "P" ? "clr-green" : "clr-pink"
+            }
+          >
+            {match?.pe.toUpperCase()}
+          </div>
+        ),
+        date: match.date,
+        time: match.time,
+        teamOne: (
+          <div
+            className={
+              match.teamObj[selectedMatch.team1] >= 0 ? "clr-green" : "clr-red"
+            }
+          >
+            {match.teamObj[selectedMatch.team1]}
+          </div>
+        ),
+        teamTwo: (
+          <div
+            className={
+              match.teamObj[selectedMatch.team2] >= 0 ? "clr-green" : "clr-red"
+            }
+          >
+            {match.teamObj[selectedMatch.team2]}
+          </div>
+        ),
+        edit: (
+          <div>
+            {match?.record_status === "active" && (
+              <MdEdit
+                className="cursor-pointer edit-icon"
+                onClick={() => handleOpenEditPopup(match)}
+              />
+            )}
+          </div>
+        ),
+        delete: (
+          <div>
+            {match?.record_status === "active" && (
+              <MdDelete
+                className="cursor-pointer edit-icon"
+                onClick={() => handleOpenDeletePopup(match?.match_entry_id)}
+              />
+            )}
+          </div>
+        ),
+        recordStatus: match?.record_status,
+      }));
+
   const MATCH_ENTRY_HEADING = [
     {
       header: "S.NO",
-      field: "sNo",
+      field: "s_no",
     },
     {
       header: "RATE",
@@ -111,12 +171,12 @@ function MatchEntryTable() {
       field: "time",
     },
     {
-      header: "IND",
-      field: "ind",
+      header: <div>{team1}</div>,
+      field: "teamOne",
     },
     {
-      header: "PAK",
-      field: "pak",
+      header: <div>{team2}</div>,
+      field: "teamTwo",
     },
     {
       header: "",
@@ -127,19 +187,23 @@ function MatchEntryTable() {
       field: "delete",
     },
   ];
-
   return (
     <div className="p-3">
-      <Table data={MATCH_ENTRY_DATA} columns={MATCH_ENTRY_HEADING} />
+      <Table data={MATCH_ENTRY_DATA || []} columns={MATCH_ENTRY_HEADING} />
       <SubmitPopup
         state={editPopup}
         setState={setEditPopup}
         header={"Are You Sure You Want To Edit This Match Entry"}
+        data={matchEntryData}
+        setSelectedMatchEntry={setSelectedMatchEntry}
       />
       <SubmitPopup
         state={deletePopup}
         setState={setDeletePopup}
         header={"Are You Sure You Want To Delete This Match Entry"}
+        deletedId={selectedId}
+        deleteApi={deleteApi}
+        setSelectedId={setSelectedId}
       />
     </div>
   );

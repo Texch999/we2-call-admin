@@ -103,13 +103,29 @@ function FancySecondInnings() {
             </tr>
           </tbody>
         ))}
-        <tfoot>
+        {/* <tfoot>
           <tr className="text-center small-font clr-green all-none w-100">
             <th colSpan={10} className="text-end">TOTAL</th>
             <th>50000000.00</th>
           </tr>
-        </tfoot>
+        </tfoot> */}
       </table>
+      <div className="w-100 d-flex justify-content-between mt-2">
+        <div className="harizental-scroll">
+          <div>
+            <div className="fancy-overs">6 Over-50000</div>
+            <div className="fancy-overs">10 Over-50000</div>
+            <div className="fancy-overs">16 Over-50000</div>
+            <div className="fancy-overs">20 Over-50000</div>
+            <div className="fancy-overs">25 Over-50000</div>
+            <div className="fancy-overs">30 Over-50000</div>
+          </div>
+        </div>
+        <div className="w-25 d-flex justify-content-between me-2">
+          <th className="text-end">TOTAL</th>
+          <th>50000000.00</th>
+        </div>
+      </div>
     </div>
   );
 }

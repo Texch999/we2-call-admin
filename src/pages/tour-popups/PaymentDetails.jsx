@@ -1,10 +1,7 @@
-import {
-  FaCheck,
-  FaChevronDown,
-  FaRegUser,
-} from "react-icons/fa6";
+import { FaCheck, FaChevronDown, FaRegUser } from "react-icons/fa6";
 import { BiSolidCloudUpload } from "react-icons/bi";
 import { MdOutlinePayment } from "react-icons/md";
+import { AiTwotoneSave } from "react-icons/ai";
 
 function PaymentDetails(props) {
   const { handleBookingComplete } = props;
@@ -13,6 +10,10 @@ function PaymentDetails(props) {
       <div className="w-100 d-flex justify-content-between mt-2">
         <div className="flex-center payment-icon active-payment-icon font-25">
           <FaRegUser />
+        </div>
+        <div className="active-line-clr"></div>
+        <div className="flex-center payment-icon active-payment-icon font-25">
+          <AiTwotoneSave />
         </div>
         <div className="active-line-clr"></div>
         <div className="flex-center payment-icon active-payment-icon font-25">
@@ -76,7 +77,7 @@ function PaymentDetails(props) {
       <hr className="hr-line mt-1" />
       <div className="font-10 mt-1">Payment Mode*</div>
       <div className="row">
-        <div className="col-12"  span={24}>
+        <div className="col-12" span={24}>
           <div className="d-flex justify-content-between p-1 font-10 neft-div">
             <div>NEFT/RTGS</div>
             <div>

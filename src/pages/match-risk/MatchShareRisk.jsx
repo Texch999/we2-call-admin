@@ -3,11 +3,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { MdOutlineArrowForward } from "react-icons/md";
 import { useHistory, useParams } from "react-router";
 
-
 const MatchShareRisk = () => {
   const history = useHistory();
   const { team_name } = useParams();
-  console.log(team_name);
   const matchShareRiskData = [
     {
       date_time: "19 July 2023, 10:00:00 PM",
@@ -122,10 +120,7 @@ const MatchShareRisk = () => {
               <tr key={index}>
                 <td className="text-center">{data?.date_time}</td>
                 <td className="text-center">{data?.series_name}</td>
-                <td className="text-center clr-yellow">
-                  {data?.team_name}{" "}
-           
-                </td>
+                <td className="text-center clr-yellow">{data?.team_name} </td>
                 <td className="text-center">{data?.name}</td>
                 <td className="text-center">{data?.role}</td>
                 <td className="text-center clr-green">

@@ -1,6 +1,6 @@
 import { app_base_url } from "./config_local";
 import axios from "axios";
-const base_url = app_base_url
+const base_url = app_base_url;
 
 export const call = async (
   config = { method: "GET" },
