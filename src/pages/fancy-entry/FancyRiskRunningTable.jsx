@@ -70,22 +70,16 @@ function FancyRiskRunningTable({ riskRunningData }) {
           <div className="medium-font">Risk Running Position P/L</div>
         </div>
         <div className="col">
-          <div
-            className="cursor-pointer share-bg rounded-pill d-flex align-items-center justify-content-around p-1"
-            onClick={() => handleFancyRiskCommPopupOpen()}
-          >
-            <div className="medium-font">Comm</div>
+          <div className="cursor-pointer share-bg rounded-pill d-flex align-items-center justify-content-around p-1">
+            <div className="medium-font">Share</div>
             <div>
               <PiArrowCircleDownBold className="d-flex large-font" />
             </div>
           </div>
         </div>
         <div className="col">
-          <div
-            className="cursor-pointer share-bg rounded-pill d-flex align-items-center justify-content-around p-1"
-            onClick={() => handleFancyRiskSharePopupOpen()}
-          >
-            <div className="medium-font">Share</div>
+          <div className="cursor-pointer share-bg rounded-pill d-flex align-items-center justify-content-around p-1">
+            <div className="medium-font">Comm</div>
             <div>
               <PiArrowCircleDownBold className="d-flex large-font" />
             </div>

@@ -2,7 +2,6 @@ import { useState } from "react";
 import { MATCH_DECLARATION } from "../../config/endpoints";
 import { call } from "../../config/axios";
 import MatchDeclarationPopup from "../match-popups/MatchDeclarationPopup";
-import MatchSubmitPopup from "../match-popups/MatchSubmitPopup";
 
 function MatchResultInput({
   registered_match_id,
@@ -17,13 +16,6 @@ function MatchResultInput({
   const [matchResultInputData, setMatchResultInputData] = useState({});
   const [error, setError] = useState("");
   const [isProcessing, setIsProcessing] = useState(false);
-  const [matchSubmitSuccessPopup, setMatchSubmitSuccessPopup] = useState(false);
-  const [confirmDeclaration, setConfirmDeclaration] = useState(false);
-  const [afterConfirm, setAfterConfirm] = useState(false);
-  const handleMatchSubmitSuccessPopupOpen = () => {
-    setMatchSubmitSuccessPopup(true);
-    setMatchSubmitPopup(false);
-  };
 
   const handleMatchResultInputDataChange = (e) => {
     setMatchResultInputData({
@@ -31,16 +23,11 @@ function MatchResultInput({
       [e.target.name]: e.target.value,
     });
   };
-  const handleConfirmDeclaration = async () => {
+  const handleMatchDeclarePopupOpen = async () => {
     if ((!matchResultInputData?.team, !matchResultInputData?.declarestatus)) {
       return setError("Please Enter Required Fields");
     }
-    setConfirmDeclaration(true);
-  };
-  const handleMatchDeclarePopupOpen = async () => {
-    setConfirmDeclaration(false);
     setIsProcessing(true);
-    setAfterConfirm(true);
     setError("");
     await call(MATCH_DECLARATION, {
       registered_match_id: registered_match_id,
@@ -48,19 +35,19 @@ function MatchResultInput({
       account_role,
       sport_name: matchResultInputData?.sport_name,
       series_name: matchResultInputData?.series_name,
-      team: matchResultInputData?.team,
+      teamName: matchResultInputData?.teamName,
       declarestatus: matchResultInputData?.declarestatus,
     })
       .then((res) => {
         setIsProcessing(false);
         if (res.data.statusCode === 200) {
-          setConfirmDeclaration(false);
-          setTimeout(() => {
-            setAfterConfirm(false);
-          }, 2000);
+          setMatchSubmitPopup(true);
+          // setTimeout(() => {
+          //   setMatchSubmitPopup(false);
+          // }, 1000);
+          setAfterDeclare((prev) => !prev);
           setError("");
         } else {
-          setConfirmDeclaration(false);
           setError(
             res?.data?.message ? res?.data?.message : `Something Went Wrong`
           );
@@ -87,7 +74,7 @@ function MatchResultInput({
               placeholder="Sports Name"
               name="sport_name"
               id="sport_name"
-              value={selectedMatch?.sport_name || ""}
+              value={selectedMatch?.sport_name || "Sports Name"}
               onChange={(e) => handleMatchResultInputDataChange(e)}
             />
           </div>
@@ -101,7 +88,7 @@ function MatchResultInput({
               placeholder="Series Name"
               name="series_name"
               id="series_name"
-              value={selectedMatch?.series_name || ""}
+              value={selectedMatch?.series_name || "Series Name"}
               onChange={(e) => handleMatchResultInputDataChange(e)}
             />
           </div>
@@ -111,16 +98,16 @@ function MatchResultInput({
             <div className="medium-font">Win Team</div>
             <select
               className="w-100 custom-select medium-font btn-bg rounded all-none p-2"
-              name="team"
-              id="team"
-              value={matchResultInputData?.team || ""}
+              name="teamName"
+              id="teamName"
+              value={matchResultInputData?.team}
               onChange={(e) => handleMatchResultInputDataChange(e)}
             >
               <option value="">Select</option>
-              <option value={selectedMatch?.team1}>
+              <option value={selectedMatch?.team1 || ""}>
                 {selectedMatch?.team1}
               </option>
-              <option value={selectedMatch?.team2}>
+              <option value={selectedMatch?.team2 || ""}>
                 {selectedMatch?.team2}
               </option>
             </select>
@@ -133,7 +120,7 @@ function MatchResultInput({
               className="w-100 custom-select medium-font btn-bg rounded all-none p-2"
               name="declarestatus"
               id="declarestatus"
-              value={matchResultInputData?.declarestatus || ""}
+              value={matchResultInputData?.declarestatus}
               onChange={(e) => handleMatchResultInputDataChange(e)}
             >
               <option value="">Select</option>
@@ -147,39 +134,23 @@ function MatchResultInput({
         <div className="col d-flex align-items-end">
           <button
             className="cursor-pointer w-100 text-center rounded medium-font p-2 yellow-btn fw-semibold"
-            onClick={() => {
-              handleConfirmDeclaration();
-            }}
+            onClick={() => handleMatchDeclarePopupOpen()}
             disabled={isProcessing}
           >
-            {isProcessing ? "Declaring..." : "Result Declaration"}
+            Result Declaration
           </button>
         </div>
         {error && (
           <div className="clr-red text-center medium-font">{error}</div>
         )}
       </div>
-      {confirmDeclaration && (
-        <MatchDeclarationPopup
-          header={"Are You Sure You Want Declare The Match"}
-          amount={"1000000"}
-          state={confirmDeclaration}
-          setState={setConfirmDeclaration}
-          handleMatchDeclarePopupOpen={handleMatchDeclarePopupOpen}
-        />
-      )}
-      {afterConfirm && (
-        <MatchSubmitPopup
-          header={"You Are Successfully Submited Your Match to Win IND"}
-          state={afterConfirm}
-          setState={setAfterConfirm}
-          isProcessing={isProcessing}
-          error={error}
-          displayData={
-            isProcessing ? "Declaring..." : "Match declared successfully"
-          }
-        />
-      )}
+      <MatchDeclarationPopup
+        header={"Are You Sure You Want Declare The Match"}
+        amount={"1000000"}
+        state={matchSubmitPopup}
+        setState={setMatchSubmitPopup}
+        handleMatchDeclarePopupClose={handleMatchDeclarePopupClose}
+      />
     </div>
   );
 }

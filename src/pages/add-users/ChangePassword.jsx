@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState,useEffect} from "react";
 import { Modal } from "react-bootstrap";
 import { IoCloseSharp } from "react-icons/io5";
 import { BiSolidLock } from "react-icons/bi";
@@ -6,66 +6,75 @@ import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { CHANGE_PASSWORD } from "../../config/endpoints";
 import { call } from "../../config/axios";
 
-function ChangePassword({
-  showChangePopup,
-  setShowChangePopup,
-  setChangePasswordSubmit,
-  registerID,
-  setChangePasswordPopup,
-}) {
-  const register_id = localStorage?.getItem("register_id");
-  const creator_id = localStorage?.getItem("creator_id");
-  const [error, setError] = useState("");
+function ChangePassword(props) {
+  const { showChangePopup, setShowChangePopup, setChangePasswordSubmit} = props;
   const [showEye, setShowEye] = useState(false);
-  const [passwordData, setPasswordData] = useState({});
-  const [isProcessing, setIsProcessing] = useState(false);
-  const handleShowEye = (index) => {
+  let register_id = localStorage?.getItem("register_id");
+  let creator_id = localStorage?.getItem("creator_id");
+  const [passwordData, setPasswordData] = useState({
+    new_password: "",
+    confirm_password: "",
+    admin_password: "",
+  });
+  const [error, setError] = useState("");
+
+  const handleShowEye = () => {
     setShowEye(!showEye);
   };
-  const handlePasswordData = (e) => {
-    setPasswordData({ ...passwordData, [e.target.name]: e.target.value });
-  };
+
+  useEffect(() => {
+    if (showChangePopup) {
+      setPasswordData({
+        new_password: "",
+        confirm_password: "",
+        admin_password: "",
+      });
+      setError("");
+    }
+  }, []);
+
   const handleChangePassword = async () => {
     if (
       !passwordData.new_password ||
       !passwordData.confirm_password ||
       !passwordData.admin_password
     ) {
-      setError("Please Enter Required Fields");
+      setError("Please fill in all the fields.");
+      return;
     }
+
     if (passwordData.new_password !== passwordData.confirm_password) {
-      setError("New Password And Confirm Password Should Match");
+      setError("New password and confirm password must match.");
+      return;
     }
-    setIsProcessing(true);
+
     setError("");
-    await call(CHANGE_PASSWORD, {
-      register_id: registerID,
-      creator_id,
-      creator_password: passwordData.admin_password,
-      new_password: passwordData.new_password,
-      confirm_password: passwordData.confirm_password,
-    })
-      .then((res) => {
-        if (res?.data?.statusCode === 200) {
-          setIsProcessing(false);
-          setChangePasswordPopup(true);
-          setShowChangePopup(false);
-          setTimeout(() => {
-            setChangePasswordPopup(false);
-          }, 2000);
-          setPasswordData({});
-          setError("");
-        } else {
-          setError(
-            res?.data?.message ? res?.data?.message : "Something Went Wrong"
-          );
+
+    try {
+      const response = await call(
+        CHANGE_PASSWORD,
+        {
+          register_id: "reg-20231006103427425",
+          creator_id: "reg-20230918153256097",
+          // register_id: register_id,
+          // creator_id: creator_id,
+          creator_password: passwordData.admin_password,
+          new_password: passwordData.new_password,
+          confirm_password: passwordData.confirm_password,
         }
-      })
-      .catch((err) => {
-        setIsProcessing(false);
-        console.log(err);
-        setError("Something Went Wrong");
-      });
+      );
+
+      if (response.status === 200) {
+        console.log("Password changed successfully");
+        setChangePasswordSubmit(true);
+        setShowChangePopup(false);
+      } else {
+        setError("Password change failed. Please try again.");
+      }
+    } catch (error) {
+      console.error("API error:", error);
+      setError("Password change failed. Please try again later.");
+    }
   };
 
   const passwordInputs = [
@@ -107,11 +116,19 @@ function ChangePassword({
                     placeholder={item.plHolder}
                     type={showEye ? "text" : "password"}
                     name={item.name}
-                    onChange={(e) => handlePasswordData(e)}
+                    value={passwordData[item.name]}
+                    onChange={(e) =>
+                      setPasswordData({
+                        ...passwordData,
+                        [item.name]: e.target.value,
+                      })
+                    }
                   />
-                  <div onClick={() => handleShowEye(index)}>
-                    {showEye ? <AiFillEye /> : <AiFillEyeInvisible />}
-                  </div>
+                  {showEye === true ? (
+                    <AiFillEye onClick={handleShowEye} />
+                  ) : (
+                    <AiFillEyeInvisible onClick={handleShowEye} />
+                  )}
                 </div>
               </div>
             );
@@ -119,7 +136,7 @@ function ChangePassword({
           {error && <div className="error-message mt-2">{error}</div>}
           <button
             className="login-button p-1 mt-3 medium-font"
-            onClick={() => handleChangePassword()}
+            onClick={handleChangePassword}
           >
             {isProcessing ? "Is Processing..." : "Change Password"}
           </button>

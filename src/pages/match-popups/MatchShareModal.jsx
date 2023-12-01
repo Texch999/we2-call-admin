@@ -14,15 +14,33 @@ function MatchShareModal(props) {
       //     ? client?.clientShare?.toFixed(2) || 0
       //     : -client?.clientShare?.toFixed(2) || 0,
       clintShare:
-        (client?.resultTeam > 0
-          ? parseFloat(client?.rfShare)?.toFixed(2) || 0
-          : -parseFloat(client?.rfShare)?.toFixed(2) || 0) || 0,
+        client?.resultTeam > 0
+          ? client?.rfShare?.toFixed(2) || 0
+          : -client?.rfShare?.toFixed(2) || 0,
       rfShare:
-        (client?.resultTeam > 0
+        client?.resultTeam > 0
           ? client?.ULShare?.toFixed(2) || 0
-          : -client?.ULShare?.toFixed(2) || 0) || 0,
+          : -client?.ULShare?.toFixed(2) || 0,
     }));
 
+  // const MATCH_POSITION_TABLE_DATA = [
+  //   {
+  //     header: "Animesh",
+  //     clientShare: 50000000,
+  //     rfShare: 50000000,
+  //   },
+  //   {
+  //     header: "Animesh",
+  //     clientShare: 50000000,
+  //     rfShare: 50000000,
+  //   },
+  //   {
+  //     header: "Animesh",
+  //     clientShare: 50000000,
+  //     rfShare: 50000000,
+  //   },
+  // ];
+  
   const MATCH_POSITION_HEADER_DATA = [
     { header: "Client Name", field: "header" },
     { header: "Client Share", field: "clientShare" },

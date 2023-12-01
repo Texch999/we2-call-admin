@@ -20,11 +20,6 @@ import {
   ACTIVE_INACTIVE_USERS,
 } from "../../config/endpoints";
 import CreateReferral from "./CreateReferral";
-import UserDeletePopup from "./UserDeletePopup";
-import UserEditPopup from "./UserEditPopup";
-import UserSubmitPopup from "./UserSubmitPopup";
-import ChangePassword from "../add-users/ChangePassword";
-import PasswordSubmitPopup from "./PasswordSubmitPopup";
 
 function UserManagement() {
   let register_id = localStorage?.getItem("register_id");
@@ -39,14 +34,6 @@ function UserManagement() {
   const [error, setError] = useState("");
   const [isProcessing, setIsProcessing] = useState(false);
   const [refStatus, setRefStatus] = useState(false);
-  const [userDetails, setUserDetails] = useState({});
-  const [selectId, setSelectId] = useState();
-  const [showChangePopup, setShowChangePopup] = useState(false);
-  const [registerID, setRegisterID] = useState("");
-  const [clientID, setClientID] = useState("");
-  const [status, setStatus] = useState(false);
-  const [changePasswordPopup, setChangePasswordPopup] = useState(false);
-  // const [isProcessing, setIsProcessing] = useState();
 
   const clientSelection = [
     { name: "Regulor", value: 0 },
@@ -77,65 +64,8 @@ function UserManagement() {
   ];
   const [createUserSubmit, setCreateUserSubmit] = useState(false);
   const [showCreateRefer, setShowCreateRefer] = useState(false);
-
-  const handleSubmitUser = async () => {
-    setIsProcessing(true);
-    if (
-      (!userDetails?.alias_name,
-      !userDetails?.client_name,
-      !userDetails?.referral_name,
-      !userDetails?.referral_share,
-      !userDetails?.fancy_refferal_comm,
-      !userDetails?.referral_comm,
-      !userDetails?.deposit_type,
-      !userDetails?.location,
-      !userDetails?.client_risk_limit)
-    ) {
-      return setError("Please Enter All Field");
-    }
-    let userDeatailsPayload = {
-      existing_user_id: clientId[0].register_id,
-      register_id,
-      account_role,
-      client_type: userDetails?.client_type,
-      client_name: userDetails?.client_name,
-      referral_name: userDetails?.referral_name,
-      client_risk_limit: userDetails?.client_risk_limit,
-      referal_id: referalId[0].refferal_id,
-      referral_comm: userDetails?.referral_comm,
-      fancy_refferal_comm: userDetails?.fancy_refferal_comm,
-      referral_share: userDetails?.referral_share,
-      alias_name: userDetails?.alias_name,
-      master_share: localStorage?.getItem("share") || 0,
-      ul_share: localStorage?.getItem("ul_share") || 0,
-      deposit_type: userDetails?.deposit_type,
-      location: userDetails?.location,
-      match_race_comm: 2,
-      client_share: 2,
-      fancy_comm: 2,
-    };
-    await call(CREATE_OFFLINE_CLIENT, userDeatailsPayload)
-      .then((res) => {
-        if (res?.data?.statusCode === 200) {
-          setIsProcessing(false);
-          setAddClientStatus((prev) => !prev);
-          setUserCreationSubmitPopup(true);
-          setTimeout(() => {
-            setUserCreationSubmitPopup(false);
-          }, 1000);
-          setEditStatus(false);
-          // handleReset();
-        } else {
-          setError(
-            res?.data?.message ? res?.data?.message : `something wen't wrong`
-          );
-        }
-      })
-      .catch((err) => {
-        setIsProcessing(false);
-        console.log(err);
-        setError(err?.message ? err?.message : `something wen't wrong`);
-      });
+  const handleSubmitUser = () => {
+    setCreateUserSubmit(true);
   };
 
   const handleUpdateUser = async () => {
@@ -225,12 +155,24 @@ function UserManagement() {
     { header: "ACTION", field: "editButton" },
   ];
 
-  const handleEditTable = (item) => {
-    setUpadateClientId(item.client_id);
-    setUpdateReferId(item.referal_id);
-    setOpenEditConfirm(true);
-    setEditClientName(item.client_name);
-    setSelectId(item.client_id);
+  const editButtons = (
+    <div className="d-flex justify-content-between">
+      <GoPencil className="edit-icon" />
+      <RiDeleteBin6Fill className="edit-icon" />
+      <ImBlocked className="edit-icon" />
+      <BiLock className="edit-icon" />
+    </div>
+  );
+
+  const handleChange = (name, value) => {
+    console.log(name, value);
+  };
+  const getOfflineClients = async () => {
+    await call(GET_OFFLINE_CLIENTS, { register_id })
+      .then((res) => {
+        setExistingClients(res?.data?.data);
+      })
+      .catch((err) => console.log(err));
   };
 
   const handleConfirmEdit = async () => {
@@ -248,97 +190,6 @@ function UserManagement() {
       .catch((err) => {
         console.log(err);
       });
-  };
-
-  const handleBlockUnblockUser = async (item) => {
-    setClientID(item);
-    console.log(clientID, "CLIENT");
-    await call(ACTIVE_INACTIVE_USERS, {
-      register_id,
-      client_id: clientID,
-      active: `${status}`,
-    })
-      .then((res) => {
-        setStatus((prev) => !prev);
-        console.log(res);
-      })
-      .catch((error) => console.log(error));
-  };
-
-  const handleDeleteUser = (clientId) => {
-    setOpenDeletePopup(true);
-    setSelectId(clientId);
-  };
-
-  const handleConfirmDelete = async () => {
-    setOpenDeletePopup(false);
-    await call(DELETE_OFFLINE_CLIENT, {
-      register_id,
-      client_id: selectId,
-    })
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((res) => {
-        console.log(res);
-      });
-  };
-  // console.log(existingClients, "EEEEE");
-
-  // console.log(userDetails, "userDetails..");
-
-  const exsitedUsers =
-    existingClients &&
-    existingClients?.length > 0 &&
-    existingClients
-      .filter((i) => i.user_status !== "deleted")
-      .map((item) => {
-        return {
-          client_name: item.client_name,
-          client_type: item.client_type,
-          alias_name: item.alias_name,
-          location: item.location,
-          editButton: (
-            <div className="d-flex justify-content-between">
-              <GoPencil
-                className="edit-icon"
-                onClick={() => handleEditTable(item)}
-              />
-              <RiDeleteBin6Fill
-                className="edit-icon"
-                onClick={() => handleDeleteUser(item.client_id)}
-              />
-              <ImBlocked
-                className={`${
-                  item?.active === "true" ? "edit-icon" : "edit-icon red-color"
-                }`}
-                onClick={() => handleBlockUnblockUser(item?.client_id)}
-              />
-              <BiLock
-                className="edit-icon"
-                onClick={() => handleChangePassword(item?.register_id)}
-              />
-            </div>
-          ),
-        };
-      });
-
-  const handleChangePassword = (item) => {
-    setShowChangePopup(true);
-    setRegisterID(item);
-  };
-
-  const handleChange = (e) => {
-    // console.log(name, value);
-    setUserDetails({ ...userDetails, [e.target.name]: e.target.value });
-  };
-  const getOfflineClients = async () => {
-    await call(GET_OFFLINE_CLIENTS, { register_id })
-      .then((res) => {
-        setExistingClients(res?.data?.data);
-        setStatus((prev) => !prev);
-      })
-      .catch((err) => console.log(err));
   };
 
   const handleCreateRefer = () => {
@@ -376,6 +227,8 @@ function UserManagement() {
   useEffect(() => {
     getOfflineClients();
   }, [addClientStatus]);
+
+  console.log(clientData, ".......existing Users DatA");
 
   return (
     <div className="p-3">
@@ -486,20 +339,24 @@ function UserManagement() {
             </div>
             <select
               className="sport-management-input d-flex  w-100 sport-management-select cursor-pointer"
-              onChange={(e) => handleChange(e)}
-              name="referral_name"
+              onChange={(e) => {
+                setClientData({
+                  ...clientData,
+                  referral_name: e.target.value,
+                });
+              }}
             >
               <option className="w-90 ms-1 cursor-pointer" value="">
-                {userDetails.referral_name || "Select..."}
+                Select...
               </option>
               {refferalData?.map((type, index) => {
                 return (
                   <option
                     className="w-90 ms-1 cursor-pointer"
-                    value={type.referral_name}
+                    value={type}
                     key={index}
                   >
-                    {type?.referral_name}
+                    {type?.name}
                   </option>
                 );
               })}
@@ -553,21 +410,9 @@ function UserManagement() {
         <div className="col-3">
           <div>
             <div>Deposit/Credit</div>
-            <select
-              className="sport-management-input d-flex  w-100 sport-management-select meetings-heading"
-              onChange={(e) => handleChange(e)}
-              name="deposit_type"
-            >
-              <option>
-                {userDetails?.deposit_type === "0"
-                  ? "Credite"
-                  : userDetails?.deposit_type === "1"
-                  ? "Deposite"
-                  : "Select.."}
-                {/* Select... */}
-              </option>
-              <option value="0">Credit</option>
-              <option value="1">Deposit</option>
+            <select className="sport-management-input d-flex  w-100 sport-management-select meetings-heading">
+              <option>Widthdraw</option>
+              <option>Deposite</option>
             </select>
           </div>
         </div>
@@ -578,27 +423,14 @@ function UserManagement() {
             <div className="col">
               <div>Location</div>
               <div className="sport-management-input d-flex ">
-                <input
-                  className="w-90 ms-2 "
-                  placeholder="Enter"
-                  onChange={(e) => handleChange(e)}
-                  name="location"
-                  value={userDetails?.location || ""}
-                ></input>
+                <input className="w-90 ms-2 " placeholder="Enter"></input>
                 <GrLocation />
               </div>
             </div>
             <div className="col">
               <div>Match Risk Limit</div>
               <div className="sport-management-input d-flex ">
-                <input
-                  className="w-90 ms-2 "
-                  placeholder="Enter"
-                  onChange={(e) => handleChange(e)}
-                  name="client_risk_limit"
-                  type="number"
-                  defaultValue={userDetails?.client_risk_limit || ""}
-                ></input>
+                <input className="w-90 ms-2 " placeholder="Enter"></input>
                 {/* <AiOutlineUser /> */}
               </div>
             </div>
@@ -624,22 +456,6 @@ function UserManagement() {
       </div>
       {error && <div className="danger">{error}</div>}
       <hr className="mt-4" />
-      <UserDeletePopup
-        openDeletePopup={openDeletePopup}
-        handleConfirmDelete={handleConfirmDelete}
-        setOpenDeletePopup={setOpenDeletePopup}
-      />
-      <UserEditPopup
-        openEditConfirm={openEditConfirm}
-        setOpenEditConfirm={setOpenEditConfirm}
-        editClientName={editClientName}
-        handleConfirmEdit={handleConfirmEdit}
-      />
-
-      <UserSubmitPopup
-        userCreationSubmitPopup={userCreationSubmitPopup}
-        setUserCreationSubmitPopup={setUserCreationSubmitPopup}
-      />
 
       <Table
         data={exsitedUsers}

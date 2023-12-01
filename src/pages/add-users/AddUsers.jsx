@@ -71,23 +71,22 @@ const AddUsers = () => {
     })
       .then((res) => {
         getAllClients();
-        setStatus((prev)=>!prev)
       })
       .catch((err) => console.log(err));
   };
-  // const ACTION_LABELS = [
-  //   {
-  //     name: "CP",
-  //   },
-  //   { 
-  //     name: "EDIT" 
-  //   },
-  //   // b: "B",
-  //   {
-  //     name: "UB",
-  //     onclick: handleBlock,
-  //   },
-  // ];
+  const ACTION_LABELS = [
+    {
+      name: "CP",
+    },
+    { 
+      name: "EDIT" 
+    },
+    // b: "B",
+    {
+      name: "UB",
+      onclick: handleBlock,
+    },
+  ];
 
   const [changePasswordSubmit, setChangePasswordSubmit] = useState(false);
   const handleUserChange = (e) => {
@@ -228,8 +227,6 @@ const AddUsers = () => {
               setIsUserAdded={setIsUserAdded}
               setInputData={setInputData}
               inputData={inputData}
-              status={status}
-              setStatus={setStatus}
             />
           )}
         </Table>

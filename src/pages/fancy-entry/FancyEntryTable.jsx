@@ -43,7 +43,6 @@ function FancyEntryTable(props) {
     })
       .then((res) => {
         setData(res?.data?.data?.Items);
-        setStatus((prev) => !prev);
       })
       .catch((err) => console.log(err));
   };
@@ -65,11 +64,10 @@ function FancyEntryTable(props) {
   }, [matchAccountData?.registered_match_id, status]);
 
   const FANCY_ENTRY_DATA =
-    data &&
     data?.length > 0 &&
     data
-      ?.filter((i) => i?.fancy_status !== "Y")
-      .map((fancy) => {
+      ?.filter((i) => i.record_status !== "deleted")
+      ?.map((fancy, index) => {
         return {
           sNo:
             fancy?.old_s_no === fancy?.s_no
@@ -80,14 +78,14 @@ function FancyEntryTable(props) {
           team: fancy?.team,
           runs: fancy?.runs,
           yesNo: (
-            <span className={fancy?.yN === "Y" ? "clr-green" : "clr-pink"}>
+            <div className={fancy?.yN === "Y" ? "clr-green" : "clr-pink"}>
               {fancy?.yN}
-            </span>
+            </div>
           ),
           date: fancy?.date,
           time: fancy?.time,
           client: fancy?.client_name,
-          amount: <span className="yellow-clr">{fancy?.amount}</span>,
+          amount: <div className="yellow-clr">{fancy?.amount}</div>,
           edit: fancy?.record_status === "active" && (
             <MdEdit
               className="edit-icon"
@@ -103,7 +101,6 @@ function FancyEntryTable(props) {
           recordStatus: fancy?.record_status,
         };
       });
-  console.log(data, "DDDTTT");
   // const MATCH_ENTRY_DATA = [
   //   {
   //     sNo: 1,

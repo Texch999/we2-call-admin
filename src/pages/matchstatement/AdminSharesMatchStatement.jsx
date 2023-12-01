@@ -3,15 +3,6 @@ import { Button, Form, Table } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import AdminPopReports from "../onepagereport/AdminPopReports";
 import CustomPagination from "../pagination/CustomPagination";
-import AdminOnePageReport from "../onepagereport/AdminOnePageReport";
-import AdminShareCommSettlement from "../setlment/AdminShareCommSettlement";
-import AdminComissionReport from "../onepagereport/AdminComissionReport";
-import {
-  GET_FINANCIAL_STATEMENT_BY_DATE,
-  GET_OFFLINE_CLIENTS,
-} from "../../config/endpoints";
-import { call } from "../../config/axios";
-import { useEffect } from "react";
 
 const AdminSharesMatchStatement = () => {
   const [adminShareStatementMatchPopUp, setAdminShareStatementMatchPopUp] =
@@ -197,10 +188,6 @@ const AdminSharesMatchStatement = () => {
   const handlePageChange = (page) => {
     setCurrentPage(page);
     // You can add your logic here to fetch data for the selected page.
-  };
-  const [showMatchesStatement, setShowMatchStatement] = useState(false);
-  const handleMatchStatementButton = () => {
-    setShowMatchStatement((prev) => !prev);
   };
 
   return (

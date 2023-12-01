@@ -126,7 +126,7 @@ function ClientPLTable(props) {
             <td>90,000</td>
             <td>9000</td>
             <td>0.00</td>
-            <td>{popupData?.totalAmount?.totalLossOrProfit}</td>
+            <td>81000</td>
           </tr>
         </tbody>
       </table>

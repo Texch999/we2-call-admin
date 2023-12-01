@@ -16,17 +16,42 @@ function SportsManagement() {
   let register_id = localStorage?.getItem("register_id");
   let account_role = localStorage?.getItem("account_role");
 
-  // ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓  Create Match Related ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ //
-
+  // const [liveMatchesData, setLiveMatchesData] = useState([]);
+  // const [upcomingMatchesData, setUpcomingMatchesData] = useState([]);
+  // const [todayMatchesData, setTodayMatchesData] = useState([]);
+  // const [allMatchesData, setAllMatchesData] = useState([]);
   const [matchData, setMatchData] = useState({});
-  const [selectMatchType, setSelectMatchType] = useState({});
-  const [createMacthSubmit, setCreateMacthSubmit] = useState(false);
-  const [Error, setError] = useState();
-  const [isProcessing, setIsProcessing] = useState();
-  const [status, setStatus] = useState(false);
-  const [oversChange, setOversChange] = useState({});
-  const [IsMatchEditing, setIsMatchEditing] = useState(false);
-  const [matchId, setMatchId] = useState();
+  const top_cricket_countries = [
+    "India",
+    "Australia",
+    "England",
+    "New Zealand",
+    "Pakistan",
+    "South Africa",
+    "Sri Lanka",
+    "West Indies",
+    "Bangladesh",
+    "Zimbabwe",
+  ];
+
+  const getAllMatches = async () => {
+    await call(GET_ALL_MATCHES, { register_id, account_role })
+      .then((res) => {
+        let result = res?.data?.data;
+        console.log("all matches", res?.data?.data);
+        setAllMatchesData([
+          ...result?.liveMatches,
+          ...result?.todaysMatches,
+          ...result?.upCommingMatches,
+        ]);
+        setLiveMatchesData(result?.liveMatches);
+        setTodayMatchesData(result?.todaysMatches);
+        setUpcomingMatchesData(result?.upCommingMatches);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const [typeOfMatch, setTypeOfMatch] = useState();
 
   const matchType = [
     { name: "T10", first: [1, 4, 5], second: [2, 3] },
@@ -34,21 +59,6 @@ function SportsManagement() {
     { name: "ODI", first: [1, 4, 5, 6, 9], second: [2] },
     { name: "TEST", first: [], second: [] },
   ];
-
-  // const handleOversChange = (e) => {
-  //   setOversChange({ [e.target.name]: e.target.value });
-  // };
-
-  console.log(oversChange, ".....oversChange");
-
-  const selectOvers = matchType.filter((i) => i.name === matchData?.macth_type);
-
-  const handleOversChange = (e) => {
-    setOversChange({ [e.target.name]: e.target.value });
-    if (e.target.name === "first_fancy") {
-      // const selover =
-    }
-  };
 
   const sportsDropdowns = [
     {
@@ -67,217 +77,98 @@ function SportsManagement() {
     {
       headName: "Team1",
       name: "team1",
+      options: top_cricket_countries.map((item, index) => {
+        return (
+          <option key={index} value={item || ""}>
+            {item}
+          </option>
+        );
+      }),
     },
     {
       headName: "Team2",
       name: "team2",
+      options: top_cricket_countries.map((item, index) => {
+        return <option value={item || ""}>{item}</option>;
+      }),
     },
   ];
+
   const MatchTypeDropdown = [
     {
       heading: "1st Inn",
-      cspan: "col",
-      name: "first_fancy",
-      overs: selectOvers[0]?.first,
+      cspan: "col-2",
+      name: "match_fancy_first",
+      overs:
+        matchData?.macth_Type === "T10"
+          ? [1, 5, 8, 10]
+          : matchData?.macth_Type === "T20"
+          ? [1, 5, 8, 10, 15]
+          : matchData?.macth_Type === "ODI"
+          ? [1, 5, 8, 10, 20, 30]
+          : "",
     },
     {
       heading: "2nd Inn",
-      cspan: "col",
-      name: "second_fancy",
-      overs: selectOvers[0]?.second,
+      cspan: "col-2",
+      name: "match_fancy_second",
+      overs:
+        matchData?.macth_Type === "T10"
+          ? [1, 5]
+          : matchData?.macth_Type === "T20"
+          ? [1, 10]
+          : matchData?.macth_Type === "ODI"
+          ? [1, 5, 8, 10]
+          : "",
     },
   ];
 
-  const handleMacthSubmit = async () => {
-    if (
-      !matchData?.series_name ||
-      !matchData?.sport_name ||
-      !matchData?.team1 ||
-      !matchData?.team2 ||
-      !matchData?.match_place ||
-      !matchData?.stadium ||
-      !matchData?.gender ||
-      !matchData?.date ||
-      !matchData?.time ||
-      !matchData.macth_type
-    ) {
-      return setError("Please enter required fields");
-    }
-    setIsProcessing(true);
-    setError("");
-
-    await call(CREATE_OFFLINE_MATCH, {
-      register_id,
-      account_role,
-      series_name: matchData?.series_name,
-      match_place: matchData?.match_place,
-      stadium: matchData?.stadium,
-      time: matchData?.time,
-      date: matchData?.date,
-      team1: matchData?.team1,
-      team2: matchData?.team2,
-      gender: matchData?.gender,
-      sport_name: matchData?.sport_name,
-      game_object: {
-        first_innings_fancy_overs: selectOvers[0]?.first,
-        second_innings_fancy_overs: selectOvers[0]?.second,
-        match_type: matchData.macth_type,
-      },
-    })
-      .then((res) => {
-        setIsProcessing(false);
-        if (res?.data?.statusCode === 200) {
-          setStatus((prev) => !prev);
-          setCreateMacthSubmit(true);
-          setTimeout(() => {
-            setCreateMacthSubmit(false);
-          }, 1000);
-          handleResetFields();
-        } else {
-          setError(
-            res?.data?.message ? res?.data?.message : `something wen't wrong`
-          );
-        }
-      })
-      .catch((err) => {
-        setIsProcessing(false);
-        setError(err?.message ? err.message : `something wen't wrong`);
-        console.log(err);
-      });
-  };
-  const handleMacthUpdate = async () => {
-    if (
-      !matchData?.series_name ||
-      !matchData?.sport_name ||
-      !matchData?.team1 ||
-      !matchData?.team2 ||
-      !matchData?.match_place ||
-      !matchData?.stadium ||
-      !matchData?.gender ||
-      !matchData?.date ||
-      !matchData?.time ||
-      !matchData.macth_type
-    ) {
-      return setError("Please enter required fields");
-    }
-    setIsProcessing(true);
-    setError("");
-
-    await call(UPDATE_MATCH, {
-      register_id,
-      account_role,
-      match_id: matchId,
-      series_name: matchData?.series_name,
-      match_place: matchData?.match_place,
-      stadium: matchData?.stadium,
-      time: matchData?.time,
-      date: matchData?.date,
-      team1: matchData?.team1,
-      team2: matchData?.team2,
-      gender: matchData?.gender,
-      sport_name: matchData?.sport_name,
-      game_object: {
-        first_innings_fancy_overs: selectOvers[0]?.first,
-        second_innings_fancy_overs: selectOvers[0]?.second,
-        match_type: matchData.macth_type,
-      },
-    })
-      .then((res) => {
-        setIsProcessing(false);
-        if (res?.data?.statusCode === 200) {
-          setStatus((prev) => !prev);
-          setCreateMacthSubmit(true);
-          setTimeout(() => {
-            setCreateMacthSubmit(false);
-          }, 1000);
-          handleResetFields();
-        } else {
-          setError(
-            res?.data?.message ? res?.data?.message : `something wen't wrong`
-          );
-        }
-      })
-      .catch((err) => {
-        setIsProcessing(false);
-        setError(err?.message ? err.message : `something wen't wrong`);
-        console.log(err);
-      });
-  };
-
-  const handleResetFields = () => {
-    setMatchData({});
-  };
-
-  const handleUpadate = (item) => {
-    setMatchData(item);
-    setMatchId(item.match_id);
-    setIsMatchEditing(true);
-  };
-
-  const handleChange = (e) => {
-    setMatchData({ ...matchData, [e.target.name]: e.target.value });
-    // if (e.target.name === "macth_type") {
-
-    // }
-  };
-
-  const handleMatchChange = (e) => {
-    setSelectMatchType({ [e.target.name]: e.target.value });
-  };
-
-  // ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑  Create Match Related ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ //
-
-  // ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓  getting Table data && table related UI maps ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ //
-
-  const [liveMatchesData, setLiveMatchesData] = useState([]);
-  const [upcomingMatchesData, setUpcomingMatchesData] = useState([]);
-  const [todayMatchesData, setTodayMatchesData] = useState([]);
-  const [allMatchesData, setAllMatchesData] = useState([]);
-  const headings = ["LIVE", "TODAY", "UPCOMING"];
-  const [activeHead, setActiveHead] = useState(0);
-  const [scheduleDate, setScheduleDate] = useState(liveMatchesData);
-
-  const handleActiveHead = (index) => {
-    setActiveHead(index);
-
-    {
-      index === 0 && setScheduleDate(liveMatchesData);
-    }
-    {
-      index === 1 && setScheduleDate(todayMatchesData);
-    }
-    {
-      index === 2 && setScheduleDate(upcomingMatchesData);
-    }
-  };
-
-  const getAllMatches = async () => {
-    await call(GET_ALL_MATCHES, { register_id, account_role })
-      .then((res) => {
-        let result = res?.data?.data;
-        setAllMatchesData([
-          ...result?.liveMatches,
-          ...result?.todaysMatches,
-          ...result?.upCommingMatches,
-        ]);
-      })
-      .catch((err) => console.log(err));
-  };
-
-  const getScheduleMatches = async () => {
-    await call(GET_ALL_MATCHES, {
-      register_id: "company",
-      account_role: "company",
-    })
-      .then((res) => {
-        let result = res?.data?.data;
-        setLiveMatchesData(result?.liveMatches);
-        setTodayMatchesData(result?.todaysMatches);
-        setUpcomingMatchesData(result?.upCommingMatches);
-      })
-      .catch((err) => console.log(err));
-  };
-
+  // const scheduledTableData = [
+  //   {
+  //     seriesName: (
+  //       <div>
+  //         Cricket, Male
+  //         <br /> T20 World Cup
+  //         <br /> Oneday
+  //         <br /> Amhadabad Stadium
+  //         <br /> 01/08/2023
+  //         <br />
+  //         11:46:00 AM
+  //       </div>
+  //     ),
+  //     team: "Newziland  vs  SriLanka",
+  //     sportName: "Cricket, Male",
+  //     matchPlace: "One day Amhadabad Stadium",
+  //     dateTime: (
+  //       <div>
+  //         01/08/2023
+  //         <br /> 11:46:00 AM
+  //       </div>
+  //     ),
+  //     editButton: (
+  //       <div>
+  //         <GoPencil />
+  //       </div>
+  //     ),
+  //   },
+  //   {
+  //     seriesName: "T20 World Cup",
+  //     team: "Newziland  vs  SriLanka",
+  //     sportName: "Cricket, Male",
+  //     matchPlace: "One day Amhadabad Stadium",
+  //     dateTime: (
+  //       <div>
+  //         01/08/2023
+  //         <br /> 11:46:00 AM
+  //       </div>
+  //     ),
+  //     editButton: (
+  //       <div>
+  //         <GoPencil />
+  //       </div>
+  //     ),
+  //   },
+  // ];
   const columns = [
     { header: "Series Name", field: "seriesName" },
     { header: "Team", field: "team" },
@@ -330,19 +221,113 @@ function SportsManagement() {
     };
   });
 
-  // ↑↑↑↑↑↑↑↑↑↑↑↑↑↑  getting Table data && table related UI maps ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ //
+  const [activeHead, setActiveHead] = useState(0);
 
+  const [scheduleDate, setScheduleDate] = useState(liveMatchesData);
+
+  const [createMacthSubmit, setCreateMacthSubmit] = useState(false);
+
+  const [error, setError] = useState();
+
+  const [isProcessing, setIsProcessing] = useState();
+
+  const [status, setStatus] = useState(false);
+
+  const [inns, setInns] = useState([]);
+
+  const handleActiveHead = (index) => {
+    setActiveHead(index);
+    {
+      index === 0 && setScheduleDate(liveMatchesData);
+    }
+    {
+      index === 1 && setScheduleDate(todayMatchesData);
+    }
+    {
+      index === 2 && setScheduleDate(upcomingMatchesData);
+    }
+  };
+
+  // const handleSubmitMatch = () => {
+  //   setCreateMacthSubmit(true);
+  // };
+  const handleMacthSubmit = async () => {
+    console.log("subit click");
+    if (
+      !matchData?.series_name ||
+      !matchData?.sport_name ||
+      !matchData?.team1 ||
+      !matchData?.team2 ||
+      !matchData?.match_place ||
+      !matchData?.stadium ||
+      !matchData?.gender ||
+      !matchData?.date ||
+      !matchData?.time ||
+      !matchData?.macth_Type
+    ) {
+      return setError("Please enter required fields");
+    }
+    setIsProcessing(true);
+    setError("");
+    await call(CREATE_OFFLINE_MATCH, {
+      register_id,
+      account_role,
+      // match_id: matchDetails?.match_id,
+      ...matchData,
+      team1: matchData?.team1,
+      team2: matchData?.team2,
+      gender: matchData?.gender === "Female" ? "F" : "M",
+      sport_name: matchData?.sport_name,
+      game_object: {
+        first_innings_fancy_overs: matchData?.match_fancy_first,
+        second_innings_fancy_overs: matchData?.match_fancy_first,
+        match_type: matchData.macth_Type,
+      },
+    })
+      .then((res) => {
+        setIsProcessing(false);
+        if (res?.data?.statusCode === 200) {
+          setStatus((prev) => !prev);
+          setCreateMacthSubmit(true);
+          setTimeout(() => {
+            setCreateMacthSubmit(false);
+          }, 1000);
+          handleResetFields();
+        } else {
+          setError(
+            res?.data?.message ? res?.data?.message : `something wen't wrong`
+          );
+        }
+      })
+      .catch((err) => {
+        setIsProcessing(false);
+        setError(err?.message ? err.message : `something wen't wrong`);
+        console.log(err);
+      });
+  };
+
+  const handleResetFields = () => {
+    setMatchData({});
+  };
+
+  const handleUpadate = (item) => {
+    setMatchData(item);
+    console.log(item, "..........itemEdit");
+  };
+
+  const handleChange = (e) => {
+    setMatchData({ ...matchData, [e.target.name]: e.target.value });
+    console.log(e.target.value, ".....events");
+  };
   useEffect(() => {
     getAllMatches();
     getScheduleMatches();
     setActiveHead(0);
   }, []);
 
-  useEffect(() => {
-    getScheduleMatches();
-  }, [status]);
-
-  console.log(matchData, "......matchData");
+  console.log(matchData, ".....matchData");
+  console.log(allMatchesData, ".......scheduleDate");
+  // console.log(inns, ".....inns");
 
   return (
     <div className="p-3">
@@ -356,7 +341,7 @@ function SportsManagement() {
               className="w-90"
               name="series_name"
               id="series_name"
-              value={matchData?.series_name}
+              value={matchData[matchData?.series_name || ""]}
               onChange={(e) => handleChange(e)}
             />
             <FaTrophy />
@@ -369,8 +354,7 @@ function SportsManagement() {
               <select
                 className="sport-management-input d-flex p-1 w-100 sport-management-select meetings-heading"
                 onChange={(e) => handleChange(e)}
-                name={item?.name}
-                // multiple
+                name={item.name}
               >
                 <option>select</option>
                 {item.options}
@@ -401,7 +385,7 @@ function SportsManagement() {
               type="text"
               name="match_place"
               id="match_place"
-              value={matchData?.match_place}
+              value={matchData[matchData?.match_place || ""]}
               onChange={(e) => handleChange(e)}
             />
             <FaLocationDot />
@@ -417,7 +401,7 @@ function SportsManagement() {
               className="w-90"
               name="stadium"
               id="stadium"
-              value={matchData?.stadium}
+              value={matchData[matchData?.stadium || ""]}
               onChange={(e) => handleChange(e)}
             />
             <MdStadium />
@@ -430,13 +414,13 @@ function SportsManagement() {
               className="sport-management-input d-flex p-1 w-100 sport-management-select"
               name="gender"
               onChange={(e) => handleChange(e)}
-              value={matchData?.gender || ""}
             >
-              <option>
-                {matchData?.gender ? matchData?.gender : "Select"}
+              <option value={matchData[matchData?.gender || "male"]}>
+                Male
               </option>
-              <option value="M">Male</option>
-              <option value="F">FeMale</option>
+              <option value={matchData[matchData?.gender || "feMale"]}>
+                FeMale
+              </option>
             </select>
           </div>
         </div>
@@ -447,7 +431,7 @@ function SportsManagement() {
               className="w-100 m-auto"
               type="date"
               name="date"
-              defaultValue={matchData?.date}
+              defaultValue={matchData[matchData?.date || ""]}
               onChange={(e) => handleChange(e)}
             ></input>
           </div>
@@ -459,7 +443,7 @@ function SportsManagement() {
               className="w-100 m-auto"
               type="time"
               name="time"
-              defaultValue={matchData?.time}
+              defaultValue={matchData[matchData?.time || ""]}
               onChange={(e) => handleChange(e)}
             ></input>
           </div>
@@ -471,16 +455,12 @@ function SportsManagement() {
           <div className="sport-management-input d-flex p-1">
             <select
               className="sport-management-input d-flex p-1 w-100 sport-management-select"
-              name="macth_type"
+              name="macth_Type"
               onChange={(e) => handleChange(e)}
             >
-              <option value="select">
-                {matchData?.macth_type ? matchData?.macth_type : "Select"}
-              </option>
-              <option value="T10">T10</option>
-              <option value="T20">T20</option>
-              <option value="ODI">ODI</option>
-              <option value="TEST">TEST</option>
+              {matchType.map((item, index) => {
+                return <option value={item.name}>{item.name}</option>;
+              })}
             </select>
           </div>
         </div>
@@ -489,11 +469,10 @@ function SportsManagement() {
             <div className={item.cspan}>
               <div>{item.heading}</div>
               <input
-                className="sport-management-input d-flex p-1 w-100 sport-management-select meetings-heading"
+                className="sport-management-input d-flex p-1 w-100"
+                value={item.overs || []}
                 name={item.name}
-                value={item?.overs || ""}
-                // disabled
-                onChange={(e) => handleOversChange(e)}
+                onChange={(e) => handleChange(e)}
               ></input>
             </div>
           );
@@ -503,11 +482,7 @@ function SportsManagement() {
           {Error && <div className="danger">{Error}</div>}
           <div
             className="sport-management-input w-100 d-flex justify-content-center align-items-center bg-yellow"
-            onClick={
-              isProcessing === true
-                ? () => handleMacthSubmit()
-                : () => handleMacthUpdate()
-            }
+            onClick={() => handleMacthSubmit()}
           >
             {isProcessing === true
               ? "Processing..."
@@ -547,7 +522,10 @@ function SportsManagement() {
             })}
           </div>
           <div className="mt-2">
-            <Table data={scheduleTable || []} columns={scheduledColumns} />
+            <ScheduleMatchesTable
+              data={scheduleDate}
+              columns={scheduledColumns}
+            />
           </div>
           <MatchSubmitPopup
             header={"You Are Successfully Created Your Match"}

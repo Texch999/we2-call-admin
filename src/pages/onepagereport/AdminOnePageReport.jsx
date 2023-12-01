@@ -4,12 +4,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import AdminPopReports from "./AdminPopReports";
 import { GiClick } from "react-icons/gi";
 import CustomPagination from "../pagination/CustomPagination";
-import {
-  GET_LIVE_MATCH_RISK_POSITION,
-  GET_OFFLINE_CLIENTS,
-} from "../../config/endpoints";
-import { call } from "../../config/axios";
-import { useEffect } from "react";
 
 const AdminOnePageReport = () => {
   const [allUsers, setAllUsers] = useState([]);
@@ -18,74 +12,51 @@ const AdminOnePageReport = () => {
   const [role, setRole] = useState("");
   const [adminsData, setAdminsData] = useState("");
   const [adminsHeadings, setAdminsHeadings] = useState("");
-  const reports = ["Admin One Page Report", "UL/Platform Comm Report"];
+  const reports = [
+    "Admin One Page Report",
+    "UL/Platform Comm Report",
+  ];
   const [activeReport, setActiveReport] = useState("Admin One Page Report");
   const [popupHeading, setPopupHeading] = useState(false);
-  const register_id = localStorage.getItem("register_id");
 
-  // const adminOnePageReportData = [
-  //   {
-  //     admin_name: "Animesh",
-  //     admin_role: "Agent",
-  //     profit_loss: 500000.0,
-  //     ul_share: 200000.0,
-  //   },
-  //   {
-  //     admin_name: "Sri8647",
-  //     admin_role: "Master",
-  //     profit_loss: 500000.0,
-  //     ul_share: 200000.0,
-  //   },
-  //   {
-  //     admin_name: "Ganesh",
-  //     admin_role: "Super Master",
-  //     profit_loss: 500000.0,
-  //     ul_share: 200000.0,
-  //   },
-  //   {
-  //     admin_name: "Lokesh",
-  //     admin_role: "Super Admin",
-  //     profit_loss: 500000.0,
-  //     ul_share: 200000.0,
-  //   },
-  //   {
-  //     admin_name: "Lokesh",
-  //     admin_role: "Super Admin",
-  //     profit_loss: 500000.0,
-  //     ul_share: 200000.0,
-  //   },
-  //   {
-  //     admin_name: "Dona456",
-  //     admin_role: "Super Master",
-  //     profit_loss: 500000.0,
-  //     ul_share: 200000.0,
-  //   },
-  // ];
-  const getUlShare = (netPl, ulShare) => {
-    const netAmount = (+netPl || 0 * +ulShare || 0) / 100;
-    return netAmount;
-  };
-  const adminOnePageReportData =
-    allUsers &&
-    allUsers?.length > 0 &&
-    allUsers?.map((user) => {
-      const netPL = getUlShare(user?.total_amount, user?.ul_share);
-      return {
-        admin_name: <div>{user?.client_name}</div>,
-        admin_role: <div>{`${user?.account_role}`}</div>,
-        net_pl: (
-          <div className={user?.total_amount >= 0 ? "clr-green" : "clr-red"}>
-            {user?.total_amount || 0}
-          </div>
-        ),
-        ul_share: (
-          <div className={netPL >= 0 ? "clr-green" : "clr-red"}>{netPL}</div>
-        ),
-        // onClick: () =>
-        //   handleIndividualAdminOnePageReport(user?.register_id, user?.ul_share),
-      };
-    });
-
+  const adminOnePageReportData = [
+    {
+      admin_name: "Animesh",
+      admin_role: "Agent",
+      profit_loss: 500000.0,
+      ul_share: 200000.0,
+    },
+    {
+      admin_name: "Sri8647",
+      admin_role: "Master",
+      profit_loss: 500000.0,
+      ul_share: 200000.0,
+    },
+    {
+      admin_name: "Ganesh",
+      admin_role: "Super Master",
+      profit_loss: 500000.0,
+      ul_share: 200000.0,
+    },
+    {
+      admin_name: "Lokesh",
+      admin_role: "Super Admin",
+      profit_loss: 500000.0,
+      ul_share: 200000.0,
+    },
+    {
+      admin_name: "Lokesh",
+      admin_role: "Super Admin",
+      profit_loss: 500000.0,
+      ul_share: 200000.0,
+    },
+    {
+      admin_name: "Dona456",
+      admin_role: "Super Master",
+      profit_loss: 500000.0,
+      ul_share: 200000.0,
+    },
+  ];
   const adminOnePageReportIndividualData = [
     {
       series_name: "T20 world cup",
@@ -292,8 +263,8 @@ const AdminOnePageReport = () => {
     // You can add your logic here to fetch data for the selected page.
   };
   return (
-    <div>
-      <h6 className="meetings-heading mb-3">Your Share In Admin Book</h6>
+    <div className="p-4">
+      <h5 className="meetings-heading mb-3">Your Share In Admin Book</h5>
       <div className="d-flex align-items-center justify-content-between">
         {/* <div>
           {reports.map((report, index) => (
@@ -327,26 +298,37 @@ const AdminOnePageReport = () => {
             </tr>
           </thead>
           <tbody>
-            {adminOnePageReportData.length &&
-              adminOnePageReportData?.map((data, index) => (
-                <tr key={index}>
-                  <td
-                    className="cursor-pointer d-flex flex-row justify-content-center align-items-center"
-                    onClick={() => handleAdminReports(data)}
-                  >
-                    {data?.admin_name}{" "}
-                    <GiClick className="custom-click-icon ms-1 mt-2" />
-                  </td>
-                  <td className="text-center">{data?.admin_role}</td>
-                  <td className="text-center">{data?.net_pl} </td>
-                  <td className="text-center">{data?.ul_share} </td>
-                </tr>
-              ))}
+            {adminOnePageReportData?.map((data, index) => (
+              <tr key={index}>
+                <td
+                  className="text-center cursor-pointer"
+                  onClick={() => handleAdminReports(data)}
+                >
+                  {data?.admin_name}{" "}
+                  <GiClick className="custom-click-icon ms-1 mt-2" />
+                </td>
+                <td className="text-center">{data?.admin_role}</td>
+                <td className="text-center">
+                  {parseFloat(data?.profit_loss).toFixed(2)}
+                </td>
+                <td className="text-center">
+                  {parseFloat(data?.ul_share).toFixed(2)}
+                </td>
+              </tr>
+            ))}
           </tbody>
           <tfoot>
             <tr>
               <th colSpan={2} className="text-center">
                 TOTAL
+              </th>
+              <th className="text-center clr-green">
+                {adminOnePageReportData
+                  ?.reduce(
+                    (total, data) => total + parseFloat(data?.profit_loss),
+                    0
+                  )
+                  .toFixed(2)}
               </th>
               <th className="text-center clr-green">
                 {adminOnePageReportData.length &&

@@ -73,43 +73,39 @@ function MatchPositionTable(props) {
           )
         : 0;
     item.afterComm =
-      item.resultTeam + parseFloat(item.clientComm) + parseFloat(item.rfComm) ||
-      0;
-    item.clientShare =
-      parseFloat(
-        (-1 *
-          ((item.resultTeam + parseFloat(item.clientComm)) *
-            parseFloat(item?.clientShareConst))) /
-          100
-      ) || 0;
-    item.rfShare =
-      parseFloat(
-        (-1 *
-          ((item.resultTeam + parseFloat(item.rfComm)) *
-            parseFloat(item?.rfShareConst))) /
-          100
-      ) || 0;
+      item.resultTeam + parseFloat(item.clientComm) + parseFloat(item.rfComm);
+    item.clientShare = parseFloat(
+      (-1 *
+        ((item.resultTeam + parseFloat(item.clientComm)) *
+          parseFloat(item?.clientShareConst))) /
+        100
+    );
+    item.rfShare = parseFloat(
+      (-1 *
+        ((item.resultTeam + parseFloat(item.rfComm)) *
+          parseFloat(item?.rfShareConst))) /
+        100
+    );
     item.afterShare =
       item.resultTeam +
-        (parseFloat(item.clientShare) + parseFloat(item.rfShare)) || 0;
+      (parseFloat(item.clientShare) + parseFloat(item.rfShare));
     item.clientNet =
       item.resultTeam +
-        (parseFloat(item.clientComm) + parseFloat(item.clientShare)) || 0;
-    item.rfNet = parseFloat(item.rfComm) + parseFloat(item.rfShare) || 0;
-    item.ULShare =
-      parseFloat(
-        (-1 * ((item.clientNet + item.rfNet) * parseFloat(item.ulShareConst))) /
-          100
-      ) || 0;
-    item.ulNet = parseFloat(item.ULShare) || 0;
+      (parseFloat(item.clientComm) + parseFloat(item.clientShare));
+    item.rfNet = parseFloat(item.rfComm) + parseFloat(item.rfShare);
+    item.ULShare = parseFloat(
+      (-1 * ((item.clientNet + item.rfNet) * parseFloat(item.ulShareConst))) /
+        100
+    );
+    item.ulNet = parseFloat(item.ULShare);
     item.masterProfitLoss =
       item?.resultTeam +
-        (parseFloat(item.rfNet) +
-          parseFloat(item.clientNet) +
-          parseFloat(item.ulNet)) || 0;
+      (parseFloat(item.rfNet) +
+        parseFloat(item.clientNet) +
+        parseFloat(item.ulNet));
     item.urPosition =
       item.resultTeam +
-        (item.clientComm + item.clientShare + item.rfNet + item.ulNet) || 0;
+      (item.clientComm + item.clientShare + item.rfNet + item.ulNet);
     item.ulComm =
       item?.resultTeam > 0
         ? parseFloat(
@@ -131,6 +127,29 @@ function MatchPositionTable(props) {
       ursPosition: client?.urPosition?.toFixed(2),
     }));
 
+  // const MATCH_POSITION_TABLE_DATA = [
+  //   {
+  //     header: "Animesh",
+  //     grossPL: 50000000,
+  //     cPosition: 50000000,
+  //     rfPosition: 50000000,
+  //     ursPosition: 50000000,
+  //   },
+  //   {
+  //     header: "Animesh",
+  //     grossPL: 50000000,
+  //     cPosition: 50000000,
+  //     rfPosition: 50000000,
+  //     ursPosition: 50000000,
+  //   },
+  //   {
+  //     header: "Animesh",
+  //     grossPL: 50000000,
+  //     cPosition: 50000000,
+  //     rfPosition: 50000000,
+  //     ursPosition: 50000000,
+  //   },
+  // ];
   const MATCH_POSITION_HEADER_DATA = [
     { header: "CLIENT NAME", field: "header" },
     { header: "GROSS PL", field: "grossPL" },
@@ -149,7 +168,7 @@ function MatchPositionTable(props) {
         <div className="col">
           <div
             className="cursor-pointer share-bg rounded-pill d-flex align-items-center justify-content-around p-1"
-            onClick={() => handleOpenMatchCommModal()}
+            onClick={() => handleOpenMatchShareModal()}
           >
             <div className="medium-font">Comm</div>
             <div>
@@ -160,7 +179,7 @@ function MatchPositionTable(props) {
         <div className="col">
           <div
             className="cursor-pointer share-bg rounded-pill d-flex align-items-center justify-content-around p-1"
-            onClick={() => handleOpenMatchShareModal()}
+            onClick={() => handleOpenMatchCommModal()}
           >
             <div className="medium-font">Share</div>
             <div>
@@ -176,6 +195,11 @@ function MatchPositionTable(props) {
         />
       </div>
       <div>
+        <MatchShareModal
+          mergedDataArray={mergedDataArray}
+          matchShareModal={matchShareModal}
+          handleCloseMatchShareModal={handleCloseMatchShareModal}
+        />
         <MatchCommModal
           mergedDataArray={mergedDataArray}
           matchCommModal={matchCommModal}

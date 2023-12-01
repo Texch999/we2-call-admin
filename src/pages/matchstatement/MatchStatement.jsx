@@ -13,31 +13,24 @@ function MatchStatement() {
   let creator_id = localStorage?.getItem("creator_id");
   let account_role = localStorage?.getItem("account_role");
 
-  const [isProcessing, setIsProcessing] = useState(false);
-
   const [financialStatementData, setFinancialStatementData] = useState([]);
   const [existingUsers, setExistingUsers] = useState([]);
 
   const [statementPayload, setStatementPayload] = useState({});
 
   const getStatementData = async () => {
-    setIsProcessing(true);
     await call(GET_FINANCIAL_STATEMENT_BY_DATE, {
       register_id,
       account_role,
       ...statementPayload,
     })
       .then((res) => {
-        setIsProcessing(false);
-
         // const result = res?.data?.data?.Items;
         setFinancialStatementData(
           res?.data?.data?.filter((item) => item?.match_declared === "Y")
         );
       })
       .catch((err) => {
-        setIsProcessing(false);
-
         throw err;
       });
   };
@@ -96,8 +89,6 @@ function MatchStatement() {
         statementPayload={statementPayload}
         setStatementPayload={setStatementPayload}
         financialStatementData={financialStatementData}
-        isProcessing={isProcessing}
-        getStatementData={getStatementData}
       />
     </div>
   );

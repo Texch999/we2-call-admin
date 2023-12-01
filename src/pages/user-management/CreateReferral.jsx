@@ -64,34 +64,13 @@ function CreateReferral(props) {
             <span className="font-11">Enter Referal Details</span>
           </center>
           <div className="d-flex align-items-center login-input p-1 mt-2">
-            <input
-              placeholder="Name"
-              name="referral_name"
-              id="referral_name"
-              type="text"
-              value={refferalName || ""}
-              onChange={(e) => setRefferalName(e.target.value)}
-            />
+            <input placeholder="Name" />
           </div>
           <div className="d-flex align-items-center login-input p-1 mt-2">
-            <input
-              placeholder="Phone"
-              name="phone_no"
-              id="phone_no"
-              type="number"
-              value={phn || ""}
-              onChange={(e) => setPhn(e.target.value)}
-            />
+            <input placeholder="Phone" type="number" />
           </div>
           <div className="d-flex align-items-center login-input p-1 mt-2">
-            <input
-              placeholder="Location"
-              name="location"
-              id="location"
-              type="text"
-              value={location || ""}
-              onChange={(e) => setLocation(e.target.value)}
-            />
+            <input placeholder="Location" />
           </div>
           <button
             className="login-button p-1 mt-3 medium-font"

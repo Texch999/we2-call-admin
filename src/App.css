@@ -43,9 +43,6 @@ body {
   padding: 10px;
   font-size: 12px;
 }
-.danger {
-  color: red;
-}
 .header-avatar {
   border-right: 2px solid #202d57;
   padding-right: 0.8rem;

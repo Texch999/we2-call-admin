@@ -17,7 +17,6 @@ function FancyEntryInput({
   setMatchOver,
   getRiskRunningData,
   getFancyProfitLoss,
-  setMatchInnings,
   profitLossData = {},
 }) {
   let register_id = localStorage?.getItem("register_id");
@@ -25,12 +24,12 @@ function FancyEntryInput({
   let account_role = localStorage?.getItem("account_role");
 
   const [fancyEntryInputData, setFancyInputEntryData] = useState({});
-  const [fancySubmitPopup, setFancySubmitPopup] = useState(false);
+  const [over, setOver] = useState("");
+  const [submitPopup, setSubmitPopup] = useState(false);
   const [selectedOptions, setSelectedOptions] = useState();
   const [existingUsers, setExistingUsers] = useState([]);
   const [error, setError] = useState("");
   const [isProcessing, setIsProcessing] = useState(false);
-  let selectedInnings = fancyEntryInputData?.innings;
 
   const optionList = existingUsers?.map((item) => {
     return { value: item?.client_id, label: item?.client_name };
@@ -38,14 +37,17 @@ function FancyEntryInput({
   const handleClientSelect = (data) => {
     setSelectedOptions(data);
   };
-
+  const handleOvers = (e) => {
+    setOver(e.target.value);
+  };
+  const handleSelectOvers = (e) => {
+    setOver([...over, e.target.value]);
+  };
   const handleFancyEntryInputDataChange = (e) => {
     setFancyInputEntryData({
       ...fancyEntryInputData,
       [e.target.name]: e.target.value,
     });
-    setMatchInnings(fancyEntryInputData?.innings);
-    setMatchOver(fancyEntryInputData?.over);
   };
 
   const getAllClientsData = async () => {
@@ -67,19 +69,19 @@ function FancyEntryInput({
   }, []);
 
   const resetFields = () => {
-    setSelectedOptions("");
-    setFancyInputEntryData({});
+    setOver("");
+    selectedOptions("");
+    fancyEntryInputData({});
   };
 
   const handleFancyEntrySubmit = async () => {
     if (
       !fancyEntryInputData?.innings ||
-      !fancyEntryInputData?.over ||
+      !over ||
       !fancyEntryInputData?.team ||
       !fancyEntryInputData?.amount ||
       !fancyEntryInputData?.yN ||
-      !fancyEntryInputData?.runs ||
-      !selectedOptions?.value
+      !selectedOptions?.label
     ) {
       return setError("Please Enter Required Fields");
     }
@@ -87,40 +89,40 @@ function FancyEntryInput({
     setError("");
     await call(FANCY_ENTRY_DATA, {
       ...selectedMatch,
-      registered_match_id: registered_match_id,
+      registered_match_id,
       register_id,
       account_role,
-      innings: +fancyEntryInputData?.innings,
+      innings: fancyEntryInputData?.innings,
       rate: 1,
-      over: +fancyEntryInputData?.over,
+      over: over[0],
       team: fancyEntryInputData?.team,
-      amount: +fancyEntryInputData?.amount,
-      runs: +fancyEntryInputData?.runs,
+      amount: fancyEntryInputData?.amount,
+      runs: fancyEntryInputData?.runs,
       yN: fancyEntryInputData?.yN,
       client_id: selectedOptions?.value,
       client_name: selectedOptions?.label,
     })
       .then((res) => {
+        setError("");
         setIsProcessing(false);
         if (res?.data?.statusCode === 200) {
-          setStatus((prev) => !prev);
-          setFancySubmitPopup(true);
-          setTimeout(() => {
-            setFancySubmitPopup(false);
-          }, 1000);
           resetFields();
+          setStatus((prev) => !prev);
+          setSubmitPopup(true);
+          setTimeout(() => {
+            setSubmitPopup(false);
+          }, 1000);
           getRiskRunningData();
           getFancyProfitLoss();
-          setError("");
         } else {
           setError(
-            res?.data?.message ? res?.data?.message : "Something Went Wrong"
+            res?.data?.message ? res?.data?.message : `Something Went Wrong`
           );
         }
       })
       .catch((err) => {
         setIsProcessing(false);
-        setError("Something Went Wrong");
+        setError(`Something Went Wrong`);
         console.log(err);
       });
   };
@@ -128,12 +130,11 @@ function FancyEntryInput({
   const handleFancyEntryUpdate = async () => {
     if (
       !fancyEntryInputData?.innings ||
-      !fancyEntryInputData?.over ||
+      !over ||
       !fancyEntryInputData?.team ||
       !fancyEntryInputData?.amount ||
       !fancyEntryInputData?.yN ||
-      !fancyEntryInputData?.runs ||
-      !selectedOptions?.value
+      !selectedOptions?.label
     ) {
       return setError("Please Enter Required Fields");
     }
@@ -145,12 +146,12 @@ function FancyEntryInput({
       registered_match_id,
       register_id,
       account_role,
-      innings: +fancyEntryInputData?.innings,
+      innings: fancyEntryInputData?.innings,
       rate: 1,
-      over: +fancyEntryInputData?.over,
-      team: +fancyEntryInputData?.team,
-      amount: +fancyEntryInputData?.amount,
-      runs: +fancyEntryInputData?.runs,
+      over: over[0],
+      team: fancyEntryInputData?.team,
+      amount: fancyEntryInputData?.amount,
+      runs: fancyEntryInputData?.runs,
       yN: fancyEntryInputData?.yN,
       client_id: selectedOptions?.value,
       client_name: selectedOptions?.label,
@@ -160,10 +161,7 @@ function FancyEntryInput({
         setIsProcessing(false);
         if (res?.data?.statusCode === 200) {
           setStatus((prev) => !prev);
-          setFancySubmitPopup(true);
-          setTimeout(() => {
-            setFancySubmitPopup(false);
-          }, 1000);
+          setSubmitPopup(true);
           setSelectedMatchEntry("");
           getRiskRunningData();
           getFancyProfitLoss();
@@ -176,18 +174,20 @@ function FancyEntryInput({
       })
       .catch((err) => {
         setIsProcessing(false);
-        setError("Something Went Wrong");
+        setError(`Something Went Wrong`);
         console.log(err);
       });
   };
 
   useEffect(() => {
-    setSelectedOptions({
-      label: selectedMatchEntry?.client_name,
-      value: selectedMatchEntry?.client_id,
-    });
-    // setOver(selectedMatchEntry?.over);
-    setFancyInputEntryData(selectedMatchEntry);
+    if (selectedMatchEntry) {
+      setSelectedOptions({
+        label: selectedMatchEntry?.client_name,
+        value: selectedMatchEntry?.client_id,
+      });
+      setOver(selectedMatchEntry?.over);
+      setFancyInputEntryData(selectedMatchEntry);
+    }
   }, [selectedMatchEntry]);
 
   return (
@@ -200,13 +200,12 @@ function FancyEntryInput({
               className="w-100 custom-select medium-font btn-bg rounded all-none p-2"
               name="innings"
               id="innings"
-              type="number"
               value={fancyEntryInputData?.innings || ""}
               onChange={(e) => handleFancyEntryInputDataChange(e)}
             >
-              <option value="">Select</option>
-              <option value={1}>First</option>
-              <option value={2}>Second</option>
+              <option>Select</option>
+              <option value="1">1st Inn</option>
+              <option value="2">2nd Inn</option>
             </select>
           </div>
         </div>
@@ -228,32 +227,20 @@ function FancyEntryInput({
               <input
                 className="w-70 custom-select medium-font btn-bg  all-none p-2 rounded"
                 placeholder="Over"
+                value={over || []}
                 name="over"
-                type="number"
-                value={fancyEntryInputData?.over || ""}
-                onChange={(e) => handleFancyEntryInputDataChange(e)}
-              />
+                onChange={(e) => handleOvers(e)}
+              ></input>
               <select
-                className="w-30 custom-select medium-font btn-bg  all-none p-2 rounded"
-                placeholder="Over"
                 name="over"
-                type="number"
-                value={fancyEntryInputData?.over || ""}
-                onChange={(e) => handleFancyEntryInputDataChange(e)}
+                value={over || ""}
+                className="w-30 custom-select medium-font btn-bg all-none p-2 rounded"
+                onChange={(e) => handleSelectOvers(e)}
               >
-                <option value="">Select</option>
-                {(selectedInnings === "2"
-                  ? selectedMatch?.game_object?.second_innings_fancy_overs
-                  : selectedMatch?.game_object?.first_innings_fancy_overs
-                )
-                  ?.filter(
-                    (i) =>
-                      Object.keys(profitLossData).length === 0 ||
-                      !Object.keys(profitLossData)?.includes(`${i}`)
-                  )
-                  ?.map((over) => (
-                    <option value={over}>{over}</option>
-                  ))}
+                <option>Select</option>
+                <option value="10">10 Overs</option>
+                <option value="20">20 Overs</option>
+                <option value="30">30 Overs</option>
               </select>
             </div>
           </div>
@@ -269,7 +256,7 @@ function FancyEntryInput({
               value={fancyEntryInputData?.team || ""}
               onChange={(e) => handleFancyEntryInputDataChange(e)}
             >
-              <option value="">Select Team</option>
+              <option>Select Team</option>
               <option value={selectedMatch?.team1}>
                 {selectedMatch?.team1}
               </option>
@@ -313,10 +300,10 @@ function FancyEntryInput({
             <select
               className="w-100 custom-select medium-font btn-bg rounded all-none p-2"
               name="yN"
-              value={fancyEntryInputData?.yN || ""}
+              value={fancyEntryInputData?.yN}
               onChange={(e) => handleFancyEntryInputDataChange(e)}
             >
-              <option value="">Select</option>
+              <option>Select</option>
               <option value="Y">Y</option>
               <option value="N">N</option>
             </select>
@@ -358,12 +345,12 @@ function FancyEntryInput({
         )}
       </div>
       <SubmitPopup
-        state={fancySubmitPopup}
-        setState={setFancySubmitPopup}
+        state={submitPopup}
+        setState={setSubmitPopup}
         header={
           Object.keys(selectedMatchEntry).length === 0
-            ? "Fancy Entry Added Successfully"
-            : "Fancy Entry Updated Successfully"
+            ? "Fancy Entry Added"
+            : "Fancy Entry Updated"
         }
       />
     </div>

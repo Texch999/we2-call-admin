@@ -1,47 +1,98 @@
 import React from "react";
 
-function ReferalNetTable({ firstReferralNetData }) {
-  const REFERALNET_DETAILS =
-    firstReferralNetData?.length &&
-    firstReferralNetData?.map((item, index) => {
-      return {
-        clientName: item?.client_name,
-        cNameMatchPL: item?.cNameMatchPL,
-        fancyPL: item?.fancyPL,
-        refrralFancyComm: item?.mfComm,
-        rollcom: item?.roleComm,
-        netpl: item?.masterProfitloss,
-      };
-    });
+function ReferalNetTable() {
+  const REFERALNET_DETAILS = [
+    {
+      matchName: (
+        <div>
+          IND vs SL
+          <br />
+          18-07-1995
+        </div>
+      ),
+      amount1: "1000000.00",
+      amount2: "500000.00",
+      comm: "500000.00",
+      roleComm: "500000.00",
+      total: "500000.00",
+    },
+    {
+      matchName: (
+        <div>
+          IND vs SL
+          <br />
+          18-07-1995
+        </div>
+      ),
+      amount1: "1000000.00",
+      amount2: "500000.00",
+      comm: "500000.00",
+      roleComm: "500000.00",
+      total: "500000.00",
+    },
+    {
+      matchName: (
+        <div>
+          IND vs SL
+          <br />
+          18-07-1995
+        </div>
+      ),
+      amount1: "1000000.00",
+      amount2: "500000.00",
+      comm: "500000.00",
+      roleComm: "500000.00",
+      total: "500000.00",
+    },
+    {
+      matchName: (
+        <div>
+          IND vs SL
+          <br />
+          18-07-1995
+        </div>
+      ),
+      amount1: "1000000.00",
+      amount2: "500000.00",
+      comm: "500000.00",
+      roleComm: "500000.00",
+      total: "500000.00",
+    },
+  ];
   return (
     <div>
       <table className="w-100 match-position-table small-font px-4">
         <thead className="px-4">
           <tr className="text-center">
-            <th className="w-20">Referer Name</th>
-            <th className="w-20">Match P/L</th>
-            <th className="w-20">Fancy P/L</th>
-            <th className="w-20">RF-M+F Comm</th>
-            <th className="w-20">Role Comm</th>
-            <th className="w-20">M+F+RFCR</th>
+            <th>Referer Name</th>
+            <th>Match P/L</th>
+            <th>Fancy P/L</th>
+            <th>RF-M+F Comm</th>
+            <th>Role Comm</th>
+            <th>M+F+RFCR</th>
           </tr>
         </thead>
+        {REFERALNET_DETAILS.map((item, index) => (
+          <tbody key={index}>
+            <tr className="text-center clr-green">
+              <td>{item.matchName}</td>
+              <td>{item.amount1}</td>
+              <td>{item.amount2}</td>
+              <td>{item.comm}</td>
+              <td>{item.roleComm}</td>
+              <td>{item.total}</td>
+            </tr>
+          </tbody>
+        ))}
+        <tfoot>
+          <tr className="text-center clr-green">
+            <th colSpan={4}>TOTAL</th>
+            <th colSpan={3}>50000000.00</th>
+          </tr>
+        </tfoot>
       </table>
-      <div className="table-scroll-content">
-        <table className="w-100 match-position-table small-font">
-          {REFERALNET_DETAILS?.map((item, index) => (
-            <tbody key={index}>
-              <tr className="text-center w-100">
-                <td className="w-20">{item.clientName}</td>
-                <td className="w-20">{item.cNameMatchPL}</td>
-                <td className="w-20">{item.fancyPL}</td>
-                <td className="w-20">{item.refrralFancyComm}</td>
-                <td className="w-20">{item.rollcom}</td>
-                <td className="w-20">{item.netpl}</td>
-              </tr>
-            </tbody>
-          ))}
-        </table>
+      {/* <div className="large-font font-weight-bold mt-3 mb-3">
+        Total - Rf Share = Rf Gross - M Comm = Rf Net
       </div>
 
       <table className="w-100 match-position-table small-font">
@@ -55,7 +106,7 @@ function ReferalNetTable({ firstReferralNetData }) {
             <th className="w-20">1000000.00</th>
           </tr>
         </tfoot>
-      </table>
+      </table> */}
     </div>
   );
 }

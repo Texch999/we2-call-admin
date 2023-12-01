@@ -1,5 +1,5 @@
 function Table(props) {
-  const { data, columns, tableClassname, editButtons, recordStatus } = props;
+  const { data, columns, tableClassname, editButtons } = props;
 
   if (!data?.length) {
     // return (
@@ -25,6 +25,7 @@ function Table(props) {
     //                   : ""
     //               }
     //             >
+    //               {console.log(item?.recordStatus, "item?.recordStatus")}
     //               {columns?.map((column, colIndex) => (
     //                 <td key={colIndex}>
     //                   <div>{item[column?.field]}</div>
@@ -62,18 +63,28 @@ function Table(props) {
           ) : (
             data.map((item, rowIndex) => (
               <tr
+                key={rowIndex}
                 className={
                   item?.recordStatus === "updated"
                     ? "match-entry-edit-color"
-                    : item?.recordStatus === "deleted"
-                    ? "match-entry-delete-color"
                     : ""
                 }
-                key={rowIndex}
               >
                 {columns.map((column, colIndex) => (
                   <td key={colIndex}>
-                    <div>{item[column.field]}</div>
+                    <div
+                      className={
+                        item[column.field] === "Join"
+                          ? "td-class"
+                          : item[column.field] === "Not-Started"
+                          ? "not-class"
+                          : ""
+                      }
+                    >
+                      {column.header === "ACTION"
+                        ? editButtons
+                        : item[column.field]}
+                    </div>
                   </td>
                 ))}
               </tr>

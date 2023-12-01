@@ -1,6 +1,7 @@
 import { Container, Form, Row, Col, InputGroup } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import { Images } from "../../images";
 import { useState } from "react";
 
 function AddNewMeetingsPopUp(props) {

@@ -29,7 +29,7 @@ function MatchTable(props) {
                     <div
                       className={`${
                         isNaN(item[column.field]) > 0
-                          ? "font-white"
+                          ? ""
                           : +item[column.field] >= 0
                           ? "green-color"
                           : "red-color"
@@ -55,7 +55,11 @@ function MatchTable(props) {
                     : "red-color"
                 }`}
               >
-                {field === "header" ? "TOTAL" : calculateColumnSum(data, field)}
+                {field === "header"
+                  ? "TOTAL"
+                  : field === "ulComm"
+                  ? "- -"
+                  : calculateColumnSum(data, field)}
               </th>
             ))}
           </tr>

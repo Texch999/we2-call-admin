@@ -216,14 +216,20 @@ function OnePagePopup(props) {
                   </div>
                 </div>
               </div>
+              {/* <div className="w-25 d-flex justify-content-end">
+                <div
+                  className={`match-entry-btn w-100 d-flex align-items-center justify-content-around rounded p-2 ms-1 me-1 ${
+                    ulsharereportInputs ? "yellow-border" : ""
+                  }`}
+                  onClick={() => handleUlshareReportInputs()}
+                >
+                  <div className="medium-font">UL Share</div>
+                </div>
+              </div> */}
             </div>
           </div>
-          {mfrcInputs && (
-            <MFRCTotalTable induvisualClientData={induvisualClientData} />
-          )}
-          {referalNetInputs && (
-            <ReferalNetTable firstReferralNetData={firstReferralNetData} />
-          )}
+          {mfrcInputs && <MFRCTotalTable />}
+          {referalNetInputs && <ReferalNetTable />}
           {/* {ulsharereportInputs && <UlshareTable />} */}
         </Modal.Body>
       </Modal>

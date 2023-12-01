@@ -147,11 +147,6 @@ function Header() {
     },
     // /payment-gateway-list
     {
-      icon: <FaRegHandshake className="mr-10 d-flex" />,
-      name: "Payment Gateway List",
-      path: "/payment-gateway-list",
-    },
-    {
       icon: <MdOutlinePrivacyTip className="mr-10 d-flex" />,
       name: "Privacy Policy",
       path: "/privacy-policy",
@@ -168,6 +163,16 @@ function Header() {
     // },
     {
       icon: <MdOutlinePrivacyTip className="mr-10 d-flex" />,
+      name: "Admin One Page Report",
+      path: "/admin-one-page-report",
+    },
+    {
+      icon: <MdOutlinePrivacyTip className="mr-10 d-flex" />,
+      name: "Admin Share Comm Settlement",
+      path: "/admin-share-comm-settlement",
+    },
+    {
+      icon: <MdOutlinePrivacyTip className="mr-10 d-flex" />,
       name: "Call Management",
       path: "/call-management",
     },
@@ -176,6 +181,11 @@ function Header() {
     //   name: "Super Admin Call Management",
     //   path: "/super-admin-call-management",
     // },
+    {
+      icon: <MdOutlinePrivacyTip className="mr-10 d-flex" />,
+      name: "Super Admin Call Management",
+      path: "/super-admin-call-management",
+    },
     {
       icon: <MdOutlinePrivacyTip className="mr-10 d-flex" />,
       name: "Share Risk live mathces",
@@ -288,36 +298,36 @@ function Header() {
     },
   ];
 
-  // useEffect(() => {
-  //   switch (history.location.pathname) {
-  //     case "/":
-  //       setActiveHead(0);
-  //       break;
-  //     case "/chats":
-  //       setActiveHead(1);
-  //       break;
+  useEffect(() => {
+    switch (history.location.pathname) {
+      case "/":
+        setActiveHead(0);
+        break;
+      case "/chats":
+        setActiveHead(1);
+        break;
 
-  //     case "/tours-tournaments":
-  //       setActiveHead(2);
-  //       break;
+      case "/tours-tournaments":
+        setActiveHead(2);
+        break;
 
-  //     case "/match-entry":
-  //       setActiveHead(3);
-  //       break;
+      case "/match-entry":
+        setActiveHead(3);
+        break;
 
-  //     case "/phub":
-  //       setActiveHead(4);
-  //       break;
+      case "/phub":
+        setActiveHead(4);
+        break;
 
-  //     case "/horny":
-  //       setActiveHead(5);
+      case "/horny":
+        setActiveHead(5);
 
-  //       break;
+        break;
 
-  //     default:
-  //       setActiveHead(0);
-  //   }
-  // }, []);
+      default:
+        setActiveHead(0);
+    }
+  }, []);
 
   const [resetPasswordSubmit, setResetPasswordSubmit] = useState();
   const token = isLoggedIn();
@@ -446,9 +456,9 @@ function Header() {
               {localStorage?.getItem("user_name")}
             </div>
           </div>
-          <div className="h-10vh mt-3">
+          <div className="h-10vh">
             <div className="d-flex align-items-center w-50 justify-content-around">
-              <div className=" icons-share mx-3">
+              <div className=" icons-share me-2 ms-2">
                 <AiOutlineShareAlt />
               </div>
               <div

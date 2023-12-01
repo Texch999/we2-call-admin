@@ -2,11 +2,6 @@ import Table from "../home-page/Table";
 import { BsFillEyeFill } from "react-icons/bs";
 import CustomPagination from "../pagination/CustomPagination";
 import { useState } from "react";
-import UpgradeYourPackagePopup from "./UpgradeYourPackagePopup";
-import { GET_ADMIN_PACKAGE_REQUEST } from "../../config/endpoints";
-import { call } from "../../config/axios";
-import { useEffect } from "react";
-import TicketUpgradePopup from "./TicketUpgradePopup";
 
 function AdminSaleTickets() {
   const [showTicketPackagePopup, setTicketShowPackagePopup] = useState(false);
@@ -54,47 +49,6 @@ function AdminSaleTickets() {
     setCurrentPage(page);
     // You can add your logic here to fetch data for the selected page.
   };
-
-  const getAllsaleTickets = async () => {
-    const payload = {
-      register_id: localStorage.getItem("register_id"),
-    };
-    await call(GET_ADMIN_PACKAGE_REQUEST, payload)
-      .then((res) => {
-        setSaleTicket(res?.data?.data);
-      })
-      .catch((err) => console.log(err));
-  };
-  console.log("------->saleTicket", saleTicket);
-
-  useEffect(() => {
-    getAllsaleTickets();
-  }, []);
-
-  const ADMIN_SALE_TICKETS_DATA = saleTicket.map((obj) => ({
-    dateAndTime: <div>{obj.created_date}-{obj.created_time}</div>,
-    nameRole: localStorage.getItem("user_name"),
-    trxID: obj.transaction_id,
-    packageTRX: obj.summary.final_package_cost,
-    payAmount: obj.summary.final_package_cost,
-    status:
-      obj?.status === "approve" ? (
-        <div className="rounded-pill p-1 completed-btn">Completed</div>
-      ) : obj?.status === "Reject" ? (
-        <div className="rounded-pill p-1 reject-btn">Reject</div>
-      ) : (
-        <div className="rounded-pill p-1 pending-btn">Pending</div>
-      ),
-    newButton: (
-      <div
-        className="rounded p-1 completed-btn"
-        onClick={() => handleNewButton(obj)}
-      >
-        NEW
-      </div>
-    ),
-  }));
-
   return (
     <div className="mt-3">
       <Table
@@ -115,11 +69,6 @@ function AdminSaleTickets() {
           />
         </div>
       </div>
-      <TicketUpgradePopup
-        saletickets={saletickets}
-        showTicketPackagePopup={showTicketPackagePopup}
-        setTicketShowPackagePopup={setTicketShowPackagePopup}
-      />
     </div>
   );
 }

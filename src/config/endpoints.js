@@ -3,6 +3,7 @@ const USER_LOGIN = "/admin/admin_account_login";
 const GET_ALL_CLIENTS = "/offline-management/get_user_list";
 const GET_REFFERAL_DATA = "/offline-management/get_refferal_data";
 const GET_SETTLEMENT_HISTORY = "/offline-management/get_offline_settlement";
+// const GET_CLIENTS_DATA = "/offline-users/get_clients_data";
 const GET_OFFLINE_CLIENTS = "/offline-management/get_clients_data";
 const CREATE_OFFLINE_CLIENT = "/offline-management/create_client";
 const GET_OFFLINE_CLIENT_DETAILS = "/offline-management/get_clientid_data";
@@ -35,6 +36,7 @@ const GET_ONEPAGE_REPORT = "/offline-management/one_page_report";
 const GET_UPDATED_MATCHES_DATA = "/offline-management/get_all_matches";
 const GET_ALL_ADMINS = "/account_register/get_all_created_role_data";
 const BLOCKUNBLOCK = "/offline-management/active_inactive_users";
+// const CREATE_PACKAGE_SUBSCRIPTION = '/packages/package_subsciption_ticket'
 const EDITPROFILE = "/admin/admin_profile_update_info";
 const GET_USER_INFO = "/admin/get_admin_accounts_user_info";
 const UPDATE_PROFILE = "/admin/admin_profile_update_info";
@@ -53,31 +55,7 @@ const CHANGE_PASSWORD = "/admin/change_password";
 const UPDATE_USER_ADMIN = "/admin/update_user_admin";
 const UPDATE_USER_CLIENT = "/admin/update_user_client";
 const RISK_RUNNING_SESSION = "/offline-management/risk_running_session";
-const ADD_PAYMENT = "/management/add_payment_gateway";
-const GET_ALL_PAYMENT_GATEWAYS = "/management/getall_payments";
-const UPDATE_PAYMENT_GATEWAY = "/management/update_payment_gateway";
-const UPDATE_MATCH = "/offline-management/update_matchid_data";
-const GET_REQUEST_PACKAGES =
-  "/packages/get_package_histroy_bypackage_requestid";
-const GET_ADMIN_PACKAGE_REQUEST = "/packages/get_all_admin_package_request";
-const GET_COMPLETED_MATCHES_BY_CLEINT =
-  "/offline-management/get_completed_matches_by_client_id";
-const GET_REASON_REJECTIONS = "/settings/getall_security_questions";
 const FANCY_RESULT_PROFIT_LOSS = "/offline-management/fancy_result_profitlose";
-const GET_ADMIN_PACKAGES = "/packages/get_admin_packages";
-const DELETE_OFFLINE_CLIENT = "/offline-management/delete_clients";
-const PRIVACY_POLICY = "/management/get_policy_document";
-const RESET_PASSWORD = "/admin/reset_password";
-const ACTIVE_INACTIVE_USERS =
-  "/offline-management/offline_active_inactive_users";
-const MANAGEMENT_MATCHES = "/management/get_matches_by_accountrole";
-const CREATE_MEETING = "/meetings/create_meeting";
-const UPDATE_MEETING = "/meetings/update_call_meetings";
-const GET_LIVE_MATCH_RISK_POSITION =
-  "/offline-management/live_match_risk_position";
-const GET_STATEMENT_BY_MATCH_ID =
-  "/offline-management/get_statement_bymatch_id";
-const GET_ALL_NOTIFICATIONS = "/management/get_all_notifications";
 
 // methods
 const DELETE = "DELETE";
@@ -85,28 +63,8 @@ const POST = "POST";
 const GET = "POST";
 const PUT = "PUT";
 
-exports.GET_LIVE_MATCH_RISK_POSITION = {
-  url: GET_LIVE_MATCH_RISK_POSITION,
-  method: POST,
-};
-exports.GET_STATEMENT_BY_MATCH_ID = {
-  url: GET_STATEMENT_BY_MATCH_ID,
-  method: POST,
-};
 exports.GET_UPDATED_MATCHES_DATA = {
   url: GET_UPDATED_MATCHES_DATA,
-  method: POST,
-};
-exports.UPDATE_MATCH = {
-  url: UPDATE_MATCH,
-  method: POST,
-};
-exports.GET_FINANCIAL_STATEMENT_BY_DATE = {
-  url: GET_FINANCIAL_STATEMENT_BY_DATE,
-  method: POST,
-};
-exports.GET_COMPLETED_MATCHES_BY_CLEINT = {
-  url: GET_COMPLETED_MATCHES_BY_CLEINT,
   method: POST,
 };
 exports.CREATE_REFFERAL = {
@@ -154,6 +112,10 @@ exports.GENERATE_SIGNED_URL = {
   method: POST,
 };
 
+exports.GET_FINANCIAL_STATEMENT_BY_DATE = {
+  url: GET_FINANCIAL_STATEMENT_BY_DATE,
+  method: POST,
+};
 exports.GET_USER_INFO = {
   url: GET_USER_INFO,
   method: POST,
@@ -268,6 +230,11 @@ exports.GET_SETTLEMENT_HISTORY = {
   method: POST,
 };
 
+// exports.GET_CLIENTS_DATA = {
+//   url: GET_CLIENTS_DATA,
+//   method: POST,
+// };
+
 exports.ACCOUNT_REGISTERATION = {
   url: ACCOUNT_REGISTERATION,
   method: POST,
@@ -307,16 +274,6 @@ exports.UPDATE_USER_ADMIN = {
   method: POST,
 };
 
-exports.ADD_PAYMENT = {
-  url: ADD_PAYMENT,
-  method: POST,
-};
-
-exports.GET_ALL_PAYMENT_GATEWAYS = {
-  url: GET_ALL_PAYMENT_GATEWAYS,
-  method: POST,
-};
-
 exports.UPDATE_USER_CLIENT = {
   url: UPDATE_USER_CLIENT,
   method: POST,
@@ -350,59 +307,5 @@ exports.RISK_RUNNING_SESSION = {
 
 exports.FANCY_RESULT_PROFIT_LOSS = {
   url: FANCY_RESULT_PROFIT_LOSS,
-  method: POST,
-};
-exports.UPDATE_PAYMENT_GATEWAY = {
-  url: UPDATE_PAYMENT_GATEWAY,
-  method: POST,
-};
-exports.GET_REQUEST_PACKAGES = {
-  url: GET_REQUEST_PACKAGES,
-  method: POST,
-};
-exports.GET_ADMIN_PACKAGE_REQUEST = {
-  url: GET_ADMIN_PACKAGE_REQUEST,
-  method: POST,
-};
-
-exports.GET_REASON_REJECTIONS = {
-  url: GET_REASON_REJECTIONS,
-  method: POST,
-};
-exports.GET_ADMIN_PACKAGES = {
-  url: GET_ADMIN_PACKAGES,
-  method: GET,
-};
-exports.DELETE_OFFLINE_CLIENT = {
-  url: DELETE_OFFLINE_CLIENT,
-  method: POST,
-};
-exports.PRIVACY_POLICY = {
-  url: PRIVACY_POLICY,
-  method: GET,
-};
-exports.RESET_PASSWORD = {
-  url: RESET_PASSWORD,
-  method: POST,
-};
-exports.ACTIVE_INACTIVE_USERS = {
-  url: ACTIVE_INACTIVE_USERS,
-  method: POST,
-};
-exports.MANAGEMENT_MATCHES = {
-  url: MANAGEMENT_MATCHES,
-  method: POST,
-};
-exports.CREATE_MEETING = {
-  url: CREATE_MEETING,
-  method: POST,
-};
-exports.UPDATE_MEETING = {
-  url: UPDATE_MEETING,
-  method: POST,
-};
-
-exports.GET_ALL_NOTIFICATIONS = {
-  url: GET_ALL_NOTIFICATIONS,
   method: POST,
 };

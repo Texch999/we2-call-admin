@@ -40,17 +40,6 @@ function MatchEntryInput({
     });
   };
 
-  const handleInputChange = (e) => {
-    if (e.target.value.length <= 4) {
-      let value = e.target.value;
-      if (value?.startsWith("1.")) {
-        setRate(value?.substring(2));
-      } else {
-        setRate(value);
-      }
-    }
-  };
-
   const resetFields = () => {
     setRate("");
     setMatchEntryInputData({});
@@ -68,6 +57,13 @@ function MatchEntryInput({
       .catch((err) => console.log(err));
   };
 
+  useEffect(() => {
+    const fetchData = async () => {
+      await getAllClientsData();
+    };
+    fetchData();
+  }, []);
+
   const handleMatchSubmitPopup = async () => {
     if (
       !rate ||
@@ -84,7 +80,7 @@ function MatchEntryInput({
       ...selectedMatch,
       rate: "1." + rate,
       team: matchEntryInputData?.team,
-      amount: +matchEntryInputData?.amount,
+      amount: matchEntryInputData?.amount,
       pe: matchEntryInputData?.pe,
       client_id: selectedOptions?.value,
       client_name: selectedOptions?.label,
@@ -129,7 +125,7 @@ function MatchEntryInput({
     await call(UPDATE_MATCH_ENTRY, {
       rate: "1." + rate,
       team: matchEntryInputData?.team,
-      amount: +matchEntryInputData?.amount,
+      amount: matchEntryInputData?.amount,
       pe: matchEntryInputData?.pe,
       client_id: selectedOptions?.value,
       client_name: selectedOptions?.label,
@@ -159,13 +155,6 @@ function MatchEntryInput({
   };
 
   useEffect(() => {
-    const fetchData = async () => {
-      await getAllClientsData();
-    };
-    fetchData();
-  }, []);
-
-  useEffect(() => {
     if (selectedMatchEntry) {
       setSelectedOptions({
         label: selectedMatchEntry?.client_name,
@@ -175,6 +164,17 @@ function MatchEntryInput({
       setMatchEntryInputData(selectedMatchEntry);
     }
   }, [selectedMatchEntry]);
+
+  const handleInputChange = (e) => {
+    if (e.target.value.length <= 4) {
+      let value = e.target.value;
+      if (value?.startsWith("1.")) {
+        setRate(value?.substring(2));
+      } else {
+        setRate(value);
+      }
+    }
+  };
 
   return (
     <div className="match-position-bg rounded-bottom p-3">
@@ -201,7 +201,7 @@ function MatchEntryInput({
               className="w-100 custom-select medium-font btn-bg rounded all-none p-2"
               name="team"
               id="team"
-              value={matchEntryInputData?.team || ""}
+              value={matchEntryInputData?.team}
               onChange={(e) => handleMatchEntryInputDataChange(e)}
             >
               <option value="">Enter Team</option>
@@ -235,7 +235,7 @@ function MatchEntryInput({
               className="w-100 custom-select medium-font btn-bg rounded all-none p-2"
               name="pe"
               id="pe"
-              value={matchEntryInputData?.pe || ""}
+              value={matchEntryInputData?.pe}
               onChange={(e) => handleMatchEntryInputDataChange(e)}
             >
               <option value="">Select</option>
@@ -281,11 +281,7 @@ function MatchEntryInput({
       <SubmitPopup
         state={matchSubmitPopup}
         setState={setMatchSubmitPopup}
-        header={
-          Object.keys(selectedMatchEntry).length === 0
-            ? "Match Entry Added Successfully"
-            : "Match Entry Updated Successfully"
-        }
+        header={"Your Successfully Submitted Match Entry"}
       />
     </div>
   );

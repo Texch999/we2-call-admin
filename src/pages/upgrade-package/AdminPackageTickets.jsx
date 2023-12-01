@@ -1,9 +1,6 @@
 import { useState } from "react";
 import Table from "../home-page/Table";
 import CustomPagination from "../pagination/CustomPagination";
-import { GET_REQUEST_PACKAGES } from "../../config/endpoints";
-import { useEffect } from "react";
-import { call } from "../../config/axios";
 
 function AdminPackageTickets() {
   const [adminPackageTicket, setadminPackageTicket] = useState([]);
@@ -64,24 +61,6 @@ function AdminPackageTickets() {
     // You can add your logic here to fetch data for the selected page.
   };
 
-  const getAdminPackageTicket = async () => {
-    const payload = {
-      register_id: localStorage.getItem("register_id"),
-      creator_id: localStorage.getItem("creator_id"),
-    };
-    await call(GET_REQUEST_PACKAGES, payload)
-      .then((res) => {
-        console.log(res, "..........res");
-        setadminPackageTicket(res?.data?.data);
-      })
-      .catch((err) => console.log(err));
-  };
-
-  console.log("--->adminPackageTicket", adminPackageTicket);
-
-  useEffect(() => {
-    getAdminPackageTicket();
-  }, []);
 
   return (
     <div className="mt-3">

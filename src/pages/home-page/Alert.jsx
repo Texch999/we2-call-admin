@@ -69,10 +69,10 @@ function Alert() {
       <div className="col-6 p-2">
         <div className="meetings-container ">
           <div className="row p-3 align-center">
-            <h5 className="col-10 meetings-heading">Alerts</h5>
-            <div className="col-2 d-flex align-items-center justify-content-center see-all">
-              <div className="meetings-heading me-1">See All</div>
-              <AiOutlineRight />
+            <h5 className="col-9 meetings-heading">Alerts</h5>
+            <div className="col-3 d-flex">
+              <h6 className="meetings-heading">See All</h6>
+              <AiOutlineRight className="d-flex" />
             </div>
           </div>
           <AlertsTable data={allData} columns={columns} />
