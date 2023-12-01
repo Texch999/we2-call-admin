@@ -5,7 +5,12 @@ import { AiFillFileText } from "react-icons/ai";
 import PaymentSettelmentPopup from "./PaymentSettelmentPopup";
 import CustomPagination from "../pagination/CustomPagination";
 
-const AdminShareCommSettlement = ({ AdminCommSattlementStatementData }) => {
+const AdminShareCommSettlement = ({
+  AdminCommSattlementStatementData,
+  totalNetPl,
+  totalCD,
+  totalBalance,
+}) => {
   const adminShareSummaryData = [
     {
       title: "Account Summary Client/Referal",
@@ -76,14 +81,15 @@ const AdminShareCommSettlement = ({ AdminCommSattlementStatementData }) => {
   //   },
   // ];
   const adminShareCommSettlementData =
-    AdminCommSattlementStatementData.length &&
+    AdminCommSattlementStatementData &&
+    AdminCommSattlementStatementData.length > 0 &&
     AdminCommSattlementStatementData?.map((item) => {
       return {
         admin_name: item.admin_name,
         role: item.admin_role,
         amountul: item.amount,
         credit_debit: item.credit_debit,
-        balance: item.balance,
+        balance: item?.balance,
       };
     });
   const [showPaymentModal, setShowPaymentModal] = useState(false);
@@ -174,45 +180,14 @@ const AdminShareCommSettlement = ({ AdminCommSattlementStatementData }) => {
               <th colSpan={2} className="text-center">
                 TOTAL
               </th>
-
-              {/* <th className="text-center clr-green">
-                {adminShareCommSettlementData
-                  .reduce((total, data) => total + parseFloat(data?.amount), 0)
-                  .toFixed(2)}
+              <th className="text-center clr-green">
+                {totalNetPl ? totalNetPl?.toFixed(2) : 0}
               </th>
               <th className="text-center clr-green">
-                {adminShareCommSettlementData
-                  .reduce(
-                    (total, data) => total + parseFloat(data?.ulplatfrom),
-                    0
-                  )
-                  .toFixed(2)}
-              </th> */}
-              <th className="text-center clr-green">
-                {adminShareCommSettlementData
-                  ?.reduce(
-                    (total, data) => total + parseFloat(data?.amountul),
-                    0
-                  )
-                  .toFixed(2)}
+                {totalCD ? totalCD?.toFixed(2) : 0}
               </th>
               <th className="text-center clr-green">
-                {" "}
-                {adminShareCommSettlementData
-                  ?.reduce(
-                    (total, data) => total + parseFloat(data?.credit_debit),
-                    0
-                  )
-                  .toFixed(2)}
-              </th>
-              <th className="text-center clr-green">
-                {" "}
-                {adminShareCommSettlementData
-                  ?.reduce(
-                    (total, data) => total + parseFloat(data?.balance),
-                    0
-                  )
-                  .toFixed(2)}
+                {totalBalance ? totalBalance?.toFixed(2) : 0}
               </th>
               <th className="text-center"></th>
             </tr>
