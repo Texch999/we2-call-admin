@@ -438,7 +438,7 @@ const CallManagement = () => {
                             <MdArrowDownward size={16} />
                           </Button>
                         </Dropdown.Toggle>
-                        <Dropdown.Menu>
+                        <Dropdown.Menu className="meeting-user-list">
                           {data?.user?.map((userObj) => (
                             <Dropdown.Item href="#action1">
                               {userObj}
