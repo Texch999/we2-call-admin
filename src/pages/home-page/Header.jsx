@@ -339,6 +339,10 @@ function Header() {
   useEffect(() => {
     getNotifications();
   }, []);
+  console.log(notifications, "NNNNNN");
+  // const pushnotification = [...notifications]?.filter(
+  //   (item) => item.status === "true"
+  // );
 
   return (
     <div className="agent-header d-flex align-items">
@@ -475,11 +479,13 @@ function Header() {
           </div>
         </div>
       </div>
-      {notifications?.map((obj) => (
-        <Marquee className="marqu-tag meetings-heading">
-          {obj.description}
+      <div className="d-flex w-100">
+        <Marquee className="d-flex marqu-tag meetings-heading ">
+          {notifications?.map((obj) => (
+            <div>{obj?.status === true && <li className="ml-3rem">{obj?.description} </li>}</div>
+          ))}
         </Marquee>
-      ))}
+      </div>
       {/* Your privacy is our priority. With end-to-end encryption, you can be
         sure that your personal messages stay between you and who you send them
         to. Your privacy is our priority. With end-to-end encryption, you can be
