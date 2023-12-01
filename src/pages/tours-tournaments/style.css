@@ -8,6 +8,10 @@
   border-radius: 15px;
   border: solid 2px #2b3967;
 }
+.click-button {
+  background: rgb(170, 181, 227);
+  border-radius: 5px;
+}
 .cricket-cup {
   background: linear-gradient(to right, #e762e5, #4f64f0);
   border-radius: 15px;
@@ -106,9 +110,9 @@
   height: 50vh;
   /* overflow-y: auto; */
 }
-.font-10{
+.font-10 {
   font-size: 10px;
 }
-.font-12{
+.font-12 {
   font-size: 12px;
 }

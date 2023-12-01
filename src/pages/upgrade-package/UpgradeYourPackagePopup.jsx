@@ -214,9 +214,9 @@ function UpgradeYourPackagePopup(props) {
           </div>
         </Modal.Header>
       </Modal>
-      {modalShow && (
+      {/* {modalShow && (
         <AddPaymentMode show={modalShow} onHide={() => setModalShow(false)} />
-      )}
+      )} */}
     </div>
   );
 }

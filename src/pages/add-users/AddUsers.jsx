@@ -10,11 +10,12 @@ import { call } from "../../config/axios";
 import { GET_ALL_CLIENTS, BLOCKUNBLOCK } from "../../config/endpoints";
 
 const AddUsers = () => {
+  
   let register_id = localStorage?.getItem("register_id");
   let creator_id = localStorage?.getItem("creator_id");
   let account_role = localStorage?.getItem("account_role");
   let user_name = localStorage?.getItem("user_name");
-
+  const [status,setStatus]=useState(false)
   const [filteredValue, setFilteredValue] = useState("");
   const [modalShow, setModalShow] = useState(false);
   const [addUser, setAddUser] = useState();
@@ -70,22 +71,23 @@ const AddUsers = () => {
     })
       .then((res) => {
         getAllClients();
+        setStatus((prev)=>!prev)
       })
       .catch((err) => console.log(err));
   };
-  const ACTION_LABELS = [
-    {
-      name: "CP",
-    },
-    { 
-      name: "EDIT" 
-    },
-    // b: "B",
-    {
-      name: "UB",
-      onclick: handleBlock,
-    },
-  ];
+  // const ACTION_LABELS = [
+  //   {
+  //     name: "CP",
+  //   },
+  //   { 
+  //     name: "EDIT" 
+  //   },
+  //   // b: "B",
+  //   {
+  //     name: "UB",
+  //     onclick: handleBlock,
+  //   },
+  // ];
 
   const [changePasswordSubmit, setChangePasswordSubmit] = useState(false);
   const handleUserChange = (e) => {
@@ -95,13 +97,15 @@ const AddUsers = () => {
     await call(GET_ALL_CLIENTS, { register_id, account_role })
       .then((res) => {
         setUsersData(res?.data?.data);
+        setStatus((prev)=>!prev)
       })
       .catch((err) => console.log(err));
   };
 
   useEffect(() => {
     getAllClients();
-  }, [isUserAdded]);
+  }, [isUserAdded,status]);
+
 
   return (
     <div className="p-4">
@@ -224,6 +228,8 @@ const AddUsers = () => {
               setIsUserAdded={setIsUserAdded}
               setInputData={setInputData}
               inputData={inputData}
+              status={status}
+              setStatus={setStatus}
             />
           )}
         </Table>

@@ -1,7 +1,50 @@
 import { BiSolidCheckCircle } from "react-icons/bi";
 import { Images } from "../../images";
+import { useState, useEffect } from "react";
+import { GET_ALL_PACKAGES } from "../../config/endpoints";
+import { call } from "../../config/axios";
+import PopupUpgradePackages from "./PopupUpgradePackages";
 
-function SpecialPackages() {
+function SpecialPackages(props) {
+  const { setSelectPackageName, setYearly, yearly, setOpenPopup } = props;
+  // const [openUpgradePopup, setOpenUpgradePopup] = useState(false);
+
+  const [allPackages, setAllPackages] = useState([]);
+
+  // const [yearly, setYearly] = useState();
+
+  const handleMonthly = (e) => {
+    setYearly(e.target.checked);
+  };
+
+  const yearlyPacks = allPackages.filter(
+    (item) => item.package_duration === "yearly"
+  );
+  const montlyPacks = allPackages.filter(
+    (item) => item.package_duration === "monthly"
+  );
+
+  const standardPack =
+    yearly === true
+      ? yearlyPacks.filter((item) => item.package_name === "standard")
+      : montlyPacks.filter((item) => item.package_name === "standard");
+  const silverPack =
+    yearly === true
+      ? yearlyPacks.filter((item) => item.package_name === "silver")
+      : montlyPacks.filter((item) => item.package_name === "silver");
+  const goldPack =
+    yearly === true
+      ? yearlyPacks.filter((item) => item.package_name === "gold")
+      : montlyPacks.filter((item) => item.package_name === "gold");
+  const diamondPack =
+    yearly === true
+      ? yearlyPacks.filter((item) => item.package_name === "diamond")
+      : montlyPacks.filter((item) => item.package_name === "diamond");
+  const vipPack =
+    yearly === true
+      ? yearlyPacks.filter((item) => item.package_name === "vip")
+      : montlyPacks.filter((item) => item.package_name === "vip");
+
   const PACKAGE_DETAILS = [
     {
       id: 1,
@@ -10,17 +53,19 @@ function SpecialPackages() {
       upgradeBtnColor: "upgrade-btn",
       discountDivColor: "standard-discount-div",
       packageName: "Standard Package",
-      rate: 5000000,
+      package: standardPack[0],
+      rate: standardPack.map((item) => item.package_cost),
       offerImage: Images.DiscountImg,
-      offerPercentage: "10% OFF",
+      offerPercentage: standardPack.map((item) => item.discount + "% OFF"),
       videoText: "",
       addPackageBtn: "Add Package",
-      upgradeBtn: "",
       packageImage: Images.StandardPackage,
       packageBackGroundImage: Images.StandardPackageBG,
+      hours: standardPack.map((item) => item.package_limits.duration),
       usersText: (
         <div>
-          <BiSolidCheckCircle /> Join call with 10 users
+          <BiSolidCheckCircle /> Join call with{" "}
+          {standardPack.map((item) => item.package_limits.members)} users
         </div>
       ),
       meetingsText: (
@@ -46,16 +91,18 @@ function SpecialPackages() {
       upgradeBtnColor: "upgrade-btn",
       discountDivColor: "silver-discount-div",
       packageName: "Silver Package",
-      rate: 10000,
+      package: silverPack[0],
+      rate: silverPack.map((item) => item.package_cost),
       offerImage: Images.DiscountBlackImg,
-      offerPercentage: "10% OFF",
+      offerPercentage: silverPack.map((item) => item.discount + "% OFF"),
       addPackageBtn: "Add Package",
-      upgradeBtn: "Upgrade",
       packageImage: Images.SilverPackage,
       packageBackGroundImage: Images.SilverPackageBG,
+      hours: silverPack.map((item) => item.package_limits.duration),
       usersText: (
         <div>
-          <BiSolidCheckCircle /> Join call with 15 users
+          <BiSolidCheckCircle /> Join call with{" "}
+          {silverPack.map((item) => item.package_limits.members)} users
         </div>
       ),
       meetingsText: (
@@ -86,16 +133,18 @@ function SpecialPackages() {
       upgradeBtnColor: "upgrade-btn",
       discountDivColor: "gold-discount-div",
       packageName: "Gold Package",
-      rate: 15000,
+      package: goldPack[0],
+      rate: goldPack.map((item) => item.package_cost),
       offerImage: Images.DiscountBlackImg,
-      offerPercentage: "10% OFF",
+      offerPercentage: goldPack.map((item) => item.discount + "% OFF"),
       addPackageBtn: "Add Package",
-      upgradeBtn: "Upgrade",
       packageImage: Images.GoldPackage,
       packageBackGroundImage: Images.GoldPackageBG,
+      hours: silverPack.map((item) => item.package_limits.duration),
       usersText: (
         <div>
-          <BiSolidCheckCircle /> Join call with 15 users
+          <BiSolidCheckCircle /> Join call with{" "}
+          {goldPack.map((item) => item.package_limits.members)} users
         </div>
       ),
       meetingsText: (
@@ -130,12 +179,15 @@ function SpecialPackages() {
       offerImage: Images.DiscountBlackImg,
       offerPercentage: "10% OFF",
       addPackageBtn: "Add Package",
-      upgradeBtn: "Upgrade",
       packageImage: Images.DiamondPackage,
       packageBackGroundImage: Images.DiamondPackageBG,
+      package: diamondPack[0],
+      hours: diamondPack.map((item) => item.package_limits.duration),
       usersText: (
         <div>
-          <BiSolidCheckCircle /> Unlimited users
+          <BiSolidCheckCircle />
+          Join call with{" "}
+          {diamondPack.map((item) => item.package_limits.members)} users
         </div>
       ),
       meetingsText: (
@@ -166,16 +218,18 @@ function SpecialPackages() {
       upgradeBtnColor: "upgrade-white-btn",
       discountDivColor: "vip-discount-div",
       packageName: "VIP Package",
-      rate: 25000000,
+      rate: vipPack.map((item) => item.package_cost),
       offerImage: Images.DiscountImg,
       offerPercentage: "10% OFF",
       addPackageBtn: "Add Package",
-      upgradeBtn: "Upgrade",
       packageImage: Images.VIPPackage,
       packageBackGroundImage: Images.VIPPackageBG,
+      package: vipPack[0],
+      hours: vipPack.map((item) => item.package_limits.duration),
       usersText: (
         <div>
-          <BiSolidCheckCircle /> Join call with 15 users
+          <BiSolidCheckCircle /> Join call with{" "}
+          {diamondPack.map((item) => item.package_limits.members)} users
         </div>
       ),
       meetingsText: (
@@ -200,6 +254,27 @@ function SpecialPackages() {
       ),
     },
   ];
+
+  const getAllPackages = async () => {
+    await call(GET_ALL_PACKAGES)
+      .then((res) => {
+        if (res.data.status === 200) {
+          const response = res.data.data;
+          setAllPackages(response);
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+  useEffect(() => {
+    getAllPackages();
+  }, []);
+
+  const handleButtonClick = (item) => {
+    // setOpenUpgradePopup(true);
+    setSelectPackageName(item);
+    setOpenPopup(true);
+  };
+
   return (
     <div>
       <div className="row">
@@ -211,6 +286,7 @@ function SpecialPackages() {
             className="form-check-input"
             type="checkbox"
             role="switch"
+            onChange={(e) => handleMonthly(e)}
             id="flexSwitchCheckDefault"
           />
         </div>
@@ -271,20 +347,19 @@ function SpecialPackages() {
                       </div>
                     </div>
                     <div className="col-3">
-                      {item.upgradeBtn === "" ? null : (
-                        <div
-                          className={`rounded-pill p-2 text-center medium-font fw-bold ${item.upgradeBtnColor}`}
-                        >
-                          {item.upgradeBtn}
-                        </div>
-                      )}
+                      <div
+                        className={`rounded-pill p-2 text-center medium-font fw-bold ${item.upgradeBtnColor}`}
+                        onClick={() => handleButtonClick(item.package)}
+                      >
+                        Upgrade
+                      </div>
                     </div>
                     <div className="col">
                       <div
                         className={`rounded-pill p-2 text-center medium-font fw-semibold ${item.addPackageBtnColor}`}
                       >
                         <div>Top Up Hours</div>
-                        <div>Per Hour - 100 Rs</div>
+                        <div>Hours -{item.hours}</div>
                       </div>
                     </div>
                   </div>

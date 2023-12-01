@@ -29,6 +29,8 @@ import { useHistory } from "react-router-dom";
 import { isLoggedIn } from "../../utils/helpers";
 import Login from "../log-in/Login";
 import EditProfile from "../popups/EditProfile";
+import { GET_ALL_NOTIFICATIONS } from "../../config/endpoints";
+import { call } from "../../config/axios";
 
 function Header() {
   const [modalShow, setModalShow] = useState(false);
@@ -48,6 +50,10 @@ function Header() {
   const handleLoginPopup = () => {
     setShowLoginPopup(true);
   };
+
+  // const handleAddPaymentModelOpen = () => {
+  //   setModalShow(true);
+  // };
 
   const [activeHead, setActiveHead] = useState(0);
   const [matchEntryOpen, setMatchEntryOpen] = useState(false);
@@ -139,31 +145,37 @@ function Header() {
       name: "Add Payment Gateway",
       onClick: "onClick",
     },
+    // /payment-gateway-list
+    {
+      icon: <FaRegHandshake className="mr-10 d-flex" />,
+      name: "Payment Gateway List",
+      path: "/payment-gateway-list",
+    },
     {
       icon: <MdOutlinePrivacyTip className="mr-10 d-flex" />,
       name: "Privacy Policy",
       path: "/privacy-policy",
     },
-    {
-      icon: <MdOutlinePrivacyTip className="mr-10 d-flex" />,
-      name: "Admin One Page Report",
-      path: "/admin-one-page-report",
-    },
-    {
-      icon: <MdOutlinePrivacyTip className="mr-10 d-flex" />,
-      name: "Admin Share Comm Settlement",
-      path: "/admin-share-comm-settlement",
-    },
+    // {
+    //   icon: <MdOutlinePrivacyTip className="mr-10 d-flex" />,
+    //   name: "Admin One Page Report",
+    //   path: "/admin-one-page-report",
+    // },
+    // {
+    //   icon: <MdOutlinePrivacyTip className="mr-10 d-flex" />,
+    //   name: "Admin Share Comm Settlement",
+    //   path: "/admin-share-comm-settlement",
+    // },
     {
       icon: <MdOutlinePrivacyTip className="mr-10 d-flex" />,
       name: "Call Management",
       path: "/call-management",
     },
-    {
-      icon: <MdOutlinePrivacyTip className="mr-10 d-flex" />,
-      name: "Super Admin Call Management",
-      path: "/super-admin-call-management",
-    },
+    // {
+    //   icon: <MdOutlinePrivacyTip className="mr-10 d-flex" />,
+    //   name: "Super Admin Call Management",
+    //   path: "/super-admin-call-management",
+    // },
     {
       icon: <MdOutlinePrivacyTip className="mr-10 d-flex" />,
       name: "Share Risk live mathces",
@@ -222,7 +234,7 @@ function Header() {
     navigate(v.path);
   };
 
-  const handleMore = (item) => {
+  const handleMore = (item, index) => {
     setMoreType(item.name);
     setMoreOpen(false);
     navigate(item.path);
@@ -276,39 +288,62 @@ function Header() {
     },
   ];
 
-  useEffect(() => {
-    switch (history.location.pathname) {
-      case "/":
-        setActiveHead(0);
-        break;
-      case "/chats":
-        setActiveHead(1);
-        break;
+  // useEffect(() => {
+  //   switch (history.location.pathname) {
+  //     case "/":
+  //       setActiveHead(0);
+  //       break;
+  //     case "/chats":
+  //       setActiveHead(1);
+  //       break;
 
-      case "/tours-tournaments":
-        setActiveHead(2);
-        break;
+  //     case "/tours-tournaments":
+  //       setActiveHead(2);
+  //       break;
 
-      case "/match-entry":
-        setActiveHead(3);
-        break;
+  //     case "/match-entry":
+  //       setActiveHead(3);
+  //       break;
 
-      case "/phub":
-        setActiveHead(4);
-        break;
+  //     case "/phub":
+  //       setActiveHead(4);
+  //       break;
 
-      case "/horny":
-        setActiveHead(5);
+  //     case "/horny":
+  //       setActiveHead(5);
 
-        break;
+  //       break;
 
-      default:
-        setActiveHead(0);
-    }
-  }, []);
+  //     default:
+  //       setActiveHead(0);
+  //   }
+  // }, []);
 
   const [resetPasswordSubmit, setResetPasswordSubmit] = useState();
   const token = isLoggedIn();
+
+  const [notifications, setnotifications] = useState([]);
+  const getNotifications = async () => {
+    const payload = {
+      register_id: "company",
+      notification_type: "web-pushnotification",
+    };
+    await call(GET_ALL_NOTIFICATIONS, payload)
+      .then((res) => {
+        const arr = res?.data?.data;
+        setnotifications(arr);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  useEffect(() => {
+    getNotifications();
+  }, []);
+  console.log(notifications, "NNNNNN");
+  // const pushnotification = [...notifications]?.filter(
+  //   (item) => item.status === "true"
+  // );
+
   return (
     <div className="agent-header d-flex align-items">
       <div className="w-100 flex-align-center d-flex h-10vh mb-1">
@@ -394,7 +429,7 @@ function Header() {
                   <div
                     key={index}
                     className="d-flex align-items-center mt-2 p-2 cursor-pointer"
-                    onClick={() => handleMore(item)}
+                    onClick={() => handleMore(item, index)}
                   >
                     <span className="me-1">{item.icon}</span>
                     {item.name}
@@ -411,9 +446,9 @@ function Header() {
               {localStorage?.getItem("user_name")}
             </div>
           </div>
-          <div className="h-10vh">
+          <div className="h-10vh mt-3">
             <div className="d-flex align-items-center w-50 justify-content-around">
-              <div className=" icons-share me-2 ms-2">
+              <div className=" icons-share mx-3">
                 <AiOutlineShareAlt />
               </div>
               <div
@@ -444,13 +479,18 @@ function Header() {
           </div>
         </div>
       </div>
-      <Marquee className="marqu-tag meetings-heading">
-        Your privacy is our priority. With end-to-end encryption, you can be
+      <div className="d-flex w-100">
+        <Marquee className="d-flex marqu-tag meetings-heading ">
+          {notifications?.map((obj) => (
+            <div>{obj?.status === true && <li className="ml-3rem">{obj?.description} </li>}</div>
+          ))}
+        </Marquee>
+      </div>
+      {/* Your privacy is our priority. With end-to-end encryption, you can be
         sure that your personal messages stay between you and who you send them
         to. Your privacy is our priority. With end-to-end encryption, you can be
         sure that your personal messages stay between you and who you send them
-        to.
-      </Marquee>
+        to. */}
       {!token && (
         <Login
           showLoginPopup={token ? false : true}
@@ -461,6 +501,7 @@ function Header() {
       <ResetPassword
         showResetPopup={showResetPopup}
         setShowResetPopup={setShowResetPopup}
+        resetPasswordSubmit={resetPasswordSubmit}
         setResetPasswordSubmit={setResetPasswordSubmit}
       />
       <EditProfile show={editModalShow} close={() => setEditModalShow(false)} />
@@ -469,9 +510,7 @@ function Header() {
         state={resetPasswordSubmit}
         setState={setResetPasswordSubmit}
       />
-      {modalShow && (
-        <AddPaymentMode show={modalShow} onHide={() => setModalShow(false)} />
-      )}
+      <AddPaymentMode state={modalShow} setState={setModalShow} />
     </div>
   );
 }

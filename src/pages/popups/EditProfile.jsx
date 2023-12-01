@@ -37,7 +37,7 @@ function EditProfile(props) {
     };
     try {
       const res = await call(GET_USER_INFO, payload);
-      const userProfileData = res?.data?.data[0];
+      const userProfileData = res?.data?.data;
       setFormData({
         first_name: userProfileData?.first_name || "",
         last_name: userProfileData?.last_name || "",

@@ -1,8 +1,10 @@
 .match-share-modal .modal-content,
+.select-your-package .modal-content,
 .match-declaration-modal .modal-content {
   background-color: #00143d;
 }
 .match-declaration-modal .modal-header,
+.select-your-package .modal-header,
 .match-share-modal .modal-header {
   padding: 5px 15px !important;
   border-bottom: none;
@@ -13,6 +15,9 @@
 .match-declaration-modal .modal-content {
   width: 60%;
   margin-left: 18%;
+}
+.select-your-package .modal-content {
+  width: 100%;
 }
 .h-10vh {
   height: 11vh;
@@ -31,6 +36,10 @@
 }
 .match-entry-edit-color {
   color: #0992f3 !important;
+  font-weight: 600;
+}
+.match-entry-delete-color {
+  color: #ff0000 !important;
   font-weight: 600;
 }
 .cursor-pointer {
@@ -235,7 +244,7 @@
   font-weight: 600;
 }
 .red-color {
-  color: #f62a3d;
+  color: #f62a3d !important;
 }
 .w-100vw {
   width: 100vw;
@@ -246,6 +255,10 @@
 }
 .table-body-height {
   max-height: 250px;
+  overflow-y: scroll;
+}
+.call-management-table-height {
+  max-height: 280px;
   overflow-y: scroll;
 }
 .settelment-table-body-height {
@@ -290,7 +303,7 @@
   outline: none !important;
   border-style: none !important;
   display: flex !important;
-  align-items: center !important;
+  /* align-items: center !important; */
 }
 .css-t3ipsp-control {
   min-height: 33px !important;
@@ -315,6 +328,7 @@
   background-color: #112a5e !important;
   border-radius: 5px !important;
   outline: none !important;
+  z-index: 9999 !important;
 }
 .css-t3ipsp-control {
   color: #ffffff !important;
@@ -338,4 +352,11 @@
 }
 .css-tr4s17-option {
   background: none !important;
+}
+.css-1hb7zxy-IndicatorsContainer {
+  align-items: flex-start !important;
+}
+.css-1u9des2-indicatorSeparator {
+  width: 0px;
+  display: none;
 }

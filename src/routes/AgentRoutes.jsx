@@ -29,6 +29,8 @@ import ViewOffers from "../pages/tours-tournaments/ViewOffers";
 import Chats from "../pages/chat/Chats";
 import PackageStatement from "../pages/packagestatement/PackageStatement";
 import CallReports from "../pages/calling/CallReports";
+import PaymentGatewayList from "../pages/PaymentGatewayList/PaymentGatewayList";
+import StatementPopup from "../pages/matchstatement/StatementPopup";
 
 export const AgentRoutes = [
   {
@@ -148,4 +150,12 @@ export const AgentRoutes = [
     component: Chats,
   },
   { path: "/call-reports", component: CallReports },
+  {
+    path: "/payment-gateway-list",
+    component: PaymentGatewayList,
+  },
+  {
+    component: StatementPopup,
+    path: "/statement-popup/:id/:match/:date/:winTeam",
+  },
 ];

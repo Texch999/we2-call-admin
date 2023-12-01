@@ -29,6 +29,19 @@
   color: #080c27 !important;
   font-weight: bold;
 }
+.head-name {
+  background: #112a5e;
+  width: fit-content;
+  border-radius: 20px;
+}
+.payment-scroll {
+  max-height: 120px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+.border-none {
+  border: none;
+}
 .diamond-package-bg {
   background-image: linear-gradient(to left, rgba(232, 220, 233, 1), #fbcdf1);
   color: #080c27;
@@ -258,4 +271,23 @@
 }
 .custom-button-drop .btn:hover {
   background-color: #112a5e !important;
+}
+.z-index {
+  z-index: 9999;
+}
+.z-index-small {
+  z-index: 9990;
+}
+.yllow-border {
+  border: solid 1px yellow !important;
+}
+.image-enlarge-icon {
+  font-size: 30px;
+  z-index: 999999;
+  position: absolute;
+  right: 2%;
+  bottom: 5%;
+}
+.overflow-hidden {
+  overflow: hidden !important;
 }

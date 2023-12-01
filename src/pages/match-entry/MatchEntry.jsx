@@ -24,17 +24,41 @@ function MatchEntry() {
   const [matchAccountData, setMatchAccountData] = useState([]);
   const [selectedMatchEntry, setSelectedMatchEntry] = useState("");
   const [status, setStatus] = useState(false);
-  const [afterDeclare, setAfterDeclare] = useState(false)
+  const [afterDeclare, setAfterDeclare] = useState(false);
+
+  useEffect(() => {
+    getMatchPositionData();
+  }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await getAllMatches();
+    };
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    const fetchMatchInfo = async () => {
+      if (selectedMatch) {
+        await getMatchInfo();
+      }
+    };
+    fetchMatchInfo();
+  }, [selectedMatch?.match_id, afterDeclare]);
 
   // Function to fetch all matches
   const getAllMatches = async () => {
     await call(GET_OFFLINE_ALL_MATCHES, { register_id, account_role })
       .then((res) => {
         let result = res?.data?.data;
-        setAllMatches(result?.liveMatches);
-        setSelectedMatch(
-          (result && result?.liveMatches && result?.liveMatches[0]) || ""
+        const temp = result?.liveMatches?.filter(
+          (i) => i.match_declared !== "Y"
         );
+        setAllMatches(temp);
+        setStatus((prev) => !prev);
+        // setSelectedMatch(
+        //   (result && result?.liveMatches && result?.liveMatches[0]) || ""
+        // );
       })
       .catch((err) => console.log(err));
   };
@@ -44,12 +68,11 @@ function MatchEntry() {
       registered_match_id: ID ? ID : matchPositionData?.registered_match_id,
       register_id,
     })
-      .then((res) => setMatchPositionData(res?.data?.data))
+      .then((res) => {
+        setMatchPositionData(res?.data?.data);
+      })
       .catch((err) => console.log(err));
   };
-  useEffect(() => {
-    getMatchPositionData();
-  }, []);
 
   const getMatchInfo = async () => {
     await call(GET_ACCOUNT_MATCHES_DATA, {
@@ -66,22 +89,6 @@ function MatchEntry() {
       })
       .catch((err) => console.log(err));
   };
-
-  useEffect(() => {
-    const fetchData = async () => {
-      await getAllMatches();
-    };
-    fetchData();
-  }, []);
-
-  useEffect(() => {
-    const fetchMatchInfo = async () => {
-      if (selectedMatch) {
-        getMatchInfo();
-      }
-    };
-    fetchMatchInfo();
-  }, [selectedMatch,afterDeclare]);
 
   return (
     <div>

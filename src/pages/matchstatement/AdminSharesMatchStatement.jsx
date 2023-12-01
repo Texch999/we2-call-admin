@@ -3,13 +3,34 @@ import { Button, Form, Table } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import AdminPopReports from "../onepagereport/AdminPopReports";
 import CustomPagination from "../pagination/CustomPagination";
+import AdminOnePageReport from "../onepagereport/AdminOnePageReport";
+import AdminShareCommSettlement from "../setlment/AdminShareCommSettlement";
+import AdminComissionReport from "../onepagereport/AdminComissionReport";
+import {
+  GET_FINANCIAL_STATEMENT_BY_DATE,
+  GET_OFFLINE_CLIENTS,
+} from "../../config/endpoints";
+import { call } from "../../config/axios";
+import { useEffect } from "react";
 
 const AdminSharesMatchStatement = () => {
   const [adminShareStatementMatchPopUp, setAdminShareStatementMatchPopUp] =
     useState(false);
-  const [activeReport, setActiveReport] = useState("Share Statement");
+  const [activeReport, setActiveReport] = useState("Admins OnePageReport");
   const [selectedOptions, setSelectedOptions] = useState({});
-  const reports = ["Share Statement", "Statement", "Financial Statement"];
+  const [clientsData, setClientsData] = useState([]);
+  const [adminShareStatement, setadminShareStatement] = useState({});
+
+  let register_id = localStorage?.getItem("register_id");
+  let account_role = localStorage?.getItem("account_role");
+
+  const reports = [
+    "Admins OnePageReport",
+    "U/L Comm Report",
+    "Admins Share/Comm Settlement-Statement Report",
+  ];
+
+  // const reports = ["Share Statement", "Statement", "Financial Statement"];
   const inputFields = [
     {
       label: "From",
@@ -48,40 +69,83 @@ const AdminSharesMatchStatement = () => {
       id: "clientName",
     },
   ];
-  const adminSharesMatchStatementData = [
-    {
-      date_time: "19 July 2023, 10:00:00 PM",
-      series_name: "T20 World Cup 2023",
-      team_name: "India vs England",
-      match_place: "Hyderabad",
-      win_team: "India",
-      profit_loss: 1000000.0,
-    },
-    {
-      date_time: "19 July 2023, 10:00:00 PM",
-      series_name: "T20 World Cup 2023",
-      team_name: "India vs England",
-      match_place: "Hyderabad",
-      win_team: "India",
-      profit_loss: 1000000.0,
-    },
-    {
-      date_time: "19 July 2023, 10:00:00 PM",
-      series_name: "T20 World Cup 2023",
-      team_name: "India vs England",
-      match_place: "Hyderabad",
-      win_team: "India",
-      profit_loss: 1000000.0,
-    },
-    {
-      date_time: "19 July 2023, 10:00:00 PM",
-      series_name: "T20 World Cup 2023",
-      team_name: "India vs England",
-      match_place: "Hyderabad",
-      win_team: "India",
-      profit_loss: 1000000.0,
-    },
-  ];
+  const adminSharesMatchStatementData =
+    // adminShareStatement.map((item)=>{
+    //   return {
+    //     date_time : item.date,
+    //     series_name : item?.series_name,
+    //     team_name : item?.team1,
+    //     match_place : item?.match_place,
+    //     win_team :item?.win_team,
+    //     profit_loss : item?.profit_loss,
+    //   }
+    // })
+    [
+      {
+        date_time: "19 July 2023, 10:00:00 PM",
+        series_name: "T20 World Cup 2023",
+        team_name: "India vs England",
+        match_place: "Hyderabad",
+        win_team: "India",
+        profit_loss: 1000000.0,
+      },
+      {
+        date_time: "19 July 2023, 10:00:00 PM",
+        series_name: "T20 World Cup 2023",
+        team_name: "India vs England",
+        match_place: "Hyderabad",
+        win_team: "India",
+        profit_loss: 1000000.0,
+      },
+      {
+        date_time: "19 July 2023, 10:00:00 PM",
+        series_name: "T20 World Cup 2023",
+        team_name: "India vs England",
+        match_place: "Hyderabad",
+        win_team: "India",
+        profit_loss: 1000000.0,
+      },
+      {
+        date_time: "19 July 2023, 10:00:00 PM",
+        series_name: "T20 World Cup 2023",
+        team_name: "India vs England",
+        match_place: "Hyderabad",
+        win_team: "India",
+        profit_loss: 1000000.0,
+      },
+    ];
+
+  const getAdminShare = async () => {
+    await call(GET_FINANCIAL_STATEMENT_BY_DATE, {
+      register_id,
+      account_role,
+      ...adminShareStatement,
+    })
+      .then((res) => {
+        setadminShareStatement(
+          res?.data?.filter((items) => items.match_declared === "Y")
+        );
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const getAllClientsData = async () => {
+    call(GET_OFFLINE_CLIENTS, {
+      register_id,
+      account_role,
+    })
+      .then((res) => {
+        setClientsData(res?.data?.data);
+      })
+      .catch((err) => console.log(err));
+  };
+  console.log("clientsData", clientsData);
+
+  useEffect(() => {
+    getAdminShare();
+    getAllClientsData();
+  }, []);
+
   const adminSharepopupHeadings = [
     { header: "Admins Name", field: "admin_name" },
     { header: "Role", field: "role" },
@@ -126,7 +190,6 @@ const AdminSharesMatchStatement = () => {
   };
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    console.log(selectedOptions);
   };
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = 5;
@@ -135,146 +198,223 @@ const AdminSharesMatchStatement = () => {
     setCurrentPage(page);
     // You can add your logic here to fetch data for the selected page.
   };
+  const [showMatchesStatement, setShowMatchStatement] = useState(false);
+  const handleMatchStatementButton = () => {
+    setShowMatchStatement((prev) => !prev);
+  };
+  const [allUsers, setAllUsers] = useState([]);
 
+  const getAllUsers = async () => {
+    await call(GET_OFFLINE_CLIENTS, { register_id })
+      .then((res) => {
+        // console.log(res.data);
+        // let results = res?.data?.data?.filter(
+        //   (item) => item.user_status !== "deleted"
+        // );
+        let results = res?.data?.data;
+        setAllUsers(results);
+      })
+      .catch((err) => console.log(err));
+  };
+  useEffect(() => {
+    getAllUsers();
+  }, []);
+  const getUlShare = (netPl, ulShare) => {
+    const netAmount = (+netPl || 0 * +ulShare || 0) / 100;
+    return netAmount;
+  };
+  const ulPlatformComm =
+    allUsers &&
+    allUsers?.length > 0 &&
+    allUsers?.map((user) => {
+      const netPL = getUlShare(user?.total_amount, user?.ul_share);
+      return {
+        admin_name: user?.client_name,
+        admin_role: user?.account_role,
+        ul_platform_comm: (
+          <div className={netPL >= 0 ? "clr-green" : "clr-red"}>
+            {netPL ? netPL?.toFixed(2) : 0}
+          </div>
+        ),
+      };
+    });
+  const AdminCommSattlementStatementData =
+    allUsers &&
+    allUsers?.length > 0 &&
+    allUsers?.map((user) => {
+      const netPL = getUlShare(user?.total_amount, user?.ul_share);
+      return {
+        admin_name: user?.client_name,
+        admin_role: user?.account_role,
+        amount: (
+          <div className={netPL >= 0 ? "clr-green" : "clr-red"}>
+            {netPL ? netPL?.toFixed(3) : 0}
+          </div>
+        ),
+        credit_debit: "100000.00",
+        balance: "100000.00",
+      };
+    });
   return (
     <div className="p-4">
-      <div>
-        <h5 className="meetings-heading mb-3">Admin Shares Match Statement</h5>
-        <div className="mb-3">
-          {reports.map((report, index) => (
-            <Button
-              key={index}
-              className={`me-2 admin-reports-button ${
-                report === activeReport ? "active-report-button" : ""
-              }`}
-              onClick={() => handleReport(report)}
-            >
-              {report}
-            </Button>
-          ))}
-        </div>
-        <hr />
-        <Form onSubmit={(e) => handleFormSubmit(e)}>
-          <div className="d-flex flex-sm-row container-fluid">
-            {inputFields?.map((inputData, index) => (
-              <div key={index} className="d-flex me-1 row">
-                <Form.Group className="d-flex flex-column admin-match-statement col">
-                  <Form.Label htmlFor={inputData?.id} className="ms-1">
-                    {inputData?.label}
-                  </Form.Label>
-                  {inputData?.options ? (
-                    <Form.Select
-                      id={inputData?.id}
-                      size="lg"
-                      value={selectedOptions[inputData?.name] || ""}
-                      onChange={(e) =>
-                        handleSelect(inputData?.name, e.target.value)
-                      }
-                    >
-                      {inputData?.options?.map((option, index) => (
-                        <option className="w-100" key={index} value={option}>
-                          {option}
-                        </option>
-                      ))}
-                    </Form.Select>
-                  ) : (
-                    <Form.Control
-                      type={inputData?.type}
-                      value={selectedOptions[inputData?.name] || ""}
-                      id={inputData?.id}
-                      onChange={(e) =>
-                        handleSelect(inputData?.name, e.target.value)
-                      }
-                      size="lg"
-                    />
-                  )}
-                </Form.Group>
+      <div className="mb-3">
+        {reports.map((report, index) => (
+          <Button
+            key={index}
+            className={`me-2 admin-reports-button ${
+              report === activeReport ? "active-report-button" : ""
+            }`}
+            onClick={() => handleReport(report)}
+          >
+            {report}
+          </Button>
+        ))}
+      </div>
+
+      {/* {activeReport === "Admins Share Statement" && (
+        <div>
+          {" "}
+          <div>
+            <h6 className="meetings-heading mb-3">
+              Admin Shares Match Statement
+            </h6>
+            <hr />
+            <Form onSubmit={(e) => handleFormSubmit(e)}>
+              <div className="d-flex flex-sm-row container-fluid">
+                {inputFields?.map((inputData, index) => (
+                  <div key={index} className="d-flex me-1 row">
+                    <Form.Group className="d-flex flex-column admin-match-statement col">
+                      <Form.Label htmlFor={inputData?.id} className="ms-1">
+                        {inputData?.label}
+                      </Form.Label>
+                      {inputData?.options ? (
+                        <Form.Select
+                          id={inputData?.id}
+                          size="lg"
+                          value={selectedOptions[inputData?.name] || ""}
+                          onChange={(e) =>
+                            handleSelect(inputData?.name, e.target.value)
+                          }
+                        >
+                          {inputData?.options?.map((option, index) => (
+                            <option
+                              className="w-100"
+                              key={index}
+                              value={option}
+                            >
+                              {option}
+                            </option>
+                          ))}
+                        </Form.Select>
+                      ) : (
+                        <Form.Control
+                          type={inputData?.type}
+                          value={selectedOptions[inputData?.name] || ""}
+                          id={inputData?.id}
+                          onChange={(e) =>
+                            handleSelect(inputData?.name, e.target.value)
+                          }
+                          size="lg"
+                        />
+                      )}
+                    </Form.Group>
+                  </div>
+                ))}
+                <div className="mt-4">
+                  <Button
+                    type="submit"
+                    className="active-report-button verify-button"
+                  >
+                    Verify
+                  </Button>
+                </div>
               </div>
-            ))}
-            <div className="mt-4">
-              <Button
-                type="submit"
-                className="active-report-button verify-button"
-              >
-                Verify
-              </Button>
+            </Form>
+          </div>
+          <hr />
+          <div>
+            <Table responsive="md" className="call-management-data">
+              <thead>
+                <tr>
+                  <th className="text-center">DATE & TIME</th>
+                  <th className="text-center">SERIES NAME</th>
+                  <th className="text-center">TEAM NAME</th>
+                  <th className="text-center">MATCH PLACE</th>
+                  <th className="text-center">WIN TEAM</th>
+                  <th className="text-center">SHARE P/L</th>
+                </tr>
+              </thead>
+              <tbody>
+                {adminSharesMatchStatementData?.map((data, index) => (
+                  <tr key={index}>
+                    <td className="text-center">{data?.date_time}</td>
+                    <td className="text-center">{data?.series_name}</td>
+                    <td className="text-center">{data?.team_name}</td>
+                    <td className="text-center">{data?.match_place}</td>
+                    <td className="text-center">{data?.win_team}</td>
+                    <td
+                      className="text-center clr-green cursor-pointer"
+                      onClick={() => setAdminShareStatementMatchPopUp(true)}
+                    >
+                      {parseFloat(data?.profit_loss).toFixed(2)}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th colSpan={5} className="text-center">
+                    TOTAL
+                  </th>
+
+                  <th className="text-center clr-green">
+                    {adminSharesMatchStatementData
+                      .reduce(
+                        (total, data) => total + parseFloat(data?.profit_loss),
+                        0
+                      )
+                      .toFixed(2)}
+                  </th>
+                </tr>
+              </tfoot>
+              {adminShareStatementMatchPopUp && (
+                <AdminPopReports
+                  show={adminShareStatementMatchPopUp}
+                  onHide={() => setAdminShareStatementMatchPopUp(false)}
+                  data={adminSharepopupData}
+                  columns={adminSharepopupHeadings}
+                  heading={`Admin Share`}
+                  totalPosition="admin_name"
+                />
+              )}
+            </Table>
+          </div>
+          <div className="d-flex justify-content-between align-items-center mt-4">
+            <div className="d-flex justify-content-start font-clr-white total-count-container  py-2 px-4 rounded">
+              <span>
+                Showing <b> {currentPage} </b> 0f <b> {totalPages} </b>{" "}
+                Entries....
+              </span>
+            </div>
+            <div className="d-flex justify-content-end mt-2">
+              <CustomPagination
+                totalPages={totalPages}
+                currentPage={currentPage}
+                onPageChange={handlePageChange}
+              />
             </div>
           </div>
-        </Form>
-      </div>
-
-      <hr />
-      <div>
-        <Table responsive="md" className="call-management-data">
-          <thead>
-            <tr>
-              <th className="text-center">DATE & TIME</th>
-              <th className="text-center">SERIES NAME</th>
-              <th className="text-center">TEAM NAME</th>
-              <th className="text-center">MATCH PLACE</th>
-              <th className="text-center">WIN TEAM</th>
-              <th className="text-center">SHARE P/L</th>
-            </tr>
-          </thead>
-          <tbody>
-            {adminSharesMatchStatementData?.map((data, index) => (
-              <tr key={index}>
-                <td className="text-center">{data?.date_time}</td>
-                <td className="text-center">{data?.series_name}</td>
-                <td className="text-center">{data?.team_name}</td>
-                <td className="text-center">{data?.match_place}</td>
-                <td className="text-center">{data?.win_team}</td>
-                <td
-                  className="text-center clr-green cursor-pointer"
-                  onClick={() => setAdminShareStatementMatchPopUp(true)}
-                >
-                  {parseFloat(data?.profit_loss).toFixed(2)}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-          <tfoot>
-            <tr>
-              <th colSpan={5} className="text-center">
-                TOTAL
-              </th>
-
-              <th className="text-center clr-green">
-                {adminSharesMatchStatementData
-                  .reduce(
-                    (total, data) => total + parseFloat(data?.profit_loss),
-                    0
-                  )
-                  .toFixed(2)}
-              </th>
-            </tr>
-          </tfoot>
-          {adminShareStatementMatchPopUp && (
-            <AdminPopReports
-              show={adminShareStatementMatchPopUp}
-              onHide={() => setAdminShareStatementMatchPopUp(false)}
-              data={adminSharepopupData}
-              columns={adminSharepopupHeadings}
-              heading={`Admin Share`}
-              totalPosition="admin_name"
-            />
-          )}
-        </Table>
-      </div>
-      <div className="d-flex justify-content-between align-items-center mt-4">
-        <div className="d-flex justify-content-start font-clr-white total-count-container  py-2 px-4 rounded">
-          <span>
-            Showing <b> {currentPage} </b> 0f <b> {totalPages} </b> Entries....
-          </span>
         </div>
-        <div className="d-flex justify-content-end mt-2">
-          <CustomPagination
-            totalPages={totalPages}
-            currentPage={currentPage}
-            onPageChange={handlePageChange}
-          />
-        </div>
-      </div>
+      )} */}
+      {activeReport === "Admins OnePageReport" && <AdminOnePageReport />}
+      {activeReport === "U/L Comm Report" && (
+        <AdminComissionReport ulPlatformComm={ulPlatformComm} />
+      )}
+      {activeReport === "Admins Share/Comm Settlement-Statement Report" && (
+        <AdminShareCommSettlement
+          AdminCommSattlementStatementData={AdminCommSattlementStatementData}
+        />
+      )}
     </div>
   );
 };

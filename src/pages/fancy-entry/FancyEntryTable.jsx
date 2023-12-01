@@ -43,6 +43,7 @@ function FancyEntryTable(props) {
     })
       .then((res) => {
         setData(res?.data?.data?.Items);
+        setStatus((prev) => !prev);
       })
       .catch((err) => console.log(err));
   };
@@ -54,7 +55,6 @@ function FancyEntryTable(props) {
     })
       .then((res) => {
         setSelectedId("");
-        setStatus((prev) => !prev);
       })
       .catch((err) => console.log(err));
   };
@@ -64,10 +64,11 @@ function FancyEntryTable(props) {
   }, [matchAccountData?.registered_match_id, status]);
 
   const FANCY_ENTRY_DATA =
+    data &&
     data?.length > 0 &&
     data
-      ?.filter((i) => i.record_status !== "deleted")
-      ?.map((fancy, index) => {
+      ?.filter((i) => i?.fancy_status !== "Y")
+      .map((fancy) => {
         return {
           sNo:
             fancy?.old_s_no === fancy?.s_no
@@ -78,14 +79,14 @@ function FancyEntryTable(props) {
           team: fancy?.team,
           runs: fancy?.runs,
           yesNo: (
-            <div className={fancy?.yN === "Y" ? "clr-green" : "clr-pink"}>
+            <span className={fancy?.yN === "Y" ? "clr-green" : "clr-pink"}>
               {fancy?.yN}
-            </div>
+            </span>
           ),
           date: fancy?.date,
           time: fancy?.time,
           client: fancy?.client_name,
-          amount: <div className="yellow-clr">{fancy?.amount}</div>,
+          amount: <span className="yellow-clr">{fancy?.amount}</span>,
           edit: fancy?.record_status === "active" && (
             <MdEdit
               className="edit-icon"
@@ -102,29 +103,6 @@ function FancyEntryTable(props) {
         };
       });
 
-  // const MATCH_ENTRY_DATA = [
-  //   {
-  //     sNo: 1,
-  //     over: "30 Over",
-  //     rate: "- -",
-  //     team: "India",
-  //     runs: "150",
-  //     yesNo: "Y",
-  //     date: "31-07-2023",
-  //     time: "12:48:00 PM",
-  //     client: "Srinivas2346",
-  //     amount: 50000000.0,
-  //     edit: (
-  //       <MdEdit className="edit-icon" onClick={() => handleEditPopupOpen()} />
-  //     ),
-  //     delete: (
-  //       <MdDelete
-  //         className="edit-icon"
-  //         onClick={() => handleDeletePopupOpen()}
-  //       />
-  //     ),
-  //   }
-  // ];
   const FANCY_ENTRY_HEADING = [
     {
       header: "S.NO",

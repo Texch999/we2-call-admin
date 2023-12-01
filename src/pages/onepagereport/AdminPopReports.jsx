@@ -6,6 +6,7 @@ function AdminPopReports(props) {
   const {
     show,
     onHide,
+    induvisualAdminData,
     data,
     columns,
     adminName,
@@ -22,11 +23,10 @@ function AdminPopReports(props) {
     >
       <Modal.Header closeButton>
         <Modal.Title className="w-100 mb-2">
-          {adminName && (
-            <Button className="rounded-pill">
-              {adminName} - {role}
-            </Button>
-          )}
+          <Button className="rounded-pill">
+            {induvisualAdminData.client_name} -{" "}
+            {induvisualAdminData.account_role}
+          </Button>
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>

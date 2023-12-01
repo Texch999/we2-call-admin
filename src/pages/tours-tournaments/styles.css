@@ -428,3 +428,17 @@
   color: #00143d !important;
   background-color: #fce719;
 }
+.table-button {
+  /* width: 1px; */
+  font-size: 10px;
+  background-color: #fce719;
+  outline: none;
+  border: none;
+}
+.td-item {
+  width: 70px;
+  text-align: center;
+}
+.tr-item {
+  border-bottom: 1px solid grey;
+}

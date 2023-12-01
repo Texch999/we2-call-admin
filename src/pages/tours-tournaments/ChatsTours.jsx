@@ -127,10 +127,8 @@ function ChatsTours(props) {
   };
 
   const addMessage = (message, msg_c = 0) => {
-    // console.log("new message : ", message);
     let temp = { message, ts: new Date().getTime(), msg_c };
     setSupportData((prev) => [...prev, temp]);
-    // console.log(supportData)
   };
 
   const handleInputChange = (e) => {
@@ -149,7 +147,6 @@ function ChatsTours(props) {
       creator_id,
     })
       .then((res) => {
-        // console.log(res.data.data)
         setSupportData(res?.data?.data);
         // scroll();
       })
@@ -160,7 +157,6 @@ function ChatsTours(props) {
   };
 
   const onMessageRecieve = (event) => {
-    console.log("onMessageRecieve : ", event);
     if (!event.data) {
       return;
     }
@@ -204,8 +200,6 @@ function ChatsTours(props) {
   const handleUploadButtonClick = () => {
     uploadfileInputRef.current.click();
   };
-
-  console.log(supportData, "Messages Data");
 
   return (
     <Modal

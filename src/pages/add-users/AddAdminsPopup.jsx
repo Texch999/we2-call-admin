@@ -18,9 +18,7 @@ function AddAdminsPopup(props) {
 
   const [isProcessing, setIsProcessing] = useState(false);
   const [err, setErr] = useState("");
-
   const [inputData, setInputData] = useState({});
-
   const [togglePassword, setTogglePassword] = useState(true);
   const [cnfPasswordToggle, setCnfPasswordToggle] = useState(true);
   const [adminPasswordToggle, setAdminPasswordToggle] = useState(true);
@@ -30,11 +28,11 @@ function AddAdminsPopup(props) {
   };
   let packageList = [
     { label: "Trial", value: "Trial" },
-    { label: "Standard", value: "Standard" },
-    { label: "Silver", value: "Silver" },
-    { label: "Gold", value: "Gold" },
-    { label: "Diamond", value: "Diamond" },
-    { label: "VIP", value: "VIP" },
+    // { label: "Standard", value: "Standard" },
+    // { label: "Silver", value: "Silver" },
+    // { label: "Gold", value: "Gold" },
+    // { label: "Diamond", value: "Diamond" },
+    // { label: "VIP", value: "VIP" },
   ];
 
   let userRoles = [
@@ -59,6 +57,7 @@ function AddAdminsPopup(props) {
       ...inputData,
       creator_id: register_id,
       creator_role: account_role,
+      share: 100 - +inputData["ul_share"],
     })
       .then((res) => {
         setIsProcessing(false);
@@ -78,13 +77,12 @@ function AddAdminsPopup(props) {
         console.log(err);
       });
   };
-
   const handleSubmitUserCreation = async () => {
     if (
       !(
         inputData?.first_name &&
         inputData?.user_name &&
-        inputData?.share &&
+        // inputData?.share &&
         inputData?.ul_share &&
         inputData?.creator_password &&
         inputData?.location
@@ -95,13 +93,27 @@ function AddAdminsPopup(props) {
     if (inputData?.password !== inputData?.confirm_password) {
       return setErr(`password doesn't match`);
     }
+    if (+inputData?.share + +inputData?.ul_share > 100) {
+      return setErr("Invalid shares");
+    }
+    const trailPack = {
+      package_id: "8a147698-4f2b-42b6-a409-f56ad6065002",
+      package_limits: {
+        duration: "unlimited",
+        members: 10,
+        no_of_meetings: "5",
+      },
+    };
+    const packInfo = inputData?.trailPack ? { trailPack } : {};
     setErr("");
     setIsProcessing(true);
     setModalShow(false);
     await call(ACCOUNT_REGISTERATION, {
       ...inputData,
+      ...packInfo,
       creator_id: register_id,
       creator_role: account_role,
+      share: 100 - +inputData["ul_share"],
     })
       .then((res) => {
         setIsProcessing(false);
@@ -140,7 +152,7 @@ function AddAdminsPopup(props) {
     <Modal
       {...props}
       centered
-      className="add-user-modal"
+      className="add-user-modal z-index"
       onHide={() => {
         setInputData({});
         props.onhideClick(false);
@@ -305,7 +317,7 @@ function AddAdminsPopup(props) {
                       autoFocus
                       aria-describedby="sharePercentage"
                       name="share"
-                      value={inputData?.share || ""}
+                      value={100 - +inputData["ul_share"] || 100}
                       onChange={(e) => handleInputChnage(e)}
                     />
                   </InputGroup>
@@ -333,25 +345,57 @@ function AddAdminsPopup(props) {
                   </InputGroup>
                 </Form.Group>
               </Col>
-              <Form.Group className="mb-3" controlId="adminPackages">
-                <Form.Label>Package*</Form.Label> account_role:{" "}
-                {inputData?.account_role || ""}
-                <InputGroup>
-                  <InputGroup.Text id="basic-addon1">
-                    <Image src={Images.packageIcon} style={{ width: "18px" }} />
-                  </InputGroup.Text>
-                  <Form.Select>
-                    <option value="">Select...</option>
-                    {packageList?.map(({ label, value }, index) => {
-                      return (
-                        <option value={value} key={index}>
-                          {label}
-                        </option>
-                      );
-                    })}
-                  </Form.Select>
-                </InputGroup>
-              </Form.Group>
+            </Row>
+            <Row>
+              <Col>
+                <Form.Group className="mb-3" controlId="adminPackages">
+                  <Form.Label>Package*</Form.Label>
+                  {/* {inputData?.account_role || ""} */}
+                  <InputGroup>
+                    <InputGroup.Text id="basic-addon1">
+                      <Image
+                        src={Images.packageIcon}
+                        style={{ width: "18px" }}
+                      />
+                    </InputGroup.Text>
+                    <Form.Select
+                      name="trailPack"
+                      onChange={(e) => handleInputChnage(e)}
+                    >
+                      <option value="">Select...</option>
+                      {packageList?.map(({ label, value }, index) => {
+                        return (
+                          <option value={value} key={index}>
+                            {label}
+                          </option>
+                        );
+                      })}
+                    </Form.Select>
+                  </InputGroup>
+                </Form.Group>
+              </Col>
+              <Col>
+                {" "}
+                <Form.Group className="mb-3" controlId="myShare">
+                  <Form.Label>Package Discount*</Form.Label>
+                  <InputGroup>
+                    <InputGroup.Text id="basic-addon1">
+                      <Image src={Images.percentIcon} />
+                    </InputGroup.Text>
+                    <Form.Control
+                      type="text"
+                      placeholder="Enter Package_Discount"
+                      autoFocus
+                      aria-describedby="platComm"
+                      name="package_discount"
+                      value={inputData?.package_discount || ""}
+                      onChange={(e) => handleInputChnage(e)}
+                    />
+                  </InputGroup>
+                </Form.Group>
+              </Col>
+            </Row>
+            <Row>
               <Form.Group className="mb-3" controlId="adminPassword">
                 <Form.Label>Admin Password*</Form.Label>
                 <InputGroup>

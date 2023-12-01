@@ -71,7 +71,6 @@ const AddAdmins = () => {
   };
 
   const handleBlock = async (data) => {
-    console.log(data?.type, "data");
     await call(BLOCKUNBLOCK, {
       register_id: data?.register_id,
       creator_id: register_id,

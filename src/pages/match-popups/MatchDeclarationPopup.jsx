@@ -5,28 +5,13 @@ import MatchSubmitPopup from "./MatchSubmitPopup";
 import { useState } from "react";
 
 function MatchDeclarationPopup(props) {
-  const {
-    header,
-    amount,
-    state,
-    setState,
-    handleSubmitPopupOpen,
-    setPaymentPopup,
-    handleMatchDeclarePopupClose,
-  } = props;
-  const [matchSubmitSuccessPopup, setMatchSubmitSuccessPopup] = useState(false);
-  const handleMatchSubmitSuccessPopupOpen = () => {
-    setMatchSubmitSuccessPopup(true);
-    setPaymentPopup(true);
-    setState(false);
-  };
-  const handleCancel = () => {
-    setState(false);
-  };
+  const { header, amount, state, setState, handleMatchSubmitSuccessPopupOpen } =
+    props;
+
   return (
     <Modal className="match-declaration-modal" centered show={state}>
       <Modal.Header className="d-flex justify-content-end">
-        <IoCloseSharp onClick={() => handleCancel()} />
+        <IoCloseSharp onClick={() => setState()} />
       </Modal.Header>
       <Modal.Body>
         <center className="px-3">
@@ -46,7 +31,7 @@ function MatchDeclarationPopup(props) {
             </div>
             <div
               className="col-5 rounded share-bg p-1"
-              onClick={() => handleMatchDeclarePopupClose()}
+              onClick={() => setState(false)}
             >
               No
             </div>

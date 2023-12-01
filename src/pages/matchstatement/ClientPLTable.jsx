@@ -3,57 +3,72 @@ import ClientPLData from "./ClientPLData";
 import AdminsTable from "../onepagereport/AdminsTable";
 import { Col, Container, Row } from "react-bootstrap";
 import { GiClick } from "react-icons/gi";
-function ClientPLTable() {
-  const CLIENTPL_DETAILS = [
-    {
-      name: "Animesh",
-      matchpl: "1000000.00",
-      sixover: "500000.00",
-      tenover: "500000.00",
-      fifteenover: "500000.00",
-      sixoverone: "500000.00",
-      tenoverone: "500000.00",
-      fifteenoverone: "500000.00",
-      fancycom: "500000.00",
-      mfc: "500000.00",
-    },
-    {
-      name: "Animesh",
-      matchpl: "1000000.00",
-      sixover: "500000.00",
-      tenover: "500000.00",
-      fifteenover: "500000.00",
-      sixoverone: "500000.00",
-      tenoverone: "500000.00",
-      fifteenoverone: "500000.00",
-      fancycom: "500000.00",
-      mfc: "500000.00",
-    },
-    {
-      name: "Animesh",
-      matchpl: "1000000.00",
-      sixover: "500000.00",
-      tenover: "500000.00",
-      fifteenover: "500000.00",
-      sixoverone: "500000.00",
-      tenoverone: "500000.00",
-      fifteenoverone: "500000.00",
-      fancycom: "500000.00",
-      mfc: "500000.00",
-    },
-    {
-      name: "Animesh",
-      matchpl: "1000000.00",
-      sixover: "500000.00",
-      tenover: "500000.00",
-      fifteenover: "500000.00",
-      sixoverone: "500000.00",
-      tenoverone: "500000.00",
-      fifteenoverone: "500000.00",
-      fancycom: "500000.00",
-      mfc: "500000.00",
-    },
-  ];
+function ClientPLTable(props) {
+  const { popupData, clientMatchStatementData } = props;
+  const CLIENTPL_DETAILS =
+    clientMatchStatementData.length &&
+    clientMatchStatementData?.map((item) => {
+      return {
+        name: item.name,
+        masterProfitLoss: item.masterProfitLoss,
+        share: item.share,
+        fancyProfitLoss: item.fancyProfitLoss,
+        fancyReferralComm: item.fancyReferralComm,
+        amount: item.amount,
+      };
+    });
+  // const CLIENTPL_DETAILS = [
+  //   {
+  //     name: "Animesh",
+  //     matchpl: "1000000.00",
+  //     sixover: "500000.00",
+  //     tenover: "500000.00",
+  //     fifteenover: "500000.00",
+  //     sixoverone: "500000.00",
+  //     tenoverone: "500000.00",
+  //     fifteenoverone: "500000.00",
+  //     fancycom: "500000.00",
+  //     mfc: "500000.00",
+  //   },
+  //   {
+  //     name: "Animesh",
+  //     matchpl: "1000000.00",
+  //     sixover: "500000.00",
+  //     tenover: "500000.00",
+  //     fifteenover: "500000.00",
+  //     sixoverone: "500000.00",
+  //     tenoverone: "500000.00",
+  //     fifteenoverone: "500000.00",
+  //     fancycom: "500000.00",
+  //     mfc: "500000.00",
+  //   },
+  //   {
+  //     name: "Animesh",
+  //     matchpl: "1000000.00",
+  //     sixover: "500000.00",
+  //     tenover: "500000.00",
+  //     fifteenover: "500000.00",
+  //     sixoverone: "500000.00",
+  //     tenoverone: "500000.00",
+  //     fifteenoverone: "500000.00",
+  //     fancycom: "500000.00",
+  //     mfc: "500000.00",
+  //   },
+  //   {
+  //     name: "Animesh",
+  //     matchpl: "1000000.00",
+  //     sixover: "500000.00",
+  //     tenover: "500000.00",
+  //     fifteenover: "500000.00",
+  //     sixoverone: "500000.00",
+  //     tenoverone: "500000.00",
+  //     fifteenoverone: "500000.00",
+  //     fancycom: "500000.00",
+  //     mfc: "500000.00",
+  //   },
+  // ];
+
+  console.log(CLIENTPL_DETAILS, "..............CLIENTPL_DETAILS............");
   const [showClientPL, setShowClientPL] = useState(false);
   const handleClientData = () => {
     setShowClientPL((prev) => !prev);
@@ -75,20 +90,21 @@ function ClientPLTable() {
             <th>C Net P/L</th>
           </tr>
         </thead>
-        {CLIENTPL_DETAILS.map((item, index) => (
+        {CLIENTPL_DETAILS?.map((item, index) => (
           <tbody key={index}>
             <tr className="text-center">
               <td>{item.name}</td>
-              <td className="clr-green">{item.matchpl}</td>
-              <td className="clr-green">{item.sixover}</td>
-              <td className="clr-green"> {item.tenover}</td>
-              <td className="clr-green"> {item.fifteenover}</td>
-              <td className="clr-green"> {item.sixoverone}</td>
-              <td className="clr-green"> {item.tenoverone}</td>
+              {/* <td className="clr-green">{item.name}</td> */}
+              <td className="clr-green">{item.masterProfitLoss}</td>
+              <td className="clr-green">{item.masterProfitLoss}</td>
+              <td className="clr-green"> {item.share}</td>
+              <td className="clr-green"> {item.fancyProfitLoss}</td>
+              <td className="clr-green"> {item.fancyReferralComm}</td>
+              <td className="clr-green"> {item.amount}</td>
               <td className="clr-green"> {item.fifteenoverone}</td>
-              <td className="clr-green"> {item.fancycom}</td>
+              <td className="clr-green"> {item.fancyReferralComm}</td>
               <td className="clr-green" onClick={() => handleClientData()}>
-                {item.mfc}
+                {item.amount}
                 <GiClick className="custom-click-icon ms-1 mt-2" />
               </td>
             </tr>
@@ -125,7 +141,7 @@ function ClientPLTable() {
             <td>90,000</td>
             <td>9000</td>
             <td>0.00</td>
-            <td>81000</td>
+            <td>{popupData?.totalAmount?.totalLossOrProfit}</td>
           </tr>
         </tbody>
       </table>
