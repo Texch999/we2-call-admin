@@ -162,7 +162,7 @@ const AddAdmins = () => {
         <Table responsive="md" className="call-management-data">
           <thead>
             <tr>
-              <th class="text-center">S NO</th>
+              <th className="text-center">S NO</th>
               <th className="text-center">USER NAME</th>
               <th className="text-center">TYPE</th>
               <th className="text-center">C Share</th>

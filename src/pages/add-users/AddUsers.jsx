@@ -8,6 +8,9 @@ import ChangePassword from "./ChangePassword";
 import MatchSubmitPopup from "../match-popups/MatchSubmitPopup";
 import { call } from "../../config/axios";
 import { GET_ALL_CLIENTS, BLOCKUNBLOCK } from "../../config/endpoints";
+import AddUserSuccessPopUp from "./AddUserSuccessPopUp";
+import BlockUnBlockPopUp from "./BlockUnBlockPopUp";
+import ChangePasswordSuccessPopUp from "./ChangePasswordSuccessPopUp";
 
 const AddUsers = () => {
   let register_id = localStorage?.getItem("register_id");
@@ -17,75 +20,65 @@ const AddUsers = () => {
 
   const [filteredValue, setFilteredValue] = useState("");
   const [modalShow, setModalShow] = useState(false);
-  const [addUser, setAddUser] = useState();
   const [showChangePopup, setShowChangePopup] = useState(false);
   const [usersData, setUsersData] = useState([]);
   const [isUserAdded, setIsUserAdded] = useState(false);
   const [editData, setEditData] = useState(false);
   const [inputData, setInputData] = useState({});
-
-  const handleCpButton = () => {
-    setShowChangePopup(true);
-  };
+  const [editStatus, setEditStatus] = useState(false);
+  const [addSuccessPopUp, setAddSuccessPopUp] = useState(false);
+  const [blockStatus, setBlockStatus] = useState(false);
+  const [selectedUser, setSelectedUser] = useState("");
+  const [isProcessing, setIsProcessing] = useState(false);
 
   const handleEditButton = (data) => {
-    setAddUser(data);
+    setEditStatus(true);
     setInputData(data);
     setModalShow(true);
-    setEditData(true);
   };
 
   const handleAddUsers = () => {
-    setAddUser(false);
     setModalShow(true);
-    setEditData(false);
-    setInputData(false);
   };
-  const addUsersData =
+  const allUsersData =
     usersData?.length > 0 &&
-    usersData
-      ?.filter((i) => i.account_role === "client")
-      ?.map((user, index) => {
-        return {
-          s_no: index + 1,
-          user_name: user?.user_name,
-          share: user?.share,
-          ul_share: user?.ul_share,
-          type: user?.account_role,
-          location: user?.location,
-          register_id: user?.register_id,
-          creator_id: user?.creator_id,
-          active: user?.active,
-          user: "",
-          profit_loss: 0,
-        };
-      });
+    usersData?.map((user, index) => {
+      return {
+        s_no: index + 1,
+        user_name: user?.user_name,
+        share: user?.share,
+        ul_share: user?.ul_share,
+        type: user?.account_role,
+        location: user?.location,
+        register_id: user?.register_id,
+        creator_id: user?.creator_id,
+        active: user?.active,
+        user: "",
+        profit_loss: 0,
+        first_name: user?.first_name,
+        password: user?.password,
+      };
+    });
 
-  const handleBlock = async (data) => {
+  const handleBlock = async () => {
+    setIsProcessing(true);
     await call(BLOCKUNBLOCK, {
-      register_id: data?.register_id,
+      register_id: selectedUser?.register_id,
       creator_id: register_id,
-      active: !data?.active,
-      account_role: data?.type,
+      active: !selectedUser?.active,
+      account_role: selectedUser?.type,
     })
       .then((res) => {
-        getAllClients();
+        setIsProcessing(false);
+        setBlockStatus(false);
+        setIsUserAdded((prev) => !prev);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        setSelectedUser("");
+        setIsProcessing(false);
+        console.log(err);
+      });
   };
-  const ACTION_LABELS = [
-    {
-      name: "CP",
-    },
-    { 
-      name: "EDIT" 
-    },
-    // b: "B",
-    {
-      name: "UB",
-      onclick: handleBlock,
-    },
-  ];
 
   const [changePasswordSubmit, setChangePasswordSubmit] = useState(false);
   const handleUserChange = (e) => {
@@ -94,10 +87,29 @@ const AddUsers = () => {
   const getAllClients = async () => {
     await call(GET_ALL_CLIENTS, { register_id, account_role })
       .then((res) => {
-        setUsersData(res?.data?.data);
+        const results =
+          res?.data &&
+          res?.data?.data?.length > 0 &&
+          res?.data?.data?.filter((i) => i.account_role === "client");
+        setUsersData(results);
       })
       .catch((err) => console.log(err));
   };
+
+  const getFilteredUsers = () => {
+    if (!filteredValue) {
+      return allUsersData; // If search value is empty, return all data
+    }
+  
+    // Filter users based on the search input
+    const filteredUsers = allUsersData.filter((user) =>
+      user.user_name.toLowerCase().includes(filteredValue.toLowerCase())
+    );
+  
+    return filteredUsers;
+  };
+
+  const filteredUsersData = getFilteredUsers();
 
   useEffect(() => {
     getAllClients();
@@ -144,18 +156,19 @@ const AddUsers = () => {
         <Table responsive="md" className="call-management-data">
           <thead>
             <tr>
-              <th class="text-center">S NO</th>
+              <th className="text-center">S NO</th>
               <th className="text-center">USER NAME</th>
               <th className="text-center">TYPE</th>
-              <th className="text-center">LOCATION</th>
-              <th className="text-center">REFERRAL</th>
-              <th className="text-center">P/L</th>
+              {/* <th className="text-center">LOCATION</th> */}
+              {/* <th className="text-center">REFERRAL</th> */}
+              {/* <th className="text-center">P/L</th> */}
               <th className="text-center">ACTION</th>
             </tr>
           </thead>
           <tbody>
-            {addUsersData?.length > 0 &&
-              addUsersData?.map((data, index) => (
+            {filteredUsersData &&
+              filteredUsersData?.length > 0 &&
+              filteredUsersData?.map((data, index) => (
                 <tr key={index}>
                   <td className="text-center">{data?.s_no}</td>
                   <td className="text-center">
@@ -163,13 +176,16 @@ const AddUsers = () => {
                     <Button className="ms-1 border-0 status-button"></Button>
                   </td>
                   <td className="text-center">{data?.type}</td>
-                  <td className="text-center">{data?.location}</td>
-                  <td className="text-center">{data?.user}</td>
-                  <td className="text-center">{data?.profit_loss}</td>
+                  {/* <td className="text-center">{data?.location}</td> */}
+                  {/* <td className="text-center">{data?.user}</td> */}
+                  {/* <td className="text-center">{data?.profit_loss}</td> */}
                   <td className="text-center">
                     <Button
                       className="text-center rounded meeting-status-button EDIT-button me-2"
-                      onClick={() => handleCpButton()}
+                      onClick={() => {
+                        setShowChangePopup(true);
+                        setSelectedUser(data);
+                      }}
                     >
                       CP
                     </Button>
@@ -183,7 +199,10 @@ const AddUsers = () => {
                       className={`text-center rounded meeting-status-button EDIT-button me-2 ${
                         data?.active ? "clr-blue" : "clr-red"
                       }`}
-                      onClick={() => handleBlock(data)}
+                      onClick={() => {
+                        setBlockStatus(true);
+                        setSelectedUser(data);
+                      }}
                     >
                       {data?.active ? "UB" : "B"}
                     </Button>
@@ -191,49 +210,63 @@ const AddUsers = () => {
                 </tr>
               ))}
           </tbody>
-          <tfoot>
-            <tr>
-              <th colSpan={5} className="text-center">
-                TOTAL
-              </th>
-              <th className="clr-green text-center">
-                {addUsersData?.length > 0 &&
-                  addUsersData
-                    ?.reduce(
-                      (total, data) => total + parseFloat(data?.profit_loss),
-                      0
-                    )
-                    .toFixed(2)}
-              </th>
-              <th></th>
-            </tr>
-          </tfoot>
           {modalShow && (
             <AddUserPopUp
-              Heading={`${addUser ? "Update Users" : "Add Users"} `}
+              heading={`${editStatus ? "Update User" : "Add User"} `}
               show={modalShow}
-              addUser={addUser}
               usersData={usersData}
               setModalShow={setModalShow}
+              editStatus={editStatus}
               editData={editData}
               onhideClick={(e) => {
-                setAddUser({});
                 setModalShow(e);
+                setInputData({});
+                setEditStatus(false);
               }}
               onHide={() => setModalShow(false)}
               setIsUserAdded={setIsUserAdded}
               setInputData={setInputData}
               inputData={inputData}
+              setAddSuccessPopUp={setAddSuccessPopUp}
+              setEditStatus={setEditStatus}
             />
           )}
         </Table>
       </div>
+      {addSuccessPopUp && (
+        <AddUserSuccessPopUp
+          open={addSuccessPopUp}
+          handleConfimr={() => setAddSuccessPopUp(false)}
+          handleCancel={() => setAddSuccessPopUp()}
+          heading="Successfully Added"
+          flag={false}
+        />
+      )}
+
+      {blockStatus && (
+        <BlockUnBlockPopUp
+          open={blockStatus}
+          isProcessing={isProcessing}
+          handleConfirm={() => handleBlock()}
+          handleCancel={() => {
+            setSelectedUser("");
+            setBlockStatus(false);
+          }}
+          heading={`Are you sure you want to "${selectedUser?.first_name}" ${
+            selectedUser?.active ? "block" : "un-block"
+          }`}
+          flag={true}
+        />
+      )}
+
       <ChangePassword
         showChangePopup={showChangePopup}
         setShowChangePopup={setShowChangePopup}
         setChangePasswordSubmit={setChangePasswordSubmit}
+        selectedUser={selectedUser}
+        setSelectedUser={setSelectedUser}
       />
-      <MatchSubmitPopup
+      <ChangePasswordSuccessPopUp
         header={"You Are Successfully Changed your Password"}
         state={changePasswordSubmit}
         setState={setChangePasswordSubmit}

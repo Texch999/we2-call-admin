@@ -10,23 +10,39 @@ import {
 } from "../../config/endpoints";
 
 function AddUserPopUp(props) {
-  const { setModalShow, editData, setInputData, inputData } = props;
-  let register_id = localStorage?.getItem("register_id");
-  let creator_id = localStorage?.getItem("creator_id");
-  let account_role = localStorage?.getItem("account_role");
+  const {
+    setModalShow,
+    editData,
+    setInputData,
+    inputData,
+    setIsUserAdded,
+    editStatus,
+    setAddSuccessPopUp,
+    setEditStatus,
+    show,
+  } = props;
+  const register_id = localStorage?.getItem("register_id");
+  const creator_id = localStorage?.getItem("creator_id");
+  const account_role = localStorage?.getItem("account_role");
 
   const [isProcessing, setIsProcessing] = useState(false);
   const [err, setErr] = useState("");
-
+  console.log("inputData", inputData);
   // const [inputData, setInputData] = useState({});
 
   const handleInputChnage = (e) => {
     setInputData({ ...inputData, [e.target.name]: e.target.value });
   };
+
+  const handleSuccessPopUp = () => {
+    setAddSuccessPopUp(true);
+    setTimeout(() => {
+      setAddSuccessPopUp(false);
+    }, 2000);
+  };
   const handleUpdateUser = async () => {
     setErr("");
     setIsProcessing(true);
-    setModalShow(false);
     await call(UPDATE_USER_CLIENT, {
       ...inputData,
       creator_id: register_id,
@@ -34,8 +50,10 @@ function AddUserPopUp(props) {
     })
       .then((res) => {
         setIsProcessing(false);
-        if (res.data.status === 200) {
-          props?.setIsUserAdded((prev) => !prev);
+        if (res.data.statusCode === 200) {
+          setIsUserAdded((prev) => !prev);
+          setModalShow(false);
+          handleSuccessPopUp();
           // props.onHide();
           setInputData({});
         } else {
@@ -67,18 +85,20 @@ function AddUserPopUp(props) {
     }
     setErr("");
     setIsProcessing(true);
-    setModalShow(false);
     // console.log({ inputData });
     await call(ACCOUNT_REGISTERATION, {
       account_role: "client",
       ...inputData,
       creator_id: register_id,
       creator_role: account_role,
+      share: 0,
     })
       .then((res) => {
         setIsProcessing(false);
         if (res.data.status === 201) {
-          props?.setIsUserAdded((prev) => !prev);
+          setIsUserAdded((prev) => !prev);
+          setModalShow(false);
+          handleSuccessPopUp();
           props.onHide();
           setInputData({});
         } else {
@@ -95,7 +115,16 @@ function AddUserPopUp(props) {
   };
 
   return (
-    <Modal {...props} centered className="add-user-modal">
+    <Modal
+      show={show}
+      centered
+      className="add-user-modal"
+      onHide={() => {
+        setEditStatus(false);
+        setInputData({});
+        setModalShow(false);
+      }}
+    >
       <Modal.Header closeButton>
         <Modal.Title className="w-100 text-center">{props.Heading}</Modal.Title>
       </Modal.Header>
@@ -111,32 +140,10 @@ function AddUserPopUp(props) {
                   </InputGroup.Text>
                   <Form.Control
                     type="text"
-                    placeholder="Enter Name"
-                    aria-label="Enter Name"
-                    aria-describedby="basic-addon1"
+                    placeholder="Enter first name"
                     autoFocus
                     name="first_name"
-                    value={inputData["first_name"] || ""}
-                    onChange={(e) => handleInputChnage(e)}
-                  />
-                </InputGroup>
-              </Form.Group>
-            </Col>
-            <Col>
-              <Form.Group className="mb-3" controlId="user_name">
-                <Form.Label>Location*</Form.Label>
-                <InputGroup>
-                  <InputGroup.Text id="basic-addon1">
-                    <Image src={Images.LoginUserIcon} />
-                  </InputGroup.Text>
-                  <Form.Control
-                    type="text"
-                    placeholder="Enter Location"
-                    aria-label="Enter Location"
-                    aria-describedby="basic-addon1"
-                    autoFocus
-                    name="location"
-                    value={inputData["location"] || ""}
+                    value={inputData?.first_name || ""}
                     onChange={(e) => handleInputChnage(e)}
                   />
                 </InputGroup>
@@ -163,17 +170,6 @@ function AddUserPopUp(props) {
                   </InputGroup>
                 </Form.Group>
               </Col>
-              {/* <Col>
-                <Form.Group className="mb-3" controlId="role">
-                  <Form.Label>Role*</Form.Label>
-                  <InputGroup>
-                    <InputGroup.Text id="basic-addon1">
-                      <Image src={Images.LoginUserIcon} />
-                    </InputGroup.Text>
-                    <Form.Control type="text" placeholder="User" autoFocus />
-                  </InputGroup>
-                </Form.Group>
-              </Col> */}
             </Row>
             <Row>
               <Col>
@@ -188,7 +184,7 @@ function AddUserPopUp(props) {
                       placeholder="Enter password"
                       autoFocus
                       name="password"
-                      value={inputData["password"] || ""}
+                      value={inputData?.password || ""}
                       onChange={(e) => handleInputChnage(e)}
                     />
                   </InputGroup>
@@ -202,11 +198,11 @@ function AddUserPopUp(props) {
                       <Image src={Images.LoginLockIcon} />
                     </InputGroup.Text>
                     <Form.Control
-                      type="text"
+                      type="password"
                       placeholder="Enter confirm password"
                       autoFocus
                       name="confirm_password"
-                      value={inputData["confirm_password"] || ""}
+                      value={inputData?.confirm_password || ""}
                       onChange={(e) => handleInputChnage(e)}
                     />
                   </InputGroup>
@@ -214,48 +210,6 @@ function AddUserPopUp(props) {
               </Col>
             </Row>
             <Row>
-              {/* <Col>
-                <Form.Group className="mb-3" controlId="share">
-                  <Form.Label>Share*</Form.Label>
-                  <Form.Text id="sharePercentage">10%</Form.Text>
-                  <InputGroup>
-                    <InputGroup.Text id="basic-addon1">
-                      <Image src={Images.percentIcon} />
-                    </InputGroup.Text>
-                    <Form.Control
-                      type="number"
-                      placeholder="Enter Share"
-                      autoFocus
-                      aria-describedby="sharePercentage"
-                      name="share"
-                      value={inputData["share"] || ""}
-                      onChange={(e) => handleInputChnage(e)}
-                    />
-                  </InputGroup>
-                </Form.Group>
-              </Col>
-              <Col>
-                <Form.Group className="mb-3" controlId="myShare">
-                  <Form.Label>My Share*</Form.Label>
-                  <Form.Text id="platComm" className="platform-comm">
-                    Plat Comm-<span className="yellow-clr">2%</span>
-                  </Form.Text>
-                  <InputGroup>
-                    <InputGroup.Text id="basic-addon1">
-                      <Image src={Images.percentIcon} />
-                    </InputGroup.Text>
-                    <Form.Control
-                      type="number"
-                      placeholder="Enter Share"
-                      autoFocus
-                      aria-describedby="platComm"
-                      name="ul_share"
-                      value={inputData["ul_share"] || ""}
-                      onChange={(e) => handleInputChnage(e)}
-                    />
-                  </InputGroup>
-                </Form.Group>
-              </Col> */}
               <Form.Group className="mb-3" controlId="adminPassword">
                 <Form.Label>Admin Password*</Form.Label>
                 <InputGroup>
@@ -263,11 +217,11 @@ function AddUserPopUp(props) {
                     <Image src={Images.LoginLockIcon} />
                   </InputGroup.Text>
                   <Form.Control
-                    type="text"
+                    type="password"
                     placeholder="Enter Admin Password"
                     autoFocus
                     name="creator_password"
-                    value={inputData["creator_password"] || ""}
+                    value={inputData?.creator_password || ""}
                     onChange={(e) => handleInputChnage(e)}
                   />
                 </InputGroup>
@@ -278,15 +232,11 @@ function AddUserPopUp(props) {
           <Button
             className="w-100 add-user-button"
             disabled={isProcessing}
-            // onClick={() => handleSubmitUserCreation()
             onClick={() => {
-              editData === true
-                ? handleUpdateUser()
-                : handleSubmitUserCreation();
+              editStatus ? handleUpdateUser() : handleSubmitUserCreation();
             }}
           >
-            {/* {isProcessing ? "Processing..." : "Add"} */}
-            {editData === true ? "Update" : "Create"}
+            {isProcessing ? "Processing..." : editStatus ? "Update" : "Add"}
           </Button>
         </Form>
       </Modal.Body>

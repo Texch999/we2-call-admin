@@ -1,4 +1,4 @@
-import React, { useState,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { Modal } from "react-bootstrap";
 import { IoCloseSharp } from "react-icons/io5";
 import { BiSolidLock } from "react-icons/bi";
@@ -7,31 +7,23 @@ import { CHANGE_PASSWORD } from "../../config/endpoints";
 import { call } from "../../config/axios";
 
 function ChangePassword(props) {
-  const { showChangePopup, setShowChangePopup, setChangePasswordSubmit} = props;
+  const {
+    showChangePopup,
+    setShowChangePopup,
+    setChangePasswordSubmit,
+    selectedUser,
+    setSelectedUser,
+  } = props;
   const [showEye, setShowEye] = useState(false);
-  let register_id = localStorage?.getItem("register_id");
-  let creator_id = localStorage?.getItem("creator_id");
-  const [passwordData, setPasswordData] = useState({
-    new_password: "",
-    confirm_password: "",
-    admin_password: "",
-  });
+  const register_id = localStorage?.getItem("register_id");
+  const creator_id = localStorage?.getItem("creator_id");
+  const [passwordData, setPasswordData] = useState({});
   const [error, setError] = useState("");
+  const [isProcessing, setIsProcessing] = useState(false);
 
   const handleShowEye = () => {
     setShowEye(!showEye);
   };
-
-  useEffect(() => {
-    if (showChangePopup) {
-      setPasswordData({
-        new_password: "",
-        confirm_password: "",
-        admin_password: "",
-      });
-      setError("");
-    }
-  }, []);
 
   const handleChangePassword = async () => {
     if (
@@ -47,33 +39,38 @@ function ChangePassword(props) {
       setError("New password and confirm password must match.");
       return;
     }
-
     setError("");
-
+    setIsProcessing(true);
     try {
-      const response = await call(
-        CHANGE_PASSWORD,
-        {
-          register_id: "reg-20231006103427425",
-          creator_id: "reg-20230918153256097",
-          // register_id: register_id,
-          // creator_id: creator_id,
-          creator_password: passwordData.admin_password,
-          new_password: passwordData.new_password,
-          confirm_password: passwordData.confirm_password,
-        }
-      );
+      const response = await call(CHANGE_PASSWORD, {
+        register_id: selectedUser?.register_id,
+        creator_id: selectedUser?.creator_id,
+        creator_password: passwordData.admin_password,
+        new_password: passwordData.new_password,
+        confirm_password: passwordData.confirm_password,
+      });
 
-      if (response.status === 200) {
-        console.log("Password changed successfully");
+      if (response?.data?.statusCode === 200) {
+        setIsProcessing(false);
+        setSelectedUser("");
+        setPasswordData({});
         setChangePasswordSubmit(true);
+        setTimeout(() => {
+          setChangePasswordSubmit(false);
+        }, 2000);
         setShowChangePopup(false);
       } else {
-        setError("Password change failed. Please try again.");
+        setIsProcessing(false);
+        setError(
+          response?.data?.message
+            ? response?.data?.message
+            : `something wen't wrong`
+        );
       }
     } catch (error) {
       console.error("API error:", error);
-      setError("Password change failed. Please try again later.");
+      setIsProcessing(false);
+      setError("something went wrong");
     }
   };
 
@@ -137,9 +134,10 @@ function ChangePassword(props) {
           {error && <div className="error-message mt-2">{error}</div>}
           <button
             className="login-button p-1 mt-3 medium-font"
-            onClick={handleChangePassword}
+            onClick={() => handleChangePassword()}
+            disabled={isProcessing}
           >
-            Submit
+            {isProcessing ? "Processing..." : "Submit"}
           </button>
         </div>
       </Modal.Body>
