@@ -23,7 +23,14 @@ function SportsManagement() {
   const [oversChange, setOversChange] = useState({});
   const [IsMatchEditing, setIsMatchEditing] = useState(false);
   const [matchId, setMatchId] = useState();
-  
+
+  const matchType = [
+    { name: "T10", first: [1, 4, 5], second: [2, 3] },
+    { name: "T20", first: [1, 4, 5], second: [2, 3] },
+    { name: "ODI", first: [1, 4, 5, 6, 9], second: [2] },
+    { name: "TEST", first: [], second: [] },
+  ];
+
   const selectOvers = matchType.filter((i) => i.name === matchData?.macth_type);
 
   const handleOversChange = (e) => {
@@ -33,13 +40,6 @@ function SportsManagement() {
   };
 
   const [typeOfMatch, setTypeOfMatch] = useState();
-
-  const matchType = [
-    { name: "T10", first: [1, 4, 5], second: [2, 3] },
-    { name: "T20", first: [1, 4, 5], second: [2, 3] },
-    { name: "ODI", first: [1, 4, 5, 6, 9], second: [2] },
-    { name: "TEST", first: [], second: [] },
-  ];
 
   const sportsDropdowns = [
     {
