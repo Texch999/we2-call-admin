@@ -182,25 +182,25 @@ const CallManagement = () => {
         };
       });
 
-  const ulMeetingsData =
-    (upcomingMeetings?.length >= 0 &&
-      upcomingMeetings
-        ?.filter((obj) => obj?.p_id !== register_id)
-        ?.sort(
-          (a, b) => new Date(b.given_time_stamp) - new Date(a.given_time_stamp)
-        )
-        ?.map((obj) => {
-          return {
-            ...obj,
-            ul: obj?.createdBy,
-            event_name: obj?.event_name,
-            date: obj?.date,
-            time: obj?.time,
-            user: localStorage.getItem("user_name"),
-            action: "JOIN",
-          };
-        })) ||
-    [];
+  // const ulMeetingsData =
+  //   (upcomingMeetings?.length >= 0 &&
+  //     upcomingMeetings
+  //       ?.filter((obj) => obj?.p_id !== register_id)
+  //       ?.sort(
+  //         (a, b) => new Date(b.given_time_stamp) - new Date(a.given_time_stamp)
+  //       )
+  //       ?.map((obj) => {
+  //         return {
+  //           ...obj,
+  //           ul: obj?.createdBy,
+  //           event_name: obj?.event_name,
+  //           date: obj?.date,
+  //           time: obj?.time,
+  //           user: localStorage.getItem("user_name"),
+  //           action: "JOIN",
+  //         };
+  //       })) ||
+  //   [];
 
   const getAdminPackages = async () => {
     await call(GET_ADMIN_PACKAGES, { register_id })
@@ -265,6 +265,7 @@ const CallManagement = () => {
       })
       .catch((err) => console.log(err));
   };
+  console.log("........selectedMeeting",selectedMeeting);
 
   const handleEditButton = () => {
     const obj = {
@@ -414,7 +415,7 @@ const CallManagement = () => {
                 <th className="text-center"></th>
               </tr>
             </thead>
-            <tbody>
+            {/* <tbody>
               {upcomingMeetingsData?.length > 0 &&
                 upcomingMeetingsData?.map((data, index) => (
                   <tr key={index}>
@@ -481,7 +482,7 @@ const CallManagement = () => {
                     </td>
                   </tr>
                 ))}
-            </tbody>
+            </tbody> */}
           </Table>
         </div>
         {/* <div className="d-flex justify-content-between align-items-center mt-4">
@@ -514,7 +515,7 @@ const CallManagement = () => {
                 <th className="text-center"></th>
               </tr>
             </thead>
-            <tbody>
+            {/* <tbody>
               {ulMeetingsData?.length > 0 &&
                 ulMeetingsData?.map((data, index) => (
                   <tr key={index}>
@@ -531,7 +532,7 @@ const CallManagement = () => {
                     </td>
                   </tr>
                 ))}
-            </tbody>
+            </tbody> */}
           </Table>
         </div>
       </div>
