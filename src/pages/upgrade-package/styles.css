@@ -186,6 +186,9 @@
 }
 .package-cart-div {
   background-color: #e9a410;
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
 }
 .next-div {
   background-color: #f6b832;

@@ -339,7 +339,7 @@ function Header() {
   useEffect(() => {
     getNotifications();
   }, []);
-  console.log(notifications, "NNNNNN");
+  // console.log(notifications, "NNNNNN");
   // const pushnotification = [...notifications]?.filter(
   //   (item) => item.status === "true"
   // );
