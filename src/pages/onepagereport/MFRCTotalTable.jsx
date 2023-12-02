@@ -61,7 +61,7 @@ function MFRCTotalTable(props) {
             <th className="w-20">1000000.00</th>
           </tr>
         </tfoot>
-      </table>
+      </table> 
     </div>
   );
 }

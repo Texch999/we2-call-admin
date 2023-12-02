@@ -38,7 +38,6 @@ function FancyEntryInput({
   const handleClientSelect = (data) => {
     setSelectedOptions(data);
   };
-
   const handleFancyEntryInputDataChange = (e) => {
     setFancyInputEntryData({
       ...fancyEntryInputData,

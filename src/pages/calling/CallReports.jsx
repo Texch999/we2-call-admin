@@ -5,7 +5,7 @@ import CallStatement from "./CallStatement";
 import { Button } from "react-bootstrap";
 
 function CallReports() {
-  const callReportList = ["Call History"];
+  const callReportList = ["Call History"]
   const [activeCallReport, setActiveCallReport] = useState("Call History");
   const handleCallReport = (report) => {
     setActiveCallReport(report);

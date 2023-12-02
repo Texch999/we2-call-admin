@@ -211,7 +211,7 @@ function OnePagePopup(props) {
                     Match+Fancy+M Comm & F Comm / Rolling Comm
                   </div>
                 </div>
-              </div>
+              </div> 
             </div>
           </div>
           {mfrcInputs && (

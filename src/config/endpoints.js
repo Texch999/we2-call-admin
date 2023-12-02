@@ -79,6 +79,7 @@ const GET_LIVE_MATCH_RISK_POSITION =
   "/offline-management/live_match_risk_position";
 const GET_STATEMENT_BY_MATCH_ID =
   "/offline-management/get_statement_bymatch_id";
+const GET_ALL_NOTIFICATIONS = "/management/get_all_notifications";
 
 // methods
 const DELETE = "DELETE";
@@ -406,5 +407,10 @@ exports.CREATE_MEETING = {
 };
 exports.UPDATE_MEETING = {
   url: UPDATE_MEETING,
+  method: POST,
+};
+
+exports.GET_ALL_NOTIFICATIONS = {
+  url: GET_ALL_NOTIFICATIONS,
   method: POST,
 };

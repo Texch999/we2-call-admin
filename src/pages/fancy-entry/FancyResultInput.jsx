@@ -35,17 +35,6 @@ function FancyResultInput(props) {
     setMatchInnings(fancyResultInputData?.innings);
   };
 
-  const handleConfirmDeclaration = () => {
-    if (
-      !fancyResultInputData?.innings ||
-      !fancyResultInputData?.over ||
-      !fancyResultInputData?.team ||
-      !fancyResultInputData?.runs
-    ) {
-      return setError("Please Enter Required Fields");
-    }
-    setConfirmDeclaration(true);
-  };
   const handleFancyDeclaration = async () => {
     setConfirmDeclaration(false);
     setIsProcessing(true);
