@@ -414,3 +414,4 @@ exports.GET_ALL_NOTIFICATIONS = {
   url: GET_ALL_NOTIFICATIONS,
   method: POST,
 };
+

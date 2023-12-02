@@ -5,6 +5,8 @@ import { FaPlus, FaMinus, FaArrowRight } from "react-icons/fa6";
 import { PiHandbagBold } from "react-icons/pi";
 import { IoMdCloseCircleOutline } from "react-icons/io";
 import PackageAvailablePopup from "./PackageAvailablePopup";
+import { GET_ALL_PACKAGES } from "../../config/endpoints";
+import { call } from "../../config/axios";
 
 function PurchaseAdminPackages() {
   const [packageAvailablePopup, setPackageAvailablePopup] = useState(false);
