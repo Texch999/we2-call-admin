@@ -7,6 +7,7 @@ import { useState } from "react";
 function MatchDeclarationPopup(props) {
   const { header, amount, state, setState, handleMatchSubmitSuccessPopupOpen } =
     props;
+  const [matchSubmitSuccessPopup, setMatchSubmitSuccessPopup] = useState(false);
 
   return (
     <Modal className="match-declaration-modal" centered show={state}>

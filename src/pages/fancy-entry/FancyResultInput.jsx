@@ -165,7 +165,7 @@ function FancyResultInput(props) {
         <div className="col d-flex align-items-end">
           <div
             className="cursor-pointer w-100 text-center rounded medium-font p-2 yellow-btn fw-semibold"
-            onClick={() => handleConfirmDeclaration()}
+            onClick={() => handleFancyDeclaration()}
             disabled={isProcessing}
           >
             {isProcessing ? "Declaring..." : "Fancy Declaration"}
