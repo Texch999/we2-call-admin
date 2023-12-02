@@ -12,7 +12,7 @@ import { setSelectedPackages } from "../../redux/actions/commonActions";
 
 function PurchaseAdminPackages() {
   const [packageAvailablePopup, setPackageAvailablePopup] = useState(false);
-  const [yearly, setYearly] = useState();
+  const [yearly, setYearly] = useState(false);
   const [allPackages, setAllPackages] = useState([]);
   const dispatch = useDispatch();
   const handlePackageAvailable = () => {
@@ -575,7 +575,7 @@ function PurchaseAdminPackages() {
           </div>
         </div>
       </div>
-      <div className="mt-3">
+      <div className="mt-1">
         <h5>Select Package</h5>
         <div className="row">
           <div className="col-sm-2 col-lg-1 d-flex align-items-center">
@@ -595,13 +595,10 @@ function PurchaseAdminPackages() {
           </div>
         </div>
       </div>
-      <div className="row mt-3">
+      <div className="row mt-1">
         <div className="col">
           {allPackages?.map((item, index) => (
-            <div
-              className="select-package-div rounded p-1 px-3 mt-2"
-              key={index}
-            >
+            <div className="select-package-div rounded px-3 mt-2" key={index}>
               <div className="row d-flex align-items-center justify-content-between">
                 <div className="col-sm-7 col-lg-5 d-flex align-items-center">
                   <img
@@ -617,7 +614,7 @@ function PurchaseAdminPackages() {
                   </div>
                 </div>
                 <div className="col-sm-4 col-lg-3">
-                  <div className="add-button rounded p-2 d-flex align-items-center justify-content-evenly">
+                  <div className="add-button rounded py-1 d-flex align-items-center justify-content-evenly">
                     <FaMinus
                       onClick={() =>
                         yearly === false
@@ -659,7 +656,7 @@ function PurchaseAdminPackages() {
           />
         </div>
       </div>
-      <div className="w-100 package-cart-div rounded p-2 mt-3 d-flex align-items-center justify-content-between">
+      <div className="w-95 package-cart-div rounded p-3 d-flex align-items-center justify-content-between m-2">
         <div className="d-flex align-items-center justify-content-around">
           <PiHandbagBold className="h4 mb-0" />
           <div className="h5 mb-0 fw-semibold">

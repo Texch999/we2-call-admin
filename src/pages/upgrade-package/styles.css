@@ -180,15 +180,18 @@
   background-color: #112a5e;
 }
 .select-package-img {
-  height: 60px;
-  width: 60px;
+  height: 45px;
+  width: 45px;
   margin-top: 10px;
 }
 .package-cart-div {
   background-color: #e9a410;
   position: fixed;
   bottom: 0px;
-  left: 0px;
+  /* left: 0px; */
+}
+.w-95 {
+  width: 95%;
 }
 .next-div {
   background-color: #f6b832;

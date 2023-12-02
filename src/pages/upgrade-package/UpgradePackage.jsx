@@ -35,7 +35,7 @@ function UpgradePackage() {
     setYourPackageTickets(false);
   };
   return (
-    <div>
+    <div className="pb-5">
       <div className="p-3">
         <h4 className="h4 fw-semibold">Upgrade Package</h4>
         <div className="row">
