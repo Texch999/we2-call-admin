@@ -19,7 +19,7 @@ function YourDetailsPopup(props) {
   const [packMembers, setPackMembers] = useState({});
   const [individualPackageMembersCount, setIndividualPackageMembersCount] = useState({});
   const [eachPackageTotalamount, setEachPackageTotalamount] = useState({});
-
+  
   const regularpacks = usersDetails.filter((item)=>{
         if(Object.keys(item)[0]?.includes('regular')){
           return item
@@ -35,6 +35,7 @@ function YourDetailsPopup(props) {
           return item
         }
       })
+  console.log(luxurypacks,'......luxury')
   const vippacks = usersDetails.filter((item)=>{
           if(/^vip/i.test(Object.keys(item)[0])){
             return item
@@ -100,7 +101,7 @@ function YourDetailsPopup(props) {
   const luxurypackmemberscount = luxurypackmembers.length
   const vippackmemberscount = vippackmembers.length
   const vvippackmemberscount = vvippackmembers.length
-  console.log(usersDetails,'.......usersdetails')
+  console.log(usersDetails,'.......usersdetailsfrommaincomponent')
   const packagesDetailsinuseState = ()=>{
     setPackageCount({
       regularpackcount,
@@ -190,7 +191,12 @@ function YourDetailsPopup(props) {
         )}
 
         {paymentDetails && (
-          <PaymentDetails handleBookingComplete={handleBookingComplete} usersDetails={usersDetails}/>
+          <PaymentDetails handleBookingComplete={handleBookingComplete}
+                          eachPackageTotalamount={eachPackageTotalamount}
+                          individualPackageMembersCount={individualPackageMembersCount}
+                          packMembers={packMembers}
+                          packageCount={packageCount}
+          />
         )}
         {bookingComplete && <BookingCompleteMsg handleCancel={handleCancel} />}
       </div>

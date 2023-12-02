@@ -7,15 +7,24 @@ import { call } from "../../config/axios";
 import { useEffect, useState } from "react";
 
 function PaymentDetails(props) {
-  const { handleBookingComplete, userDetails } = props;
+  const { handleBookingComplete, userDetails,
+          eachPackageTotalamount,
+          individualPackageMembersCount,
+          packMembers,
+          packageCount } = props;
   const [allPayments, setAllPayments] = useState([])
   const [dropdownOption, setDropdownOption] = useState('')
   const [paymentdetails, setPaymentdetails] = useState({})
-  console.log(paymentdetails,'.......paymsentdetails')
-  console.log(userDetails,'.......userDetails')
-  const country = 'India'
+  // console.log(paymentdetails,'.......paymsentdetails')
+  // console.log(userDetails,'.......userDetails')
+  console.log(eachPackageTotalamount,'.....eachPackageTotalamount')
+  console.log(individualPackageMembersCount,'.....individualPackageMembersCount')
+  console.log(packMembers,'.....packMembers')
+  console.log(packageCount,'.....packageCount')
+
   const getCompanyAllowedPayments = async () => {
     const payload = {};
+    const country = 'India'
     await call(GET_TOUR_PAYMENT_GATEWAY, payload)
       .then((res) => setAllPayments(
         res?.data?.data?.filter((item)=>{
@@ -28,7 +37,7 @@ function PaymentDetails(props) {
       .catch((error) => console.log(error));
   };
 
-  console.log(allPayments,'.....allpayments')
+  // console.log(allPayments,'.....allpayments')
 
   useEffect(() => {
     getCompanyAllowedPayments();
