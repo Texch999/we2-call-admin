@@ -39,6 +39,8 @@ function SportsManagement() {
     }
   };
 
+  const [typeOfMatch, setTypeOfMatch] = useState();
+
   const sportsDropdowns = [
     {
       headName: "Sports Name",

@@ -1,6 +1,8 @@
 import { Modal } from "react-bootstrap";
 import { IoCloseSharp } from "react-icons/io5";
 import { Images } from "./../../images/index";
+import MatchSubmitPopup from "./MatchSubmitPopup";
+import { useState } from "react";
 
 function MatchDeclarationPopup(props) {
   const { header, amount, state, setState, handleMatchSubmitSuccessPopupOpen } =
@@ -36,6 +38,11 @@ function MatchDeclarationPopup(props) {
           </div>
         </center>
       </Modal.Body>
+      <MatchSubmitPopup
+        header={"You Are Successfully Submited Your Match to Win IND"}
+        state={matchSubmitSuccessPopup}
+        setState={setMatchSubmitSuccessPopup}
+      />
     </Modal>
   );
 }

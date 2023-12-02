@@ -36,7 +36,6 @@ function OnePageReport(props) {
       })
       .catch((err) => console.log(err));
   };
-
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = 5;
 
