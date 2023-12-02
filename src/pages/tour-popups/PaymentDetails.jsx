@@ -2,7 +2,7 @@ import { FaCheck, FaChevronDown, FaRegUser } from "react-icons/fa6";
 import { BiSolidCloudUpload } from "react-icons/bi";
 import { MdOutlinePayment } from "react-icons/md";
 import { AiTwotoneSave } from "react-icons/ai";
-import { GET_ALL_PAYMENT_GATEWAYS } from "../../config/endpoints";
+import { GET_TOUR_PAYMENT_GATEWAY,GENERATE_SIGNED_URL } from "../../config/endpoints";
 import { call } from "../../config/axios";
 import { useEffect, useState } from "react";
 
@@ -10,27 +10,20 @@ function PaymentDetails(props) {
   const { handleBookingComplete } = props;
   const [allPayments, setAllPayments] = useState([])
   const [dropdownOption, setDropdownOption] = useState('')
-  console.log(dropdownOption,'.....dropdown')
-  if(dropdownOption=='neft'){
-    const accountDetails = {
-      name: Name,
-      accountnumber: A/C-No,
-      bank:Bank,
-      ifsccode: IFSC-Code
-    }
-  }else{
-    const accountDetails = {
-      upiId: UPI-Id,
-      mobilenumber: MobileNumber
-    }
-  }
-
+  const [paymentdetails, setPaymentdetails] = useState({})
+  console.log(paymentdetails,'.......paymsentdetails')
+  const country = 'India'
   const getCompanyAllowedPayments = async () => {
-    const payload = {
-      register_id: "company",
-    };
-    await call(GET_ALL_PAYMENT_GATEWAYS, payload)
-      .then((res) => setAllPayments(res?.data?.data))
+    const payload = {};
+    await call(GET_TOUR_PAYMENT_GATEWAY, payload)
+      .then((res) => setAllPayments(
+        res?.data?.data?.filter((item)=>{
+          return item.status === "active"
+        }).filter((item)=>{
+          return item.website === "www.we2call.com"
+        }).filter((item)=>{
+          return item.country === country;
+      })))
       .catch((error) => console.log(error));
   };
 
@@ -40,11 +33,63 @@ function PaymentDetails(props) {
     getCompanyAllowedPayments();
   }, []);
 
-  const uniquePaymentDropdown = [...new Set(allPayments.map((item)=>(item.pg_upi)))]
+  const uniquePaymentDropdown = [...new Set(allPayments.map((item)=>(item.paymentGateway)))]
   const filteredPayments = allPayments.filter((item)=>{
-    return item.pg_upi === dropdownOption
+    return item.paymentGateway === dropdownOption
   })
-  console.log(filteredPayments,'.....filteredpayments')
+  const handlepaymentscreenshot = async(e)=>{
+    const imagefile = e.target.files[0];
+    const imageId = Date.now();
+    // console.log(imagefile,'......imgfile')
+    const imageuploadingurl = await generatesignedurl(imageId);
+    imageuploadingurl &&
+      setPaymentdetails({
+        ...paymentdetails,
+        [e.target.name]: {
+          imagefile: imagefile,
+          imageregisterid: imageId,
+          imageuploadingurl: imageuploadingurl,
+        },
+      });
+  }
+  const generatesignedurl = async (imageId) => {
+    const payload = {
+      register_id: `${imageId}`,
+      event_type: "user_profile_image",
+      folder_name: "tours_payment_docs",
+    };
+    try {
+      const res = await call(GENERATE_SIGNED_URL, payload);
+      const url = res?.data?.data?.result?.signed_url;
+      return url;
+    } catch (error) {
+      console.log("error while creating the signed url", error);
+      return "";
+    }
+  };
+  const handlepaymentdetails = (e,item)=>{
+    if(e.target.name==='neftclicked'){
+    setPaymentdetails({
+      ...paymentdetails,
+      'selectedpaymentdetails':{
+        name: item?.accountHolderName,
+        accountNo: item?.accountNumber,
+        bank:item?.bankName,
+        ifscCode: item?.ifscCode
+      }
+    })
+    }else{
+      setPaymentdetails({
+        ...paymentdetails,
+        'selectedpaymentdetails':{
+          name: item?.upiName,
+          upiId: item?.upiId,
+          mobileNumber:item?.mobileNumber
+        }
+      })
+    }
+  }
+
   return (
     <div>
       <div className="w-100 d-flex justify-content-between mt-2">
@@ -172,9 +217,10 @@ function PaymentDetails(props) {
         <div className="col-12" span={24}>
           <select className="d-flex justify-content-between p-1 font-10 neft-div w-100 all-none"
                   name="dropdownoption"
+                  value={dropdownOption}
                   onChange={(e)=>setDropdownOption(e.target.value)}
           >
-            <option selected>Select Payment Mode</option>
+            <option value={'All'} selected>Select Payment Mode</option>
             {uniquePaymentDropdown.map((item)=>(
               <option className="d-flex justify-content-between p-1 font-10 neft-div w-50 all-none" 
                       value={item}
@@ -201,23 +247,28 @@ function PaymentDetails(props) {
                   {dropdownOption==='neft'? (
                     <div>
                       <div className="d-flex justify-content-between">
-                        <div>Name: Jayanta Pal</div>
-                        <input type="checkbox" className="yellow-clr"></input>
+                        <div>Name: {item?.accountHolderName}</div>
+                        <input type="checkbox" className="yellow-clr"
+                                name="neftclicked"
+                          onClick={(e)=>handlepaymentdetails(e,item)}
+                        ></input>
                       </div>
-                      <div>A/C No: 34311236216</div>
-                      <div>Bank: SBI</div>
-                      <div>IFSC Code: SBIN001111</div>
+                      <div>A/C No: {item?.accountNumber}</div>
+                      <div>Bank: {item?.bankName}</div>
+                      <div>IFSC Code: {item?.ifscCode}</div>
                     </div>
                   )
                   :(
                     <div>
                       <div className="d-flex justify-content-between">
-                        <div>Name: Jayanta Pal</div>
-                        <input type="checkbox" className="yellow-clr"></input>
+                        <div>Name: {item?.upiName}</div>
+                        <input type="checkbox" className="yellow-clr"
+                                name="upiclicked"
+                                onClick={(e)=>handlepaymentdetails(e,item)}
+                        ></input>
                       </div>
-                      <div>A/C No: 34311236216</div>
-                      <div>Bank: SBI</div>
-                      <div>IFSC Code: SBIN001111</div>
+                      <div>UPI Id: {item?.upiId}</div>
+                      <div>Mobile Number: {item?.mobileNumber}</div>
                     </div>
                   )}
                 </div>
@@ -228,13 +279,21 @@ function PaymentDetails(props) {
       </div>
       <div className="row">
         <div className="col-12">
-          <div className="d-flex justify-content-between neft-div mt-2 p-2">
+          <label  className="d-flex justify-content-between neft-div mt-2 p-2"
+                htmlFor='paymentscreenshot'
+          >
             <div className="font-10">
-              Upload Screenshot
-              <input type="file" className="display-none" />
+              {paymentdetails?.paymentscreenshot?.imagefile?.name || "Upload Screenshot"}
+              <input  type="file" 
+                      className="display-none"
+                      name="paymentscreenshot"
+                      id="paymentscreenshot"
+                      onChange={(e)=>handlepaymentscreenshot(e)} 
+
+              />
             </div>
             <BiSolidCloudUpload className="type-file font-25" />
-          </div>
+          </label>
         </div>
       </div>
       <div className="login-btn mt-2" onClick={() => handleBookingComplete()}>

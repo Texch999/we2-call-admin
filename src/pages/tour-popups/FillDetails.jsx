@@ -149,7 +149,7 @@ function FillDetails(props) {
 
   const handleUploadchange = async (e, index) => {
     const imagefile = e.target.files[0];
-    console.log(e.target.files)
+    // console.log(e.target.files)
     const imageId = Date.now();
     const imageuploadingurl = await generatesignedurl(imageId);
 
