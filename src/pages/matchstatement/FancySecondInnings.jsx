@@ -15,58 +15,6 @@ function FancySecondInnings() {
       amount: "500000.00",
       pl: "500000.00",
     },
-    {
-      Sno: "4",
-      over: "6",
-      team: "IND",
-      runs: "100",
-      name: "Animesh",
-      yorn: "N",
-      date: "31/07/23",
-      time: "18:44:00PM",
-      result: "102",
-      amount: "500000.00",
-      pl: "500000.00",
-    },
-    {
-      Sno: "3",
-      over: "6",
-      team: "IND",
-      runs: "100",
-      name: "Animesh",
-      yorn: "Y",
-      date: "31/07/23",
-      time: "18:44:00PM",
-      result: "102",
-      amount: "500000.00",
-      pl: "500000.00",
-    },
-    {
-      Sno: "2",
-      over: "6",
-      team: "IND",
-      runs: "100",
-      name: "Animesh",
-      yorn: "Y",
-      date: "31/07/23",
-      time: "18:44:00PM",
-      result: "102",
-      amount: "500000.00",
-      pl: "500000.00",
-    },
-    {
-      Sno: "1",
-      over: "6",
-      team: "IND",
-      runs: "100",
-      name: "Animesh",
-      yorn: "Y",
-      date: "31/07/23",
-      time: "18:44:00PM",
-      result: "102",
-      amount: "500000.00",
-      pl: "500000.00",
-    },
   ];
   return (
     <div>
@@ -103,12 +51,6 @@ function FancySecondInnings() {
             </tr>
           </tbody>
         ))}
-        {/* <tfoot>
-          <tr className="text-center small-font clr-green all-none w-100">
-            <th colSpan={10} className="text-end">TOTAL</th>
-            <th>50000000.00</th>
-          </tr>
-        </tfoot> */}
       </table>
       <div className="w-100 d-flex justify-content-between mt-2">
         <div className="harizental-scroll">

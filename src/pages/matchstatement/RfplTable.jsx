@@ -1,7 +1,15 @@
 import React, { useState } from "react";
 import { GiClick } from "react-icons/gi";
 import ClientPLData from "./ClientPLData";
-function RfplTable() {
+function RfplTable({
+  referralFinancialStatementAllData,
+  matchDetails,
+  winTeam,
+}) {
+  const [showClientPL, setShowClientPL] = useState(false);
+  const handleClientData = () => {
+    setShowClientPL((prev) => !prev);
+  };
   const CLIENTPL_DETAILS = [
     {
       name: "Animesh",
@@ -15,47 +23,7 @@ function RfplTable() {
       fancycom: "500000.00",
       mfc: "500000.00",
     },
-    {
-      name: "Animesh",
-      matchpl: "1000000.00",
-      sixover: "500000.00",
-      tenover: "500000.00",
-      fifteenover: "500000.00",
-      sixoverone: "500000.00",
-      tenoverone: "500000.00",
-      fifteenoverone: "500000.00",
-      fancycom: "500000.00",
-      mfc: "500000.00",
-    },
-    {
-      name: "Animesh",
-      matchpl: "1000000.00",
-      sixover: "500000.00",
-      tenover: "500000.00",
-      fifteenover: "500000.00",
-      sixoverone: "500000.00",
-      tenoverone: "500000.00",
-      fifteenoverone: "500000.00",
-      fancycom: "500000.00",
-      mfc: "500000.00",
-    },
-    {
-      name: "Animesh",
-      matchpl: "1000000.00",
-      sixover: "500000.00",
-      tenover: "500000.00",
-      fifteenover: "500000.00",
-      sixoverone: "500000.00",
-      tenoverone: "500000.00",
-      fifteenoverone: "500000.00",
-      fancycom: "500000.00",
-      mfc: "500000.00",
-    },
   ];
-  const [showClientPL, setShowClientPL] = useState(false);
-  const handleClientData = () => {
-    setShowClientPL((prev) => !prev);
-  };
   return (
     <div>
       <table className="w-100 match-position-table small-font">

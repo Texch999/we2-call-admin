@@ -339,10 +339,6 @@ function Header() {
   useEffect(() => {
     getNotifications();
   }, []);
-  console.log(notifications, "NNNNNN");
-  // const pushnotification = [...notifications]?.filter(
-  //   (item) => item.status === "true"
-  // );
 
   return (
     <div className="agent-header d-flex align-items">
@@ -482,7 +478,11 @@ function Header() {
       <div className="d-flex w-100">
         <Marquee className="d-flex marqu-tag meetings-heading ">
           {notifications?.map((obj) => (
-            <div>{obj?.status === true && <li className="ml-3rem">{obj?.description} </li>}</div>
+            <div>
+              {obj?.status === true && (
+                <li className="ml-3rem">{obj?.description} </li>
+              )}
+            </div>
           ))}
         </Marquee>
       </div>

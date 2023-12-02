@@ -1,10 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import MatchBetTable from "./MatchBetTable";
 import FancyBetTable from "./FancyBetTable";
+import { call } from "../../config/axios";
+import { GET_MATCH_ENTRY_DETAILS } from "../../config/endpoints";
 
-function ClientPLData({ selectedClientID, selectedClientName }) {
+function ClientPLData({
+  selectedClientID,
+  selectedClientName,
+  matchDetails,
+  winTeam,
+}) {
+  const register_id = localStorage?.getItem("register_id");
+  const creator_id = localStorage?.getItem("creator_id");
+  const account_role = localStorage?.getItem("account_role");
+
+  const [userMatchEntrys, setUserMatchEntrys] = useState([]);
   const [matchBetInputs, setMatchBetInputs] = useState(true);
   const [fancyBetInputs, setFancyBetInputs] = useState(false);
+
   const handleMatchBet = () => {
     setFancyBetInputs(false);
     setMatchBetInputs(true);
@@ -13,6 +26,25 @@ function ClientPLData({ selectedClientID, selectedClientName }) {
     setFancyBetInputs(true);
     setMatchBetInputs(false);
   };
+
+  const getMatchEntryDetails = async () => {
+    await call(GET_MATCH_ENTRY_DETAILS, {
+      registered_match_id: matchDetails?.matchId,
+      register_id,
+      client_id: selectedClientID,
+    })
+      .then((res) => {
+        setUserMatchEntrys(res?.data?.data?.Items);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  useEffect(() => {
+    getMatchEntryDetails();
+  }, [selectedClientID]);
+
   return (
     <div>
       <div className="medium-font mt-3 mb-2">
@@ -40,7 +72,9 @@ function ClientPLData({ selectedClientID, selectedClientName }) {
           </div>
         </div>
       </div>
-      {matchBetInputs && <MatchBetTable />}
+      {matchBetInputs && (
+        <MatchBetTable userMatchEntrys={userMatchEntrys} winTeam={winTeam} />
+      )}
       {fancyBetInputs && <FancyBetTable />}
     </div>
   );

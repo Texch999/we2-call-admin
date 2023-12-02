@@ -27,6 +27,7 @@ function Statement(props) {
   } = props;
   const [onePageData, setOnePageData] = useState([]);
   const [matchDetails, setMatchDetails] = useState({});
+  const [winTeam, setWinTeam] = useState("");
 
   let register_id = localStorage?.getItem("register_id");
   let creator_id = localStorage?.getItem("creator_id");
@@ -68,10 +69,11 @@ function Statement(props) {
       };
     });
 
-  const handleShow = (item) => {
+  const handleShow = (item, winTeam) => {
     setShowModal(true);
     setMatchDetails(item);
     setPopupData(item?.matchId);
+    setWinTeam(winTeam);
   };
   const STATEMENT_DETAILS =
     statementData?.length &&
@@ -97,7 +99,7 @@ function Statement(props) {
             data-toggle="modal"
             data-target=".bd-example-modal-lg"
             className="clr-yellow"
-            onClick={() => handleShow(item)}
+            onClick={() => handleShow(item, item?.winTeam)}
           >
             Click Here
           </div>
@@ -298,10 +300,10 @@ function Statement(props) {
         <table className="w-100 match-position-table small-font">
           <tfoot>
             <tr className="text-center clr-green">
-              <th colSpan={5} className="text-end">
+              <th colSpan={9} className="text-end">
                 TOTAL
               </th>
-              <th className="text-center" colSpan={2}>
+              <th colSpan={1} className="text-center">
                 50000000.00
               </th>
             </tr>
@@ -323,6 +325,7 @@ function Statement(props) {
         </div>
       </div>
       <StatementPopup
+        winTeam={winTeam}
         showModal={showModal}
         setShowModal={setShowModal}
         popupData={popupData}

@@ -3,7 +3,7 @@ import ClientPLData from "./ClientPLData";
 import { GiClick } from "react-icons/gi";
 
 function ClientPLTable(props) {
-  const { popupData, clientMatchStatementData, matchDetails } = props;
+  const { popupData, clientMatchStatementData, matchDetails, winTeam } = props;
   const [selectedClientID, setSelectedClientID] = useState("");
   const [selectedClientName, setSelectedClientName] = useState("");
   const [showClientPL, setShowClientPL] = useState(false);
@@ -12,9 +12,6 @@ function ClientPLTable(props) {
     setSelectedClientID(clientID);
     setSelectedClientName(clientName);
   };
-  let clientPL = 0,
-    refPL = 0,
-    matchPL = 0;
   const CLIENTPL_DETAILS =
     clientMatchStatementData.length &&
     clientMatchStatementData?.map((item) => {
@@ -25,9 +22,11 @@ function ClientPLTable(props) {
         fancyProfitLoss: item.fancyProfitLoss,
         fancyReferralComm: item.fancyReferralComm,
         amount: item.amount,
+        client_id: item?.client_id,
+        client_name: item?.client_name,
       };
     });
-
+  console.log(clientMatchStatementData, "clientMatchStatementData");
   return (
     <div className="d-flex flex-column">
       <table className="w-100 match-position-table small-font">
@@ -107,6 +106,7 @@ function ClientPLTable(props) {
       </table>
       {showClientPL && (
         <ClientPLData
+          winTeam={winTeam}
           matchDetails={matchDetails}
           selectedClientID={selectedClientID}
           selectedClientName={selectedClientName}
