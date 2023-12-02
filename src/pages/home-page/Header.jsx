@@ -29,6 +29,8 @@ import { useHistory,useParams } from "react-router-dom";
 import { isLoggedIn } from "../../utils/helpers";
 import Login from "../log-in/Login";
 import EditProfile from "../popups/EditProfile";
+import { GET_ALL_NOTIFICATIONS } from "../../config/endpoints";
+import { call } from "../../config/axios";
 
 function Header() {
   const [modalShow, setModalShow] = useState(false);
@@ -321,6 +323,29 @@ function Header() {
   const token = isLoggedIn();
   const currenturl = window.location.href;
   const contains = currenturl.includes("/offers/")
+
+  const [notifications, setnotifications] = useState([]);
+  const getNotifications = async () => {
+    const payload = {
+      register_id: "company",
+      notification_type: "web-pushnotification",
+    };
+    await call(GET_ALL_NOTIFICATIONS, payload)
+      .then((res) => {
+        const arr = res?.data?.data;
+        setnotifications(arr);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  useEffect(() => {
+    getNotifications();
+  }, []);
+  console.log(notifications, "NNNNNN");
+  // const pushnotification = [...notifications]?.filter(
+  //   (item) => item.status === "true"
+  // );
+
   return (
     <div className="agent-header d-flex align-items">
       <div className="w-100 flex-align-center d-flex h-10vh mb-1">
@@ -456,13 +481,18 @@ function Header() {
           </div>
         </div>
       </div>
-      <Marquee className="marqu-tag meetings-heading">
-        Your privacy is our priority. With end-to-end encryption, you can be
+      <div className="d-flex w-100">
+        <Marquee className="d-flex marqu-tag meetings-heading ">
+          {notifications?.map((obj) => (
+            <div>{obj?.status === true && <li className="ml-3rem">{obj?.description} </li>}</div>
+          ))}
+        </Marquee>
+      </div>
+      {/* Your privacy is our priority. With end-to-end encryption, you can be
         sure that your personal messages stay between you and who you send them
         to. Your privacy is our priority. With end-to-end encryption, you can be
         sure that your personal messages stay between you and who you send them
-        to.
-      </Marquee>
+        to. */}
       {!token && (
         <Login
           showLoginPopup={token ? false : true}

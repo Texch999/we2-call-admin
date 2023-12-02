@@ -15,6 +15,8 @@ const CREATE_MATCH_ENTRY = "/offline-management/match_entry";
 const GET_ACCOUNT_MATCHES_DATA =
   "/offline-management/get_registered_matches_data";
 const GET_MATCH_ENTRY_DETAILS = "/offline-management/get_match_entry";
+const GET_ALL_PACKAGES_APPROVED_HSITORY =
+  "/packages/get_all_packages_statement";
 const UPDATE_MATCH_ENTRY = "/offline-management/update_match_entry";
 const DELETE_MATCH_ENTRY = "/offline-management/delete_match_entry";
 const MATCH_DECLARATION = "/offline-management/match_result";
@@ -82,6 +84,7 @@ const GET_LIVE_MATCH_RISK_POSITION =
 const GET_STATEMENT_BY_MATCH_ID =
   "/offline-management/get_statement_bymatch_id";
 const GET_TOUR_PAYMENT_GATEWAY = "/tours_banking/get_tour_payment_gateway"
+const GET_ALL_NOTIFICATIONS = "/management/get_all_notifications";
 
 // methods
 const DELETE = "DELETE";
@@ -121,6 +124,12 @@ exports.GET_LIVE_MATCH_RISK_POSITION = {
   url: GET_LIVE_MATCH_RISK_POSITION,
   method: POST,
 };
+
+exports.GET_ALL_PACKAGES_APPROVED_HSITORY = {
+  url: GET_ALL_PACKAGES_APPROVED_HSITORY,
+  method: POST,
+};
+
 exports.GET_STATEMENT_BY_MATCH_ID = {
   url: GET_STATEMENT_BY_MATCH_ID,
   method: POST,
@@ -433,3 +442,9 @@ exports.UPDATE_MEETING = {
   url: UPDATE_MEETING,
   method: POST,
 };
+
+exports.GET_ALL_NOTIFICATIONS = {
+  url: GET_ALL_NOTIFICATIONS,
+  method: POST,
+};
+

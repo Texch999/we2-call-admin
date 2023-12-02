@@ -2,9 +2,17 @@ import Table from "../home-page/Table";
 import { Images } from "./../../images/index";
 import { FaPlus, FaMinus, FaArrowRight } from "react-icons/fa6";
 import { PiHandbagBold } from "react-icons/pi";
+import { GET_ADMIN_PACKAGES } from "../../config/endpoints";
+import { call } from "../../config/axios";
+import { useState, useEffect } from "react";
 
 function PurchaseTopupHours() {
   const adminPackageTable = "admin-package-table";
+
+  const register_id = localStorage.getItem("register_id");
+
+  const [adminPackages, setAdminPackages] = useState([]);
+
   const PACKAGES_DATA = [
     {
       package: (
@@ -14,11 +22,13 @@ function PurchaseTopupHours() {
             src={Images.StandardSmallImg}
             alt="Standard_Small"
           />
-          <div className="px-2">Standard</div>
+         {/* {adminPackages.map((item) => { */}
+            <div className="px-2"> Standard</div>
+          {/* })} */}
         </div>
       ),
       purchased: <div>20h</div>,
-      used: <div className="yellow-clr">20h</div>,
+      used: <div className="yellow-clr">0h</div>,
       available: <div className="green-color">0h</div>,
     },
     {
@@ -33,8 +43,8 @@ function PurchaseTopupHours() {
         </div>
       ),
       purchased: <div>4h</div>,
-      used: <div className="yellow-clr">2h</div>,
-      available: <div className="green-color">2h</div>,
+      used: <div className="yellow-clr">0h</div>,
+      available: <div className="green-color">0h</div>,
     },
     {
       package: (
@@ -48,8 +58,8 @@ function PurchaseTopupHours() {
         </div>
       ),
       purchased: <div>2h</div>,
-      used: <div className="yellow-clr">2h</div>,
-      available: <div className="green-color">2h</div>,
+      used: <div className="yellow-clr">0h</div>,
+      available: <div className="green-color">0h</div>,
     },
     {
       package: (
@@ -63,8 +73,8 @@ function PurchaseTopupHours() {
         </div>
       ),
       purchased: <div>2h</div>,
-      used: <div className="yellow-clr">2h</div>,
-      available: <div className="green-color">2h</div>,
+      used: <div className="yellow-clr">0h</div>,
+      available: <div className="green-color">0h</div>,
     },
     {
       package: (
@@ -78,16 +88,34 @@ function PurchaseTopupHours() {
         </div>
       ),
       purchased: <div>2h</div>,
-      used: <div className="yellow-clr">2h</div>,
-      available: <div className="green-color">2h</div>,
+      used: <div className="yellow-clr">0h</div>,
+      available: <div className="green-color">0h</div>,
     },
   ];
+
   const PACKAGES_HEADING = [
     { header: "Packages", field: "package" },
     { header: "Purchased", field: "purchased" },
     { header: "Used", field: "used" },
     { header: "Available", field: "available" },
   ];
+
+  const getAdminPackages = async () => {
+    await call(GET_ADMIN_PACKAGES, { register_id })
+      .then((res) => {
+        const hoursPackages = res?.data?.data?.bulk_subscriptions.filter(
+          (obj) =>
+            obj.duration === "hourly" || obj.package_duration === "hourly"
+        );
+        setAdminPackages(hoursPackages || []);
+      })
+      .catch((err) => console.log(err));
+  };
+  useEffect(() => {
+    getAdminPackages();
+  }, []);
+
+  console.log("--------->adminPackages", adminPackages);
 
   const PACKAGES_HOURS_DATA = [
     {
@@ -379,6 +407,20 @@ function PurchaseTopupHours() {
     },
   ];
 
+  // PACKAGES_DATA = PACKAGES_DATA.map((obj) => {
+  //   let noOfpackages = 0;
+  //   adminPackages?.forEach((obj1) => {
+  //     if (obj?.packageType?.toLocaleLowerCase() == obj1.package_name) {
+  //       noOfpackages += obj1.no_of_packages || 1;
+  //       obj = {
+  //         ...obj,
+  //         purchase: noOfpackages,
+  //       };
+  //     }
+  //   });
+  //   return obj;
+  // });
+
   return (
     <div>
       <div className="row mt-3">
@@ -458,7 +500,10 @@ function PurchaseTopupHours() {
       <div className="row mt-3">
         <div className="col">
           {SELECT_PACKAGE?.map((item, index) => (
-            <div className="select-package-div rounded p-1 px-3 mt-2" key={index}>
+            <div
+              className="select-package-div rounded p-1 px-3 mt-2"
+              key={index}
+            >
               <div className="row d-flex align-items-center justify-content-between">
                 <div className="col-sm-7 col-lg-5 d-flex align-items-center">
                   <img
