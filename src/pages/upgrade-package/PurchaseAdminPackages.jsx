@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Table from "../home-page/Table";
 import { Images } from "./../../images/index";
 import { FaPlus, FaMinus, FaArrowRight } from "react-icons/fa6";
@@ -7,12 +7,114 @@ import { IoMdCloseCircleOutline } from "react-icons/io";
 import PackageAvailablePopup from "./PackageAvailablePopup";
 import { GET_ALL_PACKAGES } from "../../config/endpoints";
 import { call } from "../../config/axios";
+import { useDispatch, useSelector } from "react-redux";
+import { setSelectedPackages } from "../../redux/actions/commonActions";
 
 function PurchaseAdminPackages() {
   const [packageAvailablePopup, setPackageAvailablePopup] = useState(false);
+  const [yearly, setYearly] = useState(false);
+  const [allPackages, setAllPackages] = useState([]);
+  const dispatch = useDispatch();
   const handlePackageAvailable = () => {
     setPackageAvailablePopup(!packageAvailablePopup);
   };
+
+  const handleYear = (e) => {
+    setYearly(e.target.checked);
+  };
+
+  const packageList =
+    useSelector((State) => State.common.selected_packages) || [];
+  const selectedPackages = packageList.reduce(
+    (acc, obj) => acc + obj.no_of_packages,
+    0
+  );
+
+  const handleAddAndSubtract = (selectedPack, packageType, value) => {
+    const selectedNewPackages = allPackages.map((obj) => {
+      if (obj?.[packageType]?.package_id === selectedPack?.package_id) {
+        obj[packageType] = {
+          ...obj?.[packageType],
+          no_of_packages: obj?.[packageType]?.no_of_packages + value,
+        };
+      }
+      return obj;
+    });
+    let selectedPackList = [];
+    let monthly = [],
+      yearly = [];
+    allPackages.forEach((obj) => {
+      if (obj["monthly"].no_of_packages > 0) {
+        obj["monthly"].package_name = obj.name;
+        obj["monthly"].duration = "monthly";
+        monthly.push(obj["monthly"]);
+      }
+      if (obj["yearly"].no_of_packages > 0) {
+        obj["yearly"].package_name = obj.name;
+        obj["yearly"].duration = "yearly";
+        yearly.push(obj["yearly"]);
+      }
+    });
+    console.log(allPackages, ".....allPackages");
+    selectedPackList = [...monthly, ...yearly];
+    dispatch(setSelectedPackages(selectedPackList));
+    setAllPackages(selectedNewPackages);
+  };
+
+  const getAllPackages = async () => {
+    await call(GET_ALL_PACKAGES)
+      .then((res) => {
+        if (res.data.status === 200) {
+          const response = res.data.data;
+          console.log(response, ".......response");
+          const updateResponse = getUpdatedPackData(response);
+          setAllPackages(updateResponse);
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const getUpdatedPackData = (allPackagesInfo) => {
+    return SELECT_PACKAGE.map((itm) => {
+      let monthly, yearly;
+      allPackagesInfo.forEach((obj) => {
+        if (
+          obj.package_name === itm.name &&
+          obj.package_duration === "monthly"
+        ) {
+          monthly = obj;
+        }
+        if (
+          obj.package_name === itm.name &&
+          obj.package_duration === "yearly"
+        ) {
+          yearly = obj;
+        }
+      });
+      return {
+        ...itm,
+        monthly: {
+          cost: monthly?.package_cost,
+          package_id: monthly?.package_id,
+          no_of_packages: 0,
+          discount: monthly?.discount,
+        },
+        yearly: {
+          cost: yearly?.package_cost,
+          package_id: yearly?.package_id,
+          no_of_packages: 0,
+          discount: monthly?.discount,
+        },
+      };
+    });
+  };
+
+  console.log(getUpdatedPackData, ".........getUpdatedPackData");
+
+  useEffect(() => {
+    getAllPackages();
+  }, []);
+
   const adminPackageTable = "admin-package-table";
   const PACKAGES_DATA = [
     {
@@ -365,26 +467,36 @@ function PurchaseAdminPackages() {
       packageImg: Images.StandardPackage,
       packageName: "Standard Package",
       packageAmount: 5000,
+      name: "standard",
+      value: 0,
     },
     {
       packageImg: Images.SilverSelectPackage,
       packageName: "Silver Package",
       packageAmount: 10000,
+      name: "silver",
+      value: 0,
     },
     {
       packageImg: Images.GoldPackage,
       packageName: "Gold Package",
       packageAmount: 15000,
+      name: "gold",
+      value: 0,
     },
     {
       packageImg: Images.DiamondPackage,
       packageName: "Diamond Package",
       packageAmount: Intl.NumberFormat("en-IN").format(20000),
+      name: "diamond",
+      value: 0,
     },
     {
       packageImg: Images.VIPPackage,
       packageName: "VIP Package",
-      packageAmount: Intl.NumberFormat("en-IN").format(250000),
+      packageAmount: Intl.NumberFormat("en-IN").format(25000),
+      name: "vip",
+      value: 0,
     },
   ];
 
@@ -463,7 +575,7 @@ function PurchaseAdminPackages() {
           </div>
         </div>
       </div>
-      <div className="mt-3">
+      <div className="mt-1">
         <h5>Select Package</h5>
         <div className="row">
           <div className="col-sm-2 col-lg-1 d-flex align-items-center">
@@ -475,6 +587,7 @@ function PurchaseAdminPackages() {
               type="checkbox"
               role="switch"
               id="flexSwitchCheckDefault"
+              onClick={(e) => handleYear(e)}
             />
           </div>
           <div className="col-sm-2 col-lg-1 d-flex align-items-center">
@@ -482,13 +595,10 @@ function PurchaseAdminPackages() {
           </div>
         </div>
       </div>
-      <div className="row mt-3">
+      <div className="row mt-1">
         <div className="col">
-          {SELECT_PACKAGE?.map((item, index) => (
-            <div
-              className="select-package-div rounded p-1 px-3 mt-2"
-              key={index}
-            >
+          {allPackages?.map((item, index) => (
+            <div className="select-package-div rounded px-3 mt-2" key={index}>
               <div className="row d-flex align-items-center justify-content-between">
                 <div className="col-sm-7 col-lg-5 d-flex align-items-center">
                   <img
@@ -498,14 +608,40 @@ function PurchaseAdminPackages() {
                   />
                   <div className="medium-font fw-semibold">
                     <div>{item.packageName}</div>
-                    <div>{item.packageAmount}</div>
+                    <div>
+                      {yearly === true ? item.yearly?.cost : item.monthly?.cost}
+                    </div>
                   </div>
                 </div>
                 <div className="col-sm-4 col-lg-3">
-                  <div className="add-button rounded p-2 d-flex align-items-center justify-content-evenly">
-                    <FaMinus />
-                    <div className="fw-semibold">ADD</div>
-                    <FaPlus />
+                  <div className="add-button rounded py-1 d-flex align-items-center justify-content-evenly">
+                    <FaMinus
+                      onClick={() =>
+                        yearly === false
+                          ? item.monthly.no_of_packages
+                            ? handleAddAndSubtract(item.monthly, "monthly", -1)
+                            : null
+                          : item.yearly?.no_of_packages
+                          ? handleAddAndSubtract(item.yearly, "yearly", -1)
+                          : null
+                      }
+                    />
+                    <div className="fw-semibold">
+                      {yearly === true
+                        ? item.yearly?.no_of_packages
+                          ? item.yearly.no_of_packages
+                          : " Add"
+                        : item.monthly?.no_of_packages
+                        ? item.monthly.no_of_packages
+                        : "Add"}
+                    </div>
+                    <FaPlus
+                      onClick={() =>
+                        yearly === true
+                          ? handleAddAndSubtract(item.yearly, "yearly", 1)
+                          : handleAddAndSubtract(item.monthly, "monthly", 1)
+                      }
+                    />
                   </div>
                 </div>
               </div>
@@ -520,10 +656,13 @@ function PurchaseAdminPackages() {
           />
         </div>
       </div>
-      <div className="w-100 package-cart-div rounded p-2 mt-3 d-flex align-items-center justify-content-between">
+      <div className="w-95 package-cart-div rounded p-3 d-flex align-items-center justify-content-between m-2">
         <div className="d-flex align-items-center justify-content-around">
           <PiHandbagBold className="h4 mb-0" />
-          <div className="h5 mb-0 fw-semibold">1 Package Selected</div>
+          <div className="h5 mb-0 fw-semibold d-flex">
+            <div className="selected-numbers p-2">{selectedPackages}</div>
+            <div className="p-2">Package Selected</div>
+          </div>
         </div>
         <div className="next-div rounded-pill p-1 px-2 d-flex align-items-center justify-content-around">
           <div className="h5 mb-0 fw-semibold">Next</div>
