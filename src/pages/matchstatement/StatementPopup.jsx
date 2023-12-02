@@ -49,6 +49,10 @@ function StatementPopup(props) {
     getStatementByMatchIdData();
   }, [popupData]);
 
+  let clientPL = 0,
+    matchPL = 0,
+    refPL = 0;
+
   const clientMatchStatementData =
     onePageData &&
     onePageData?.length > 0 &&
@@ -124,12 +128,7 @@ function StatementPopup(props) {
       );
       return {
         masterProfitLoss: (
-          <div
-            className="settlemt-statement-client-data"
-            onClick={() =>
-              handleClientMatch(report?.client_id, report?.client_name)
-            }
-          >
+          <div className="settlemt-statement-client-data">
             <div>{report?.client_name}</div>
             <div className={`${amount >= 0 ? "green-clr" : "red-clr"}`}>
               {amount}
