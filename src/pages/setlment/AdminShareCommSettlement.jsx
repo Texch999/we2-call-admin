@@ -10,6 +10,7 @@ const AdminShareCommSettlement = ({
   totalNetPl,
   totalCD,
   totalBalance,
+  getUlShare,
 }) => {
   const adminShareSummaryData = [
     {
@@ -28,58 +29,6 @@ const AdminShareCommSettlement = ({
       amount: 1000000.0,
     },
   ];
-  // const adminShareCommSettlementData = [
-  //   {
-  //     admin_name: "Animesh",
-  //     role: "agent",
-  //     amount: 1000000.0,
-  //     ulplatfrom: 100000.0,
-  //     amountul: 100000.0,
-  //     credit_debit: 1000000.0,
-  //     balance: 1000000.0,
-  //   },
-  //   {
-  //     admin_name: "Sri23465",
-  //     role: "Master",
-  //     amount: 1000000.0,
-  //     ulplatfrom: 100000.0,
-  //     amountul: 100000.0,
-
-  //     credit_debit: 1000000.0,
-  //     balance: 1000000.0,
-  //   },
-  //   {
-  //     admin_name: "Srinivash",
-  //     role: "SM",
-  //     amount: 1000000.0,
-  //     ulplatfrom: 100000.0,
-  //     amountul: 100000.0,
-
-  //     credit_debit: 1000000.0,
-  //     balance: 1000000.0,
-  //   },
-
-  //   {
-  //     admin_name: "Sri23465",
-  //     role: "Master",
-  //     amount: 1000000.0,
-  //     ulplatfrom: 100000.0,
-  //     amountul: 100000.0,
-
-  //     credit_debit: 1000000.0,
-  //     balance: 1000000.0,
-  //   },
-  //   {
-  //     admin_name: "Srikanth",
-  //     role: "Sub A",
-  //     amount: 1000000.0,
-  //     ulplatfrom: 100000.0,
-  //     amountul: 100000.0,
-
-  //     credit_debit: 1000000.0,
-  //     balance: 1000000.0,
-  //   },
-  // ];
   const adminShareCommSettlementData =
     AdminCommSattlementStatementData &&
     AdminCommSattlementStatementData.length > 0 &&
@@ -89,13 +38,36 @@ const AdminShareCommSettlement = ({
         role: item.admin_role,
         amountul: item.amount,
         credit_debit: item.credit_debit,
-        balance: item?.balance,
+        balance: item.balance,
+        pay: item.pay,
       };
     });
-  const [showPaymentModal, setShowPaymentModal] = useState(false);
-  const handlePaymentModal = () => {
-    setShowPaymentModal(true);
-  };
+  // const netPL =
+  //   getUlShare(user?.total_amount, user?.ul_share) +
+  //   (+user?.totalPlatformNet || 0);
+  // const [showAdminPaymentModal, setShowAdminPaymentModal] = useState(false);
+  // const [selectedUser, setSelectedUser] = useState("");
+  // const [totalAmount, setTotalAmount] = useState(0);
+  // const [pendinAmount, setPendingAmount] = useState(0);
+
+  // const handlePaymentModal = (user) => {
+  //   setSelectedUser(user);
+  //   const resultAmount =
+  //     getUlShare(user?.total_amount, user?.ul_share) +
+  //     (+user?.totalPlatformNet || 0);
+  //   const pendinAmount =
+  //     user?.pending_settlement_platform_amount ||
+  //     user?.pending_settlement_platform_amount == 0
+  //       ? user?.pending_settlement_platform_amount
+  //         ? user?.pending_settlement_platform_amount?.toFixed(2)
+  //         : 0
+  //       : resultAmount
+  //       ? resultAmount?.toFixed(2)
+  //       : 0;
+  //   setTotalAmount(resultAmount);
+  //   setPendingAmount(pendinAmount);
+  //   // setShowPaymentModal(true);
+  // };
 
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = 5;
@@ -144,36 +116,27 @@ const AdminShareCommSettlement = ({
             </tr>
           </thead>
           <tbody>
-            {adminShareCommSettlementData?.map((data, index) => (
-              <tr key={index}>
-                <td className="text-center">{data?.admin_name}</td>
-                <td className="text-center">{data?.role}</td>
-                {/* <td className="text-center">
-                  {parseFloat(data?.amount).toFixed(2)}
-                </td>
-                <td className="text-center">{data?.ulplatfrom}</td> */}
-                <td className="text-center">{data?.amountul}</td>
-                <td
-                  className={`text-center ${
-                    data?.admin_name === "Sri23465" ? "clr-red" : "clr-green"
-                  }`}
-                >
-                  {parseFloat(data?.credit_debit).toFixed(2)}
-                </td>
-                <td className="text-center clr-green">
-                  {parseFloat(data?.balance).toFixed(2)}
-                </td>
-                <td className="text-center">
+            {adminShareCommSettlementData.length > 0 &&
+              adminShareCommSettlementData?.map((data, index) => (
+                <tr key={index}>
+                  <td className="text-center">{data?.admin_name}</td>
+                  <td className="text-center">{data?.role}</td>
+                  <td className="text-center">{data?.amountul}</td>
+                  <td className="text-center">{data?.credit_debit}</td>
+                  <td className="text-center">{data?.balance}</td>
+                  <td className="text-center">{data?.pay}</td>
+                  {/* <td className="text-center">
                   <Button
                     type="button"
                     className="text-warning rounded-circle border-0 settlement-file-button"
                     onClick={() => handlePaymentModal()}
                   >
-                    <AiFillFileText size={18} />
+                    Pay
+                    {+netPL === 0 ? "N/A" : "pay"}
                   </Button>
-                </td>
-              </tr>
-            ))}
+                </td> */}
+                </tr>
+              ))}
           </tbody>
           <tfoot>
             <tr>
@@ -192,13 +155,16 @@ const AdminShareCommSettlement = ({
               <th className="text-center"></th>
             </tr>
           </tfoot>
-          <PaymentSettelmentPopup
+          {/* <PaymentSettelmentPopup
             showPaymentModal={showPaymentModal}
             setShowPaymentModal={setShowPaymentModal}
             buttonOne={`Date : 27/07/23`}
             role="Admins Name"
             buttonTwo={`Time : 17:46:00 PM`}
-          />
+            selectedUser={selectedUser}
+            totalAmount={totalAmount}
+            pendinAmount={pendinAmount}
+          /> */}
         </Table>
       </div>
       <div className="d-flex justify-content-between align-items-center mt-4">

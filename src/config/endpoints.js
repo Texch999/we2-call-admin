@@ -80,6 +80,8 @@ const GET_LIVE_MATCH_RISK_POSITION =
 const GET_STATEMENT_BY_MATCH_ID =
   "/offline-management/get_statement_bymatch_id";
 const GET_ALL_NOTIFICATIONS = "/management/get_all_notifications";
+const SET_ADMIN_OFFLINE_PAYMENT =
+  "/offline-management/admin_offline_settlement";
 
 // methods
 const DELETE = "DELETE";
@@ -89,6 +91,11 @@ const PUT = "PUT";
 
 exports.GET_LIVE_MATCH_RISK_POSITION = {
   url: GET_LIVE_MATCH_RISK_POSITION,
+  method: POST,
+};
+
+exports.SET_ADMIN_OFFLINE_PAYMENT = {
+  url: SET_ADMIN_OFFLINE_PAYMENT,
   method: POST,
 };
 
@@ -414,4 +421,3 @@ exports.GET_ALL_NOTIFICATIONS = {
   url: GET_ALL_NOTIFICATIONS,
   method: POST,
 };
-

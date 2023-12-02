@@ -12,6 +12,8 @@ import {
 } from "../../config/endpoints";
 import { call } from "../../config/axios";
 import { useEffect } from "react";
+import PaymentSettelmentPopup from "../setlment/PaymentSettelmentPopup";
+import AdminPaymentPopup from "../setlment/AdminPaymentPopup";
 
 const AdminSharesMatchStatement = () => {
   const [adminShareStatementMatchPopUp, setAdminShareStatementMatchPopUp] =
@@ -279,6 +281,29 @@ const AdminSharesMatchStatement = () => {
         ),
       };
     });
+  const [showAdminPaymentModal, setShowAdminPaymentModal] = useState(false);
+  const [selectedUser, setSelectedUser] = useState("");
+  const [totalAmount, setTotalAmount] = useState(0);
+  const [pendinAmount, setPendingAmount] = useState(0);
+
+  const handlePaymentModal = (user) => {
+    setSelectedUser(user);
+    const resultAmount =
+      getUlShare(user?.total_amount, user?.ul_share) +
+      (+user?.totalPlatformNet || 0);
+    const pendinAmount =
+      user?.pending_settlement_platform_amount ||
+      user?.pending_settlement_platform_amount == 0
+        ? user?.pending_settlement_platform_amount
+          ? user?.pending_settlement_platform_amount?.toFixed(2)
+          : 0
+        : resultAmount
+        ? resultAmount?.toFixed(2)
+        : 0;
+    setTotalAmount(resultAmount);
+    setPendingAmount(pendinAmount);
+    setShowAdminPaymentModal(true);
+  };
   const AdminCommSattlementStatementData =
     allUsers &&
     allUsers?.length > 0 &&
@@ -301,24 +326,24 @@ const AdminSharesMatchStatement = () => {
             {user?.pending_settlement_platform_amount ||
             user?.pending_settlement_platform_amount == 0
               ? user?.pending_settlement_platform_amount
-                ? user?.pending_settlement_platform_amount
+                ? user?.pending_settlement_platform_amount?.toFixed(2)
                 : 0
               : netPL
-              ? netPL
+              ? netPL?.toFixed(2)
               : 0}
           </div>
         ),
         pay: (
           <div
-            className="account-summary-main-container"
-            // onClick={() => +netPL !== 0 && handlePaymentPopup(user)}
+            className="text-warning rounded-circle border-0 settlement-file-button"
+            onClick={() => +netPL !== 0 && handlePaymentModal(user)}
           >
             {+netPL === 0 ? "N/A" : "pay"}
           </div>
         ),
       };
     });
-
+  // console.log(AdminCommSattlementStatementData,"Sangram ............AdminCommSattlementStatementData")
   return (
     <div className="p-4">
       <div className="mb-3">
@@ -485,8 +510,26 @@ const AdminSharesMatchStatement = () => {
           totalNetPl={totalNetPl}
           totalCD={totalCD}
           totalBalance={totalBalance}
+          getUlShare={getUlShare}
         />
       )}
+      <AdminPaymentPopup
+        showAdminPaymentModal={showAdminPaymentModal}
+        setShowAdminPaymentModal={setShowAdminPaymentModal}
+        selectedUser={selectedUser}
+        totalAmount={totalAmount}
+        pendinAmount={pendinAmount}
+      />
+      {/* <AdminPaymentPopup
+        showPaymentModal={showPaymentModal}
+        setShowPaymentModal={setShowPaymentModal}
+        buttonOne={`Date : 27/07/23`}
+        role="Admins Name"
+        buttonTwo={`Time : 17:46:00 PM`}
+        selectedUser={selectedUser}
+        totalAmount={totalAmount}
+        pendinAmount={pendinAmount}
+      /> */}
     </div>
   );
 };
