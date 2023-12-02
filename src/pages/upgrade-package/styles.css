@@ -193,6 +193,9 @@
 .w-95 {
   width: 95%;
 }
+.selected-numbers {
+  width: 25px;
+}
 .next-div {
   background-color: #f6b832;
 }

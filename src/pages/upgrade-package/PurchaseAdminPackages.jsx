@@ -659,8 +659,9 @@ function PurchaseAdminPackages() {
       <div className="w-95 package-cart-div rounded p-3 d-flex align-items-center justify-content-between m-2">
         <div className="d-flex align-items-center justify-content-around">
           <PiHandbagBold className="h4 mb-0" />
-          <div className="h5 mb-0 fw-semibold">
-            {selectedPackages}Package Selected
+          <div className="h5 mb-0 fw-semibold d-flex">
+            <div className="selected-numbers p-2">{selectedPackages}</div>
+            <div className="p-2">Package Selected</div>
           </div>
         </div>
         <div className="next-div rounded-pill p-1 px-2 d-flex align-items-center justify-content-around">
