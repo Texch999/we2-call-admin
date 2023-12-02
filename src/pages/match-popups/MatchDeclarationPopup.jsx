@@ -9,6 +9,8 @@ function MatchDeclarationPopup(props) {
     props;
   const [matchSubmitSuccessPopup, setMatchSubmitSuccessPopup] = useState(false);
 
+  const [matchSubmitSuccessPopup, setMatchSubmitSuccessPopup] = useState(false);
+
   return (
     <Modal className="match-declaration-modal" centered show={state}>
       <Modal.Header className="d-flex justify-content-end">
