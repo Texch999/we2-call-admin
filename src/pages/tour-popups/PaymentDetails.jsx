@@ -7,11 +7,12 @@ import { call } from "../../config/axios";
 import { useEffect, useState } from "react";
 
 function PaymentDetails(props) {
-  const { handleBookingComplete } = props;
+  const { handleBookingComplete, userDetails } = props;
   const [allPayments, setAllPayments] = useState([])
   const [dropdownOption, setDropdownOption] = useState('')
   const [paymentdetails, setPaymentdetails] = useState({})
   console.log(paymentdetails,'.......paymsentdetails')
+  console.log(userDetails,'.......userDetails')
   const country = 'India'
   const getCompanyAllowedPayments = async () => {
     const payload = {};

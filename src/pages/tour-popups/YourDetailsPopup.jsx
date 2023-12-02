@@ -190,7 +190,7 @@ function YourDetailsPopup(props) {
         )}
 
         {paymentDetails && (
-          <PaymentDetails handleBookingComplete={handleBookingComplete} />
+          <PaymentDetails handleBookingComplete={handleBookingComplete} usersDetails={usersDetails}/>
         )}
         {bookingComplete && <BookingCompleteMsg handleCancel={handleCancel} />}
       </div>
