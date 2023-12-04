@@ -75,7 +75,13 @@ function ClientPLData({
       {matchBetInputs && (
         <MatchBetTable userMatchEntrys={userMatchEntrys} winTeam={winTeam} />
       )}
-      {fancyBetInputs && <FancyBetTable />}
+      {fancyBetInputs && (
+        <FancyBetTable
+          winTeam={winTeam}
+          matchDetails={matchDetails}
+          selectedClientID={selectedClientID}
+        />
+      )}
     </div>
   );
 }

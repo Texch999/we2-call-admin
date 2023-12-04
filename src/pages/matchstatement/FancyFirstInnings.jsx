@@ -1,6 +1,40 @@
-import React from "react";
+import { GET_FANCY_ENTRY_DATA } from "../../config/endpoints";
+import { call } from "../../config/axios";
+import { useEffect, useState } from "react";
 
-function FancyFirstInnings() {
+function FancyFirstInnings({ winTeam, matchDetails, selectedClientID }) {
+  const register_id = localStorage?.getItem("register_id");
+  const [userFancyFirstInnings, setUserFancyFirstInnings] = useState([]);
+
+  const getFirstInningsFancyEntryDetails = async () => {
+    await call(GET_FANCY_ENTRY_DATA, {
+      register_id,
+      client_id: selectedClientID,
+      registered_match_id: matchDetails?.matchId,
+    })
+      .then((res) => {
+        let result = res?.data?.data?.Items;
+        setUserFancyFirstInnings(
+          result?.filter((i) => i?.innings === "1" || i?.innings === 1)
+        );
+      })
+      .catch((err) => console.log(err));
+  };
+  useEffect(() => {
+    getFirstInningsFancyEntryDetails();
+  }, [selectedClientID]);
+
+  const totalPL =
+    userFancyFirstInnings &&
+    userFancyFirstInnings?.length > 0 &&
+    userFancyFirstInnings.reduce(
+      (acc, obj) =>
+        acc + ((obj?.fancy_status === "Y" ? -+obj?.amount : +obj?.amount) || 0),
+      0
+    );
+
+  console.log(userFancyFirstInnings, "userFancyFirstInnings");
+
   const Fancy_First_DETAILS = [
     {
       Sno: "5",
@@ -22,7 +56,7 @@ function FancyFirstInnings() {
       <table className="w-100 match-position-table small-font">
         <thead>
           <tr className="text-center">
-            <th>S No</th>
+            <th>S.No</th>
             <th>Over</th>
             <th>Team</th>
             <th>Runs</th>
@@ -66,7 +100,7 @@ function FancyFirstInnings() {
         </div>
         <div className="w-25 d-flex justify-content-between me-2">
           <th className="text-end">TOTAL</th>
-          <th>50000000.00</th>
+          <th>{totalPL}</th>
         </div>
       </div>
     </div>

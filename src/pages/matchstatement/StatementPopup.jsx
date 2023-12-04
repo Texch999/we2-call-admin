@@ -49,133 +49,6 @@ function StatementPopup(props) {
     getStatementByMatchIdData();
   }, [popupData]);
 
-  let clientPL = 0,
-    matchPL = 0,
-    refPL = 0;
-
-  const clientMatchStatementData =
-    onePageData &&
-    onePageData?.length > 0 &&
-    onePageData?.map((report) => {
-      clientPL = onePageData.reduce(
-        (acc, obj) => acc + (+obj?.clientNet || 0),
-        0
-      );
-      matchPL = onePageData.reduce(
-        (acc, obj) => acc + (+obj?.totalLossOrProfit || 0),
-        0
-      );
-      const amount = report?.matchEntryResult?.amount;
-      return {
-        name: <div>{report?.client_name}</div>,
-        masterProfitLoss: (
-          <div className={`${amount >= 0 ? "clr-green" : "clr-red"}`}>
-            {amount}
-          </div>
-        ),
-        share: (
-          <div>
-            Share
-            <div
-              className={`${
-                report?.clientShare >= 0 ? "clr-green" : "clr-red"
-              }`}
-            >
-              {report?.clientShare}
-            </div>
-          </div>
-        ),
-        fancyProfitLoss: (
-          <div className="flex-center">
-            <div
-              className={
-                report?.fancyEntryResult?.amount >= 0 ? "clr-green" : "clr-red"
-              }
-            >
-              {report?.fancyEntryResult?.amount}
-            </div>
-          </div>
-        ),
-        fancyReferralComm: (
-          <div
-            className={`${
-              report?.clientComission >= 0 ? "clr-green" : "clr-red"
-            }`}
-          >
-            {report?.clientComission}
-          </div>
-        ),
-        amount: (
-          <div
-            className={`${report?.clientNet >= 0 ? "clr-green" : "clr-red"}`}
-          >
-            {report?.clientNet}
-          </div>
-        ),
-        client_id: report?.client_id,
-        client_name: report?.client_name,
-      };
-    });
-
-  const referralFinancialStatementAllData =
-    onePageData &&
-    onePageData?.length > 0 &&
-    onePageData?.map((report) => {
-      const amount = report?.matchEntryResult?.amount;
-      refPL = onePageData.reduce(
-        (acc, obj) => acc + (+obj?.referalNet || 0),
-        0
-      );
-      return {
-        masterProfitLoss: (
-          <div className="settlemt-statement-client-data">
-            <div>{report?.client_name}</div>
-            <div className={`${amount >= 0 ? "green-clr" : "red-clr"}`}>
-              {amount}
-            </div>
-            Rf Share
-            <div
-              className={`${
-                report?.referalShare >= 0 ? "green-clr" : "red-clr"
-              }`}
-            >
-              {report?.referalShare}
-            </div>
-          </div>
-        ),
-        fancyProfitLoss: (
-          <div className="flex-center">
-            <div
-              className={
-                report?.fancyEntryResult?.amount >= 0 ? "green-clr" : "red-clr"
-              }
-            >
-              {report?.fancyEntryResult?.amount}
-            </div>
-          </div>
-        ),
-        fancyReferralComm: (
-          <div
-            className={`${
-              report?.referralComission >= 0 ? "green-clr" : "red-clr"
-            }`}
-          >
-            {report?.referralComission}
-          </div>
-        ),
-        amount: (
-          <div
-            className={`${report?.referalNet >= 0 ? "green-clr" : "red-clr"}`}
-          >
-            {report?.referalNet}
-          </div>
-        ),
-        client_id: report?.client_id,
-        client_name: report?.client_name,
-      };
-    });
-
-  console.log(onePageData, "onePageData");
   return (
     <div className="modal fade bd-example-modal-lg container mt-5">
       <Modal
@@ -227,18 +100,16 @@ function StatementPopup(props) {
         <Modal.Body className="p-3">
           {clientInputs && (
             <ClientPLTable
+              onePageData={onePageData}
               winTeam={winTeam}
               matchDetails={matchDetails}
-              clientMatchStatementData={clientMatchStatementData}
             />
           )}
           {rfplInputs && (
             <RfplTable
+              onePageData={onePageData}
               winTeam={winTeam}
               matchDetails={matchDetails}
-              referralFinancialStatementAllData={
-                referralFinancialStatementAllData
-              }
             />
           )}
         </Modal.Body>

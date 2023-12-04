@@ -3,30 +3,79 @@ import ClientPLData from "./ClientPLData";
 import { GiClick } from "react-icons/gi";
 
 function ClientPLTable(props) {
-  const { popupData, clientMatchStatementData, matchDetails, winTeam } = props;
+  const { popupData, onePageData, matchDetails, winTeam } = props;
   const [selectedClientID, setSelectedClientID] = useState("");
   const [selectedClientName, setSelectedClientName] = useState("");
   const [showClientPL, setShowClientPL] = useState(false);
+  const ulShare = localStorage.getItem("ul_share");
   const handleClientData = (clientID, clientName) => {
     setShowClientPL((prev) => !prev);
     setSelectedClientID(clientID);
     setSelectedClientName(clientName);
   };
-  const CLIENTPL_DETAILS =
-    clientMatchStatementData.length &&
-    clientMatchStatementData?.map((item) => {
+  let clientPL = 0,
+    matchPL = 0,
+    refPL = 0;
+
+  const clientMatchStatementData =
+    onePageData &&
+    onePageData?.length > 0 &&
+    onePageData?.map((report) => {
+      clientPL = onePageData.reduce(
+        (acc, obj) => acc + (+obj?.clientNet || 0),
+        0
+      );
+      matchPL = onePageData.reduce(
+        (acc, obj) => acc + (+obj?.totalLossOrProfit || 0),
+        0
+      );
+      refPL = onePageData.reduce(
+        (acc, obj) => acc + (+obj?.referalNet || 0),
+        0
+      );
+      const amount = report?.matchEntryResult?.amount;
       return {
-        name: item.name,
-        masterProfitLoss: item.masterProfitLoss,
-        share: item.share,
-        fancyProfitLoss: item.fancyProfitLoss,
-        fancyReferralComm: item.fancyReferralComm,
-        amount: item.amount,
-        client_id: item?.client_id,
-        client_name: item?.client_name,
+        client_id: report?.client_id,
+        name: <div>{report?.client_name}</div>,
+        masterProfitLoss: (
+          <div className={`${amount >= 0 ? "clr-green" : "clr-red"}`}>
+            {amount}
+          </div>
+        ),
+        share: (
+          <div
+            className={`${report?.clientShare >= 0 ? "clr-green" : "clr-red"}`}
+          >
+            {report?.clientShare}
+          </div>
+        ),
+        fancyProfitLoss: (
+          <div
+            className={
+              report?.fancyEntryResult?.amount >= 0 ? "clr-green" : "clr-red"
+            }
+          >
+            {report?.fancyEntryResult?.amount}
+          </div>
+        ),
+        fancyReferralComm: (
+          <div
+            className={`${
+              report?.clientComission >= 0 ? "clr-green" : "clr-red"
+            }`}
+          >
+            {report?.clientComission}
+          </div>
+        ),
+        amount: (
+          <div
+            className={`${report?.clientNet >= 0 ? "clr-green" : "clr-red"}`}
+          >
+            {report?.clientNet}
+          </div>
+        ),
       };
     });
-  console.log(clientMatchStatementData, "clientMatchStatementData");
   return (
     <div className="d-flex flex-column">
       <table className="w-100 match-position-table small-font">
@@ -34,37 +83,27 @@ function ClientPLTable(props) {
           <tr className="text-center">
             <th>Name</th>
             <th>Match P/L</th>
-            <th>Fancy P/L 1st</th>
-            <th>Fancy P/L 2nd</th>
-            <th>Total Fancy P/L</th>
-            <th>Match Com/Fancy Comm</th>
-            <th>Rolling Comm</th>
-            <th>M+F+C/RC</th>
-            <th>C-Share</th>
-            <th>C Net P/L</th>
+            <th>Share</th>
+            <th>Fancy P/L</th>
+            <th>C.Comm(M+F)-Rolling Comm</th>
+            <th>M+F+C=C-P/L</th>
+            <th>Details</th>
           </tr>
         </thead>
-        {CLIENTPL_DETAILS?.map((item, index) => (
+        {clientMatchStatementData?.map((item, index) => (
           <tbody key={index}>
             <tr className="text-center">
               <td>{item.name}</td>
-              {/* <td className="clr-green">{item.name}</td> */}
-              <td className="clr-green">{item.masterProfitLoss}</td>
-              <td className="clr-green">{item.masterProfitLoss}</td>
-              <td className="clr-green"> {item.share}</td>
-              <td className="clr-green"> {item.fancyProfitLoss}</td>
-              <td className="clr-green"> {item.fancyReferralComm}</td>
-              <td className="clr-green"> {item.amount}</td>
-              <td className="clr-green"> {item.fifteenoverone}</td>
-              <td className="clr-green"> {item.fancyReferralComm}</td>
-              <td
-                className="clr-green"
-                onClick={() =>
-                  handleClientData(item?.client_id, item?.client_name)
-                }
-              >
-                {item.amount}
-                <GiClick className="custom-click-icon ms-1 mt-2" />
+              <td>{item.masterProfitLoss}</td>
+              <td>{item.share}</td>
+              <td>{item.fancyProfitLoss}</td>
+              <td>{item?.fancyReferralComm}</td>
+              <td>{item?.amount}</td>
+              <td>
+                <GiClick
+                  className="custom-click-icon ms-1 mt-2"
+                  onClick={() => handleClientData(item?.client_id, item?.name)}
+                />
               </td>
             </tr>
           </tbody>
@@ -77,30 +116,45 @@ function ClientPLTable(props) {
             <th>50000000.00</th>
             <th>50000000.00</th>
             <th>50000000.00</th>
-            <th>50000000.00</th>
-            <th>50000000.00</th>
-            <th>50000000.00</th>
-            <th>50000000.00</th>
+            <th></th>
           </tr>
         </tfoot>
       </table>
       <table className="w-100 match-position-table small-font mt-2">
         <thead>
           <tr className="text-center">
-            <th>Referal M+F+C/RC</th>
-            <th>After Referral</th>
-            <th>UL Share</th>
-            <th>UL Comm</th>
-            <th>Yours Net P/L</th>
+            <th>C Net P/L</th>
+            <th>Ref Net P/L</th>
+            <th>Match P/L</th>
+            <th>UL Share {ulShare}%</th>
+            <th>Match Net P/L</th>
           </tr>
         </thead>
         <tbody>
           <tr className="text-center">
-            <td>10,000</td>
-            <td>90,000</td>
-            <td>9000</td>
-            <td>0.00</td>
-            <td>{popupData?.totalAmount?.totalLossOrProfit}</td>
+            <td className={`${clientPL >= 0 ? "clr-green" : "clr-red"}`}>
+              {clientPL}
+            </td>
+            <td className={`${refPL >= 0 ? "clr-green" : "clr-red"}`}>
+              {refPL}
+            </td>
+            <td className={`${matchPL >= 0 ? "clr-green" : "clr-red"}`}>
+              {matchPL}
+            </td>
+            <td className={`${matchPL >= 0 ? "clr-green" : "clr-red"}`}>
+              {matchPL >= 0
+                ? -(matchPL * ulShare) / 100
+                : (matchPL * ulShare) / 100}
+            </td>
+            <td
+              className={`${
+                matchPL - (matchPL * ulShare) / 100 >= 0
+                  ? "clr-green"
+                  : "clr-red"
+              }`}
+            >
+              {(matchPL - (matchPL * ulShare) / 100).toFixed(2)}
+            </td>
           </tr>
         </tbody>
       </table>

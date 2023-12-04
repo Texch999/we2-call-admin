@@ -10,7 +10,15 @@
   color: #ff0000 !important;
   font-weight: 600;
 }
+.red-clr {
+  color: #ff0000 !important;
+  font-weight: 600;
+}
 .clr-green {
+  color: #04c85e !important;
+  font-weight: 600;
+}
+.green-clr {
   color: #04c85e !important;
   font-weight: 600;
 }
@@ -122,6 +130,6 @@
   width: 30px;
   border-right: 1px solid #727488;
 }
-.total-count-container{
+.total-count-container {
   background-color: #112a5e;
 }
