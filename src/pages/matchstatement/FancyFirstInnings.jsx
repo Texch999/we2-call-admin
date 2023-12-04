@@ -69,23 +69,27 @@ function FancyFirstInnings({ winTeam, matchDetails, selectedClientID }) {
             <th>P/L</th>
           </tr>
         </thead>
-        {Fancy_First_DETAILS.map((item, index) => (
-          <tbody key={index}>
-            <tr className="text-center">
-              <td>{item.Sno}</td>
-              <td>{item.over}</td>
-              <td>{item.team}</td>
-              <td> {item.runs}</td>
-              <td> {item.name}</td>
-              <td> {item.yorn}</td>
-              <td> {item.date}</td>
-              <td> {item.time}</td>
-              <td className="clr-green"> {item.result}</td>
-              <td> {item.amount}</td>
-              <td className="clr-green"> {item.pl}</td>
-            </tr>
-          </tbody>
-        ))}
+        {userFancyFirstInnings &&
+          userFancyFirstInnings?.length > 0 &&
+          userFancyFirstInnings?.map((item, index) => (
+            <tbody key={index}>
+              <tr className="text-center">
+                <td>{item.s_no}</td>
+                <td>{item.over}</td>
+                <td>{item.team}</td>
+                <td>{item.runs}</td>
+                <td>{item.name}</td>
+                <td>{item.yN}</td>
+                <td>{item.date}</td>
+                <td>{item.time}</td>
+                <td className="clr-green"> {item.scored_runs}</td>
+                <td>{item.amount}</td>
+                <td className="clr-green">
+                  {item?.fancy_status === "Y" ? -item?.amount : item?.amount}
+                </td>
+              </tr>
+            </tbody>
+          ))}
       </table>
       <div className="w-100 d-flex justify-content-between mt-2">
         <div className="harizental-scroll">
