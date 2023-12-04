@@ -125,7 +125,7 @@ function Statement(props) {
   };
   const [existingUsers, setExistingUsers] = useState([]);
   const getAllClientsData = async () => {
-    call(GET_OFFLINE_CLIENTS, {
+    await call(GET_OFFLINE_CLIENTS, {
       register_id,
       account_role,
     })
@@ -299,13 +299,18 @@ function Statement(props) {
         <Table data={STATEMENT_DETAILS} columns={tableColumns} />
         <table className="w-100 match-position-table small-font">
           <tfoot>
-            <tr className="text-center clr-green">
-              <th colSpan={9} className="text-end">
-                TOTAL
+            <tr>
+              <th className="text-end">
+                TOTAL =
+                <span
+                  className={`${
+                    totalMatchResultData >= 0 ? "clr-green" : "clr-red"
+                  }`}
+                >
+                  {totalMatchResultData.toFixed(2)}
+                </span>
               </th>
-              <th colSpan={1} className="text-center">
-                50000000.00
-              </th>
+              <th></th>
             </tr>
           </tfoot>
         </table>
