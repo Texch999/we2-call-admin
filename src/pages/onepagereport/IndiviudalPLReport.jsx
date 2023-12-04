@@ -14,6 +14,7 @@ import { useEffect } from "react";
 function IndiviudalPLReport(props) {
   const {
     refData,
+    individualReportReferralData,
     individualReportClientData,
     netPLInduvisualClient,
     individualReportULShareData,
@@ -65,7 +66,36 @@ function IndiviudalPLReport(props) {
   //     getIndividualPLRefferal();
   //   }
   // }, [refId]);
-
+  const totalUrsNet =
+    clientData &&
+    clientData?.length > 0 &&
+    clientData?.reduce(
+      (acc, obj) => acc + (+obj?.ULnetPL?.props?.children || 0),
+      0
+    );
+  const totalUlShareNet =
+    clientData &&
+    clientData?.length > 0 &&
+    clientData?.reduce(
+      (acc, obj) => acc + (+obj?.afterAllSharePL?.props?.children || 0),
+      0
+    );
+  const totalUrsPlPlatform =
+    clientData &&
+    clientData?.length > 0 &&
+    clientData?.reduce(
+      (acc, obj) => acc + (+obj?.netPL?.props?.children || 0),
+      0
+    );
+  const totalPlatform =
+    clientData &&
+    clientData?.length > 0 &&
+    clientData?.reduce(
+      (acc, obj) =>
+        acc + (+obj?.individualReportPlatformComm?.props?.children || 0),
+      0
+    );
+    console.log(clientData,"clientData")
   return (
     <div>
       <hr />
@@ -96,18 +126,24 @@ function IndiviudalPLReport(props) {
           refData={refData}
           clientId={clientId}
           refClientId={refClientId}
+          clientData={clientData}
           individualRefferralData={individualRefferralData}
           indReportReferralData={indReportReferralData}
+          individualReportReferralData={individualReportReferralData}
         />
       )}
       {activeReport === "U/L Share" && (
         <ULShareIndPlData
           individualReportULShareData={individualReportULShareData}
+          totalUlShareNet={totalUlShareNet}
+          totalUrsPlPlatform={totalUrsPlPlatform}
         />
       )}
       {activeReport === "Platform Comm P/L" && (
         <PlatformCommPL
           individualReportPlatformCommData={individualReportPlatformCommData}
+          totalUlShareNet={totalUlShareNet}
+          totalPlatform={totalPlatform}
         />
       )}
     </div>

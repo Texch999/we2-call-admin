@@ -6,7 +6,13 @@ import {
 import { call } from "../../config/axios";
 
 function ReferalIndPl(props) {
-  const { refData, clientId, refClientId } = props;
+  const {
+    individualReportReferralData,
+    refData,
+    clientId,
+    refClientId,
+    clientData,
+  } = props;
   const [showIndividualReferealData, setShowIndividualReferalData] =
     useState(false);
 
@@ -47,12 +53,11 @@ function ReferalIndPl(props) {
       })
       .catch((err) => console.log(err));
   };
-  console.log(indivisualMatchReportData, "sangram..indivisualMatchReportData");
   const PAGE_REPORT_DETAILS =
-    refData?.length &&
-    refData?.map((item, index) => ({
-      name: <div onClick={() => handleRefid(item)}>{item.referral_name}</div>,
-      rfnet: "100000",
+    individualReportReferralData?.length &&
+    individualReportReferralData?.map((item, index) => ({
+      name: <div onClick={() => handleRefid(item)}>{item.referral_id}</div>,
+      rfnet: <div>{item.amount}</div>,
     }));
 
   const CLIENT_PAGE_REPORT_DETAILS =
@@ -103,15 +108,23 @@ function ReferalIndPl(props) {
                   </tbody>
                 ))}
             </table>
+            <table className="w-100 match-position-table medium-font">
+              <tfoot>
+                <tr className="text-end">
+                  <th className="text-start">TOTAL</th>
+                  <th className="clr-green text-end">
+                    10000.00
+                    {/* {totalUrsNet ? totalUrsNet?.toFixed(2) : null} */}
+                  </th>
+                </tr>
+              </tfoot>
+            </table>
           </div>
         </div>
         {showIndividualReferealData && (
           <>
             <div className="d-flex flex-column w-70">
               <div className="mb-2">
-                {/* <div className="all-match-button share-risk-match-button w-25 text-start btn btn-primary">
-              Referal - Animesh
-            </div> */}
                 <table className="match-position-table medium-font w-100">
                   <thead>
                     <tr className="text-center">

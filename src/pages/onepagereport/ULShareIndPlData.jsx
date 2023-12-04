@@ -1,7 +1,7 @@
 import React from "react";
 
 function ULShareIndPlData(props) {
-  const { individualReportULShareData } = props;
+  const { individualReportULShareData, totalUrsPlPlatform } = props;
   const PAGE_REPORT_DETAILS = individualReportULShareData?.map(
     (item, index) => ({
       date: item.matchDate,
@@ -11,7 +11,22 @@ function ULShareIndPlData(props) {
       Ulshare: item.afterAllSharePL,
     })
   );
-  console.log(PAGE_REPORT_DETAILS, "one page report");
+  const totalUrsNet =
+    individualReportULShareData &&
+    individualReportULShareData?.length > 0 &&
+    individualReportULShareData?.reduce(
+      (acc, obj) => acc + (+obj?.ULnetPL?.props?.children || 0),
+      0
+    );
+  const totalUlShareNet =
+    individualReportULShareData &&
+    individualReportULShareData?.length > 0 &&
+    individualReportULShareData?.reduce(
+      (acc, obj) => acc + (+obj?.afterAllSharePL?.props?.children || 0),
+      0
+    );
+  console.log(totalUlShareNet, "totalUlShareNet");
+  console.log(totalUrsPlPlatform, "totalUrsPlPlatform");
   return (
     <div>
       <h6 className="Platform-Comm-PL-">UL Share P/L :</h6>
@@ -41,14 +56,15 @@ function ULShareIndPlData(props) {
           ))}
         </table>
       </div>
-      {/* <table className="w-100 match-position-table medium-font">
+      <table className="w-100 match-position-table medium-font">
         <tfoot>
           <tr className="text-center">
-            <th className="text-end">TOTAL</th>
-            <th className="clr-green text-end">50000000.00</th>
+            <th colSpan={3}>TOTAL</th>
+            <th>{totalUlShareNet ? totalUlShareNet?.toFixed(2) : 0}</th>
+            <th>{totalUrsPlPlatform ? totalUrsPlPlatform?.toFixed(2) : 0}</th>
           </tr>
         </tfoot>
-      </table> */}
+      </table>
     </div>
   );
 }

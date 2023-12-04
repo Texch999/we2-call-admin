@@ -3,6 +3,7 @@ import { Col, Container, Modal, Row } from "react-bootstrap";
 import moment from "moment";
 import { call } from "../../config/axios";
 import { SET_ADMIN_OFFLINE_PAYMENT } from "../../config/endpoints";
+import PaymentSuccessPopup from "./PaymentSuccessPopup";
 
 function AdminPaymentPopup({
   showAdminPaymentModal,
@@ -22,6 +23,11 @@ function AdminPaymentPopup({
   const [settlementObj, setSettlementObj] = useState({
     settled_platform_amount: 0,
   });
+  const [showSuccessPaymentPopup, setShowSuccessPaymentPopup] = useState(false);
+  const handleSuccessPaymentPopup = () => {
+    setShowSuccessPaymentPopup(true);
+  };
+
   const paymentTypes = [
     { name: "PhonePe", value: "Phonepay" },
     { name: "G Pay", value: "G pay" },
@@ -63,9 +69,9 @@ function AdminPaymentPopup({
         if (res?.data?.error === "true") {
           setError(res?.data?.message);
         } else {
-          // setPaymentPopupOpen(false);
-          // setSuccess((prev)=>!prev)
-          // setPaymentSuccessPopUp(true);
+          setShowAdminPaymentModal(false);
+          // setSuccess((prev) => !prev);
+          setShowSuccessPaymentPopup(true);
         }
       })
       .catch((err) => {
@@ -74,9 +80,7 @@ function AdminPaymentPopup({
         console.log(err);
       });
   };
-  //   console.log("selected user", selectedUser);
-  //   console.log("total Amount", totalAmount);
-  //   console.log("pendin Amount", pendinAmount);
+
   const handleOnchange = () => {};
   return (
     <div className="modal fade bd-example-modal-lg container mt-5">
@@ -169,6 +173,7 @@ function AdminPaymentPopup({
                   </div>
                   <select
                     className="w-100 custom-select small-font btn-bg rounded all-none"
+                    onChange={(e) => onInputChange(e)}
                     name="payment_type"
                   >
                     {/* <option selected>{settlementObj?.payment_type}</option> */}
@@ -216,6 +221,10 @@ function AdminPaymentPopup({
           </div>
         </Modal.Header>
       </Modal>
+      <PaymentSuccessPopup
+        showSuccessPaymentPopup={showSuccessPaymentPopup}
+        setShowSuccessPaymentPopup={setShowSuccessPaymentPopup}
+      />
     </div>
   );
 }

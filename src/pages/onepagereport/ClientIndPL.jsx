@@ -6,6 +6,7 @@ function ClientIndPL(props) {
     individualReportClientData,
     clientName,
     netPLInduvisualClient,
+    totalUrsNet,
   } = props;
   const [showIndividualCLientData, setShowIndividualClientData] =
     useState(false);
@@ -30,6 +31,22 @@ function ClientIndPL(props) {
     individualReportClientData,
     "..................V.................."
   );
+  const totalInduvisualReportClientData =
+    individualReportClientData &&
+    individualReportClientData?.length > 0 &&
+    individualReportClientData?.reduce(
+      (acc, obj) => acc + (+obj?.amount?.props?.children || 0),
+      0
+    );
+  const totalClientPl =
+    clientData &&
+    clientData?.length > 0 &&
+    clientData?.reduce(
+      (acc, obj) => acc + (+obj?.amount?.props?.children || 0),
+      0
+    );
+  console.log(clientData, "data i get");
+  console.log(totalClientPl, "totalClientPl");
   return (
     <div>
       <h6 className="Platform-Comm-PL-">Client :</h6>
@@ -54,12 +71,14 @@ function ClientIndPL(props) {
                     </tr>
                   </tbody>
                 ))}
-              {/* <tfoot>
-            <tr className="text-center">
-              <th className="text-center">TOTAL</th>
-              <th className="clr-green">500000000.00</th>
-            </tr>
-          </tfoot> */}
+              <tfoot>
+                <tr className="text-center">
+                  <th className="text-center">TOTAL</th>
+                  <th className={totalClientPl > 0 ? "clr-green" : "clr-red"}>
+                    {totalClientPl ? totalClientPl?.toFixed(2) : null}
+                  </th>
+                </tr>
+              </tfoot>
             </table>
           </div>
         </div>
@@ -71,7 +90,15 @@ function ClientIndPL(props) {
                   <tr className="text-center">
                     <th className="text-start">
                       <span className="clr-yellow">{clientName}</span> :{" "}
-                      {netPLInduvisualClient}
+                      <div
+                        className={
+                          netPLInduvisualClient >= 0 ? "clr-green" : "clr-red"
+                        }
+                      >
+                        {netPLInduvisualClient
+                          ? netPLInduvisualClient.toFixed(2)
+                          : 0}
+                      </div>
                     </th>
                   </tr>
                 </thead>
@@ -107,7 +134,19 @@ function ClientIndPL(props) {
                   <tfoot>
                     <tr className="text-center">
                       <th className="text-end">TOTAL</th>
-                      <th className="text-end">{netPLInduvisualClient}</th>
+                      <th
+                        // className="text-end"
+                        className={`text-end ${
+                          totalInduvisualReportClientData > 0
+                            ? "clr-green"
+                            : "clr-red"
+                        }`}
+                      >
+                        {" "}
+                        {totalInduvisualReportClientData
+                          ? totalInduvisualReportClientData?.toFixed(2)
+                          : 0}
+                      </th>
                     </tr>
                   </tfoot>
                 </table>
