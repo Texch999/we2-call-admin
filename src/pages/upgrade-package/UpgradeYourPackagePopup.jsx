@@ -48,13 +48,13 @@ function UpgradeYourPackagePopup(props) {
     },
   ];
   return (
-    <div className="modal fade bd-example-modal-lg container mt-5">
+    <div className="modal fade bd-example-modal-lg container mt-5 z-index">
       <Modal
         size="md"
         show={showPackagePopup}
         onHide={handlePackagePopupClose}
         centered
-        className="match-share-modal payment-modal"
+        className="match-share-modal payment-modal z-index"
       >
         <Modal.Header closeButton>
           <div className="w-100 flex-columnn relative-position">

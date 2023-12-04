@@ -9,9 +9,11 @@ import { GET_ALL_PACKAGES } from "../../config/endpoints";
 import { call } from "../../config/axios";
 import { useDispatch, useSelector } from "react-redux";
 import { setSelectedPackages } from "../../redux/actions/commonActions";
+import UpgradeYourPackagePopup from "./UpgradeYourPackagePopup";
 
 function PurchaseAdminPackages() {
   const [packageAvailablePopup, setPackageAvailablePopup] = useState(false);
+  const [showPackagePopup, setShowPackagePopup] = useState(false);
   const [yearly, setYearly] = useState(false);
   const [allPackages, setAllPackages] = useState([]);
   const dispatch = useDispatch();
@@ -55,7 +57,6 @@ function PurchaseAdminPackages() {
         yearly.push(obj["yearly"]);
       }
     });
-    console.log(allPackages, ".....allPackages");
     selectedPackList = [...monthly, ...yearly];
     dispatch(setSelectedPackages(selectedPackList));
     setAllPackages(selectedNewPackages);
@@ -108,8 +109,6 @@ function PurchaseAdminPackages() {
       };
     });
   };
-
-  console.log(getUpdatedPackData, ".........getUpdatedPackData");
 
   useEffect(() => {
     getAllPackages();
@@ -656,19 +655,26 @@ function PurchaseAdminPackages() {
           />
         </div>
       </div>
-      <div className="w-95 package-cart-div rounded p-3 d-flex align-items-center justify-content-between m-2">
+      <div className="w-95 package-cart-div rounded p-2 m-2 d-flex align-items-center justify-content-between">
         <div className="d-flex align-items-center justify-content-around">
           <PiHandbagBold className="h4 mb-0" />
           <div className="h5 mb-0 fw-semibold d-flex">
-            <div className="selected-numbers p-2">{selectedPackages}</div>
-            <div className="p-2">Package Selected</div>
+            <div className="selected-numbers p-1">{selectedPackages}</div>
+            <div className="p-1">Package Selected</div>
           </div>
         </div>
-        <div className="next-div rounded-pill p-1 px-2 d-flex align-items-center justify-content-around">
-          <div className="h5 mb-0 fw-semibold">Next</div>
+        <div
+          className="next-div rounded-pill  d-flex align-items-center justify-content-around"
+          onClick={() => setShowPackagePopup(true)}
+        >
+          <div className=" mb-0 fw-semibold p-1">Next</div>
           <FaArrowRight className="h4 mb-0" />
         </div>
       </div>
+      <UpgradeYourPackagePopup
+        showPackagePopup={showPackagePopup}
+        setShowPackagePopup={setShowPackagePopup}
+      />
     </div>
   );
 }
