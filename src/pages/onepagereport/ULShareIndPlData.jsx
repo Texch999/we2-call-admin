@@ -1,7 +1,7 @@
 import React from "react";
 
 function ULShareIndPlData(props) {
-  const { individualReportULShareData, totalUrsPlPlatform } = props;
+  const { individualReportULShareData } = props;
   const PAGE_REPORT_DETAILS = individualReportULShareData?.map(
     (item, index) => ({
       date: item.matchDate,
@@ -25,8 +25,8 @@ function ULShareIndPlData(props) {
       (acc, obj) => acc + (+obj?.afterAllSharePL?.props?.children || 0),
       0
     );
-  console.log(totalUlShareNet, "totalUlShareNet");
-  console.log(totalUrsPlPlatform, "totalUrsPlPlatform");
+  // console.log(totalUlShareNet, "totalUlShareNet");
+  // console.log(totalUrsPlPlatform, "totalUrsPlPlatform");
   return (
     <div>
       <h6 className="Platform-Comm-PL-">UL Share P/L :</h6>
@@ -60,8 +60,12 @@ function ULShareIndPlData(props) {
         <tfoot>
           <tr className="text-center">
             <th colSpan={3}>TOTAL</th>
-            <th>{totalUlShareNet ? totalUlShareNet?.toFixed(2) : 0}</th>
-            <th>{totalUrsPlPlatform ? totalUrsPlPlatform?.toFixed(2) : 0}</th>
+            <th className={totalUrsNet > 0 ? "clr-green" : "clr-red"}>
+              {totalUrsNet ? totalUrsNet?.toFixed(2) : 0}
+            </th>
+            <th className={totalUlShareNet > 0 ? "clr-green" : "clr-red"}>
+              {totalUlShareNet ? totalUlShareNet?.toFixed(2) : 0}
+            </th>
           </tr>
         </tfoot>
       </table>
