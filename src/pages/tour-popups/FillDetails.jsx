@@ -10,6 +10,7 @@ import { useRef, useState } from "react";
 import { AiTwotoneSave } from "react-icons/ai";
 import { call } from "../../config/axios";
 import { GENERATE_SIGNED_URL } from "../../config/endpoints";
+import { ImageBaseUrl } from '../../images/index'
 
 function FillDetails(props) {
   const { handlePaymentDetails, tour } = props;
@@ -26,6 +27,7 @@ function FillDetails(props) {
   const [selectedPackage, setSelectedPackage] = useState(false);
   const [packageOptionsOpen, setPackageOptionsOpen] = useState(false);
   const [inputData, setInputData] = useState({});
+  const [imagefiles, setImagefiles] = useState({});
   const [arrey, setArrey] = useState([]);
   let NUMBER_OF_MEMBERS = arrey;
   // console.log(tour,'.....tour from filldetails')
@@ -149,20 +151,37 @@ function FillDetails(props) {
 
   const handleUploadchange = async (e, index) => {
     const imagefile = e.target.files[0];
-    // console.log(e.target.files)
     const imageId = Date.now();
     const imageuploadingurl = await generatesignedurl(imageId);
-
     imageuploadingurl &&
-      setInputData({
-        ...inputData,
-        [e.target.name]: {
-          imagefile: imagefile,
-          imageregisterid: imageId,
-          imageuploadingurl: imageuploadingurl,
-        },
-      });
+      imagefile &&
+        (await fetch(imageuploadingurl, {
+          method: "PUT",
+          body: imagefile,
+          headers: {
+            "Content-Type": "image/jpeg",
+            "cache-control": "public, max-age=0",
+          },
+        })
+          .then((res) => {
+            if(res.status===200){
+              setInputData({
+                ...inputData,
+                [e.target.name]:`${ImageBaseUrl}/tours_user_docs/${imageId}.png`
+              })
+              setImagefiles({
+                ...imagefiles,
+                [e.target.name]: imagefile.name
+              })
+            };
+          })
+          .catch((err) => {
+            console.log("err: ", err);
+          }));
+    
   };
+
+  
 
   const generatesignedurl = async (imageId) => {
     const payload = {
@@ -179,7 +198,8 @@ function FillDetails(props) {
       return "";
     }
   };
-  // console.log(inputData,'......inputdata')
+  // console.log(inputData,'......inputdataafterimageupload')
+  // console.log(imagefiles,'......imagefiles')
   return (
     <div className="p-3">
       <div className="w-100 d-flex justify-content-between mt-2">
@@ -339,7 +359,7 @@ function FillDetails(props) {
                 >
                   <div className="font-10">
                     <div>
-                      {inputData[item?.userimageinfo]?.imagefile?.name || "select Image"}
+                      {imagefiles[item.userimageinfo] || "select Image"}
                     </div>
                     <input
                       type="file"

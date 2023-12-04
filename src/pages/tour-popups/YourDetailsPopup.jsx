@@ -19,6 +19,7 @@ function YourDetailsPopup(props) {
   const [packMembers, setPackMembers] = useState({});
   const [individualPackageMembersCount, setIndividualPackageMembersCount] = useState({});
   const [eachPackageTotalamount, setEachPackageTotalamount] = useState({});
+  const [paymentDetailswithScreenshot, setPaymentDetailswithScreenshot] = useState({});
   
   const regularpacks = usersDetails.filter((item)=>{
         if(Object.keys(item)[0]?.includes('regular')){
@@ -35,7 +36,7 @@ function YourDetailsPopup(props) {
           return item
         }
       })
-  console.log(luxurypacks,'......luxury')
+  // console.log(luxurypacks,'......luxury')
   const vippacks = usersDetails.filter((item)=>{
           if(/^vip/i.test(Object.keys(item)[0])){
             return item
@@ -101,7 +102,7 @@ function YourDetailsPopup(props) {
   const luxurypackmemberscount = luxurypackmembers.length
   const vippackmemberscount = vippackmembers.length
   const vvippackmemberscount = vvippackmembers.length
-  console.log(usersDetails,'.......usersdetailsfrommaincomponent')
+  // console.log(usersDetails,'.......usersdetailsfrommaincomponent')
   const packagesDetailsinuseState = ()=>{
     setPackageCount({
       regularpackcount,
@@ -157,16 +158,41 @@ function YourDetailsPopup(props) {
     setBookingComplete(false);
   };
 
-  const handleBookingComplete = () => {
+  const handleBookingComplete = async(paymentdetails) => {
+    console.log(paymentdetails,'........paymentdetails')
     setBookingComplete(true);
     setPaymentDetails(false);
     setFillDetails(false);
+    setPaymentDetailswithScreenshot(paymentdetails);
+    addingAllData();
   };
   const handleCancel = () => {
     setYourDetailsPopup(false);
     setBookingComplete(false);
     setFillDetails(true);
   };
+
+  const addingAllData=()=>{
+    const register_id = localStorage.getItem("register_id")
+    const account_role = localStorage.getItem("account_role")
+    const user_name = localStorage.getItem("user_name")
+    const payload = {
+      paymentDetails: paymentDetailswithScreenshot,
+      usersDetails: usersDetails,
+      packageCount: packageCount,
+      eachPackageTotalamount: eachPackageTotalamount,
+      tourDetails: tour,
+      register_id: register_id,
+      account_role: account_role,
+      user_name: user_name,
+      website: "www.we2call.com"
+    }
+    console.log(payload,'......payload')
+    // await call(url, payload)
+    //         .then((res)=>console.log(res))
+    //         .catch((error)=>console.log(error))
+  };
+
   return (
     <Modal
       show={yourDetailsPopup}
@@ -196,6 +222,7 @@ function YourDetailsPopup(props) {
                           individualPackageMembersCount={individualPackageMembersCount}
                           packMembers={packMembers}
                           packageCount={packageCount}
+                          usersDetails={usersDetails}
           />
         )}
         {bookingComplete && <BookingCompleteMsg handleCancel={handleCancel} />}

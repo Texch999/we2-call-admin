@@ -5,22 +5,27 @@ import { AiTwotoneSave } from "react-icons/ai";
 import { GET_TOUR_PAYMENT_GATEWAY,GENERATE_SIGNED_URL } from "../../config/endpoints";
 import { call } from "../../config/axios";
 import { useEffect, useState } from "react";
+import { ImageBaseUrl } from "../../images";
 
 function PaymentDetails(props) {
-  const { handleBookingComplete, userDetails,
+  const { handleBookingComplete,
           eachPackageTotalamount,
           individualPackageMembersCount,
           packMembers,
-          packageCount } = props;
+          packageCount,
+          usersDetails } = props;
   const [allPayments, setAllPayments] = useState([])
   const [dropdownOption, setDropdownOption] = useState('')
   const [paymentdetails, setPaymentdetails] = useState({})
-  // console.log(paymentdetails,'.......paymsentdetails')
-  // console.log(userDetails,'.......userDetails')
-  console.log(eachPackageTotalamount,'.....eachPackageTotalamount')
-  console.log(individualPackageMembersCount,'.....individualPackageMembersCount')
-  console.log(packMembers,'.....packMembers')
-  console.log(packageCount,'.....packageCount')
+  const [imagefiles, setImagefiles] = useState({})
+  
+  // console.log(eachPackageTotalamount,'.....eachPackageTotalamount')
+  // console.log(individualPackageMembersCount,'.....individualPackageMembersCount')
+  // console.log(packMembers,'.....packMembers')
+  // console.log(packageCount,'.....packageCount')
+  // console.log(usersDetails,'.........userdetailsfrompaymentcomponent')
+  // console.log(imagefiles,'........imagefiles')
+  // console.log(paymentdetails,'.......paymentdetails')
 
   const getCompanyAllowedPayments = async () => {
     const payload = {};
@@ -53,15 +58,31 @@ function PaymentDetails(props) {
     // console.log(imagefile,'......imgfile')
     const imageuploadingurl = await generatesignedurl(imageId);
     imageuploadingurl &&
-      setPaymentdetails({
-        ...paymentdetails,
-        [e.target.name]: {
-          imagefile: imagefile,
-          imageregisterid: imageId,
-          imageuploadingurl: imageuploadingurl,
-        },
-      });
-  }
+      imagefile &&
+        (await fetch(imageuploadingurl, {
+          method: "PUT",
+          body: imagefile,
+          headers: {
+            "Content-Type": "image/jpeg",
+            "cache-control": "public, max-age=0",
+          },
+        })
+          .then((res) => {
+            if(res.status===200){
+              setPaymentdetails({
+                ...paymentdetails,
+                [e.target.name]:`${ImageBaseUrl}/tours_payment_docs/${imageId}.png`
+              })
+              setImagefiles({
+                [e.target.name]: imagefile.name
+              })
+            };
+          })
+          .catch((err) => {
+            console.log("err: ", err);
+          }));
+    
+  };
   const generatesignedurl = async (imageId) => {
     const payload = {
       register_id: `${imageId}`,
@@ -81,21 +102,17 @@ function PaymentDetails(props) {
     if(e.target.name==='neftclicked'){
     setPaymentdetails({
       ...paymentdetails,
-      'selectedpaymentdetails':{
-        name: item?.accountHolderName,
-        accountNo: item?.accountNumber,
-        bank:item?.bankName,
-        ifscCode: item?.ifscCode
-      }
+      name: item?.accountHolderName,
+      accountNo: item?.accountNumber,
+      bank:item?.bankName,
+      ifscCode: item?.ifscCode
     })
     }else{
       setPaymentdetails({
         ...paymentdetails,
-        'selectedpaymentdetails':{
-          name: item?.upiName,
-          upiId: item?.upiId,
-          mobileNumber:item?.mobileNumber
-        }
+        name: item?.upiName,
+        upiId: item?.upiId,
+        mobileNumber:item?.mobileNumber
       })
     }
   }
@@ -293,7 +310,7 @@ function PaymentDetails(props) {
                 htmlFor='paymentscreenshot'
           >
             <div className="font-10">
-              {paymentdetails?.paymentscreenshot?.imagefile?.name || "Upload Screenshot"}
+              {imagefiles.paymentscreenshot || "Upload Screenshot"}
               <input  type="file" 
                       className="display-none"
                       name="paymentscreenshot"
@@ -306,7 +323,7 @@ function PaymentDetails(props) {
           </label>
         </div>
       </div>
-      <div className="login-btn mt-2" onClick={() => handleBookingComplete()}>
+      <div className="login-btn mt-2" onClick={() => handleBookingComplete(paymentdetails)}>
         Pay
       </div>
     </div>
