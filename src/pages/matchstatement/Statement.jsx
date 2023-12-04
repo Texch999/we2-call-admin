@@ -6,7 +6,7 @@ import DatePicker from "react-datepicker";
 import { FaRegCalendarAlt } from "react-icons/fa";
 import "react-datepicker/dist/react-datepicker.css";
 import Select from "react-select";
-import { Col, Container, Modal, Row } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 import CustomPagination from "../pagination/CustomPagination";
 import Table from "../home-page/Table";
 import {
@@ -16,7 +16,6 @@ import {
 } from "../../config/endpoints";
 import { call } from "../../config/axios";
 import moment from "moment";
-import { useHistory, useParams } from "react-router";
 
 function Statement(props) {
   const {
@@ -26,9 +25,9 @@ function Statement(props) {
     getStatementData,
     isProcessing,
   } = props;
-  const history = useHistory();
-  const { id, match, date, winTeam } = useParams();
   const [onePageData, setOnePageData] = useState([]);
+  const [matchDetails, setMatchDetails] = useState({});
+  const [winTeam, setWinTeam] = useState("");
 
   let register_id = localStorage?.getItem("register_id");
   let creator_id = localStorage?.getItem("creator_id");
@@ -58,14 +57,7 @@ function Statement(props) {
       );
 
       return {
-        series: (
-          <div>
-            {match?.series_name}
-            {/* <br />
-            {match?.stadium}
-            <br /> */}
-          </div>
-        ),
+        series: <div>{match?.series_name}</div>,
         venue: match?.stadium,
         matchPlace: match?.match_place,
         teamName: match?.match_name,
@@ -77,9 +69,11 @@ function Statement(props) {
       };
     });
 
-  const handleShow = (item) => {
+  const handleShow = (item, winTeam) => {
     setShowModal(true);
-    setPopupData(item);
+    setMatchDetails(item);
+    setPopupData(item?.matchId);
+    setWinTeam(winTeam);
   };
   const STATEMENT_DETAILS =
     statementData?.length &&
@@ -91,15 +85,8 @@ function Statement(props) {
             <div> {moment(item?.matchTimeStamp).format("hh:mm:ss A")}</div>
           </div>
         ),
-
-        // dateTime: item?.sport_name,
         seriesName: item?.series,
-        teamName: (
-          <div>
-            {/* {item?.team1} VS {item?.team1} */}
-            {item?.teamName}
-          </div>
-        ),
+        teamName: <div>{item?.teamName}</div>,
         matchplace: item?.matchPlace,
         winTeam: item?.winTeam,
         profitLoss: (
@@ -107,14 +94,12 @@ function Statement(props) {
             {item?.porL}
           </div>
         ),
-
-        // profitLoss: item?.totalAmount?.totalLossOrProfit,
         edit: (
           <div
             data-toggle="modal"
             data-target=".bd-example-modal-lg"
             className="clr-yellow"
-            onClick={() => handleShow(item.matchId)}
+            onClick={() => handleShow(item, item?.winTeam)}
           >
             Click Here
           </div>
@@ -131,7 +116,6 @@ function Statement(props) {
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
-    // You can add your logic here to fetch data for the selected page.
   };
   const handleChange = (e) => {
     setStatementPayload({
@@ -154,9 +138,6 @@ function Statement(props) {
   useEffect(() => {
     getAllClientsData();
   }, []);
-  let clientPL = 0,
-    refPL = 0,
-    matchPL = 0;
 
   const clientOptions =
     existingUsers &&
@@ -189,175 +170,140 @@ function Statement(props) {
       });
 
   return (
-    <div className="p-2">
-      <hr />
-      <Container fluid className="mt-2">
-        <Row>
-          <Col className="col-lg-2 col-md-3">
-            <div>
-              <div className="medium-font mb-2">From</div>
-              <div className="date-container d-flex justify-content-around align-items-center rounded all-none p-1 w-100">
-                <DatePicker
-                  className="login-input all-none w-100"
-                  name="startDate"
-                  id="startDate"
-                  value={statementPayload["startDate"] || ""}
-                  selected={statementPayload?.startDate}
-                  onChange={(e) =>
-                    handleChange({ target: { name: "startDate", value: e } })
-                  }
-                  dateFormat="dd-MM-yy"
-                  placeholderText="Select a date"
-                />
-                <FaRegCalendarAlt className="custom-icon p-1" />
-              </div>
+    <div>
+      <Row className="mb-3">
+        <Col>
+          <div>
+            <div className="medium-font mb-2">From</div>
+            <div className="date-container d-flex justify-content-around align-items-center rounded all-none p-1 w-100">
+              <DatePicker
+                className="login-input all-none w-100"
+                name="startDate"
+                id="startDate"
+                value={statementPayload["startDate"] || ""}
+                selected={statementPayload?.startDate}
+                onChange={(e) =>
+                  handleChange({ target: { name: "startDate", value: e } })
+                }
+                dateFormat="dd-MM-yy"
+                placeholderText="Select a date"
+              />
+              <FaRegCalendarAlt className="custom-icon p-1" />
             </div>
-          </Col>
-          <Col className="col-lg-2 col-md-3">
-            <div>
-              <div className="medium-font mb-2">To</div>
-              <div className="date-container d-flex justify-content-around align-items-center rounded all-none p-1 w-100">
-                <DatePicker
-                  className="login-input all-none w-100"
-                  selected={statementPayload?.endDate}
-                  name="endDate"
-                  id="endDate"
-                  value={statementPayload["endDate"] || ""}
-                  onChange={(e) =>
-                    handleChange({ target: { name: "endDate", value: e } })
-                  }
-                  dateFormat="dd-MM-yy"
-                  placeholderText="Select a date"
-                />
-                <FaRegCalendarAlt className="custom-icon p-1" />
-              </div>
+          </div>
+        </Col>
+        <Col>
+          <div>
+            <div className="medium-font mb-2">To</div>
+            <div className="date-container d-flex justify-content-around align-items-center rounded all-none p-1 w-100">
+              <DatePicker
+                className="login-input all-none w-100"
+                selected={statementPayload?.endDate}
+                name="endDate"
+                id="endDate"
+                value={statementPayload["endDate"] || ""}
+                onChange={(e) =>
+                  handleChange({ target: { name: "endDate", value: e } })
+                }
+                dateFormat="dd-MM-yy"
+                placeholderText="Select a date"
+              />
+              <FaRegCalendarAlt className="custom-icon p-1" />
             </div>
-          </Col>
-          <Col className="col-lg-2 col-md-3">
-            <div>
-              <div className="medium-font mb-2">Series Name</div>
-              <input
-                type="text"
-                className="w-100 custom-select medium-font btn-bg rounded all-none p-2"
-                placeholder="Enter Series Name"
-                name="series_name"
-                id="series_name"
-                value={statementPayload["series_name"] || ""}
-                onChange={(e) => handleChange(e)}
-              >
-                {/* {seriesOptions.map((item, index) => {
+          </div>
+        </Col>
+        <Col>
+          <div>
+            <div className="medium-font mb-2">Series Name</div>
+            <input
+              type="text"
+              className="h-38px w-100 custom-select medium-font btn-bg rounded all-none p-2"
+              placeholder="Enter Series Name"
+              name="series_name"
+              id="series_name"
+              value={statementPayload["series_name"] || ""}
+              onChange={(e) => handleChange(e)}
+            ></input>
+          </div>
+        </Col>
+        <Col>
+          <div>
+            <div className="medium-font mb-2">Match Name</div>
+            <select
+              className="h-38px w-100 custom-select medium-font btn-bg rounded all-none p-2"
+              name="match_name"
+              onChange={(e) => handleChange(e)}
+            >
+              <option className="w-90 ms-1 cursor-pointer">
+                {statementPayload?.match_name || "Select..."}
+              </option>
+              {matchOptions?.length &&
+                matchOptions?.map((item, index) => {
                   return (
-                    <option key={index} value={item.value}>
-                      {item.label}
+                    <option key={index} value={item.matchName}>
+                      {item.matchName}
                     </option>
                   );
-                })} */}
-              </input>
-            </div>
-          </Col>
-          <Col className="col-lg-1 col-md-3">
-            <div>
-              <div className="medium-font mb-2">Match Name</div>
-              <select
-                className="w-100 custom-select medium-font btn-bg rounded all-none p-2"
-                name="match_name"
-                onChange={(e) => handleChange(e)}
-              >
-                <option className="w-90 ms-1 cursor-pointer">
-                  {statementPayload?.match_name || "Select..."}
-                </option>
-                {matchOptions?.length &&
-                  matchOptions?.map((item, index) => {
-                    return (
-                      <option key={index} value={item.matchName}>
-                        {item.matchName}
-                      </option>
-                    );
-                  })}
-              </select>
-            </div>
-          </Col>
-          <Col className="col-lg-2 col-md-3">
-            <div>
-              <div className="medium-font mb-2">Fancy</div>
-              <select
-                className="w-100 custom-select medium-font btn-bg rounded all-none p-2"
-                name="fancy"
-                onChange={(e) => handleChange(e)}
-              >
-                <option className="w-90 ms-1 cursor-pointer">
-                  1st Innings{" "}
-                </option>
-                <option className="w-90 ms-1 cursor-pointer">
-                  2nd Innings{" "}
-                </option>
-                {/* {fancyOptions.length &&
-                  fancyOptions?.map((item, index) => {
-                    return (
-                      <option key={index} value={item.matchName}>
-                        {item.matchName}
-                      </option>
-                    );
-                  })} */}
-              </select>
-            </div>
-          </Col>
-          <Col className="col-lg-1 col-md-3">
-            <div>
-              <div className="medium-font mb-2">Client Name</div>
-              <select
-                className="w-100 custom-select medium-font btn-bg rounded all-none p-2"
-                name="select_client"
-                onChange={(e) => handleChange(e)}
-              >
-                <option className="w-90 ms-1 cursor-pointer">
-                  {statementPayload?.client_name || "Select..."}
-                </option>
-                {clientOptions?.length &&
-                  clientOptions?.map((item, index) => {
-                    return (
-                      <option key={index} value={item.clientName}>
-                        {item.clientName}{" "}
-                      </option>
-                    );
-                  })}
-              </select>
-            </div>
-          </Col>
-          <Col className="ms-1 me-1 mt-4 col-lg-1 col-md-2">
-            <button
-              className="submit-button medium-font p-2 rounded all-none"
-              disabled={isProcessing}
-              onClick={() => {
-                getStatementData();
-              }}
+                })}
+            </select>
+          </div>
+        </Col>
+        <Col>
+          <div>
+            <div className="medium-font mb-2">Fancy</div>
+            <select
+              className="h-38px w-100 custom-select medium-font btn-bg rounded all-none p-2"
+              name="fancy"
+              onChange={(e) => handleChange(e)}
             >
-              {isProcessing ? "Fetching" : "Verify"}
-            </button>
-          </Col>
-          {/* <Col className="ms-1 me-1 mt-4 col-lg-1 col-md-2">
-            <button
-              className="submit-button medium-font p-2 rounded all-none"
-              disabled={isProcessing}
-              onClick={() => {
-                getStatementData();
-              }}
+              <option className="w-90 ms-1 cursor-pointer">1st Innings </option>
+              <option className="w-90 ms-1 cursor-pointer">2nd Innings </option>
+            </select>
+          </div>
+        </Col>
+        <Col>
+          <div>
+            <div className="medium-font mb-2">Client Name</div>
+            <select
+              className="h-38px w-100 custom-select medium-font btn-bg rounded all-none p-2"
+              name="select_client"
+              onChange={(e) => handleChange(e)}
             >
-              {isProcessing ? "Fetching..." : "Verify"}
-            </button>
-          </Col> */}
-        </Row>
-      </Container>
-      <hr />
+              <option className="w-90 ms-1 cursor-pointer">
+                {statementPayload?.client_name || "Select..."}
+              </option>
+              {clientOptions?.length &&
+                clientOptions?.map((item, index) => {
+                  return (
+                    <option key={index} value={item.clientName}>
+                      {item.clientName}{" "}
+                    </option>
+                  );
+                })}
+            </select>
+          </div>
+        </Col>
+        <Col className="d-flex align-items-end justify-content-end">
+          <button
+            className="h-38px w-100 submit-button medium-font p-2 rounded all-none"
+            disabled={isProcessing}
+            onClick={() => {
+              getStatementData();
+            }}
+          >
+            {isProcessing ? "Fetching" : "Verify"}
+          </button>
+        </Col>
+      </Row>
       <div>
         <Table data={STATEMENT_DETAILS} columns={tableColumns} />
         <table className="w-100 match-position-table small-font">
           <tfoot>
             <tr className="text-center clr-green">
-              <th colSpan={5} className="text-end">
+              <th colSpan={9} className="text-end">
                 TOTAL
               </th>
-              <th className="text-center" colSpan={2}>
+              <th colSpan={1} className="text-center">
                 50000000.00
               </th>
             </tr>
@@ -379,9 +325,11 @@ function Statement(props) {
         </div>
       </div>
       <StatementPopup
+        winTeam={winTeam}
         showModal={showModal}
         setShowModal={setShowModal}
         popupData={popupData}
+        matchDetails={matchDetails}
         statementData={statementData}
         statementPayload={statementPayload}
       />

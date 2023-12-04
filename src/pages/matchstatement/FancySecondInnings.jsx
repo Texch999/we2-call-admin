@@ -1,61 +1,42 @@
-import React from "react";
+import { GET_FANCY_ENTRY_DATA } from "../../config/endpoints";
+import { call } from "../../config/axios";
+import { useEffect, useState } from "react";
 
-function FancySecondInnings() {
+function FancySecondInnings({ winTeam, matchDetails, selectedClientID }) {
+  const register_id = localStorage?.getItem("register_id");
+  const [userFancySecondInnings, setUserFancySecondInnings] = useState([]);
+
+  const getSecondInningsFancyEntryDetails = async () => {
+    await call(GET_FANCY_ENTRY_DATA, {
+      register_id,
+      client_id: selectedClientID,
+      registered_match_id: matchDetails?.matchId,
+    })
+      .then((res) => {
+        let result = res?.data?.data?.Items;
+        setUserFancySecondInnings(
+          result?.filter((i) => i?.innings === "2" || i?.innings === 2)
+        );
+      })
+      .catch((err) => console.log(err));
+  };
+  useEffect(() => {
+    getSecondInningsFancyEntryDetails();
+  }, [selectedClientID]);
+
+  const totalPL =
+    userFancySecondInnings &&
+    userFancySecondInnings?.length > 0 &&
+    userFancySecondInnings.reduce(
+      (acc, obj) =>
+        acc + ((obj?.fancy_status === "Y" ? -+obj?.amount : +obj?.amount) || 0),
+      0
+    );
+
+  console.log(userFancySecondInnings, "userFancySecondInnings");
   const Fancy_First_DETAILS = [
     {
       Sno: "5",
-      over: "6",
-      team: "IND",
-      runs: "100",
-      name: "Animesh",
-      yorn: "Y",
-      date: "31/07/23",
-      time: "18:44:00PM",
-      result: "102",
-      amount: "500000.00",
-      pl: "500000.00",
-    },
-    {
-      Sno: "4",
-      over: "6",
-      team: "IND",
-      runs: "100",
-      name: "Animesh",
-      yorn: "N",
-      date: "31/07/23",
-      time: "18:44:00PM",
-      result: "102",
-      amount: "500000.00",
-      pl: "500000.00",
-    },
-    {
-      Sno: "3",
-      over: "6",
-      team: "IND",
-      runs: "100",
-      name: "Animesh",
-      yorn: "Y",
-      date: "31/07/23",
-      time: "18:44:00PM",
-      result: "102",
-      amount: "500000.00",
-      pl: "500000.00",
-    },
-    {
-      Sno: "2",
-      over: "6",
-      team: "IND",
-      runs: "100",
-      name: "Animesh",
-      yorn: "Y",
-      date: "31/07/23",
-      time: "18:44:00PM",
-      result: "102",
-      amount: "500000.00",
-      pl: "500000.00",
-    },
-    {
-      Sno: "1",
       over: "6",
       team: "IND",
       runs: "100",
@@ -103,12 +84,6 @@ function FancySecondInnings() {
             </tr>
           </tbody>
         ))}
-        {/* <tfoot>
-          <tr className="text-center small-font clr-green all-none w-100">
-            <th colSpan={10} className="text-end">TOTAL</th>
-            <th>50000000.00</th>
-          </tr>
-        </tfoot> */}
       </table>
       <div className="w-100 d-flex justify-content-between mt-2">
         <div className="harizental-scroll">
@@ -123,7 +98,7 @@ function FancySecondInnings() {
         </div>
         <div className="w-25 d-flex justify-content-between me-2">
           <th className="text-end">TOTAL</th>
-          <th>50000000.00</th>
+          <th>{totalPL}</th>
         </div>
       </div>
     </div>

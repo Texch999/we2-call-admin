@@ -10,7 +10,15 @@
   color: #ff0000 !important;
   font-weight: 600;
 }
+.red-clr {
+  color: #ff0000 !important;
+  font-weight: 600;
+}
 .clr-green {
+  color: #04c85e !important;
+  font-weight: 600;
+}
+.green-clr {
   color: #04c85e !important;
   font-weight: 600;
 }
