@@ -328,7 +328,6 @@ function Header() {
   const getNotifications = async () => {
     const payload = {
       register_id: "company",
-      notification_type: "web-pushnotification",
     };
     await call(GET_ALL_NOTIFICATIONS, payload)
       .then((res) => {
@@ -341,10 +340,6 @@ function Header() {
   useEffect(() => {
     getNotifications();
   }, []);
-  // console.log(notifications, "NNNNNN");
-  // const pushnotification = [...notifications]?.filter(
-  //   (item) => item.status === "true"
-  // );
 
   return (
     <div className="agent-header d-flex align-items">
@@ -485,9 +480,10 @@ function Header() {
         <Marquee className="d-flex marqu-tag meetings-heading ">
           {notifications?.map((obj) => (
             <div>
-              {obj?.status === true && (
-                <li className="ml-3rem">{obj?.description} </li>
-              )}
+              {obj?.status === true &&
+                obj?.notification_type === "web-pushnotification" && (
+                  <li className="ml-3rem">{obj?.description} </li>
+                )}
             </div>
           ))}
         </Marquee>

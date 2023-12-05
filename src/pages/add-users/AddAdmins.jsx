@@ -14,7 +14,6 @@ import MatchSubmitPopup from "../match-popups/MatchSubmitPopup";
 
 const AddAdmins = () => {
   let register_id = localStorage?.getItem("register_id");
-  let creator_id = localStorage?.getItem("creator_id");
   let account_role = localStorage?.getItem("account_role");
   let user_name = localStorage?.getItem("user_name");
 
