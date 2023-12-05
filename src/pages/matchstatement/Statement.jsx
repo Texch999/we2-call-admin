@@ -250,28 +250,13 @@ function Statement(props) {
         </Col>
         <Col>
           <div>
-            <div className="medium-font mb-2">Fancy</div>
-            <select
-              className="h-38px w-100 custom-select medium-font btn-bg rounded all-none p-2"
-              name="fancy"
-              onChange={(e) => handleChange(e)}
-            >
-              <option className="w-90 ms-1 cursor-pointer">1st Innings </option>
-              <option className="w-90 ms-1 cursor-pointer">2nd Innings </option>
-            </select>
-          </div>
-        </Col>
-        <Col>
-          <div>
             <div className="medium-font mb-2">Client Name</div>
             <select
               className="h-38px w-100 custom-select medium-font btn-bg rounded all-none p-2"
               name="select_client"
               onChange={(e) => handleChange(e)}
             >
-              <option className="w-90 ms-1 cursor-pointer">
-                {statementPayload?.client_name || "Select..."}
-              </option>
+              <option>{statementPayload?.client_name || "Select..."}</option>
               {clientOptions?.length &&
                 clientOptions?.map((item, index) => {
                   return (
@@ -315,10 +300,10 @@ function Statement(props) {
           </tfoot>
         </table>
       </div>
-      <div className="d-flex justify-content-between align-items-center mt-4">
+      <div className="d-flex justify-content-between align-items-center mt-2">
         <div className="d-flex justify-content-start font-clr-white total-count-container  py-2 px-4 rounded">
           <span>
-            Showing <b> {currentPage} </b> 0f <b> {totalPages} </b> Entries....
+            Showing <b> {currentPage} </b> Of <b> {totalPages} </b> Entries...
           </span>
         </div>
         <div className="d-flex justify-content-end mt-2">

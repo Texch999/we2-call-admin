@@ -47,8 +47,9 @@ function ClientPLData({
 
   return (
     <div>
-      <div className="medium-font mt-3 mb-2">
-        Client Name : {selectedClientName}
+      <div className="w-100 d-flex medium-font mt-2">
+        Client Name :{" "}
+        <span className="clr-yellow px-2">{selectedClientName}</span>
       </div>
       <div className="w-50 d-flex justify-content-start mt-2 mb-3">
         <div className="w-25 d-flex justify-content-end">
