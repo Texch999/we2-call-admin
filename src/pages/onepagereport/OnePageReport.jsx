@@ -12,7 +12,6 @@ import ClientIndPL from "./ClientIndPL";
 
 function OnePageReport(props) {
   const { ONE_PAGE_REPORT_DETAILS } = props;
-  // console.log(ONE_PAGE_REPORT_DETAILS, ".........ONE_PAGE_REPORT_DETAILS");
 
   let register_id = localStorage?.getItem("register_id");
   let account_role = localStorage?.getItem("account_role");

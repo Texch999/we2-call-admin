@@ -59,25 +59,6 @@ function ReportPage() {
       })
       .catch((err) => console.log(err));
   };
-  // const individualReportReferralData =
-  //   refData &&
-  //   refData?.length > 0 &&
-  //   refData?.map((ref) => {
-  //     return {
-  //       referral_id: ref?.referral_name,
-  //       amount: (
-  //         <div
-  //           className={ref?.total_profit_or_loss >= 0 ? "clr-green" : "clr-red"}
-  //         >
-  //           {ref?.total_profit_or_loss
-  //             ? ref?.total_profit_or_loss?.toFixed(2)
-  //             : 0}
-  //         </div>
-  //       ),
-  //       onClick: () => handleReferralId(ref?.referral_name, ref?.refferal_id),
-  //     };
-  //   });
-  console.log(refData, ".......bbbbbbbbbbrefData");
   const individualReportReferralData =
     refData &&
     refData?.length > 0 &&
@@ -229,7 +210,6 @@ function ReportPage() {
         setCompleteMatchesData(
           res?.data?.data?.filter((item) => item?.match_declared === "Y")
         );
-        // console.log(result,"result");
       })
       .catch((err) => {
         throw err;

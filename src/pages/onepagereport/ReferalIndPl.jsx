@@ -21,9 +21,6 @@ function ReferalIndPl(props) {
   const [clientsDataForRefferal, setClientsDataForRefferal] = useState([]);
   const [showMatchWiseRfPl, setShowMatchWiseRfPl] = useState(false);
 
-  console.log(referData, "sangram referData");
-  console.log(clientsDataForRefferal, "sangram clientsDataForRefferal");
-
   const handleRefid = async (item) => {
     setReferData(item);
     setShowIndividualReferalData(true);

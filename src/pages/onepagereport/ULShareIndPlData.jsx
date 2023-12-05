@@ -25,8 +25,6 @@ function ULShareIndPlData(props) {
       (acc, obj) => acc + (+obj?.afterAllSharePL?.props?.children || 0),
       0
     );
-  // console.log(totalUlShareNet, "totalUlShareNet");
-  // console.log(totalUrsPlPlatform, "totalUrsPlPlatform");
   return (
     <div>
       <h6 className="Platform-Comm-PL-">UL Share P/L :</h6>

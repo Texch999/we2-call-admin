@@ -27,10 +27,7 @@ function ClientIndPL(props) {
       winteam: item.winTeam,
       netpl: item.amount,
     }));
-  console.log(
-    individualReportClientData,
-    "..................V.................."
-  );
+
   const totalInduvisualReportClientData =
     individualReportClientData &&
     individualReportClientData?.length > 0 &&
@@ -45,8 +42,7 @@ function ClientIndPL(props) {
       (acc, obj) => acc + (+obj?.amount?.props?.children || 0),
       0
     );
-  console.log(clientData, "data i get");
-  console.log(totalClientPl, "totalClientPl");
+
   return (
     <div>
       <h6 className="Platform-Comm-PL-">Client :</h6>
