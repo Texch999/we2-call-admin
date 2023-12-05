@@ -78,44 +78,38 @@ function ClientPLTable(props) {
       };
     });
 
-  const MATCH_STATEMENT_COLUMNS = [
-    { header: "CLIENT NAME", field: "header" },
-    { header: "MATCH PL", field: "matchPL" },
-    { header: "SHARE", field: "share" },
-    { header: "FANCY PL", field: "fancyPL" },
-    { header: "C.Comm(M+F)-Rolling Comm", field: "clientComm" },
-    { header: "M+F+C = C-PL", field: "mfcComm" },
-    { header: "DETAILS", field: "details" },
-  ];
-  const MATCH_STATEMENT_DATA =
-    clientMatchStatementData?.length > 0 &&
-    clientMatchStatementData?.map((client) => ({
-      header: client?.name,
-      matchPL: client?.masterProfitLoss,
-      share: client?.share,
-      fancyPL: client?.fancyProfitLoss,
-      clientComm: client?.fancyReferralComm,
-      mfcComm: client?.amount,
-      details: (
-        <GiClick
-          className="custom-click-icon ms-1 mt-2"
-          onClick={() => handleClientData(client?.client_id, client?.name)}
-        />
-      ),
-    }));
-  const mergedArray = Object.keys(clientMatchStatementData);
-  const totalMFCComm = mergedArray?.reduce(
-    (acc, obj) => acc + (obj?.amount || 0),
-    0
-  );
-  console.log(mergedArray, "MERGED");
+  // const MATCH_STATEMENT_COLUMNS = [
+  //   { header: "CLIENT NAME", field: "header" },
+  //   { header: "MATCH PL", field: "matchPL" },
+  //   { header: "SHARE", field: "share" },
+  //   { header: "FANCY PL", field: "fancyPL" },
+  //   { header: "C.Comm(M+F)-Rolling Comm", field: "clientComm" },
+  //   { header: "M+F+C = C-PL", field: "mfcComm" },
+  //   { header: "DETAILS", field: "details" },
+  // ];
+  // const MATCH_STATEMENT_DATA =
+  //   clientMatchStatementData?.length > 0 &&
+  //   clientMatchStatementData?.map((client) => ({
+  //     header: client?.name,
+  //     matchPL: client?.masterProfitLoss,
+  //     share: client?.share,
+  //     fancyPL: client?.fancyProfitLoss,
+  //     clientComm: client?.fancyReferralComm,
+  //     mfcComm: client?.amount,
+  //     details: (
+  //       <GiClick
+  //         className="custom-click-icon ms-1 mt-2"
+  //         onClick={() => handleClientData(client?.client_id, client?.name)}
+  //       />
+  //     ),
+  //   }));
 
   return (
     <div className="d-flex flex-column">
-      <MatchTable
+      {/* <MatchTable
         data={MATCH_STATEMENT_DATA}
         columns={MATCH_STATEMENT_COLUMNS}
-      />
+      /> */}
       <table className="w-100 match-position-table small-font">
         <thead>
           <tr className="text-center">
@@ -149,11 +143,11 @@ function ClientPLTable(props) {
         <tfoot>
           <tr className="text-center small-font clr-green all-none">
             <th>TOTAL</th>
-            <th>50000000.00</th>
-            <th>50000000.00</th>
-            <th>50000000.00</th>
-            <th>50000000.00</th>
-            <th>{totalMFCComm}</th>
+            <th>5000000</th>
+            <th>5000000</th>
+            <th>5000000</th>
+            <th>5000000</th>
+            <th>5000000</th>
             <th></th>
           </tr>
         </tfoot>
