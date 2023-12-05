@@ -85,12 +85,18 @@ const GET_STATEMENT_BY_MATCH_ID =
   "/offline-management/get_statement_bymatch_id";
 const GET_TOUR_PAYMENT_GATEWAY = "/tours_banking/get_tour_payment_gateway"
 const GET_ALL_NOTIFICATIONS = "/management/get_all_notifications";
+const ADD_GUESTDOCS_FOR_TOURS = "/tours/add_guestdocs_for_tour";
 
 // methods
 const DELETE = "DELETE";
 const POST = "POST";
 const GET = "POST";
 const PUT = "PUT";
+
+exports.ADD_GUESTDOCS_FOR_TOURS = {
+  method: POST,
+  url: ADD_GUESTDOCS_FOR_TOURS
+}
 
 exports.GET_TOUR_PAYMENT_GATEWAY = {
   method: POST,

@@ -7,6 +7,7 @@ import { Modal } from "react-bootstrap";
 import AddedUserList from "./AddedUserList";
 import { GET_TOUR_BY_ID } from "../../config/endpoints";
 import { call } from "../../config/axios"
+import { ADD_GUESTDOCS_FOR_TOURS } from "../../config/endpoints"
 
 function YourDetailsPopup(props) {
   const { yourDetailsPopup, setYourDetailsPopup, tour } = props;
@@ -19,7 +20,6 @@ function YourDetailsPopup(props) {
   const [packMembers, setPackMembers] = useState({});
   const [individualPackageMembersCount, setIndividualPackageMembersCount] = useState({});
   const [eachPackageTotalamount, setEachPackageTotalamount] = useState({});
-  const [paymentDetailswithScreenshot, setPaymentDetailswithScreenshot] = useState({});
   
   const regularpacks = usersDetails.filter((item)=>{
         if(Object.keys(item)[0]?.includes('regular')){
@@ -102,7 +102,7 @@ function YourDetailsPopup(props) {
   const luxurypackmemberscount = luxurypackmembers.length
   const vippackmemberscount = vippackmembers.length
   const vvippackmemberscount = vvippackmembers.length
-  // console.log(usersDetails,'.......usersdetailsfrommaincomponent')
+  console.log(usersDetails,'.......usersdetailsfrommaincomponent')
   const packagesDetailsinuseState = ()=>{
     setPackageCount({
       regularpackcount,
@@ -159,12 +159,11 @@ function YourDetailsPopup(props) {
   };
 
   const handleBookingComplete = async(paymentdetails) => {
-    console.log(paymentdetails,'........paymentdetails')
-    setBookingComplete(true);
+    // console.log(paymentdetails,'........paymentdetails')
+    
     setPaymentDetails(false);
     setFillDetails(false);
-    setPaymentDetailswithScreenshot(paymentdetails);
-    addingAllData();
+    addingAllData(paymentdetails);
   };
   const handleCancel = () => {
     setYourDetailsPopup(false);
@@ -172,12 +171,12 @@ function YourDetailsPopup(props) {
     setFillDetails(true);
   };
 
-  const addingAllData=()=>{
+  const addingAllData = async(paymentdetails) => {
     const register_id = localStorage.getItem("register_id")
     const account_role = localStorage.getItem("account_role")
     const user_name = localStorage.getItem("user_name")
     const payload = {
-      paymentDetails: paymentDetailswithScreenshot,
+      paymentDetails: paymentdetails,
       usersDetails: usersDetails,
       packageCount: packageCount,
       eachPackageTotalamount: eachPackageTotalamount,
@@ -187,10 +186,15 @@ function YourDetailsPopup(props) {
       user_name: user_name,
       website: "www.we2call.com"
     }
-    console.log(payload,'......payload')
-    // await call(url, payload)
-    //         .then((res)=>console.log(res))
-    //         .catch((error)=>console.log(error))
+    // console.log(payload,'......payload')
+    await call(ADD_GUESTDOCS_FOR_TOURS, payload)
+            .then((res)=>{
+              if(res?.data?.status===200){
+                setBookingComplete(true);
+                setusersDetails([]);
+              }
+            })
+            .catch((error)=>console.log(error))
   };
 
   return (

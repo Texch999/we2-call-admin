@@ -105,14 +105,16 @@ function PaymentDetails(props) {
       name: item?.accountHolderName,
       accountNo: item?.accountNumber,
       bank:item?.bankName,
-      ifscCode: item?.ifscCode
+      ifscCode: item?.ifscCode,
+      paymentmode: dropdownOption
     })
     }else{
       setPaymentdetails({
         ...paymentdetails,
         name: item?.upiName,
         upiId: item?.upiId,
-        mobileNumber:item?.mobileNumber
+        mobileNumber:item?.mobileNumber,
+        paymentmode: dropdownOption
       })
     }
   }
