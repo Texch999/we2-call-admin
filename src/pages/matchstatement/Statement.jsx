@@ -1,21 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { AiFillEdit } from "react-icons/ai";
 import "./styles.css";
 import StatementPopup from "./StatementPopup";
 import DatePicker from "react-datepicker";
 import { FaRegCalendarAlt } from "react-icons/fa";
 import "react-datepicker/dist/react-datepicker.css";
-import Select from "react-select";
 import { Col, Row } from "react-bootstrap";
 import CustomPagination from "../pagination/CustomPagination";
 import Table from "../home-page/Table";
-import {
-  GET_STATEMENT_BY_MATCH_ID,
-  GET_FINANCIAL_STATEMENT_BY_DATE,
-  GET_OFFLINE_CLIENTS,
-} from "../../config/endpoints";
+import { GET_OFFLINE_CLIENTS } from "../../config/endpoints";
 import { call } from "../../config/axios";
 import moment from "moment";
+import { GiClick } from "react-icons/gi";
 
 function Statement(props) {
   const {
@@ -25,23 +20,21 @@ function Statement(props) {
     getStatementData,
     isProcessing,
   } = props;
-  const [onePageData, setOnePageData] = useState([]);
+
   const [matchDetails, setMatchDetails] = useState({});
   const [winTeam, setWinTeam] = useState("");
-
   let register_id = localStorage?.getItem("register_id");
   let creator_id = localStorage?.getItem("creator_id");
   let account_role = localStorage?.getItem("account_role");
   const tableColumns = [
-    { header: "DATE & TIME", field: "dateTime" },
+    { header: "DATE", field: "date" },
+    { header: "TIME", field: "time" },
     { header: "SERIES NAME", field: "seriesName" },
     { header: "TEAM NAME", field: "teamName" },
     { header: "MATCH PLACE", field: "matchplace" },
     { header: "WIN TEAM", field: "winTeam" },
     { header: "P/L", field: "profitLoss" },
-    {
-      field: "edit",
-    },
+    { header: "DETAILS", field: "edit" },
   ];
 
   const [popupData, setPopupData] = useState();
@@ -79,12 +72,8 @@ function Statement(props) {
     statementData?.length &&
     statementData?.map((item) => {
       return {
-        dateTime: (
-          <div className="d-flex flex-column">
-            <div> {moment(item?.matchTimeStamp).format("DD-MM-YYYY")}</div>
-            <div> {moment(item?.matchTimeStamp).format("hh:mm:ss A")}</div>
-          </div>
-        ),
+        date: <div> {moment(item?.matchTimeStamp).format("DD-MM-YYYY")}</div>,
+        time: <div> {moment(item?.matchTimeStamp).format("hh:mm:ss A")}</div>,
         seriesName: item?.series,
         teamName: <div>{item?.teamName}</div>,
         matchplace: item?.matchPlace,
@@ -101,7 +90,7 @@ function Statement(props) {
             className="clr-yellow"
             onClick={() => handleShow(item, item?.winTeam)}
           >
-            Click Here
+            <GiClick className="custom-click-icon ms-1 mt-2" />
           </div>
         ),
       };
