@@ -4,13 +4,8 @@ import { PiArrowCircleRightBold } from "react-icons/pi";
 import ClientPLTable from "./ClientPLTable";
 import RfplTable from "./RfplTable";
 import moment from "moment";
-import { useParams } from "react-router";
 import { call } from "../../config/axios";
-import {
-  GET_ACCOUNT_MATCHES_DATA,
-  GET_MATCH_ENTRY_DETAILS,
-  GET_STATEMENT_BY_MATCH_ID,
-} from "../../config/endpoints";
+import { GET_STATEMENT_BY_MATCH_ID } from "../../config/endpoints";
 import { useEffect } from "react";
 
 function StatementPopup(props) {
@@ -62,16 +57,21 @@ function StatementPopup(props) {
           <div className="w-100">
             <div className="p-2 rounded-top w-100 d-flex align-items-center justify-content-between">
               <div className="w-50 d-flex">
-                <div className="w-25 small-font clr-yellow match-date-button p-1 rounded-pill ms-1 me-1">
-                  Match : {matchDetails?.match_name}
+                <div className="small-font match-date-button p-1 rounded-pill ms-1 me-1">
+                  Match :
+                  <span className="clr-yellow px-2">
+                    {matchDetails?.match_name}
+                  </span>
                 </div>
-                <div className="w-50 small-font clr-yellow match-date-button p-1 rounded-pill ms-1 me-1">
+                <div className="small-font match-date-button p-1 rounded-pill ms-1 me-1">
                   Date :
-                  {moment(+matchDetails?.matchTimeStamp).format("DD-MM-YYYY")}
+                  <span className="clr-yellow px-2">
+                    {moment(+matchDetails?.matchTimeStamp).format("DD-MM-YYYY")}
+                  </span>
                 </div>
               </div>
-              <div className="w-50 d-flex justify-content-end">
-                <div className="w-100 d-flex justify-content-end">
+              <div className="w-50 d-flex justify-content-around">
+                <div className="w-50 d-flex justify-content-end">
                   <div
                     className={`match-entry-btn w-50 d-flex align-items-center justify-content-around rounded-pill p-1 ${
                       clientInputs ? "yellow-btn" : ""
@@ -82,14 +82,14 @@ function StatementPopup(props) {
                     <PiArrowCircleRightBold className="d-flex" />
                   </div>
                 </div>
-                <div className="w-50 d-flex justify-content-end">
+                <div className="w-50 d-flex justify-content-center">
                   <div
-                    className={`match-entry-btn w-100 d-flex align-items-center justify-content-around rounded-pill p-1 ${
+                    className={`match-entry-btn w-50 d-flex align-items-center justify-content-around rounded-pill p-1 ${
                       rfplInputs ? "yellow-btn" : ""
                     }`}
                     onClick={() => handleRfplResult()}
                   >
-                    <div className="medium-font">Rf P/L</div>
+                    <div className="medium-font">RF P/L</div>
                     <PiArrowCircleRightBold className="d-flex" />
                   </div>
                 </div>

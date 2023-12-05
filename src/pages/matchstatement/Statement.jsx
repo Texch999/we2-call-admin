@@ -1,21 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { AiFillEdit } from "react-icons/ai";
 import "./styles.css";
 import StatementPopup from "./StatementPopup";
 import DatePicker from "react-datepicker";
 import { FaRegCalendarAlt } from "react-icons/fa";
 import "react-datepicker/dist/react-datepicker.css";
-import Select from "react-select";
 import { Col, Row } from "react-bootstrap";
 import CustomPagination from "../pagination/CustomPagination";
 import Table from "../home-page/Table";
-import {
-  GET_STATEMENT_BY_MATCH_ID,
-  GET_FINANCIAL_STATEMENT_BY_DATE,
-  GET_OFFLINE_CLIENTS,
-} from "../../config/endpoints";
+import { GET_OFFLINE_CLIENTS } from "../../config/endpoints";
 import { call } from "../../config/axios";
 import moment from "moment";
+import { GiClick } from "react-icons/gi";
 
 function Statement(props) {
   const {
@@ -25,23 +20,21 @@ function Statement(props) {
     getStatementData,
     isProcessing,
   } = props;
-  const [onePageData, setOnePageData] = useState([]);
+
   const [matchDetails, setMatchDetails] = useState({});
   const [winTeam, setWinTeam] = useState("");
-
   let register_id = localStorage?.getItem("register_id");
   let creator_id = localStorage?.getItem("creator_id");
   let account_role = localStorage?.getItem("account_role");
   const tableColumns = [
-    { header: "DATE & TIME", field: "dateTime" },
+    { header: "DATE", field: "date" },
+    { header: "TIME", field: "time" },
     { header: "SERIES NAME", field: "seriesName" },
     { header: "TEAM NAME", field: "teamName" },
     { header: "MATCH PLACE", field: "matchplace" },
     { header: "WIN TEAM", field: "winTeam" },
     { header: "P/L", field: "profitLoss" },
-    {
-      field: "edit",
-    },
+    { header: "DETAILS", field: "edit" },
   ];
 
   const [popupData, setPopupData] = useState();
@@ -57,7 +50,7 @@ function Statement(props) {
       );
 
       return {
-        series: <div>{match?.series_name}</div>,
+        series: match?.series_name,
         venue: match?.stadium,
         matchPlace: match?.match_place,
         teamName: match?.match_name,
@@ -79,12 +72,8 @@ function Statement(props) {
     statementData?.length &&
     statementData?.map((item) => {
       return {
-        dateTime: (
-          <div className="d-flex flex-column">
-            <div> {moment(item?.matchTimeStamp).format("DD-MM-YYYY")}</div>
-            <div> {moment(item?.matchTimeStamp).format("hh:mm:ss A")}</div>
-          </div>
-        ),
+        date: moment(item?.matchTimeStamp).format("DD-MM-YYYY"),
+        time: moment(item?.matchTimeStamp).format("hh:mm:ss A"),
         seriesName: item?.series,
         teamName: <div>{item?.teamName}</div>,
         matchplace: item?.matchPlace,
@@ -101,16 +90,13 @@ function Statement(props) {
             className="clr-yellow"
             onClick={() => handleShow(item, item?.winTeam)}
           >
-            Click Here
+            <GiClick className="custom-click-icon ms-1 mt-2" />
           </div>
         ),
       };
     });
+
   const [showModal, setShowModal] = useState(false);
-
-  const [selectedDate, setSelectedDate] = useState(null);
-
-  const onChange = (e) => {};
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = 5;
 
@@ -123,6 +109,7 @@ function Statement(props) {
       [e.target.name]: e.target.value,
     });
   };
+
   const [existingUsers, setExistingUsers] = useState([]);
   const getAllClientsData = async () => {
     await call(GET_OFFLINE_CLIENTS, {
@@ -142,7 +129,7 @@ function Statement(props) {
   const clientOptions =
     existingUsers &&
     existingUsers.length > 0 &&
-    existingUsers.map((item, index) => {
+    existingUsers.map((item) => {
       return {
         clientID: item.client_id,
         clientName: item.client_name,
@@ -153,17 +140,7 @@ function Statement(props) {
     financialStatementData.length > 0 &&
     financialStatementData
       ?.filter((i) => i.match_declared === "Y")
-      ?.map((item, index) => {
-        return {
-          matchName: item.match_name,
-        };
-      });
-  const fancyOptions =
-    financialStatementData &&
-    financialStatementData.length > 0 &&
-    financialStatementData
-      ?.filter((i) => i.match_declared === "Y")
-      ?.map((item, index) => {
+      ?.map((item) => {
         return {
           matchName: item.match_name,
         };
@@ -250,28 +227,13 @@ function Statement(props) {
         </Col>
         <Col>
           <div>
-            <div className="medium-font mb-2">Fancy</div>
-            <select
-              className="h-38px w-100 custom-select medium-font btn-bg rounded all-none p-2"
-              name="fancy"
-              onChange={(e) => handleChange(e)}
-            >
-              <option className="w-90 ms-1 cursor-pointer">1st Innings </option>
-              <option className="w-90 ms-1 cursor-pointer">2nd Innings </option>
-            </select>
-          </div>
-        </Col>
-        <Col>
-          <div>
             <div className="medium-font mb-2">Client Name</div>
             <select
               className="h-38px w-100 custom-select medium-font btn-bg rounded all-none p-2"
               name="select_client"
               onChange={(e) => handleChange(e)}
             >
-              <option className="w-90 ms-1 cursor-pointer">
-                {statementPayload?.client_name || "Select..."}
-              </option>
+              <option>{statementPayload?.client_name || "Select..."}</option>
               {clientOptions?.length &&
                 clientOptions?.map((item, index) => {
                   return (
@@ -285,13 +247,13 @@ function Statement(props) {
         </Col>
         <Col className="d-flex align-items-end justify-content-end">
           <button
-            className="h-38px w-100 submit-button medium-font p-2 rounded all-none"
+            className="h-38px w-100 submit-button medium-font p-2 rounded all-none fw-600"
             disabled={isProcessing}
             onClick={() => {
               getStatementData();
             }}
           >
-            {isProcessing ? "Fetching" : "Verify"}
+            {isProcessing ? "Fetching..." : "Verify"}
           </button>
         </Col>
       </Row>
@@ -301,7 +263,7 @@ function Statement(props) {
           <tfoot>
             <tr>
               <th className="text-end">
-                TOTAL =
+                <span className="px-2">TOTAL = </span>
                 <span
                   className={`${
                     totalMatchResultData >= 0 ? "clr-green" : "clr-red"
@@ -315,10 +277,10 @@ function Statement(props) {
           </tfoot>
         </table>
       </div>
-      <div className="d-flex justify-content-between align-items-center mt-4">
+      <div className="d-flex justify-content-between align-items-center mt-2">
         <div className="d-flex justify-content-start font-clr-white total-count-container  py-2 px-4 rounded">
           <span>
-            Showing <b> {currentPage} </b> 0f <b> {totalPages} </b> Entries....
+            Showing <b> {currentPage} </b> Of <b> {totalPages} </b> Entries...
           </span>
         </div>
         <div className="d-flex justify-content-end mt-2">
