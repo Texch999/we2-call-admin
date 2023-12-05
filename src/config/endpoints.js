@@ -73,7 +73,7 @@ const RESET_PASSWORD = "/admin/reset_password";
 const GET_TOURS = "/tours/get_tours";
 const ADD_INTERESTED = "/tours/add_interested";
 const GET_SELECTEDMEMBERS = "/tours/get_booknow_of_selectedteam";
-const GET_TOUR_BY_ID = "/tours/get_toursbyid"
+const GET_TOUR_BY_ID = "/tours/get_toursbyid";
 const ACTIVE_INACTIVE_USERS =
   "/offline-management/offline_active_inactive_users";
 const MANAGEMENT_MATCHES = "/management/get_matches_by_accountrole";
@@ -83,11 +83,12 @@ const GET_LIVE_MATCH_RISK_POSITION =
   "/offline-management/live_match_risk_position";
 const GET_STATEMENT_BY_MATCH_ID =
   "/offline-management/get_statement_bymatch_id";
-const GET_TOUR_PAYMENT_GATEWAY = "/tours_banking/get_tour_payment_gateway"
+const GET_TOUR_PAYMENT_GATEWAY = "/tours_banking/get_tour_payment_gateway";
 const GET_ALL_NOTIFICATIONS = "/management/get_all_notifications";
 const SET_ADMIN_OFFLINE_PAYMENT =
   "/offline-management/admin_offline_settlement";
 const ADD_GUESTDOCS_FOR_TOURS = "/tours/add_guestdocs_for_tour";
+const GET_ALL_USERS = "/offline-management/get_user_list";
 
 // methods
 const DELETE = "DELETE";
@@ -97,37 +98,37 @@ const PUT = "PUT";
 
 exports.ADD_GUESTDOCS_FOR_TOURS = {
   method: POST,
-  url: ADD_GUESTDOCS_FOR_TOURS
-}
+  url: ADD_GUESTDOCS_FOR_TOURS,
+};
 
 exports.GET_TOUR_PAYMENT_GATEWAY = {
   method: POST,
-  url: GET_TOUR_PAYMENT_GATEWAY
-}
+  url: GET_TOUR_PAYMENT_GATEWAY,
+};
 
 exports.GET_TOUR_BY_ID = {
   url: GET_TOUR_BY_ID,
-  method: POST
-}
+  method: POST,
+};
 
 exports.GET_SELECTEDMEMBERS = {
   url: GET_SELECTEDMEMBERS,
-  method: POST
-}
+  method: POST,
+};
 
 exports.ADD_INTERESTED = {
   url: ADD_INTERESTED,
-  method: POST
-}
+  method: POST,
+};
 
 exports.GET_TOURS = {
-  url:GET_TOURS,
-  method: POST
-}
+  url: GET_TOURS,
+  method: POST,
+};
 exports.GET_COMPLETED_MATCHES_BY_CLEINT = {
   url: GET_COMPLETED_MATCHES_BY_CLEINT,
-  method: POST
-}
+  method: POST,
+};
 exports.GET_LIVE_MATCH_RISK_POSITION = {
   url: GET_LIVE_MATCH_RISK_POSITION,
   method: POST,
@@ -459,4 +460,9 @@ exports.UPDATE_MEETING = {
 exports.GET_ALL_NOTIFICATIONS = {
   url: GET_ALL_NOTIFICATIONS,
   method: POST,
+};
+
+exports.GET_ALL_USERS = {
+  url: GET_ALL_USERS,
+  method: GET,
 };
