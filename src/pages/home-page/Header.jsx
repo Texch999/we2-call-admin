@@ -25,7 +25,7 @@ import { MdLockReset, MdOutlinePrivacyTip } from "react-icons/md";
 import ResetPassword from "../log-in/ResetPassword";
 import MatchSubmitPopup from "../match-popups/MatchSubmitPopup";
 import AddPaymentMode from "../popups/AddPaymentMode";
-import { useHistory,useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { isLoggedIn } from "../../utils/helpers";
 import Login from "../log-in/Login";
 import EditProfile from "../popups/EditProfile";
@@ -322,7 +322,7 @@ function Header() {
   const [resetPasswordSubmit, setResetPasswordSubmit] = useState();
   const token = isLoggedIn();
   const currenturl = window.location.href;
-  const contains = currenturl.includes("/offers/")
+  const contains = currenturl.includes("/offers/");
 
   const [notifications, setnotifications] = useState([]);
   const getNotifications = async () => {
@@ -438,7 +438,11 @@ function Header() {
         </div>
         <div className="d-flex justify-content-between p-2">
           <div className="header-avatar align-items-center justify-content-around d-flex w-50">
-            <img src={contains ? "../assets/profile.png" : Images.profile} alt="profile" className="me-2" />
+            <img
+              src={contains ? "../assets/profile.png" : Images.profile}
+              alt="profile"
+              className="me-2"
+            />
             <div className="meetings-heading header-font">
               {localStorage?.getItem("user_name")}
             </div>
