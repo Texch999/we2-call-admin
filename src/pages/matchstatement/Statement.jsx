@@ -50,7 +50,7 @@ function Statement(props) {
       );
 
       return {
-        series: <div>{match?.series_name}</div>,
+        series: match?.series_name,
         venue: match?.stadium,
         matchPlace: match?.match_place,
         teamName: match?.match_name,
@@ -72,8 +72,8 @@ function Statement(props) {
     statementData?.length &&
     statementData?.map((item) => {
       return {
-        date: <div> {moment(item?.matchTimeStamp).format("DD-MM-YYYY")}</div>,
-        time: <div> {moment(item?.matchTimeStamp).format("hh:mm:ss A")}</div>,
+        date: moment(item?.matchTimeStamp).format("DD-MM-YYYY"),
+        time: moment(item?.matchTimeStamp).format("hh:mm:ss A"),
         seriesName: item?.series,
         teamName: <div>{item?.teamName}</div>,
         matchplace: item?.matchPlace,
@@ -95,11 +95,8 @@ function Statement(props) {
         ),
       };
     });
+
   const [showModal, setShowModal] = useState(false);
-
-  const [selectedDate, setSelectedDate] = useState(null);
-
-  const onChange = (e) => {};
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = 5;
 
@@ -112,6 +109,7 @@ function Statement(props) {
       [e.target.name]: e.target.value,
     });
   };
+
   const [existingUsers, setExistingUsers] = useState([]);
   const getAllClientsData = async () => {
     await call(GET_OFFLINE_CLIENTS, {
@@ -131,7 +129,7 @@ function Statement(props) {
   const clientOptions =
     existingUsers &&
     existingUsers.length > 0 &&
-    existingUsers.map((item, index) => {
+    existingUsers.map((item) => {
       return {
         clientID: item.client_id,
         clientName: item.client_name,
@@ -142,17 +140,7 @@ function Statement(props) {
     financialStatementData.length > 0 &&
     financialStatementData
       ?.filter((i) => i.match_declared === "Y")
-      ?.map((item, index) => {
-        return {
-          matchName: item.match_name,
-        };
-      });
-  const fancyOptions =
-    financialStatementData &&
-    financialStatementData.length > 0 &&
-    financialStatementData
-      ?.filter((i) => i.match_declared === "Y")
-      ?.map((item, index) => {
+      ?.map((item) => {
         return {
           matchName: item.match_name,
         };
@@ -259,13 +247,13 @@ function Statement(props) {
         </Col>
         <Col className="d-flex align-items-end justify-content-end">
           <button
-            className="h-38px w-100 submit-button medium-font p-2 rounded all-none"
+            className="h-38px w-100 submit-button medium-font p-2 rounded all-none fw-600"
             disabled={isProcessing}
             onClick={() => {
               getStatementData();
             }}
           >
-            {isProcessing ? "Fetching" : "Verify"}
+            {isProcessing ? "Fetching..." : "Verify"}
           </button>
         </Col>
       </Row>
@@ -275,7 +263,7 @@ function Statement(props) {
           <tfoot>
             <tr>
               <th className="text-end">
-                TOTAL =
+                <span className="px-2">TOTAL = </span>
                 <span
                   className={`${
                     totalMatchResultData >= 0 ? "clr-green" : "clr-red"
