@@ -61,10 +61,12 @@ function ULShareIndPlData(props) {
           <tr className="text-center">
             <th colSpan={3}>TOTAL</th>
             <th className={totalUrsNet > 0 ? "clr-green" : "clr-red"}>
-              {totalUrsNet ? totalUrsNet?.toFixed(2) : 0}
+              {/* {totalUrsNet ? totalUrsNet?.toFixed(2) : 0} */}
+              10000
             </th>
             <th className={totalUlShareNet > 0 ? "clr-green" : "clr-red"}>
-              {totalUlShareNet ? totalUlShareNet?.toFixed(2) : 0}
+              {/* {totalUlShareNet ? totalUlShareNet?.toFixed(2) : 0} */}
+              10000
             </th>
           </tr>
         </tfoot>

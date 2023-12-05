@@ -60,12 +60,12 @@ function PlatformCommPL(props) {
         <tfoot>
           <tr className="text-center">
             <th colSpan={3}>TOTAL</th>
-            <th className={totalUrsPlPlatform > 0 ? "clr-green" : "clr-red"}>
+            {/* <th className={totalUrsPlPlatform > 0 ? "clr-green" : "clr-red"}>
               {totalUrsPlPlatform ? totalUrsPlPlatform?.toFixed(2) : 0}
             </th>
             <th className={totalPlatform > 0 ? "clr-green" : "clr-red"}>
               {totalPlatform ? totalPlatform?.toFixed(2) : 0}
-            </th>
+            </th> */}
           </tr>
         </tfoot>
       </table>

@@ -75,7 +75,8 @@ function ClientIndPL(props) {
                 <tr className="text-center">
                   <th className="text-center">TOTAL</th>
                   <th className={totalClientPl > 0 ? "clr-green" : "clr-red"}>
-                    {totalClientPl ? totalClientPl?.toFixed(2) : null}
+                    10000
+                    {/* {totalClientPl ? totalClientPl?.toFixed(2) : null} */}
                   </th>
                 </tr>
               </tfoot>
@@ -134,7 +135,7 @@ function ClientIndPL(props) {
                   <tfoot>
                     <tr className="text-center">
                       <th className="text-end">TOTAL</th>
-                      <th
+                      {/* <th
                         // className="text-end"
                         className={`text-end ${
                           totalInduvisualReportClientData > 0
@@ -146,7 +147,7 @@ function ClientIndPL(props) {
                         {totalInduvisualReportClientData
                           ? totalInduvisualReportClientData?.toFixed(2)
                           : 0}
-                      </th>
+                      </th> */}
                     </tr>
                   </tfoot>
                 </table>
