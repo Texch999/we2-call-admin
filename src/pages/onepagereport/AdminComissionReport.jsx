@@ -2,29 +2,7 @@ import React, { useState } from "react";
 import CustomPagination from "../pagination/CustomPagination";
 
 function AdminComissionReport(props) {
-  const { ulPlatformComm } = props;
-  // const ADMIN_COMM_REPORT__DETAILS = [
-  //   {
-  //     adminname: "Animesh",
-  //     role: "Agent",
-  //     ulnetpl: "0",
-  //   },
-  //   {
-  //     adminname: "Sri8867",
-  //     role: "Master",
-  //     ulnetpl: "5000.00",
-  //   },
-  //   {
-  //     adminname: "Ganesh",
-  //     role: "Super Master",
-  //     ulnetpl: "7500.00",
-  //   },
-  //   {
-  //     adminname: "Lokesh",
-  //     role: "Super Admin",
-  //     ulnetpl: "10000.00",
-  //   },
-  // ];
+  const { ulPlatformComm, totalPlatForm } = props;
   const ADMIN_COMM_REPORT__DETAILS = ulPlatformComm.map((item) => {
     return {
       adminname: item.admin_name,
@@ -40,7 +18,6 @@ function AdminComissionReport(props) {
     setCurrentPage(page);
     // You can add your logic here to fetch data for the selected page.
   };
-
   return (
     <div>
       <div>
@@ -76,6 +53,16 @@ function AdminComissionReport(props) {
               </tr>
             </tbody>
           ))}
+          <tfoot>
+            <tr>
+              <th colSpan={2} className="text-center">
+                TOTAL
+              </th>
+              <th className="text-center clr-green">
+                {totalPlatForm ? totalPlatForm?.toFixed(2) : 0}
+              </th>
+            </tr>
+          </tfoot>
         </table>
       </div>
       <div className="d-flex justify-content-between align-items-center mt-4">
