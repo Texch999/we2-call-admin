@@ -25,7 +25,12 @@ function ReferalIndPl(props) {
   );
   const [clientsDataForRefferal, setClientsDataForRefferal] = useState([]);
   const [showMatchWiseRfPl, setShowMatchWiseRfPl] = useState(false);
+
+  console.log(referData, "sangram referData");
+  console.log(clientsDataForRefferal, "sangram clientsDataForRefferal");
+
   const handleRefid = async (item) => {
+    console.log(item, "referal item");
     setReferData(item);
     setShowIndividualReferalData(true);
     await call(GET_INDUVISUAL_REFERRAL_BY, {
@@ -38,6 +43,7 @@ function ReferalIndPl(props) {
       .catch((err) => console.log(err));
   };
   const handleClientID = async (item) => {
+    console.log(item, "itesm sangram");
     setIndClientdata(item);
     setShowMatchWiseRfPl(true);
     await call(GET_INDUVISUAL_MATCH_REPORT, {
@@ -46,9 +52,13 @@ function ReferalIndPl(props) {
     })
       .then((res) => {
         // console.log("res?.data?.data",[...res?.data?.data?.topLosers, ...res?.data?.data?.topWinners])
+        // setIndivisualMatchReportData([
+        //   ...res?.data?.data?.data,
+        //   // ...res?.data?.data?.topWinners,
+        // ]);
         setIndivisualMatchReportData([
-          ...res?.data?.data?.data,
-          // ...res?.data?.data?.topWinners,
+          ...res?.data?.data?.topLosers,
+          ...res?.data?.data?.topWinners,
         ]);
       })
       .catch((err) => console.log(err));
@@ -131,7 +141,7 @@ function ReferalIndPl(props) {
                       <th className="text-start">
                         Referal -
                         <span className="clr-yellow">
-                          {referData.referral_name}
+                          {referData.referral_id}
                         </span>
                       </th>
                     </tr>
