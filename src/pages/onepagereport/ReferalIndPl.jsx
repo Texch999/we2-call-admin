@@ -30,12 +30,12 @@ function ReferalIndPl(props) {
   console.log(clientsDataForRefferal, "sangram clientsDataForRefferal");
 
   const handleRefid = async (item) => {
-    console.log(item, "referal item");
+    console.log(item.referral_id, "item referal item");
     setReferData(item);
     setShowIndividualReferalData(true);
     await call(GET_INDUVISUAL_REFERRAL_BY, {
       register_id,
-      refferal_id: item.refferal_id,
+      refferal_id: item.referral_id,
     })
       .then((res) => {
         setClientsDataForRefferal(res?.data?.data);
@@ -66,7 +66,7 @@ function ReferalIndPl(props) {
   const PAGE_REPORT_DETAILS =
     individualReportReferralData?.length &&
     individualReportReferralData?.map((item, index) => ({
-      name: <div onClick={() => handleRefid(item)}>{item.referral_id}</div>,
+      name: <div onClick={() => handleRefid(item)}>{item.referral_name}</div>,
       rfnet: <div>{item.amount}</div>,
     }));
 

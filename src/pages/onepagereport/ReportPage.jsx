@@ -77,12 +77,14 @@ function ReportPage() {
   //       onClick: () => handleReferralId(ref?.referral_name, ref?.refferal_id),
   //     };
   //   });
+  console.log(refData, ".......bbbbbbbbbbrefData");
   const individualReportReferralData =
     refData &&
     refData?.length > 0 &&
     refData?.map((ref) => {
       return {
-        referral_id: ref?.referral_name,
+        referral_name: ref?.referral_name,
+        referral_id: ref?.refferal_id,
         amount: (
           <div
             className={ref?.total_profit_or_loss >= 0 ? "clr-green" : "clr-red"}
