@@ -33,7 +33,7 @@ export const open = (events = {}) => {
   });
 };
 //Send Message
-export const send = async (message) => {
+export const send = async (message, toUser) => {
   if (!isConnecttionOpen) {
     await open(events);
   }
@@ -41,8 +41,8 @@ export const send = async (message) => {
     JSON.stringify({
       action: "onmessage",
       message,
-      from_user: localStorage?.getItem('register_id'),
-      to_user: localStorage?.getItem("creator_id"),
+      from_user: localStorage?.getItem("register_id"),
+      to_user: toUser,
     })
   );
 };

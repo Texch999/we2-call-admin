@@ -26,23 +26,17 @@ import { BsCheck2All } from "react-icons/bs";
 function Chats() {
   let register_id = localStorage?.getItem("register_id");
   let creator_id = localStorage?.getItem("creator_id");
+  const account_role = localStorage?.getItem("account_role");
   const ImageBaseUrl = "https://we2-call-images.s3.us-east-2.amazonaws.com";
-  const [supportData, setSupportData] = useState([]);
-  const [profileImage, setProfileImage] = useState("");
-  const [singedUrl, setSignedUrl] = useState("");
-  const [imageId, setImageId] = useState("");
-  const [uploadImage, setuploadImage] = useState([]);
   const [clientsData, setClientsData] = useState([]);
-  const [searchText, setSearchText] = useState("");
-  const [filteredMessages, setFilteredMessages] = useState([]);
+  const [supportData, setSupportData] = useState([]);
+  const [selectedUser, setSelectedUser] = useState("");
+  const [selectedChat, setSelectedChat] = useState("");
 
-  const searchContent = (value) => {
-    setSearchText(value);
-    const filteredSearchTex = clientsData?.filter((res) => {
-      res?.user_name.toLowerCase().includes(searchText.toLowerCase());
-    });
-    console.log("filteredSearchTex====>", filteredSearchTex);
-    setFilteredMessages(filteredSearchTex);
+  const handleUserClick = async (registerId, index) => {
+    setSelectedUser(registerId);
+    await getAllUserMessages(registerId);
+    setSelectedChat(index);
   };
 
   const getAllUsersData = async () => {
@@ -60,41 +54,6 @@ function Chats() {
   useEffect(() => {
     getAllUsersData();
   }, []);
-
-  console.log("clientsData====>", clientsData);
-  const chatDetails = searchText.length
-    ? filteredMessages
-        .filter((item) => {
-          item?.user_name.toLowerCase().includes(searchText.toLowerCase());
-        })
-        .map((item) => {
-          return {
-            image: Images.RohitImage,
-            name: item?.user_name,
-            message: "What a Knock That Was !!! Virat Kohli !!",
-            time: item?.ts,
-            icon: "",
-          };
-        })
-    : clientsData?.map((item) => ({
-        image: Images.RohitImage,
-        name: item?.user_name,
-        message: "What a Knock That Was !!! Virat Kohli !!",
-        time: item?.ts,
-        icon: "",
-      }));
-
-  console.log("chatDetails=====>", chatDetails);
-
-  // const chatDetails = clientsData?.map((item) => ({
-  //   image: Images.RohitImage,
-  //   name: item?.user_name,
-  //   message: "What a Knock That Was !!! Virat Kohli !!",
-  //   time: item?.ts,
-  //   icon: "",
-  // }));
-
-  // console.log("chatDetails=====>", chatDetails);
 
   const [messages, setMessages] = useState([
     {
@@ -138,18 +97,23 @@ function Chats() {
       img: Images.ViratImage02,
     },
   ]);
+
   const date = new Date().toLocaleDateString();
   const [userInput, setUserInput] = useState("");
 
   const videoRef = useRef(null);
-
-  const inputFileRef = useRef(null);
+  const [file, setFile] = useState([]);
   const handleChange = (e) => {
-    const file = e.target.files[0];
-    console.log("file====>", file);
-    setProfileImage(file);
-    generateSignedUrl();
+    setFile([file, e.target.files[0]]);
   };
+
+  // const inputFileRef = useRef(null);
+  // const handleChange = (e) => {
+  //   const file = e.target.files[0];
+  //   console.log("file====>", file);
+  //   setProfileImage(file);
+  //   generateSignedUrl();
+  // };
 
   // const handleUserInput = () => {
   //   if (userInput.trim() !== "") {
@@ -170,9 +134,9 @@ function Chats() {
   //     setUserInput("");
   //   }
   // };
-  const generateReply = (message) => {
-    return message;
-  };
+  // const generateReply = (message) => {
+  //   return message;
+  // };
   const [currentTime, setCurrentTime] = useState(
     new Date().toLocaleTimeString()
   );
@@ -187,15 +151,12 @@ function Chats() {
   }, []);
 
   const inputHandler = async () => {
-    // addMessage(userInput, 1);
     setUserInput("");
-    await send(userInput);
-    // await getAllUserMessages();
+    await send(userInput, selectedUser);
   };
 
   const addMessage = (message, msg_c = 0) => {
     let temp = { message, ts: new Date().getTime(), msg_c };
-    setSupportData((prev) => [...prev, temp]);
   };
 
   const handleInputChange = (e) => {
@@ -208,90 +169,45 @@ function Chats() {
     }
   };
 
-  const getAllUserMessages = async () => {
-    const payload = {
-      from_user_id: "reg-20230922095659875",
-      to_user_id: "reg-20230913085731533",
-      uploadImage: `${ImageBaseUrl}/${"chat-images"}/${imageId}.png`,
-    };
-    try {
-      if (profileImage) {
-        singedUrl &&
-          profileImage &&
-          (await fetch(singedUrl, {
-            method: "PUT",
-            body: profileImage,
-            headers: {
-              "Content-Type": "image/jpeg",
-              "cache-control": "public, max-age=0",
-            },
-          })
-            .then((res) => {})
-            .catch((err) => {
-              console.log("err: ", err);
-            }));
-      } else {
-        await call(GET_USER_MESSAGES, payload)
-          .then((res) => {
-            setSupportData(res?.data?.data);
-            // scroll();
-          })
-          .catch((err) => {
-            // setLoading(false);
-            console.log(err);
-          });
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  console.log("support Data====>", supportData);
-
-  // const getAllUserMessages = async () => {
-
-  //   await call(GET_USER_MESSAGES, {
-  //     register_id,
-  //     creator_id,
-  //   })
-  //     .then((res) => {
-  //       setSupportData(res?.data?.data);
-  //       // scroll();
-  //     })
-  //     .catch((err) => {
-  //       // setLoading(false);
-  //       console.log(err);
-  //     });
-  // };
-
-  const generateSignedUrl = async () => {
-    setuploadImage(true);
-    const posetNewId = new Date().getTime();
-    await call(GENERATE_SIGNED_URL, {
-      register_id: `${posetNewId}`,
-      event_type: "chat_profile_image",
-      folder_name: "chat-images",
+  const getAllUserMessages = async (registerId) => {
+    await call(GET_USER_MESSAGES, {
+      from_user_id: registerId,
+      to_user_id: localStorage?.getItem("register_id"),
     })
       .then(async (res) => {
-        setuploadImage(false);
-        let url = res?.data?.data?.result?.signed_url;
-        setSignedUrl(url);
-        setImageId(posetNewId);
+        console.log("support data", res.data.data);
+        setSupportData(res?.data?.data);
       })
       .catch((err) => {
-        setuploadImage(false);
-        console.log("generating signed url error", err);
+        console.log(err);
       });
   };
+
+  // const generateSignedUrl = async () => {
+  //   setuploadImage(true);
+  //   const posetNewId = new Date().getTime();
+  //   await call(GENERATE_SIGNED_URL, {
+  //     register_id: `${posetNewId}`,
+  //     event_type: "chat_profile_image",
+  //     folder_name: "chat-images",
+  //   })
+  //     .then(async (res) => {
+  //       setuploadImage(false);
+  //       let url = res?.data?.data?.result?.signed_url;
+  //       setSignedUrl(url);
+  //       setImageId(posetNewId);
+  //     })
+  //     .catch((err) => {
+  //       setuploadImage(false);
+  //       console.log("generating signed url error", err);
+  //     });
+  // };
 
   const onMessageRecieve = (event) => {
     if (!event.data) {
       return;
     }
     const msg = JSON.parse(event.data);
-    // if (msg.from_user_id === register_id) {
-    //   return;
-    // }
     addMessage(msg.message);
   };
   const scroll = () => {
@@ -304,6 +220,7 @@ function Chats() {
     getAllUserMessages();
     open({ onmessage: onMessageRecieve });
   }, []);
+
   const [webcamVisible, setWebcamVisible] = useState(false);
   const webcamRef = useRef(null);
   const toggleWebCam = () => {
@@ -318,13 +235,15 @@ function Chats() {
     const selectedFile = event.target.files[0];
   };
   const [selectedDate, setSelectedDate] = useState(null);
-  const uploadfileInputRef = useRef(null);
+  const inputFileRef = useRef(null);
   const handleUploadFileSelect = (e) => {
     const file = e.target.files[0];
   };
   const handleUploadButtonClick = () => {
     inputFileRef.current.click();
   };
+
+  console.log(clientsData, "CLIENT");
 
   return (
     <div className="container w-100">
@@ -341,8 +260,6 @@ function Chats() {
                     type="text"
                     className="search-bar custom-search-bar rounded px-4 py-2"
                     placeholder="Search"
-                    value={searchText}
-                    onChange={(e) => searchContent(e.target.value)}
                   />
                   <span className="input-group-addon">
                     <button type="button">
@@ -358,59 +275,22 @@ function Chats() {
             </div>
 
             <div className="inbox_chat header-bg">
-              <div className="chat_list active_chat active-chat-bg">
-                <div className="chat_people">
-                  <div className="chat_img">
-                    <img
-                      className="rounded-circle"
-                      src={Images.dhoni_image}
-                      alt="sunil"
-                    />
-                  </div>
-                  <div className="chat_ib">
-                    <h5>
-                      Sunil Rajput <span className="chat_date">Dec 25</span>
-                    </h5>
-                    <p>I will purchase it for sure............ </p>
-                  </div>
-                </div>
-              </div>
-              <div className="chat_list">
-                <div className="chat_people">
-                  <div className="chat_img">
-                    <img
-                      className="rounded-circle"
-                      src={Images.kohli_image}
-                      alt="sunil"
-                    />
-                  </div>
-                  <div className="chat_ib">
-                    <h5>
-                      Sunil Rajput <span className="chat_date">Dec 25</span>
-                    </h5>
-                    <div className="d-flex align-items-center justify-content-between w-100">
-                      <p className="clr-green">Typing............ </p>
-                      <div className="rounded-circle clr-red-bg clr-white text-center px-1 small-font">
-                        2
-                      </div>
+              <div>
+                <div className="chat_list">
+                  <div className="chat_people">
+                    <div className="chat_img">
+                      <img
+                        className="rounded-circle"
+                        src={Images.sachin_image}
+                        alt="sunil"
+                      />
                     </div>
-                  </div>
-                </div>
-              </div>
-              <div className="chat_list">
-                <div className="chat_people">
-                  <div className="chat_img">
-                    <img
-                      className="rounded-circle"
-                      src={Images.sachin_image}
-                      alt="sunil"
-                    />
-                  </div>
-                  <div className="chat_ib">
-                    <h5>
-                      Sunil Rajput <span className="chat_date">Dec 25</span>
-                    </h5>
-                    <p>I will purchase it for sure............ </p>
+                    <div className="chat_ib">
+                      <h5>
+                        {account_role} <span className="chat_date">Dec 25</span>
+                      </h5>
+                      <p>I will purchase it for sure............ </p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -419,86 +299,12 @@ function Chats() {
               <LuUsers className="upload-icon mx-2" />
               <span className="large-font mx-2">Contacts</span>
             </div>
-            {/* <div className="inbox-chat-contacts header-bg">
-              <div className="chat_list">
-                <div className="chat_people">
-                  <div className="chat_img">
-                    <img
-                      className="rounded-circle"
-                      src={Images.raina_image}
-                      alt="sunil"
-                    />
-                  </div>
-                  <div className="chat_ib">
-                    <h5>
-                      Sunil Rajput <span className="chat_date">Dec 25</span>
-                    </h5>
-                    <p>Available </p>
-                  </div>
-                </div>
-              </div>
-              <div className="chat_list">
-                <div className="chat_people">
-                  <div className="chat_img">
-                    <img
-                      className="rounded-circle"
-                      src={Images.kohli_image}
-                      alt="sunil"
-                    />
-                  </div>
-                  <div className="chat_ib">
-                    <h5>
-                      Sunil Rajput <span className="chat_date">Dec 25</span>
-                    </h5>
-                    <p>Available </p>
-                  </div>
-                </div>
-              </div>
-              <div className="chat_list">
-                <div className="chat_people">
-                  <div className="chat_img">
-                    <img
-                      className="rounded-circle"
-                      src={Images.dhawan_image}
-                      alt="sunil"
-                    />
-                  </div>
-                  <div className="chat_ib">
-                    <h5>
-                      Sunil Rajput <span className="chat_date">Dec 25</span>
-                    </h5>
-                    <p>Available </p>
-                  </div>
-                </div>
-              </div>
-              <div className="chat_list">
-                <div className="chat_people">
-                  <div className="chat_img">
-                    <img
-                      className="rounded-circle"
-                      src={Images.dhawan_image}
-                      alt="sunil"
-                    />
-                  </div>
-                  <div className="chat_ib">
-                    <h5>
-                      Sunil Rajput <span className="chat_date">Dec 25</span>
-                    </h5>
-                    <p>Available </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div>
-              <div className="d-flex align-items-center encrpt-msg-bg py-3 justify-content-center ">
-                <BiLock className="clr-green" />
-                you can be sure that your conversations is
-                <span className="clr-green">Safe</span>.
-              </div>
-            </div> */}
             <div className="inbox-chat-contacts header-bg">
-              {chatDetails?.map((items, index) => (
-                <div key={index}>
+              {clientsData?.map((items, index) => (
+                <div
+                  key={index}
+                  onClick={() => handleUserClick(items?.register_id, index)}
+                >
                   <div class="chat_list">
                     <div class="chat_people">
                       <div class="chat_img">
@@ -510,7 +316,7 @@ function Chats() {
                       </div>
                       <div class="chat_ib">
                         <h5>
-                          {items?.name}{" "}
+                          {items?.first_name} {items?.last_name}
                           <span class="chat_date">{items?.time}</span>
                         </h5>
                         <p>{items?.message} </p>
@@ -527,11 +333,6 @@ function Chats() {
                 <div className="d-flex flex-row justify-content-between align-items-center">
                   <div className="d-flex flex-row px-2">
                     <img
-                      className="rounded-circle h-30px mx-2 header-img-indvdual"
-                      src={Images.dhoni_image}
-                      alt="dhoni"
-                    />
-                    <img
                       className="rounded-circle h-30px mx-2"
                       src={Images.kohli_image}
                       alt="kohli"
@@ -541,13 +342,13 @@ function Chats() {
                     <div className="large-font">
                       {localStorage?.getItem("user_name")}
                     </div>
-                    <div className="small-font align-items-center">
+                    {/* <div className="small-font align-items-center">
                       12 Members,5 Online
                       <PiDotOutlineFill
                         className="clr-green"
                         style={{ fontSize: "30px" }}
                       />
-                    </div>
+                    </div> */}
                     <div></div>
                   </div>
                 </div>
@@ -604,11 +405,7 @@ function Chats() {
                 )}
               </ScrollableFeed>
             </div>
-            <div className="recent_heading d-flex flex-start align-items-center justify-content-between w-100 header-bg h-8vh"
-              // onClick={(e) => {
-              //   e.preventDefault();
-              // }}
-            >
+            <div className="recent_heading d-flex flex-start align-items-center justify-content-between w-100 header-bg h-8vh">
               <div className="type_msg w-75 mx-2 rounded">
                 <div className="input_msg_write">
                   <input
@@ -663,7 +460,7 @@ function Chats() {
                       id="upload"
                       ref={inputFileRef}
                       style={{ display: "none" }}
-                      onChange={(e) => handleChange(e)}
+                      onChange={(e) => handleUploadFileSelect(e)}
                       // onChange={(e) => {
                       //   setUserInput(e?.target?.files[0]);
                       //   // generateSignedUrl();
