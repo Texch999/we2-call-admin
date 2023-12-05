@@ -6,25 +6,31 @@ import {
   FaCheck,
 } from "react-icons/fa6";
 import { MdOutlinePayment } from "react-icons/md";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { AiTwotoneSave } from "react-icons/ai";
+import { call } from "../../config/axios";
+import { GENERATE_SIGNED_URL } from "../../config/endpoints";
+import { ImageBaseUrl } from '../../images/index'
 
 function FillDetails(props) {
-  const { handlePaymentDetails } = props;
+  const { handlePaymentDetails, tour } = props;
   const [activeIndex, setActiveIndex] = useState(0);
-  const [membersOpen, setMembersOpen] = useState(false);
   const [numberOfMembers, setNumberOfMembers] = useState();
-  const [registeredOpen, setRegisteredOpen] = useState(false);
   const [registeredNames, setRegisteredNames] = useState();
-  const [genderOpen, setGenderOpen] = useState(false);
   const [genderType, setGenderType] = useState();
-  const [proofOpen, setProofOpen] = useState(false);
   const [proofType, setProofType] = useState();
+  const [packageType, setPackageType] = useState(0);
+  const [membersOpen, setMembersOpen] = useState(false);
+  const [registeredOpen, setRegisteredOpen] = useState(false);
+  const [genderOpen, setGenderOpen] = useState(false);
+  const [proofOpen, setProofOpen] = useState(false);
   const [selectedPackage, setSelectedPackage] = useState(false);
   const [packageOptionsOpen, setPackageOptionsOpen] = useState(false);
-  const [packageType, setPackageType] = useState(0);
+  const [inputData, setInputData] = useState({});
+  const [imagefiles, setImagefiles] = useState({});
   const [arrey, setArrey] = useState([]);
   let NUMBER_OF_MEMBERS = arrey;
+  // console.log(tour,'.....tour from filldetails')
 
   const handleMembersOpen = () => {
     setMembersOpen(!membersOpen);
@@ -59,7 +65,7 @@ function FillDetails(props) {
   };
 
   const handlePackageOptions = () => {
-    setPackageOptionsOpen(true);
+    setPackageOptionsOpen(!packageOptionsOpen);
   };
 
   const handleSelectOption = (item, index) => {
@@ -69,11 +75,18 @@ function FillDetails(props) {
     {
       let arr = [];
       for (let i = 0; i < item.value; i++) {
-        arr.push({});
+        arr.push({
+          username: item.name + "username" + (i + 1),
+          userdob: item.name + "userdob" + (i + 1),
+          usergender: item.name + "usergender" + (i + 1),
+          useridproof: item.name + "useridproof" + (i + 1),
+          userimageinfo: item.name + "userimage" + (i + 1),
+        });
       }
       setArrey(arr);
     }
   };
+  // console.log(NUMBER_OF_MEMBERS, "....numberof members");
 
   const handleAddMore = () => {
     let arr = [];
@@ -84,45 +97,109 @@ function FillDetails(props) {
     {
       label: (
         <div className="d-flex justify-content-between aline-items-center">
-          100000-200000 <div className="p-1 border-ylw">1</div>
+          Regular Pack
+          {/* <div className="p-1 border-ylw"></div> */}
         </div>
       ),
-      value: 1,
+      name: "regularPack",
+      value: tour[0]?.packages?.regularpack?.allowedpersons,
     },
     {
       label: (
         <div className="d-flex justify-content-between aline-items-center">
-          200000-300000 <div className="p-1 border-ylw">3</div>
+          Premium Pack
+          {/* <div className="p-1 border-ylw"></div> */}
         </div>
       ),
-      value: 3,
+      name: "premiumPack",
+      value: tour[0]?.packages?.premiumpack?.allowedpersons,
     },
     {
       label: (
         <div className="d-flex justify-content-between aline-items-center">
-          300000-400000 <div className="p-1 border-ylw">5</div>
+          Luxury Pack
+          {/* <div className="p-1 border-ylw"></div> */}
         </div>
       ),
-      value: 5,
+      name: "luxuryPack",
+      value: tour[0]?.packages?.luxurypack?.allowedpersons,
     },
     {
       label: (
         <div className="d-flex justify-content-between aline-items-center">
-          400000-500000 <div className="p-1 border-ylw">7</div>
+          Vip Pack
+          {/* <div className="p-1 border-ylw"></div> */}
         </div>
       ),
-      value: 7,
+      name: "vipPack",
+      value: tour[0]?.packages?.vippack?.allowedpersons,
     },
     {
       label: (
         <div className="d-flex justify-content-between aline-items-center">
-          500000-700000 <div className="p-1 border-ylw">10</div>
+          Vvip Pack
+          {/* <div className="p-1 border-ylw"></div> */}
         </div>
       ),
-      value: 10,
+      name: "vvipPack",
+      value: tour[0]?.packages?.vvippack?.allowedpersons,
     },
   ];
+  const handleInputsChange = (e) => {
+    setInputData({ ...inputData, [e.target.name]: e.target.value });
+  };
 
+  const handleUploadchange = async (e, index) => {
+    const imagefile = e.target.files[0];
+    const imageId = Date.now();
+    const imageuploadingurl = await generatesignedurl(imageId);
+    imageuploadingurl &&
+      imagefile &&
+        (await fetch(imageuploadingurl, {
+          method: "PUT",
+          body: imagefile,
+          headers: {
+            "Content-Type": "image/jpeg",
+            "cache-control": "public, max-age=0",
+          },
+        })
+          .then((res) => {
+            if(res.status===200){
+              setInputData({
+                ...inputData,
+                [e.target.name]:`${ImageBaseUrl}/tours_user_docs/${imageId}.png`
+              })
+              setImagefiles({
+                ...imagefiles,
+                [e.target.name]: imagefile.name
+              })
+            };
+          })
+          .catch((err) => {
+            console.log("err: ", err);
+          }));
+    
+  };
+
+  
+
+  const generatesignedurl = async (imageId) => {
+    const payload = {
+      register_id: `${imageId}`,
+      event_type: "user_profile_image",
+      folder_name: "tours_user_docs",
+    };
+    try {
+      const res = await call(GENERATE_SIGNED_URL, payload);
+      const url = res?.data?.data?.result?.signed_url;
+      return url;
+    } catch (error) {
+      console.log("error while creating the signed url", error);
+      return "";
+    }
+  };
+  // console.log(inputData,'......inputdataafterimageupload')
+  // console.log(imagefiles,'......imagefiles')
   return (
     <div className="p-3">
       <div className="w-100 d-flex justify-content-between mt-2">
@@ -172,7 +249,7 @@ function FillDetails(props) {
               </div>
             )}
           </div>
-          <div className="col">
+          {/* <div className="col">
             <div
               className="by-id-btn d-flex justify-content-between p-2"
               onClick={() => handleRegisteredOpen()}
@@ -200,7 +277,7 @@ function FillDetails(props) {
                 </div>
               </div>
             )}
-          </div>
+          </div> */}
         </div>
         {NUMBER_OF_MEMBERS?.map((item, index) => (
           <div key={index}>
@@ -211,7 +288,7 @@ function FillDetails(props) {
               {index != 0 ? (
                 <div className="col-5">
                   <select className="by-id-btn d-flex justify-content-between p-1 mt-1 all-none w-100 me-2">
-                    <option>Alreay Registered</option>
+                    <option>Already Registered</option>
                     <option>sangram</option>
                     <option>ravi</option>
                   </select>
@@ -229,44 +306,71 @@ function FillDetails(props) {
                     className="all-none bg-none"
                     placeholder="Name"
                     type="text"
+                    name={item.username}
+                    value={inputData[item.username]}
+                    onChange={(e) => handleInputsChange(e)}
                   />
                 </div>
               </div>
               <div className="col-3">
-                <div className="font-10 mt-1">Age</div>
+                <div className="font-10 mt-1">DoB</div>
                 <div className="by-id-btn d-flex justify-content-between p-2 mt-1">
                   <input
                     className="all-none date-input bg-none"
                     type="date"
                     placeholder="Date"
+                    name={item.userdob}
+                    value={inputData[item.userdob]}
+                    onChange={(e) => handleInputsChange(e)}
                   />
                 </div>
               </div>
               <div className="col-3 ">
                 <div className="font-10 mt-1">Gender</div>
-                <select className="by-id-btn d-flex justify-content-between p-1 mt-1 all-none w-100 ">
-                  <option>Male</option>
-                  <option>FeMale</option>
+                <select
+                  className="by-id-btn d-flex justify-content-between p-1 mt-1 all-none w-100 "
+                  name={item.usergender}
+                  onChange={(e) => handleInputsChange(e)}
+                >
+                  <option selected>Select gender</option>
+                  <option value={"male"}>Male</option>
+                  <option value={"female"}>FeMale</option>
                 </select>
               </div>
             </div>
             <div className="row mt-2">
               <div className="col-6">
                 <div className="font-10 mt-1">ID Proof</div>
-                <select className="by-id-btn d-flex justify-content-between p-1 mt-1 all-none w-100 me-2">
-                  <option>Adhaar Card</option>
-                  <option>PAN Card</option>
+                <select
+                  className="by-id-btn d-flex justify-content-between p-1 mt-1 all-none w-100 me-2"
+                  name={item.useridproof}
+                  onChange={(e) => handleInputsChange(e)}
+                >
+                  <option selected>Select proof</option>
+                  <option value={"aadharcard"}>Adhaar Card</option>
+                  <option value={"pancard"}>PAN Card</option>
                 </select>
               </div>
               <div className="col-6">
                 <div className="font-10 mt-1">Upload Screenshot</div>
-                <div className="d-flex justify-content-between align-items-center neft-div mt-1 p-1">
+                <label
+                  className="d-flex justify-content-between align-items-center neft-div mt-1 p-1"
+                  htmlFor={item.userimageinfo}
+                >
                   <div className="font-10">
-                    Upload Screenshot
-                    <input type="file" className="display-none" />
+                    <div>
+                      {imagefiles[item.userimageinfo] || "select Image"}
+                    </div>
+                    <input
+                      type="file"
+                      name={item.userimageinfo}
+                      id={item.userimageinfo}
+                      className="display-none"
+                      onChange={(e) => handleUploadchange(e, index)}
+                    />
                   </div>
                   <BiSolidCloudUpload className="type-file font-25" />
-                </div>
+                </label>
               </div>
             </div>
           </div>
@@ -276,7 +380,10 @@ function FillDetails(props) {
       {/* <div className="login-btn mt-2" onClick={() => handlePaymentDetails()}>
         Submit
       </div> */}
-      <div className="login-btn mt-2" onClick={() => handlePaymentDetails()}>
+      <div
+        className="login-btn mt-2"
+        onClick={() => handlePaymentDetails(inputData)}
+      >
         Save
       </div>
     </div>

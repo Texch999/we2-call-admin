@@ -1,11 +1,13 @@
 import { useState } from "react";
 import OfferDetails from "./OfferDetails";
 import MessagePopup from "../tour-popups/MessagePopup";
-import { Images } from "../../images";
-import { useHistory } from "react-router";
+import { Images } from "../../images/index";
+import { useHistory,useParams } from "react-router";
+// import { useParams } from "react-router-dom";
 
 function ViewOffers() {
   const history = useHistory();
+  const { tourname } = useParams();
   const [messagePopup, setMessagePopup] = useState(false);
   const [viewOffers, setViewOffers] = useState(true);
   const handleViewOffersOpen = () => {
@@ -33,14 +35,14 @@ function ViewOffers() {
         </div>
         <div onClick={() => handleOpenMessagePopup()}>
           <img
-            className="offers-msg-img"
-            src={Images.chat_icon}
+            className="offers-msg-img"chat_icon
+            src={"../assets/chat_icon.png"}
             alt="Message"
           />
         </div>
       </div>
       <hr className="hr-line mt-2" />
-      {viewOffers && <OfferDetails />}
+      {viewOffers && <OfferDetails tourname={tourname}/>}
       <MessagePopup
         messagePopup={messagePopup}
         setMessagePopup={setMessagePopup}

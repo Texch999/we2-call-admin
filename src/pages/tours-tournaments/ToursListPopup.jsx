@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Button,
   Col,
@@ -9,226 +9,141 @@ import {
   Row,
 } from "react-bootstrap";
 import { MdOutlineEdit } from "react-icons/md";
+import { call } from "../../config/axios";
+import { ADD_INTERESTED } from "../../config/endpoints";
 
 function ToursListPopup(props) {
-  const { openToursPopup, setOpenToursPopup } = props;
-  const TableHeads = [
+  const { openToursPopup, setOpenToursPopup, toursList } = props;
+  const [buttonColor, setButtonColor] = useState([])
+
+  const handleClick = async(tourId)=>{
+    const isSelected = buttonColor.includes(tourId)
+    setButtonColor(isSelected?[...buttonColor]:[...buttonColor,tourId])
+    let registerId = localStorage.getItem("register_id")
+    let accountRole = localStorage.getItem("account_role")
+    let userName = localStorage.getItem("user_name")
+    const payload = {
+      register_id: registerId,
+      tour_id: tourId,
+      website: "www.we2call.com",
+      account_role: accountRole,
+      user_name: userName,
+      im_interested: true
+    }
+    // console.log(payload,'......payload')
+    await call(ADD_INTERESTED, payload)
+            .then((res)=>console.log(res))
+            .catch((err)=>console.log.log(err))
+  }
+
+  const TableHeads = toursList&&toursList.length>0?[
     {
       label: "SNO",
       field: "s_no",
     },
     {
-      label: "Tour Name",
-      field: "tour_name",
+      label: "Tour Title",
+      field: "tour_title",
     },
     {
       label: "Location",
       field: "location",
     },
     {
-      label: "Date",
-      field: "date",
+      label: "Start Date",
+      field: "schedule_from",
+    },
+    {
+      label: "End Date",
+      field: "schedule_upto",
     },
     {
       field: "button",
     },
+  ]:[{
+    label: "TOURS",
+    field: "tours",
+  }];
+
+  const TableData = toursList && toursList.length > 0
+  ? toursList.map((tour, index) => {
+      if (tour) {
+        return {
+          s_no: index+1,
+          tour_title: tour.tour_title,
+          location: tour.country,
+          schedule_from: tour.schedule_from,
+          schedule_upto: tour.schedule_upto,
+          button: <button key={index} 
+                          onClick={()=>handleClick(tour.tour_id)} 
+                          className={buttonColor.includes(tour.tour_id)?"table-button table-button-clicked rounded":"table-button rounded"}
+          
+                  >I’m Interested</button>,
+        };
+      } else {
+        return null;
+      }
+    })
+  : [
+    {tours:"No Tours to Display"}
   ];
 
-  const TableData = [
-    {
-      s_no: "1",
-      tour_name: "india vs aus",
-      location: "melborn",
-      date: "20-2-2023",
-      button: <button className="table-button rounded">Iam Intrested</button>,
-    },
-    {
-      s_no: "1",
-      tour_name: "india vs aus",
-      location: "melborn",
-      date: "20-2-2023",
-      button: <button className="table-button rounded">Iam Intrested</button>,
-    },
-
-    {
-      s_no: "1",
-      tour_name: "india vs ausppppp",
-      location: "melborn",
-      date: "20-2-2023",
-      button: <button className="table-button rounded">Iam Intrested</button>,
-    },
-    {
-      s_no: "1",
-      tour_name: "india vs aus",
-      location: "melborn",
-      date: "20-2-2023",
-      button: <button className="table-button rounded">Iam Intrested</button>,
-    },
-  ];
+  
   return (
-    <Modal
-      onHide={() => setOpenToursPopup(false)}
-      show={openToursPopup}
-      centered
-      className="add-user-modal"
-    >
-      <Modal.Header closeButton>
-        <Modal.Title className="w-100 text-center">Tours List</Modal.Title>
-      </Modal.Header>
-      <center>Select Your Tours</center>
-      <div className="p-2 w-100">
-        <table className="w-100">
-          <thead id="home-table-head">
-            <tr>
-              {TableHeads.map((item, i) => {
-                return <th className="text-center">{item.label}</th>;
-              })}
-            </tr>
-          </thead>
-          {TableData.map((item, i) => {
-            return (
-              <tr className="tr-item ">
-                {TableHeads.map((headItem, i) => {
-                  return <td className="td-item p-1">{item[headItem.field]}</td>;
+    <div className="modal fade bd-example-modal-lg container mt-5">
+      <Modal
+        onHide={() => setOpenToursPopup(false)}
+        show={openToursPopup}
+        centered
+        size="xl"
+        className="match-share-modal w-100 close-btn"
+      >
+        <Modal.Header closeButton>
+          <Modal.Title className="w-100 text-center">Tours List</Modal.Title>
+        </Modal.Header>
+        <center>Select Your Tours</center>
+        <div className="p-2 w-100">
+          <table className="w-100">
+            <thead id="home-table-head" className="p-3">
+              <tr>
+                {TableHeads.map((item, i) => {
+                  return <th key={i} className="text-center">{item.label}</th>;
                 })}
               </tr>
-            );
-          })}
-        </table>
-        <Row className="mt-2 p-2">
-          <Col>
-            <Button
-              className="add-user-button w-100"
-              onClick={() => setOpenToursPopup(false)}
-            >
-              Submit
-            </Button>
-          </Col>
-          <Col>
-            <Button
-              className="cancel-button w-100"
-              onClick={() => setOpenToursPopup(false)}
-            >
-              Cancel
-            </Button>
-          </Col>
-        </Row>
-      </div>
-      {/* <center>
-        <img className="profile-image" alt="profile-image"></img>
-        <div className="flex-center edit-profile-icon custom-box-shadow">
-          <label htmlFor="upload-button" className="flex-center">
-            <MdOutlineEdit className="edit-icon-black" />
-          </label>
-          <input type="file" id="upload-button" style={{ display: "none" }} />
-        </div>
-      </center>
-      <Modal.Body>
-        <Form className="add-user-modal-form-details">
-          <Form.Group className="mb-3" controlId="user_name">
-            <Form.Label>User Name/ Full Name</Form.Label>
-            <InputGroup>
-              <Form.Control
-                type="text"
-                placeholder="Enter Name"
-                autoFocus
-                name="first_name"
-              />
-            </InputGroup>
-          </Form.Group>
-          <Container fluid>
-            <Row>
-              <Col>
-                <Form.Group
-                  className="mb-3 position-relative"
-                  controlId="userId"
-                >
-                  <Form.Label>Email ID</Form.Label>
-                  <InputGroup>
-                    <Form.Control
-                      type="input"
-                      placeholder="Enter Email ID"
-                      autoFocus
-                      className="fs-8rem"
-                      name="email"
-                    />
-                  </InputGroup>
-                </Form.Group>
-              </Col>
-              <Col>
-                <Form.Group className="mb-3 position-relative" controlId="role">
-                  <Form.Label>Whats App</Form.Label>
-                  <InputGroup>
-                    <Form.Control
-                      type="number"
-                      placeholder="Enter Whatsapp Number"
-                      className="fs-8rem"
-                      autoFocus
-                      maxlength="10"
-                      name="whats_app"
-                      //   value={formData.whats_app}
-                      //   onChange={handleChange}
-                    />
-                  </InputGroup>
-                </Form.Group>
-              </Col>
-            </Row>
-            <Row>
-              <Col>
-                <Form.Group
-                  className="mb-3 position-relative"
-                  controlId="userId"
-                >
-                  <Form.Label>Skype</Form.Label>
-                  <InputGroup>
-                    <Form.Control
-                      type="input"
-                      placeholder="Enter Email ID"
-                      autoFocus
-                      className="fs-8rem"
-                      name="skype"
-                      //   value={formData.skype}
-                      //   onChange={handleChange}
-                    />
-                  </InputGroup>
-                </Form.Group>
-              </Col>
-              <Col>
-                <Form.Group className="mb-3 position-relative" controlId="role">
-                  <Form.Label>Phone</Form.Label>
-                  <InputGroup>
-                    <Form.Control
-                      type="number"
-                      placeholder="Enter Whatsapp Number"
-                      className="fs-8rem"
-                      autoFocus
-                      maxlength="10"
-                      name="mobile_no"
-                      //   value={formData.mobile_no}
-                      //   onChange={handleChange}
-                    />
-                  </InputGroup>
-                </Form.Group>
-              </Col>
-            </Row>
-          </Container>
-          <Row>
+            </thead>
+            <tbody className="p-3">
+              {TableData.map((item, i) => {
+                return (
+                  <tr key={i} className="tr-item">
+                    {TableHeads.map((headItem, i) => {
+                      return <td key={i} className="td-item p-2">{item[headItem.field]}</td>;
+                    })}
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+          {/* <Row className="mt-2 p-2">
             <Col>
               <Button
-                className="w-100 add-user-button"
-                // onClick={handleSubmit}
-                // disabled={isProcessing}
+                className="add-user-button w-100"
+                onClick={() => handleSubmit()}
               >
-                Update Profile
+                Submit
               </Button>
             </Col>
             <Col>
-              <Button className="w-100 cancel-button">Cancel</Button>
+              <Button
+                className="cancel-button w-100"
+                onClick={() => setOpenToursPopup(false)}
+              >
+                Cancel
+              </Button>
             </Col>
-          </Row>
-        </Form>
-      </Modal.Body> */}
-    </Modal>
+          </Row> */}
+        </div>
+      </Modal>
+    </div>
   );
 }
 

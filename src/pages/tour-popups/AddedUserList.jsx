@@ -3,14 +3,25 @@ import { BiSolidCloudUpload } from "react-icons/bi";
 import { MdOutlinePayment } from "react-icons/md";
 import { AiTwotoneSave } from "react-icons/ai";
 import Table from "../home-page/Table";
+import { useEffect, useState } from "react";
 
 function AddedUserList(props) {
-  const { handleFillDetails, handleAddedUserList } = props;
-
+  const { handleFillDetails, 
+          handleAddedUserList,packageCount,
+          packMembers,
+          individualPackageMembersCount,
+          eachPackageTotalamount } = props;
+  // const [packageCount, setPackageCount] = useState({});
+  // const [packMembers, setPackMembers] = useState({});
+  // const [individualPackageMembersCount, setIndividualPackageMembersCount] = useState({})
+  // const [eachPackageTotalamount, setEachPackageTotalamount] = useState({})
+  // console.log(usersDetails,'....usersdetails')
+  
+  
   const addedUsersColumns = [
     { header: "Sno", field: "s_no" },
-    { header: "Place", field: "place" },
-    { header: "Tour", field: "tour" },
+    { header: "SelectedPackages", field: "selectedpackages" },
+    { header: "PackageCount", field: "packagecount" },
     { header: "Strength", field: "strength" },
     { header: "Amount", field: "amount" },
   ];
@@ -18,17 +29,38 @@ function AddedUserList(props) {
   const addedUsersData = [
     {
       s_no: "1",
-      place: "Goa",
-      tour: "Cricket",
-      strength: "5",
-      amount: "300000",
+      selectedpackages: "Regular Pack",
+      packagecount: packageCount.regularpackcount,
+      strength: individualPackageMembersCount.regularpackmemberscount,
+      amount: eachPackageTotalamount.regularpacktotalamount,
     },
     {
       s_no: "2",
-      place: "Dubai",
-      tour: "Casino",
-      strength: "10",
-      amount: "500000",
+      selectedpackages: "Premium Pack",
+      packagecount: packageCount.premiumpackcount,
+      strength: individualPackageMembersCount.premiumpackmemberscount,
+      amount: eachPackageTotalamount.premiumpacktotalamount,
+    },
+    {
+      s_no: "3",
+      selectedpackages: "Luxury Pack",
+      packagecount: packageCount.luxurypackcount,
+      strength: individualPackageMembersCount.luxurypackmemberscount,
+      amount: eachPackageTotalamount.luxurypacktotalamount,
+    },
+    {
+      s_no: "4",
+      selectedpackages: "Vip Pack",
+      packagecount: packageCount.vippackcount,
+      strength: individualPackageMembersCount.vippackmemberscount,
+      amount: eachPackageTotalamount.vippacktotalamount,
+    },
+    {
+      s_no: "5",
+      selectedpackages: "Vvip Pack",
+      packagecount: packageCount.vvippackcount,
+      strength: individualPackageMembersCount.vvippackmemberscount,
+      amount: eachPackageTotalamount.vvippacktotalamount,
     },
   ];
 
@@ -59,7 +91,13 @@ function AddedUserList(props) {
           <div className="col-12">
             <div className="d-flex justify-content-between font-10 package-amount-text p-2 mt-2">
               <div>Total Amount to Pay</div>
-              <div className="yellow-clr">2,00000000</div>
+              <div className="yellow-clr">{
+                eachPackageTotalamount.regularpacktotalamount +
+                eachPackageTotalamount.premiumpacktotalamount +
+                eachPackageTotalamount.luxurypacktotalamount +
+                eachPackageTotalamount.vippacktotalamount +
+                eachPackageTotalamount.vvippacktotalamount
+              }</div>
             </div>
           </div>
         </div>
@@ -68,7 +106,7 @@ function AddedUserList(props) {
         <div className="login-btn mt-2 w-45" onClick={handleFillDetails}>
           + Buy More
         </div>
-        <div className="login-btn mt-2 w-45" onClick={handleAddedUserList}>
+        <div className="login-btn mt-2 w-45" onClick={()=>handleAddedUserList()}>
           Proceed Pay
         </div>
       </div>

@@ -138,7 +138,7 @@ export const AgentRoutes = [
     component: ToursAndTournaments,
   },
   {
-    path: "/offers",
+    path: "/offers/:tourname",
     component: ViewOffers,
   },
   {
