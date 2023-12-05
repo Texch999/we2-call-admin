@@ -71,29 +71,6 @@ const AdminOnePageReport = () => {
   const [userName, setUserName] = useState("");
   const [userRole, setUserRole] = useState("");
 
-  // const handleIndividualAdminOnePageReport = (
-  //   userId,
-  //   ulShare,
-  //   username,
-  //   role
-  // )
-  //  => {
-  //   getUserMatches(userId);
-  //   setUlShare(ulShare);
-  //   setUserName(username);
-  //   setUserRole(role);
-
-  // };
-
-  const handleIndividualAdminOnePageReport = (user) => {
-    console.log(user, ".......user sangram");
-  };
-  // const handleIndividualAdminOnePageReport = (user) => {
-  //   console.log(user, ".......user");
-  // };
-
-  console.log(allUsers, "........allUsers");
-
   const adminOnePageReportData =
     allUsers &&
     allUsers?.length > 0 &&
@@ -168,10 +145,6 @@ const AdminOnePageReport = () => {
       ),
     }));
 
-  console.log(
-    adminOnePageReportIndividualData,
-    "adminOnePageReportIndividualData..................................."
-  );
 
   const adminOnePageReportIndividualHeadings = [
     { header: "Series Name", field: "series_name" },
@@ -293,7 +266,7 @@ const AdminOnePageReport = () => {
 
   const [induvisualAdminData, setInduvisualAdminData] = useState({});
   const handleAdminReports = (data) => {
-    console.log(data, "......data");
+    // console.log(data, "......data");
     setAdminOnePageReportPopUp(true);
     setInduvisualAdminData(data);
     getUserMatches(data.register_id);

@@ -7,7 +7,7 @@ import { call } from "../../config/axios";
 import moment from "moment";
 
 function ReferalIndPl(props) {
-  const { individualReportReferralData } = props;
+  const { individualReportReferralData, totalClientPl } = props;
   const [showIndividualReferealData, setShowIndividualReferalData] =
     useState(false);
 
@@ -20,9 +20,6 @@ function ReferalIndPl(props) {
   );
   const [clientsDataForRefferal, setClientsDataForRefferal] = useState([]);
   const [showMatchWiseRfPl, setShowMatchWiseRfPl] = useState(false);
-
-  console.log(referData, "sangram referData");
-  console.log(clientsDataForRefferal, "sangram clientsDataForRefferal");
 
   const handleRefid = async (item) => {
     setReferData(item);
@@ -80,14 +77,6 @@ function ReferalIndPl(props) {
         ),
       };
     });
-  // const REFERAL_REPORT_DETAILS =
-  //   indivisualMatchReportData?.length > 0 &&
-  //   indivisualMatchReportData?.map((item, index) => ({
-  //     matchName: "Sangram",
-  //     matchDate: "",
-  //     winTeam: "",
-  //     amount: "",
-  //   }));
   const REFERAL_REPORT_DETAILS =
     indivisualMatchReportData &&
     indivisualMatchReportData?.length > 0 &&
@@ -127,10 +116,7 @@ function ReferalIndPl(props) {
               {PAGE_REPORT_DETAILS?.length &&
                 PAGE_REPORT_DETAILS?.map((item, index) => (
                   <tbody key={index}>
-                    <tr
-                      className="text-center"
-                      // onClick={handleShowIndividualReferalData}
-                    >
+                    <tr className="text-center">
                       <td>{item.name}</td>
                       <td className="clr-green">{item.rfnet}</td>
                     </tr>
@@ -142,8 +128,7 @@ function ReferalIndPl(props) {
                 <tr className="text-end">
                   <th className="text-start">TOTAL</th>
                   <th className="clr-green text-end">
-                    10000.00
-                    {/* {totalUrsNet ? totalUrsNet?.toFixed(2) : null} */}
+                    {totalClientPl ? totalClientPl?.toFixed(2) : null}
                   </th>
                 </tr>
               </tfoot>

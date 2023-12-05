@@ -18,7 +18,10 @@ function OnePagePopup(props) {
   const [mfrcInputs, setMfrcInputs] = useState(true);
   const [ulsharereportInputs, setUlShareReportInputs] = useState(false);
   const [referalNetInputs, setReferalNetInputs] = useState(false);
-
+  console.log(
+    showOnepageReportData,
+    "................showOnepageReportData............"
+  );
   const induvisualClientData =
     showOnepageReportData &&
     showOnepageReportData?.length > 0 &&
@@ -33,6 +36,7 @@ function OnePagePopup(props) {
         cNameMatchPL: (
           <div>
             <div>{`${client?.team1} vs ${client?.team2}`}</div>
+
             <div>{moment(+client?.matchTimeStamp).format("DD-MM-YYYY")}</div>
           </div>
         ),
@@ -42,8 +46,7 @@ function OnePagePopup(props) {
               +client?.matchEntryResult?.amount >= 0 ? "clr-green" : "clr-red"
             }
           >
-            // {client?.matchEntryResult?.amount}
-            1000
+            {client?.matchEntryResult?.amount}
           </div>
         ),
         fancyPL: (
@@ -93,16 +96,18 @@ function OnePagePopup(props) {
         netCommission + +client?.fancyEntryResult?.referralComission;
       return {
         cNameMatchPL: (
-          <div className="client-name-role-container mb-5 mt-5">
+          <div>
             <div>{`${client?.team1} vs ${client?.team2}`}</div>
-            <div
-              className={
-                +client?.matchEntryResult?.amount >= 0 ? "clr-green" : "clr-red"
-              }
-            >
-              {client?.matchEntryResult?.amount}
-            </div>
             <div>{moment(+client?.matchTimeStamp).format("DD-MM-YYYY")}</div>
+          </div>
+        ),
+        matchPL: (
+          <div
+            className={
+              +client?.matchEntryResult?.amount >= 0 ? "clr-green" : "clr-red"
+            }
+          >
+            {client?.matchEntryResult?.amount}
           </div>
         ),
         fancyPL: (
@@ -135,7 +140,41 @@ function OnePagePopup(props) {
         ),
       };
     });
-
+  const totalFancyPl =
+    showOnepageReportData &&
+    showOnepageReportData?.length > 0 &&
+    showOnepageReportData?.reduce(
+      (acc, obj) => acc + (+obj?.fancyEntryResult?.amount || 0),
+      0
+    );
+  const totalMfComm =
+    showOnepageReportData &&
+    showOnepageReportData?.length > 0 &&
+    showOnepageReportData?.reduce(
+      (acc, obj) =>
+        acc +
+        (+(+obj?.fancyEntryResult?.clientCommission
+          ? +obj?.clientComission - +obj?.clientFancyComission
+          : obj?.clientComission) || 0),
+      0
+    );
+  const totalRoleComm =
+    showOnepageReportData &&
+    showOnepageReportData?.length > 0 &&
+    showOnepageReportData?.reduce(
+      (acc, obj) => acc + (+obj?.fancyEntryResult?.clientCommission || 0),
+      0
+    );
+  const totalMasterPL =
+    showOnepageReportData &&
+    showOnepageReportData?.length > 0 &&
+    showOnepageReportData?.reduce(
+      (acc, obj) =>
+        acc +
+        (+parseFloat(+obj?.amount || 0) +
+          parseFloat(+obj?.clientComission || 0) || 0),
+      0
+    );
   const handleMfrcInputs = () => {
     setMfrcInputs(true);
     setUlShareReportInputs(false);
@@ -211,14 +250,26 @@ function OnePagePopup(props) {
                     Match+Fancy+M Comm & F Comm / Rolling Comm
                   </div>
                 </div>
-              </div> 
+              </div>
             </div>
           </div>
           {mfrcInputs && (
-            <MFRCTotalTable induvisualClientData={induvisualClientData} />
+            <MFRCTotalTable
+              induvisualClientData={induvisualClientData}
+              totalFancyPl={totalFancyPl}
+              totalMfComm={totalMfComm}
+              totalRoleComm={totalRoleComm}
+              totalMasterPL={totalMasterPL}
+            />
           )}
           {referalNetInputs && (
-            <ReferalNetTable firstReferralNetData={firstReferralNetData} />
+            <ReferalNetTable
+              firstReferralNetData={firstReferralNetData}
+              totalFancyPl={totalFancyPl}
+              totalMfComm={totalMfComm}
+              totalRoleComm={totalRoleComm}
+              totalMasterPL={totalMasterPL}
+            />
           )}
           {/* {ulsharereportInputs && <UlshareTable />} */}
         </Modal.Body>

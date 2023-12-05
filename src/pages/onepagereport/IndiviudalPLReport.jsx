@@ -33,8 +33,6 @@ function IndiviudalPLReport(props) {
     setActiveReport(report);
   };
 
-  console.log(clientId, "clientIdSangram");
-
   const register_id = localStorage?.getItem("register_id");
   const creator_id = localStorage?.getItem("creator_id");
   const account_role = localStorage?.getItem("account_role");
@@ -66,6 +64,13 @@ function IndiviudalPLReport(props) {
   //     getIndividualPLRefferal();
   //   }
   // }, [refId]);
+  const totalClientPl =
+    clientData &&
+    clientData?.length > 0 &&
+    clientData?.reduce(
+      (acc, obj) => acc + (+obj?.amount?.props?.children || 0),
+      0
+    );
   const totalUrsNet =
     clientData &&
     clientData?.length > 0 &&
@@ -130,6 +135,7 @@ function IndiviudalPLReport(props) {
           individualRefferralData={individualRefferralData}
           indReportReferralData={indReportReferralData}
           individualReportReferralData={individualReportReferralData}
+          totalClientPl={totalClientPl}
         />
       )}
       {activeReport === "U/L Share" && (

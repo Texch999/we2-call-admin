@@ -115,34 +115,6 @@ const ShareRiskLiveMatches = () => {
         ) || 0),
       0
     );
-  console.log({ totalLoss, totalWin });
-  // const totalWin =
-  //   liveMatches &&
-  //   liveMatches?.length > 0 &&
-  //   liveMatches?.reduce(
-  //     (acc, obj) =>
-  //       acc +
-  //       (getUlShare(
-  //         obj?.matchRiskObject?.winCalculation?.profiltLoss,
-  //         obj?.ul_share
-  //       ) || 0),
-  //     0
-  //   );
-
-  // const totalLoss =
-  //   liveMatches &&
-  //   liveMatches?.length > 0 &&
-  //   liveMatches?.reduce(
-  //     (acc, obj) =>
-  //       acc +
-  //       (getUlShare(
-  //         obj?.matchRiskObject?.winCalculation?.profiltLoss,
-  //         obj?.ul_share
-  //       ) || 0),
-  //     0
-  //   );
-  // console.log({ totalLoss, totalWin });
-
   const matchDetails =
     liveMatches &&
     (liveMatches?.length > 0) &

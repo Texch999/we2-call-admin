@@ -49,10 +49,10 @@ const AddAdmins = () => {
         };
       });
 
-  console.log(
-    usersData.filter((obj) => obj.location),
-    "usersData"
-  );
+  // console.log(
+  //   usersData.filter((obj) => obj.location),
+  //   "usersData"
+  // );
   const handleCpButton = () => {
     // eslint-disable-next-line no-lone-blocks
     setChangepasswordPopup(true);
@@ -177,7 +177,7 @@ const AddAdmins = () => {
             {addUsersData?.length > 0 &&
               addUsersData?.map((data, index) => (
                 <tr key={index}>
-                  {console.log({ data })}
+                  {/* {console.log({ data })} */}
                   <td className="text-center">{data?.s_no}</td>
                   <td className="text-center">
                     {data?.user_name}{" "}

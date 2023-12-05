@@ -29,7 +29,7 @@ function OnePageReport(props) {
     await call(GET_COMPLETED_MATCHES_BY_CLEINT, {
       register_id,
       account_role,
-      // client_id: item.client_Id,
+      client_id: item.clientId,
     })
       .then((res) => {
         setShowOnePageReportData(res?.data?.data);
@@ -58,7 +58,7 @@ function OnePageReport(props) {
       </table>
       <div className="referal-table-scroll-content">
         <table className="w-100 match-position-table medium-font">
-          {ONE_PAGE_REPORT_DETAILS.length &&
+          {ONE_PAGE_REPORT_DETAILS.length > 0 &&
             ONE_PAGE_REPORT_DETAILS?.map((item, index) => (
               <tbody key={index}>
                 <tr
