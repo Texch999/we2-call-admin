@@ -8,7 +8,27 @@ function SettelmentStatement() {
   let register_id = localStorage?.getItem("register_id");
 
   const [settlementHistory, setSettlementHistory] = useState([]);
-
+  const totalTillDayBalance =
+    settlementHistory &&
+    settlementHistory?.length > 0 &&
+    settlementHistory?.reduce(
+      (acc, obj) => acc + (+obj?.till_day_balance || 0),
+      0
+    );
+  const totalSettleAmount =
+    settlementHistory &&
+    settlementHistory?.length > 0 &&
+    settlementHistory?.reduce(
+      (acc, obj) => acc + (+obj?.settled_amount || 0),
+      0
+    );
+  const totalPendingAmount =
+    settlementHistory &&
+    settlementHistory?.length > 0 &&
+    settlementHistory?.reduce(
+      (acc, obj) => acc + (+obj?.pending_amount || 0),
+      0
+    );
   const getSettlementStatement = async () => {
     await call(GET_SETTLEMENT_HISTORY, {
       register_id,
@@ -25,20 +45,98 @@ function SettelmentStatement() {
   useEffect(() => {
     getSettlementStatement();
   }, []);
-
+  // settlementHistory;
   const UPCOMING_SETTELMENT_DETAILS =
     settlementHistory?.length &&
-    settlementHistory?.map((item) => {
+    settlementHistory?.map((settlementData) => {
       return {
-        Date: item.date,
-        Time: item.time,
-        ClientName: item.client_name,
-        ModeofPayment: item.payment_type,
-        dayBalance: "1000000.00",
-        SettledAmount: item.settled_amount,
-        Balance: item.pending_amount,
+        Date: settlementData.date,
+        Time: settlementData.time,
+        ClientName: settlementData.client_name,
+        ModeofPayment: settlementData.payment_type,
+        till_day_balance: (
+          <div
+            className={
+              settlementData?.till_day_balance >= 0 ? "clr-green" : "clr-red"
+            }
+          >
+            {settlementData?.till_day_balance
+              ? settlementData?.till_day_balance?.toFixed(2)
+              : 0}
+          </div>
+        ),
+        settled_amount: (
+          <div
+            className={
+              settlementData?.settled_amount >= 0 ? "clr-green" : "clr-red"
+            }
+          >
+            {-settlementData?.settled_amount
+              ? settlementData?.settled_amount.toFixed(2)
+              : 0}
+          </div>
+        ),
+        pending_amount: (
+          <div
+            className={
+              settlementData?.pending_amount >= 0 ? "clr-green" : "clr-red"
+            }
+          >
+            {settlementData?.pending_amount
+              ? settlementData?.pending_amount.toFixed(2)
+              : 0}
+          </div>
+        ),
       };
     });
+  // const UPCOMING_SETTELMENT_DETAILS =
+  //   settlementHistory &&
+  //   settlementHistory.length > 0 &&
+  //   settlementHistory?.map((settlementData) => ({
+  //     client_name: (
+  //       <div>
+  //         <div>{settlementData?.client_name}</div>
+  //         <div>Client</div>
+  //         <div>Phonepe</div>
+  //         <div>{settlementData?.date}</div>
+  //         <div>{settlementData?.time}</div>
+  //       </div>
+  //     ),
+  // till_day_balance: (
+  //   <div
+  //     className={
+  //       settlementData?.till_day_balance >= 0 ? "clr-green" : "clr-red"
+  //     }
+  //   >
+  //     {settlementData?.till_day_balance
+  //       ? settlementData?.till_day_balance?.toFixed(2)
+  //       : 0}
+  //   </div>
+  // ),
+  // settled_amount: (
+  //   <div
+  //     className={
+  //       settlementData?.settled_amount >= 0 ? "clr-red" : "clr-green"
+  //     }
+  //   >
+  //     {-settlementData?.settled_amount
+  //       ? settlementData?.settled_amount.toFixed(2)
+  //       : 0}
+  //   </div>
+  // ),
+  // pending_amount: (
+  //   <div
+  //     className={
+  //       settlementData?.pending_amount >= 0 ? "clr-green" : "clr-red"
+  //     }
+  //   >
+  //     {settlementData?.pending_amount
+  //       ? settlementData?.pending_amount.toFixed(2)
+  //       : 0}
+  //   </div>
+  // ),
+  //   }));
+
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = 5;
 
@@ -78,14 +176,14 @@ function SettelmentStatement() {
               <tbody key={index}>
                 <tr className="text-center">
                   <td>
-                    <div>{item.Date}</div>
-                    <div>{item.Time}</div>
+                    {item.Date}
+                    {item.Time}
                   </td>
                   <td>{item.ClientName}</td>
                   <td>{item.ModeofPayment}</td>
-                  <td>{item.dayBalance}</td>
-                  <td>{item.SettledAmount}</td>
-                  <td className="clr-green">{item.Balance}</td>
+                  <td>{item.till_day_balance}</td>
+                  <td>{item.settled_amount}</td>
+                  <td className="clr-green">{item.pending_amount}</td>
                 </tr>
               </tbody>
             ))}
@@ -94,9 +192,27 @@ function SettelmentStatement() {
               <th colSpan={3} className="text-end">
                 Total
               </th>
-              <th className="text-center clr-green">500000.00</th>{" "}
-              <th className="text-center clr-green">500000.00</th>{" "}
-              <th className="text-center clr-green">500000.00</th>
+              <th
+                className={`text-center ${
+                  totalTillDayBalance > 0 ? "clr-green" : "clr-red"
+                }`}
+              >
+                {totalTillDayBalance ? totalTillDayBalance.toFixed(2) : 0}
+              </th>{" "}
+              <th
+                className={`text-center ${
+                  totalSettleAmount > 0 ? "clr-green" : "clr-red"
+                }`}
+              >
+                {totalSettleAmount ? totalSettleAmount.toFixed(2) : 0}
+              </th>{" "}
+              <th
+                className={`text-center ${
+                  totalPendingAmount > 0 ? "clr-green" : "clr-red"
+                }`}
+              >
+                {totalPendingAmount ? totalPendingAmount.toFixed(2) : 0}
+              </th>
             </tr>
           </tfoot>
         </table>

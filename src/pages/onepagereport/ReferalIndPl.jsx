@@ -4,15 +4,10 @@ import {
   GET_INDUVISUAL_MATCH_REPORT,
 } from "../../config/endpoints";
 import { call } from "../../config/axios";
+import moment from "moment";
 
 function ReferalIndPl(props) {
-  const {
-    individualReportReferralData,
-    refData,
-    clientId,
-    refClientId,
-    clientData,
-  } = props;
+  const { individualReportReferralData } = props;
   const [showIndividualReferealData, setShowIndividualReferalData] =
     useState(false);
 
@@ -30,7 +25,6 @@ function ReferalIndPl(props) {
   console.log(clientsDataForRefferal, "sangram clientsDataForRefferal");
 
   const handleRefid = async (item) => {
-    console.log(item.referral_id, "item referal item");
     setReferData(item);
     setShowIndividualReferalData(true);
     await call(GET_INDUVISUAL_REFERRAL_BY, {
@@ -43,7 +37,6 @@ function ReferalIndPl(props) {
       .catch((err) => console.log(err));
   };
   const handleClientID = async (item) => {
-    console.log(item, "itesm sangram");
     setIndClientdata(item);
     setShowMatchWiseRfPl(true);
     await call(GET_INDUVISUAL_MATCH_REPORT, {
@@ -78,18 +71,44 @@ function ReferalIndPl(props) {
         clientname: (
           <div onClick={() => handleClientID(item)}>{item.client_name}</div>
         ),
-        totalpl: "10000",
+        amount: (
+          <div
+            className={item?.referralTotalNet >= 0 ? "green-clr" : "red-clr"}
+          >
+            {item?.referralTotalNet ? item?.referralTotalNet?.toFixed(2) : 0}
+          </div>
+        ),
       };
     });
+  // const REFERAL_REPORT_DETAILS =
+  //   indivisualMatchReportData?.length > 0 &&
+  //   indivisualMatchReportData?.map((item, index) => ({
+  //     matchName: "Sangram",
+  //     matchDate: "",
+  //     winTeam: "",
+  //     amount: "",
+  //   }));
   const REFERAL_REPORT_DETAILS =
+    indivisualMatchReportData &&
     indivisualMatchReportData?.length > 0 &&
-    indivisualMatchReportData?.map((item, index) => ({
-      matchName: "Sangram",
-      matchDate: "",
-      winTeam: "",
-      amount: "",
-    }));
+    indivisualMatchReportData?.map((match) => {
+      const netPL = match?.referralComission + match?.referalShare;
+      return {
+        matchName: (
+          <div>
+            <div>{match?.match_name}</div>
+          </div>
+        ),
+        matchDate: (
+          <div>{moment(match?.matchTimeStamp).format("DD-MM-YYYY")}</div>
+        ),
 
+        winTeam: match?.winTeam,
+        amount: (
+          <div className={netPL >= 0 ? "clr-green" : "clr-red"}>{netPL}</div>
+        ),
+      };
+    });
   return (
     <div>
       <h6 className="Platform-Comm-PL-">Referal :</h6>
@@ -141,7 +160,7 @@ function ReferalIndPl(props) {
                       <th className="text-start">
                         Referal -
                         <span className="clr-yellow">
-                          {referData.referral_id}
+                          {referData.referral_name}
                         </span>
                       </th>
                     </tr>
@@ -164,7 +183,7 @@ function ReferalIndPl(props) {
                         <tbody>
                           <tr>
                             <td>{item.clientname}</td>
-                            <td className="text-end">{item.totalpl}</td>
+                            <td className="text-end">{item.amount}</td>
                           </tr>
                         </tbody>
                       ))}
@@ -223,16 +242,15 @@ function ReferalIndPl(props) {
                           ))}
                       </table>
                     </div>
-
-                    <table className="w-100 match-position-table medium-font">
-                      <tfoot>
-                        <tr className="text-end">
-                          <th className="text-start">TOTAL</th>
-                          <th className="clr-green text-end">500000000.00</th>
-                        </tr>
-                      </tfoot>
-                    </table>
                   </div>
+                  <table className="w-100 match-position-table medium-font">
+                    <tfoot>
+                      <tr className="text-end">
+                        <th className="text-start">TOTAL</th>
+                        <th className="clr-green text-end">500000000.00</th>
+                      </tr>
+                    </tfoot>
+                  </table>
                 </>
               )}
             </div>
