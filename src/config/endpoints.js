@@ -66,6 +66,7 @@ const FANCY_RESULT_PROFIT_LOSS = "/offline-management/fancy_result_profitlose";
 const GET_ADMIN_PACKAGES = "/packages/get_admin_packages";
 const DELETE_OFFLINE_CLIENT = "/offline-management/delete_clients";
 const PRIVACY_POLICY = "/management/get_policy_document";
+const GET_ALL_USERS = "/offline-management/get_user_list";
 
 // methods
 const DELETE = "DELETE";
@@ -355,5 +356,10 @@ exports.DELETE_OFFLINE_CLIENT = {
 };
 exports.PRIVACY_POLICY = {
   url: PRIVACY_POLICY,
+  method: GET,
+};
+
+exports.GET_ALL_USERS = {
+  url: GET_ALL_USERS,
   method: GET,
 };

@@ -13,7 +13,11 @@ import { FiSend } from "react-icons/fi";
 import { PiDotOutlineFill } from "react-icons/pi";
 import { icons } from "react-icons";
 import { open, send } from "../../utils/WebSocket";
-import { GET_USER_MESSAGES } from "../../config/endpoints";
+import {
+  GET_USER_MESSAGES,
+  GET_ALL_USERS,
+  GENERATE_SIGNED_URL,
+} from "../../config/endpoints";
 import { call } from "../../config/axios";
 import moment from "moment";
 import ScrollableFeed from "react-scrollable-feed";
@@ -22,8 +26,75 @@ import { BsCheck2All } from "react-icons/bs";
 function Chats() {
   let register_id = localStorage?.getItem("register_id");
   let creator_id = localStorage?.getItem("creator_id");
+  const ImageBaseUrl = "https://we2-call-images.s3.us-east-2.amazonaws.com";
   const [supportData, setSupportData] = useState([]);
   const [profileImage, setProfileImage] = useState("");
+  const [singedUrl, setSignedUrl] = useState("");
+  const [imageId, setImageId] = useState("");
+  const [uploadImage, setuploadImage] = useState([]);
+  const [clientsData, setClientsData] = useState([]);
+  const [searchText, setSearchText] = useState("");
+  const [filteredMessages, setFilteredMessages] = useState([]);
+
+  const searchContent = (value) => {
+    setSearchText(value);
+    const filteredSearchTex = clientsData?.filter((res) => {
+      res?.user_name.toLowerCase().includes(searchText.toLowerCase());
+    });
+    console.log("filteredSearchTex====>", filteredSearchTex);
+    setFilteredMessages(filteredSearchTex);
+  };
+
+  const getAllUsersData = async () => {
+    await call(GET_ALL_USERS, {
+      register_id,
+    })
+      .then((res) => {
+        setClientsData(res?.data?.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  useEffect(() => {
+    getAllUsersData();
+  }, []);
+
+  console.log("clientsData====>", clientsData);
+  const chatDetails = searchText.length
+    ? filteredMessages
+        .filter((item) => {
+          item?.user_name.toLowerCase().includes(searchText.toLowerCase());
+        })
+        .map((item) => {
+          return {
+            image: Images.RohitImage,
+            name: item?.user_name,
+            message: "What a Knock That Was !!! Virat Kohli !!",
+            time: item?.ts,
+            icon: "",
+          };
+        })
+    : clientsData?.map((item) => ({
+        image: Images.RohitImage,
+        name: item?.user_name,
+        message: "What a Knock That Was !!! Virat Kohli !!",
+        time: item?.ts,
+        icon: "",
+      }));
+
+  console.log("chatDetails=====>", chatDetails);
+
+  // const chatDetails = clientsData?.map((item) => ({
+  //   image: Images.RohitImage,
+  //   name: item?.user_name,
+  //   message: "What a Knock That Was !!! Virat Kohli !!",
+  //   time: item?.ts,
+  //   icon: "",
+  // }));
+
+  // console.log("chatDetails=====>", chatDetails);
 
   const [messages, setMessages] = useState([
     {
@@ -69,15 +140,15 @@ function Chats() {
   ]);
   const date = new Date().toLocaleDateString();
   const [userInput, setUserInput] = useState("");
-  // const inputFile = useRef(null);
 
   const videoRef = useRef(null);
 
-  const [file, setFile] = useState([]);
-  const inputFile = useRef(null);
-
+  const inputFileRef = useRef(null);
   const handleChange = (e) => {
-    setFile([...file, e.target.files[0]]);
+    const file = e.target.files[0];
+    console.log("file====>", file);
+    setProfileImage(file);
+    generateSignedUrl();
   };
 
   // const handleUserInput = () => {
@@ -138,17 +209,78 @@ function Chats() {
   };
 
   const getAllUserMessages = async () => {
-    await call(GET_USER_MESSAGES, {
-      register_id,
-      creator_id,
+    const payload = {
+      from_user_id: "reg-20230922095659875",
+      to_user_id: "reg-20230913085731533",
+      uploadImage: `${ImageBaseUrl}/${"chat-images"}/${imageId}.png`,
+    };
+    try {
+      if (profileImage) {
+        singedUrl &&
+          profileImage &&
+          (await fetch(singedUrl, {
+            method: "PUT",
+            body: profileImage,
+            headers: {
+              "Content-Type": "image/jpeg",
+              "cache-control": "public, max-age=0",
+            },
+          })
+            .then((res) => {})
+            .catch((err) => {
+              console.log("err: ", err);
+            }));
+      } else {
+        await call(GET_USER_MESSAGES, payload)
+          .then((res) => {
+            setSupportData(res?.data?.data);
+            // scroll();
+          })
+          .catch((err) => {
+            // setLoading(false);
+            console.log(err);
+          });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  console.log("support Data====>", supportData);
+
+  // const getAllUserMessages = async () => {
+
+  //   await call(GET_USER_MESSAGES, {
+  //     register_id,
+  //     creator_id,
+  //   })
+  //     .then((res) => {
+  //       setSupportData(res?.data?.data);
+  //       // scroll();
+  //     })
+  //     .catch((err) => {
+  //       // setLoading(false);
+  //       console.log(err);
+  //     });
+  // };
+
+  const generateSignedUrl = async () => {
+    setuploadImage(true);
+    const posetNewId = new Date().getTime();
+    await call(GENERATE_SIGNED_URL, {
+      register_id: `${posetNewId}`,
+      event_type: "chat_profile_image",
+      folder_name: "chat-images",
     })
-      .then((res) => {
-        setSupportData(res?.data?.data);
-        // scroll();
+      .then(async (res) => {
+        setuploadImage(false);
+        let url = res?.data?.data?.result?.signed_url;
+        setSignedUrl(url);
+        setImageId(posetNewId);
       })
       .catch((err) => {
-        // setLoading(false);
-        console.log(err);
+        setuploadImage(false);
+        console.log("generating signed url error", err);
       });
   };
 
@@ -191,7 +323,7 @@ function Chats() {
     const file = e.target.files[0];
   };
   const handleUploadButtonClick = () => {
-    uploadfileInputRef.current.click();
+    inputFileRef.current.click();
   };
 
   return (
@@ -209,6 +341,8 @@ function Chats() {
                     type="text"
                     className="search-bar custom-search-bar rounded px-4 py-2"
                     placeholder="Search"
+                    value={searchText}
+                    onChange={(e) => searchContent(e.target.value)}
                   />
                   <span className="input-group-addon">
                     <button type="button">
@@ -285,7 +419,7 @@ function Chats() {
               <LuUsers className="upload-icon mx-2" />
               <span className="large-font mx-2">Contacts</span>
             </div>
-            <div className="inbox-chat-contacts header-bg">
+            {/* <div className="inbox-chat-contacts header-bg">
               <div className="chat_list">
                 <div className="chat_people">
                   <div className="chat_img">
@@ -361,6 +495,30 @@ function Chats() {
                 you can be sure that your conversations is
                 <span className="clr-green">Safe</span>.
               </div>
+            </div> */}
+            <div className="inbox-chat-contacts header-bg">
+              {chatDetails?.map((items, index) => (
+                <div key={index}>
+                  <div class="chat_list">
+                    <div class="chat_people">
+                      <div class="chat_img">
+                        <img
+                          className="rounded-circle"
+                          src={Images.dhawan_image}
+                          alt="sunil"
+                        />{" "}
+                      </div>
+                      <div class="chat_ib">
+                        <h5>
+                          {items?.name}{" "}
+                          <span class="chat_date">{items?.time}</span>
+                        </h5>
+                        <p>{items?.message} </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
           <div className="mesgs">
@@ -486,18 +644,33 @@ function Chats() {
                     type="file"
                     id="upload"
                     style={{ display: "none" }}
-                    // onChange={handleChange}
-                    onChange={(e) => {
-                      setUserInput(e?.target?.files[0]);
-                      // generateSignedUrl();
-                    }}
-                    onKeyDown={(e) => userInput && hanldeKeyDown(e)}
+                    onChange={(e) => handleChange(e)}
+                    // onChange={(e) => {
+                    //   setUserInput(e?.target?.files[0]);
+                    //   // generateSignedUrl();
+                    // }}
+                    // onKeyDown={(e) => userInput && hanldeKeyDown(e)}
                   />
                 </div>
 
-                <div className="button-chat px-2 py-1 rounded mx-2">
+                <div
+                  className="button-chat px-2 py-1 rounded mx-2"
+                  onClick={handleUploadButtonClick}
+                >
                   <label htmlFor="attachment">
                     <ImAttachment className="chat-icon" />
+                    <input
+                      type="file"
+                      id="upload"
+                      ref={inputFileRef}
+                      style={{ display: "none" }}
+                      onChange={(e) => handleChange(e)}
+                      // onChange={(e) => {
+                      //   setUserInput(e?.target?.files[0]);
+                      //   // generateSignedUrl();
+                      // }}
+                      // onKeyDown={(e) => userInput && hanldeKeyDown(e)}
+                    />
                   </label>
                 </div>
 

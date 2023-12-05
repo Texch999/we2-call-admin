@@ -5,7 +5,7 @@ import { call } from "../../config/axios";
 function PrivacyPolicy() {
   const [privacyPolicyData, setPrivacyPolicyData] = useState("");
   const getPrivacyPolicy = async () => {
-    await call(PRIVACY_POLICY, { register_id: "company" })
+    await call(PRIVACY_POLICY, { register_id: "company",website_name: "www.we2call.com" })
       .then((res) => {
         setPrivacyPolicyData(res?.data?.data);
       })
