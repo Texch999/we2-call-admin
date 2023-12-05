@@ -71,8 +71,7 @@ function ClientIndPL(props) {
                 <tr className="text-center">
                   <th className="text-center">TOTAL</th>
                   <th className={totalClientPl > 0 ? "clr-green" : "clr-red"}>
-                    10000
-                    {/* {totalClientPl ? totalClientPl?.toFixed(2) : null} */}
+                    {totalClientPl ? totalClientPl?.toFixed(2) : null}
                   </th>
                 </tr>
               </tfoot>
