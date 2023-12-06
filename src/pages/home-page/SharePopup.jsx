@@ -3,7 +3,6 @@ import { IoCloseSharp } from "react-icons/io5";
 import { Images } from "./../../images/index";
 import { useState } from "react";
 import ShareButtons from "./ShareButtons";
-import { CopyToClipboard } from "react-copy-to-clipboard";
 
 function SharePopup({ showSharePopup, setShowSharePopup }) {
   const [textToCopy, setTextToCopy] = useState("This is the text to copy!");
@@ -23,14 +22,12 @@ function SharePopup({ showSharePopup, setShowSharePopup }) {
   const otherChange = (e) => {
     setValue(e.target.value, { copied: false });
   };
-  // const onChange = ({target: {value}}) => {
-  //   setValue({value, copied: false});
-  //     };
-  const handleCopyButton = ({ target: { innerHTML } }) => {
-    console.log(`Clicked on "${innerHTML}"!`); // eslint-disable-line
-    setShowShareSection(false);
-  };
-  const otherCopy = () => setCopied(true);
+
+  // const handleCopyButton = ({ target: { innerHTML } }) => {
+  //   console.log(`Clicked on "${innerHTML}"!`); // eslint-disable-line
+  //   setShowShareSection(false);
+  // };
+  // const otherCopy = () => setCopied(true);
 
   return (
     <div>
@@ -73,22 +70,14 @@ function SharePopup({ showSharePopup, setShowSharePopup }) {
             />
           </div>
           <div className="row d-flex justify-content-between mt-3">
-            {/* <CopyToClipboard
-              onCopy={otherCopy}
-              options={{ message: "Whoa!" }}
-              text={value}
-            > */}
             <div
               className="col rounded yellow-btn p-1 mx-1 text-center"
-              // onClick={(e) => handleCopyButton(e)}
               onClick={() => {
                 navigator.clipboard.writeText(value);
               }}
             >
               Copy
             </div>
-            {/* </CopyToClipboard> */}
-
             <div
               className="col rounded yellow-btn p-1 mx-1 text-center"
               onClick={() => handleShowShareButton()}
