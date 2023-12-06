@@ -36,8 +36,8 @@ function ClientPLTable(props) {
       );
       const amount = report?.matchEntryResult?.amount;
       return {
-        client_id: report?.client_id,
-        name: <div>{report?.client_name}</div>,
+        // client_id: report?.client_id,
+        // name: <div>{report?.client_name}</div>,
         masterProfitLoss: (
           <div className={`${amount >= 0 ? "clr-green" : "clr-red"}`}>
             {amount}
@@ -143,7 +143,7 @@ function ClientPLTable(props) {
         <tfoot>
           <tr className="text-center small-font clr-green all-none">
             <th>TOTAL</th>
-            <th>5000000</th>
+            <th>50000</th>
             <th>5000000</th>
             <th>5000000</th>
             <th>5000000</th>
