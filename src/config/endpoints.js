@@ -56,12 +56,18 @@ const UPDATE_USER_ADMIN = "/admin/update_user_admin";
 const UPDATE_USER_CLIENT = "/admin/update_user_client";
 const RISK_RUNNING_SESSION = "/offline-management/risk_running_session";
 const FANCY_RESULT_PROFIT_LOSS = "/offline-management/fancy_result_profitlose";
-
+const GET_LIVE_MATCH_RISK_POSITION =
+  "/offline-management/live_match_risk_position";
 // methods
 const DELETE = "DELETE";
 const POST = "POST";
 const GET = "POST";
 const PUT = "PUT";
+
+exports.GET_LIVE_MATCH_RISK_POSITION = {
+  url: GET_LIVE_MATCH_RISK_POSITION,
+  method: POST,
+};
 
 exports.GET_UPDATED_MATCHES_DATA = {
   url: GET_UPDATED_MATCHES_DATA,

@@ -6,7 +6,7 @@ import CustomPagination from "../pagination/CustomPagination";
 import { totalSum } from "../../utils";
 
 function SettelmentStatement() {
-  let register_id = localStorage?.getItem("register_id");
+  const register_id = localStorage?.getItem("register_id");
 
   const [settlementHistory, setSettlementHistory] = useState([]);
 
