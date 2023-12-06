@@ -7,7 +7,8 @@ import { useEffect, useState } from "react";
 
 function AddedUserList(props) {
   const { handleFillDetails, 
-          handleAddedUserList,packageCount,
+          handleAddedUserList,
+          packageCount,
           packMembers,
           individualPackageMembersCount,
           eachPackageTotalamount } = props;
@@ -30,35 +31,35 @@ function AddedUserList(props) {
     {
       s_no: "1",
       selectedpackages: "Regular Pack",
-      packagecount: packageCount.regularpackcount,
+      packagecount: packageCount.regularpack,
       strength: individualPackageMembersCount.regularpackmemberscount,
       amount: eachPackageTotalamount.regularpacktotalamount,
     },
     {
       s_no: "2",
       selectedpackages: "Premium Pack",
-      packagecount: packageCount.premiumpackcount,
+      packagecount: packageCount.premiumpack,
       strength: individualPackageMembersCount.premiumpackmemberscount,
       amount: eachPackageTotalamount.premiumpacktotalamount,
     },
     {
       s_no: "3",
       selectedpackages: "Luxury Pack",
-      packagecount: packageCount.luxurypackcount,
+      packagecount: packageCount.luxurypack,
       strength: individualPackageMembersCount.luxurypackmemberscount,
       amount: eachPackageTotalamount.luxurypacktotalamount,
     },
     {
       s_no: "4",
       selectedpackages: "Vip Pack",
-      packagecount: packageCount.vippackcount,
+      packagecount: packageCount.vippack,
       strength: individualPackageMembersCount.vippackmemberscount,
       amount: eachPackageTotalamount.vippacktotalamount,
     },
     {
       s_no: "5",
       selectedpackages: "Vvip Pack",
-      packagecount: packageCount.vvippackcount,
+      packagecount: packageCount.vvippack,
       strength: individualPackageMembersCount.vvippackmemberscount,
       amount: eachPackageTotalamount.vvippacktotalamount,
     },

@@ -47,16 +47,16 @@ function YourDetailsPopup(props) {
           return item
         }
       })
-  const regularpackcount = regularpacks.length
-  const premiumpackcount = premiumpacks.length
-  const luxurypackcount = luxurypacks.length
-  const vippackcount = vippacks.length
-  const vvippackcount = vvippacks.length
-  const regularpacktotalamount = ((tour[0]?.packages.regularpack.minamount)*(regularpackcount));
-  const premiumpacktotalamount = ((tour[0]?.packages.premiumpack.minamount)*(premiumpackcount));
-  const luxurypacktotalamount = ((tour[0]?.packages.luxurypack.minamount)*(luxurypackcount));
-  const vippacktotalamount = ((tour[0]?.packages.vippack.minamount)*(vippackcount));
-  const vvippacktotalamount = ((tour[0]?.packages.vvippack.minamount)*(vvippackcount));
+  const regularpack = regularpacks.length
+  const premiumpack = premiumpacks.length
+  const luxurypack = luxurypacks.length
+  const vippack = vippacks.length
+  const vvippack = vvippacks.length
+  const regularpacktotalamount = ((tour[0]?.packages.regularpack.minamount)*(regularpack));
+  const premiumpacktotalamount = ((tour[0]?.packages.premiumpack.minamount)*(premiumpack));
+  const luxurypacktotalamount = ((tour[0]?.packages.luxurypack.minamount)*(luxurypack));
+  const vippacktotalamount = ((tour[0]?.packages.vippack.minamount)*(vippack));
+  const vvippacktotalamount = ((tour[0]?.packages.vvippack.minamount)*(vvippack));
   const regularpackmembers = []
   const premiumpackmembers = []
   const luxurypackmembers = []
@@ -102,14 +102,14 @@ function YourDetailsPopup(props) {
   const luxurypackmemberscount = luxurypackmembers.length
   const vippackmemberscount = vippackmembers.length
   const vvippackmemberscount = vvippackmembers.length
-  console.log(usersDetails,'.......usersdetailsfrommaincomponent')
+  // console.log(packageCount,'.......usersdetailsfrommaincomponent')
   const packagesDetailsinuseState = ()=>{
     setPackageCount({
-      regularpackcount,
-      premiumpackcount,
-      luxurypackcount,
-      vippackcount,
-      vvippackcount
+      regularpack,
+      premiumpack,
+      luxurypack,
+      vippack,
+      vvippack
       })
     setPackMembers({
       regularpackmembers,
@@ -170,7 +170,7 @@ function YourDetailsPopup(props) {
     setBookingComplete(false);
     setFillDetails(true);
   };
-
+  console.log(packageCount,'........packagecount')
   const addingAllData = async(paymentdetails) => {
     const register_id = localStorage.getItem("register_id")
     const account_role = localStorage.getItem("account_role")
