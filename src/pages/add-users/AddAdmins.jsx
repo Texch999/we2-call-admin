@@ -34,26 +34,23 @@ const AddAdmins = () => {
       ?.filter((i) => i.account_role !== "client")
       ?.map((user, index) => {
         return {
+          register_id: user?.register_id,
+          creator_id: user?.creator_id,
           s_no: index + 1,
           user_name: user?.user_name,
           type: user?.account_role,
           share: user?.share,
           ul_share: user?.ul_share,
           location: user?.location,
-          profit_loss: 0,
-          package: 1,
-          register_id: user?.register_id,
-          creator_id: user?.creator_id,
+          profit_loss: user?.profit_loss,
+          package: user?.package,
+          reffered_by: user?.reffered_by,
           active: user?.active,
         };
       });
 
-  // console.log(
-  //   usersData.filter((obj) => obj.location),
-  //   "usersData"
-  // );
+  console.log(addUsersData, "USERDATA");
   const handleCpButton = () => {
-    // eslint-disable-next-line no-lone-blocks
     setChangepasswordPopup(true);
   };
 
@@ -113,14 +110,13 @@ const AddAdmins = () => {
   }, [adminsData]);
 
   return (
-    <div className="p-4">
+    <div className="p-3">
       <div>
         <h5 className="meetings-heading">Add Users & Admins</h5>
         <div className="d-flex flex-column add-users-date">
           <span>Wednesday, 2nd August, 2023</span>
           <span>12:22:34 PM</span>
         </div>
-
         <div className="mt-3 d-flex justify-content-between align-items-center">
           <div className="d-flex justify-content-center align-items-center">
             <Button
@@ -134,7 +130,6 @@ const AddAdmins = () => {
             <Button className="ms-2 agent-button">{account_role}</Button>
             <span className="mb-0 ms-2 me-2 add-user-name">{user_name}</span>
           </div>
-
           <Form className="d-flex">
             <div className="position-relative">
               <Form.Control
@@ -155,120 +150,117 @@ const AddAdmins = () => {
           </Form>
         </div>
       </div>
-      <hr />
-      <div>
-        <Table responsive="md" className="call-management-data">
-          <thead>
-            <tr>
-              <th class="text-center">S NO</th>
-              <th className="text-center">USER NAME</th>
-              <th className="text-center">TYPE</th>
-              <th className="text-center">C Share</th>
-              <th className="text-center">My Share</th>
-              <th className="text-center">LOCATION</th>
-              <th className="text-center">PACKAGE</th>
-              <th className="text-center">REFERRAL</th>
-              <th className="text-center">P/L</th>
-              <th className="text-center">ACTION</th>
-            </tr>
-          </thead>
-          <tbody>
-            {addUsersData?.length > 0 &&
-              addUsersData?.map((data, index) => (
-                <tr key={index}>
-                  {/* {console.log({ data })} */}
-                  <td className="text-center">{data?.s_no}</td>
-                  <td className="text-center">
-                    {data?.user_name}{" "}
-                    <Button className="ms-1 border-0 status-button"></Button>
-                  </td>
-
-                  <td className="text-center">{data?.type}</td>
-                  <td className="text-center">{data?.share}</td>
-                  <td className="text-center">{data?.ul_share}</td>
-                  <td className="text-center">{data?.location}</td>
-                  <td className="text-center">{data?.package}</td>
-                  <td className="text-center">{data?.user}</td>
-                  <td className="text-center">{data?.profit_loss}</td>
-                  <td className="text-center">
-                    <Button
-                      className="text-center rounded meeting-status-button EDIT-button me-2"
-                      onClick={() => handleCpButton()}
-                    >
-                      CP
-                    </Button>
-                    <Button
-                      className="text-center rounded meeting-status-button EDIT-button me-2"
-                      onClick={() => handleEditButton(data)}
-                    >
-                      EDIT
-                    </Button>
-                    <Button
-                      className={`text-center rounded meeting-status-button EDIT-button me-2 ${
-                        data?.active ? "clr-blue" : "clr-red"
-                      }`}
-                      onClick={() => handleBlock(data)}
-                    >
-                      {data?.active ? "UB" : "B"}
-                    </Button>
-                  </td>
-                </tr>
-              ))}
-          </tbody>
-          <tfoot>
-            <tr>
-              <th colSpan={6} className="text-center">
-                TOTAL
-              </th>
-              <th className="clr-green text-center">
-                {addUsersData?.length > 0 &&
-                  addUsersData
-                    ?.reduce(
-                      (total, data) => total + parseFloat(data?.profit_loss),
-                      0
-                    )
-                    .toFixed(2)}
-              </th>
-              <th></th>
-            </tr>
-          </tfoot>
-          {modalShow && (
-            <AddAdminsPopup
-              Heading={`${adminsData ? "Update Admins" : "Add Admins"} `}
-              show={modalShow}
-              setModalShow={setModalShow}
-              adminsData={adminsData}
-              usersData={usersData}
-              editData={editData}
-              onhideClick={(e) => {
-                setAdminsData({});
-                setModalShow(e);
-              }}
-              setIsUserAdded={setIsUserAdded}
-            />
-          )}
-          {packageViewPopShow && (
-            <PackageViewPopUp
-              show={packageViewPopShow}
-              onHide={() => setPackageViewPopup(false)}
-            />
-          )}
-          <ChangePassword
-            showChangePopup={changepasswordPopup}
-            setShowChangePopup={setChangepasswordPopup}
-            setChangePasswordSubmit={setChangePasswordSubmit}
+      <div className="mt-3">
+        <div className="admin-table-height">
+          <table className="fixed-table w-100 match-position-table text-center medium-font">
+            <thead>
+              <tr>
+                <th class="text-center">S NO</th>
+                <th className="text-center">USER NAME</th>
+                <th className="text-center">TYPE</th>
+                <th className="text-center">C Share</th>
+                <th className="text-center">My Share</th>
+                <th className="text-center">LOCATION</th>
+                <th className="text-center">PACKAGE</th>
+                <th className="text-center">REFERRAL</th>
+                <th className="text-center">P/L</th>
+                <th className="text-center">ACTION</th>
+              </tr>
+            </thead>
+            <tbody>
+              {addUsersData?.length > 0 &&
+                addUsersData?.map((data, index) => (
+                  <tr key={index}>
+                    <td className="text-center">{data?.s_no}</td>
+                    <td className="text-center">
+                      {data?.user_name}
+                      <Button className="ms-1 border-0 status-button"></Button>
+                    </td>
+                    <td className="text-center">{data?.type}</td>
+                    <td className="text-center">{data?.share}</td>
+                    <td className="text-center">{data?.ul_share}</td>
+                    <td className="text-center">{data?.location}</td>
+                    <td className="text-center">{data?.package}</td>
+                    <td className="text-center">{data?.reffered_by}</td>
+                    <td className="text-center">{data?.profit_loss}</td>
+                    <td className="text-center">
+                      <Button
+                        className="text-center rounded meeting-status-button EDIT-button me-2"
+                        onClick={() => handleCpButton()}
+                      >
+                        CP
+                      </Button>
+                      <Button
+                        className="text-center rounded meeting-status-button EDIT-button me-2"
+                        onClick={() => handleEditButton(data)}
+                      >
+                        EDIT
+                      </Button>
+                      <Button
+                        className={`text-center rounded meeting-status-button EDIT-button me-2 ${
+                          data?.active ? "clr-blue" : "clr-red"
+                        }`}
+                        onClick={() => handleBlock(data)}
+                      >
+                        {data?.active ? "UB" : "B"}
+                      </Button>
+                    </td>
+                  </tr>
+                ))}
+            </tbody>
+            <tfoot>
+              <tr>
+                <th className="text-center" colSpan={10}>
+                  <span>TOTAL = </span>
+                  <span className="clr-green">
+                    {addUsersData?.length > 0 &&
+                      addUsersData
+                        ?.reduce(
+                          (total, data) =>
+                            total + parseFloat(data?.profit_loss),
+                          0
+                        )
+                        .toFixed(2)}
+                  </span>
+                </th>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+        {modalShow && (
+          <AddAdminsPopup
+            Heading={`${adminsData ? "Update Admins" : "Add Admins"} `}
+            show={modalShow}
+            setModalShow={setModalShow}
+            adminsData={adminsData}
+            usersData={usersData}
+            editData={editData}
+            onhideClick={(e) => {
+              setAdminsData({});
+              setModalShow(e);
+            }}
+            setIsUserAdded={setIsUserAdded}
           />
-          <MatchSubmitPopup
-            header={"You Are Successfully Changed your Password"}
-            state={changePasswordSubmit}
-            setState={setChangePasswordSubmit}
+        )}
+        {packageViewPopShow && (
+          <PackageViewPopUp
+            show={packageViewPopShow}
+            onHide={() => setPackageViewPopup(false)}
           />
-        </Table>
+        )}
+        <ChangePassword
+          showChangePopup={changepasswordPopup}
+          setShowChangePopup={setChangepasswordPopup}
+          setChangePasswordSubmit={setChangePasswordSubmit}
+        />
+        <MatchSubmitPopup
+          header={"You Are Successfully Changed your Password"}
+          state={changePasswordSubmit}
+          setState={setChangePasswordSubmit}
+        />
       </div>
     </div>
   );
 };
 
 export default AddAdmins;
-
-

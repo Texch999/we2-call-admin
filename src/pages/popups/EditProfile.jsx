@@ -138,7 +138,6 @@ function EditProfile(props) {
     }
   };
 
-
   return (
     <Modal onHide={close} show={show} centered className="add-user-modal">
       <Modal.Header closeButton>
@@ -146,8 +145,6 @@ function EditProfile(props) {
           Edit Your Information
         </Modal.Title>
       </Modal.Header>
-      <center>Update Your details</center>
-
       <center>
         <img
           src={formData?.profileImage || Images.BatBall}
@@ -171,11 +168,12 @@ function EditProfile(props) {
       </center>
       <Modal.Body>
         <Form className="add-user-modal-form-details">
-          <Form.Group className="mb-3" controlId="user_name">
-            <Form.Label>User Name/ Full Name</Form.Label>
+          <Form.Group className="mb-2" controlId="user_name">
+            <Form.Label>User Name / Full Name</Form.Label>
             <InputGroup>
               <Form.Control
                 type="text"
+                className="h-38px"
                 placeholder="Enter Name"
                 autoFocus
                 name="first_name"
@@ -188,7 +186,7 @@ function EditProfile(props) {
             <Row>
               <Col>
                 <Form.Group
-                  className="mb-3 position-relative"
+                  className="mb-2 position-relative"
                   controlId="userId"
                 >
                   <Form.Label>Email ID</Form.Label>
@@ -197,7 +195,7 @@ function EditProfile(props) {
                       type="input"
                       placeholder="Enter Email ID"
                       autoFocus
-                      className="fs-8rem"
+                      className="h-38px"
                       name="email"
                       value={formData.email}
                       onChange={handleChange}
@@ -206,13 +204,13 @@ function EditProfile(props) {
                 </Form.Group>
               </Col>
               <Col>
-                <Form.Group className="mb-3 position-relative" controlId="role">
+                <Form.Group className="mb-2 position-relative" controlId="role">
                   <Form.Label>Whats App</Form.Label>
                   <InputGroup>
                     <Form.Control
                       type="number"
-                      placeholder="Enter Whatsapp Number"
-                      className="fs-8rem"
+                      placeholder="Enter Whatsapp Number..."
+                      className="h-38px"
                       autoFocus
                       maxlength="10"
                       name="whats_app"
@@ -226,16 +224,16 @@ function EditProfile(props) {
             <Row>
               <Col>
                 <Form.Group
-                  className="mb-3 position-relative"
+                  className="mb-2 position-relative"
                   controlId="userId"
                 >
-                  <Form.Label>Skype</Form.Label>
+                  <Form.Label>Skype ID</Form.Label>
                   <InputGroup>
                     <Form.Control
                       type="input"
-                      placeholder="Enter Email ID"
+                      placeholder="Enter Skype ID..."
                       autoFocus
-                      className="fs-8rem"
+                      className="h-38px"
                       name="skype"
                       value={formData.skype}
                       onChange={handleChange}
@@ -244,13 +242,13 @@ function EditProfile(props) {
                 </Form.Group>
               </Col>
               <Col>
-                <Form.Group className="mb-3 position-relative" controlId="role">
-                  <Form.Label>Phone</Form.Label>
+                <Form.Group className="mb-2 position-relative" controlId="role">
+                  <Form.Label>Phone Number</Form.Label>
                   <InputGroup>
                     <Form.Control
                       type="number"
-                      placeholder="Enter Whatsapp Number"
-                      className="fs-8rem"
+                      placeholder="Enter Phone Number..."
+                      className="h-38px"
                       autoFocus
                       maxlength="10"
                       name="mobile_no"
@@ -262,7 +260,7 @@ function EditProfile(props) {
               </Col>
             </Row>
           </Container>
-          <Row>
+          <Row className="mt-2">
             <Col>
               <Button
                 className="w-100 add-user-button"

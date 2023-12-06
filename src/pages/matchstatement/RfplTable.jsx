@@ -14,6 +14,11 @@ function RfplTable({ matchDetails, winTeam, onePageData }) {
   let clientPL = 0,
     refPL = 0,
     matchPL = 0;
+  let totalMatchPL = 0,
+    totalRfShare = 0,
+    totalFancyPL = 0,
+    totalRefComm = 0,
+    totalRefMFC = 0;
 
   const referralFinancialStatementAllData =
     onePageData &&
@@ -32,6 +37,11 @@ function RfplTable({ matchDetails, winTeam, onePageData }) {
         0
       );
       const amount = report?.matchEntryResult?.amount;
+      totalMatchPL += amount;
+      totalRfShare += report?.referalShare;
+      totalFancyPL += report?.fancyEntryResult?.amount;
+      totalRefComm += report?.referralComission;
+      totalRefMFC += report?.referalNet;
       return {
         name: report?.client_name,
         masterProfitLoss: (
@@ -96,8 +106,8 @@ function RfplTable({ matchDetails, winTeam, onePageData }) {
             <tr className="text-center">
               <td>{item.name}</td>
               <td>{item.masterProfitLoss}</td>
-              <td>{item?.fancyProfitLoss}</td>
               <td>{item.rfShare}</td>
+              <td>{item?.fancyProfitLoss}</td>
               <td>{item?.fancyReferralComm}</td>
               <td>{item?.referralMFC}</td>
               <td>
@@ -110,13 +120,23 @@ function RfplTable({ matchDetails, winTeam, onePageData }) {
           </tbody>
         ))}
         <tfoot>
-          <tr className="text-center small-font clr-green all-none">
+          <tr className="text-center small-font all-none">
             <th>TOTAL</th>
-            <th>50000000.00</th>
-            <th>50000000.00</th>
-            <th>50000000.00</th>
-            <th>50000000.00</th>
-            <th>50000000.00</th>
+            <th className={`${totalMatchPL >= 0 ? "clr-green" : "clr-red"}`}>
+              {totalMatchPL}
+            </th>
+            <th className={`${totalRfShare >= 0 ? "clr-green" : "clr-red"}`}>
+              {totalRfShare}
+            </th>
+            <th className={`${totalFancyPL >= 0 ? "clr-green" : "clr-red"}`}>
+              {totalFancyPL}
+            </th>
+            <th className={`${totalRefComm >= 0 ? "clr-green" : "clr-red"}`}>
+              {totalRefComm}
+            </th>
+            <th className={`${totalRefMFC >= 0 ? "clr-green" : "clr-red"}`}>
+              {totalRefMFC}
+            </th>
             <th></th>
           </tr>
         </tfoot>
