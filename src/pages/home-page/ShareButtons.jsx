@@ -2,9 +2,9 @@ import React from "react";
 import { FaInstagramSquare } from "react-icons/fa";
 import { FaWhatsappSquare } from "react-icons/fa";
 
-const ShareButtons = () => {
-  const shareText = "Check out this awesome content!";
-  const shareUrl = "https://your-website.com";
+const ShareButtons = ({ refId, meetId }) => {
+  const shareText = refId;
+  const shareUrl = meetId;
   const handleInstagramShare = () => {
     // Instagram share URL
     const instagramShareUrl = `https://www.instagram.com/share?url=${encodeURIComponent(

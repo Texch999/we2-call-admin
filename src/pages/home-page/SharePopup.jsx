@@ -13,14 +13,20 @@ function SharePopup({ showSharePopup, setShowSharePopup }) {
   //   setShowSharePopup(false);
   // };
   const [showShareSection, setShowShareSection] = useState(false);
-  const handleShowShareButton = () => {
+  const [refId, setRefid] = useState("123456789");
+  const [meetId, setMeetId] = useState("123456789");
+  const handleShowShareButton = (event) => {
     setShowShareSection((prev) => !prev);
+    setRefid(event.target.value);
+    setMeetId(event.target.value);
   };
   const url = window.location.href;
   const [value, setValue] = useState(url);
   const [copied, setCopied] = useState(false);
   const otherChange = (e) => {
     setValue(e.target.value, { copied: false });
+    setRefid(e.target.value);
+    setMeetId(e.target.value);
   };
 
   // const handleCopyButton = ({ target: { innerHTML } }) => {
@@ -41,24 +47,15 @@ function SharePopup({ showSharePopup, setShowSharePopup }) {
         </Modal.Header>
         <Modal.Body>
           <center className="px-4">
-            {" "}
             <img src={Images.header_logo} alt="Question_Mark" />
           </center>
           <span className="mt-2 font-12">Refer/ShareID</span>
           <div className="d-flex align-items-center login-input p-1 clr-white">
-            <input
-              className="bl-1 ms-2"
-              placeholder="123456789"
-              name="share_id"
-            />
+            {refId}
           </div>
           <span className="mt-2 font-12">Meeting Head ID</span>
           <div className="d-flex align-items-center login-input p-1 mb-2 clr-white">
-            <input
-              className="bl-1 ms-2"
-              placeholder="123456789"
-              name="meeting_id"
-            />
+            {meetId}
           </div>{" "}
           <div className="d-flex justify-content-center">
             <textarea
@@ -73,7 +70,8 @@ function SharePopup({ showSharePopup, setShowSharePopup }) {
             <div
               className="col rounded yellow-btn p-1 mx-1 text-center"
               onClick={() => {
-                navigator.clipboard.writeText(value);
+                navigator.clipboard.writeText(refId);
+                navigator.clipboard.writeText(meetId);
               }}
             >
               Copy
@@ -92,7 +90,7 @@ function SharePopup({ showSharePopup, setShowSharePopup }) {
           ) : null}
           {showShareSection && (
             <>
-              <ShareButtons />
+              <ShareButtons refId={refId} meetId={meetId} />
             </>
           )}
         </Modal.Body>
