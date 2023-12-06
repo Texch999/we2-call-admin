@@ -73,18 +73,21 @@ function SharePopup({ showSharePopup, setShowSharePopup }) {
             />
           </div>
           <div className="row d-flex justify-content-between mt-3">
-            <CopyToClipboard
+            {/* <CopyToClipboard
               onCopy={otherCopy}
               options={{ message: "Whoa!" }}
               text={value}
+            > */}
+            <div
+              className="col rounded yellow-btn p-1 mx-1 text-center"
+              // onClick={(e) => handleCopyButton(e)}
+              onClick={() => {
+                navigator.clipboard.writeText(value);
+              }}
             >
-              <div
-                className="col rounded yellow-btn p-1 mx-1 text-center"
-                onClick={(e) => handleCopyButton(e)}
-              >
-                Copy
-              </div>
-            </CopyToClipboard>
+              Copy
+            </div>
+            {/* </CopyToClipboard> */}
 
             <div
               className="col rounded yellow-btn p-1 mx-1 text-center"
