@@ -5,9 +5,9 @@ export const sumOfData = (data, field) => {
 };
 
 export const totalSum = (data, field) => {
-  return (
+  const resutls =
     data &&
     data?.length > 0 &&
-    data?.reduce((acc, obj) => acc + (+obj[field] || 0), 0)
-  );
+    data?.reduce((acc, obj) => acc + (+obj[field] || 0), 0);
+  return resutls ? resutls?.toFixed(2) : 0;
 };
