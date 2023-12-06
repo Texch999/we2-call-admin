@@ -520,16 +520,7 @@ const AdminSharesMatchStatement = () => {
         totalAmount={totalAmount}
         pendinAmount={pendinAmount}
       />
-      {/* <AdminPaymentPopup
-        showPaymentModal={showPaymentModal}
-        setShowPaymentModal={setShowPaymentModal}
-        buttonOne={`Date : 27/07/23`}
-        role="Admins Name"
-        buttonTwo={`Time : 17:46:00 PM`}
-        selectedUser={selectedUser}
-        totalAmount={totalAmount}
-        pendinAmount={pendinAmount}
-      /> */}
+
     </div>
   );
 };

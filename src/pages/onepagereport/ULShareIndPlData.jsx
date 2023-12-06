@@ -57,6 +57,8 @@ function ULShareIndPlData(props) {
       <table className="w-100 match-position-table medium-font">
         <tfoot>
           <tr className="text-center">
+            <th></th>
+            <th></th>
             <th colSpan={3}>TOTAL</th>
             <th className={totalUrsNet > 0 ? "clr-green" : "clr-red"}>
               {totalUrsNet ? totalUrsNet?.toFixed(2) : 0}
