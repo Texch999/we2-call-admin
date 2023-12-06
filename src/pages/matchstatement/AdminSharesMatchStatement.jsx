@@ -205,7 +205,7 @@ const AdminSharesMatchStatement = () => {
     setShowMatchStatement((prev) => !prev);
   };
   const [allUsers, setAllUsers] = useState([]);
-
+  const [rerender, setRerender] = useState(false);
   const getAllUsers = async () => {
     await call(GET_OFFLINE_CLIENTS, { register_id })
       .then((res) => {
@@ -220,26 +220,11 @@ const AdminSharesMatchStatement = () => {
   };
   useEffect(() => {
     getAllUsers();
-  }, []);
+  }, [rerender]);
   const getUlShare = (netPl, ulShare) => {
     const netAmount = (+netPl || 0 * +ulShare || 0) / 100;
     return netAmount;
   };
-  // const ulPlatformComm =
-  //   allUsers &&
-  //   allUsers?.length > 0 &&
-  //   allUsers?.map((user) => {
-  //     const netPL = getUlShare(user?.total_amount, user?.ul_share);
-  //     return {
-  //       admin_name: user?.client_name,
-  //       admin_role: user?.account_role,
-  //       ul_platform_comm: (
-  //         <div className={netPL >= 0 ? "clr-green" : "clr-red"}>
-  //           {netPL ? netPL?.toFixed(2) : 0}
-  //         </div>
-  //       ),
-  //     };
-  //   });
   const totalNetPl = allUsers.reduce(
     (acc, obj) =>
       acc +
@@ -320,7 +305,19 @@ const AdminSharesMatchStatement = () => {
             {netPL ? netPL?.toFixed(2) : 0}
           </div>
         ),
-        credit_debit: user?.settled_platform_amount || 0,
+        // credit_debit: user?.settled_platform_amount || 0,
+        credit_debit: (
+          <div
+            className={
+              user?.settled_platform_amount > 0 ? "clr-green" : "clr-red"
+            }
+          >
+            {user?.settled_platform_amount
+              ? user?.settled_platform_amount.toFixed(2)
+              : 0}
+          </div>
+        ),
+
         balance: (
           <div className={netPL >= 0 ? "clr-green" : "clr-red"}>
             {user?.pending_settlement_platform_amount ||
@@ -519,17 +516,8 @@ const AdminSharesMatchStatement = () => {
         selectedUser={selectedUser}
         totalAmount={totalAmount}
         pendinAmount={pendinAmount}
+        setRerender={setRerender}
       />
-      {/* <AdminPaymentPopup
-        showPaymentModal={showPaymentModal}
-        setShowPaymentModal={setShowPaymentModal}
-        buttonOne={`Date : 27/07/23`}
-        role="Admins Name"
-        buttonTwo={`Time : 17:46:00 PM`}
-        selectedUser={selectedUser}
-        totalAmount={totalAmount}
-        pendinAmount={pendinAmount}
-      /> */}
     </div>
   );
 };

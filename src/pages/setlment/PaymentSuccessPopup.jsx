@@ -5,13 +5,14 @@ import { Images } from "./../../images/index";
 function PaymentSuccessPopup({
   showSuccessPaymentPopup,
   setShowSuccessPaymentPopup,
+  setRerender,
 }) {
   const handleSuccessPaymentClose = () => {
     setShowSuccessPaymentPopup(false);
+    setRerender((prev) => !prev);
   };
   return (
     <div>
-      {" "}
       <Modal
         show={showSuccessPaymentPopup}
         className="match-declaration-modal z-index"

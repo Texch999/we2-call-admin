@@ -11,6 +11,7 @@ const AdminShareCommSettlement = ({
   totalCD,
   totalBalance,
   getUlShare,
+  setRerender,
 }) => {
   const adminShareSummaryData = [
     {
@@ -29,6 +30,7 @@ const AdminShareCommSettlement = ({
       amount: 1000000.0,
     },
   ];
+
   const adminShareCommSettlementData =
     AdminCommSattlementStatementData &&
     AdminCommSattlementStatementData.length > 0 &&
