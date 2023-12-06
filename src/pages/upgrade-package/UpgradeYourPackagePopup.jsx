@@ -13,6 +13,8 @@ import {
   GET_ALL_PAYMENT_GATEWAYS,
 } from "../../config/endpoints";
 import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setSelectedPackages } from "../../redux/actions/commonActions";
 function UpgradeYourPackagePopup(props) {
   const { showPackagePopup, setShowPackagePopup } = props;
   const [allPaymentGateway, setAllPaymentGateway] = useState();
@@ -22,6 +24,7 @@ function UpgradeYourPackagePopup(props) {
   const [signedUrl, setSignedUrl] = useState();
   const [trxId, setImageTrxId] = useState("");
   const [paymentType, setPaymentType] = useState();
+  const [openOptions, setOpenOptions] = useState();
   const handlePackagePopupClose = () => {
     setShowPackagePopup(false);
   };
@@ -36,6 +39,8 @@ function UpgradeYourPackagePopup(props) {
   const handleChange = (e) => {
     setPaymentType(e.target.value);
   };
+
+  const dispatch = useDispatch();
 
   const getAllPaymentData = async () => {
     const payload = {
@@ -158,6 +163,34 @@ function UpgradeYourPackagePopup(props) {
     generateSignedUrl();
   };
 
+  const packageList =
+    useSelector((State) => State.common.selected_packages) || [];
+  const totalPackagesCost = packageList.reduce(
+    (acc, obj) => acc + obj.cost * obj.no_of_packages,
+    0
+  );
+
+  const handleOpenOptions = () => {
+    setOpenOptions((prev) => !prev);
+  };
+
+  const onAddandSubtractClick = (obj, value) => {
+    let updatePackages = [];
+    if (obj.no_of_packages === 1) {
+      updatePackages = packageList.filter(
+        (itm) => itm.package_id !== obj.package_id
+      );
+    } else {
+      updatePackages = packageList.map((item) => {
+        if (item.package_id === obj.package_id) {
+          item.no_of_packages = item.no_of_packages + value;
+        }
+        return item;
+      });
+    }
+    dispatch(setSelectedPackages(updatePackages));
+  };
+
   useEffect(() => {
     getAllPaymentData();
   }, [paymentType]);
@@ -186,52 +219,63 @@ function UpgradeYourPackagePopup(props) {
               Package Upgrade
             </div>
             <div className="d-flex justify-content-center">
-              <div className="w-25 small-font match-date-button rounded-pill d-flex justify-content-between p-1">
-                Srinivas
-                <button className="yellow-btn rounded clr-white">SM</button>
+              <div className="small-font match-date-button rounded-pill d-flex justify-content-between p-1">
+                {localStorage.getItem("user_name")}
+                <button className="yellow-btn rounded clr-white ms-1">
+                  {localStorage.getItem("account_role")}
+                </button>
               </div>
             </div>
             <div className="w-100 p-4">
-              <div className="d-flex flex-row w-100 custom-select small-font btn-bg rounded all-none p-1 align-items-center justify-content-between p-2">
+              {/* <div className="d-flex flex-row w-100 custom-select small-font btn-bg rounded all-none p-1 align-items-center justify-content-between p-2">
                 <div>Total Packages Price</div>
-                <div>150000.00</div>
-              </div>
+                <div>{totalPackagesCost}</div>
+              </div> */}
               <Dropdown
                 size="lg"
                 className="user-dropdown-toggle custom-button-drop small-font mt-2"
               >
-                <Dropdown.Toggle>
-                  <div className="d-flex align-itens-center justify-content-between p-1">
-                    <div>
-                      Return Existed Package
-                      <RiArrowDropDownLine style={{ fontSize: "20px" }} />
-                    </div>
-
-                    <span style={{ float: "right" }}>-20000</span>
+                <div className="d-flex flex-row w-100 custom-select small-font btn-bg rounded all-none p-1 align-items-center justify-content-between p-2">
+                  <div onClick={() => handleOpenOptions()}>
+                    <div>Total Packages Price</div>
                   </div>
-                </Dropdown.Toggle>
-                <Dropdown.Menu className="custom-menu-item px-1">
-                  {packages.map((data, index) => (
-                    <Dropdown.Item
-                      key={index}
-                      className="rounded my-1 d-flex flex-row justify-content-between"
-                    >
-                      <div>
-                        <span>{data.package}</span>
-                        <span className="clr-yellow mx-1">{data.number}</span>
+
+                  <span style={{ float: "right" }}>{totalPackagesCost}</span>
+                </div>
+                {openOptions === true && (
+                  <div className="custom-menu-item px-1 ">
+                    {packageList?.map((item, index) => (
+                      <div
+                        key={index}
+                        className="rounded my-1 d-flex flex-row justify-content-between"
+                      >
+                        <div>
+                          <span>{item.package_name}</span>
+                          <span className="clr-yellow mx-1">
+                            {item.duration}
+                          </span>
+                        </div>
+                        <div className="add-button rounded-pill p-1 small-font d-flex align-items-center justify-content-evenly">
+                          <FaMinus
+                            className="mx-1"
+                            onClick={() => onAddandSubtractClick(item, -1)}
+                          />
+                          <div className="fw-semibold">
+                            {item.no_of_packages}
+                          </div>
+                          <FaPlus
+                            className="mx-1"
+                            onClick={() => onAddandSubtractClick(item, 1)}
+                          />
+                        </div>
                       </div>
-                      <div className="add-button rounded-pill p-1 small-font d-flex align-items-center justify-content-evenly">
-                        <FaMinus className="mx-1" />
-                        <div className="fw-semibold">ADD</div>
-                        <FaPlus className="mx-1" />
-                      </div>
+                    ))}
+                    <Dropdown.Item className="rounded my-2 d-flex flex-row justify-content-between">
+                      <div>Total Amount</div>
+                      <div>2000000000.00</div>
                     </Dropdown.Item>
-                  ))}
-                  <Dropdown.Item className="rounded my-2 d-flex flex-row justify-content-between">
-                    <div>Total Amount</div>
-                    <div>2000000000.00</div>
-                  </Dropdown.Item>
-                </Dropdown.Menu>
+                  </div>
+                )}
               </Dropdown>
               <div className="d-flex flex-row w-100 custom-select small-font btn-bg rounded all-none p-1 align-items-center justify-content-between p-2 mt-2">
                 <div>Total Packages Price</div>
