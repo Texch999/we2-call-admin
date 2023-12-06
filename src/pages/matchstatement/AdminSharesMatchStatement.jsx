@@ -205,7 +205,7 @@ const AdminSharesMatchStatement = () => {
     setShowMatchStatement((prev) => !prev);
   };
   const [allUsers, setAllUsers] = useState([]);
-
+  const [rerender, setRerender] = useState(false);
   const getAllUsers = async () => {
     await call(GET_OFFLINE_CLIENTS, { register_id })
       .then((res) => {
@@ -220,7 +220,7 @@ const AdminSharesMatchStatement = () => {
   };
   useEffect(() => {
     getAllUsers();
-  }, []);
+  }, [rerender]);
   const getUlShare = (netPl, ulShare) => {
     const netAmount = (+netPl || 0 * +ulShare || 0) / 100;
     return netAmount;
@@ -519,8 +519,8 @@ const AdminSharesMatchStatement = () => {
         selectedUser={selectedUser}
         totalAmount={totalAmount}
         pendinAmount={pendinAmount}
+        setRerender={setRerender}
       />
-
     </div>
   );
 };

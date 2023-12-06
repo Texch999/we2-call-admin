@@ -71,6 +71,13 @@ function IndiviudalPLReport(props) {
       (acc, obj) => acc + (+obj?.amount?.props?.children || 0),
       0
     );
+  const totalInduvisualReportClientData =
+    individualReportClientData &&
+    individualReportClientData?.length > 0 &&
+    individualReportClientData?.reduce(
+      (acc, obj) => acc + (+obj?.amount?.props?.children || 0),
+      0
+    );
   const totalUrsNet =
     clientData &&
     clientData?.length > 0 &&
@@ -136,6 +143,7 @@ function IndiviudalPLReport(props) {
           indReportReferralData={indReportReferralData}
           individualReportReferralData={individualReportReferralData}
           totalClientPl={totalClientPl}
+          
         />
       )}
       {activeReport === "U/L Share" && (
