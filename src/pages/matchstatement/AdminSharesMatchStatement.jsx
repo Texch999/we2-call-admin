@@ -320,7 +320,19 @@ const AdminSharesMatchStatement = () => {
             {netPL ? netPL?.toFixed(2) : 0}
           </div>
         ),
-        credit_debit: user?.settled_platform_amount || 0,
+        // credit_debit: user?.settled_platform_amount || 0,
+        credit_debit: (
+          <div
+            className={
+              user?.settled_platform_amount > 0 ? "clr-green" : "clr-red"
+            }
+          >
+            {user?.settled_platform_amount
+              ? user?.settled_platform_amount.toFixed(2)
+              : 0}
+          </div>
+        ),
+
         balance: (
           <div className={netPL >= 0 ? "clr-green" : "clr-red"}>
             {user?.pending_settlement_platform_amount ||
