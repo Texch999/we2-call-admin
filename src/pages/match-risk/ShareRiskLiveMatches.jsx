@@ -2,7 +2,6 @@ import { Button, Table } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { GiClick } from "react-icons/gi";
 import "./style.css";
-import { useHistory } from "react-router";
 import CustomPagination from "../pagination/CustomPagination";
 import { useEffect, useState } from "react";
 import { call } from "../../config/axios";
@@ -10,80 +9,82 @@ import { GET_LIVE_MATCH_RISK_POSITION } from "../../config/endpoints";
 import moment from "moment";
 
 const ShareRiskLiveMatches = () => {
-  const history = useHistory();
   const [liveMatches, setLiveMatches] = useState([]);
   const register_id = localStorage?.getItem("register_id");
 
-  // const shareRiskLiveMatchData = [
-  //   {
-  //     date_time: "19 July 2023, 10:00:00 PM",
-  //     series_name: "Men T20 World Cup 2023",
-  //     team_name: "Newziland vs Srilanka",
-  //     match_place: "Amhadabad Stadium",
-  //     team_one: "NewZealnd",
-  //     amount: 50000000,
-  //     team_two: "Srilanka",
-  //     profit: 5000000,
-  //   },
-  //   {
-  //     date_time: "19 July 2023, 10:00:00 PM",
-  //     series_name: "Women T20 World Cup 2023",
-  //     team_name: "India vs Srilanka",
-  //     match_place: "Amhadabad Stadium",
-  //     team_one: "India Wo",
-  //     amount: 50000000,
-  //     team_two: "Srilanka Wo",
-  //     profit: 5000000,
-  //   },
-  //   {
-  //     date_time: "19 July 2023, 10:00:00 PM",
-  //     series_name: "Men T20 World Cup 2023",
-  //     team_name: "India vs Srilanka",
-  //     match_place: "Amhadabad Stadium",
-  //     team_one: "NewZealnd",
-  //     amount: 50000000,
-  //     team_two: "Srilanka",
-  //     profit: 5000000,
-  //   },
-  //   {
-  //     date_time: "19 July 2023, 10:00:00 PM",
-  //     series_name: "Men T20 World Cup 2023",
-  //     team_name: "Newziland vs Srilanka",
-  //     match_place: "Amhadabad Stadium",
-  //     team_one: "NewZealnd",
-  //     amount: 50000000,
-  //     team_two: "Srilanka",
-  //     profit: 5000000,
-  //   },
-  //   {
-  //     date_time: "19 July 2023, 10:00:00 PM",
-  //     series_name: "Men T20 World Cup 2023 ",
-  //     team_name: "India vs Srilanka",
-  //     match_place: "Amhadabad Stadium",
-  //     team_one: "NewZealnd",
-  //     amount: 50000000,
-  //     team_two: "Srilanka",
-  //     profit: 5000000,
-  //   },
-  //   {
-  //     date_time: "19 July 2023, 10:00:00 PM",
-  //     series_name: "Men T20 World Cup 2023",
-  //     team_name: "Newziland vs Srilanka",
-  //     match_place: "Amhadabad Stadium",
-  //     team_one: "NewZealnd",
-  //     amount: 50000000,
-  //     team_two: "Srilanka",
-  //     profit: 5000000,
-  //   },
-  // ];
+  const shareRiskLiveMatchData1 = [
+    {
+      date_time: "19 July 2023, 10:00:00 PM",
+      series_name: "Men T20 World Cup 2023",
+      team_name: "Newziland vs Srilanka",
+      match_place: "Amhadabad Stadium",
+      team_one: "NewZealnd",
+      amount: 50000000,
+      team_two: "Srilanka",
+      profit: 5000000,
+    },
+    {
+      date_time: "19 July 2023, 10:00:00 PM",
+      series_name: "Women T20 World Cup 2023",
+      team_name: "India vs Srilanka",
+      match_place: "Amhadabad Stadium",
+      team_one: "India Wo",
+      amount: 50000000,
+      team_two: "Srilanka Wo",
+      profit: 5000000,
+    },
+    {
+      date_time: "19 July 2023, 10:00:00 PM",
+      series_name: "Men T20 World Cup 2023",
+      team_name: "India vs Srilanka",
+      match_place: "Amhadabad Stadium",
+      team_one: "NewZealnd",
+      amount: 50000000,
+      team_two: "Srilanka",
+      profit: 5000000,
+    },
+    {
+      date_time: "19 July 2023, 10:00:00 PM",
+      series_name: "Men T20 World Cup 2023",
+      team_name: "Newziland vs Srilanka",
+      match_place: "Amhadabad Stadium",
+      team_one: "NewZealnd",
+      amount: 50000000,
+      team_two: "Srilanka",
+      profit: 5000000,
+    },
+    {
+      date_time: "19 July 2023, 10:00:00 PM",
+      series_name: "Men T20 World Cup 2023 ",
+      team_name: "India vs Srilanka",
+      match_place: "Amhadabad Stadium",
+      team_one: "NewZealnd",
+      amount: 50000000,
+      team_two: "Srilanka",
+      profit: 5000000,
+    },
+    {
+      date_time: "19 July 2023, 10:00:00 PM",
+      series_name: "Men T20 World Cup 2023",
+      team_name: "Newziland vs Srilanka",
+      match_place: "Amhadabad Stadium",
+      team_one: "NewZealnd",
+      amount: 50000000,
+      team_two: "Srilanka",
+      profit: 5000000,
+    },
+  ];
 
   const shareRiskLiveMatchHeadings = [
-    "Date&Time",
-    "Match Name",
-    "Name",
-    "Win",
-    "Loss",
-    "Draw",
+    "USER",
+    "DATE & TIME",
+    "SERIES NAME",
+    "TEAM NAME",
+    "MATCH PLACE",
+    "",
+    "",
+    "",
+    "",
   ];
   const getUlShare = (netPl, ulShare) => {
     const netAmount = (+netPl * +ulShare) / 100;
@@ -131,6 +132,8 @@ const ShareRiskLiveMatches = () => {
           </div>
         ),
         role: match?.account_role,
+        team1: match?.team1,
+        team2: match?.team2,
         teama: (
           <div
             className={`font-size-12 w-20 flex-center ${
@@ -190,7 +193,7 @@ const ShareRiskLiveMatches = () => {
   }, []);
 
   const [currentPage, setCurrentPage] = useState(1);
-  const totalPages = 5;
+  const totalPages = shareRiskLiveMatchData && shareRiskLiveMatchData?.length/5 || 0;
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
@@ -207,38 +210,58 @@ const ShareRiskLiveMatches = () => {
       </div>
 
       <div>
-        <Table responsive="md" className="call-management-data">
+      <Table responsive="md" className="call-management-data">
           <thead>
             <tr>
               {shareRiskLiveMatchHeadings.map((headings, index) => (
-                <th key={index}>
+                <th className="text-center" key={index}>
                   {headings}
                 </th>
               ))}
             </tr>
           </thead>
           <tbody>
-            {shareRiskLiveMatchData &&
-              shareRiskLiveMatchData?.length > 0 &&
-              shareRiskLiveMatchData?.map((data, index) => (
-                <tr key={index}>
-                  <td>{data?.date}  {data?.time}</td>
-                  <td>{data?.matchMode}</td>
-                  <td>{data?.match}</td>
-                  <td>{data?.teama}</td>
-                  <td>{data?.teamb}</td>
-                  <td>N/A</td>
-                </tr>
-              ))}
+            {shareRiskLiveMatchData && shareRiskLiveMatchData?.length>0 && shareRiskLiveMatchData?.map((data, index) => (
+              <tr key={index}>
+                <td className="text-center">{data?.user} <br /> {data?.role}</td>
+                <td className="text-center">{data?.date} {data?.time}</td>
+                <td className="text-center">{data?.matchMode}</td>
+                <td
+                  className="text-center clr-yellow cursor-pointer"
+                >
+                  {data?.match}{" "}
+                  <GiClick className="custom-click-icon ms-1 mt-2" />
+                </td>
+                <td className="text-center">{data?.venue}</td>
+
+                <td className="text-center ">{data?.team1}</td>
+
+                <td className={
+                  data?.teama >= 0
+                    ? "clr-green text-center"
+                    : "clr-red text-center"
+                }>
+                  {data?.teama}
+                </td>
+                <td className="text-center">{data?.team2}</td>
+                <td className={
+                  data?.teamb >= 0
+                    ? "clr-green text-center"
+                    : "clr-red text-center"
+                }>
+                  {data?.teamb}
+                </td>
+              </tr>
+            ))}
           </tbody>
         </Table>
       </div>
       <div className="d-flex justify-content-between align-items-center mt-4">
-        <div className="d-flex justify-content-start font-clr-white total-count-container  py-2 px-4 rounded">
+      {totalPages > 1 && <div className="d-flex justify-content-start font-clr-white total-count-container  py-2 px-4 rounded">
           <span>
             Showing <b> {currentPage} </b> 0f <b> {totalPages} </b> Entries....
           </span>
-        </div>
+        </div>}
         <div className="d-flex justify-content-end mt-2">
           <CustomPagination
             totalPages={totalPages}
