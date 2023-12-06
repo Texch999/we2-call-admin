@@ -10,9 +10,9 @@ function SharePopup({ showSharePopup, setShowSharePopup }) {
   const handleShareClose = () => {
     setShowSharePopup(false);
   };
-  const handleCopyButton = () => {
-    setShowSharePopup(false);
-  };
+  // const handleCopyButton = () => {
+  //   setShowSharePopup(false);
+  // };
   const [showShareSection, setShowShareSection] = useState(false);
   const handleShowShareButton = () => {
     setShowShareSection((prev) => !prev);
@@ -26,10 +26,12 @@ function SharePopup({ showSharePopup, setShowSharePopup }) {
   // const onChange = ({target: {value}}) => {
   //   setValue({value, copied: false});
   //     };
-  const onClick = ({ target: { innerHTML } }) => {
+  const handleCopyButton = ({ target: { innerHTML } }) => {
     console.log(`Clicked on "${innerHTML}"!`); // eslint-disable-line
+    setShowShareSection(false);
   };
   const otherCopy = () => setCopied(true);
+
   return (
     <div>
       <Modal
@@ -41,7 +43,7 @@ function SharePopup({ showSharePopup, setShowSharePopup }) {
           <IoCloseSharp onClick={() => handleShareClose()} />
         </Modal.Header>
         <Modal.Body>
-          <center className="px-3">
+          <center className="px-4">
             {" "}
             <img src={Images.header_logo} alt="Question_Mark" />
           </center>
@@ -71,10 +73,14 @@ function SharePopup({ showSharePopup, setShowSharePopup }) {
             />
           </div>
           <div className="row d-flex justify-content-between mt-3">
-            <CopyToClipboard onCopy={otherCopy} text={value}>
+            <CopyToClipboard
+              onCopy={otherCopy}
+              options={{ message: "Whoa!" }}
+              text={value}
+            >
               <div
                 className="col rounded yellow-btn p-1 mx-1 text-center"
-                // onClick={() => handleCopyButton()}
+                onClick={(e) => handleCopyButton(e)}
               >
                 Copy
               </div>
@@ -87,6 +93,11 @@ function SharePopup({ showSharePopup, setShowSharePopup }) {
               Share
             </div>
           </div>
+          {copied ? (
+            <span className="text-center clr-white font-12 w-100">
+              Copied!!
+            </span>
+          ) : null}
           {showShareSection && (
             <>
               <ShareButtons />
