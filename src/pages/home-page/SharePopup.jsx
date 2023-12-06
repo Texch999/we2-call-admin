@@ -45,7 +45,7 @@ function SharePopup({ showSharePopup, setShowSharePopup }) {
             <img src={Images.header_logo} alt="Question_Mark" />
           </center>
           <span className="mt-2 font-12">Refer/ShareID</span>
-          <div className="d-flex align-items-center login-input p-1">
+          <div className="d-flex align-items-center login-input p-1 clr-white">
             <input
               className="bl-1 ms-2"
               placeholder="123456789"
@@ -53,7 +53,7 @@ function SharePopup({ showSharePopup, setShowSharePopup }) {
             />
           </div>
           <span className="mt-2 font-12">Meeting Head ID</span>
-          <div className="d-flex align-items-center login-input p-1 mb-2">
+          <div className="d-flex align-items-center login-input p-1 mb-2 clr-white">
             <input
               className="bl-1 ms-2"
               placeholder="123456789"
