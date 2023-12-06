@@ -437,3 +437,12 @@ option {
 .ml-3rem {
   margin-left: 3rem;
 }
+.soc-media-icons {
+  font-size: 40px;
+  background: #112a5e;
+  color: white;
+  border-radius: 10px;
+}
+.float-right {
+  float: right !important;
+}

@@ -31,6 +31,7 @@ import Login from "../log-in/Login";
 import EditProfile from "../popups/EditProfile";
 import { GET_ALL_NOTIFICATIONS } from "../../config/endpoints";
 import { call } from "../../config/axios";
+import SharePopup from "./SharePopup";
 
 function Header() {
   const [modalShow, setModalShow] = useState(false);
@@ -54,7 +55,11 @@ function Header() {
   // const handleAddPaymentModelOpen = () => {
   //   setModalShow(true);
   // };
+  const [showSharePopup, setShowSharePopup] = useState(false);
 
+  const handleShareButton = () => {
+    setShowSharePopup(true);
+  };
   const [activeHead, setActiveHead] = useState(0);
   const [matchEntryOpen, setMatchEntryOpen] = useState(false);
   const [matchEntryType, setMatchEntryType] = useState("Match Entry");
@@ -449,7 +454,10 @@ function Header() {
           </div>
           <div className="h-10vh mt-3">
             <div className="d-flex align-items-center w-50 justify-content-around">
-              <div className=" icons-share mx-3">
+              <div
+                className=" icons-share mx-3"
+                onClick={() => handleShareButton()}
+              >
                 <AiOutlineShareAlt />
               </div>
               <div
@@ -517,6 +525,10 @@ function Header() {
         setState={setResetPasswordSubmit}
       />
       <AddPaymentMode state={modalShow} setState={setModalShow} />
+      <SharePopup
+        showSharePopup={showSharePopup}
+        setShowSharePopup={setShowSharePopup}
+      />
     </div>
   );
 }

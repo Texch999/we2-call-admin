@@ -225,21 +225,6 @@ const AdminSharesMatchStatement = () => {
     const netAmount = (+netPl || 0 * +ulShare || 0) / 100;
     return netAmount;
   };
-  // const ulPlatformComm =
-  //   allUsers &&
-  //   allUsers?.length > 0 &&
-  //   allUsers?.map((user) => {
-  //     const netPL = getUlShare(user?.total_amount, user?.ul_share);
-  //     return {
-  //       admin_name: user?.client_name,
-  //       admin_role: user?.account_role,
-  //       ul_platform_comm: (
-  //         <div className={netPL >= 0 ? "clr-green" : "clr-red"}>
-  //           {netPL ? netPL?.toFixed(2) : 0}
-  //         </div>
-  //       ),
-  //     };
-  //   });
   const totalNetPl = allUsers.reduce(
     (acc, obj) =>
       acc +
