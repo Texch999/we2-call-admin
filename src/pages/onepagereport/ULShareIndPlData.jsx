@@ -26,8 +26,8 @@ function ULShareIndPlData(props) {
       0
     );
   return (
-    <div>
-      <h6 className="Platform-Comm-PL-">UL Share P/L :</h6>
+    <div className="mt-3">
+      {/* <h6 className="Platform-Comm-PL-">UL Share P/L :</h6> */}
       <table className="w-100 match-position-table medium-font">
         <thead>
           <tr className="text-center">
@@ -57,6 +57,8 @@ function ULShareIndPlData(props) {
       <table className="w-100 match-position-table medium-font">
         <tfoot>
           <tr className="text-center">
+            <th></th>
+            <th></th>
             <th colSpan={3}>TOTAL</th>
             <th className={totalUrsNet > 0 ? "clr-green" : "clr-red"}>
               {totalUrsNet ? totalUrsNet?.toFixed(2) : 0}

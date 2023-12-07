@@ -256,6 +256,12 @@
 .table-body-height {
   max-height: 250px;
   overflow-y: scroll;
+  overflow-x: visible;
+}
+.admin-table-height {
+  max-height: 55vh;
+  overflow-y: scroll;
+  overflow-x: visible;
 }
 .call-management-table-height {
   max-height: 280px;

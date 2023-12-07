@@ -5,6 +5,9 @@
 .w-90 {
   width: 90%;
 }
+.w-48 {
+  width: 48%;
+}
 .w-10 {
   width: 10%;
 }
@@ -409,6 +412,9 @@ input::placeholder {
 .linked-in {
   background: linear-gradient(to right, #069, #0676ae);
 }
+.whatsapp {
+  background: #25d366;
+}
 option {
   height: 50px;
 }
@@ -436,4 +442,13 @@ option {
 }
 .ml-3rem {
   margin-left: 3rem;
+}
+.soc-media-icons {
+  font-size: 40px;
+  background: #112a5e;
+  color: white;
+  border-radius: 10px;
+}
+.float-right {
+  float: right !important;
 }

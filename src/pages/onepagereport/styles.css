@@ -53,7 +53,7 @@
   color: #fce719;
 }
 .table-scroll-content {
-  height: 30vh;
+  max-height: 30vh;
   overflow-x: hidden;
   overflow-y: scroll;
 }

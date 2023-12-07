@@ -11,6 +11,7 @@ function AdminPaymentPopup({
   selectedUser,
   totalAmount,
   pendinAmount,
+  setRerender,
 }) {
   const handleAdminPaymentClose = () => {
     setShowAdminPaymentModal(false);
@@ -224,6 +225,7 @@ function AdminPaymentPopup({
       <PaymentSuccessPopup
         showSuccessPaymentPopup={showSuccessPaymentPopup}
         setShowSuccessPaymentPopup={setShowSuccessPaymentPopup}
+        setRerender={setRerender}
       />
     </div>
   );

@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import ClientPLData from "./ClientPLData";
 import { GiClick } from "react-icons/gi";
-import MatchTable from "../match-entry/MatchTable";
 
 function ClientPLTable(props) {
   const { popupData, onePageData, matchDetails, winTeam } = props;
@@ -17,6 +16,12 @@ function ClientPLTable(props) {
   let clientPL = 0,
     matchPL = 0,
     refPL = 0;
+
+  let totalMatchPL = 0,
+    totalShare = 0,
+    totalFancyPL = 0,
+    totalClientComm = 0,
+    totalClientPL = 0;
 
   const clientMatchStatementData =
     onePageData &&
@@ -35,6 +40,11 @@ function ClientPLTable(props) {
         0
       );
       const amount = report?.matchEntryResult?.amount;
+      totalMatchPL += amount;
+      totalShare += +report?.clientShare || 0;
+      totalFancyPL += +report?.fancyProfitLoss || 0;
+      totalClientComm += +report?.clientComission || 0;
+      totalClientPL += +report?.clientNet;
       return {
         client_id: report?.client_id,
         name: <div>{report?.client_name}</div>,
@@ -68,7 +78,7 @@ function ClientPLTable(props) {
             {report?.clientComission}
           </div>
         ),
-        amount: (
+        clientNet: (
           <div
             className={`${report?.clientNet >= 0 ? "clr-green" : "clr-red"}`}
           >
@@ -78,38 +88,8 @@ function ClientPLTable(props) {
       };
     });
 
-  // const MATCH_STATEMENT_COLUMNS = [
-  //   { header: "CLIENT NAME", field: "header" },
-  //   { header: "MATCH PL", field: "matchPL" },
-  //   { header: "SHARE", field: "share" },
-  //   { header: "FANCY PL", field: "fancyPL" },
-  //   { header: "C.Comm(M+F)-Rolling Comm", field: "clientComm" },
-  //   { header: "M+F+C = C-PL", field: "mfcComm" },
-  //   { header: "DETAILS", field: "details" },
-  // ];
-  // const MATCH_STATEMENT_DATA =
-  //   clientMatchStatementData?.length > 0 &&
-  //   clientMatchStatementData?.map((client) => ({
-  //     header: client?.name,
-  //     matchPL: client?.masterProfitLoss,
-  //     share: client?.share,
-  //     fancyPL: client?.fancyProfitLoss,
-  //     clientComm: client?.fancyReferralComm,
-  //     mfcComm: client?.amount,
-  //     details: (
-  //       <GiClick
-  //         className="custom-click-icon ms-1 mt-2"
-  //         onClick={() => handleClientData(client?.client_id, client?.name)}
-  //       />
-  //     ),
-  //   }));
-
   return (
     <div className="d-flex flex-column">
-      {/* <MatchTable
-        data={MATCH_STATEMENT_DATA}
-        columns={MATCH_STATEMENT_COLUMNS}
-      /> */}
       <table className="w-100 match-position-table small-font">
         <thead>
           <tr className="text-center">
@@ -117,7 +97,7 @@ function ClientPLTable(props) {
             <th>Match P/L</th>
             <th>Share</th>
             <th>Fancy P/L</th>
-            <th>C.Comm(M+F)-Rolling Comm</th>
+            <th>C.Comm(M+F)-RollComm</th>
             <th>M+F+C=C-P/L</th>
             <th>Details</th>
           </tr>
@@ -130,7 +110,7 @@ function ClientPLTable(props) {
               <td>{item.share}</td>
               <td>{item.fancyProfitLoss}</td>
               <td>{item?.fancyReferralComm}</td>
-              <td>{item?.amount}</td>
+              <td>{item?.clientNet}</td>
               <td>
                 <GiClick
                   className="custom-click-icon ms-1 mt-2"
@@ -141,13 +121,23 @@ function ClientPLTable(props) {
           </tbody>
         ))}
         <tfoot>
-          <tr className="text-center small-font clr-green all-none">
+          <tr className="text-center small-font all-none">
             <th>TOTAL</th>
-            <th>5000000</th>
-            <th>5000000</th>
-            <th>5000000</th>
-            <th>5000000</th>
-            <th>5000000</th>
+            <th className={`${totalMatchPL >= 0 ? "clr-green" : "clr-red"}`}>
+              {totalMatchPL}
+            </th>
+            <th className={`${totalShare >= 0 ? "clr-green" : "clr-red"}`}>
+              {totalShare}
+            </th>
+            <th className={`${totalFancyPL >= 0 ? "clr-green" : "clr-red"}`}>
+              {totalFancyPL}
+            </th>
+            <th className={`${totalClientComm >= 0 ? "clr-green" : "clr-red"}`}>
+              {totalClientComm}
+            </th>
+            <th className={`${totalClientPL >= 0 ? "clr-green" : "clr-red"}`}>
+              {totalClientPL}
+            </th>
             <th></th>
           </tr>
         </tfoot>

@@ -8,7 +8,7 @@ import { call } from "../../config/axios";
 import { GET_STATEMENT_BY_MATCH_ID } from "../../config/endpoints";
 import { useEffect } from "react";
 
-function StatementPopup(props) {
+function   StatementPopup(props) {
   const { showModal, setShowModal, popupData, matchDetails, winTeam } = props;
   let register_id = localStorage?.getItem("register_id");
   const [isrProcessing, setIsProcessing] = useState();

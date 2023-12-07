@@ -288,7 +288,7 @@ function Chats() {
                       <h5>
                         {account_role} <span className="chat_date">Dec 25</span>
                       </h5>
-                      <p>I will purchase it for sure............ </p>
+                      <p>I will purchase it for sure...</p>
                     </div>
                   </div>
                 </div>

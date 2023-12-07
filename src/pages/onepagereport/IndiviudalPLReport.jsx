@@ -32,12 +32,10 @@ function IndiviudalPLReport(props) {
   const handleReport = (report) => {
     setActiveReport(report);
   };
-
   const register_id = localStorage?.getItem("register_id");
   const creator_id = localStorage?.getItem("creator_id");
   const account_role = localStorage?.getItem("account_role");
 
-  const [clientsData, setClientsData] = useState([]);
   const getIndivisualMatchReport = async () => {
     await call(GET_INDUVISUAL_MATCH_REPORT, {
       register_id,
@@ -59,15 +57,17 @@ function IndiviudalPLReport(props) {
     }
   }, [clientId, refClientId]);
 
-  // useEffect(() => {
-  //   if (refId) {
-  //     getIndividualPLRefferal();
-  //   }
-  // }, [refId]);
   const totalClientPl =
     clientData &&
     clientData?.length > 0 &&
     clientData?.reduce(
+      (acc, obj) => acc + (+obj?.amount?.props?.children || 0),
+      0
+    );
+  const totalInduvisualReportClientData =
+    individualReportClientData &&
+    individualReportClientData?.length > 0 &&
+    individualReportClientData?.reduce(
       (acc, obj) => acc + (+obj?.amount?.props?.children || 0),
       0
     );
@@ -104,7 +104,7 @@ function IndiviudalPLReport(props) {
   return (
     <div>
       <hr />
-      <div className="mb-3">
+      <div className="mb-2">
         {reportList.map((report, index) => (
           <Button
             key={index}
