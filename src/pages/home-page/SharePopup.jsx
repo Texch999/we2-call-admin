@@ -3,7 +3,6 @@ import { IoCloseSharp } from "react-icons/io5";
 import { Images } from "./../../images/index";
 import { useState } from "react";
 import ShareButtons from "./ShareButtons";
-import { CopyToClipboard } from "react-copy-to-clipboard";
 
 function SharePopup({ showSharePopup, setShowSharePopup }) {
   const [textToCopy, setTextToCopy] = useState("This is the text to copy!");
@@ -62,7 +61,7 @@ function SharePopup({ showSharePopup, setShowSharePopup }) {
               placeholder="123456789"
               name="meeting_id"
             />
-          </div>{" "}
+          </div>
           <div className="d-flex justify-content-center">
             <textarea
               className="font-9 w-75 login-input clr-white font-10 text-center all-none"
