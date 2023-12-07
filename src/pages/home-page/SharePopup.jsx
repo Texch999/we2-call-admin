@@ -13,23 +13,27 @@ function SharePopup({ showSharePopup, setShowSharePopup }) {
   //   setShowSharePopup(false);
   // };
   const [showShareSection, setShowShareSection] = useState(false);
-  const handleShowShareButton = () => {
+  const [refId, setRefid] = useState("123456789");
+  const [meetId, setMeetId] = useState("123456789");
+  const handleShowShareButton = (event) => {
     setShowShareSection((prev) => !prev);
+    setRefid(event.target.value);
+    setMeetId(event.target.value);
   };
   const url = window.location.href;
   const [value, setValue] = useState(url);
   const [copied, setCopied] = useState(false);
   const otherChange = (e) => {
     setValue(e.target.value, { copied: false });
+    setRefid(e.target.value);
+    setMeetId(e.target.value);
   };
-  // const onChange = ({target: {value}}) => {
-  //   setValue({value, copied: false});
-  //     };
-  const handleCopyButton = ({ target: { innerHTML } }) => {
-    console.log(`Clicked on "${innerHTML}"!`); // eslint-disable-line
-    setShowShareSection(false);
-  };
-  const otherCopy = () => setCopied(true);
+
+  // const handleCopyButton = ({ target: { innerHTML } }) => {
+  //   console.log(`Clicked on "${innerHTML}"!`); // eslint-disable-line
+  //   setShowShareSection(false);
+  // };
+  // const otherCopy = () => setCopied(true);
 
   return (
     <div>
@@ -43,25 +47,16 @@ function SharePopup({ showSharePopup, setShowSharePopup }) {
         </Modal.Header>
         <Modal.Body>
           <center className="px-4">
-            {" "}
             <img src={Images.header_logo} alt="Question_Mark" />
           </center>
           <span className="mt-2 font-12">Refer/ShareID</span>
-          <div className="d-flex align-items-center login-input p-1">
-            <input
-              className="bl-1 ms-2"
-              placeholder="123456789"
-              name="share_id"
-            />
+          <div className="d-flex align-items-center login-input p-1 clr-white">
+            {refId}
           </div>
           <span className="mt-2 font-12">Meeting Head ID</span>
-          <div className="d-flex align-items-center login-input p-1 mb-2">
-            <input
-              className="bl-1 ms-2"
-              placeholder="123456789"
-              name="meeting_id"
-            />
-          </div>
+          <div className="d-flex align-items-center login-input p-1 mb-2 clr-white">
+            {meetId}
+          </div>{" "}
           <div className="d-flex justify-content-center">
             <textarea
               className="font-9 w-75 login-input clr-white font-10 text-center all-none"
@@ -72,22 +67,14 @@ function SharePopup({ showSharePopup, setShowSharePopup }) {
             />
           </div>
           <div className="row d-flex justify-content-between mt-3">
-            {/* <CopyToClipboard
-              onCopy={otherCopy}
-              options={{ message: "Whoa!" }}
-              text={value}
-            > */}
             <div
               className="col rounded yellow-btn p-1 mx-1 text-center"
-              // onClick={(e) => handleCopyButton(e)}
               onClick={() => {
-                navigator.clipboard.writeText(value);
+                navigator.clipboard.writeText(refId + meetId);
               }}
             >
               Copy
             </div>
-            {/* </CopyToClipboard> */}
-
             <div
               className="col rounded yellow-btn p-1 mx-1 text-center"
               onClick={() => handleShowShareButton()}
@@ -102,7 +89,7 @@ function SharePopup({ showSharePopup, setShowSharePopup }) {
           ) : null}
           {showShareSection && (
             <>
-              <ShareButtons />
+              <ShareButtons refId={refId} meetId={meetId} />
             </>
           )}
         </Modal.Body>
