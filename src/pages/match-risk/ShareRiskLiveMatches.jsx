@@ -2,7 +2,6 @@ import { Button, Table } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { GiClick } from "react-icons/gi";
 import "./style.css";
-import { useHistory } from "react-router";
 import CustomPagination from "../pagination/CustomPagination";
 import { useEffect, useState } from "react";
 import { call } from "../../config/axios";
@@ -10,7 +9,6 @@ import { GET_LIVE_MATCH_RISK_POSITION } from "../../config/endpoints";
 import moment from "moment";
 
 const ShareRiskLiveMatches = () => {
-  const history = useHistory();
   const register_id = localStorage?.getItem("register_id");
   const [liveMatches, setLiveMatches] = useState([]);
 
@@ -133,6 +131,8 @@ const ShareRiskLiveMatches = () => {
           </div>
         ),
         role: match?.account_role,
+        team1: match?.team1,
+        team2: match?.team2,
         teama: (
           <div
             className={`font-size-12 w-20 flex-center ${
@@ -186,7 +186,7 @@ const ShareRiskLiveMatches = () => {
     getLiveMatches();
   }, []);
   const [currentPage, setCurrentPage] = useState(1);
-  const totalPages = 5;
+  const totalPages = matchDetails?.length ? matchDetails?.length / 5 : 0;
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
@@ -217,43 +217,36 @@ const ShareRiskLiveMatches = () => {
             {matchDetails?.length &&
               matchDetails?.map((data, index) => (
                 <tr key={index}>
-                  <td className="text-center">{data?.date}{data?.time}</td>
+                  <td className="text-center">
+                    {data?.date}
+                    {data?.time}
+                  </td>
                   <td className="text-center">{data?.matchMode}</td>
-                  <td
-                    className="text-center clr-yellow cursor-pointer"
-                    onClick={() =>
-                      history.push(
-                        `/match-share-risk/${encodeURIComponent(
-                          data?.match
-                        )}`
-                      )
-                    }
-                  >
+                  <td className="text-center clr-yellow cursor-pointer">
                     {data?.match}{" "}
                     <GiClick className="custom-click-icon ms-1 mt-2" />
                   </td>
                   <td className="text-center">{data?.venue}</td>
 
-                  <td className="text-center ">{data?.teama}</td>
+                  <td className="text-center ">{data?.team1}</td>
 
-                  <td className="clr-green">
-                    {parseFloat(data?.amount).toFixed(2)}
-                  </td>
-                  <td className="text-center">{data?.teamb}</td>
-                  <td className="clr-red">
-                    {parseFloat(data?.profit).toFixed(2)}
-                  </td>
+                  <td className="clr-green">{data?.teama}</td>
+                  <td className="text-center">{data?.team2}</td>
+                  <td className="clr-red">{data?.teamb}</td>
                 </tr>
               ))}
           </tbody>
         </Table>
       </div>
       <div className="d-flex justify-content-between align-items-center mt-4">
-        <div className="d-flex justify-content-start font-clr-white total-count-container  py-2 px-4 rounded">
-          <span>
-            Showing <b> {currentPage} </b> 0f <b> {totalPages} </b> Entries....
-          </span>
-        </div>
+        {totalPages > 1 && (
+          <div className="d-flex justify-content-start font-clr-white total-count-container  py-2 px-4 rounded">
+            <span>
+              Showing <b> {currentPage} </b> 0f <b> {totalPages} </b>{" "}
+              Entries....
+            </span>
+          </div>
+        )}
         <div className="d-flex justify-content-end mt-2">
           <CustomPagination
             totalPages={totalPages}
