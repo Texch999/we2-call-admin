@@ -1,6 +1,4 @@
-import React from "react";
-import { FaInstagramSquare } from "react-icons/fa";
-import { FaWhatsappSquare } from "react-icons/fa";
+import { BsInstagram, BsWhatsapp } from "react-icons/bs";
 
 const ShareButtons = ({ refId, meetId }) => {
   const shareText = "RefferId:" + refId;
@@ -21,16 +19,13 @@ const ShareButtons = ({ refId, meetId }) => {
   };
 
   return (
-    <div className="float-right mt-3">
-      <FaInstagramSquare
-        onClick={handleInstagramShare}
-        className="soc-media-icons"
-      />
-      <FaWhatsappSquare
-        Square
-        onClick={handleWhatsAppShare}
-        className="soc-media-icons"
-      />
+    <div className="d-flex justify-content-between mt-2">
+      <div className="w-48 h-38px rounded instagram d-flex align-items-center justify-content-center">
+        <BsInstagram onClick={handleInstagramShare} />
+      </div>
+      <div className="w-48 h-38px rounded whatsapp d-flex align-items-center justify-content-center">
+        <BsWhatsapp onClick={handleWhatsAppShare} />
+      </div>
     </div>
   );
 };

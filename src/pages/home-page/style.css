@@ -5,6 +5,9 @@
 .w-90 {
   width: 90%;
 }
+.w-48 {
+  width: 48%;
+}
 .w-10 {
   width: 10%;
 }
@@ -408,6 +411,9 @@ input::placeholder {
 }
 .linked-in {
   background: linear-gradient(to right, #069, #0676ae);
+}
+.whatsapp {
+  background: #25d366;
 }
 option {
   height: 50px;
