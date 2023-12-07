@@ -17,8 +17,8 @@ function SharePopup({ showSharePopup, setShowSharePopup }) {
   const [meetId, setMeetId] = useState("123456789");
   const handleShowShareButton = (event) => {
     setShowShareSection((prev) => !prev);
-    setRefid(event.target.value);
-    setMeetId(event.target.value);
+    // setRefid(event.target.value);
+    // setMeetId(event.target.value);
   };
   const url = window.location.href;
   const [value, setValue] = useState(url);
@@ -61,7 +61,7 @@ function SharePopup({ showSharePopup, setShowSharePopup }) {
             <textarea
               className="font-9 w-75 login-input clr-white font-10 text-center all-none"
               value={value}
-              onChange={otherChange}
+              onChange={(e) => otherChange(e)}
               rows={2}
               cols={10}
             />
@@ -70,14 +70,16 @@ function SharePopup({ showSharePopup, setShowSharePopup }) {
             <div
               className="col rounded yellow-btn p-1 mx-1 text-center"
               onClick={() => {
-                navigator.clipboard.writeText(refId + meetId);
+                navigator.clipboard.writeText(
+                  "RefferId:" + refId + ",MeetingID:" + meetId
+                );
               }}
             >
               Copy
             </div>
             <div
               className="col rounded yellow-btn p-1 mx-1 text-center"
-              onClick={() => handleShowShareButton()}
+              onClick={(e) => handleShowShareButton(e)}
             >
               Share
             </div>

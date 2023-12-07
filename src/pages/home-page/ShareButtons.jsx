@@ -3,8 +3,8 @@ import { FaInstagramSquare } from "react-icons/fa";
 import { FaWhatsappSquare } from "react-icons/fa";
 
 const ShareButtons = ({ refId, meetId }) => {
-  const shareText = refId;
-  const shareUrl = meetId;
+  const shareText = "RefferId:" + refId;
+  const shareUrl = ",MeetingID:" + meetId;
   const handleInstagramShare = () => {
     // Instagram share URL
     const instagramShareUrl = `https://www.instagram.com/share?url=${encodeURIComponent(
@@ -14,7 +14,7 @@ const ShareButtons = ({ refId, meetId }) => {
   };
 
   const handleWhatsAppShare = () => {
-    const whatsappShareUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(
+    const whatsappShareUrl = `https://web.whatsapp.com/send?text=${encodeURIComponent(
       `${shareText} ${shareUrl}`
     )}`;
     window.open(whatsappShareUrl, "_blank");
