@@ -651,27 +651,16 @@ function UpgradeYourPackagePopup(props) {
                       <center>No Data Found</center>
                     </div>
                   )}
-                  {/* {paymentType !== "neft" && (
-                    <div className="payment-scroll">
-                      {allPaymentGateway
-                        .filter((item) => item.pg_upi === paymentType)
-                        .map((item, index) => {
-                          return (
-                            <div className="d-flex justify-content-between login-input p-2 mt-1">
-                              <div className="login-input p-2 mt-1">
-                                Name: {item.account_holder_name}
-                                <br /> Moblie: {item.mobile_number}
-                              </div>
-                              <div>
-                                <div>Select</div>
-                                <input
-                                  type="checkbox"
-                                  onChange={(e) => handleChecked(e, item)}
-                                />
-                              </div>
-                            </div>
-                          );
-                        })}
+                  {selectedMethod === "gpay" && selectedMethodInfo ? (
+                    <div className="d-flex justify-content-between login-input p-2 mt-1">
+                      <div>
+                        upi:{selectedMethodInfo?.pg_name}
+                        <br /> mobile: {selectedMethodInfo?.mobile_number}
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="d-flex justify-content-between login-input p-2 mt-1">
+                      <center>No Data Found</center>
                     </div>
                   )}
                   <div>
@@ -698,7 +687,7 @@ function UpgradeYourPackagePopup(props) {
                       ref={fileInputRef}
                       onChange={handleFileSelect}
                     ></input>
-                  </div> */}
+                  </div>
                   <hr className="mt-3 hr-line" />
                   <button className="login-button p-2 mt-2">Pay</button>
                 </div>
