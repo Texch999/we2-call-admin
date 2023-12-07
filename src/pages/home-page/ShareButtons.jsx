@@ -1,36 +1,28 @@
-import React from "react";
-import { FaInstagramSquare } from "react-icons/fa";
-import { FaWhatsappSquare } from "react-icons/fa";
+import { BsInstagram, BsWhatsapp } from "react-icons/bs";
 
-const ShareButtons = ({ refId, meetId }) => {
-  const shareText = "RefferId:" + refId;
-  const shareUrl = ",MeetingID:" + meetId;
+const ShareButtons = ({ data }) => {
   const handleInstagramShare = () => {
-    // Instagram share URL
     const instagramShareUrl = `https://www.instagram.com/share?url=${encodeURIComponent(
-      shareUrl
-    )}&caption=${encodeURIComponent(shareText)}`;
+      `${data}`
+    )}&caption=${encodeURIComponent(data)}`;
     window.open(instagramShareUrl, "_blank");
   };
 
   const handleWhatsAppShare = () => {
     const whatsappShareUrl = `https://web.whatsapp.com/send?text=${encodeURIComponent(
-      `${shareText} ${shareUrl}`
+      `${data}`
     )}`;
     window.open(whatsappShareUrl, "_blank");
   };
 
   return (
-    <div className="float-right mt-3">
-      <FaInstagramSquare
-        onClick={handleInstagramShare}
-        className="soc-media-icons"
-      />
-      <FaWhatsappSquare
-        Square
-        onClick={handleWhatsAppShare}
-        className="soc-media-icons"
-      />
+    <div className="d-flex justify-content-between mt-2">
+      <div className="w-48 h-38px rounded instagram d-flex align-items-center justify-content-center">
+        <BsInstagram onClick={handleInstagramShare} />
+      </div>
+      <div className="w-48 h-38px rounded whatsapp d-flex align-items-center justify-content-center">
+        <BsWhatsapp onClick={handleWhatsAppShare} />
+      </div>
     </div>
   );
 };

@@ -28,8 +28,8 @@ function PlatformCommPL(props) {
       0
     );
   return (
-    <div>
-      <h6 className="Platform-Comm-PL-">Platform Comm:</h6>
+    <div className="mt-3">
+      {/* <h6 className="Platform-Comm-PL-">Platform Comm:</h6> */}
       <table className="w-100 match-position-table medium-font">
         <thead>
           <tr className="text-center">
@@ -59,7 +59,7 @@ function PlatformCommPL(props) {
       <table className="w-100 match-position-table medium-font">
         <tfoot>
           <tr className="text-center">
-            <th colSpan={3}>TOTAL</th>
+            <th colSpan={10}>TOTAL</th>
             <th className={totalUrsPlPlatform > 0 ? "clr-green" : "clr-red"}>
               {totalUrsPlPlatform ? totalUrsPlPlatform?.toFixed(2) : 0}
             </th>

@@ -26,8 +26,8 @@ function ULShareIndPlData(props) {
       0
     );
   return (
-    <div>
-      <h6 className="Platform-Comm-PL-">UL Share P/L :</h6>
+    <div className="mt-3">
+      {/* <h6 className="Platform-Comm-PL-">UL Share P/L :</h6> */}
       <table className="w-100 match-position-table medium-font">
         <thead>
           <tr className="text-center">

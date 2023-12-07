@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { Button, Table, Form } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./style.css";
 import { FiSearch } from "react-icons/fi";
+import { TfiSharethis } from "react-icons/tfi";
 import { GiClick } from "react-icons/gi";
 import AddAdminsPopup from "./AddAdminsPopup";
 import { MdArrowForwardIos } from "react-icons/md";
@@ -11,6 +12,7 @@ import { GET_ALL_CLIENTS, BLOCKUNBLOCK } from "../../config/endpoints";
 import { call } from "../../config/axios";
 import ChangePassword from "./ChangePassword";
 import MatchSubmitPopup from "../match-popups/MatchSubmitPopup";
+import AdminDetailsSharePopup from "./AdminDetailsSharePopup";
 
 const AddAdmins = () => {
   let register_id = localStorage?.getItem("register_id");
@@ -20,13 +22,19 @@ const AddAdmins = () => {
   const [filteredValue, setFilteredValue] = useState("");
   const [modalShow, setModalShow] = useState(false);
   const [packageViewPopShow, setPackageViewPopup] = useState(false);
-
   const [usersData, setUsersData] = useState([]);
   const [adminsData, setAdminsData] = useState();
   const [isUserAdded, setIsUserAdded] = useState(false);
   const [changepasswordPopup, setChangepasswordPopup] = useState(false);
   const [changePasswordSubmit, setChangePasswordSubmit] = useState(false);
   const [editData, setEditData] = useState(false);
+  const [adminDetailsPopup, setAdminDetailsPopup] = useState(false);
+  const [adminDetailsData, setAdminDetailsData] = useState();
+
+  const handleAdminDetailsSharePopup = (data) => {
+    setAdminDetailsPopup(true);
+    setAdminDetailsData(data);
+  };
 
   const addUsersData =
     usersData?.length > 0 &&
@@ -46,10 +54,10 @@ const AddAdmins = () => {
           package: user?.package,
           reffered_by: user?.reffered_by,
           active: user?.active,
+          password: user?.password,
         };
       });
 
-  console.log(addUsersData, "USERDATA");
   const handleCpButton = () => {
     setChangepasswordPopup(true);
   };
@@ -78,17 +86,7 @@ const AddAdmins = () => {
       })
       .catch((err) => console.log(err));
   };
-  const ACTION_LABELS = [
-    {
-      name: "CP",
-    },
-    { name: "EDIT" },
-    // b: "B",
-    {
-      name: "UB",
-      onclick: handleBlock,
-    },
-  ];
+
   const handleUserChange = (e) => {
     setFilteredValue(e.target.value);
   };
@@ -204,6 +202,12 @@ const AddAdmins = () => {
                       >
                         {data?.active ? "UB" : "B"}
                       </Button>
+                      <Button
+                        className="text-center rounded meeting-status-button EDIT-button me-2"
+                        onClick={() => handleAdminDetailsSharePopup(data)}
+                      >
+                        <TfiSharethis />
+                      </Button>
                     </td>
                   </tr>
                 ))}
@@ -257,6 +261,11 @@ const AddAdmins = () => {
           header={"You Are Successfully Changed your Password"}
           state={changePasswordSubmit}
           setState={setChangePasswordSubmit}
+        />
+        <AdminDetailsSharePopup
+          adminDetailsPopup={adminDetailsPopup}
+          setAdminDetailsPopup={setAdminDetailsPopup}
+          adminDetailsData={adminDetailsData}
         />
       </div>
     </div>

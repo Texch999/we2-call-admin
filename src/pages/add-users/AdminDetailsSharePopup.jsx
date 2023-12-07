@@ -1,35 +1,37 @@
 import { Modal } from "react-bootstrap";
 import { IoCloseSharp } from "react-icons/io5";
 import { useState } from "react";
-import ShareButtons from "./ShareButtons";
+import ShareButtons from "./../home-page/ShareButtons";
 
-function SharePopup({ showSharePopup, setShowSharePopup }) {
+function AdminDetailsSharePopup({
+  adminDetailsPopup,
+  setAdminDetailsPopup,
+  adminDetailsData,
+}) {
   const [showShareSection, setShowShareSection] = useState(false);
   const WEBSITE_URL = window.location.href;
-  const referID = "123456789";
-  const meetingID = "123456789";
-  const referralData =
-    "Refer ID:" +
-    referID +
-    ",Meeting ID:" +
-    meetingID +
-    ",WebsiteURL:" +
-    WEBSITE_URL;
+  const adminData =
+    "User Name:" +
+    adminDetailsData?.user_name +
+    ",Role:" +
+    adminDetailsData?.type +
+    ",Password:" +
+    adminDetailsData?.password;
   const handleShowShareButton = () => {
     setShowShareSection((prev) => !prev);
   };
   const handleShareClose = () => {
-    setShowSharePopup(false);
+    setAdminDetailsPopup(false);
   };
   const handleCopyText = () => {
-    navigator.clipboard.writeText(referralData);
-    alert(`${referralData} Details Copied Succesfully...`);
+    navigator.clipboard.writeText(adminData);
+    alert(`${adminData} Details Copied Succesfully...`);
   };
 
   return (
     <div>
       <Modal
-        show={showSharePopup}
+        show={adminDetailsPopup}
         className="match-declaration-modal z-index"
         centered
       >
@@ -39,15 +41,19 @@ function SharePopup({ showSharePopup, setShowSharePopup }) {
         <Modal.Body>
           <div className="px-2 pb-2">
             <center>
-              <h5 className="meetings-heading">Refer ID</h5>
+              <h5 className="meetings-heading">Admin Details</h5>
             </center>
-            <span className="mt-2 font-12">Refer/ShareID</span>
+            <span className="mt-2 font-12">User Name</span>
             <div className="font-12 d-flex align-items-center login-input p-2 clr-white">
-              {referID}
+              {adminDetailsData?.user_name}
             </div>
-            <span className="mt-3 font-12">Meeting ID</span>
+            <span className="mt-3 font-12">Role</span>
             <div className="font-12 d-flex align-items-center login-input p-2 clr-white">
-              {meetingID}
+              {adminDetailsData?.type}
+            </div>
+            <span className="mt-3 font-12">Password</span>
+            <div className="font-12 d-flex align-items-center login-input p-2 clr-white">
+              {adminDetailsData?.password}
             </div>
             <span className="mt-3 font-12">Website URL</span>
             <div className="font-12 d-flex align-items-center login-input p-2 clr-white">
@@ -67,7 +73,7 @@ function SharePopup({ showSharePopup, setShowSharePopup }) {
                 Share
               </div>
             </div>
-            {showShareSection && <ShareButtons data={referralData} />}
+            {showShareSection && <ShareButtons data={adminData} />}
           </div>
         </Modal.Body>
       </Modal>
@@ -75,4 +81,4 @@ function SharePopup({ showSharePopup, setShowSharePopup }) {
   );
 }
 
-export default SharePopup;
+export default AdminDetailsSharePopup;
