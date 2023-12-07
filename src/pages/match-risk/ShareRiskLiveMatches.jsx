@@ -115,7 +115,6 @@ const ShareRiskLiveMatches = () => {
         ) || 0),
       0
     );
-  console.log({ totalLoss, totalWin });
   const shareRiskLiveMatchData =
     liveMatches &&
     liveMatches?.length > 0 &&
