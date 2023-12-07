@@ -70,8 +70,8 @@ function SharePopup({ showSharePopup, setShowSharePopup }) {
             <div
               className="col rounded yellow-btn p-1 mx-1 text-center"
               onClick={() => {
-                navigator.clipboard.writeText(refId);
-                navigator.clipboard.writeText(meetId);
+                navigator.clipboard.writeText(refId + meetId);
+                // navigator.clipboard.writeText(meetId);
               }}
             >
               Copy
