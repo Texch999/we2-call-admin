@@ -20,17 +20,31 @@ const AdminOnePageReport = () => {
   const [role, setRole] = useState("");
   const [adminsData, setAdminsData] = useState("");
   const [adminsHeadings, setAdminsHeadings] = useState("");
-  const reports = ["Admin One Page Report", "UL/Platform Comm Report"];
+  const reports = [
+    { name: "Admin One Page Report", isActive: true },
+    { name: "UL/Platform Comm Report", isActive: false },
+  ];
   const [activeReport, setActiveReport] = useState("Admin One Page Report");
   const [popupHeading, setPopupHeading] = useState(false);
+  const [isAdminActive, setIsAdminActive] = useState(true);
 
   const getUlShare = (netPl, ulShare) => {
     const netAmount = (+netPl || 0 * +ulShare || 0) / 100;
     return netAmount;
   };
-  
-  const onePageReportNetPL =  allUsers && allUsers?.length > 0 && allUsers?.reduce((acc, obj) => acc + (+obj?.total_amount || 0), 0);
-  const onePageReportUlNet =  allUsers && allUsers?.length > 0 && allUsers?.reduce((acc, obj) => acc + (+getUlShare(obj?.total_amount, obj?.ul_share) || 0), 0)
+
+  const onePageReportNetPL =
+    allUsers &&
+    allUsers?.length > 0 &&
+    allUsers?.reduce((acc, obj) => acc + (+obj?.total_amount || 0), 0);
+  const onePageReportUlNet =
+    allUsers &&
+    allUsers?.length > 0 &&
+    allUsers?.reduce(
+      (acc, obj) => acc + (+getUlShare(obj?.total_amount, obj?.ul_share) || 0),
+      0
+    );
+    const totalPlatForm = allUsers && allUsers?.length>0 &&  allUsers?.reduce((acc, obj) => acc + (+obj?.totalPlatformNet || 0), 0);
 
   const adminOnePageReportData =
     allUsers &&
@@ -41,7 +55,13 @@ const AdminOnePageReport = () => {
         admin_name: user?.client_name,
         admin_role: user?.account_role,
         profit_loss: user?.total_amount ? user?.total_amount?.toFixed(2) : 0,
-        ul_share: netPL ? netPL?.toFixed(2) : 0,
+        ul_share: isAdminActive
+          ? netPL
+            ? netPL?.toFixed(2)
+            : 0
+          : user?.totalPlatformNet
+          ? user?.totalPlatformNet?.toFixed(2)
+          : 0,
       };
     });
 
@@ -188,10 +208,11 @@ const AdminOnePageReport = () => {
     }
   };
   const [currentPage, setCurrentPage] = useState(1);
-  const totalPages = adminOnePageReportData && adminOnePageReportData?.length / 5 || 0 ;
+  const totalPages =
+    (adminOnePageReportData && adminOnePageReportData?.length / 5) || 0;
 
   const handlePageChange = (page) => {
-    setCurrentPage(page); 
+    setCurrentPage(page);
     // You can add your logic here to fetch data for the selected page.
   };
   const getAllUsers = async () => {
@@ -223,15 +244,18 @@ const AdminOnePageReport = () => {
       <h5 className="meetings-heading mb-3">Your Share In Admin Book</h5>
       <div className="d-flex align-items-center justify-content-between">
         <div>
-          {reports.map((report, index) => (
+          {reports.map(({ isActive, name }, index) => (
             <Button
               key={index}
               className={`me-2 admin-reports-button ${
-                report === activeReport ? "active-report-button" : ""
+                name === activeReport ? "active-report-button" : ""
               }`}
-              onClick={() => handleReport(report)}
+              onClick={() => {
+                handleReport(name);
+                setIsAdminActive(isActive);
+              }}
             >
-              {report}
+              {name}
             </Button>
           ))}
         </div>
@@ -245,45 +269,38 @@ const AdminOnePageReport = () => {
             <tr>
               <th>ADMINS NAME</th>
               <th>ADMINS ROLE</th>
-              <th>ADMINS NET P/L</th>
-              <th>
-                {activeReport === "UL/Platform Comm Report"
-                  ? "UL /PLATFORM COMM"
-                  : "UL SHARE"}
-              </th>
+              {isAdminActive && <th>ADMINS NET P/L</th>}
+              <th>{!isAdminActive ? "UL /PLATFORM COMM" : "UL SHARE"}</th>
             </tr>
           </thead>
           <tbody>
-            {adminOnePageReportData && adminOnePageReportData?.length > 0 && adminOnePageReportData?.map((data, index) => (
-              <tr key={index}>
-                <td
-                  className="cursor-pointer"
-                  onClick={() => handleAdminReports(data)}
-                >
-                  {data?.admin_name}{" "}
-                  <GiClick className="custom-click-icon ms-1 mt-2" />
-                </td>
-                <td>{data?.admin_role}</td>
-                <td>
-                  {parseFloat(data?.profit_loss).toFixed(2)}
-                </td>
-                <td>
-                  {parseFloat(data?.ul_share).toFixed(2)}
-                </td>
-              </tr>
-            ))}
+            {adminOnePageReportData &&
+              adminOnePageReportData?.length > 0 &&
+              adminOnePageReportData?.map((data, index) => (
+                <tr key={index}>
+                  <td
+                    className="cursor-pointer"
+                    onClick={() => isAdminActive && handleAdminReports(data)}
+                  >
+                    {data?.admin_name}{" "}
+                    {isAdminActive && <GiClick className="custom-click-icon ms-1 mt-2" />}
+                  </td>
+                  <td>{data?.admin_role}</td>
+                  {isAdminActive && <td>{data?.profit_loss}</td>}
+                  <td>{data?.ul_share}</td>
+                </tr>
+              ))}
           </tbody>
           <tfoot>
             <tr>
-              <th colSpan={2}>
-                TOTAL
-              </th>
-              <th className="clr-green">
+              <th colSpan={2}>TOTAL</th>
+              {isAdminActive && <th className="clr-green">
                 {onePageReportNetPL ? onePageReportNetPL?.toFixed(2) : 0}
-              </th>
-              <th className="clr-green">
+              </th>}
+              {isAdminActive && <th className="clr-green">
                 {onePageReportUlNet ? onePageReportUlNet?.toFixed(2) : 0}
-              </th>
+              </th>}
+              {!isAdminActive && <th className="clr-green">{totalPlatForm ? totalPlatForm?.toFixed(2) : 0}</th>}
             </tr>
           </tfoot>
           {adminOnePageReportPopUp && (
@@ -301,11 +318,14 @@ const AdminOnePageReport = () => {
         </Table>
       </div>
       <div className="d-flex justify-content-between align-items-center mt-4">
-        {totalPages > 1 && <div className="d-flex justify-content-start font-clr-white total-count-container  py-2 px-4 rounded">
-          <span>
-            Showing <b> {currentPage} </b> 0f <b> {totalPages} </b> Entries....
-          </span>
-        </div>}
+        {totalPages > 1 && (
+          <div className="d-flex justify-content-start font-clr-white total-count-container  py-2 px-4 rounded">
+            <span>
+              Showing <b> {currentPage} </b> 0f <b> {totalPages} </b>{" "}
+              Entries....
+            </span>
+          </div>
+        )}
         <div className="d-flex justify-content-end mt-2">
           <CustomPagination
             totalPages={totalPages}
