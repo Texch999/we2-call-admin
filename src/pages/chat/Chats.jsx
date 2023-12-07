@@ -217,7 +217,6 @@ function Chats() {
     }
   };
   useEffect(() => {
-    getAllUserMessages();
     open({ onmessage: onMessageRecieve });
   }, []);
 
