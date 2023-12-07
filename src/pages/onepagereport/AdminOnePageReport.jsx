@@ -9,6 +9,7 @@ import {
   GET_OFFLINE_CLIENTS,
 } from "../../config/endpoints";
 import { call } from "../../config/axios";
+import moment from "moment";
 
 const AdminOnePageReport = () => {
   const register_id = localStorage.getItem("register_id");
@@ -17,6 +18,7 @@ const AdminOnePageReport = () => {
   const [success, setSuccess] = useState(false);
   const [adminOnePageReportPopUp, setAdminOnePageReportPopUp] = useState(false);
   const [adminName, setAdminName] = useState("");
+  const [ulShare, setUlShare] = useState(0)
   const [role, setRole] = useState("");
   const [adminsData, setAdminsData] = useState("");
   const [adminsHeadings, setAdminsHeadings] = useState("");
@@ -103,40 +105,52 @@ const AdminOnePageReport = () => {
   //     ul_share: 200000.0,
   //   },
   // ];
-  const adminOnePageReportIndividualData = [
-    {
-      series_name: "T20 world cup",
-      date_time: "02/08/2023 11:32:00 AM",
-      team: "india",
-      win_team: "india",
-      profit_loss: 50000000,
-      urs_profilt_loss: 50000000,
-    },
-    {
-      series_name: "T20 world cup",
-      date_time: "02/08/2023 11:32:00 AM",
-      team: "india",
-      win_team: "india",
-      profit_loss: 50000000,
-      urs_profilt_loss: 50000000,
-    },
-    {
-      series_name: "T20 world cup",
-      date_time: "02/08/2023 11:32:00 AM",
-      team: "india",
-      win_team: "india",
-      profit_loss: 50000000,
-      urs_profilt_loss: 50000000,
-    },
-    {
-      series_name: "T20 world cup",
-      date_time: "02/08/2023 11:32:00 AM",
-      team: "india",
-      win_team: "india",
-      profit_loss: 50000000,
-      urs_profilt_loss: 50000000,
-    },
-  ];
+  const adminOnePageReportIndividualData = induvisualUserReport &&
+  induvisualUserReport?.length &&
+  induvisualUserReport?.map((match) => {  
+    return {
+      series_name: match?.series_name,
+      date_time: `${moment(match?.matchTimeStamp).format("DD-MM-YYYY")}  ${moment(match?.matchTimeStamp).format("mm:ss A")}`,
+      team: `${match?.team1} vs ${match?.team2}`,
+      win_team: match?.winTeam,
+      profit_loss: match?.totalAmount?.totalLossOrProfit || 0,
+      urs_profilt_loss:  (+match?.totalAmount?.totalLossOrProfit * +ulShare) / 100,
+    }
+  });
+  // [
+  //   {
+  //     series_name: "T20 world cup",
+  //     date_time: "02/08/2023 11:32:00 AM",
+  //     team: "india",
+  //     win_team: "india",
+  //     profit_loss: 50000000,
+  //     urs_profilt_loss: 50000000,
+  //   },
+  //   {
+  //     series_name: "T20 world cup",
+  //     date_time: "02/08/2023 11:32:00 AM",
+  //     team: "india",
+  //     win_team: "india",
+  //     profit_loss: 50000000,
+  //     urs_profilt_loss: 50000000,
+  //   },
+  //   {
+  //     series_name: "T20 world cup",
+  //     date_time: "02/08/2023 11:32:00 AM",
+  //     team: "india",
+  //     win_team: "india",
+  //     profit_loss: 50000000,
+  //     urs_profilt_loss: 50000000,
+  //   },
+  //   {
+  //     series_name: "T20 world cup",
+  //     date_time: "02/08/2023 11:32:00 AM",
+  //     team: "india",
+  //     win_team: "india",
+  //     profit_loss: 50000000,
+  //     urs_profilt_loss: 50000000,
+  //   },
+  // ];
   const adminOnePageReportIndividualHeadings = [
     { header: "Series Name", field: "series_name" },
     { header: "Date & Time", field: "date_time" },
@@ -192,7 +206,9 @@ const AdminOnePageReport = () => {
   };
   const handleAdminReports = (data) => {
     if (activeReport === "Admin One Page Report") {
+      getUserMatches(data?.admin_name);
       setAdminName(data?.admin_name);
+      setUlShare(isNaN(+data?.ul_share) ? 0 : data?.ul_share)
       setRole(data?.admin_role);
       setAdminOnePageReportPopUp(true);
       setAdminsData(adminOnePageReportIndividualData);
@@ -307,7 +323,7 @@ const AdminOnePageReport = () => {
             <AdminPopReports
               show={adminOnePageReportPopUp}
               onHide={() => setAdminOnePageReportPopUp(false)}
-              data={adminsData}
+              data={adminOnePageReportIndividualData}
               columns={adminsHeadings}
               adminName={adminName}
               role={role}

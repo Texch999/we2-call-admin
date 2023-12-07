@@ -1,6 +1,7 @@
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import AdminsTable from "./AdminsTable";
+import AdminsTableMatchWise from "./AdminsTableMatchWise";
 
 function AdminPopReports(props) {
   const {
@@ -31,7 +32,7 @@ function AdminPopReports(props) {
       </Modal.Header>
       <Modal.Body>
         <h6 className="mb-3 fw-semibold">{heading}</h6>
-        <AdminsTable
+        <AdminsTableMatchWise
           data={data}
           columns={columns}
           totalPosition={totalPosition}
