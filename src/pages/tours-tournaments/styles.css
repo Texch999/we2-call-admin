@@ -428,3 +428,23 @@
   color: #00143d !important;
   background-color: #fce719;
 }
+.table-button {
+  /* width: 1px; */
+  font-size: 15px;
+  background-color: #fce719;
+  outline: none;
+  border: none;
+}
+.table-button-clicked {
+  background-color: rgb(3, 230, 3);
+}
+.td-item {
+  width: 70px;
+  text-align: center;
+}
+.tr-item {
+  border-bottom: 1px solid grey;
+}
+.title-color {
+  color: #ffa743 !important;
+}

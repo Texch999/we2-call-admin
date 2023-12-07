@@ -604,8 +604,7 @@ function Chats() {
                 )}
               </ScrollableFeed>
             </div>
-            <div
-              className="recent_heading d-flex flex-start align-items-center justify-content-between w-100 header-bg h-8vh"
+            <div className="recent_heading d-flex flex-start align-items-center justify-content-between w-100 header-bg h-8vh"
               // onClick={(e) => {
               //   e.preventDefault();
               // }}

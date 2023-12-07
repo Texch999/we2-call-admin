@@ -9,6 +9,11 @@
 .yours-details-modal .anticon svg {
   color: #ffffff !important;
 }
+.members-conatainer{
+  max-height: 100px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
 .message-modal .ant-modal-content {
   height: auto !important;
   /* width: 30vw; */

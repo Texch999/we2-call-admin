@@ -1,7 +1,6 @@
-import { Container, Form, Row, Col, InputGroup, Image } from "react-bootstrap";
+import { Container, Form, Row, Col, InputGroup } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { Images } from "../../images";
 import { useState } from "react";
 
 function AddNewMeetingsPopUp(props) {
@@ -10,11 +9,7 @@ function AddNewMeetingsPopUp(props) {
     onHide();
   };
 
-  const callCreations = [
-    "Call Creation 01",
-    "Call Creation 02",
-    "Call Creation 03",
-  ];
+  const callCreations = ["Audio Only", "Audio+Video"];
   const [activeType, setActiveType] = useState("Personal");
   const [activeCreation, setActiveCreation] = useState("Call Creation 01");
   const handleMeetingType = (type) => {
@@ -24,7 +19,12 @@ function AddNewMeetingsPopUp(props) {
     setActiveCreation(creation);
   };
   return (
-    <Modal onHide={onHide} show={show} centered className="add-user-modal">
+    <Modal
+      onHide={onHide}
+      show={show}
+      centered
+      className="add-user-modal z-index"
+    >
       <Modal.Header closeButton>
         <Modal.Title className="w-100 text-center">
           Add New Meetings

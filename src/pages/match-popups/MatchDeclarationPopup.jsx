@@ -1,10 +1,14 @@
 import { Modal } from "react-bootstrap";
 import { IoCloseSharp } from "react-icons/io5";
 import { Images } from "./../../images/index";
+import MatchSubmitPopup from "./MatchSubmitPopup";
+import { useState } from "react";
 
 function MatchDeclarationPopup(props) {
-  const { header, amount, state, setState, handleMatchDeclarePopupOpen } =
+  const { header, amount, state, setState, handleMatchSubmitSuccessPopupOpen } =
     props;
+
+  const [matchSubmitSuccessPopup, setMatchSubmitSuccessPopup] = useState(false);
 
   return (
     <Modal className="match-declaration-modal" centered show={state}>
@@ -23,7 +27,7 @@ function MatchDeclarationPopup(props) {
           <div className="row d-flex justify-content-between mt-3">
             <div
               className="col-5 rounded yellow-btn p-1"
-              onClick={() => handleMatchDeclarePopupOpen()}
+              onClick={() => handleMatchSubmitSuccessPopupOpen()}
             >
               Yes
             </div>
@@ -36,6 +40,11 @@ function MatchDeclarationPopup(props) {
           </div>
         </center>
       </Modal.Body>
+      <MatchSubmitPopup
+        header={"You Are Successfully Submited Your Match to Win IND"}
+        state={matchSubmitSuccessPopup}
+        setState={setMatchSubmitSuccessPopup}
+      />
     </Modal>
   );
 }

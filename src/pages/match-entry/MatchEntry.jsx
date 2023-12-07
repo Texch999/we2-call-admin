@@ -26,49 +26,9 @@ function MatchEntry() {
   const [status, setStatus] = useState(false);
   const [afterDeclare, setAfterDeclare] = useState(false);
 
-  // Function to fetch all matches
-  const getAllMatches = async () => {
-    await call(GET_OFFLINE_ALL_MATCHES, { register_id, account_role })
-      .then((res) => {
-        let result = res?.data?.data;
-        const temp = result?.liveMatches?.filter(
-          (i) => i.match_declared !== "Y"
-        );
-        setAllMatches(temp);
-        // setSelectedMatch(
-        //   (result && result?.liveMatches && result?.liveMatches[0]) || ""
-        // );
-      })
-      .catch((err) => console.log(err));
-  };
-
-  const getMatchPositionData = async (ID) => {
-    await call(GET_MATCH_POSITION_DATA, {
-      registered_match_id: ID ? ID : matchPositionData?.registered_match_id,
-      register_id,
-    })
-      .then((res) => setMatchPositionData(res?.data?.data))
-      .catch((err) => console.log(err));
-  };
   useEffect(() => {
     getMatchPositionData();
   }, []);
-
-  const getMatchInfo = async () => {
-    await call(GET_ACCOUNT_MATCHES_DATA, {
-      register_id,
-      match_id: selectedMatch?.match_id,
-    })
-      .then(async (res) => {
-        let temp =
-          res?.data && res.data.data && res.data.data[0]
-            ? res.data.data[0]
-            : res.data.data;
-        setMatchAccountData(temp);
-        await getMatchPositionData(temp?.registered_match_id);
-      })
-      .catch((err) => console.log(err));
-  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -85,6 +45,50 @@ function MatchEntry() {
     };
     fetchMatchInfo();
   }, [selectedMatch?.match_id, afterDeclare]);
+
+  // Function to fetch all matches
+  const getAllMatches = async () => {
+    await call(GET_OFFLINE_ALL_MATCHES, { register_id, account_role })
+      .then((res) => {
+        let result = res?.data?.data;
+        const temp = result?.liveMatches?.filter(
+          (i) => i.match_declared !== "Y"
+        );
+        setAllMatches(temp);
+        setStatus((prev) => !prev);
+        // setSelectedMatch(
+        //   (result && result?.liveMatches && result?.liveMatches[0]) || ""
+        // );
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const getMatchPositionData = async (ID) => {
+    await call(GET_MATCH_POSITION_DATA, {
+      registered_match_id: ID ? ID : matchPositionData?.registered_match_id,
+      register_id,
+    })
+      .then((res) => {
+        setMatchPositionData(res?.data?.data);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const getMatchInfo = async () => {
+    await call(GET_ACCOUNT_MATCHES_DATA, {
+      register_id,
+      match_id: selectedMatch?.match_id,
+    })
+      .then(async (res) => {
+        let temp =
+          res?.data && res.data.data && res.data.data[0]
+            ? res.data.data[0]
+            : res.data.data;
+        setMatchAccountData(temp);
+        await getMatchPositionData(temp?.registered_match_id);
+      })
+      .catch((err) => console.log(err));
+  };
 
   return (
     <div>

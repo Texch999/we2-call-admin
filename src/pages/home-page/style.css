@@ -17,9 +17,18 @@
   outline: none;
   color: #ffffff;
 }
+.see-all {
+  padding: 5px;
+  color: #ffffff;
+  background: #112e69;
+  width: fit-content;
+  border-radius: 7px;
+  border: 1px solid yellowgreen;
+}
 .sport-management-input {
   background: #112a5e;
   height: 8vh;
+  color: none;
   align-items: center;
   border-radius: 5px;
 }
@@ -416,9 +425,12 @@ option {
   left: 50%;
   transform: translate(-50%, -50%);
 }
-.create-new{
+.create-new {
   background: yellow;
   color: black;
   padding: 0px 10px;
   border-radius: 5px;
+}
+.ml-3rem {
+  margin-left: 3rem;
 }

@@ -1,34 +1,38 @@
 import React, { useState } from "react";
 import CustomPagination from "../pagination/CustomPagination";
 
-function AdminComissionReport() {
-  const ADMIN_COMM_REPORT__DETAILS = [
-    {
-      adminname: "Animesh",
-      role: "Agent",
-      adminpl: "1000000.00",
-      ulnetpl: "0",
-    },
-    {
-      adminname: "Sri8867",
-      role: "Master",
-      adminpl: "1000000.00",
-      ulnetpl: "5000.00",
-    },
-    {
-      adminname: "Ganesh",
-      role: "Super Master",
-      adminpl: "1000000.00",
-      ulnetpl: "7500.00",
-    },
-    {
-      adminname: "Lokesh",
-      role: "Super Admin",
-      adminpl: "1000000.00",
-      ulnetpl: "10000.00",
-    },
-  ];
-
+function AdminComissionReport(props) {
+  const { ulPlatformComm } = props;
+  // const ADMIN_COMM_REPORT__DETAILS = [
+  //   {
+  //     adminname: "Animesh",
+  //     role: "Agent",
+  //     ulnetpl: "0",
+  //   },
+  //   {
+  //     adminname: "Sri8867",
+  //     role: "Master",
+  //     ulnetpl: "5000.00",
+  //   },
+  //   {
+  //     adminname: "Ganesh",
+  //     role: "Super Master",
+  //     ulnetpl: "7500.00",
+  //   },
+  //   {
+  //     adminname: "Lokesh",
+  //     role: "Super Admin",
+  //     ulnetpl: "10000.00",
+  //   },
+  // ];
+  const ADMIN_COMM_REPORT__DETAILS = ulPlatformComm.map((item) => {
+    return {
+      adminname: item.admin_name,
+      role: item.admin_role,
+      ulnetpl: item.ul_platform_comm,
+    };
+  });
+  console.log(ADMIN_COMM_REPORT__DETAILS, "ADMIN_COMM_REPORT__DETAILS");
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = 5;
 
@@ -40,7 +44,7 @@ function AdminComissionReport() {
   return (
     <div>
       <div>
-        <h6 className="meetings-heading mb-3">Admins Commission Report</h6>
+        <h6 className="meetings-heading mb-3">U/L Commission Report</h6>
       </div>
       <hr />
       <div>
@@ -53,22 +57,22 @@ function AdminComissionReport() {
               <th scope="col" className="text-center">
                 ROLE
               </th>
-              <th scope="col" className="text-center">
+              {/* <th scope="col" className="text-center">
                 ADMIN NET P/L
-              </th>
+              </th> */}
               <th scope="col" className="text-center">
                 U/L PLATFORM COMM
               </th>
             </tr>
           </thead>
 
-          {ADMIN_COMM_REPORT__DETAILS.map((item, index) => (
+          {ADMIN_COMM_REPORT__DETAILS?.map((item, index) => (
             <tbody key={index} className="small-font">
               <tr>
                 <td className="text-center ">{item?.adminname}</td>
                 <td className="text-center">{item?.role}</td>
-                <td className="text-center clr-green ">{item?.adminpl}</td>
-                <td className="text-center clr-green "> {item?.ulnetpl}</td>
+                {/* <td className="text-center clr-green">{item?.adminpl}</td> */}
+                <td className="text-center clr-green"> {item?.ulnetpl}</td>
               </tr>
             </tbody>
           ))}

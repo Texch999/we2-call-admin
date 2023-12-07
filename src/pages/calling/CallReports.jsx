@@ -5,7 +5,7 @@ import CallStatement from "./CallStatement";
 import { Button } from "react-bootstrap";
 
 function CallReports() {
-  const callReportList = ["Call History", "Call Settelment", "Call Statement"];
+  const callReportList = ["Call History"]
   const [activeCallReport, setActiveCallReport] = useState("Call History");
   const handleCallReport = (report) => {
     setActiveCallReport(report);
@@ -13,8 +13,9 @@ function CallReports() {
   return (
     <div>
       <div className="p-4">
+        <CallHistory/>
         {/* <h5 className="meetings-heading mb-3">Call Reports</h5> */}
-        <div className="mb-3 d-flex justify-content-end">
+        {/* <div className="mb-3 d-flex justify-content-end">
           {callReportList.map((report, index) => (
             <Button
               key={index}
@@ -34,7 +35,7 @@ function CallReports() {
           <CallSettelment />
         ) : (
           <CallStatement />
-        )}
+        )} */}
       </div>
     </div>
   );

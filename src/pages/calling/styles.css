@@ -20,6 +20,14 @@
   border-radius: 5px;
   font-family: "Barlow-Medium" !important;
 }
+.deactivate-button {
+  background-color: #112a5e;
+  color: black;
+  width: 10vw;
+  height: auto;
+  border-radius: 5px;
+  font-family: "Barlow-Medium" !important;
+}
 .history-status-approve-button {
   background-color: #04c85e;
   color: black;

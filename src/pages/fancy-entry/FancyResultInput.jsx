@@ -35,17 +35,6 @@ function FancyResultInput(props) {
     setMatchInnings(fancyResultInputData?.innings);
   };
 
-  const handleConfirmDeclaration = () => {
-    if (
-      !fancyResultInputData?.innings ||
-      !fancyResultInputData?.over ||
-      !fancyResultInputData?.team ||
-      !fancyResultInputData?.runs
-    ) {
-      return setError("Please Enter Required Fields");
-    }
-    setConfirmDeclaration(true);
-  };
   const handleFancyDeclaration = async () => {
     setConfirmDeclaration(false);
     setIsProcessing(true);
@@ -97,6 +86,7 @@ function FancyResultInput(props) {
               className="w-100 custom-select medium-font btn-bg rounded all-none p-2"
               name="innings"
               type="number"
+              value={fancyResultInputData?.innings || ""}
               onChange={(e) => handleFancyResultInputDataChange(e)}
             >
               <option value="">Select</option>
@@ -175,7 +165,7 @@ function FancyResultInput(props) {
         <div className="col d-flex align-items-end">
           <div
             className="cursor-pointer w-100 text-center rounded medium-font p-2 yellow-btn fw-semibold"
-            onClick={() => handleConfirmDeclaration()}
+            onClick={() => handleFancyDeclaration()}
             disabled={isProcessing}
           >
             {isProcessing ? "Declaring..." : "Fancy Declaration"}

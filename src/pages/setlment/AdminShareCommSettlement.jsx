@@ -5,7 +5,7 @@ import { AiFillFileText } from "react-icons/ai";
 import PaymentSettelmentPopup from "./PaymentSettelmentPopup";
 import CustomPagination from "../pagination/CustomPagination";
 
-const AdminShareCommSettlement = () => {
+const AdminShareCommSettlement = ({ AdminCommSattlementStatementData }) => {
   const adminShareSummaryData = [
     {
       title: "Account Summary Client/Referal",
@@ -23,44 +23,69 @@ const AdminShareCommSettlement = () => {
       amount: 1000000.0,
     },
   ];
-  const adminShareCommSettlementData = [
-    {
-      admin_name: "Animesh",
-      role: "agent",
-      amount: 1000000.0,
-      credit_debit: 1000000.0,
-      balance: 1000000.0,
-    },
-    {
-      admin_name: "Sri23465",
-      role: "Master",
-      amount: 1000000.0,
-      credit_debit: 1000000.0,
-      balance: 1000000.0,
-    },
-    {
-      admin_name: "Srinivash",
-      role: "SM",
-      amount: 1000000.0,
-      credit_debit: 1000000.0,
-      balance: 1000000.0,
-    },
+  // const adminShareCommSettlementData = [
+  //   {
+  //     admin_name: "Animesh",
+  //     role: "agent",
+  //     amount: 1000000.0,
+  //     ulplatfrom: 100000.0,
+  //     amountul: 100000.0,
+  //     credit_debit: 1000000.0,
+  //     balance: 1000000.0,
+  //   },
+  //   {
+  //     admin_name: "Sri23465",
+  //     role: "Master",
+  //     amount: 1000000.0,
+  //     ulplatfrom: 100000.0,
+  //     amountul: 100000.0,
 
-    {
-      admin_name: "Sri23465",
-      role: "Master",
-      amount: 1000000.0,
-      credit_debit: 1000000.0,
-      balance: 1000000.0,
-    },
-    {
-      admin_name: "Srikanth",
-      role: "Sub A",
-      amount: 1000000.0,
-      credit_debit: 1000000.0,
-      balance: 1000000.0,
-    },
-  ];
+  //     credit_debit: 1000000.0,
+  //     balance: 1000000.0,
+  //   },
+  //   {
+  //     admin_name: "Srinivash",
+  //     role: "SM",
+  //     amount: 1000000.0,
+  //     ulplatfrom: 100000.0,
+  //     amountul: 100000.0,
+
+  //     credit_debit: 1000000.0,
+  //     balance: 1000000.0,
+  //   },
+
+  //   {
+  //     admin_name: "Sri23465",
+  //     role: "Master",
+  //     amount: 1000000.0,
+  //     ulplatfrom: 100000.0,
+  //     amountul: 100000.0,
+
+  //     credit_debit: 1000000.0,
+  //     balance: 1000000.0,
+  //   },
+  //   {
+  //     admin_name: "Srikanth",
+  //     role: "Sub A",
+  //     amount: 1000000.0,
+  //     ulplatfrom: 100000.0,
+  //     amountul: 100000.0,
+
+  //     credit_debit: 1000000.0,
+  //     balance: 1000000.0,
+  //   },
+  // ];
+  const adminShareCommSettlementData =
+    AdminCommSattlementStatementData.length &&
+    AdminCommSattlementStatementData?.map((item) => {
+      return {
+        admin_name: item.admin_name,
+        role: item.admin_role,
+        amountul: item.amount,
+        credit_debit: item.credit_debit,
+        balance: item.balance,
+      };
+    });
   const [showPaymentModal, setShowPaymentModal] = useState(false);
   const handlePaymentModal = () => {
     setShowPaymentModal(true);
@@ -106,7 +131,7 @@ const AdminShareCommSettlement = () => {
             <tr>
               <th className="text-center">ADMIN NAME</th>
               <th className="text-center">ROLE/POSITION</th>
-              <th className="text-center">AMOUNT</th>
+              <th className="text-center">Share + U/L comm</th>
               <th className="text-center">CREDIT/DEBIT</th>
               <th className="text-center">BALANCE</th>
               <th></th>
@@ -117,9 +142,11 @@ const AdminShareCommSettlement = () => {
               <tr key={index}>
                 <td className="text-center">{data?.admin_name}</td>
                 <td className="text-center">{data?.role}</td>
-                <td className="text-center">
+                {/* <td className="text-center">
                   {parseFloat(data?.amount).toFixed(2)}
                 </td>
+                <td className="text-center">{data?.ulplatfrom}</td> */}
+                <td className="text-center">{data?.amountul}</td>
                 <td
                   className={`text-center ${
                     data?.admin_name === "Sri23465" ? "clr-red" : "clr-green"
@@ -148,15 +175,31 @@ const AdminShareCommSettlement = () => {
                 TOTAL
               </th>
 
-              <th className="text-center clr-green">
+              {/* <th className="text-center clr-green">
                 {adminShareCommSettlementData
                   .reduce((total, data) => total + parseFloat(data?.amount), 0)
                   .toFixed(2)}
               </th>
               <th className="text-center clr-green">
-                {" "}
                 {adminShareCommSettlementData
                   .reduce(
+                    (total, data) => total + parseFloat(data?.ulplatfrom),
+                    0
+                  )
+                  .toFixed(2)}
+              </th> */}
+              <th className="text-center clr-green">
+                {adminShareCommSettlementData
+                  ?.reduce(
+                    (total, data) => total + parseFloat(data?.amountul),
+                    0
+                  )
+                  .toFixed(2)}
+              </th>
+              <th className="text-center clr-green">
+                {" "}
+                {adminShareCommSettlementData
+                  ?.reduce(
                     (total, data) => total + parseFloat(data?.credit_debit),
                     0
                   )
@@ -165,7 +208,10 @@ const AdminShareCommSettlement = () => {
               <th className="text-center clr-green">
                 {" "}
                 {adminShareCommSettlementData
-                  .reduce((total, data) => total + parseFloat(data?.balance), 0)
+                  ?.reduce(
+                    (total, data) => total + parseFloat(data?.balance),
+                    0
+                  )
                   .toFixed(2)}
               </th>
               <th className="text-center"></th>

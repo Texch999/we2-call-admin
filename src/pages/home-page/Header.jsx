@@ -25,10 +25,12 @@ import { MdLockReset, MdOutlinePrivacyTip } from "react-icons/md";
 import ResetPassword from "../log-in/ResetPassword";
 import MatchSubmitPopup from "../match-popups/MatchSubmitPopup";
 import AddPaymentMode from "../popups/AddPaymentMode";
-import { useHistory } from "react-router-dom";
+import { useHistory,useParams } from "react-router-dom";
 import { isLoggedIn } from "../../utils/helpers";
 import Login from "../log-in/Login";
 import EditProfile from "../popups/EditProfile";
+import { GET_ALL_NOTIFICATIONS } from "../../config/endpoints";
+import { call } from "../../config/axios";
 
 function Header() {
   const [modalShow, setModalShow] = useState(false);
@@ -319,12 +321,37 @@ function Header() {
 
   const [resetPasswordSubmit, setResetPasswordSubmit] = useState();
   const token = isLoggedIn();
+  const currenturl = window.location.href;
+  const contains = currenturl.includes("/offers/")
+
+  const [notifications, setnotifications] = useState([]);
+  const getNotifications = async () => {
+    const payload = {
+      register_id: "company",
+      notification_type: "web-pushnotification",
+    };
+    await call(GET_ALL_NOTIFICATIONS, payload)
+      .then((res) => {
+        const arr = res?.data?.data;
+        setnotifications(arr);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  useEffect(() => {
+    getNotifications();
+  }, []);
+  // console.log(notifications, "NNNNNN");
+  // const pushnotification = [...notifications]?.filter(
+  //   (item) => item.status === "true"
+  // );
+
   return (
     <div className="agent-header d-flex align-items">
       <div className="w-100 flex-align-center d-flex h-10vh mb-1">
         <div className="header-logo ">
           <img
-            src={Images.header_logo}
+            src={contains ? "../assets/header_logo.png" : Images.header_logo}
             alt="we2-call-logo"
             onClick={() => handleLoginPopup()}
           />
@@ -416,14 +443,14 @@ function Header() {
         </div>
         <div className="d-flex justify-content-between p-2">
           <div className="header-avatar align-items-center justify-content-around d-flex w-50">
-            <img src={Images.profile} alt="profile" className="me-2" />
+            <img src={contains ? "../assets/profile.png" : Images.profile} alt="profile" className="me-2" />
             <div className="meetings-heading header-font">
               {localStorage?.getItem("user_name")}
             </div>
           </div>
-          <div className="h-10vh">
+          <div className="h-10vh mt-3">
             <div className="d-flex align-items-center w-50 justify-content-around">
-              <div className=" icons-share me-2 ms-2">
+              <div className=" icons-share mx-3">
                 <AiOutlineShareAlt />
               </div>
               <div
@@ -454,13 +481,18 @@ function Header() {
           </div>
         </div>
       </div>
-      <Marquee className="marqu-tag meetings-heading">
-        Your privacy is our priority. With end-to-end encryption, you can be
+      <div className="d-flex w-100">
+        <Marquee className="d-flex marqu-tag meetings-heading ">
+          {notifications?.map((obj) => (
+            <div>{obj?.status === true && <li className="ml-3rem">{obj?.description} </li>}</div>
+          ))}
+        </Marquee>
+      </div>
+      {/* Your privacy is our priority. With end-to-end encryption, you can be
         sure that your personal messages stay between you and who you send them
         to. Your privacy is our priority. With end-to-end encryption, you can be
         sure that your personal messages stay between you and who you send them
-        to.
-      </Marquee>
+        to. */}
       {!token && (
         <Login
           showLoginPopup={token ? false : true}
@@ -471,6 +503,7 @@ function Header() {
       <ResetPassword
         showResetPopup={showResetPopup}
         setShowResetPopup={setShowResetPopup}
+        resetPasswordSubmit={resetPasswordSubmit}
         setResetPasswordSubmit={setResetPasswordSubmit}
       />
       <EditProfile show={editModalShow} close={() => setEditModalShow(false)} />
@@ -479,7 +512,6 @@ function Header() {
         state={resetPasswordSubmit}
         setState={setResetPasswordSubmit}
       />
-
       <AddPaymentMode state={modalShow} setState={setModalShow} />
     </div>
   );

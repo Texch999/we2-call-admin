@@ -15,6 +15,8 @@ const CREATE_MATCH_ENTRY = "/offline-management/match_entry";
 const GET_ACCOUNT_MATCHES_DATA =
   "/offline-management/get_registered_matches_data";
 const GET_MATCH_ENTRY_DETAILS = "/offline-management/get_match_entry";
+const GET_ALL_PACKAGES_APPROVED_HSITORY =
+  "/packages/get_all_packages_statement";
 const UPDATE_MATCH_ENTRY = "/offline-management/update_match_entry";
 const DELETE_MATCH_ENTRY = "/offline-management/delete_match_entry";
 const MATCH_DECLARATION = "/offline-management/match_result";
@@ -56,6 +58,7 @@ const RISK_RUNNING_SESSION = "/offline-management/risk_running_session";
 const ADD_PAYMENT = "/management/add_payment_gateway";
 const GET_ALL_PAYMENT_GATEWAYS = "/management/getall_payments";
 const UPDATE_PAYMENT_GATEWAY = "/management/update_payment_gateway";
+const UPDATE_MATCH = "/offline-management/update_matchid_data";
 const GET_REQUEST_PACKAGES =
   "/packages/get_package_histroy_bypackage_requestid";
 const GET_ADMIN_PACKAGE_REQUEST = "/packages/get_all_admin_package_request";
@@ -67,6 +70,23 @@ const GET_ADMIN_PACKAGES = "/packages/get_admin_packages";
 const DELETE_OFFLINE_CLIENT = "/offline-management/delete_clients";
 const PRIVACY_POLICY = "/management/get_policy_document";
 const GET_ALL_USERS = "/offline-management/get_user_list";
+const RESET_PASSWORD = "/admin/reset_password";
+const GET_TOURS = "/tours/get_tours";
+const ADD_INTERESTED = "/tours/add_interested";
+const GET_SELECTEDMEMBERS = "/tours/get_booknow_of_selectedteam";
+const GET_TOUR_BY_ID = "/tours/get_toursbyid"
+const ACTIVE_INACTIVE_USERS =
+  "/offline-management/offline_active_inactive_users";
+const MANAGEMENT_MATCHES = "/management/get_matches_by_accountrole";
+const CREATE_MEETING = "/meetings/create_meeting";
+const UPDATE_MEETING = "/meetings/update_call_meetings";
+const GET_LIVE_MATCH_RISK_POSITION =
+  "/offline-management/live_match_risk_position";
+const GET_STATEMENT_BY_MATCH_ID =
+  "/offline-management/get_statement_bymatch_id";
+const GET_TOUR_PAYMENT_GATEWAY = "/tours_banking/get_tour_payment_gateway"
+const GET_ALL_NOTIFICATIONS = "/management/get_all_notifications";
+const ADD_GUESTDOCS_FOR_TOURS = "/tours/add_guestdocs_for_tour";
 
 // methods
 const DELETE = "DELETE";
@@ -74,12 +94,67 @@ const POST = "POST";
 const GET = "POST";
 const PUT = "PUT";
 
+exports.ADD_GUESTDOCS_FOR_TOURS = {
+  method: POST,
+  url: ADD_GUESTDOCS_FOR_TOURS
+}
+
+exports.GET_TOUR_PAYMENT_GATEWAY = {
+  method: POST,
+  url: GET_TOUR_PAYMENT_GATEWAY
+}
+
+exports.GET_TOUR_BY_ID = {
+  url: GET_TOUR_BY_ID,
+  method: POST
+}
+
+exports.GET_SELECTEDMEMBERS = {
+  url: GET_SELECTEDMEMBERS,
+  method: POST
+}
+
+exports.ADD_INTERESTED = {
+  url: ADD_INTERESTED,
+  method: POST
+}
+
+exports.GET_TOURS = {
+  url:GET_TOURS,
+  method: POST
+}
 exports.GET_COMPLETED_MATCHES_BY_CLEINT = {
   url: GET_COMPLETED_MATCHES_BY_CLEINT,
+  method: POST
+}
+exports.GET_LIVE_MATCH_RISK_POSITION = {
+  url: GET_LIVE_MATCH_RISK_POSITION,
+  method: POST,
+};
+
+exports.GET_ALL_PACKAGES_APPROVED_HSITORY = {
+  url: GET_ALL_PACKAGES_APPROVED_HSITORY,
+  method: POST,
+};
+
+exports.GET_STATEMENT_BY_MATCH_ID = {
+  url: GET_STATEMENT_BY_MATCH_ID,
   method: POST,
 };
 exports.GET_UPDATED_MATCHES_DATA = {
   url: GET_UPDATED_MATCHES_DATA,
+  method: POST,
+};
+exports.UPDATE_MATCH = {
+  url: UPDATE_MATCH,
+  method: POST,
+};
+exports.GET_FINANCIAL_STATEMENT_BY_DATE = {
+  url: GET_FINANCIAL_STATEMENT_BY_DATE,
+  method: POST,
+};
+exports.GET_COMPLETED_MATCHES_BY_CLEINT = {
+  url: GET_COMPLETED_MATCHES_BY_CLEINT,
   method: POST,
 };
 exports.CREATE_REFFERAL = {
@@ -127,10 +202,6 @@ exports.GENERATE_SIGNED_URL = {
   method: POST,
 };
 
-exports.GET_FINANCIAL_STATEMENT_BY_DATE = {
-  url: GET_FINANCIAL_STATEMENT_BY_DATE,
-  method: POST,
-};
 exports.GET_USER_INFO = {
   url: GET_USER_INFO,
   method: POST,
@@ -363,3 +434,29 @@ exports.GET_ALL_USERS = {
   url: GET_ALL_USERS,
   method: GET,
 };
+exports.RESET_PASSWORD = {
+  url: RESET_PASSWORD,
+  method: POST,
+};
+exports.ACTIVE_INACTIVE_USERS = {
+  url: ACTIVE_INACTIVE_USERS,
+  method: POST,
+};
+exports.MANAGEMENT_MATCHES = {
+  url: MANAGEMENT_MATCHES,
+  method: POST,
+};
+exports.CREATE_MEETING = {
+  url: CREATE_MEETING,
+  method: POST,
+};
+exports.UPDATE_MEETING = {
+  url: UPDATE_MEETING,
+  method: POST,
+};
+
+exports.GET_ALL_NOTIFICATIONS = {
+  url: GET_ALL_NOTIFICATIONS,
+  method: POST,
+};
+

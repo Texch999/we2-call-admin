@@ -87,7 +87,7 @@ function MatchResultInput({
               placeholder="Sports Name"
               name="sport_name"
               id="sport_name"
-              value={selectedMatch?.sport_name || "Sports Name"}
+              value={selectedMatch?.sport_name || ""}
               onChange={(e) => handleMatchResultInputDataChange(e)}
             />
           </div>
@@ -101,7 +101,7 @@ function MatchResultInput({
               placeholder="Series Name"
               name="series_name"
               id="series_name"
-              value={selectedMatch?.series_name || "Series Name"}
+              value={selectedMatch?.series_name || ""}
               onChange={(e) => handleMatchResultInputDataChange(e)}
             />
           </div>
@@ -113,14 +113,14 @@ function MatchResultInput({
               className="w-100 custom-select medium-font btn-bg rounded all-none p-2"
               name="team"
               id="team"
-              value={matchResultInputData?.team}
+              value={matchResultInputData?.team || ""}
               onChange={(e) => handleMatchResultInputDataChange(e)}
             >
               <option value="">Select</option>
-              <option value={selectedMatch?.team1 || ""}>
+              <option value={selectedMatch?.team1}>
                 {selectedMatch?.team1}
               </option>
-              <option value={selectedMatch?.team2 || ""}>
+              <option value={selectedMatch?.team2}>
                 {selectedMatch?.team2}
               </option>
             </select>
@@ -133,7 +133,7 @@ function MatchResultInput({
               className="w-100 custom-select medium-font btn-bg rounded all-none p-2"
               name="declarestatus"
               id="declarestatus"
-              value={matchResultInputData?.declarestatus}
+              value={matchResultInputData?.declarestatus || ""}
               onChange={(e) => handleMatchResultInputDataChange(e)}
             >
               <option value="">Select</option>
@@ -165,7 +165,7 @@ function MatchResultInput({
           amount={"1000000"}
           state={confirmDeclaration}
           setState={setConfirmDeclaration}
-          handleMatchDeclarePopupOpen={handleMatchDeclarePopupOpen}
+          handleMatchSubmitSuccessPopupOpen={handleMatchDeclarePopupOpen}
         />
       )}
       {afterConfirm && (
