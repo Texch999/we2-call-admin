@@ -3,19 +3,20 @@ import { Button, Table, Form } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./style.css";
 import { FiSearch } from "react-icons/fi";
+import { TfiSharethis } from "react-icons/tfi";
 import AddUserPopUp from "./AddUserPopUp";
 import ChangePassword from "./ChangePassword";
 import MatchSubmitPopup from "../match-popups/MatchSubmitPopup";
 import { call } from "../../config/axios";
 import { GET_ALL_CLIENTS, BLOCKUNBLOCK } from "../../config/endpoints";
+import AdminDetailsSharePopup from "./AdminDetailsSharePopup";
 
 const AddUsers = () => {
-  
   let register_id = localStorage?.getItem("register_id");
   let creator_id = localStorage?.getItem("creator_id");
   let account_role = localStorage?.getItem("account_role");
   let user_name = localStorage?.getItem("user_name");
-  const [status,setStatus]=useState(false)
+  const [status, setStatus] = useState(false);
   const [filteredValue, setFilteredValue] = useState("");
   const [modalShow, setModalShow] = useState(false);
   const [addUser, setAddUser] = useState();
@@ -24,18 +25,22 @@ const AddUsers = () => {
   const [isUserAdded, setIsUserAdded] = useState(false);
   const [editData, setEditData] = useState(false);
   const [inputData, setInputData] = useState({});
+  const [adminDetailsPopup, setAdminDetailsPopup] = useState(false);
+  const [adminDetailsData, setAdminDetailsData] = useState();
 
+  const handleAdminDetailsSharePopup = (data) => {
+    setAdminDetailsPopup(true);
+    setAdminDetailsData(data);
+  };
   const handleCpButton = () => {
     setShowChangePopup(true);
   };
-
   const handleEditButton = (data) => {
     setAddUser(data);
     setInputData(data);
     setModalShow(true);
     setEditData(true);
   };
-
   const handleAddUsers = () => {
     setAddUser(false);
     setModalShow(true);
@@ -59,6 +64,7 @@ const AddUsers = () => {
           active: user?.active,
           user: "",
           profit_loss: 0,
+          password: user?.password,
         };
       });
 
@@ -71,23 +77,10 @@ const AddUsers = () => {
     })
       .then((res) => {
         getAllClients();
-        setStatus((prev)=>!prev)
+        setStatus((prev) => !prev);
       })
       .catch((err) => console.log(err));
   };
-  // const ACTION_LABELS = [
-  //   {
-  //     name: "CP",
-  //   },
-  //   { 
-  //     name: "EDIT" 
-  //   },
-  //   // b: "B",
-  //   {
-  //     name: "UB",
-  //     onclick: handleBlock,
-  //   },
-  // ];
 
   const [changePasswordSubmit, setChangePasswordSubmit] = useState(false);
   const handleUserChange = (e) => {
@@ -97,18 +90,17 @@ const AddUsers = () => {
     await call(GET_ALL_CLIENTS, { register_id, account_role })
       .then((res) => {
         setUsersData(res?.data?.data);
-        setStatus((prev)=>!prev)
+        setStatus((prev) => !prev);
       })
       .catch((err) => console.log(err));
   };
 
   useEffect(() => {
     getAllClients();
-  }, [isUserAdded,status]);
-
+  }, [isUserAdded, status]);
 
   return (
-    <div className="p-4">
+    <div className="p-3">
       <div>
         <h5 className="meetings-heading">Add Users</h5>
         <div className="d-flex flex-column add-users-date">
@@ -144,8 +136,8 @@ const AddUsers = () => {
         </div>
       </div>
       <hr />
-      <div>
-        <Table responsive="md" className="call-management-data">
+      <div className="admin-table-height">
+        <table className="fixed-table w-100 match-position-table text-center medium-font">
           <thead>
             <tr>
               <th class="text-center">S NO</th>
@@ -191,6 +183,12 @@ const AddUsers = () => {
                     >
                       {data?.active ? "UB" : "B"}
                     </Button>
+                    <Button
+                      className="text-center rounded meeting-status-button EDIT-button me-2"
+                      onClick={() => handleAdminDetailsSharePopup(data)}
+                    >
+                      <TfiSharethis />
+                    </Button>
                   </td>
                 </tr>
               ))}
@@ -212,28 +210,29 @@ const AddUsers = () => {
               <th></th>
             </tr>
           </tfoot>
-          {modalShow && (
-            <AddUserPopUp
-              Heading={`${addUser ? "Update Users" : "Add Users"} `}
-              show={modalShow}
-              addUser={addUser}
-              usersData={usersData}
-              setModalShow={setModalShow}
-              editData={editData}
-              onhideClick={(e) => {
-                setAddUser({});
-                setModalShow(e);
-              }}
-              onHide={() => setModalShow(false)}
-              setIsUserAdded={setIsUserAdded}
-              setInputData={setInputData}
-              inputData={inputData}
-              status={status}
-              setStatus={setStatus}
-            />
-          )}
-        </Table>
+        </table>
       </div>
+      {modalShow && (
+        <AddUserPopUp
+          Heading={`${addUser ? "Update Users" : "Add Users"} `}
+          show={modalShow}
+          addUser={addUser}
+          usersData={usersData}
+          setModalShow={setModalShow}
+          editData={editData}
+          onhideClick={(e) => {
+            setAddUser({});
+            setModalShow(e);
+          }}
+          onHide={() => setModalShow(false)}
+          setIsUserAdded={setIsUserAdded}
+          setInputData={setInputData}
+          inputData={inputData}
+          status={status}
+          setStatus={setStatus}
+        />
+      )}
+
       <ChangePassword
         showChangePopup={showChangePopup}
         setShowChangePopup={setShowChangePopup}
@@ -243,6 +242,11 @@ const AddUsers = () => {
         header={"You Are Successfully Changed your Password"}
         state={changePasswordSubmit}
         setState={setChangePasswordSubmit}
+      />
+      <AdminDetailsSharePopup
+        adminDetailsPopup={adminDetailsPopup}
+        setAdminDetailsPopup={setAdminDetailsPopup}
+        adminDetailsData={adminDetailsData}
       />
     </div>
   );

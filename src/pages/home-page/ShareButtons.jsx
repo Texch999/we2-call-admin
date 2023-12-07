@@ -1,19 +1,16 @@
 import { BsInstagram, BsWhatsapp } from "react-icons/bs";
 
-const ShareButtons = ({ refId, meetId }) => {
-  const shareText = "RefferId:" + refId;
-  const shareUrl = ",MeetingID:" + meetId;
+const ShareButtons = ({ data }) => {
   const handleInstagramShare = () => {
-    // Instagram share URL
     const instagramShareUrl = `https://www.instagram.com/share?url=${encodeURIComponent(
-      shareUrl
-    )}&caption=${encodeURIComponent(shareText)}`;
+      `${data}`
+    )}&caption=${encodeURIComponent(data)}`;
     window.open(instagramShareUrl, "_blank");
   };
 
   const handleWhatsAppShare = () => {
     const whatsappShareUrl = `https://web.whatsapp.com/send?text=${encodeURIComponent(
-      `${shareText} ${shareUrl}`
+      `${data}`
     )}`;
     window.open(whatsappShareUrl, "_blank");
   };
