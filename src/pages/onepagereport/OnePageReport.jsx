@@ -44,7 +44,7 @@ function OnePageReport(props) {
     // You can add your logic here to fetch data for the selected page.
   };
   return (
-    <div className="p-2 mt-4">
+    <div className="mt-3">
       <table className="w-100 match-position-table medium-font">
         <thead>
           <tr className="text-center">
@@ -80,14 +80,14 @@ function OnePageReport(props) {
             ))}
         </table>
       </div>
-
       <table className="w-100 match-position-table medium-font">
         <tfoot>
           <tr className="text-center">
-            <th colSpan={4}>TOTAL</th>
-            <th colSpan={3} className="clr-green">
-              50000000.00
-            </th>
+            <th>TOTAL</th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th className="clr-green">50000000.00</th>
           </tr>
         </tfoot>
       </table>

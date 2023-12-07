@@ -390,11 +390,11 @@ function ReportPage() {
   }, []);
 
   return (
-    <div className="p-4">
+    <div className="p-3">
       <h5 className="meetings-heading mb-3">
         Your Book Client One Page Report
       </h5>
-      <div className="mb-3">
+      <div className="mb-2">
         {reportList.map((report, index) => (
           <Button
             key={index}
@@ -407,7 +407,7 @@ function ReportPage() {
           </Button>
         ))}
       </div>
-      <div className="hr-line mt-4"></div>
+      <div className="hr-line mt-3"></div>
       {activeReport === "One Page Report" ? (
         <OnePageReport
           ONE_PAGE_REPORT_DETAILS={ONE_PAGE_REPORT_DETAILS}

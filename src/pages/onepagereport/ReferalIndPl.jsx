@@ -144,8 +144,8 @@ function ReferalIndPl(props) {
   );
 
   return (
-    <div>
-      <h6 className="Platform-Comm-PL-">Referal :</h6>
+    <div className="mt-3">
+      {/* <h6 className="Platform-Comm-PL-">Referal :</h6> */}
       <div className="d-flex flex-row w-100 justify-content-between">
         <div className="w-30">
           <table className="w-100 match-position-table medium-font">
