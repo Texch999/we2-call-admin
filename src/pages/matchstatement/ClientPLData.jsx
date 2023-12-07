@@ -1,10 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import MatchBetTable from "./MatchBetTable";
 import FancyBetTable from "./FancyBetTable";
+import { call } from "../../config/axios";
+import { GET_MATCH_ENTRY_DETAILS } from "../../config/endpoints";
 
-function ClientPLData() {
+function ClientPLData({
+  selectedClientID,
+  selectedClientName,
+  matchDetails,
+  winTeam,
+}) {
+  const register_id = localStorage?.getItem("register_id");
+  const creator_id = localStorage?.getItem("creator_id");
+  const account_role = localStorage?.getItem("account_role");
+
+  const [userMatchEntrys, setUserMatchEntrys] = useState([]);
   const [matchBetInputs, setMatchBetInputs] = useState(true);
   const [fancyBetInputs, setFancyBetInputs] = useState(false);
+
   const handleMatchBet = () => {
     setFancyBetInputs(false);
     setMatchBetInputs(true);
@@ -13,9 +26,31 @@ function ClientPLData() {
     setFancyBetInputs(true);
     setMatchBetInputs(false);
   };
+
+  const getMatchEntryDetails = async () => {
+    await call(GET_MATCH_ENTRY_DETAILS, {
+      registered_match_id: matchDetails?.matchId,
+      register_id,
+      client_id: selectedClientID,
+    })
+      .then((res) => {
+        setUserMatchEntrys(res?.data?.data?.Items);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  useEffect(() => {
+    getMatchEntryDetails();
+  }, [selectedClientID]);
+
   return (
     <div>
-      <div className="medium-font mt-3 mb-2">Client Name : Animesh</div>
+      <div className="w-100 d-flex medium-font mt-2">
+        Client Name :{" "}
+        <span className="clr-yellow px-2">{selectedClientName}</span>
+      </div>
       <div className="w-50 d-flex justify-content-start mt-2 mb-3">
         <div className="w-25 d-flex justify-content-end">
           <div
@@ -38,8 +73,16 @@ function ClientPLData() {
           </div>
         </div>
       </div>
-      {matchBetInputs && <MatchBetTable />}
-      {fancyBetInputs && <FancyBetTable />}
+      {matchBetInputs && (
+        <MatchBetTable userMatchEntrys={userMatchEntrys} winTeam={winTeam} />
+      )}
+      {fancyBetInputs && (
+        <FancyBetTable
+          winTeam={winTeam}
+          matchDetails={matchDetails}
+          selectedClientID={selectedClientID}
+        />
+      )}
     </div>
   );
 }

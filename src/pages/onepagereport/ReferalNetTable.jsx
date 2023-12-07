@@ -1,12 +1,18 @@
 import React from "react";
 
-function ReferalNetTable({ firstReferralNetData }) {
+function ReferalNetTable({
+  firstReferralNetData,
+  totalFancyPl,
+  totalMfComm,
+  totalRoleComm,
+  totalMasterPL,
+}) {
   const REFERALNET_DETAILS =
     firstReferralNetData?.length &&
     firstReferralNetData?.map((item, index) => {
       return {
-        clientName: item?.client_name,
-        cNameMatchPL: item?.cNameMatchPL,
+        clientName: item?.cNameMatchPL,
+        cNameMatchPL: item?.matchPL,
         fancyPL: item?.fancyPL,
         refrralFancyComm: item?.mfComm,
         rollcom: item?.roleComm,
@@ -18,7 +24,12 @@ function ReferalNetTable({ firstReferralNetData }) {
       <table className="w-100 match-position-table small-font px-4">
         <thead className="px-4">
           <tr className="text-center">
-            <th className="w-20">Referer Name</th>
+            <th className="w-20">
+              <div>
+                <div>Match Name</div>
+                <div>Date</div>
+              </div>
+            </th>
             <th className="w-20">Match P/L</th>
             <th className="w-20">Fancy P/L</th>
             <th className="w-20">RF-M+F Comm</th>
@@ -46,16 +57,24 @@ function ReferalNetTable({ firstReferralNetData }) {
 
       <table className="w-100 match-position-table small-font">
         <tfoot className="px-4">
-          <tr className="text-center clr-green">
+          <tr className="text-center">
+            <th className="w-20"></th>
             <th className="w-20">TOTAL</th>
-            <th className="w-20">1000000.00</th>
-            <th className="w-20">1000000.00</th>
-            <th className="w-20">1000000.00</th>
-            <th className="w-20">1000000.00</th>
-            <th className="w-20">1000000.00</th>
+            <th className={totalFancyPl > 0 ? "clr-green" : "clr-red"}>
+              {totalFancyPl ? totalFancyPl.toFixed(2) : 0}
+            </th>
+            <th className={totalMfComm > 0 ? "clr-green" : "clr-red"}>
+              {totalMfComm ? totalMfComm.toFixed(2) : 0}
+            </th>
+            <th className={totalRoleComm > 0 ? "clr-green" : "clr-red"}>
+              {totalRoleComm ? totalRoleComm.toFixed(2) : 0}
+            </th>
+            <th className={totalMasterPL > 0 ? "clr-green" : "clr-red"}>
+              {totalMasterPL ? totalMasterPL.toFixed(2) : 0}
+            </th>
           </tr>
         </tfoot>
-      </table> 
+      </table>
     </div>
   );
 }

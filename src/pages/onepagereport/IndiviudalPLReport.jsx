@@ -14,6 +14,7 @@ import { useEffect } from "react";
 function IndiviudalPLReport(props) {
   const {
     refData,
+    individualReportReferralData,
     individualReportClientData,
     netPLInduvisualClient,
     individualReportULShareData,
@@ -31,14 +32,10 @@ function IndiviudalPLReport(props) {
   const handleReport = (report) => {
     setActiveReport(report);
   };
-
-  console.log(clientId, "clientIdSangram");
-
   const register_id = localStorage?.getItem("register_id");
   const creator_id = localStorage?.getItem("creator_id");
   const account_role = localStorage?.getItem("account_role");
 
-  const [clientsData, setClientsData] = useState([]);
   const getIndivisualMatchReport = async () => {
     await call(GET_INDUVISUAL_MATCH_REPORT, {
       register_id,
@@ -60,16 +57,54 @@ function IndiviudalPLReport(props) {
     }
   }, [clientId, refClientId]);
 
-  // useEffect(() => {
-  //   if (refId) {
-  //     getIndividualPLRefferal();
-  //   }
-  // }, [refId]);
-
+  const totalClientPl =
+    clientData &&
+    clientData?.length > 0 &&
+    clientData?.reduce(
+      (acc, obj) => acc + (+obj?.amount?.props?.children || 0),
+      0
+    );
+  const totalInduvisualReportClientData =
+    individualReportClientData &&
+    individualReportClientData?.length > 0 &&
+    individualReportClientData?.reduce(
+      (acc, obj) => acc + (+obj?.amount?.props?.children || 0),
+      0
+    );
+  const totalUrsNet =
+    clientData &&
+    clientData?.length > 0 &&
+    clientData?.reduce(
+      (acc, obj) => acc + (+obj?.ULnetPL?.props?.children || 0),
+      0
+    );
+  const totalUlShareNet =
+    clientData &&
+    clientData?.length > 0 &&
+    clientData?.reduce(
+      (acc, obj) => acc + (+obj?.afterAllSharePL?.props?.children || 0),
+      0
+    );
+  const totalUrsPlPlatform =
+    clientData &&
+    clientData?.length > 0 &&
+    clientData?.reduce(
+      (acc, obj) => acc + (+obj?.netPL?.props?.children || 0),
+      0
+    );
+  const totalPlatform =
+    clientData &&
+    clientData?.length > 0 &&
+    clientData?.reduce(
+      (acc, obj) =>
+        acc + (+obj?.individualReportPlatformComm?.props?.children || 0),
+      0
+    );
+  console.log(clientData, "clientData");
   return (
     <div>
       <hr />
-      <div className="mb-3">
+      <div className="mb-2">
         {reportList.map((report, index) => (
           <Button
             key={index}
@@ -96,18 +131,25 @@ function IndiviudalPLReport(props) {
           refData={refData}
           clientId={clientId}
           refClientId={refClientId}
+          clientData={clientData}
           individualRefferralData={individualRefferralData}
           indReportReferralData={indReportReferralData}
+          individualReportReferralData={individualReportReferralData}
+          totalClientPl={totalClientPl}
         />
       )}
       {activeReport === "U/L Share" && (
         <ULShareIndPlData
           individualReportULShareData={individualReportULShareData}
+          totalUlShareNet={totalUlShareNet}
+          totalUrsPlPlatform={totalUrsPlPlatform}
         />
       )}
       {activeReport === "Platform Comm P/L" && (
         <PlatformCommPL
           individualReportPlatformCommData={individualReportPlatformCommData}
+          totalUlShareNet={totalUlShareNet}
+          totalPlatform={totalPlatform}
         />
       )}
     </div>

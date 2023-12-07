@@ -72,9 +72,21 @@ function Settelment() {
       client_id: item.client_id,
       ClientName: item.client_name,
       RolePosition: item.account_role,
-      Amount: item.pending_amount,
-      CreditDebit: item.settled_amount,
-      Balance: <div className="clr-green">{item.total_amount}</div>,
+      Amount: (
+        <div className={item?.pending_amount > 0 ? "clr-green" : "clr-red"}>
+          {item?.pending_amount ? item?.pending_amount.toFixed(2) : 0}
+        </div>
+      ),
+      CreditDebit: (
+        <div className={item?.settled_amount > 0 ? "clr-green" : "clr-red"}>
+          {item?.settled_amount ? item?.total_amount.toFixed(2) : 0}
+        </div>
+      ),
+      Balance: (
+        <div className={item?.total_amount > 0 ? "clr-green" : "clr-red"}>
+          {item?.total_amount ? item?.total_amount.toFixed(2) : 0}
+        </div>
+      ),
       File: (
         <AiFillFileText
           className="custom-icon"
@@ -83,18 +95,7 @@ function Settelment() {
       ),
     };
   });
-  // const handleSettlement = async () => {
-  //   await call(OFFLINE_PAYMENT_SETTLEMENT, {
-  //     ...offlineSettlePayload,
-  //     register_id,
-  //     settledDate: moment(new Date()).format("DD/MM/YYYY"),
-  //     settledTime: moment(new Date()).format("hh:mm:ss"),
-  //   })
-  //     .then((res) => {
-  //       console.log(res);
-  //     })
-  //     .catch((err) => console.log(err));
-  // };
+
   const handleSettlement = async () => {
     setIsProcessing(true);
     await call(OFFLINE_PAYMENT_SETTLEMENT, {
@@ -129,7 +130,20 @@ function Settelment() {
     { header: "BALANCE", field: "Balance" },
     { field: "File" },
   ];
+  const totalAmount =
+    settlementData &&
+    settlementData?.length > 0 &&
+    settlementData?.reduce((acc, obj) => acc + (+obj?.total_amount || 0), 0);
 
+  const setteldAmount =
+    settlementData &&
+    settlementData?.length > 0 &&
+    settlementData?.reduce((acc, obj) => acc + (+obj?.settled_amount || 0), 0);
+
+  const pendingAmount =
+    settlementData &&
+    settlementData?.length > 0 &&
+    settlementData?.reduce((acc, obj) => acc + (+obj?.pending_amount || 0), 0);
   return (
     <div className="p-4">
       <h5 className="meetings-heading mb-3">Settlement</h5>
@@ -182,9 +196,15 @@ function Settelment() {
               <th colSpan={2} className="text-end medium-font">
                 Total
               </th>
-              <th className="text-center medium-font clr-green">500000.00</th>
-              <th className="text-center medium-font clr-green">500000.00</th>
-              <th className="text-center medium-font clr-green">500000.00</th>
+              <th className="text-center medium-font clr-green">
+                {totalAmount}
+              </th>
+              <th className="text-center medium-font clr-green">
+                {setteldAmount}
+              </th>
+              <th className="text-center medium-font clr-green">
+                {pendingAmount}
+              </th>
               <th className="text-center medium-font clr-green"></th>
             </tr>
           </tfoot>

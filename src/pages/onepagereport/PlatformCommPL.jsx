@@ -12,9 +12,24 @@ function PlatformCommPL(props) {
       platformcomm: item.individualReportPlatformComm,
     })
   );
+  const totalUrsPlPlatform =
+    individualReportPlatformCommData &&
+    individualReportPlatformCommData?.length > 0 &&
+    individualReportPlatformCommData?.reduce(
+      (acc, obj) => acc + (+obj?.netPL?.props?.children || 0),
+      0
+    );
+  const totalPlatform =
+    individualReportPlatformCommData &&
+    individualReportPlatformCommData?.length > 0 &&
+    individualReportPlatformCommData?.reduce(
+      (acc, obj) =>
+        acc + (+obj?.individualReportPlatformComm?.props?.children || 0),
+      0
+    );
   return (
-    <div>
-      <h6 className="Platform-Comm-PL-">Platform Comm:</h6>
+    <div className="mt-3">
+      {/* <h6 className="Platform-Comm-PL-">Platform Comm:</h6> */}
       <table className="w-100 match-position-table medium-font">
         <thead>
           <tr className="text-center">
@@ -39,20 +54,23 @@ function PlatformCommPL(props) {
               </tr>
             </tbody>
           ))}
-          {/* <tfoot>
-            <tr className="text-center">
-              <th colSpan={4} className="text-end">
-                TOTAL
-              </th>
-              <th colSpan={1} className="clr-green">
-                50000000.00
-              </th>
-            </tr>
-          </tfoot> */}
         </table>
       </div>
+      <table className="w-100 match-position-table medium-font">
+        <tfoot>
+          <tr className="text-center">
+            <th colSpan={10}>TOTAL</th>
+            <th className={totalUrsPlPlatform > 0 ? "clr-green" : "clr-red"}>
+              {totalUrsPlPlatform ? totalUrsPlPlatform?.toFixed(2) : 0}
+            </th>
+            <th className={totalPlatform > 0 ? "clr-green" : "clr-red"}>
+              {totalPlatform ? totalPlatform?.toFixed(2) : 0}
+            </th>
+          </tr>
+        </tfoot>
+      </table>
     </div>
   );
 }
 
-export default PlatformCommPL; 
+export default PlatformCommPL;

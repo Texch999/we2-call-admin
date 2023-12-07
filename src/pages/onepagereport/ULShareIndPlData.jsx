@@ -11,10 +11,23 @@ function ULShareIndPlData(props) {
       Ulshare: item.afterAllSharePL,
     })
   );
-  console.log(PAGE_REPORT_DETAILS, "one page report");
+  const totalUrsNet =
+    individualReportULShareData &&
+    individualReportULShareData?.length > 0 &&
+    individualReportULShareData?.reduce(
+      (acc, obj) => acc + (+obj?.ULnetPL?.props?.children || 0),
+      0
+    );
+  const totalUlShareNet =
+    individualReportULShareData &&
+    individualReportULShareData?.length > 0 &&
+    individualReportULShareData?.reduce(
+      (acc, obj) => acc + (+obj?.afterAllSharePL?.props?.children || 0),
+      0
+    );
   return (
-    <div>
-      <h6 className="Platform-Comm-PL-">UL Share P/L :</h6>
+    <div className="mt-3">
+      {/* <h6 className="Platform-Comm-PL-">UL Share P/L :</h6> */}
       <table className="w-100 match-position-table medium-font">
         <thead>
           <tr className="text-center">
@@ -41,14 +54,21 @@ function ULShareIndPlData(props) {
           ))}
         </table>
       </div>
-      {/* <table className="w-100 match-position-table medium-font">
+      <table className="w-100 match-position-table medium-font">
         <tfoot>
           <tr className="text-center">
-            <th className="text-end">TOTAL</th>
-            <th className="clr-green text-end">50000000.00</th>
+            <th></th>
+            <th></th>
+            <th colSpan={3}>TOTAL</th>
+            <th className={totalUrsNet > 0 ? "clr-green" : "clr-red"}>
+              {totalUrsNet ? totalUrsNet?.toFixed(2) : 0}
+            </th>
+            <th className={totalUlShareNet > 0 ? "clr-green" : "clr-red"}>
+              {totalUlShareNet ? totalUlShareNet?.toFixed(2) : 0}
+            </th>
           </tr>
         </tfoot>
-      </table> */}
+      </table>
     </div>
   );
 }

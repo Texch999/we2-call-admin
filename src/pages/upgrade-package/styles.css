@@ -263,6 +263,7 @@
   inset: 0px auto auto 0px;
   transform: translate3d(0px, 43px, 0px);
   width: 100%;
+  background: #112a5e;
 }
 .custom-menu-item .dropdown-item {
   background-color: #112a5e;

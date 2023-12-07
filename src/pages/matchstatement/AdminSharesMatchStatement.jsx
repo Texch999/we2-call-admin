@@ -12,6 +12,8 @@ import {
 } from "../../config/endpoints";
 import { call } from "../../config/axios";
 import { useEffect } from "react";
+import PaymentSettelmentPopup from "../setlment/PaymentSettelmentPopup";
+import AdminPaymentPopup from "../setlment/AdminPaymentPopup";
 
 const AdminSharesMatchStatement = () => {
   const [adminShareStatementMatchPopUp, setAdminShareStatementMatchPopUp] =
@@ -139,7 +141,7 @@ const AdminSharesMatchStatement = () => {
       })
       .catch((err) => console.log(err));
   };
-  console.log("clientsData", clientsData);
+  // console.log("clientsData", clientsData);
 
   useEffect(() => {
     getAdminShare();
@@ -203,7 +205,7 @@ const AdminSharesMatchStatement = () => {
     setShowMatchStatement((prev) => !prev);
   };
   const [allUsers, setAllUsers] = useState([]);
-
+  const [rerender, setRerender] = useState(false);
   const getAllUsers = async () => {
     await call(GET_OFFLINE_CLIENTS, { register_id })
       .then((res) => {
@@ -218,11 +220,37 @@ const AdminSharesMatchStatement = () => {
   };
   useEffect(() => {
     getAllUsers();
-  }, []);
+  }, [rerender]);
   const getUlShare = (netPl, ulShare) => {
     const netAmount = (+netPl || 0 * +ulShare || 0) / 100;
     return netAmount;
   };
+  const totalNetPl = allUsers.reduce(
+    (acc, obj) =>
+      acc +
+      (getUlShare(obj?.total_amount, obj?.ul_share) +
+        (+obj?.totalPlatformNet || 0) || 0),
+    0
+  );
+  const totalCD =
+    allUsers &&
+    allUsers?.length > 0 &&
+    allUsers?.reduce(
+      (acc, obj) => acc + (+obj?.settled_platform_amount || 0),
+      0
+    );
+  const totalBalance =
+    allUsers &&
+    allUsers?.length > 0 &&
+    allUsers?.reduce(
+      (acc, obj) => acc + (+obj?.pending_settlement_platform_amount || 0),
+      0
+    );
+  const totalPlatForm =
+    allUsers &&
+    allUsers?.length > 0 &&
+    allUsers?.reduce((acc, obj) => acc + (+obj?.totalPlatformNet || 0), 0);
+
   const ulPlatformComm =
     allUsers &&
     allUsers?.length > 0 &&
@@ -232,29 +260,87 @@ const AdminSharesMatchStatement = () => {
         admin_name: user?.client_name,
         admin_role: user?.account_role,
         ul_platform_comm: (
-          <div className={netPL >= 0 ? "clr-green" : "clr-red"}>
-            {netPL ? netPL?.toFixed(2) : 0}
+          <div className={`${netPL >= 0 ? "clr-green" : "clr-red"}`}>
+            {user?.totalPlatformNet ? user?.totalPlatformNet?.toFixed(2) : 0}
           </div>
         ),
       };
     });
+  const [showAdminPaymentModal, setShowAdminPaymentModal] = useState(false);
+  const [selectedUser, setSelectedUser] = useState("");
+  const [totalAmount, setTotalAmount] = useState(0);
+  const [pendinAmount, setPendingAmount] = useState(0);
+
+  const handlePaymentModal = (user) => {
+    setSelectedUser(user);
+    const resultAmount =
+      getUlShare(user?.total_amount, user?.ul_share) +
+      (+user?.totalPlatformNet || 0);
+    const pendinAmount =
+      user?.pending_settlement_platform_amount ||
+      user?.pending_settlement_platform_amount == 0
+        ? user?.pending_settlement_platform_amount
+          ? user?.pending_settlement_platform_amount?.toFixed(2)
+          : 0
+        : resultAmount
+        ? resultAmount?.toFixed(2)
+        : 0;
+    setTotalAmount(resultAmount);
+    setPendingAmount(pendinAmount);
+    setShowAdminPaymentModal(true);
+  };
   const AdminCommSattlementStatementData =
     allUsers &&
     allUsers?.length > 0 &&
     allUsers?.map((user) => {
-      const netPL = getUlShare(user?.total_amount, user?.ul_share);
+      // console.log("user testing...", user?.pending_settlement_platform_amount);
+      const netPL =
+        getUlShare(user?.total_amount, user?.ul_share) +
+        (+user?.totalPlatformNet || 0);
       return {
-        admin_name: user?.client_name,
-        admin_role: user?.account_role,
+        admin_name: <div>{user?.client_name}</div>,
+        admin_role: <div> {user?.account_role}</div>,
         amount: (
           <div className={netPL >= 0 ? "clr-green" : "clr-red"}>
-            {netPL ? netPL?.toFixed(3) : 0}
+            {netPL ? netPL?.toFixed(2) : 0}
           </div>
         ),
-        credit_debit: "100000.00",
-        balance: "100000.00",
+        // credit_debit: user?.settled_platform_amount || 0,
+        credit_debit: (
+          <div
+            className={
+              user?.settled_platform_amount > 0 ? "clr-green" : "clr-red"
+            }
+          >
+            {user?.settled_platform_amount
+              ? user?.settled_platform_amount.toFixed(2)
+              : 0}
+          </div>
+        ),
+
+        balance: (
+          <div className={netPL >= 0 ? "clr-green" : "clr-red"}>
+            {user?.pending_settlement_platform_amount ||
+            user?.pending_settlement_platform_amount == 0
+              ? user?.pending_settlement_platform_amount
+                ? user?.pending_settlement_platform_amount?.toFixed(2)
+                : 0
+              : netPL
+              ? netPL?.toFixed(2)
+              : 0}
+          </div>
+        ),
+        pay: (
+          <div
+            className="text-warning rounded-circle border-0 settlement-file-button"
+            onClick={() => +netPL !== 0 && handlePaymentModal(user)}
+          >
+            {+netPL === 0 ? "N/A" : "pay"}
+          </div>
+        ),
       };
     });
+  // console.log(AdminCommSattlementStatementData,"Sangram ............AdminCommSattlementStatementData")
   return (
     <div className="p-4">
       <div className="mb-3">
@@ -399,6 +485,8 @@ const AdminSharesMatchStatement = () => {
             <div className="d-flex justify-content-end mt-2">
               <CustomPagination
                 totalPages={totalPages}
+
+
                 currentPage={currentPage}
                 onPageChange={handlePageChange}
               />
@@ -408,13 +496,28 @@ const AdminSharesMatchStatement = () => {
       )} */}
       {activeReport === "Admins OnePageReport" && <AdminOnePageReport />}
       {activeReport === "U/L Comm Report" && (
-        <AdminComissionReport ulPlatformComm={ulPlatformComm} />
+        <AdminComissionReport
+          ulPlatformComm={ulPlatformComm}
+          totalPlatForm={totalPlatForm}
+        />
       )}
       {activeReport === "Admins Share/Comm Settlement-Statement Report" && (
         <AdminShareCommSettlement
           AdminCommSattlementStatementData={AdminCommSattlementStatementData}
+          totalNetPl={totalNetPl}
+          totalCD={totalCD}
+          totalBalance={totalBalance}
+          getUlShare={getUlShare}
         />
       )}
+      <AdminPaymentPopup
+        showAdminPaymentModal={showAdminPaymentModal}
+        setShowAdminPaymentModal={setShowAdminPaymentModal}
+        selectedUser={selectedUser}
+        totalAmount={totalAmount}
+        pendinAmount={pendinAmount}
+        setRerender={setRerender}
+      />
     </div>
   );
 };
