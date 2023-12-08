@@ -272,6 +272,10 @@
 .w-20 {
   width: 20%;
 }
+.qr-code {
+  height: 100px;
+  width: 100px;
+}
 .custom-menu-item .btn-check:checked + .btn,
 .btn.active,
 .btn.show,
