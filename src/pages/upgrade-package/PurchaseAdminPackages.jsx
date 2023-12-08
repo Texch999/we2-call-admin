@@ -16,6 +16,7 @@ function PurchaseAdminPackages() {
   const [showPackagePopup, setShowPackagePopup] = useState(false);
   const [yearly, setYearly] = useState(false);
   const [allPackages, setAllPackages] = useState([]);
+  const [selectPackage, setSelectPackage] = useState(false);
   const dispatch = useDispatch();
   const handlePackageAvailable = () => {
     setPackageAvailablePopup(!packageAvailablePopup);
@@ -499,6 +500,10 @@ function PurchaseAdminPackages() {
     },
   ];
 
+  const handlePayments = () => {
+    packageList.length > 0 ? setShowPackagePopup(true) : setSelectPackage(true);
+  };
+
   return (
     <div>
       <div className="row mt-3">
@@ -663,9 +668,10 @@ function PurchaseAdminPackages() {
             <div className="p-1">Package Selected</div>
           </div>
         </div>
+        {selectPackage && <div className="clr-red">Please Select Packages</div>}
         <div
           className="next-div rounded-pill  d-flex align-items-center justify-content-around"
-          onClick={() => setShowPackagePopup(true)}
+          onClick={() => handlePayments()}
         >
           <div className=" mb-0 fw-semibold p-1">Next</div>
           <FaArrowRight className="h4 mb-0" />
