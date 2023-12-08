@@ -2,9 +2,11 @@ import Table from "../home-page/Table";
 import { Images } from "./../../images/index";
 import { FaPlus, FaMinus, FaArrowRight } from "react-icons/fa6";
 import { PiHandbagBold } from "react-icons/pi";
-import { GET_ADMIN_PACKAGES } from "../../config/endpoints";
+import { GET_ADMIN_PACKAGES, GET_ALL_PACKAGES } from "../../config/endpoints";
 import { call } from "../../config/axios";
 import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setSelectedPackages } from "../../redux/actions/commonActions";
 
 function PurchaseTopupHours() {
   const adminPackageTable = "admin-package-table";
@@ -22,9 +24,7 @@ function PurchaseTopupHours() {
             src={Images.StandardSmallImg}
             alt="Standard_Small"
           />
-         {/* {adminPackages.map((item) => { */}
-            <div className="px-2"> Standard</div>
-          {/* })} */}
+          <div className="px-2"> Standard</div>
         </div>
       ),
       purchased: <div>20h</div>,
@@ -383,43 +383,125 @@ function PurchaseTopupHours() {
     {
       packageImg: Images.StandardPackage,
       packageName: "Standard Package",
+      package_name: "standard",
+      cost: 0,
       packageAmount: 100,
     },
     {
       packageImg: Images.SilverSelectPackage,
       packageName: "Silver Package",
+      package_name: "silver",
+      cost: 0,
       packageAmount: 200,
     },
     {
       packageImg: Images.GoldPackage,
       packageName: "Gold Package",
+      package_name: "gold",
+      cost: 0,
       packageAmount: 300,
     },
     {
       packageImg: Images.DiamondPackage,
       packageName: "Diamond Package",
+      package_name: "diamond",
+      cost: 0,
       packageAmount: Intl.NumberFormat("en-IN").format(400),
     },
     {
       packageImg: Images.VIPPackage,
       packageName: "VIP Package",
+      package_name: "vip",
+      cost: 0,
       packageAmount: Intl.NumberFormat("en-IN").format(500),
     },
   ];
 
-  // PACKAGES_DATA = PACKAGES_DATA.map((obj) => {
-  //   let noOfpackages = 0;
-  //   adminPackages?.forEach((obj1) => {
-  //     if (obj?.packageType?.toLocaleLowerCase() == obj1.package_name) {
-  //       noOfpackages += obj1.no_of_packages || 1;
-  //       obj = {
-  //         ...obj,
-  //         purchase: noOfpackages,
-  //       };
-  //     }
-  //   });
-  //   return obj;
-  // });
+  const [allHourspackages, setAllHourspackages] = useState([]);
+
+  const dispatch = useDispatch();
+  const packageList =
+    useSelector((State) => State.common.selected_packages) || [];
+  const selectedPackages = packageList.reduce(
+    (acc, obj) => acc + obj.no_of_packages,
+    0
+  );
+
+  const handleSubHourly = (itm) => {
+    console.log(itm, ".......item");
+    const updatedSelectedPackagesHourly = allHourspackages.map((i) =>
+      i.package_name === itm?.package_name
+        ? { ...i, no_of_packages: i.no_of_packages - 1 }
+        : i
+    );
+    setAllHourspackages(updatedSelectedPackagesHourly);
+    const packageForRedux = updatedSelectedPackagesHourly
+      .filter((obj) => obj.no_of_packages > 0)
+      .map((obj) => {
+        return {
+          cost: obj.cost,
+          package_id: obj.package_id,
+          no_of_packages: obj.no_of_packages,
+          package_name: obj.package_name,
+          duration: obj.package_duration,
+        };
+      });
+    dispatch(setSelectedPackages(packageForRedux));
+  };
+
+  const handleAddHourly = (itm) => {
+    const updatedSelectedPackagesHourly = allHourspackages.map((i) =>
+      i.package_name === itm?.package_name
+        ? { ...i, no_of_packages: (i.no_of_packages || 0) + 1 }
+        : i
+    );
+    setAllHourspackages(updatedSelectedPackagesHourly);
+    const packageForRedux = updatedSelectedPackagesHourly
+      .filter((obj) => obj.no_of_packages > 0)
+      .map((obj) => {
+        return {
+          cost: obj.cost,
+          package_id: obj.package_id,
+          no_of_packages: obj.no_of_packages,
+          package_name: obj.package_name,
+          duration: obj.duration,
+        };
+      });
+    dispatch(setSelectedPackages(packageForRedux));
+  };
+
+  const getAllPackages = async () => {
+    await call(GET_ALL_PACKAGES, { package_type: true })
+      .then((res) => {
+        if (res.data.status === 200) {
+          const response = res.data.data;
+          const updateResponse = getUpdatedPackData(response);
+          setAllHourspackages(updateResponse);
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+  useEffect(() => {
+    getAllPackages();
+  }, []);
+
+  const getUpdatedPackData = (allPackagesInfo) => {
+    return SELECT_PACKAGE.map((itm) => {
+      const responseObj = allPackagesInfo?.find(
+        (obj) => itm.package_name === obj.package_name
+      );
+      if (responseObj) {
+        return {
+          ...itm,
+          cost: responseObj.package_cost,
+          package_id: responseObj.package_id,
+          no_of_packages: responseObj.no_of_packages || 0,
+          package_name: responseObj.package_name,
+          duration: responseObj.package_duration,
+        };
+      } else return itm;
+    });
+  };
 
   return (
     <div>
@@ -499,7 +581,7 @@ function PurchaseTopupHours() {
       </div>
       <div className="row mt-3">
         <div className="col">
-          {SELECT_PACKAGE?.map((item, index) => (
+          {allHourspackages?.map((item, index) => (
             <div
               className="select-package-div rounded p-1 px-3 mt-2"
               key={index}
@@ -518,9 +600,15 @@ function PurchaseTopupHours() {
                 </div>
                 <div className="col-sm-4 col-lg-3">
                   <div className="add-button rounded p-2 d-flex align-items-center justify-content-evenly">
-                    <FaMinus />
-                    <div className="fw-semibold">ADD</div>
-                    <FaPlus />
+                    <FaMinus
+                      onClick={() =>
+                        item?.no_of_packages ? handleSubHourly(item) : null
+                      }
+                    />
+                    <div className="fw-semibold">
+                      {item?.no_of_packages ? item?.no_of_packages : " Add"}
+                    </div>
+                    <FaPlus onClick={() => handleAddHourly(item)} />
                   </div>
                 </div>
               </div>
@@ -535,10 +623,13 @@ function PurchaseTopupHours() {
           />
         </div>
       </div>
-      <div className="w-100 package-cart-div rounded p-2 mt-3 d-flex align-items-center justify-content-between">
+      <div className="w-95 package-cart-div rounded p-2 m-2 d-flex align-items-center justify-content-between">
         <div className="d-flex align-items-center justify-content-around">
           <PiHandbagBold className="h4 mb-0" />
-          <div className="h5 mb-0 fw-semibold">1 Package Selected</div>
+          <div className="h5 mb-0 fw-semibold d-flex">
+            <div className="selected-numbers p-1">{selectedPackages}</div>
+            <div className="p-1">Hours Selected</div>
+          </div>
         </div>
         <div className="next-div rounded-pill p-1 px-2 d-flex align-items-center justify-content-around">
           <div className="h5 mb-0 fw-semibold">Next</div>

@@ -91,11 +91,10 @@ const ShareRiskLiveMatches = () => {
     const netAmount = (+netPl * +ulShare) / 100;
     return netAmount;
   };
-
   const totalWin =
     liveMatches &&
     liveMatches?.length > 0 &&
-    liveMatches?.reduce(
+    liveMatches.reduce(
       (acc, obj) =>
         acc +
         (getUlShare(
@@ -107,7 +106,7 @@ const ShareRiskLiveMatches = () => {
   const totalLoss =
     liveMatches &&
     liveMatches?.length > 0 &&
-    liveMatches?.reduce(
+    liveMatches.reduce(
       (acc, obj) =>
         acc +
         (getUlShare(
@@ -116,59 +115,115 @@ const ShareRiskLiveMatches = () => {
         ) || 0),
       0
     );
-  console.log({ totalLoss, totalWin });
   const matchDetails =
     liveMatches &&
-    liveMatches?.length > 0 &&
-    liveMatches?.map((match) => {
-      return {
-        match: `${match?.team1} vs ${match?.team2}`,
-        matchMode: match?.series_name,
-        venue: match?.stadium,
-        date: moment(match?.matchTimeStamp).format("DD-MM-YYYY"),
-        time: moment(match?.matchTimeStamp).format("hh:mm A"),
-        user: (
-          <div className="flex-start flex-column">
-            <div>{match?.user_name}</div>
-          </div>
-        ),
-        role: match?.account_role,
-        teama: (
-          <div
-            className={`font-size-12 w-20 flex-center ${
-              getUlShare(
+    (liveMatches?.length > 0) &
+      liveMatches?.map((match) => {
+        return {
+          match: `${match.taem1} vs ${match?.team2}`,
+          matchMode: match?.series_name,
+          venue: match?.stadium,
+          date: moment(match?.matchTimeStamp).format("DD-MM-YY"),
+          time: moment(match?.matchTimeStamp).format("hh:mm A"),
+          user: (
+            <div>
+              <div>{match?.user_name}</div>
+            </div>
+          ),
+          role: match?.account_role,
+          teama: (
+            <div
+              className={`font-12 d-flex justify-content-center align-items-center ${
+                getUlShare(
+                  match?.matchRiskObject?.winCalculation?.profiltLoss,
+                  match?.ul_share
+                ) >= 0
+                  ? "clr-green"
+                  : "clr-red"
+              }`}
+            >
+              {getUlShare(
                 match?.matchRiskObject?.winCalculation?.profiltLoss,
                 match?.ul_share
-              ) >= 0
-                ? "clr-green"
-                : "clr-red"
-            }`}
-          >
-            {getUlShare(
-              match?.matchRiskObject?.winCalculation?.profiltLoss,
-              match?.ul_share
-            )}
-          </div>
-        ),
-        teamb: (
-          <div
-            className={`font-size-12 w-20 flex-center ${
-              getUlShare(
+              )}
+            </div>
+          ),
+          teamb: (
+            <div
+              className={`font-12 d-flex justify-content-center align-items-center ${
+                getUlShare(
+                  match?.matchRiskObject?.loseCalcultion?.profiltLoss,
+                  match?.ul_share
+                ) >= 0
+                  ? "clr-green"
+                  : "clr-red"
+              }`}
+            >
+              {getUlShare(
                 match?.matchRiskObject?.loseCalcultion?.profiltLoss,
                 match?.ul_share
-              ) >= 0
-                ? "clr-green"
-                : "clr-red"
-            }`}
-          >
-            {getUlShare(
-              match?.matchRiskObject?.loseCalcultion?.profiltLoss,
-              match?.ul_share
-            )}
-          </div>
-        ),
-      };
-    });
+              )}
+            </div>
+          ),
+        };
+      });
+  // const matchDetails =
+  //   liveMatches &&
+  //   liveMatches?.length > 0 &&
+  //   liveMatches?.map((match) => {
+  //     return {
+  //       match: `${match?.team1} vs ${match?.team2}`,
+  //       matchMode: match?.series_name,
+  //       venue: match?.stadium,
+  //       date: moment(match?.matchTimeStamp).format("DD-MM-YYYY"),
+  //       time: moment(match?.matchTimeStamp).format("hh:mm A"),
+  //       user: (
+  //         <div className="flex-start flex-column">
+  //           <div>{match?.user_name}</div>
+  //         </div>
+  //       ),
+  //       role: match?.account_role,
+  //       teama: (
+  //         <div
+  //           className={`font-size-12 w-20 flex-center ${
+  //             getUlShare(
+  //               match?.matchRiskObject?.winCalculation?.profiltLoss,
+  //               match?.ul_share
+  //             ) >= 0
+  //               ? "green-clr"
+  //               : "red-clr"
+  //           }`}
+  //         >
+  //           {getUlShare(
+  //             match?.matchRiskObject?.winCalculation?.profiltLoss,
+  //             match?.ul_share
+  //           )}
+  //         </div>
+  //       ),
+  //       teamb: (
+  //         <div
+  //           className={`font-size-12 w-20 flex-center ${
+  //             getUlShare(
+  //               match?.matchRiskObject?.loseCalcultion?.profiltLoss,
+  //               match?.ul_share
+  //             ) >= 0
+  //               ? "green-clr"
+  //               : "red-clr"
+  //           }`}
+  //         >
+  //           {getUlShare(
+  //             match?.matchRiskObject?.loseCalcultion?.profiltLoss,
+  //             match?.ul_share
+  //           )}
+  //         </div>
+  //       ),
+  //     };
+  //   });
+  const [showMatchDetails, setShowMatchDetails] = useState(false);
+  const handleDownArrow = () => {
+    setShowMatchDetails((prev) => !prev);
+  };
+
   const getLiveMatches = async () => {
     await call(GET_LIVE_MATCH_RISK_POSITION, {
       register_id,
@@ -185,6 +240,105 @@ const ShareRiskLiveMatches = () => {
   useEffect(() => {
     getLiveMatches();
   }, []);
+
+  // const getUlShare = (netPl, ulShare) => {
+  //   const netAmount = (+netPl * +ulShare) / 100;
+  //   return netAmount;
+  // };
+
+  // const totalWin =
+  //   liveMatches &&
+  //   liveMatches?.length > 0 &&
+  //   liveMatches?.reduce(
+  //     (acc, obj) =>
+  //       acc +
+  //       (getUlShare(
+  //         obj?.matchRiskObject?.winCalculation?.profiltLoss,
+  //         obj?.ul_share
+  //       ) || 0),
+  //     0
+  //   );
+  // const totalLoss =
+  //   liveMatches &&
+  //   liveMatches?.length > 0 &&
+  //   liveMatches?.reduce(
+  //     (acc, obj) =>
+  //       acc +
+  //       (getUlShare(
+  //         obj?.matchRiskObject?.winCalculation?.profiltLoss,
+  //         obj?.ul_share
+  //       ) || 0),
+  //     0
+  //   );
+  // console.log({ totalLoss, totalWin });
+  // const matchDetails =
+  //   liveMatches &&
+  //   liveMatches?.length > 0 &&
+  //   liveMatches?.map((match) => {
+  //     return {
+  //       match: `${match?.team1} vs ${match?.team2}`,
+  //       matchMode: match?.series_name,
+  //       venue: match?.stadium,
+  //       date: moment(match?.matchTimeStamp).format("DD-MM-YYYY"),
+  //       time: moment(match?.matchTimeStamp).format("hh:mm A"),
+  //       user: (
+  //         <div className="flex-start flex-column">
+  //           <div>{match?.user_name}</div>
+  //         </div>
+  //       ),
+  //       role: match?.account_role,
+  //       teama: (
+  //         <div
+  //           className={`font-size-12 w-20 flex-center ${
+  //             getUlShare(
+  //               match?.matchRiskObject?.winCalculation?.profiltLoss,
+  //               match?.ul_share
+  //             ) >= 0
+  //               ? "clr-green"
+  //               : "clr-red"
+  //           }`}
+  //         >
+  //           {getUlShare(
+  //             match?.matchRiskObject?.winCalculation?.profiltLoss,
+  //             match?.ul_share
+  //           )}
+  //         </div>
+  //       ),
+  //       teamb: (
+  //         <div
+  //           className={`font-size-12 w-20 flex-center ${
+  //             getUlShare(
+  //               match?.matchRiskObject?.loseCalcultion?.profiltLoss,
+  //               match?.ul_share
+  //             ) >= 0
+  //               ? "clr-green"
+  //               : "clr-red"
+  //           }`}
+  //         >
+  //           {getUlShare(
+  //             match?.matchRiskObject?.loseCalcultion?.profiltLoss,
+  //             match?.ul_share
+  //           )}
+  //         </div>
+  //       ),
+  //     };
+  //   });
+  // const getLiveMatches = async () => {
+  //   await call(GET_LIVE_MATCH_RISK_POSITION, {
+  //     register_id,
+  //   })
+  //     .then(async (res) => {
+  //       const results = res?.data?.data.filter(
+  //         (i) => i?.match_declared !== "Y"
+  //       );
+  //       setLiveMatches(results);
+  //     })
+  //     .catch((err) => console.log(err));
+  // };
+
+  // useEffect(() => {
+  //   getLiveMatches();
+  // }, []);
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = 5;
 
@@ -217,15 +371,16 @@ const ShareRiskLiveMatches = () => {
             {matchDetails?.length &&
               matchDetails?.map((data, index) => (
                 <tr key={index}>
-                  <td className="text-center">{data?.date}{data?.time}</td>
+                  <td className="text-center">
+                    {data?.date}
+                    {data?.time}
+                  </td>
                   <td className="text-center">{data?.matchMode}</td>
                   <td
                     className="text-center clr-yellow cursor-pointer"
                     onClick={() =>
                       history.push(
-                        `/match-share-risk/${encodeURIComponent(
-                          data?.match
-                        )}`
+                        `/match-share-risk/${encodeURIComponent(data?.match)}`
                       )
                     }
                   >

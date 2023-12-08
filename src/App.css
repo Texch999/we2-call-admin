@@ -40,8 +40,8 @@ body {
 .marqu-tag {
   background: #fce719;
   color: #080c27;
-  padding: 10px;
-  font-size: 12px;
+  padding: 5px;
+  font-size: 14px;
 }
 .danger {
   color: red;

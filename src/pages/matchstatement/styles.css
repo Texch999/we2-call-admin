@@ -126,7 +126,7 @@
 }
 .harizental-scroll {
   overflow-x: scroll;
-  width: 60vw;
+  width: 65vw;
 }
 .harizental-scroll div {
   display: -webkit-inline-flex;

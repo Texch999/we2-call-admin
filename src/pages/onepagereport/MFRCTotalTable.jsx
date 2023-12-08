@@ -1,7 +1,14 @@
 import React from "react";
 
 function MFRCTotalTable(props) {
-  const { induvisualClientData } = props;
+  const {
+    induvisualClientData,
+    totalFancyPl,
+    totalMfComm,
+    totalRoleComm,
+    totalMasterPL,
+  } = props;
+
   const MFRC_DETAILS =
     induvisualClientData?.length &&
     induvisualClientData?.map((item, index) => {
@@ -14,7 +21,7 @@ function MFRCTotalTable(props) {
         mfc_crc: item.masterProfitloss,
       };
     });
-    
+
   return (
     <div>
       <table className="w-100 match-position-table small-font">
@@ -52,16 +59,24 @@ function MFRCTotalTable(props) {
       </div>
       <table className="w-100 match-position-table small-font">
         <tfoot className="px-4">
-          <tr className="text-center clr-green">
+          <tr className="text-center">
             <th className="w-20">TOTAL</th>
-            <th className="w-20">1000000.00</th>
-            <th className="w-20">1000000.00</th>
-            <th className="w-20">1000000.00</th>
-            <th className="w-20">1000000.00</th>
-            <th className="w-20">1000000.00</th>
+            <th className="w-20"></th>
+            <th className={totalFancyPl > 0 ? "clr-green" : "clr-red"}>
+              {totalFancyPl ? totalFancyPl.toFixed(2) : 0}
+            </th>
+            <th className={totalMfComm > 0 ? "clr-green" : "clr-red"}>
+              {totalMfComm ? totalMfComm.toFixed(2) : 0}
+            </th>
+            <th className={totalRoleComm > 0 ? "clr-green" : "clr-red"}>
+              {totalRoleComm ? totalRoleComm.toFixed(2) : 0}
+            </th>
+            <th className={totalMasterPL > 0 ? "clr-green" : "clr-red"}>
+              {totalMasterPL ? totalMasterPL.toFixed(2) : 0}
+            </th>
           </tr>
         </tfoot>
-      </table> 
+      </table>
     </div>
   );
 }

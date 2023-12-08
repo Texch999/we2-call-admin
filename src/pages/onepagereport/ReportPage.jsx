@@ -52,19 +52,6 @@ function ReportPage() {
     setRefName(name);
     setRefId(refId);
   };
-  // const getIndividualPLReport = async (clientId) => {
-  //   await call(GET_COMPLETED_MATCHES_BY_CLEINT, {
-  //     register_id,
-  //     account_role,
-  //     client_id: clientId,
-  //   })
-  //     .then((res) => {
-  //       console.log("res.data.data", res.data);
-  //       setIndividualClientData(res?.data?.data);
-  //       setInduvisualClientStatus((prev) => !prev);
-  //     })
-  //     .catch((err) => console.log(err));
-  // };
   const getRefferalData = async () => {
     await call(GET_REFFERAL_DATA, { register_id })
       .then((res) => {
@@ -72,74 +59,26 @@ function ReportPage() {
       })
       .catch((err) => console.log(err));
   };
-
-  // console.log(refData, ".....refData");
-
   const individualReportReferralData =
     refData &&
     refData?.length > 0 &&
     refData?.map((ref) => {
       return {
-        referral_id: ref?.referral_name,
-        amount: 1000000.0,
+        referral_name: ref?.referral_name,
+        referral_id: ref?.refferal_id,
+        amount: (
+          <div
+            className={ref?.total_profit_or_loss >= 0 ? "clr-green" : "clr-red"}
+          >
+            {ref?.total_profit_or_loss
+              ? ref?.total_profit_or_loss?.toFixed(2)
+              : 0}
+          </div>
+        ),
         onClick: () => handleReferralId(ref?.referral_name, ref?.refferal_id),
       };
     });
   const [clientName, setClientName] = useState("");
-
-  // const onePageReportdata1 =
-  //   onePageReportData?.length > 0 &&
-  //   onePageReportData?.map((report) => {
-  //     const totalAmountAfterCommission =
-  //       parseFloat(report?.amount || 0) +
-  //       parseFloat(report?.clientComission || 0);
-  //     const clienPL =
-  //       parseFloat(report?.amount || 0) +
-  //       parseFloat(report?.clientShare || 0) +
-  //       parseFloat(report?.clientComission || 0);
-  //     const rfNet =
-  //       parseFloat(report?.referalShare || 0) +
-  //       parseFloat(report?.referralComission || 0);
-  //     return {
-  //       referralComission: (
-  //         <div
-  //           className="client-name-role-container mb-5 mt-5"
-  //           onClick={() => {
-  //             getIndividualPLReport(report?.client_id);
-  //             setInduvisualClientName(report?.client_name);
-  //           }}
-  //         >
-  //           <div>{report?.client_name}</div>
-  //           <div
-  //             className={
-  //               totalAmountAfterCommission >= 0 ? "green-clr" : "clr-red"
-  //             }
-  //           >
-  //             {totalAmountAfterCommission}
-  //           </div>
-  //         </div>
-  //       ),
-  //       clientShare: (
-  //         <div className={clienPL >= 0 ? "green-clr" : "clr-red"}>
-  //           {clienPL}
-  //         </div>
-  //       ),
-  //       referalShare: (
-  //         <div className={rfNet >= 0 ? "green-clr" : "clr-red"}>{rfNet}</div>
-  //       ),
-  //       masterProfitloss:
-  //         (
-  //           <div
-  //             className={
-  //               report?.totalLossOrProfit >= 0 ? "green-clr" : "clr-red"
-  //             }
-  //           >
-  //             {report?.totalLossOrProfit}
-  //           </div>
-  //         ) || 0,
-  //     };
-  //   });
-
   const induvisualClientData =
     individualClientData &&
     individualClientData?.length > 0 &&
@@ -215,18 +154,8 @@ function ReportPage() {
       })
       .catch((err) => console.log(err));
   };
-
-  // const getIndivisualMatchReport = async (client_id) => {
-  //   await call(GET_INDUVISUAL_MATCH_REPORT, { register_id, client_id })
-  //     .then((res) => {
-  //       setIndivisualMatchReportData(res?.data?.data);
-  //     })
-  //     .catch((err) => console.log(err));
-  // };
-
-  console.log(onePageReportData, "........SAngramonePageReportData");
   const ONE_PAGE_REPORT_DETAILS =
-    onePageReportData.length &&
+    onePageReportData?.length>0 &&
     onePageReportData?.map((item) => {
       const totalAmountAfterCommission =
         parseFloat(item?.amount || 0) + parseFloat(item?.clientComission || 0);
@@ -246,24 +175,27 @@ function ReportPage() {
               totalAmountAfterCommission >= 0 ? "clr-green" : "clr-red"
             }
           >
-            {totalAmountAfterCommission}
+            {totalAmountAfterCommission
+              ? totalAmountAfterCommission.toFixed(2)
+              : 0}
           </div>
         ),
-        // mfrc: item.amount,
         cnet: (
           <div className={clienPL >= 0 ? "clr-green" : "clr-red"}>
             {clienPL}
           </div>
         ),
         rfnet: (
-          <div className={rfNet >= 0 ? "clr-green" : "clr-red"}>{rfNet}</div>
+          <div className={rfNet >= 0 ? "clr-green" : "clr-red"}>
+            {rfNet ? rfNet.toFixed(2) : 0}
+          </div>
         ),
         totalpl:
           (
             <div
               className={item?.totalLossOrProfit >= 0 ? "clr-green" : "clr-red"}
             >
-              {item?.totalLossOrProfit}
+              {item?.totalLossOrProfit ? item?.totalLossOrProfit.toFixed(2) : 0}
             </div>
           ) || 0,
       };
@@ -278,7 +210,6 @@ function ReportPage() {
         setCompleteMatchesData(
           res?.data?.data?.filter((item) => item?.match_declared === "Y")
         );
-        // console.log(result,"result");
       })
       .catch((err) => {
         throw err;
@@ -365,7 +296,9 @@ function ReportPage() {
           <div
             className={match?.totalLossOrProfit >= 0 ? "clr-green" : "clr-red"}
           >
-            {match?.totalLossOrProfit}
+            {match?.totalLossOrProfit
+              ? match?.totalLossOrProfit?.toFixed(2)
+              : 0}
           </div>
         ),
       };
@@ -388,7 +321,7 @@ function ReportPage() {
             )
           }
         >
-          {report?.totalLossOrProfit}
+          {report?.totalLossOrProfit ? report?.totalLossOrProfit.toFixed(2) : 0}
         </div>
       ),
     }));
@@ -428,7 +361,16 @@ function ReportPage() {
     clientsDataForRefferal?.map((client) => {
       return {
         referral_name: client?.client_name,
-        amount: 100000,
+        // amount: 100000,
+        amount: (
+          <div
+            className={client?.referralTotalNet > 0 ? "clr-green" : "clr-red"}
+          >
+            {client?.referralTotalNet
+              ? client?.referralTotalNet?.toFixed(2)
+              : 0}
+          </div>
+        ),
         onClick: () =>
           handleReportReferral(client?.client_name, client?.client_id),
       };
@@ -448,11 +390,11 @@ function ReportPage() {
   }, []);
 
   return (
-    <div className="p-4">
+    <div className="p-3">
       <h5 className="meetings-heading mb-3">
         Your Book Client One Page Report
       </h5>
-      <div className="mb-3">
+      <div className="mb-2">
         {reportList.map((report, index) => (
           <Button
             key={index}
@@ -465,7 +407,7 @@ function ReportPage() {
           </Button>
         ))}
       </div>
-      <div className="hr-line mt-4"></div>
+      <div className="hr-line mt-3"></div>
       {activeReport === "One Page Report" ? (
         <OnePageReport
           ONE_PAGE_REPORT_DETAILS={ONE_PAGE_REPORT_DETAILS}

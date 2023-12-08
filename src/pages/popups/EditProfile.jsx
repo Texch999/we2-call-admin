@@ -31,13 +31,13 @@ function EditProfile(props) {
   const [status, setStatus] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
 
-  const getProfile = async (id) => {
+  const getProfile = async () => {
     const payload = {
       register_id,
     };
     try {
       const res = await call(GET_USER_INFO, payload);
-      const userProfileData = res?.data?.data;
+      const userProfileData = res?.data?.data[0];
       setFormData({
         first_name: userProfileData?.first_name || "",
         last_name: userProfileData?.last_name || "",
@@ -50,7 +50,6 @@ function EditProfile(props) {
       console.log(err);
     }
   };
-
   const generateSignedUrl = async () => {
     setIsProcessing(true);
     await call(GENERATE_SIGNED_URL, {
@@ -68,7 +67,6 @@ function EditProfile(props) {
         console.log("generating signed url error", err);
       });
   };
-
   useEffect(() => {
     getProfile();
   }, []);
@@ -83,15 +81,16 @@ function EditProfile(props) {
   const validateForm = () => {
     const isUserNameValid = formData.user_name.trim() !== "";
     const isMobileNumberValid = formData.mobile_no.trim() !== "";
-
     setIsUserNameValid(isUserNameValid);
     setIsMobileNumberValid(isMobileNumberValid);
-
     return isUserNameValid && isMobileNumberValid;
   };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleUploadFileSelect = (e) => {
+    const file = e.target.files[0];
+    setProfileImage(file);
+    generateSignedUrl();
+  };
+  const handleSubmit = async () => {
     singedUrl &&
       profileImage &&
       (await fetch(singedUrl, {
@@ -102,7 +101,9 @@ function EditProfile(props) {
           "cache-control": "public, max-age=0",
         },
       })
-        .then((res) => {})
+        .then((res) => {
+          return true;
+        })
         .catch((err) => {
           console.log("err: ", err);
         }));
@@ -116,7 +117,6 @@ function EditProfile(props) {
         user_name: formData.user_name,
         profile_image: `${ImageBaseUrl}/${"profile-images"}/${register_id}.png`,
       };
-
       try {
         setIsProcessing(true);
         const response = await call(UPDATE_PROFILE, updatedProfile);
@@ -138,7 +138,6 @@ function EditProfile(props) {
     }
   };
 
-
   return (
     <Modal onHide={close} show={show} centered className="add-user-modal">
       <Modal.Header closeButton>
@@ -146,8 +145,6 @@ function EditProfile(props) {
           Edit Your Information
         </Modal.Title>
       </Modal.Header>
-      <center>Update Your details</center>
-
       <center>
         <img
           src={formData?.profileImage || Images.BatBall}
@@ -162,24 +159,22 @@ function EditProfile(props) {
             type="file"
             id="upload-button"
             style={{ display: "none" }}
-            onChange={(e) => {
-              setProfileImage(e?.target?.files[0]);
-              generateSignedUrl();
-            }}
+            onChange={handleUploadFileSelect}
           />
         </div>
       </center>
       <Modal.Body>
         <Form className="add-user-modal-form-details">
-          <Form.Group className="mb-3" controlId="user_name">
-            <Form.Label>User Name/ Full Name</Form.Label>
+          <Form.Group className="mb-2" controlId="user_name">
+            <Form.Label>User Name / Full Name</Form.Label>
             <InputGroup>
               <Form.Control
                 type="text"
+                className="h-38px"
                 placeholder="Enter Name"
                 autoFocus
                 name="first_name"
-                value={formData.first_name}
+                value={formData?.first_name}
                 onChange={handleChange}
               />
             </InputGroup>
@@ -188,7 +183,7 @@ function EditProfile(props) {
             <Row>
               <Col>
                 <Form.Group
-                  className="mb-3 position-relative"
+                  className="mb-2 position-relative"
                   controlId="userId"
                 >
                   <Form.Label>Email ID</Form.Label>
@@ -197,26 +192,26 @@ function EditProfile(props) {
                       type="input"
                       placeholder="Enter Email ID"
                       autoFocus
-                      className="fs-8rem"
+                      className="h-38px"
                       name="email"
-                      value={formData.email}
+                      value={formData?.email}
                       onChange={handleChange}
                     />
                   </InputGroup>
                 </Form.Group>
               </Col>
               <Col>
-                <Form.Group className="mb-3 position-relative" controlId="role">
+                <Form.Group className="mb-2 position-relative" controlId="role">
                   <Form.Label>Whats App</Form.Label>
                   <InputGroup>
                     <Form.Control
                       type="number"
-                      placeholder="Enter Whatsapp Number"
-                      className="fs-8rem"
+                      placeholder="Enter Whatsapp Number..."
+                      className="h-38px"
                       autoFocus
                       maxlength="10"
                       name="whats_app"
-                      value={formData.whats_app}
+                      value={formData?.whats_app}
                       onChange={handleChange}
                     />
                   </InputGroup>
@@ -226,35 +221,35 @@ function EditProfile(props) {
             <Row>
               <Col>
                 <Form.Group
-                  className="mb-3 position-relative"
+                  className="mb-2 position-relative"
                   controlId="userId"
                 >
-                  <Form.Label>Skype</Form.Label>
+                  <Form.Label>Skype ID</Form.Label>
                   <InputGroup>
                     <Form.Control
                       type="input"
-                      placeholder="Enter Email ID"
+                      placeholder="Enter Skype ID..."
                       autoFocus
-                      className="fs-8rem"
+                      className="h-38px"
                       name="skype"
-                      value={formData.skype}
+                      value={formData?.skype}
                       onChange={handleChange}
                     />
                   </InputGroup>
                 </Form.Group>
               </Col>
               <Col>
-                <Form.Group className="mb-3 position-relative" controlId="role">
-                  <Form.Label>Phone</Form.Label>
+                <Form.Group className="mb-2 position-relative" controlId="role">
+                  <Form.Label>Phone Number</Form.Label>
                   <InputGroup>
                     <Form.Control
                       type="number"
-                      placeholder="Enter Whatsapp Number"
-                      className="fs-8rem"
+                      placeholder="Enter Phone Number..."
+                      className="h-38px"
                       autoFocus
                       maxlength="10"
                       name="mobile_no"
-                      value={formData.mobile_no}
+                      value={formData?.mobile_no}
                       onChange={handleChange}
                     />
                   </InputGroup>
@@ -262,7 +257,7 @@ function EditProfile(props) {
               </Col>
             </Row>
           </Container>
-          <Row>
+          <Row className="mt-2">
             <Col>
               <Button
                 className="w-100 add-user-button"

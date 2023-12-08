@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import FancyFirstInnings from "./FancyFirstInnings";
 import FancySecondInnings from "./FancySecondInnings";
 
-function FancyBetTable() {
+function FancyBetTable({ winTeam, matchDetails, selectedClientID }) {
   const [fancyFirstInputs, setFancyFirstInputs] = useState(true);
   const [fancySecondInputs, setFancySecondInputs] = useState(false);
   const handleFancyFirstInputs = () => {
@@ -38,8 +38,20 @@ function FancyBetTable() {
           </div>
         </div>
       </div>
-      {fancyFirstInputs && <FancyFirstInnings />}
-      {fancySecondInputs && <FancySecondInnings />}
+      {fancyFirstInputs && (
+        <FancyFirstInnings
+          winTeam={winTeam}
+          matchDetails={matchDetails}
+          selectedClientID={selectedClientID}
+        />
+      )}
+      {fancySecondInputs && (
+        <FancySecondInnings
+          winTeam={winTeam}
+          matchDetails={matchDetails}
+          selectedClientID={selectedClientID}
+        />
+      )}
     </div>
   );
 }

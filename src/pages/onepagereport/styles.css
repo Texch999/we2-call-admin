@@ -53,12 +53,12 @@
   color: #fce719;
 }
 .table-scroll-content {
-  height: 30vh;
+  max-height: 30vh;
   overflow-x: hidden;
   overflow-y: scroll;
 }
 .referal-table-scroll-content {
-  height: 45vh;
+  max-height: 45vh;
   overflow-x: hidden;
   overflow-y: scroll;
 }

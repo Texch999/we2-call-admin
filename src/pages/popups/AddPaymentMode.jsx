@@ -5,8 +5,8 @@ import { Images } from "../../images";
 import { useEffect, useState, useRef } from "react";
 import {
   ADD_PAYMENT,
-  UPDATE_PAYMENT_GATEWAY, 
-  GENERATE_SIGNED_URL
+  UPDATE_PAYMENT_GATEWAY,
+  GENERATE_SIGNED_URL,
 } from "../../config/endpoints";
 import { call } from "../../config/axios";
 import MatchSubmitPopup from "../match-popups/MatchSubmitPopup";
@@ -93,7 +93,7 @@ function AddPaymentMode(props) {
       register_id,
       uploadImage: `${ImageBaseUrl}/${"payment-images"}/${paymentId}.png`,
       ...formData,
-    }; 
+    };
     try {
       if (profileImage) {
         singedUrl &&
@@ -270,7 +270,7 @@ function AddPaymentMode(props) {
                   value={formData.mobile_number || ""}
                   autoFocus
                 />
-              </InputGroup> 
+              </InputGroup>
             </>
           )}
           <Button

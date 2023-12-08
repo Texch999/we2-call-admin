@@ -71,29 +71,6 @@ const AdminOnePageReport = () => {
   const [userName, setUserName] = useState("");
   const [userRole, setUserRole] = useState("");
 
-  // const handleIndividualAdminOnePageReport = (
-  //   userId,
-  //   ulShare,
-  //   username,
-  //   role
-  // )
-  //  => {
-  //   getUserMatches(userId);
-  //   setUlShare(ulShare);
-  //   setUserName(username);
-  //   setUserRole(role);
-
-  // };
-
-  const handleIndividualAdminOnePageReport = (user) => {
-    console.log(user, ".......user sangram");
-  };
-  // const handleIndividualAdminOnePageReport = (user) => {
-  //   console.log(user, ".......user");
-  // };
-
-  console.log(allUsers, "........allUsers");
-
   const adminOnePageReportData =
     allUsers &&
     allUsers?.length > 0 &&
@@ -108,95 +85,16 @@ const AdminOnePageReport = () => {
         admin_role: <div>{`${user?.account_role}`}</div>,
         net_pl: (
           <div className={user?.total_amount >= 0 ? "clr-green" : "clr-red"}>
-            {user?.total_amount || 0}
+            {user?.total_amount ? user?.total_amount?.toFixed(3) : 0}
           </div>
         ),
         ul_share: (
-          <div className={netPL >= 0 ? "clr-green" : "clr-red"}>{netPL}</div>
+          <div className={netPL >= 0 ? "clr-green" : "clr-red"}>
+            {netPL ? netPL?.toFixed(3) : 0}
+          </div>
         ),
       };
     });
-
-  // const adminOnePageReportIndividualData =
-  //   induvisualUserReport.length > 0 &&
-  //   induvisualUserReport.map((item) => {
-  //     return {
-  //       series_name: item.series_name,
-  //       date_time: "02/08/2023 11:32:00 AM",
-  //       team: "india",
-  //       win_team: "india",
-  //       profit_loss: 50000000,
-  //       urs_profilt_loss: 50000000,
-  //     };
-  //   });
-
-  // const adminOnePageReportIndividualData = [
-  //   {
-  //     series_name: "T20 world cup",
-  //     date_time: "02/08/2023 11:32:00 AM",
-  //     team: "india",
-  //     win_team: "india",
-  //     profit_loss: 50000000,
-  //     urs_profilt_loss: 50000000,
-  //   },
-  //   {
-  //     series_name: "T20 world cup",
-  //     date_time: "02/08/2023 11:32:00 AM",
-  //     team: "india",
-  //     win_team: "india",
-  //     profit_loss: 50000000,
-  //     urs_profilt_loss: 50000000,
-  //   },
-  //   {
-  //     series_name: "T20 world cup",
-  //     date_time: "02/08/2023 11:32:00 AM",
-  //     team: "india",
-  //     win_team: "india",
-  //     profit_loss: 50000000,
-  //     urs_profilt_loss: 50000000,
-  //   },
-  //   {
-  //     series_name: "T20 world cup",
-  //     date_time: "02/08/2023 11:32:00 AM",
-  //     team: "india",
-  //     win_team: "india",
-  //     profit_loss: 50000000,
-  //     urs_profilt_loss: 50000000,
-  //   },
-  //   {
-  //     series_name: "T20 world cup",
-  //     date_time: "02/08/2023 11:32:00 AM",
-  //     team: "india",
-  //     win_team: "india",
-  //     profit_loss: 50000000,
-  //     urs_profilt_loss: 50000000,
-  //   },
-  //   {
-  //     series_name: "T20 world cup",
-  //     date_time: "02/08/2023 11:32:00 AM",
-  //     team: "india",
-  //     win_team: "india",
-  //     profit_loss: 50000000,
-  //     urs_profilt_loss: 50000000,
-  //   },
-  //   {
-  //     series_name: "T20 world cup",
-  //     date_time: "02/08/2023 11:32:00 AM",
-  //     team: "india",
-  //     win_team: "india",
-  //     profit_loss: 50000000,
-  //     urs_profilt_loss: 50000000,
-  //   },
-  //   {
-  //     series_name: "T20 world cup",
-  //     date_time: "02/08/2023 11:32:00 AM",
-  //     team: "india",
-  //     win_team: "india",
-  //     profit_loss: 50000000,
-  //     urs_profilt_loss: 50000000,
-  //   },
-  // ];
-
   const AdminOnePagePoupupData =
     induvisualUserReport &&
     induvisualUserReport?.length &&
@@ -247,10 +145,6 @@ const AdminOnePageReport = () => {
       ),
     }));
 
-  console.log(
-    adminOnePageReportIndividualData,
-    "adminOnePageReportIndividualData..................................."
-  );
 
   const adminOnePageReportIndividualHeadings = [
     { header: "Series Name", field: "series_name" },
@@ -372,7 +266,7 @@ const AdminOnePageReport = () => {
 
   const [induvisualAdminData, setInduvisualAdminData] = useState({});
   const handleAdminReports = (data) => {
-    console.log(data, "......data");
+    // console.log(data, "......data");
     setAdminOnePageReportPopUp(true);
     setInduvisualAdminData(data);
     getUserMatches(data.register_id);
@@ -397,6 +291,18 @@ const AdminOnePageReport = () => {
         ),
       };
     });
+
+  const onePageReportNetPL =
+    allUsers &&
+    allUsers?.length > 0 &&
+    allUsers?.reduce((acc, obj) => acc + (+obj?.total_amount || 0), 0);
+  const onePageReportUlNet =
+    allUsers &&
+    allUsers?.length > 0 &&
+    allUsers?.reduce(
+      (acc, obj) => acc + (+getUlShare(obj?.total_amount, obj?.ul_share) || 0),
+      0
+    );
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = 5;
 
@@ -459,22 +365,24 @@ const AdminOnePageReport = () => {
                 TOTAL
               </th>
               <th className="text-center clr-green">
-                {adminOnePageReportData.length &&
+                {onePageReportNetPL ? onePageReportNetPL?.toFixed(2) : 0}
+                {/* {adminOnePageReportData.length &&
                   adminOnePageReportData
                     ?.reduce(
                       (total, data) => total + parseFloat(data?.profit_loss),
                       0
                     )
-                    .toFixed(2)}
+                    .toFixed(2)} */}
               </th>
               <th className="text-center clr-green">
-                {adminOnePageReportData.length &&
+                {onePageReportUlNet ? onePageReportUlNet?.toFixed(2) : 0}
+                {/* {adminOnePageReportData.length &&
                   adminOnePageReportData
                     ?.reduce(
                       (total, data) => total + parseFloat(data?.ul_share),
                       0
                     )
-                    .toFixed(2)}
+                    .toFixed(2)} */}
               </th>
             </tr>
           </tfoot>
