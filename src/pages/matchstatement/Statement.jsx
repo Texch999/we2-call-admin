@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AiFillEdit } from "react-icons/ai";
 import "./styles.css";
 import StatementPopup from "./StatementPopup";
@@ -9,11 +9,28 @@ import Select from "react-select";
 import { Col, Container, Modal, Row } from "react-bootstrap";
 import CustomPagination from "../pagination/CustomPagination";
 import Table from "../home-page/Table";
+import {
+  GET_COMPLETE_MATCHES_BY_CLIENT_NAME,
+  GET_FINANCIAL_STATEMENT_BY_DATE,
+  GET_OFFLINE_CLIENTS,
+} from "../../config/endpoints";
+import { call } from "../../config/axios";
+import moment from "moment";
 
 function Statement(props) {
-  const { statementPayload, setStatementPayload, financialStatementData } =
-    props;
+  const register_id = localStorage?.getItem("register_id");
+  const creator_id = localStorage?.getItem("creator_id");
+  const account_role = localStorage?.getItem("account_role");
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [financialStatementData, setFinancialStatementData] = useState([]);
+  const [existingUsers, setExistingUsers] = useState([]);
+  const [selectedClientName, setSelectedClientName] = useState("");
+  const [selectedMatchName, setSelectedMatchName] = useState("");
 
+  const [statementPayload, setStatementPayload] = useState({
+    startDate: new Date(),
+    endDate: new Date(),
+  });
   const tableColumns = [
     { header: "DATE & TIME", field: "dateTime" },
     { header: "SERIES NAME", field: "seriesName" },
@@ -49,29 +66,33 @@ function Statement(props) {
   //     };
   //   });
 
-  const STATEMENT_DETAILS = [
-    {
-      dateTime: "item?.sport_name",
-      seriesName: "item?.series_name",
-      teamName: (
-        <div>
-          {/* {item?.team1} VS {item?.team1} */}
-          team vs team
-        </div>
-      ),
-      matchplace: "item?.stadium",
-      winTeam: "item?.winTeam",
-      profitLoss: "item?.totalAmount?.totalLossOrProfit",
-      edit: (
-        <AiFillEdit
-          data-toggle="modal"
-          data-target=".bd-example-modal-lg"
-          className="custom-icon"
-          onClick={() => handleShow()}
-        />
-      ),
-    },
-  ];
+  const STATEMENT_DETAILS =
+    financialStatementData &&
+    financialStatementData?.length > 0 &&
+    financialStatementData?.map((match) => {
+      return {
+        dateTime: `${moment(match?.matchTimeStamp).format(
+          "DD-MM-YYYY"
+        )}- ${moment(match?.matchTimeStamp).format("hh:mm:ss A")}`,
+        seriesName: match?.series_name,
+        teamName: (
+          <div>
+            {match?.match_name}
+          </div>
+        ),
+        matchplace: match?.match_place,
+        winTeam: match?.winTeam,
+        profitLoss: match?.totalAmount?.totalLossOrProfit,
+        edit: (
+          <AiFillEdit
+            data-toggle="modal"
+            data-target=".bd-example-modal-lg"
+            className="custom-icon"
+            onClick={() => handleShow()}
+          />
+        ),
+      };
+    });
 
   const seriesOptions = [
     { value: "option1", label: "Option 1" },
@@ -112,6 +133,80 @@ function Statement(props) {
       [e.target.name]: e.target.value,
     });
   };
+  const getStatementData = async () => {
+    setIsProcessing(true);
+    await call(GET_FINANCIAL_STATEMENT_BY_DATE, {
+      register_id,
+      account_role,
+      ...statementPayload,
+    })
+      .then((res) => {
+        setIsProcessing(false);
+        // const result = res?.data?.data?.Items;
+        setFinancialStatementData(
+          res?.data?.data?.filter((item) => item?.match_declared === "Y")
+        );
+        // console.log(result,"result");
+      })
+      .catch((err) => {
+        setIsProcessing(false);
+        throw err;
+      });
+  };
+
+  const getCompleteMatchesByClientName = async () => {
+    setIsProcessing(true);
+    await call(GET_COMPLETE_MATCHES_BY_CLIENT_NAME, {
+      register_id,
+      account_role,
+      ...statementPayload,
+      client_name: selectedClientName?.client_name,
+    })
+      .then((res) => {
+        setIsProcessing(false);
+        // const result = res?.data?.data?.Items;
+        // console.log("res?.data?.data", res?.data?.data)
+        setFinancialStatementData(
+          res?.data?.data?.filter((item) => item?.match_declared === "Y")
+        );
+        // console.log(result,"result");
+      })
+      .catch((err) => {
+        setIsProcessing(false);
+        throw err;
+      });
+  };
+
+  const getAllClientsData = async () => {
+    call(GET_OFFLINE_CLIENTS, {
+      register_id,
+      account_role,
+    })
+      .then((res) => {
+        setExistingUsers(res?.data?.data);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const handleMatchesListSelect = (value) => {
+    setSelectedMatchName(value);
+    setStatementPayload({ ...statementPayload, match_name: value });
+  };
+  const handleSelectClientName = (value) => {
+    const index =
+      existingUsers &&
+      existingUsers?.length > 0 &&
+      existingUsers?.findIndex((i) => i.client_id === value);
+    // console.log("value", value,existingUsers[index])
+    setSelectedClientName({
+      client_id: value,
+      client_name: existingUsers[index]?.client_name,
+    });
+  };
+  useEffect(() => {
+    getAllClientsData();
+    getStatementData();
+  }, []);
 
   return (
     <div className="p-2">
@@ -124,10 +219,15 @@ function Statement(props) {
               <div className="date-container d-flex justify-content-around align-items-center rounded all-none p-1 w-100">
                 <DatePicker
                   className="login-input all-none w-50"
-                  name="start_date"
-                  selected={statementPayload?.start_date}
+                  name="startDate"
+                  selected={statementPayload?.startDate}
                   onChange={(e) =>
-                    handleChange({ target: { name: "start_date", value: e } })
+                    handleChange({
+                      target: {
+                        name: "startDate",
+                        value: e,
+                      },
+                    })
                   }
                   dateFormat="dd-MM-yy"
                   placeholderText="Select a date"
@@ -142,10 +242,16 @@ function Statement(props) {
               <div className="date-container d-flex justify-content-around align-items-center rounded all-none p-1 w-100">
                 <DatePicker
                   className="login-input all-none w-50"
-                  selected={statementPayload.end_date}
+                  selected={statementPayload.endDate}
                   onChange={(e) =>
-                    handleChange({ target: { name: "end_date", value: e } })
+                    handleChange({
+                      target: {
+                        name: "endDate",
+                        value: e,
+                      },
+                    })
                   }
+                  name="endDate"
                   dateFormat="dd-MM-yy"
                   placeholderText="Select a date"
                 />
@@ -156,19 +262,15 @@ function Statement(props) {
           <Col className="col-lg-2 col-md-3">
             <div>
               <div className="medium-font mb-2">Series Name</div>
-              <select
+              <input
+                type="text"
+                placeholder="Series Name"
                 className="w-100 custom-select medium-font btn-bg rounded all-none p-2"
                 name="series_name"
+                id="series_name"
+                value={statementPayload["series_name"] || ""}
                 onChange={(e) => handleChange(e)}
-              >
-                {seriesOptions.map((item, index) => {
-                  return (
-                    <option key={index} value={item.value}>
-                      {item.label}
-                    </option>
-                  );
-                })}
-              </select>
+              />
             </div>
           </Col>
           <Col className="col-lg-1 col-md-3">
@@ -177,19 +279,23 @@ function Statement(props) {
               <select
                 className="w-100 custom-select medium-font btn-bg rounded all-none p-2"
                 name="match_name"
-                onChange={(e) => handleChange(e)}
+                onChange={(e) => handleMatchesListSelect(e)}
               >
-                {matchOptions.map((item, index) => {
-                  return (
-                    <option key={index} value={item.value}>
-                      {item.label}
-                    </option>
-                  );
-                })}
+                {financialStatementData &&
+                  financialStatementData?.length > 0 &&
+                  financialStatementData
+                    ?.filter((i) => i.match_declared === "Y")
+                    ?.map(({ match_name }, index) => {
+                      return (
+                        <option key={index} value={match_name}>
+                          {match_name}
+                        </option>
+                      );
+                    })}
               </select>
             </div>
           </Col>
-          <Col className="col-lg-1 col-md-3">
+          {/* <Col className="col-lg-1 col-md-3">
             <div>
               <div className="medium-font mb-2">Fancy</div>
               <select
@@ -206,28 +312,38 @@ function Statement(props) {
                 })}
               </select>
             </div>
-          </Col>
+          </Col> */}
           <Col className="col-lg-2 col-md-3">
             <div>
               <div className="medium-font mb-2">Client Name</div>
               <select
                 className="w-100 custom-select medium-font btn-bg rounded all-none p-2"
                 name="client_name"
-                onChange={(e) => handleChange(e)}
+                onChange={(e) => handleSelectClientName(e.target.value)}
               >
-                {clientOptions.map((item, index) => {
-                  return (
-                    <option key={index} value={item.value}>
-                      {item.label}
-                    </option>
-                  );
-                })}
+                {existingUsers &&
+                  existingUsers?.length > 0 &&
+                  existingUsers?.map(({ client_name, client_id }, index) => {
+                    return (
+                      <option key={index} value={client_id}>
+                        {client_name}
+                      </option>
+                    );
+                  })}
               </select>
             </div>
           </Col>
           <Col className="ms-1 me-1 mt-4 col-lg-1 col-md-2">
-            <button className="submit-button medium-font p-2 rounded all-none">
-              Verify
+            <button
+              className="submit-button medium-font p-2 rounded all-none"
+              disabled={isProcessing}
+              onClick={() => {
+                selectedClientName?.client_name
+                  ? getCompleteMatchesByClientName()
+                  : getStatementData();
+              }}
+            >
+              {isProcessing ? "Fetching..." : "Verify"}
             </button>
           </Col>
         </Row>

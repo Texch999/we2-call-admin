@@ -59,12 +59,18 @@ const FANCY_RESULT_PROFIT_LOSS = "/offline-management/fancy_result_profitlose";
 const GET_LIVE_MATCH_RISK_POSITION =
   "/offline-management/live_match_risk_position";
 const SET_ADMIN_OFFLINE_PAYMENT = "/offline-management/admin_offline_settlement";
+const GET_COMPLETE_MATCHES_BY_CLIENT_NAME =  "/offline-management/get_statement_matches_by_clientId";
 
 // methods
 const DELETE = "DELETE";
 const POST = "POST";
 const GET = "POST";
 const PUT = "PUT";
+
+exports.GET_COMPLETE_MATCHES_BY_CLIENT_NAME = {
+  url: GET_COMPLETE_MATCHES_BY_CLIENT_NAME,
+  method: POST
+}
 
 exports.GET_LIVE_MATCH_RISK_POSITION = {
   url: GET_LIVE_MATCH_RISK_POSITION,

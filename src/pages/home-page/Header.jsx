@@ -169,11 +169,11 @@ function Header() {
       name: "Share Risk live mathces",
       path: "/share-risk-live-matches",
     },
-    {
-      icon: <MdOutlinePrivacyTip className="mr-10 d-flex" />,
-      name: "Admin Share Match Statement",
-      path: "/admin-share-match-statement",
-    },
+    // {
+    //   icon: <MdOutlinePrivacyTip className="mr-10 d-flex" />,
+    //   name: "Admin Share Match Statement",
+    //   path: "/admin-share-match-statement",
+    // },
     {
       icon: <MdOutlinePrivacyTip className="mr-10 d-flex" />,
       name: "Add Users",
