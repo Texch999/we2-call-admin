@@ -7,6 +7,7 @@ import { RxCrossCircled } from "react-icons/rx";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import AddPaymentMode from "../popups/AddPaymentMode";
 import { call } from "../../config/axios";
+import { IoClose } from "react-icons/io5";
 import {
   CREATE_PACKAGE_SUBSCRIPTION,
   GENERATE_SIGNED_URL,
@@ -22,10 +23,9 @@ function UpgradeYourPackagePopup(props) {
   const [allPaymentGateway, setAllPaymentGateway] = useState();
   const [checked, setChecked] = useState();
   const [selectedMethodInfo, setSelectedMethodInfo] = useState("");
-  const [image, setImage] = useState();
+  const [image, setImage] = useState("");
   const [signedUrl, setSignedUrl] = useState();
   const [trxId, setImageTrxId] = useState("");
-  const [paymentType, setPaymentType] = useState();
   const [openOptions, setOpenOptions] = useState();
   const [openReturnOptions, setOpenReturnOptions] = useState();
   const [returnPackageList, setReturnPackageList] = useState([]);
@@ -34,12 +34,16 @@ function UpgradeYourPackagePopup(props) {
   const [transactionImg, setTransactionImg] = useState(false);
   const [discount, setDiscount] = useState("");
   const [message, setMessage] = useState();
-  const [isProcessing, setIsProcessing] = useState();
-  const [selectedMethod, setSelectedMethod] = useState();
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [selectedMethod, setSelectedMethod] = useState("");
   const [selectedReturnPackageTotalCost, setSelectedReturnPackageTotalCost] =
     useState(0);
+
   const handlePackagePopupClose = () => {
     setShowPackagePopup(false);
+    setSelectedMethodInfo("");
+    setTransactionImg("");
+    dispatch(setSelectedPackages([]));
   };
   const [modalShow, setModalShow] = useState(false);
   const handlePaymentModeOpen = () => {
@@ -85,35 +89,59 @@ function UpgradeYourPackagePopup(props) {
       .catch((err) => console.log("generating signed url error", err));
   };
 
-  // const handlePayButton = async () => {
-  //   await imageUploadBucket();
-  //   const summary = {
-  //     total_package_cost: selectPackageName?.package_cost,
-  //     final_package_cost: totalPackageCost,
-  //     transaction_img: `${ImageBaseUrl}/${"payments"}/${trxId}.png`,
-  //     ...selectedMethodInfo,
-  //     requester_name: localStorage.getItem("user_name"),
-  //     requester_role: localStorage.getItem("account_role"),
-  //   };
-  //   if (!image) {
-  //     return;
-  //   }
-  //   await call(CREATE_PACKAGE_SUBSCRIPTION, {
-  //     register_id,
-  //     summary,
-  //     type: "subscription",
-  //     packages: [selectPackageName],
-  //   })
-  //     .then((res) => {
-  //       if (res.data.status === 200) {
-  //         console.log(res);
-  //       } else {
-  //       }
-  //     })
-  //     .catch((err) => console.log("error while calling payment click", err));
-  //   // setSuccessfulupgradedPackages(true);
-  //   // setOpenPopup(false);
-  // };
+  const handlePayButton = async () => {
+    await imageUpploadToBucket();
+    const discountValue = parseInt((totalPackagesCost * discount) / 100);
+    const finalPackageCost =
+      totalPackagesCost - discountValue - totalPackagesDiscountValue;
+    if (selectedReturnPackageTotalCost > finalPackageCost) {
+      setMessage("return packages cost will not exceed curent packages");
+      return;
+    }
+    const summary = {
+      total_packages_cost: totalPackagesCost,
+      final_package_cost: finalPackageCost - selectedReturnPackageTotalCost,
+      after_all_discount_final_package_cost: finalPackageCost,
+      transaction_img: `${ImageBaseUrl}/${"payments"}/${trxId}.png`,
+      ...selectedMethodInfo,
+      user_discount: discount,
+      return_package_list: returnPackageList,
+      requester_name: localStorage.getItem("user_name"),
+      requester_role: localStorage.getItem("account_role"),
+    };
+    // if (!selectedMethodInfo) {
+    //   setMessage("please select payment method");
+    //   return;
+    // }
+    // if (!transactionImg) {
+    //   setMessage("please upload screenshot");
+    //   return;
+    // }
+    setIsProcessing(true);
+    await call(CREATE_PACKAGE_SUBSCRIPTION, {
+      register_id,
+      packages: packageList,
+      summary,
+    })
+      .then((res) => {
+        if (res.data.status === 200) {
+          // setSuccessUpdatePopup(true);
+          setIsProcessing(false);
+          handlePackagePopupClose();
+          setSelectedMethodInfo("");
+          setTransactionImg("");
+          dispatch(setSelectedPackages([]));
+        } else {
+          setIsProcessing(false);
+          setMessage(res.data.message);
+        }
+      })
+      .catch((err) => {
+        setIsProcessing(false);
+      });
+    // setUpgradePaymentPopup(true);
+    // setShowUpgradePopup(false);
+  };
 
   const finalPackageCost = totalPackagesCost;
 
@@ -172,6 +200,10 @@ function UpgradeYourPackagePopup(props) {
       label: "Qr Code",
     },
   ];
+
+  const handleButtonClick = () => {
+    fileInputRef.current.click();
+  };
 
   const handleFileSelect = (e) => {
     const file = e.target.files[0];
@@ -241,7 +273,6 @@ function UpgradeYourPackagePopup(props) {
       setSelectedReturnPackageTotalCost(totalReturnPackValue);
     }
   };
-  // const [present] = useIonToast();
 
   const onAddandSubtractExistingPackClick = (obj, value) => {
     let updatePackages = [];
@@ -328,75 +359,12 @@ function UpgradeYourPackagePopup(props) {
     0
   );
 
-  const handleClosePackageUpgrade = () => {
-    // setOpenPackageUpgrade(false);
-    // setShowPayButton(false);
-    setSelectedMethodInfo("");
-    setTransactionImg("");
-    dispatch(setSelectedPackages([]));
-  };
-
   const handlePaymentSelection = (itm) => {
     setSelectedMethod(itm.target.value);
     const obj = allPaymentGateway.find(
       (obj) => obj.pg_upi === itm.target.value
     );
     setSelectedMethodInfo(obj);
-  };
-
-  const handlePayButton = async () => {
-    await imageUpploadToBucket();
-    const discountValue = parseInt((totalPackagesCost * discount) / 100);
-    const finalPackageCost =
-      totalPackagesCost - discountValue - totalPackagesDiscountValue;
-    if (selectedReturnPackageTotalCost > finalPackageCost) {
-      setMessage("return packages cost will not exceed curent packages");
-      return;
-    }
-    const summary = {
-      total_packages_cost: totalPackagesCost,
-      final_package_cost: finalPackageCost - selectedReturnPackageTotalCost,
-      after_all_discount_final_package_cost: finalPackageCost,
-      transaction_img: `${ImageBaseUrl}/${"payments"}/${trxId}.png`,
-      ...selectedMethodInfo,
-      user_discount: discount,
-      return_package_list: returnPackageList,
-      requester_name: localStorage.getItem("user_name"),
-      requester_role: localStorage.getItem("account_role"),
-    };
-    if (!selectedMethodInfo) {
-      setMessage("return packages cost will not exceed curent packages");
-      return;
-    }
-    if (!transactionImg) {
-      setMessage("return packages cost will not exceed curent packages");
-      return;
-    }
-    setIsProcessing(true);
-    await call(CREATE_PACKAGE_SUBSCRIPTION, {
-      register_id,
-      packages: packageList,
-      summary,
-    })
-      .then((res) => {
-        if (res.data.status === 200) {
-          // setSuccessUpdatePopup(true);
-          // setIsProcessing(false);
-          // setOpenPackageUpgrade(false);
-          // setOpenPackageUpgrade(false);
-          setSelectedMethodInfo("");
-          // setTransactionImg("");
-          dispatch(setSelectedPackages([]));
-        } else {
-          setIsProcessing(false);
-          setMessage({ message: res.data.message });
-        }
-      })
-      .catch((err) => {
-        setIsProcessing(false);
-      });
-    // setUpgradePaymentPopup(true);
-    // setShowUpgradePopup(false);
   };
 
   const imageUpploadToBucket = async () => {
@@ -454,26 +422,18 @@ function UpgradeYourPackagePopup(props) {
 
   useEffect(() => {
     getAllPaymentData();
-  }, [paymentType]);
+  }, []);
   const fileInputRef = useRef(null);
-  console.log(paymentType, "......paymentType");
-  // const handlePaymentMethod = (e) => {
-  //   setPaymentType(e.target.value);
-  // };
 
   return (
     <div className="modal fade bd-example-modal-lg container mt-5 z-index">
       <Modal
         size="md"
         show={showPackagePopup}
-        onHide={handlePackagePopupClose}
         centered
         className="match-share-modal payment-modal z-index"
       >
-        <Modal.Header
-          closeButton
-          onHide={() => setShowPackagePopup(false)}
-        ></Modal.Header>
+        <div onClick={handlePackagePopupClose}>close</div>
         <Modal.Body>
           <div className="w-100 flex-columnn relative-position">
             <div className="text-center large-font mt-3 mb-2">
@@ -647,65 +607,69 @@ function UpgradeYourPackagePopup(props) {
                       </div>
                     </div>
                   ) : (
+                    ""
+                  )}
+                  {selectedMethod === "phonepe" && selectedMethodInfo ? (
                     <div className="d-flex justify-content-between login-input p-2 mt-1">
-                      <center>No Data Found</center>
-                    </div>
-                  )}
-                  {/* {paymentType !== "neft" && (
-                    <div className="payment-scroll">
-                      {allPaymentGateway
-                        .filter((item) => item.pg_upi === paymentType)
-                        .map((item, index) => {
-                          return (
-                            <div className="d-flex justify-content-between login-input p-2 mt-1">
-                              <div className="login-input p-2 mt-1">
-                                Name: {item.account_holder_name}
-                                <br /> Moblie: {item.mobile_number}
-                              </div>
-                              <div>
-                                <div>Select</div>
-                                <input
-                                  type="checkbox"
-                                  onChange={(e) => handleChecked(e, item)}
-                                />
-                              </div>
-                            </div>
-                          );
-                        })}
-                    </div>
-                  )}
-                  <div>
-                    {paymentType === "qr_code" && (
-                      <div className="payment-scroll">
-                        {allPaymentGateway
-                          .filter((item) => item.pg_upi === "qr_code")
-                          .map((item, index) => {
-                            return (
-                              <div className="login-input p-2 mt-1">
-                                Name: {item.account_holder_name}
-                              </div>
-                            );
-                          })}
+                      <div>
+                        upi:{selectedMethodInfo?.pg_name}
+                        <br /> mobile: {selectedMethodInfo?.mobile_number}
                       </div>
-                    )}
-                  </div>
+                    </div>
+                  ) : (
+                    ""
+                  )}
+                  {selectedMethod === "paytm" && selectedMethodInfo ? (
+                    <div className="d-flex justify-content-between login-input p-2 mt-1">
+                      <div>
+                        upi:{selectedMethodInfo?.pg_name}
+                        <br /> mobile: {selectedMethodInfo?.mobile_number}
+                      </div>
+                    </div>
+                  ) : (
+                    ""
+                  )}
+                  {selectedMethod === "gpay" && selectedMethodInfo ? (
+                    <div className="d-flex justify-content-between login-input p-2 mt-1">
+                      <div>
+                        upi:{selectedMethodInfo?.pg_name}
+                        <br /> mobile: {selectedMethodInfo?.mobile_number}
+                      </div>
+                    </div>
+                  ) : (
+                    ""
+                  )}
+                  {selectedMethod === "qr_code" && (
+                    <div className="d-flex justify-content-between login-input p-2 mt-1">
+                      <img className="qr-code"></img>
+                      <div>Name:{selectedMethodInfo?.account_holder_name}</div>
+                    </div>
+                  )}
 
                   <div className="h-40px">
                     <input
-                      className="d-flex w-100 align-items-center justify-content-between login-input p-2 mt-2 clr-white border-none"
                       type="file"
                       style={{ display: "none" }}
+                      // id="upload-pic"
                       ref={fileInputRef}
                       onChange={handleFileSelect}
                     ></input>
-                  </div> */}
+                    <label
+                      className="d-flex w-100 align-items-center justify-content-between login-input p-2 mt-2 clr-white border-none"
+                      onClick={handleButtonClick}
+                    >
+                      {image ? image.name : "Upload Screen Shot"}
+                    </label>
+                  </div>
                   <hr className="mt-3 hr-line" />
-                  <button className="login-button p-2 mt-2">Pay</button>
+                  <button
+                    className="login-button p-2 mt-2"
+                    onClick={() => handlePayButton()}
+                  >
+                    {isProcessing === true ? "Processing" : "Pay"}
+                  </button>
                 </div>
               )}
-              {paymentType === "neft" && paymentType}
-              {paymentType === "upi" && paymentType}
-              {paymentType === "qr_code" && paymentType}
             </div>
           </div>
         </Modal.Body>
