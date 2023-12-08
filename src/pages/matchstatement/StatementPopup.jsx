@@ -1,14 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
 import { PiArrowCircleRightBold } from "react-icons/pi";
 import ClientPLTable from "./ClientPLTable";
 import RfplTable from "./RfplTable";
+import { GET_STATEMENT_BY_MATCH_ID } from "../../config/endpoints";
+import { call } from "../../config/axios";
+import moment from "moment";
 
 function StatementPopup(props) {
-  const { showModal, setShowModal } = props;
-  const handleClose = () => setShowModal(false);
+  const register_id = localStorage?.getItem("register_id");
+  const { showModal, setShowModal, selectedMatch, setSelctedMatch, onePageData} = props;
   const [clientInputs, setClientInputs] = useState(true);
   const [rfplInputs, setRfplInputs] = useState(false);
+  const [isProcessing, setIsProcessing] = useState(false);
+  // console.log("selected match", selectedMatch)
   const handleRfplResult = () => {
     setClientInputs(false);
     setRfplInputs(true);
@@ -18,12 +23,17 @@ function StatementPopup(props) {
     setClientInputs(true);
     setRfplInputs(false);
   };
+
+
   return (
     <div className="modal fade bd-example-modal-lg container mt-5">
       <Modal
         size="xl"
         show={showModal}
-        onHide={handleClose}
+        onHide={()=>{
+          setShowModal(false)
+          setSelctedMatch("")
+        }}
         centered
         className="match-share-modal w-100 close-btn"
       >
@@ -33,12 +43,15 @@ function StatementPopup(props) {
               <div className="w-25 d-flex justify-content-between">
                 <div>
                   <div className="w-100 small-font clr-yellow match-date-button p-1 rounded-pill ms-1 me-1">
-                    Match : IND vs SL
+                    Match : {selectedMatch?.match_name}
                   </div>
                 </div>
                 <div>
                   <div className="w-100 small-font clr-yellow match-date-button p-1 rounded-pill ms-1 me-1">
-                    Date : 31/07/2023
+                    Date :{" "}
+                    {moment(+selectedMatch?.matchTimeStamp).format(
+                      "DD-MM-YYYY"
+                    )}
                   </div>
                 </div>
               </div>
@@ -70,8 +83,12 @@ function StatementPopup(props) {
           </div>
         </Modal.Header>
         <Modal.Body className="p-3">
-          {clientInputs && <ClientPLTable />}
-          {rfplInputs && <RfplTable />}
+          {clientInputs && (
+            <ClientPLTable data={onePageData} selectedMatch={selectedMatch} />
+          )}
+          {rfplInputs && (
+            <RfplTable data={onePageData} selectedMatch={selectedMatch} />
+          )}
         </Modal.Body>
       </Modal>
     </div>

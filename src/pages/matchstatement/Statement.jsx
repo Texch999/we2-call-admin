@@ -13,6 +13,7 @@ import {
   GET_COMPLETE_MATCHES_BY_CLIENT_NAME,
   GET_FINANCIAL_STATEMENT_BY_DATE,
   GET_OFFLINE_CLIENTS,
+  GET_STATEMENT_BY_MATCH_ID,
 } from "../../config/endpoints";
 import { call } from "../../config/axios";
 import moment from "moment";
@@ -26,6 +27,8 @@ function Statement(props) {
   const [existingUsers, setExistingUsers] = useState([]);
   const [selectedClientName, setSelectedClientName] = useState("");
   const [selectedMatchName, setSelectedMatchName] = useState("");
+  const [selectedMatch, setSelctedMatch] = useState('');
+  const [onePageData, setOnePageData] = useState([]);
 
   const [statementPayload, setStatementPayload] = useState({
     startDate: new Date(),
@@ -65,6 +68,28 @@ function Statement(props) {
   //       ),
   //     };
   //   });
+  let totalMatchResultData = 0;
+
+  totalMatchResultData = financialStatementData && financialStatementData?.length > 0 && financialStatementData?.reduce(
+    (acc, obj) => acc + (obj.totalAmount?.totalLossOrProfit || 0),
+    0
+  );
+
+  const getStatementByMatchIdData = async (id) => {
+    setIsProcessing(true);
+    await call(GET_STATEMENT_BY_MATCH_ID, {
+      register_id,
+      registered_match_id: id,
+    })
+      .then((res) => {
+        setIsProcessing(false);
+        setOnePageData(res?.data?.data?.client_object);
+      })
+      .catch((err) => {
+        setIsProcessing(false);
+        console.log(err);
+      });
+  };
 
   const STATEMENT_DETAILS =
     financialStatementData &&
@@ -88,7 +113,11 @@ function Statement(props) {
             data-toggle="modal"
             data-target=".bd-example-modal-lg"
             className="custom-icon"
-            onClick={() => handleShow()}
+            onClick={() =>{
+              setSelctedMatch(match)
+              setShowModal(true)
+              getStatementByMatchIdData(match?.registered_match_id)
+            }}
           />
         ),
       };
@@ -116,12 +145,8 @@ function Statement(props) {
   ];
 
   const [showModal, setShowModal] = useState(false);
-  const handleShow = () => setShowModal(true);
-  const [selectedDate, setSelectedDate] = useState(null);
-
-  const onChange = (e) => {};
   const [currentPage, setCurrentPage] = useState(1);
-  const totalPages = 5;
+  const totalPages = STATEMENT_DETAILS ? Math.ceil((STATEMENT_DETAILS?.length / 5)) : 0
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
@@ -203,6 +228,9 @@ function Statement(props) {
       client_name: existingUsers[index]?.client_name,
     });
   };
+
+
+
   useEffect(() => {
     getAllClientsData();
     getStatementData();
@@ -357,17 +385,17 @@ function Statement(props) {
               TOTAL
             </th>
             <th className="text-center" colSpan={2}>
-              50000000.00
+              {totalMatchResultData ? totalMatchResultData?.toFixed(2) : 0}
             </th>
           </tr>
         </tfoot>
       </div>
       <div className="d-flex justify-content-between align-items-center mt-4">
-        <div className="d-flex justify-content-start font-clr-white total-count-container  py-2 px-4 rounded">
+        {totalPages > 1 && <div className="d-flex justify-content-start font-clr-white total-count-container  py-2 px-4 rounded">
           <span>
             Showing <b> {currentPage} </b> 0f <b> {totalPages} </b> Entries....
           </span>
-        </div>
+        </div>}
         <div className="d-flex justify-content-end mt-2">
           <CustomPagination
             totalPages={totalPages}
@@ -376,7 +404,7 @@ function Statement(props) {
           />
         </div>
       </div>
-      <StatementPopup showModal={showModal} setShowModal={setShowModal} />
+      <StatementPopup showModal={showModal} onePageData={onePageData} setShowModal={setShowModal} setSelctedMatch={setSelctedMatch} selectedMatch={selectedMatch} />
     </div>
   );
 }

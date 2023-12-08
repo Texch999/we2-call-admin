@@ -60,7 +60,8 @@ const GET_LIVE_MATCH_RISK_POSITION =
   "/offline-management/live_match_risk_position";
 const SET_ADMIN_OFFLINE_PAYMENT = "/offline-management/admin_offline_settlement";
 const GET_COMPLETE_MATCHES_BY_CLIENT_NAME =  "/offline-management/get_statement_matches_by_clientId";
-
+const GET_STATEMENT_BY_MATCH_ID =
+  "/offline-management/get_statement_bymatch_id";
 // methods
 const DELETE = "DELETE";
 const POST = "POST";
@@ -71,6 +72,11 @@ exports.GET_COMPLETE_MATCHES_BY_CLIENT_NAME = {
   url: GET_COMPLETE_MATCHES_BY_CLIENT_NAME,
   method: POST
 }
+
+exports.GET_STATEMENT_BY_MATCH_ID = {
+  url: GET_STATEMENT_BY_MATCH_ID,
+  method: POST,
+};
 
 exports.GET_LIVE_MATCH_RISK_POSITION = {
   url: GET_LIVE_MATCH_RISK_POSITION,
