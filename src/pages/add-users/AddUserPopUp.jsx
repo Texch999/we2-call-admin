@@ -10,7 +10,15 @@ import {
 } from "../../config/endpoints";
 
 function AddUserPopUp(props) {
-  const { setModalShow, editData, setInputData, inputData ,setStatus,status} = props;
+  const {
+    setModalShow,
+    editData,
+    setInputData,
+    inputData,
+    setStatus,
+    status,
+    setAddUserPopup,
+  } = props;
   let register_id = localStorage?.getItem("register_id");
   let creator_id = localStorage?.getItem("creator_id");
   let account_role = localStorage?.getItem("account_role");
@@ -19,7 +27,7 @@ function AddUserPopUp(props) {
   const [err, setErr] = useState("");
 
   // const [inputData, setInputData] = useState({});
-  
+
   const handleInputChnage = (e) => {
     setInputData({ ...inputData, [e.target.name]: e.target.value });
   };
@@ -36,10 +44,10 @@ function AddUserPopUp(props) {
         setIsProcessing(false);
         if (res.data.status === 200) {
           props?.setIsUserAdded((prev) => !prev);
+          setAddUserPopup(true);
           // props.onHide();
           setInputData({});
-          setStatus((prev)=>!prev)
-          
+          setStatus((prev) => !prev);
         } else {
           setErr(
             res?.data?.message ? res?.data?.message : `Something went wrong`
@@ -80,6 +88,7 @@ function AddUserPopUp(props) {
         setIsProcessing(false);
         if (res.data.status === 201) {
           props?.setIsUserAdded((prev) => !prev);
+          setAddUserPopup(true);
           props.onHide();
           setInputData({});
         } else {

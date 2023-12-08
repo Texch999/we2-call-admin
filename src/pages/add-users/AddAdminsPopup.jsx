@@ -5,13 +5,21 @@ import { Images } from "../../images";
 import { useEffect, useState } from "react";
 import { IoEyeSharp, IoEyeOffSharp } from "react-icons/io5";
 import { call } from "../../config/axios";
-import {
+import {  
   ACCOUNT_REGISTERATION,
   UPDATE_USER_ADMIN,
 } from "../../config/endpoints";
 
 function AddAdminsPopup(props) {
-  const { adminsData, usersData, setModalShow, editData } = props;
+  const {
+    adminsData,
+    usersData,
+    setModalShow,
+    editData,
+    show,
+    setAddadminsPopup,
+  } = props;
+  console.log("Props Data====>", props?.setIsUserAdded);
   let register_id = localStorage?.getItem("register_id");
   let creator_id = localStorage?.getItem("creator_id");
   let account_role = localStorage?.getItem("account_role");
@@ -22,6 +30,7 @@ function AddAdminsPopup(props) {
   const [togglePassword, setTogglePassword] = useState(true);
   const [cnfPasswordToggle, setCnfPasswordToggle] = useState(true);
   const [adminPasswordToggle, setAdminPasswordToggle] = useState(true);
+  // const [showSuccessfulPopup, setShowSuccessfulPopup] = useState(false);
 
   const handleInputChnage = (e) => {
     setInputData({ ...inputData, [e.target.name]: e.target.value });
@@ -49,34 +58,51 @@ function AddAdminsPopup(props) {
   userRoles =
     finIndex > -1 ? userRoles.slice(finIndex + 1, userRoles.length) : [];
 
-  const handleUpdateUserAdmin = async () => {
-    setErr("");
-    setIsProcessing(true);
-    setModalShow(false);
-    await call(UPDATE_USER_ADMIN, {
-      ...inputData,
-      creator_id: register_id,
-      creator_role: account_role,
-      share: 100 - +inputData["ul_share"],
-    })
-      .then((res) => {
-        setIsProcessing(false);
-        if (res.data.status === 200) {
-          props?.setIsUserAdded((prev) => !prev);
-          // props.onHide();
-          setInputData({});
-        } else {
-          setErr(
-            res?.data?.message ? res?.data?.message : `Something went wrong`
-          );
-        }
-      })
-      .catch((err) => {
-        setIsProcessing(false);
-        setErr(err?.message ? err?.message : `Something went wrong`);
-        console.log(err);
-      });
-  };
+  // const handleUpdateUserAdmin = async () => {
+  //   // if (
+  //   //   !(
+  //   //     inputData?.first_name &&
+  //   //     inputData?.user_name &&
+  //   //     inputData?.creator_password
+  //   //   )
+  //   // ) {
+  //   //   return setErr("Please enter required fields");
+  //   // }
+  //   // if (inputData?.password !== inputData?.confirm_password) {
+  //   //   return setErr(`password doesn't match`);
+  //   // }
+  //   // if (+inputData?.share + +inputData?.ul_share > 100) {
+  //   //   return setErr("Invalid shares");
+  //   // }
+  //   setErr("");
+  //   setIsProcessing(true);
+
+  //   await call(UPDATE_USER_ADMIN, {
+  //     ...inputData,
+  //     creator_id: register_id,
+  //     creator_role: account_role,
+  //     share: 100 - +inputData["ul_share"],
+  //   })
+  //     .then((res) => {
+  //       setIsProcessing(false);
+  //       if (res.data.status === 200) {
+  //         // props?.setIsUserAdded((prev) => !prev);
+  //         setAddadminsPopup(true);
+  //         setModalShow(false);
+  //         // props.onHide();
+  //         setInputData({});
+  //       } else {
+  //         setErr(
+  //           res?.data?.message ? res?.data?.message : `Something went wrong`
+  //         );
+  //       }
+  //     })
+  //     .catch((err) => {
+  //       setIsProcessing(false);
+  //       setErr(err?.message ? err?.message : `Something went wrong`);
+  //       console.log(err);
+  //     });
+  // };
   const handleSubmitUserCreation = async () => {
     if (
       !(
@@ -118,7 +144,66 @@ function AddAdminsPopup(props) {
       .then((res) => {
         setIsProcessing(false);
         if (res.data.status === 201) {
-          props?.setIsUserAdded((prev) => !prev);
+          // setIsUserAdded((prev) => !prev);
+          setAddadminsPopup(true);
+          // props.onHide();
+          setInputData({});
+        } else {
+          setErr(
+            res?.data?.message ? res?.data?.message : `something wen't wrong`
+          );
+        }
+      })
+      .catch((err) => {
+        setIsProcessing(false);
+        setErr(err?.message ? err?.message : `something wen't wrong`);
+        console.log(err);
+      });
+  };
+console.log("InputData====>",inputData)
+  const handleUpdateUserAdmin = async () => {
+    // if (
+    //   !(
+    //     inputData?.first_name &&
+    //     inputData?.user_name &&
+    //     // inputData?.share &&
+    //     inputData?.ul_share &&
+    //     inputData?.creator_password &&
+    //     inputData?.location
+    //   )
+    // ) {
+    //   return setErr("Please enter required fields");
+    // }
+    // if (inputData?.password !== inputData?.confirm_password) {
+    //   return setErr(`password doesn't match`);
+    // }
+    // if (+inputData?.share + +inputData?.ul_share > 100) {
+    //   return setErr("Invalid shares");
+    // }
+    const trailPack = {
+      package_id: "8a147698-4f2b-42b6-a409-f56ad6065002",
+      package_limits: {
+        duration: "unlimited",
+        members: 10,
+        no_of_meetings: "5",
+      },
+    };
+    const packInfo = inputData?.trailPack ? { trailPack } : {};
+    setErr("");
+    setIsProcessing(true);
+    setModalShow(false);
+    await call(UPDATE_USER_ADMIN, {
+      ...inputData,
+      ...packInfo,
+      creator_id: register_id,
+      creator_role: account_role,
+      share: 100 - +inputData["ul_share"],
+    })
+      .then((res) => {
+        setIsProcessing(false);
+        if (res.data.status === 201) {
+          // setIsUserAdded((prev) => !prev);
+          setAddadminsPopup(true);
           // props.onHide();
           setInputData({});
         } else {
@@ -145,7 +230,7 @@ function AddAdminsPopup(props) {
   };
 
   useEffect(() => {
-    setInputData(props.adminsData);
+    setInputData(adminsData);
   }, []);
 
   return (

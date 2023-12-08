@@ -10,6 +10,7 @@ import MatchSubmitPopup from "../match-popups/MatchSubmitPopup";
 import { call } from "../../config/axios";
 import { GET_ALL_CLIENTS, BLOCKUNBLOCK } from "../../config/endpoints";
 import AdminDetailsSharePopup from "./AdminDetailsSharePopup";
+import AddUserSubmitPopup from "../match-popups/AddUserSubmitPopup";
 
 const AddUsers = () => {
   let register_id = localStorage?.getItem("register_id");
@@ -27,6 +28,7 @@ const AddUsers = () => {
   const [inputData, setInputData] = useState({});
   const [adminDetailsPopup, setAdminDetailsPopup] = useState(false);
   const [adminDetailsData, setAdminDetailsData] = useState();
+  const [addUserPopup,setAddUserPopup]=useState(false)
 
   const handleAdminDetailsSharePopup = (data) => {
     setAdminDetailsPopup(true);
@@ -230,8 +232,15 @@ const AddUsers = () => {
           inputData={inputData}
           status={status}
           setStatus={setStatus}
+          setAddUserPopup={setAddUserPopup}
         />
       )}
+
+     <AddUserSubmitPopup
+        header={"You Have Successfully Submitted Your User Details"}
+        addUserPopup={addUserPopup}
+        setAddUserPopup={setAddUserPopup}
+      />
 
       <ChangePassword
         showChangePopup={showChangePopup}
@@ -243,6 +252,7 @@ const AddUsers = () => {
         state={changePasswordSubmit}
         setState={setChangePasswordSubmit}
       />
+      
       <AdminDetailsSharePopup
         adminDetailsPopup={adminDetailsPopup}
         setAdminDetailsPopup={setAdminDetailsPopup}

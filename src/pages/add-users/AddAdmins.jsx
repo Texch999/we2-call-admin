@@ -13,6 +13,7 @@ import { call } from "../../config/axios";
 import ChangePassword from "./ChangePassword";
 import MatchSubmitPopup from "../match-popups/MatchSubmitPopup";
 import AdminDetailsSharePopup from "./AdminDetailsSharePopup";
+import AddAdminSubmitPopup from "../match-popups/AddAdminSubmitPopup";
 
 const AddAdmins = () => {
   let register_id = localStorage?.getItem("register_id");
@@ -24,6 +25,7 @@ const AddAdmins = () => {
   const [packageViewPopShow, setPackageViewPopup] = useState(false);
   const [usersData, setUsersData] = useState([]);
   const [adminsData, setAdminsData] = useState();
+  const [addAddaminsPopup, setAddadminsPopup] = useState(false);
   const [isUserAdded, setIsUserAdded] = useState(false);
   const [changepasswordPopup, setChangepasswordPopup] = useState(false);
   const [changePasswordSubmit, setChangePasswordSubmit] = useState(false);
@@ -244,8 +246,10 @@ const AddAdmins = () => {
               setModalShow(e);
             }}
             setIsUserAdded={setIsUserAdded}
+            setAddadminsPopup={setAddadminsPopup}
           />
         )}
+
         {packageViewPopShow && (
           <PackageViewPopUp
             show={packageViewPopShow}
@@ -256,6 +260,11 @@ const AddAdmins = () => {
           showChangePopup={changepasswordPopup}
           setShowChangePopup={setChangepasswordPopup}
           setChangePasswordSubmit={setChangePasswordSubmit}
+        />
+        <AddAdminSubmitPopup
+          header={"You Have Successfully Submitted Your User Details"}
+          addAddaminsPopup={addAddaminsPopup}
+          setAddadminsPopup={setAddadminsPopup}
         />
         <MatchSubmitPopup
           header={"You Are Successfully Changed your Password"}
