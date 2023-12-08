@@ -1,27 +1,43 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { AiOutlineDown, AiOutlineRight } from "react-icons/ai";
+import { TOP_WINNERS_LOOSERS } from "../../config/endpoints";
+import { call } from "../../config/axios";
 
 function TopUsersList() {
+  const register_id = localStorage?.getItem("register_id");
+  const [topWinners, setTopWinners] = useState({});
+
+  const getAllWinners = async () => {
+    await call(TOP_WINNERS_LOOSERS, {
+      register_id: register_id,
+      startDate: "01aug2023",
+      endDate: "08dec2023",
+      topclient: "winner",
+    })
+      .then((res) => {
+        let result = res;
+        setTopWinners(result);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  useEffect(() => {
+    getAllWinners();
+  }, []);
+  console.log(topWinners, "TOP_WINNERS");
+
   const summaryContent = [
     {
-      users: "Active Users",
-      count: "00",
+      users: "USER1",
+      count: "500000",
     },
     {
-      users: "Active Agents",
-      count: "00",
+      users: "USER1",
+      count: "500000",
     },
     {
-      users: "Turn Over",
-      count: "00",
-    },
-    {
-      users: "Profit/Loss",
-      count: "00",
-    },
-    {
-      users: "Total Bets",
-      count: "00",
+      users: "USER1",
+      count: "500000",
     },
   ];
   return (

@@ -89,6 +89,7 @@ const SET_ADMIN_OFFLINE_PAYMENT =
   "/offline-management/admin_offline_settlement";
 const ADD_GUESTDOCS_FOR_TOURS = "/tours/add_guestdocs_for_tour";
 const GET_ALL_USERS = "/offline-management/get_user_list";
+const TOP_WINNERS_LOOSERS = "/admin/top_winner_looser";
 
 // methods
 const DELETE = "DELETE";
@@ -464,5 +465,10 @@ exports.GET_ALL_NOTIFICATIONS = {
 
 exports.GET_ALL_USERS = {
   url: GET_ALL_USERS,
+  method: GET,
+};
+
+exports.TOP_WINNERS_LOOSERS = {
+  url: TOP_WINNERS_LOOSERS,
   method: GET,
 };
