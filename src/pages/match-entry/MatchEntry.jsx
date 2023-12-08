@@ -57,6 +57,8 @@ function MatchEntry() {
   };
 
   const totalMatches = [...allMatches, ...companyMatches];
+  console.log(allMatches, "admin_MATCHES");
+  console.log(companyMatches, "COMpany_MATCHES");
 
   const getMatchPositionData = async (ID) => {
     await call(GET_MATCH_POSITION_DATA, {
@@ -87,15 +89,17 @@ function MatchEntry() {
 
   useEffect(() => {
     getMatchPositionData();
+    getAllMatches();
+    getCompanyMatches();
   }, []);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      await getAllMatches();
-      getCompanyMatches();
-    };
-    fetchData();
-  }, []);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     await getAllMatches();
+  //     getCompanyMatches();
+  //   };
+  //   fetchData();
+  // }, []);
 
   useEffect(() => {
     const fetchMatchInfo = async () => {
