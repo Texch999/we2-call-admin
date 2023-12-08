@@ -58,6 +58,8 @@ const RISK_RUNNING_SESSION = "/offline-management/risk_running_session";
 const FANCY_RESULT_PROFIT_LOSS = "/offline-management/fancy_result_profitlose";
 const GET_LIVE_MATCH_RISK_POSITION =
   "/offline-management/live_match_risk_position";
+const SET_ADMIN_OFFLINE_PAYMENT = "/offline-management/admin_offline_settlement";
+
 // methods
 const DELETE = "DELETE";
 const POST = "POST";
@@ -214,6 +216,11 @@ exports.CREATE_OFFLINE_CLIENT = {
 
 exports.GET_OFFLINE_CLIENTS = {
   url: GET_OFFLINE_CLIENTS,
+  method: POST,
+};
+
+exports.SET_ADMIN_OFFLINE_PAYMENT = {
+  url: SET_ADMIN_OFFLINE_PAYMENT,
   method: POST,
 };
 
