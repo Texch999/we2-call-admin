@@ -8,17 +8,15 @@ import {
   GET_MATCH_POSITION_DATA,
   GET_OFFLINE_ALL_MATCHES,
 } from "../../config/endpoints";
-
 import { call } from "../../config/axios";
 
 function MatchEntry() {
-  // Retrieve values from localStorage
   let register_id = localStorage?.getItem("register_id");
   let creator_id = localStorage?.getItem("creator_id");
   let account_role = localStorage?.getItem("account_role");
 
-  // State variables
   const [allMatches, setAllMatches] = useState([]);
+  const [companyMatches, setCompanyMatches] = useState([]);
   const [selectedMatch, setSelectedMatch] = useState([]);
   const [matchPositionData, setMatchPositionData] = useState([]);
   const [matchAccountData, setMatchAccountData] = useState([]);
@@ -26,29 +24,11 @@ function MatchEntry() {
   const [status, setStatus] = useState(false);
   const [afterDeclare, setAfterDeclare] = useState(false);
 
-  useEffect(() => {
-    getMatchPositionData();
-  }, []);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      await getAllMatches();
-    };
-    fetchData();
-  }, []);
-
-  useEffect(() => {
-    const fetchMatchInfo = async () => {
-      if (selectedMatch) {
-        await getMatchInfo();
-      }
-    };
-    fetchMatchInfo();
-  }, [selectedMatch?.match_id, afterDeclare]);
-
-  // Function to fetch all matches
   const getAllMatches = async () => {
-    await call(GET_OFFLINE_ALL_MATCHES, { register_id, account_role })
+    await call(GET_OFFLINE_ALL_MATCHES, {
+      register_id,
+      account_role,
+    })
       .then((res) => {
         let result = res?.data?.data;
         const temp = result?.liveMatches?.filter(
@@ -56,12 +36,29 @@ function MatchEntry() {
         );
         setAllMatches(temp);
         setStatus((prev) => !prev);
-        // setSelectedMatch(
-        //   (result && result?.liveMatches && result?.liveMatches[0]) || ""
-        // );
       })
       .catch((err) => console.log(err));
   };
+
+  const getCompanyMatches = async () => {
+    await call(GET_OFFLINE_ALL_MATCHES, {
+      register_id: "company",
+      account_role,
+    })
+      .then((res) => {
+        let result = res?.data?.data;
+        const temp = result?.liveMatches?.filter(
+          (i) => i.match_declared !== "Y"
+        );
+        setCompanyMatches(temp);
+        setStatus((prev) => !prev);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const totalMatches = [...allMatches, ...companyMatches];
+  console.log(allMatches, "admin_MATCHES");
+  console.log(companyMatches, "COMpany_MATCHES");
 
   const getMatchPositionData = async (ID) => {
     await call(GET_MATCH_POSITION_DATA, {
@@ -90,10 +87,33 @@ function MatchEntry() {
       .catch((err) => console.log(err));
   };
 
+  useEffect(() => {
+    getMatchPositionData();
+    getAllMatches();
+    getCompanyMatches();
+  }, []);
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     await getAllMatches();
+  //     getCompanyMatches();
+  //   };
+  //   fetchData();
+  // }, []);
+
+  useEffect(() => {
+    const fetchMatchInfo = async () => {
+      if (selectedMatch) {
+        await getMatchInfo();
+      }
+    };
+    fetchMatchInfo();
+  }, [selectedMatch?.match_id, afterDeclare]);
+
   return (
     <div>
       <MatchScroll
-        allMatches={allMatches}
+        allMatches={totalMatches}
         selectedMatch={selectedMatch}
         setSelectedMatch={setSelectedMatch}
       />
