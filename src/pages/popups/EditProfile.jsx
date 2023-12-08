@@ -31,13 +31,13 @@ function EditProfile(props) {
   const [status, setStatus] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
 
-  const getProfile = async (id) => {
+  const getProfile = async () => {
     const payload = {
       register_id,
     };
     try {
       const res = await call(GET_USER_INFO, payload);
-      const userProfileData = res?.data?.data;
+      const userProfileData = res?.data?.data[0];
       setFormData({
         first_name: userProfileData?.first_name || "",
         last_name: userProfileData?.last_name || "",
@@ -50,7 +50,6 @@ function EditProfile(props) {
       console.log(err);
     }
   };
-
   const generateSignedUrl = async () => {
     setIsProcessing(true);
     await call(GENERATE_SIGNED_URL, {
@@ -68,7 +67,6 @@ function EditProfile(props) {
         console.log("generating signed url error", err);
       });
   };
-
   useEffect(() => {
     getProfile();
   }, []);
@@ -83,15 +81,16 @@ function EditProfile(props) {
   const validateForm = () => {
     const isUserNameValid = formData.user_name.trim() !== "";
     const isMobileNumberValid = formData.mobile_no.trim() !== "";
-
     setIsUserNameValid(isUserNameValid);
     setIsMobileNumberValid(isMobileNumberValid);
-
     return isUserNameValid && isMobileNumberValid;
   };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleUploadFileSelect = (e) => {
+    const file = e.target.files[0];
+    setProfileImage(file);
+    generateSignedUrl();
+  };
+  const handleSubmit = async () => {
     singedUrl &&
       profileImage &&
       (await fetch(singedUrl, {
@@ -102,7 +101,9 @@ function EditProfile(props) {
           "cache-control": "public, max-age=0",
         },
       })
-        .then((res) => {})
+        .then((res) => {
+          return true;
+        })
         .catch((err) => {
           console.log("err: ", err);
         }));
@@ -116,7 +117,6 @@ function EditProfile(props) {
         user_name: formData.user_name,
         profile_image: `${ImageBaseUrl}/${"profile-images"}/${register_id}.png`,
       };
-
       try {
         setIsProcessing(true);
         const response = await call(UPDATE_PROFILE, updatedProfile);
@@ -159,10 +159,7 @@ function EditProfile(props) {
             type="file"
             id="upload-button"
             style={{ display: "none" }}
-            onChange={(e) => {
-              setProfileImage(e?.target?.files[0]);
-              generateSignedUrl();
-            }}
+            onChange={handleUploadFileSelect}
           />
         </div>
       </center>
@@ -177,7 +174,7 @@ function EditProfile(props) {
                 placeholder="Enter Name"
                 autoFocus
                 name="first_name"
-                value={formData.first_name}
+                value={formData?.first_name}
                 onChange={handleChange}
               />
             </InputGroup>
@@ -197,7 +194,7 @@ function EditProfile(props) {
                       autoFocus
                       className="h-38px"
                       name="email"
-                      value={formData.email}
+                      value={formData?.email}
                       onChange={handleChange}
                     />
                   </InputGroup>
@@ -214,7 +211,7 @@ function EditProfile(props) {
                       autoFocus
                       maxlength="10"
                       name="whats_app"
-                      value={formData.whats_app}
+                      value={formData?.whats_app}
                       onChange={handleChange}
                     />
                   </InputGroup>
@@ -235,7 +232,7 @@ function EditProfile(props) {
                       autoFocus
                       className="h-38px"
                       name="skype"
-                      value={formData.skype}
+                      value={formData?.skype}
                       onChange={handleChange}
                     />
                   </InputGroup>
@@ -252,7 +249,7 @@ function EditProfile(props) {
                       autoFocus
                       maxlength="10"
                       name="mobile_no"
-                      value={formData.mobile_no}
+                      value={formData?.mobile_no}
                       onChange={handleChange}
                     />
                   </InputGroup>
