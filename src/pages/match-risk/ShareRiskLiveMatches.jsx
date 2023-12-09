@@ -201,15 +201,8 @@ const ShareRiskLiveMatches = () => {
     // You can add your logic here to fetch data for the selected page.
   };
   return (
-    <div className="p-4">
+    <div className="p-3">
       <h5 className="meetings-heading mb-3">Share Risk Live Matches </h5>
-      <hr />
-      <div className="mb-2">
-        <Button className="all-match-button share-risk-match-button w-25 text-start">
-          Live Matches
-        </Button>
-      </div>
-
       <div>
         <Table responsive="md" className="call-management-data">
           <thead>

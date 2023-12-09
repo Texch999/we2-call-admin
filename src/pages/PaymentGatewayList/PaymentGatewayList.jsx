@@ -46,7 +46,7 @@ function PaymentGatewayList() {
   const qrCodePaymentInfo = findPaymentData("qr_code");
 
   return (
-    <div className="p-4">
+    <div className="p-3">
       <h5 className="meetings-heading mb-3">Payment Gateway List</h5>
       <div>
         <table className="w-100 match-position-table small-font">

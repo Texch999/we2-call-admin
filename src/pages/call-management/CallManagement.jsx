@@ -411,7 +411,7 @@ const CallManagement = () => {
                 <th className="text-center">START DATE & TIME</th>
                 <th className="text-center">USERS</th>
                 <th className="text-center">STATUS</th>
-                <th className="text-center"></th>
+                <th className="text-center">EDIT</th>
               </tr>
             </thead>
             <tbody>
