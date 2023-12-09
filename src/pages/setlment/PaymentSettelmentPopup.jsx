@@ -1,60 +1,71 @@
 import React, { useState, useEffect } from "react";
 import { Col, Container, Modal, Row } from "react-bootstrap";
 import moment from "moment";
+import { call } from "../../config/axios";
+import { SET_ADMIN_OFFLINE_PAYMENT } from "../../config/endpoints";
 
 function PaymentSettelmentPopup(props) {
   const {
-    showPaymentModal,
-    setShowPaymentModal,
-    clientId,
-    SETTELMENT_DETAILS = [],
-    setOfflineSettlePayload,
-    offlineSettlePayload,
-    handlePaymentSubmitPopupOpen,
+    paymentPopupOpen,
+    setPaymentPopupOpen,
+    setPaymentSuccessPopUp,
+    setSuccess,
     role,
+    selectedUser,
+    totalAmount,
+    pendinAmount,
   } = props;
-  const [showPaymentType, setShowPaymentType] = useState(false);
-  const [paymentType, setPaymentType] = useState("Payment Mode");
-  const selectedObj =
-    SETTELMENT_DETAILS?.length &&
-    SETTELMENT_DETAILS?.filter((obj) => obj.client_id == clientId)?.[0];
-  const [settlementObj, setSettlementObj] = useState({});
-  const onSubmitBtnClick = () => {
-    setOfflineSettlePayload({ ...offlineSettlePayload, ...settlementObj });
-    setShowPaymentModal(false);
-    handlePaymentSubmitPopupOpen();
+  const register_id = localStorage?.getItem("register_id");
+  const [paymentType, setPaymentType] = useState("");
+  const [error, setError] = useState("");
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [settlementObj, setSettlementObj] = useState({
+    settled_platform_amount: 0,
+  });
+
+  const onSubmitBtnClick = async () => {
+    setIsProcessing(true);
+    console.log("settlement obj", settlementObj);
+    await call(SET_ADMIN_OFFLINE_PAYMENT, {
+      client_id: selectedUser?.client_id,
+      referral_name: selectedUser?.referral_name,
+      client_name: selectedUser?.client_name,
+      register_id,
+      payment_type: paymentType?.value,
+      totalAmount: totalAmount?.toFixed(2),
+      ...settlementObj,
+    })
+      ?.then((res) => {
+        setIsProcessing(false);
+        console.log(res);
+        if (res?.data?.error === "true") {
+          setError(res?.data?.message);
+        } else {
+          setPaymentPopupOpen(false);
+          setSuccess((prev) => !prev);
+          setPaymentSuccessPopUp(true);
+        }
+      })
+      .catch((err) => {
+        setIsProcessing(false);
+        setError(err);
+        console.log(err);
+      });
   };
   // const handleCloseModal = () => {
   //   setShowPaymentModal(false);
   // };
-  const paymentTypes = [
-    { name: "PhonePe", value: "Phonepay" },
-    { name: "G Pay", value: "G pay" },
-  ];
-  const onPaymentType = () => {
-    setShowPaymentType((prev) => !prev);
-  };
-  const handlePaymentType = (type) => {
-    setPaymentType(type);
-    setSettlementObj({
-      ...settlementObj,
-      payment_type: type?.value,
-    });
-  };
-  const onInputChange = (e) => {
+ const onInputChange = (e) => {
     setSettlementObj({
       ...settlementObj,
       [e.target.name]: Number(e.target.value),
     });
   };
-  useEffect(() => {
-    setSettlementObj(selectedObj);
-  }, [selectedObj]);
+
   const handlePaymentClose = () => {
-    setShowPaymentModal(false);
+    setPaymentPopupOpen(false);
   };
 
-  console.log(settlementObj, ".................settlementObj");
   // const [paymentSubmitPopup, setPaymentSubmitPopup] = useState(false);
   // const [paymentPopup, setPaymentPopup] = useState(false);
   // const handlePaymentSubmitPopupOpen = () => {
@@ -69,7 +80,7 @@ function PaymentSettelmentPopup(props) {
     <div className="modal fade bd-example-modal-lg container mt-5">
       <Modal
         size="md"
-        show={showPaymentModal}
+        show={paymentPopupOpen}
         onHide={handlePaymentClose}
         centered
         className="match-share-modal payment-modal"
@@ -112,8 +123,8 @@ function PaymentSettelmentPopup(props) {
                   <div className="w-100 custom-select small-font btn-bg rounded all-none">
                     <input
                       className="w-100 custom-select small-font btn-bg rounded all-none p-2"
-                      value={settlementObj?.ClientName}
-                      onChange={(e) => onInputChange(e)}
+                      value={selectedUser?.client_name}
+                      disabled
                     />
                   </div>
                 </div>
@@ -126,21 +137,17 @@ function PaymentSettelmentPopup(props) {
                       type="number"
                       placeholder="Balance"
                       className="w-100 custom-select small-font btn-bg rounded all-none p-2 small-font"
-                      onChange={(e) => onInputChange(e)}
-                      value={settlementObj?.Amount}
+                      value={totalAmount ? totalAmount?.toFixed(2) : 0}
+                      disabled
                     ></input>
                   </Col>
                   <Col className="pe-0">
-                    <input
-                      type="number"
-                      placeholder="Net Balance"
-                      onChange={(e) => onInputChange(e)}
-                      value={
-                        settlementObj?.Amount -
-                        (settlementObj?.settled_amount || 0)
-                      }
-                      className="w-100 custom-select small-font btn-bg rounded all-none p-2"
-                    ></input>
+                    <button className="w-100 custom-select small-font btn-bg rounded all-none p-2">
+                      {+pendinAmount -
+                        (pendinAmount > 0
+                          ? settlementObj?.settled_platform_amount || 0
+                          : -1 * (settlementObj?.settled_platform_amount || 0))}
+                    </button>
                   </Col>
                 </Row>
               </Container>
@@ -180,10 +187,13 @@ function PaymentSettelmentPopup(props) {
                   <div>
                     <input
                       type="number"
+                      id="settled_platform_amount"
                       placeholder="Enter Amount"
-                      name="settled_amount"
-                      onChange={(e) => onInputChange(e)}
-                      value={settlementObj?.settled_amount}
+                      name="settled_platform_amount"
+                      defaultValue={settlementObj?.settled_platform_amount}
+                      onChange={(e) => {
+                        onInputChange(e);
+                      }}
                       className="w-100 custom-select small-font btn-bg rounded all-none"
                     ></input>
                   </div>
@@ -193,8 +203,9 @@ function PaymentSettelmentPopup(props) {
                 type="submit"
                 className="submit-button mt-2 small-font p-2 rounded all-none w-100 mb-2"
                 onClick={() => onSubmitBtnClick()}
+                disabled={isProcessing}
               >
-                Submit
+                {isProcessing ? "Processing..." : "Submit"}
               </button>
             </div>
           </div>

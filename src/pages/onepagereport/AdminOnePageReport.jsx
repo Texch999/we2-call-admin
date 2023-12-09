@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Table } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import AdminPopReports from "./AdminPopReports";
@@ -9,23 +9,65 @@ import {
   GET_OFFLINE_CLIENTS,
 } from "../../config/endpoints";
 import { call } from "../../config/axios";
-import { useEffect } from "react";
 import moment from "moment";
 
 const AdminOnePageReport = () => {
+  const register_id = localStorage.getItem("register_id");
   const [allUsers, setAllUsers] = useState([]);
+  const [induvisualUserReport, setInduvisualUserReport] = useState([]);
+  const [success, setSuccess] = useState(false);
   const [adminOnePageReportPopUp, setAdminOnePageReportPopUp] = useState(false);
   const [adminName, setAdminName] = useState("");
+  const [ulShare, setUlShare] = useState(0)
   const [role, setRole] = useState("");
   const [adminsData, setAdminsData] = useState("");
   const [adminsHeadings, setAdminsHeadings] = useState("");
-  const reports = ["Admin One Page Report", "UL/Platform Comm Report"];
+  const reports = [
+    { name: "Admin One Page Report", isActive: true },
+    { name: "UL/Platform Comm Report", isActive: false },
+  ];
   const [activeReport, setActiveReport] = useState("Admin One Page Report");
   const [popupHeading, setPopupHeading] = useState(false);
-  const register_id = localStorage.getItem("register_id");
-  const [induvisualUserReport, setInduvisualUserReport] = useState([]);
+  const [isAdminActive, setIsAdminActive] = useState(true);
 
-  // const adminOnePageReportData = [
+  const getUlShare = (netPl, ulShare) => {
+    const netAmount = (+netPl || 0 * +ulShare || 0) / 100;
+    return netAmount;
+  };
+
+  const onePageReportNetPL =
+    allUsers &&
+    allUsers?.length > 0 &&
+    allUsers?.reduce((acc, obj) => acc + (+obj?.total_amount || 0), 0);
+  const onePageReportUlNet =
+    allUsers &&
+    allUsers?.length > 0 &&
+    allUsers?.reduce(
+      (acc, obj) => acc + (+getUlShare(obj?.total_amount, obj?.ul_share) || 0),
+      0
+    );
+    const totalPlatForm = allUsers && allUsers?.length>0 &&  allUsers?.reduce((acc, obj) => acc + (+obj?.totalPlatformNet || 0), 0);
+
+  const adminOnePageReportData =
+    allUsers &&
+    allUsers?.length > 0 &&
+    allUsers?.map((user) => {
+      const netPL = getUlShare(user?.total_amount, user?.ul_share);
+      return {
+        admin_name: user?.client_name,
+        admin_role: user?.account_role,
+        profit_loss: user?.total_amount ? user?.total_amount?.toFixed(2) : 0,
+        ul_share: isAdminActive
+          ? netPL
+            ? netPL?.toFixed(2)
+            : 0
+          : user?.totalPlatformNet
+          ? user?.totalPlatformNet?.toFixed(2)
+          : 0,
+      };
+    });
+
+  //   [
   //   {
   //     admin_name: "Animesh",
   //     admin_role: "Agent",
@@ -63,139 +105,61 @@ const AdminOnePageReport = () => {
   //     ul_share: 200000.0,
   //   },
   // ];
-  const getUlShare = (netPl, ulShare) => {
-    const netAmount = (+netPl || 0 * +ulShare || 0) / 100;
-    return netAmount;
-  };
-  const [ulShare, setUlShare] = useState(0);
-  const [userName, setUserName] = useState("");
-  const [userRole, setUserRole] = useState("");
-
-  const adminOnePageReportData =
-    allUsers &&
-    allUsers?.length > 0 &&
-    allUsers?.map((user) => {
-      const netPL = getUlShare(user?.total_amount, user?.ul_share);
-      return {
-        admin_name: (
-          <div onClick={() => handleAdminReports(user)}>
-            {user?.client_name}
-          </div>
-        ),
-        admin_role: <div>{`${user?.account_role}`}</div>,
-        net_pl: (
-          <div className={user?.total_amount >= 0 ? "clr-green" : "clr-red"}>
-            {user?.total_amount ? user?.total_amount?.toFixed(3) : 0}
-          </div>
-        ),
-        ul_share: (
-          <div className={netPL >= 0 ? "clr-green" : "clr-red"}>
-            {netPL ? netPL?.toFixed(3) : 0}
-          </div>
-        ),
-      };
-    });
-  const AdminOnePagePoupupData =
-    induvisualUserReport &&
-    induvisualUserReport?.length &&
-    induvisualUserReport?.map((match) => {
-      // console.log(match?.totalAmount?.totalLossOrProfit, ulShare)
-      return {
-        series_name: match?.series_name,
-        match_place: match?.match_place,
-        date: moment(match?.matchTimeStamp).format("DD-MM-YYYY"),
-        time: moment(match?.matchTimeStamp).format("mm:ss A"),
-        team: `${match?.team1} vs ${match?.team2}`,
-        win_team: match?.winTeam,
-        admin_pl: match?.totalAmount?.totalLossOrProfit || 0,
-        urs_pl: (+match?.totalAmount?.totalLossOrProfit * +ulShare) / 100,
-      };
-    });
-  const adminOnePageReportIndividualData =
-    AdminOnePagePoupupData &&
-    AdminOnePagePoupupData?.length > 0 &&
-    AdminOnePagePoupupData?.map((adminUldata) => ({
-      series_name: <div>{adminUldata?.series_name}</div>,
-      match_place: <div>{adminUldata?.match_place}</div>,
-      date_time: (
-        <div className="d-flex flex-column">
-          <div>{adminUldata?.date}</div>
-          <div>{adminUldata?.time}</div>
-        </div>
-      ),
-      team: <div>{adminUldata?.team}</div>,
-      win_team: (
-        <div>
-          <span className="clr-green">{adminUldata?.win_team}</span>
-        </div>
-      ),
-      admin_pl: (
-        <div
-          className={`${+adminUldata?.admin_pl >= 0 ? "clr-green" : "clr-red"}`}
-        >
-          {adminUldata?.admin_pl ? adminUldata?.admin_pl?.toFixed(2) : 0}
-        </div>
-      ),
-      urs_pl: (
-        <div
-          className={`${+adminUldata?.urs_pl >= 0 ? "clr-green" : "clr-red"}`}
-        >
-          {adminUldata?.urs_pl ? adminUldata?.urs_pl?.toFixed(2) : 0}
-        </div>
-      ),
-    }));
-
-
+  const adminOnePageReportIndividualData = induvisualUserReport &&
+  induvisualUserReport?.length &&
+  induvisualUserReport?.map((match) => {  
+    return {
+      series_name: match?.series_name,
+      date_time: `${moment(match?.matchTimeStamp).format("DD-MM-YYYY")}  ${moment(match?.matchTimeStamp).format("mm:ss A")}`,
+      team: `${match?.team1} vs ${match?.team2}`,
+      win_team: match?.winTeam,
+      profit_loss: match?.totalAmount?.totalLossOrProfit || 0,
+      urs_profilt_loss:  (+match?.totalAmount?.totalLossOrProfit * +ulShare) / 100,
+    }
+  });
+  // [
+  //   {
+  //     series_name: "T20 world cup",
+  //     date_time: "02/08/2023 11:32:00 AM",
+  //     team: "india",
+  //     win_team: "india",
+  //     profit_loss: 50000000,
+  //     urs_profilt_loss: 50000000,
+  //   },
+  //   {
+  //     series_name: "T20 world cup",
+  //     date_time: "02/08/2023 11:32:00 AM",
+  //     team: "india",
+  //     win_team: "india",
+  //     profit_loss: 50000000,
+  //     urs_profilt_loss: 50000000,
+  //   },
+  //   {
+  //     series_name: "T20 world cup",
+  //     date_time: "02/08/2023 11:32:00 AM",
+  //     team: "india",
+  //     win_team: "india",
+  //     profit_loss: 50000000,
+  //     urs_profilt_loss: 50000000,
+  //   },
+  //   {
+  //     series_name: "T20 world cup",
+  //     date_time: "02/08/2023 11:32:00 AM",
+  //     team: "india",
+  //     win_team: "india",
+  //     profit_loss: 50000000,
+  //     urs_profilt_loss: 50000000,
+  //   },
+  // ];
   const adminOnePageReportIndividualHeadings = [
     { header: "Series Name", field: "series_name" },
-    { header: "Match Place", field: "match_place" },
     { header: "Date & Time", field: "date_time" },
     { header: "Team", field: "team" },
     { header: "Win Team", field: "win_team" },
-    { header: "Admin P/L", field: "admin_pl" },
-    { header: "Urs P/L", field: "urs_pl" },
+    { header: "Admin P/L", field: "profit_loss" },
+    { header: "Urs P/L", field: "urs_profilt_loss" },
   ];
   const adminUlPlatformCommData = [
-    {
-      series_name: "T20 world cup",
-      date_time: "02/08/2023 11:32:00 AM",
-      team: "india",
-      win_team: "india",
-      profit_loss: 50000000,
-      urs_profilt_loss: 50000000,
-    },
-    {
-      series_name: "T20 world cup",
-      date_time: "02/08/2023 11:32:00 AM",
-      team: "india",
-      win_team: "india",
-      profit_loss: 50000000,
-      urs_profilt_loss: 50000000,
-    },
-    {
-      series_name: "T20 world cup",
-      date_time: "02/08/2023 11:32:00 AM",
-      team: "india",
-      win_team: "india",
-      profit_loss: 50000000,
-      urs_profilt_loss: 50000000,
-    },
-    {
-      series_name: "T20 world cup",
-      date_time: "02/08/2023 11:32:00 AM",
-      team: "india",
-      win_team: "india",
-      profit_loss: 50000000,
-      urs_profilt_loss: 50000000,
-    },
-    {
-      series_name: "T20 world cup",
-      date_time: "02/08/2023 11:32:00 AM",
-      team: "india",
-      win_team: "india",
-      profit_loss: 50000000,
-      urs_profilt_loss: 50000000,
-    },
     {
       series_name: "T20 world cup",
       date_time: "02/08/2023 11:32:00 AM",
@@ -237,96 +201,80 @@ const AdminOnePageReport = () => {
     { header: "Admin P/L", field: "profit_loss" },
     { header: "UL/Plat Comm", field: "urs_profilt_loss" },
   ];
-  const getAllUsers = async () => {
-    await call(GET_OFFLINE_CLIENTS, { register_id })
-      .then((res) => {
-        // console.log(res.data);
-        // let results = res?.data?.data?.filter(
-        //   (item) => item.user_status !== "deleted"
-        // );
-        let results = res?.data?.data;
-        setAllUsers(results);
-      })
-      .catch((err) => console.log(err));
-  };
-  const getUserMatches = async (userId) => {
-    await call(GET_LIVE_MATCH_RISK_POSITION, { user_id: userId })
-      .then((res) => {
-        console.log(res.data.data, "Response from popup");
-        setInduvisualUserReport(res.data.data);
-      })
-      .catch((err) => console.log(err));
-  };
-  useEffect(() => {
-    getAllUsers();
-  }, []);
   const handleReport = (report) => {
     setActiveReport(report);
   };
-
-  const [induvisualAdminData, setInduvisualAdminData] = useState({});
   const handleAdminReports = (data) => {
-    // console.log(data, "......data");
-    setAdminOnePageReportPopUp(true);
-    setInduvisualAdminData(data);
-    getUserMatches(data.register_id);
-    setAdminName(data?.admin_name);
-    setRole(data?.admin_role);
-    setAdminsData(adminOnePageReportIndividualData);
-    setAdminsHeadings(adminOnePageReportIndividualHeadings);
-    setPopupHeading("Match Wise Share P/L");
+    if (activeReport === "Admin One Page Report") {
+      getUserMatches(data?.admin_name);
+      setAdminName(data?.admin_name);
+      setUlShare(isNaN(+data?.ul_share) ? 0 : data?.ul_share)
+      setRole(data?.admin_role);
+      setAdminOnePageReportPopUp(true);
+      setAdminsData(adminOnePageReportIndividualData);
+      setAdminsHeadings(adminOnePageReportIndividualHeadings);
+      setPopupHeading("Match Wise Share P/L");
+    } else {
+      setAdminName(data?.admin_name);
+      setRole(data?.admin_role);
+      setAdminOnePageReportPopUp(true);
+      setAdminsData(adminUlPlatformCommData);
+      setAdminsHeadings(adminUlPlatformCommHeadings);
+      setPopupHeading("Match Wise UL/Platform Com");
+    }
   };
-  const ulPlatformComm =
-    allUsers &&
-    allUsers?.length > 0 &&
-    allUsers?.map((user) => {
-      const netPL = getUlShare(user?.total_amount, user?.ul_share);
-      return {
-        admin_name: user?.client_name,
-        admin_role: user?.account_role,
-        ul_platform_comm: (
-          <div className={netPL >= 0 ? "green-clr" : "red-clr"}>
-            {netPL ? netPL?.toFixed(2) : 0}
-          </div>
-        ),
-      };
-    });
-
-  const onePageReportNetPL =
-    allUsers &&
-    allUsers?.length > 0 &&
-    allUsers?.reduce((acc, obj) => acc + (+obj?.total_amount || 0), 0);
-  const onePageReportUlNet =
-    allUsers &&
-    allUsers?.length > 0 &&
-    allUsers?.reduce(
-      (acc, obj) => acc + (+getUlShare(obj?.total_amount, obj?.ul_share) || 0),
-      0
-    );
   const [currentPage, setCurrentPage] = useState(1);
-  const totalPages = 5;
+  const totalPages =
+    (adminOnePageReportData && adminOnePageReportData?.length / 5) || 0;
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
     // You can add your logic here to fetch data for the selected page.
   };
+  const getAllUsers = async () => {
+    await call(GET_OFFLINE_CLIENTS, { register_id })
+      .then((res) => {
+        // console.log(res.data);
+        let results = res?.data?.data?.filter(
+          (item) => item.user_status !== "deleted"
+        );
+        setAllUsers(results);
+      })
+      .catch((err) => console.log(err));
+  };
+  const getUserMatches = async (username) => {
+    await call(GET_LIVE_MATCH_RISK_POSITION, { user_name: username })
+      .then((res) => {
+        // console.log(res,"GET_LIVE_MATCH_RISK....");
+        setInduvisualUserReport(res?.data?.data);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  useEffect(() => {
+    getAllUsers();
+  }, [success]);
+
   return (
-    <div>
-      <h6 className="meetings-heading mb-3">Your Share In Admin Book</h6>
+    <div className="p-4">
+      <h5 className="meetings-heading mb-3">Your Share In Admin Book</h5>
       <div className="d-flex align-items-center justify-content-between">
-        {/* <div>
-          {reports.map((report, index) => (
+        <div>
+          {reports.map(({ isActive, name }, index) => (
             <Button
               key={index}
               className={`me-2 admin-reports-button ${
-                report === activeReport ? "active-report-button" : ""
+                name === activeReport ? "active-report-button" : ""
               }`}
-              onClick={() => handleReport(report)}
+              onClick={() => {
+                handleReport(name);
+                setIsAdminActive(isActive);
+              }}
             >
-              {report}
+              {name}
             </Button>
           ))}
-        </div> */}
+        </div>
         <Button className="all-match-button">All Match</Button>
       </div>
       <hr />
@@ -335,81 +283,65 @@ const AdminOnePageReport = () => {
         <Table responsive="md" className="call-management-data">
           <thead>
             <tr>
-              <th className="text-center">ADMINS NAME</th>
-              <th className="text-center">ADMINS ROLE</th>
-              <th className="text-center">ADMINS NET P/L</th>
-              <th className="text-center">
-                {activeReport === "UL/Platform Comm Report"
-                  ? "UL /PLATFORM COMM"
-                  : "UL SHARE"}
-              </th>
+              <th>ADMINS NAME</th>
+              <th>ADMINS ROLE</th>
+              {isAdminActive && <th>ADMINS NET P/L</th>}
+              <th>{!isAdminActive ? "UL /PLATFORM COMM" : "UL SHARE"}</th>
             </tr>
           </thead>
           <tbody>
-            {adminOnePageReportData.length &&
+            {adminOnePageReportData &&
+              adminOnePageReportData?.length > 0 &&
               adminOnePageReportData?.map((data, index) => (
                 <tr key={index}>
-                  <td className="cursor-pointer d-flex flex-row justify-content-center align-items-center">
+                  <td
+                    className="cursor-pointer"
+                    onClick={() => isAdminActive && handleAdminReports(data)}
+                  >
                     {data?.admin_name}{" "}
-                    <GiClick className="custom-click-icon ms-1 mt-2" />
+                    {isAdminActive && <GiClick className="custom-click-icon ms-1 mt-2" />}
                   </td>
-                  <td className="text-center">{data?.admin_role}</td>
-                  <td className="text-center">{data?.net_pl} </td>
-                  <td className="text-center">{data?.ul_share} </td>
+                  <td>{data?.admin_role}</td>
+                  {isAdminActive && <td>{data?.profit_loss}</td>}
+                  <td>{data?.ul_share}</td>
                 </tr>
               ))}
           </tbody>
           <tfoot>
             <tr>
-              <th colSpan={2} className="text-center">
-                TOTAL
-              </th>
-              <th className="text-center clr-green">
+              <th colSpan={2}>TOTAL</th>
+              {isAdminActive && <th className="clr-green">
                 {onePageReportNetPL ? onePageReportNetPL?.toFixed(2) : 0}
-                {/* {adminOnePageReportData.length &&
-                  adminOnePageReportData
-                    ?.reduce(
-                      (total, data) => total + parseFloat(data?.profit_loss),
-                      0
-                    )
-                    .toFixed(2)} */}
-              </th>
-              <th className="text-center clr-green">
+              </th>}
+              {isAdminActive && <th className="clr-green">
                 {onePageReportUlNet ? onePageReportUlNet?.toFixed(2) : 0}
-                {/* {adminOnePageReportData.length &&
-                  adminOnePageReportData
-                    ?.reduce(
-                      (total, data) => total + parseFloat(data?.ul_share),
-                      0
-                    )
-                    .toFixed(2)} */}
-              </th>
+              </th>}
+              {!isAdminActive && <th className="clr-green">{totalPlatForm ? totalPlatForm?.toFixed(2) : 0}</th>}
             </tr>
           </tfoot>
           {adminOnePageReportPopUp && (
             <AdminPopReports
               show={adminOnePageReportPopUp}
-              induvisualAdminData={induvisualAdminData}
               onHide={() => setAdminOnePageReportPopUp(false)}
-              adminOnePageReportIndividualData={
-                adminOnePageReportIndividualData
-              }
-              data={adminsData}
+              data={adminOnePageReportIndividualData}
               columns={adminsHeadings}
               adminName={adminName}
               role={role}
               heading={popupHeading}
-              // totalPosition="series_name"
+              totalPosition="series_name"
             />
           )}
         </Table>
       </div>
       <div className="d-flex justify-content-between align-items-center mt-4">
-        <div className="d-flex justify-content-start font-clr-white total-count-container  py-2 px-4 rounded">
-          <span>
-            Showing <b> {currentPage} </b> 0f <b> {totalPages} </b> Entries....
-          </span>
-        </div>
+        {totalPages > 1 && (
+          <div className="d-flex justify-content-start font-clr-white total-count-container  py-2 px-4 rounded">
+            <span>
+              Showing <b> {currentPage} </b> 0f <b> {totalPages} </b>{" "}
+              Entries....
+            </span>
+          </div>
+        )}
         <div className="d-flex justify-content-end mt-2">
           <CustomPagination
             totalPages={totalPages}
