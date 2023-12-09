@@ -3,7 +3,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { GiClick } from "react-icons/gi";
 import "./style.css";
 import { useHistory } from "react-router";
-import CustomPagination from "../pagination/CustomPagination";
 import { useEffect, useState } from "react";
 import { call } from "../../config/axios";
 import { GET_LIVE_MATCH_RISK_POSITION } from "../../config/endpoints";
