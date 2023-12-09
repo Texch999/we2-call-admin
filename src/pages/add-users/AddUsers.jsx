@@ -11,6 +11,8 @@ import { GET_ALL_CLIENTS, BLOCKUNBLOCK } from "../../config/endpoints";
 import AddUserSuccessPopUp from "./AddUserSuccessPopUp";
 import BlockUnBlockPopUp from "./BlockUnBlockPopUp";
 import ChangePasswordSuccessPopUp from "./ChangePasswordSuccessPopUp";
+import { TfiSharethis } from "react-icons/tfi";
+import AdminDetailsSharePopup from "./AdminDetailsSharePopup";
 
 const AddUsers = () => {
   const register_id = localStorage?.getItem("register_id");
@@ -100,21 +102,30 @@ const AddUsers = () => {
     if (!filteredValue) {
       return allUsersData; // If search value is empty, return all data
     }
-  
+
     // Filter users based on the search input
-    const filteredUsers = allUsersData && allUsersData?.length > 0 && allUsersData?.filter((user) =>
-      user.user_name.toLowerCase().includes(filteredValue.toLowerCase())
-    );
-  
+    const filteredUsers =
+      allUsersData &&
+      allUsersData?.length > 0 &&
+      allUsersData?.filter((user) =>
+        user.user_name.toLowerCase().includes(filteredValue.toLowerCase())
+      );
+
     return filteredUsers;
   };
-
 
   const filteredUsersData = getFilteredUsers();
 
   useEffect(() => {
     getAllClients();
   }, [isUserAdded]);
+
+  const [adminDetailsPopup, setAdminDetailsPopup] = useState(false);
+  const [adminDetailsData, setAdminDetailsData] = useState();
+  const handleAdminDetailsSharePopup = (data) => {
+    setAdminDetailsPopup(true);
+    setAdminDetailsData(data);
+  };
 
   return (
     <div className="p-4">
@@ -207,6 +218,12 @@ const AddUsers = () => {
                     >
                       {data?.active ? "UB" : "B"}
                     </Button>
+                    <Button
+                      className="text-center rounded meeting-status-button EDIT-button me-2"
+                      onClick={() => handleAdminDetailsSharePopup(data)}
+                    >
+                      <TfiSharethis />
+                    </Button>
                   </td>
                 </tr>
               ))}
@@ -271,6 +288,11 @@ const AddUsers = () => {
         header={"You Are Successfully Changed your Password"}
         state={changePasswordSubmit}
         setState={setChangePasswordSubmit}
+      />
+      <AdminDetailsSharePopup
+        adminDetailsPopup={adminDetailsPopup}
+        setAdminDetailsPopup={setAdminDetailsPopup}
+        adminDetailsData={adminDetailsData}
       />
     </div>
   );

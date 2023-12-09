@@ -14,6 +14,8 @@ import MatchSubmitPopup from "../match-popups/MatchSubmitPopup";
 import AddUserSuccessPopUp from "./AddUserSuccessPopUp";
 import BlockUnBlockPopUp from "./BlockUnBlockPopUp";
 import ChangePasswordSuccessPopUp from "./ChangePasswordSuccessPopUp";
+import { TfiSharethis } from "react-icons/tfi";
+import AdminDetailsSharePopup from "./AdminDetailsSharePopup";
 
 const AddAdmins = () => {
   const register_id = localStorage?.getItem("register_id");
@@ -133,6 +135,13 @@ const AddAdmins = () => {
     getAllClients();
   }, [isUserAdded]);
 
+  const [adminDetailsPopup, setAdminDetailsPopup] = useState(false);
+  const [adminDetailsData, setAdminDetailsData] = useState();
+  const handleAdminDetailsSharePopup = (data) => {
+    setAdminDetailsPopup(true);
+    setAdminDetailsData(data);
+  };
+
   return (
     <div className="p-4">
       <div>
@@ -238,6 +247,12 @@ const AddAdmins = () => {
                     >
                       {data?.active ? "UB" : "B"}
                     </Button>
+                    <Button
+                      className="text-center rounded meeting-status-button EDIT-button me-2"
+                      onClick={() => handleAdminDetailsSharePopup(data)}
+                    >
+                      <TfiSharethis />
+                    </Button>
                   </td>
                 </tr>
               ))}
@@ -325,6 +340,11 @@ const AddAdmins = () => {
             flag={true}
           />
         )}
+        <AdminDetailsSharePopup
+          adminDetailsPopup={adminDetailsPopup}
+          setAdminDetailsPopup={setAdminDetailsPopup}
+          adminDetailsData={adminDetailsData}
+        />
       </div>
     </div>
   );
