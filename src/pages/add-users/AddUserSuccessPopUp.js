@@ -3,7 +3,7 @@ import { Modal } from "react-bootstrap";
 import { Images } from "../../images";
 import { IoCloseSharp } from "react-icons/io5";
 
-const PaymentSuccessPopup = ({
+const AddUserSuccessPopUp = ({
   open = false,
   handleConfirm,
   handleCancel,
@@ -37,4 +37,4 @@ const PaymentSuccessPopup = ({
   );
 };
 
-export default PaymentSuccessPopup;
+export default AddUserSuccessPopUp;
