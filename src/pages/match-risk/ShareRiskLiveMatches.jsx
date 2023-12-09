@@ -2,13 +2,16 @@ import { Button, Table } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { GiClick } from "react-icons/gi";
 import "./style.css";
+import { useHistory } from "react-router";
 import CustomPagination from "../pagination/CustomPagination";
 import { useEffect, useState } from "react";
 import { call } from "../../config/axios";
 import { GET_LIVE_MATCH_RISK_POSITION } from "../../config/endpoints";
 import moment from "moment";
+import CustomPagination from "./../pagination/CustomPagination";
 
 const ShareRiskLiveMatches = () => {
+  const history = useHistory();
   const register_id = localStorage?.getItem("register_id");
   const [liveMatches, setLiveMatches] = useState([]);
 
@@ -113,7 +116,34 @@ const ShareRiskLiveMatches = () => {
         ) || 0),
       0
     );
-
+  const matchDetails =
+    liveMatches &&
+    (liveMatches?.length > 0) &
+      liveMatches?.map((match) => {
+        return {
+          match: `${match.taem1} vs ${match?.team2}`,
+          matchMode: match?.series_name,
+          venue: match?.stadium,
+          date: moment(match?.matchTimeStamp).format("DD-MM-YY"),
+          time: moment(match?.matchTimeStamp).format("hh:mm A"),
+          user: (
+            <div>
+              <div>{match?.user_name}</div>
+            </div>
+          ),
+          role: match?.account_role,
+          teama: (
+            <div
+              className={`font-12 d-flex justify-content-center align-items-center ${
+                getUlShare(
+                  match?.matchRiskObject?.winCalculation?.profiltLoss,
+                  match?.ul_share
+                ) >= 0
+                  ? "clr-green"
+                  : "clr-red"
+              }`}
+            >
+              {getUlShare(
                 match?.matchRiskObject?.winCalculation?.profiltLoss,
                 match?.ul_share
               )}
@@ -138,58 +168,6 @@ const ShareRiskLiveMatches = () => {
           ),
         };
       });
-  // const matchDetails =
-  //   liveMatches &&
-  //   liveMatches?.length > 0 &&
-  //   liveMatches?.map((match) => {
-  //     return {
-  //       match: `${match?.team1} vs ${match?.team2}`,
-  //       matchMode: match?.series_name,
-  //       venue: match?.stadium,
-  //       date: moment(match?.matchTimeStamp).format("DD-MM-YYYY"),
-  //       time: moment(match?.matchTimeStamp).format("hh:mm A"),
-  //       user: (
-  //         <div className="flex-start flex-column">
-  //           <div>{match?.user_name}</div>
-  //         </div>
-  //       ),
-  //       role: match?.account_role,
-  //       teama: (
-  //         <div
-  //           className={`font-size-12 w-20 flex-center ${
-  //             getUlShare(
-  //               match?.matchRiskObject?.winCalculation?.profiltLoss,
-  //               match?.ul_share
-  //             ) >= 0
-  //               ? "green-clr"
-  //               : "red-clr"
-  //           }`}
-  //         >
-  //           {getUlShare(
-  //             match?.matchRiskObject?.winCalculation?.profiltLoss,
-  //             match?.ul_share
-  //           )}
-  //         </div>
-  //       ),
-  //       teamb: (
-  //         <div
-  //           className={`font-size-12 w-20 flex-center ${
-  //             getUlShare(
-  //               match?.matchRiskObject?.loseCalcultion?.profiltLoss,
-  //               match?.ul_share
-  //             ) >= 0
-  //               ? "green-clr"
-  //               : "red-clr"
-  //           }`}
-  //         >
-  //           {getUlShare(
-  //             match?.matchRiskObject?.loseCalcultion?.profiltLoss,
-  //             match?.ul_share
-  //           )}
-  //         </div>
-  //       ),
-  //     };
-  //   });
   const [showMatchDetails, setShowMatchDetails] = useState(false);
   const handleDownArrow = () => {
     setShowMatchDetails((prev) => !prev);
@@ -212,106 +190,8 @@ const ShareRiskLiveMatches = () => {
     getLiveMatches();
   }, []);
 
-  // const getUlShare = (netPl, ulShare) => {
-  //   const netAmount = (+netPl * +ulShare) / 100;
-  //   return netAmount;
-  // };
-
-  // const totalWin =
-  //   liveMatches &&
-  //   liveMatches?.length > 0 &&
-  //   liveMatches?.reduce(
-  //     (acc, obj) =>
-  //       acc +
-  //       (getUlShare(
-  //         obj?.matchRiskObject?.winCalculation?.profiltLoss,
-  //         obj?.ul_share
-  //       ) || 0),
-  //     0
-  //   );
-  // const totalLoss =
-  //   liveMatches &&
-  //   liveMatches?.length > 0 &&
-  //   liveMatches?.reduce(
-  //     (acc, obj) =>
-  //       acc +
-  //       (getUlShare(
-  //         obj?.matchRiskObject?.winCalculation?.profiltLoss,
-  //         obj?.ul_share
-  //       ) || 0),
-  //     0
-  //   );
-  // console.log({ totalLoss, totalWin });
-  // const matchDetails =
-  //   liveMatches &&
-  //   liveMatches?.length > 0 &&
-  //   liveMatches?.map((match) => {
-  //     return {
-  //       match: `${match?.team1} vs ${match?.team2}`,
-  //       matchMode: match?.series_name,
-  //       venue: match?.stadium,
-  //       date: moment(match?.matchTimeStamp).format("DD-MM-YYYY"),
-  //       time: moment(match?.matchTimeStamp).format("hh:mm A"),
-  //       user: (
-  //         <div className="flex-start flex-column">
-  //           <div>{match?.user_name}</div>
-  //         </div>
-  //       ),
-  //       role: match?.account_role,
-  //       teama: (
-  //         <div
-  //           className={`font-size-12 w-20 flex-center ${
-  //             getUlShare(
-  //               match?.matchRiskObject?.winCalculation?.profiltLoss,
-  //               match?.ul_share
-  //             ) >= 0
-  //               ? "clr-green"
-  //               : "clr-red"
-  //           }`}
-  //         >
-  //           {getUlShare(
-  //             match?.matchRiskObject?.winCalculation?.profiltLoss,
-  //             match?.ul_share
-  //           )}
-  //         </div>
-  //       ),
-  //       teamb: (
-  //         <div
-  //           className={`font-size-12 w-20 flex-center ${
-  //             getUlShare(
-  //               match?.matchRiskObject?.loseCalcultion?.profiltLoss,
-  //               match?.ul_share
-  //             ) >= 0
-  //               ? "clr-green"
-  //               : "clr-red"
-  //           }`}
-  //         >
-  //           {getUlShare(
-  //             match?.matchRiskObject?.loseCalcultion?.profiltLoss,
-  //             match?.ul_share
-  //           )}
-  //         </div>
-  //       ),
-  //     };
-  //   });
-  // const getLiveMatches = async () => {
-  //   await call(GET_LIVE_MATCH_RISK_POSITION, {
-  //     register_id,
-  //   })
-  //     .then(async (res) => {
-  //       const results = res?.data?.data.filter(
-  //         (i) => i?.match_declared !== "Y"
-  //       );
-  //       setLiveMatches(results);
-  //     })
-  //     .catch((err) => console.log(err));
-  // };
-
-  // useEffect(() => {
-  //   getLiveMatches();
-  // }, []);
   const [currentPage, setCurrentPage] = useState(1);
-  const totalPages = matchDetails?.length ? matchDetails?.length / 5 : 0;
+  const totalPages = 5;
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
@@ -346,31 +226,40 @@ const ShareRiskLiveMatches = () => {
                     {data?.date}
                     {data?.time}
                   </td>
-
+                  <td className="text-center">{data?.matchMode}</td>
+                  <td
+                    className="text-center clr-yellow cursor-pointer"
+                    onClick={() =>
+                      history.push(
+                        `/match-share-risk/${encodeURIComponent(data?.match)}`
+                      )
+                    }
+                  >
                     {data?.match}{" "}
                     <GiClick className="custom-click-icon ms-1 mt-2" />
                   </td>
                   <td className="text-center">{data?.venue}</td>
 
-                  <td className="text-center ">{data?.team1}</td>
+                  <td className="text-center ">{data?.teama}</td>
 
-                  <td className="clr-green">{data?.teama}</td>
-                  <td className="text-center">{data?.team2}</td>
-                  <td className="clr-red">{data?.teamb}</td>
+                  <td className="clr-green">
+                    {parseFloat(data?.amount).toFixed(2)}
+                  </td>
+                  <td className="text-center">{data?.teamb}</td>
+                  <td className="clr-red">
+                    {parseFloat(data?.profit).toFixed(2)}
+                  </td>
                 </tr>
               ))}
           </tbody>
         </Table>
       </div>
       <div className="d-flex justify-content-between align-items-center mt-4">
-        {totalPages > 1 && (
-          <div className="d-flex justify-content-start font-clr-white total-count-container  py-2 px-4 rounded">
-            <span>
-              Showing <b> {currentPage} </b> 0f <b> {totalPages} </b>{" "}
-              Entries....
-            </span>
-          </div>
-        )}
+        <div className="d-flex justify-content-start font-clr-white total-count-container  py-2 px-4 rounded">
+          <span>
+            Showing <b> {currentPage} </b> 0f <b> {totalPages} </b> Entries....
+          </span>
+        </div>
         <div className="d-flex justify-content-end mt-2">
           <CustomPagination
             totalPages={totalPages}
