@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Modal } from "react-bootstrap";
 import { IoCloseSharp } from "react-icons/io5";
 import { BiSolidLock } from "react-icons/bi";
@@ -6,66 +6,72 @@ import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { CHANGE_PASSWORD } from "../../config/endpoints";
 import { call } from "../../config/axios";
 
-function ChangePassword({
-  showChangePopup,
-  setShowChangePopup,
-  setChangePasswordSubmit,
-  registerID,
-  setChangePasswordPopup,
-}) {
+function ChangePassword(props) {
+  const {
+    showChangePopup,
+    setShowChangePopup,
+    setChangePasswordSubmit,
+    selectedUser,
+    setSelectedUser,
+  } = props;
+  const [showEye, setShowEye] = useState(false);
   const register_id = localStorage?.getItem("register_id");
   const creator_id = localStorage?.getItem("creator_id");
-  const [error, setError] = useState("");
-  const [showEye, setShowEye] = useState(false);
   const [passwordData, setPasswordData] = useState({});
+  const [error, setError] = useState("");
   const [isProcessing, setIsProcessing] = useState(false);
-  const handleShowEye = (index) => {
+
+  const handleShowEye = () => {
     setShowEye(!showEye);
   };
-  const handlePasswordData = (e) => {
-    setPasswordData({ ...passwordData, [e.target.name]: e.target.value });
-  };
+
   const handleChangePassword = async () => {
     if (
       !passwordData.new_password ||
       !passwordData.confirm_password ||
       !passwordData.admin_password
     ) {
-      setError("Please Enter Required Fields");
+      setError("Please fill in all the fields.");
+      return;
     }
+
     if (passwordData.new_password !== passwordData.confirm_password) {
-      setError("New Password And Confirm Password Should Match");
+      setError("New password and confirm password must match.");
+      return;
     }
-    setIsProcessing(true);
     setError("");
-    await call(CHANGE_PASSWORD, {
-      register_id: registerID,
-      creator_id,
-      creator_password: passwordData.admin_password,
-      new_password: passwordData.new_password,
-      confirm_password: passwordData.confirm_password,
-    })
-      .then((res) => {
-        if (res?.data?.statusCode === 200) {
-          setIsProcessing(false);
-          setChangePasswordPopup(true);
-          setShowChangePopup(false);
-          setTimeout(() => {
-            setChangePasswordPopup(false);
-          }, 2000);
-          setPasswordData({});
-          setError("");
-        } else {
-          setError(
-            res?.data?.message ? res?.data?.message : "Something Went Wrong"
-          );
-        }
-      })
-      .catch((err) => {
-        setIsProcessing(false);
-        console.log(err);
-        setError("Something Went Wrong");
+    setIsProcessing(true);
+    try {
+      const response = await call(CHANGE_PASSWORD, {
+        register_id: selectedUser?.register_id,
+        creator_id: selectedUser?.creator_id,
+        creator_password: passwordData.admin_password,
+        new_password: passwordData.new_password,
+        confirm_password: passwordData.confirm_password,
       });
+
+      if (response?.data?.statusCode === 200) {
+        setIsProcessing(false);
+        setSelectedUser("");
+        setPasswordData({});
+        setChangePasswordSubmit(true);
+        setTimeout(() => {
+          setChangePasswordSubmit(false);
+        }, 2000);
+        setShowChangePopup(false);
+      } else {
+        setIsProcessing(false);
+        setError(
+          response?.data?.message
+            ? response?.data?.message
+            : `something wen't wrong`
+        );
+      }
+    } catch (error) {
+      console.error("API error:", error);
+      setIsProcessing(false);
+      setError("something went wrong");
+    }
   };
 
   const passwordInputs = [
@@ -95,6 +101,7 @@ function ChangePassword({
         <div className="p-2">
           <center>
             <h5 className="meetings-heading">Change Password</h5>
+            <span className="font-11">Change Your Password</span>
           </center>
           {passwordInputs.map((item, index) => {
             return (
@@ -107,11 +114,19 @@ function ChangePassword({
                     placeholder={item.plHolder}
                     type={showEye ? "text" : "password"}
                     name={item.name}
-                    onChange={(e) => handlePasswordData(e)}
+                    value={passwordData[item.name]}
+                    onChange={(e) =>
+                      setPasswordData({
+                        ...passwordData,
+                        [item.name]: e.target.value,
+                      })
+                    }
                   />
-                  <div onClick={() => handleShowEye(index)}>
-                    {showEye ? <AiFillEye /> : <AiFillEyeInvisible />}
-                  </div>
+                  {showEye === true ? (
+                    <AiFillEye onClick={handleShowEye} />
+                  ) : (
+                    <AiFillEyeInvisible onClick={handleShowEye} />
+                  )}
                 </div>
               </div>
             );
@@ -120,8 +135,9 @@ function ChangePassword({
           <button
             className="login-button p-1 mt-3 medium-font"
             onClick={() => handleChangePassword()}
+            disabled={isProcessing}
           >
-            {isProcessing ? "Is Processing..." : "Change Password"}
+            {isProcessing ? "Processing..." : "Submit"}
           </button>
         </div>
       </Modal.Body>

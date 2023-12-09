@@ -1,12 +1,11 @@
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import AdminsTable from "./AdminsTable";
+import AdminsTableMatchWise from "./AdminsTableMatchWise";
 
 function AdminPopReports(props) {
   const {
     show,
     onHide,
-    induvisualAdminData,
     data,
     columns,
     adminName,
@@ -23,15 +22,16 @@ function AdminPopReports(props) {
     >
       <Modal.Header closeButton>
         <Modal.Title className="w-100 mb-2">
-          <Button className="rounded-pill">
-            {induvisualAdminData.client_name} -{" "}
-            {induvisualAdminData.account_role}
-          </Button>
+          {adminName && (
+            <Button className="rounded-pill">
+              {adminName} - {role}
+            </Button>
+          )}
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <h6 className="mb-3 fw-semibold">{heading}</h6>
-        <AdminsTable
+        <AdminsTableMatchWise
           data={data}
           columns={columns}
           totalPosition={totalPosition}

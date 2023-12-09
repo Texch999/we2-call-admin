@@ -3,12 +3,12 @@ import { Modal } from "react-bootstrap";
 import { Images } from "../../images";
 import { IoCloseSharp } from "react-icons/io5";
 
-const PaymentSuccessPopup = ({
+const BlockUnBlockPopUp = ({
   open = false,
   handleConfirm,
   handleCancel,
   heading = "",
-  flag,
+  isProcessing,
 }) => {
   return (
     <Modal show={open} className="match-declaration-modal" centered>
@@ -24,12 +24,20 @@ const PaymentSuccessPopup = ({
           />
           <div className="fs-6 mt-3">{heading} </div>
           <div className="row d-flex justify-content-between mt-3">
-            <div
-              className="col-12 rounded yellow-btn p-1"
+            <button
+              className="col-5 rounded yellow-btn p-1"
               onClick={() => handleConfirm()}
+              disabled={isProcessing}
             >
-              Go Back
-            </div>
+              {isProcessing ? "Processing...." : "Yes"}
+            </button>
+            <button
+              className="col-5 rounded share-bg p-1"
+              onClick={() => handleCancel()}
+              disabled={isProcessing}
+            >
+              No
+            </button>
           </div>
         </center>
       </Modal.Body>
@@ -37,4 +45,4 @@ const PaymentSuccessPopup = ({
   );
 };
 
-export default PaymentSuccessPopup;
+export default BlockUnBlockPopUp;
