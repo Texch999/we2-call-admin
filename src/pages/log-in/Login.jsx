@@ -39,6 +39,8 @@ function Login(props) {
             creator_id,
             account_role,
             user_name,
+            ul_share,
+            share,
           } = res.data.data;
           setLocalStorageItems({
             email,
@@ -49,6 +51,8 @@ function Login(props) {
             creator_id,
             account_role,
             user_name,
+            ul_share,
+            share,
           });
           setShowLoginPopup(false);
           window.location.reload("/");

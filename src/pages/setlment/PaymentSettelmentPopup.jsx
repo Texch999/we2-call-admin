@@ -113,6 +113,7 @@ function PaymentSettelmentPopup(props) {
                     <input
                       className="w-100 custom-select small-font btn-bg rounded all-none p-2"
                       value={settlementObj?.ClientName}
+                      onChange={(e) => onInputChange(e)}
                     />
                   </div>
                 </div>
@@ -125,6 +126,7 @@ function PaymentSettelmentPopup(props) {
                       type="number"
                       placeholder="Balance"
                       className="w-100 custom-select small-font btn-bg rounded all-none p-2 small-font"
+                      onChange={(e) => onInputChange(e)}
                       value={settlementObj?.Amount}
                     ></input>
                   </Col>
@@ -132,6 +134,7 @@ function PaymentSettelmentPopup(props) {
                     <input
                       type="number"
                       placeholder="Net Balance"
+                      onChange={(e) => onInputChange(e)}
                       value={
                         settlementObj?.Amount -
                         (settlementObj?.settled_amount || 0)

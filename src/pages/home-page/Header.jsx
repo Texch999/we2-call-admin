@@ -25,12 +25,13 @@ import { MdLockReset, MdOutlinePrivacyTip } from "react-icons/md";
 import ResetPassword from "../log-in/ResetPassword";
 import MatchSubmitPopup from "../match-popups/MatchSubmitPopup";
 import AddPaymentMode from "../popups/AddPaymentMode";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { isLoggedIn } from "../../utils/helpers";
 import Login from "../log-in/Login";
 import EditProfile from "../popups/EditProfile";
 import { GET_ALL_NOTIFICATIONS } from "../../config/endpoints";
 import { call } from "../../config/axios";
+import SharePopup from "./SharePopup";
 
 function Header() {
   const [modalShow, setModalShow] = useState(false);
@@ -54,7 +55,11 @@ function Header() {
   // const handleAddPaymentModelOpen = () => {
   //   setModalShow(true);
   // };
+  const [showSharePopup, setShowSharePopup] = useState(false);
 
+  const handleShareButton = () => {
+    setShowSharePopup(true);
+  };
   const [activeHead, setActiveHead] = useState(0);
   const [matchEntryOpen, setMatchEntryOpen] = useState(false);
   const [matchEntryType, setMatchEntryType] = useState("Match Entry");
@@ -321,12 +326,13 @@ function Header() {
 
   const [resetPasswordSubmit, setResetPasswordSubmit] = useState();
   const token = isLoggedIn();
+  const currenturl = window.location.href;
+  const contains = currenturl.includes("/offers/");
 
   const [notifications, setnotifications] = useState([]);
   const getNotifications = async () => {
     const payload = {
       register_id: "company",
-      notification_type: "web-pushnotification",
     };
     await call(GET_ALL_NOTIFICATIONS, payload)
       .then((res) => {
@@ -339,17 +345,13 @@ function Header() {
   useEffect(() => {
     getNotifications();
   }, []);
-  console.log(notifications, "NNNNNN");
-  // const pushnotification = [...notifications]?.filter(
-  //   (item) => item.status === "true"
-  // );
 
   return (
     <div className="agent-header d-flex align-items">
       <div className="w-100 flex-align-center d-flex h-10vh mb-1">
         <div className="header-logo ">
           <img
-            src={Images.header_logo}
+            src={contains ? "../assets/header_logo.png" : Images.header_logo}
             alt="we2-call-logo"
             onClick={() => handleLoginPopup()}
           />
@@ -441,14 +443,21 @@ function Header() {
         </div>
         <div className="d-flex justify-content-between p-2">
           <div className="header-avatar align-items-center justify-content-around d-flex w-50">
-            <img src={Images.profile} alt="profile" className="me-2" />
+            <img
+              src={contains ? "../assets/profile.png" : Images.profile}
+              alt="profile"
+              className="me-2"
+            />
             <div className="meetings-heading header-font">
               {localStorage?.getItem("user_name")}
             </div>
           </div>
           <div className="h-10vh mt-3">
             <div className="d-flex align-items-center w-50 justify-content-around">
-              <div className=" icons-share mx-3">
+              <div
+                className=" icons-share mx-3"
+                onClick={() => handleShareButton()}
+              >
                 <AiOutlineShareAlt />
               </div>
               <div
@@ -482,7 +491,12 @@ function Header() {
       <div className="d-flex w-100">
         <Marquee className="d-flex marqu-tag meetings-heading ">
           {notifications?.map((obj) => (
-            <div>{obj?.status === true && <li className="ml-3rem">{obj?.description} </li>}</div>
+            <div>
+              {obj?.status === true &&
+                obj?.notification_type === "web-pushnotification" && (
+                  <li className="ml-3rem">{obj?.description} </li>
+                )}
+            </div>
           ))}
         </Marquee>
       </div>
@@ -511,6 +525,10 @@ function Header() {
         setState={setResetPasswordSubmit}
       />
       <AddPaymentMode state={modalShow} setState={setModalShow} />
+      <SharePopup
+        showSharePopup={showSharePopup}
+        setShowSharePopup={setShowSharePopup}
+      />
     </div>
   );
 }

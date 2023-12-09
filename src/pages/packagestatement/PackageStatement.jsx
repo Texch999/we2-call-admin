@@ -49,6 +49,7 @@ function PackageStatement() {
   useEffect(() => {
     getAllPackageRequests();
   }, []);
+
   const packageStatementData = packagesStatement.map((obj, index) => {
     return {
       pkg_trans: obj?.summary.requester_name,

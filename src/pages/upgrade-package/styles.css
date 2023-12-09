@@ -180,12 +180,21 @@
   background-color: #112a5e;
 }
 .select-package-img {
-  height: 60px;
-  width: 60px;
+  height: 45px;
+  width: 45px;
   margin-top: 10px;
 }
 .package-cart-div {
   background-color: #e9a410;
+  position: fixed;
+  bottom: 0px;
+  /* left: 0px; */
+}
+.w-95 {
+  width: 95%;
+}
+.selected-numbers {
+  width: 25px;
 }
 .next-div {
   background-color: #f6b832;
@@ -254,6 +263,7 @@
   inset: 0px auto auto 0px;
   transform: translate3d(0px, 43px, 0px);
   width: 100%;
+  background: #112a5e;
 }
 .custom-menu-item .dropdown-item {
   background-color: #112a5e;
@@ -261,6 +271,10 @@
 }
 .w-20 {
   width: 20%;
+}
+.qr-code {
+  height: 100px;
+  width: 100px;
 }
 .custom-menu-item .btn-check:checked + .btn,
 .btn.active,

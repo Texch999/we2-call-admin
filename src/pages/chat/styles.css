@@ -95,8 +95,8 @@ img {
   opacity: 0.2;
 }
 .inbox_chat {
-  height: 220px;
-  overflow-y: scroll;
+  height: 70px;
+  /* overflow-y: scroll; */
 }
 .inbox_chat::-webkit-scrollbar {
   display: none;
@@ -210,7 +210,7 @@ img {
   background-color: #03aa50;
 }
 .messaging {
-  padding: 0 0 50px 0;
+  padding-bottom: 20px;
 }
 .h-20px {
   height: 20px !important;

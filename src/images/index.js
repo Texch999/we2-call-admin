@@ -17,7 +17,7 @@ export const Images = {
   star_icon: "./assets/star_icon.png",
   NoMeetingBG: "./assets/noMeeting_bg.png",
   chat_icon: "./assets/chat_icon.png",
-  LoginUserIcon: "./assets/login_User_Icon.png",
+  LoginUserIcon: "/assets/login_User_Icon.png",
   LoginLockIcon: "./assets/login_Lock_Icon.png",
   UserManagement: "./assets/user_Management.png",
   SportManagement: "./assets/sports_management.png",

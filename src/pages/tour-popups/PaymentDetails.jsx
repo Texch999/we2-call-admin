@@ -2,9 +2,123 @@ import { FaCheck, FaChevronDown, FaRegUser } from "react-icons/fa6";
 import { BiSolidCloudUpload } from "react-icons/bi";
 import { MdOutlinePayment } from "react-icons/md";
 import { AiTwotoneSave } from "react-icons/ai";
+import { GET_TOUR_PAYMENT_GATEWAY,GENERATE_SIGNED_URL } from "../../config/endpoints";
+import { call } from "../../config/axios";
+import { useEffect, useState } from "react";
+import { ImageBaseUrl } from "../../images";
 
 function PaymentDetails(props) {
-  const { handleBookingComplete } = props;
+  const { handleBookingComplete,
+          eachPackageTotalamount,
+          individualPackageMembersCount,
+          packMembers,
+          packageCount,
+          usersDetails } = props;
+  const [allPayments, setAllPayments] = useState([])
+  const [dropdownOption, setDropdownOption] = useState('')
+  const [paymentdetails, setPaymentdetails] = useState({})
+  const [imagefiles, setImagefiles] = useState({})
+  
+  // console.log(eachPackageTotalamount,'.....eachPackageTotalamount')
+  // console.log(individualPackageMembersCount,'.....individualPackageMembersCount')
+  // console.log(packMembers,'.....packMembers')
+  // console.log(packageCount,'.....packageCount')
+  // console.log(usersDetails,'.........userdetailsfrompaymentcomponent')
+  // console.log(imagefiles,'........imagefiles')
+  // console.log(paymentdetails,'.......paymentdetails')
+
+  const getCompanyAllowedPayments = async () => {
+    const payload = {};
+    const country = 'India'
+    await call(GET_TOUR_PAYMENT_GATEWAY, payload)
+      .then((res) => setAllPayments(
+        res?.data?.data?.filter((item)=>{
+          return item.status === "active"
+        }).filter((item)=>{
+          return item.website === "www.we2call.com"
+        }).filter((item)=>{
+          return item.country === country;
+      })))
+      .catch((error) => console.log(error));
+  };
+
+  // console.log(allPayments,'.....allpayments')
+
+  useEffect(() => {
+    getCompanyAllowedPayments();
+  }, []);
+
+  const uniquePaymentDropdown = [...new Set(allPayments.map((item)=>(item.paymentGateway)))]
+  const filteredPayments = allPayments.filter((item)=>{
+    return item.paymentGateway === dropdownOption
+  })
+  const handlepaymentscreenshot = async(e)=>{
+    const imagefile = e.target.files[0];
+    const imageId = Date.now();
+    // console.log(imagefile,'......imgfile')
+    const imageuploadingurl = await generatesignedurl(imageId);
+    imageuploadingurl &&
+      imagefile &&
+        (await fetch(imageuploadingurl, {
+          method: "PUT",
+          body: imagefile,
+          headers: {
+            "Content-Type": "image/jpeg",
+            "cache-control": "public, max-age=0",
+          },
+        })
+          .then((res) => {
+            if(res.status===200){
+              setPaymentdetails({
+                ...paymentdetails,
+                [e.target.name]:`${ImageBaseUrl}/tours_payment_docs/${imageId}.png`
+              })
+              setImagefiles({
+                [e.target.name]: imagefile.name
+              })
+            };
+          })
+          .catch((err) => {
+            console.log("err: ", err);
+          }));
+    
+  };
+  const generatesignedurl = async (imageId) => {
+    const payload = {
+      register_id: `${imageId}`,
+      event_type: "user_profile_image",
+      folder_name: "tours_payment_docs",
+    };
+    try {
+      const res = await call(GENERATE_SIGNED_URL, payload);
+      const url = res?.data?.data?.result?.signed_url;
+      return url;
+    } catch (error) {
+      console.log("error while creating the signed url", error);
+      return "";
+    }
+  };
+  const handlepaymentdetails = (e,item)=>{
+    if(e.target.name==='neftclicked'){
+    setPaymentdetails({
+      ...paymentdetails,
+      name: item?.accountHolderName,
+      accountNo: item?.accountNumber,
+      bank:item?.bankName,
+      ifscCode: item?.ifscCode,
+      paymentmode: dropdownOption
+    })
+    }else{
+      setPaymentdetails({
+        ...paymentdetails,
+        name: item?.upiName,
+        upiId: item?.upiId,
+        mobileNumber:item?.mobileNumber,
+        paymentmode: dropdownOption
+      })
+    }
+  }
+
   return (
     <div>
       <div className="w-100 d-flex justify-content-between mt-2">
@@ -36,14 +150,66 @@ function PaymentDetails(props) {
           <div className="w-15 flex-center font-10 details-text p-1">
             Details
           </div>
-          <div className="row mt-2">
-            <div className="col-6 flex-start">
-              <FaCheck className="type-file" />
-              <div className="font-10 ms-1">Member 1</div>
+          <div className="members-conatainer">
+            <div className="row mt-2">
+              <div className="col-6 flex-start">
+                <FaCheck className="type-file" />
+                <div className="font-10 ms-1">Member 1</div>
+              </div>
+              <div className="col-6 flex-start">
+                <div className="font-10">Jayanta, Male, 24</div>
+                <div className="font-10 ms-1 viewid-text p-1">View ID</div>
+              </div>
             </div>
-            <div className="col-6 flex-start">
-              <div className="font-10">Jayanta, Male, 24</div>
-              <div className="font-10 ms-1 viewid-text p-1">View ID</div>
+            <div className="row mt-2">
+              <div className="col-6 flex-start">
+                <FaCheck className="type-file" />
+                <div className="font-10 ms-1">Member 1</div>
+              </div>
+              <div className="col-6 flex-start">
+                <div className="font-10">Jayanta, Male, 24</div>
+                <div className="font-10 ms-1 viewid-text p-1">View ID</div>
+              </div>
+            </div>
+            <div className="row mt-2">
+              <div className="col-6 flex-start">
+                <FaCheck className="type-file" />
+                <div className="font-10 ms-1">Member 1</div>
+              </div>
+              <div className="col-6 flex-start">
+                <div className="font-10">Jayanta, Male, 24</div>
+                <div className="font-10 ms-1 viewid-text p-1">View ID</div>
+              </div>
+            </div>
+            <div className="row mt-2">
+              <div className="col-6 flex-start">
+                <FaCheck className="type-file" />
+                <div className="font-10 ms-1">Member 1</div>
+              </div>
+              <div className="col-6 flex-start">
+                <div className="font-10">Jayanta, Male, 24</div>
+                <div className="font-10 ms-1 viewid-text p-1">View ID</div>
+              </div>
+            </div>
+            <div className="row mt-2">
+              <div className="col-6 flex-start">
+                <FaCheck className="type-file" />
+                <div className="font-10 ms-1">Member 1</div>
+              </div>
+              <div className="col-6 flex-start">
+                <div className="font-10">Jayanta, Male, 24</div>
+                <div className="font-10 ms-1 viewid-text p-1">View ID</div>
+              </div>
+            </div>
+            <div className="row mt-2">
+              <div className="col-6 flex-start">
+                <FaCheck className="type-file" />
+                <div className="font-10 ms-1">Member 1</div>
+              </div>
+              <div className="col-6 flex-start">
+                <div className="font-10">Jayanta, Male, 24</div>
+                <div className="font-10 ms-1 viewid-text p-1">View ID</div>
+              </div>
             </div>
           </div>
         </div>
@@ -73,44 +239,93 @@ function PaymentDetails(props) {
           </div>
         </div>
       </div>
-      <div className="login-btn mt-2">Confirm & Pay</div>
+      {/* <div className="login-btn mt-2">Confirm & Pay</div> */}
       <hr className="hr-line mt-1" />
       <div className="font-10 mt-1">Payment Mode*</div>
       <div className="row">
         <div className="col-12" span={24}>
-          <div className="d-flex justify-content-between p-1 font-10 neft-div">
-            <div>NEFT/RTGS</div>
-            <div>
+          <select className="d-flex justify-content-between p-1 font-10 neft-div w-100 all-none"
+                  name="dropdownoption"
+                  value={dropdownOption}
+                  onChange={(e)=>setDropdownOption(e.target.value)}
+          >
+            <option value={'All'} selected>Select Payment Mode</option>
+            {uniquePaymentDropdown.map((item)=>(
+              <option className="d-flex justify-content-between p-1 font-10 neft-div w-50 all-none" 
+                      value={item}
+              >
+                {item}
+              </option>
+            ))}
+            {/* <option>NEFT/RTGS</option>
+            <option>NEFT/RTGS</option>
+            <option>NEFT/RTGS</option> */}
+            
+            {/* <div>
               <FaChevronDown />
-            </div>
-          </div>
+            </div> */}
+          </select>
         </div>
+      </div>
+      <div className="members-conatainer">
+        {filteredPayments.map((item)=>{
+          return(
+            <div className="row">
+              <div className="col-12">
+                <div className=" p-2 font-10 neft-div mt-1">
+                  {dropdownOption==='neft'? (
+                    <div>
+                      <div className="d-flex justify-content-between">
+                        <div>Name: {item?.accountHolderName}</div>
+                        <input type="checkbox" className="yellow-clr"
+                                name="neftclicked"
+                          onClick={(e)=>handlepaymentdetails(e,item)}
+                        ></input>
+                      </div>
+                      <div>A/C No: {item?.accountNumber}</div>
+                      <div>Bank: {item?.bankName}</div>
+                      <div>IFSC Code: {item?.ifscCode}</div>
+                    </div>
+                  )
+                  :(
+                    <div>
+                      <div className="d-flex justify-content-between">
+                        <div>Name: {item?.upiName}</div>
+                        <input type="checkbox" className="yellow-clr"
+                                name="upiclicked"
+                                onClick={(e)=>handlepaymentdetails(e,item)}
+                        ></input>
+                      </div>
+                      <div>UPI Id: {item?.upiId}</div>
+                      <div>Mobile Number: {item?.mobileNumber}</div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          )
+        })}
       </div>
       <div className="row">
         <div className="col-12">
-          <div className=" p-2 font-10 neft-div mt-1">
-            <div className="d-flex justify-content-between">
-              <div>Name: Jayanta Pal</div>
-              <div className="yellow-clr">Select</div>
-            </div>
-            <div>A/C No: 34311236216</div>
-            <div>Bank: SBI</div>
-            <div>IFSC Code: SBIN001111</div>
-          </div>
-        </div>
-      </div>
-      <div className="row">
-        <div className="col-12">
-          <div className="d-flex justify-content-between neft-div mt-2 p-2">
+          <label  className="d-flex justify-content-between neft-div mt-2 p-2"
+                htmlFor='paymentscreenshot'
+          >
             <div className="font-10">
-              Upload Screenshot
-              <input type="file" className="display-none" />
+              {imagefiles.paymentscreenshot || "Upload Screenshot"}
+              <input  type="file" 
+                      className="display-none"
+                      name="paymentscreenshot"
+                      id="paymentscreenshot"
+                      onChange={(e)=>handlepaymentscreenshot(e)} 
+
+              />
             </div>
             <BiSolidCloudUpload className="type-file font-25" />
-          </div>
+          </label>
         </div>
       </div>
-      <div className="login-btn mt-2" onClick={() => handleBookingComplete()}>
+      <div className="login-btn mt-2" onClick={() => handleBookingComplete(paymentdetails)}>
         Pay
       </div>
     </div>

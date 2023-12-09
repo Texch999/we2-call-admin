@@ -27,7 +27,7 @@ function BookingCompleteMsg(props) {
       <hr className="hr-line mt-2" />
       <img
         className="congrats-img mt-1"
-        src={Images.Congratulations}
+        src="../assets/congrats_image.png"
         alt="Congrats_Img"
       />
       <div className="font-16 fw-600">Congratulations!</div>

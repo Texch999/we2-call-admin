@@ -4,9 +4,11 @@ import {
   GET_INDUVISUAL_MATCH_REPORT,
 } from "../../config/endpoints";
 import { call } from "../../config/axios";
+import moment from "moment";
 
 function ReferalIndPl(props) {
-  const { refData, clientId, refClientId } = props;
+  const { individualReportReferralData } = props;
+
   const [showIndividualReferealData, setShowIndividualReferalData] =
     useState(false);
 
@@ -19,12 +21,13 @@ function ReferalIndPl(props) {
   );
   const [clientsDataForRefferal, setClientsDataForRefferal] = useState([]);
   const [showMatchWiseRfPl, setShowMatchWiseRfPl] = useState(false);
+
   const handleRefid = async (item) => {
     setReferData(item);
     setShowIndividualReferalData(true);
     await call(GET_INDUVISUAL_REFERRAL_BY, {
       register_id,
-      refferal_id: item.refferal_id,
+      refferal_id: item.referral_id,
     })
       .then((res) => {
         setClientsDataForRefferal(res?.data?.data);
@@ -40,22 +43,26 @@ function ReferalIndPl(props) {
     })
       .then((res) => {
         // console.log("res?.data?.data",[...res?.data?.data?.topLosers, ...res?.data?.data?.topWinners])
+        // setIndivisualMatchReportData([
+        //   ...res?.data?.data?.data,
+        //   // ...res?.data?.data?.topWinners,
+        // ]);
         setIndivisualMatchReportData([
-          ...res?.data?.data?.data,
-          // ...res?.data?.data?.topWinners,
+          ...res?.data?.data?.topLosers,
+          ...res?.data?.data?.topWinners,
         ]);
       })
       .catch((err) => console.log(err));
   };
-  console.log(indivisualMatchReportData, "sangram..indivisualMatchReportData");
   const PAGE_REPORT_DETAILS =
-    refData?.length &&
-    refData?.map((item, index) => ({
+    individualReportReferralData?.length &&
+    individualReportReferralData?.map((item, index) => ({
       name: <div onClick={() => handleRefid(item)}>{item.referral_name}</div>,
-      rfnet: "100000",
+      rfnet: <div>{item.amount}</div>,
     }));
 
   const CLIENT_PAGE_REPORT_DETAILS =
+    clientsDataForRefferal &&
     clientsDataForRefferal?.length > 0 &&
     clientsDataForRefferal?.map((item) => {
       return {
@@ -63,21 +70,82 @@ function ReferalIndPl(props) {
         clientname: (
           <div onClick={() => handleClientID(item)}>{item.client_name}</div>
         ),
-        totalpl: "10000",
+        amount: (
+          <div
+            className={item?.referralTotalNet >= 0 ? "green-clr" : "red-clr"}
+          >
+            {item?.referralTotalNet ? item?.referralTotalNet?.toFixed(2) : 0}
+          </div>
+        ),
       };
     });
   const REFERAL_REPORT_DETAILS =
+    indivisualMatchReportData &&
     indivisualMatchReportData?.length > 0 &&
-    indivisualMatchReportData?.map((item, index) => ({
-      matchName: "Sangram",
-      matchDate: "",
-      winTeam: "",
-      amount: "",
-    }));
+    indivisualMatchReportData?.map((match) => {
+      const netPL = match?.referralComission + match?.referalShare;
+      return {
+        matchName: (
+          <div>
+            <div>{match?.match_name}</div>
+          </div>
+        ),
+        matchDate: (
+          <div>{moment(match?.matchTimeStamp).format("DD-MM-YYYY")}</div>
+        ),
+
+        winTeam: match?.winTeam,
+        amount: (
+          <div className={netPL >= 0 ? "clr-green" : "clr-red"}>{netPL}</div>
+        ),
+      };
+    });
+  const totalReferalPl =
+    individualReportReferralData &&
+    individualReportReferralData?.length > 0 &&
+    individualReportReferralData?.reduce(
+      (acc, obj) => acc + (+obj?.amount?.props?.children || 0),
+      0
+    );
+  const totalInduvisualReportClientReferalData =
+    clientsDataForRefferal &&
+    clientsDataForRefferal?.length > 0 &&
+    clientsDataForRefferal?.reduce(
+      (acc, obj) => acc + (+obj?.referralTotalNet || 0),
+      0
+    );
+  // const totalFooter = clientsDataForRefferal?.reduce(
+  //   (a, b) => a + (+b?.referralTotalNet || 0),
+  //   0
+  // );
+  // referalShare + referralComission;
+  const totalReferalPlMatch =
+    indivisualMatchReportData &&
+    indivisualMatchReportData?.length > 0 &&
+    indivisualMatchReportData?.reduce(
+      (acc, obj) => acc + (+obj?.referalShare + obj?.referralComission || 0),
+      0
+    );
+  console.log(totalReferalPl, "totalReferalPl...............");
+  console.log(
+    individualReportReferralData,
+    "individualReportReferralData..............."
+  );
+
+  console.log(
+    totalInduvisualReportClientReferalData,
+    "totalInduvisualReportClientReferalData..............."
+  );
+  console.log(clientsDataForRefferal, "clientsDataForRefferal...............");
+  console.log(totalReferalPlMatch, "totalReferalPlMatch...............");
+  console.log(
+    indivisualMatchReportData,
+    "indivisualMatchReportData..............."
+  );
 
   return (
-    <div>
-      <h6 className="Platform-Comm-PL-">Referal :</h6>
+    <div className="mt-3">
+      {/* <h6 className="Platform-Comm-PL-">Referal :</h6> */}
       <div className="d-flex flex-row w-100 justify-content-between">
         <div className="w-30">
           <table className="w-100 match-position-table medium-font">
@@ -93,15 +161,29 @@ function ReferalIndPl(props) {
               {PAGE_REPORT_DETAILS?.length &&
                 PAGE_REPORT_DETAILS?.map((item, index) => (
                   <tbody key={index}>
-                    <tr
-                      className="text-center"
-                      // onClick={handleShowIndividualReferalData}
-                    >
+                    <tr className="text-center">
                       <td>{item.name}</td>
                       <td className="clr-green">{item.rfnet}</td>
                     </tr>
                   </tbody>
                 ))}
+            </table>
+            <table className="w-100 match-position-table medium-font">
+              <tfoot>
+                <tr className="text-end">
+                  <th className="text-start">TOTAL</th>
+                  {/* <th className="clr-green text-end">
+                    {totalClientPl ? totalClientPl?.toFixed(2) : null}
+                  </th> */}
+                  <th
+                    className={`text-end ${
+                      totalReferalPl > 0 ? "clr-green" : "clr-red"
+                    }`}
+                  >
+                    {totalReferalPl ? totalReferalPl?.toFixed(2) : 0}
+                  </th>
+                </tr>
+              </tfoot>
             </table>
           </div>
         </div>
@@ -109,9 +191,6 @@ function ReferalIndPl(props) {
           <>
             <div className="d-flex flex-column w-70">
               <div className="mb-2">
-                {/* <div className="all-match-button share-risk-match-button w-25 text-start btn btn-primary">
-              Referal - Animesh
-            </div> */}
                 <table className="match-position-table medium-font w-100">
                   <thead>
                     <tr className="text-center">
@@ -141,7 +220,7 @@ function ReferalIndPl(props) {
                         <tbody>
                           <tr>
                             <td>{item.clientname}</td>
-                            <td className="text-end">{item.totalpl}</td>
+                            <td className="text-end">{item.amount}</td>
                           </tr>
                         </tbody>
                       ))}
@@ -151,7 +230,17 @@ function ReferalIndPl(props) {
                   <tfoot>
                     <tr className="text-end">
                       <th className="text-start">TOTAL</th>
-                      <th className="clr-green text-end">500000000.00</th>
+                      <th
+                        className={`text-end ${
+                          totalInduvisualReportClientReferalData > 0
+                            ? "clr-green"
+                            : "clr-red"
+                        }`}
+                      >
+                        {totalInduvisualReportClientReferalData
+                          ? totalInduvisualReportClientReferalData?.toFixed(2)
+                          : 0}
+                      </th>
                     </tr>
                   </tfoot>
                 </table>
@@ -200,16 +289,23 @@ function ReferalIndPl(props) {
                           ))}
                       </table>
                     </div>
-
-                    <table className="w-100 match-position-table medium-font">
-                      <tfoot>
-                        <tr className="text-end">
-                          <th className="text-start">TOTAL</th>
-                          <th className="clr-green text-end">500000000.00</th>
-                        </tr>
-                      </tfoot>
-                    </table>
                   </div>
+                  <table className="w-100 match-position-table medium-font">
+                    <tfoot>
+                      <tr className="text-end">
+                        <th className="text-start">TOTAL</th>
+                        <th
+                          className={`text-end ${
+                            totalReferalPlMatch > 0 ? "clr-green" : "clr-red"
+                          }`}
+                        >
+                          {totalReferalPlMatch
+                            ? totalReferalPlMatch?.toFixed(2)
+                            : 0}
+                        </th>
+                      </tr>
+                    </tfoot>
+                  </table>
                 </>
               )}
             </div>
