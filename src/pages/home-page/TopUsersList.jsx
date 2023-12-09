@@ -70,7 +70,7 @@ function TopUsersList() {
               return (
                 <div key={index} className="w-100 summary-line d-flex">
                   <h6 className="meetings-heading">{item?.username}</h6>
-                  <h6 className="meetings-heading">{item?.amount}</h6>
+                  <h6 className="meetings-heading clr-red">{item?.amount}</h6>
                 </div>
               );
             })}
@@ -96,7 +96,7 @@ function TopUsersList() {
               return (
                 <div key={index} className="w-100 summary-line d-flex">
                   <h6 className="meetings-heading">{item?.username}</h6>
-                  <h6 className="meetings-heading">{item?.amount}</h6>
+                  <h6 className="meetings-heading clr-green">{item?.amount}</h6>
                 </div>
               );
             })}
