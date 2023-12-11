@@ -312,7 +312,7 @@ const CallManagement = () => {
               {professionalMeeting && (
                 <Select
                   className="w-100"
-                  placeholder="Professional Meeting Name..."
+                  placeholder="Meeting Name..."
                   isSearchable={true}
                   options={meetingOptionsList}
                   value={meetingList || ""}
@@ -322,7 +322,7 @@ const CallManagement = () => {
               {personalMeeting && (
                 <input
                   className="custom-select medium-font btn-bg  all-none p-2 rounded"
-                  placeholder="Personal Meeting Name"
+                  placeholder="Meeting Name"
                   type="text"
                   name="event_name"
                   value={meetingInput?.event_name || ""}

@@ -113,7 +113,6 @@ function MeetingAndSummary() {
     }
   }, []);
   const summaryArray = [summaryData];
-  console.log(summaryArray, "SUMMARY_DATA");
 
   return (
     <div className="row meet-box-height ">
@@ -145,20 +144,20 @@ function MeetingAndSummary() {
           {summaryArray?.length > 0 &&
             summaryArray?.map((item, index) => {
               return (
-                <>
-                  <div key={index} className="w-100 summary-line d-flex">
+                <div key={index}>
+                  <div className="w-100 summary-line d-flex">
                     <h6 className="meetings-heading">Total Bets</h6>
                     <h6 className="meetings-heading">{item?.TotalBets}</h6>
                   </div>
-                  <div key={index} className="w-100 summary-line d-flex">
+                  <div className="w-100 summary-line d-flex">
                     <h6 className="meetings-heading">Active Agents</h6>
                     <h6 className="meetings-heading">{item?.activeAgents}</h6>
                   </div>
-                  <div key={index} className="w-100 summary-line d-flex">
+                  <div className="w-100 summary-line d-flex">
                     <h6 className="meetings-heading">Active Users</h6>
                     <h6 className="meetings-heading">{item?.activeUsers}</h6>
                   </div>
-                  <div key={index} className="w-100 summary-line d-flex">
+                  <div className="w-100 summary-line d-flex">
                     <h6 className="meetings-heading">Total Profit Loss</h6>
                     <h6
                       className={`${
@@ -170,7 +169,7 @@ function MeetingAndSummary() {
                       {item?.totalLossOrProfit}
                     </h6>
                   </div>
-                </>
+                </div>
               );
             })}
         </div>
