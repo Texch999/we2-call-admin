@@ -2,17 +2,23 @@ import { useEffect, useState } from "react";
 import { AiOutlineDown, AiOutlineRight } from "react-icons/ai";
 import Table from "./Table";
 import { call } from "../../config/axios";
-import { GET_ALL_CLIENTS, GET_ALL_MEETINGS } from "../../config/endpoints";
+import {
+  GET_ALL_CLIENTS,
+  GET_ALL_MEETINGS,
+  SUMMARY_DATA,
+} from "../../config/endpoints";
 import moment from "moment";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 function MeetingAndSummary() {
+  const history = useHistory();
   let register_id = localStorage?.getItem("register_id");
   let creator_id = localStorage?.getItem("creator_id");
   let account_role = localStorage?.getItem("account_role");
-
   const [liveMeetings, setLiveMeetings] = useState([]);
   const [allAdmins, setAllAdmins] = useState([]);
+  const [summaryData, setSummaryData] = useState({});
+
   let meetingUserData;
   const data1 = liveMeetings?.map((obj) => {
     meetingUserData = allAdmins?.filter((item) =>
@@ -40,7 +46,7 @@ function MeetingAndSummary() {
         user: meetingUserData.map((obj) => (
           <div>
             {obj.user_name} +<br />
-            {meetingUserData.length - 1} others
+            {meetingUserData.length - 1} Others
           </div>
         )),
         status: <div>{meeting.recording_status}</div>,
@@ -53,8 +59,6 @@ function MeetingAndSummary() {
     { header: "User", field: "user" },
     { header: "Status", field: "status" },
   ];
-
-  const history = useHistory();
 
   const summaryContent = [
     {
@@ -95,12 +99,21 @@ function MeetingAndSummary() {
       .catch((err) => console.log(err));
   };
 
+  const getAllSummaryData = async () => {
+    await call(SUMMARY_DATA, { register_id })
+      .then((res) => setSummaryData(res?.data?.data))
+      .catch((err) => console.log(err));
+  };
+
   useEffect(() => {
     if (register_id) {
       getLiveMeetings();
       getAllAdmins();
+      getAllSummaryData();
     }
   }, []);
+  const summaryArray = [summaryData];
+  console.log(summaryArray, "SUMMARY_DATA");
 
   return (
     <div className="row meet-box-height ">
@@ -129,14 +142,37 @@ function MeetingAndSummary() {
               <option value="">This Month</option>
             </select>
           </div>
-          {summaryContent.map((item, index) => {
-            return (
-              <div key={index} className="w-100 summary-line d-flex">
-                <h6 className="meetings-heading">{item.users}</h6>
-                <h6 className="meetings-heading">{item.count}</h6>
-              </div>
-            );
-          })}
+          {summaryArray?.length > 0 &&
+            summaryArray?.map((item, index) => {
+              return (
+                <>
+                  <div key={index} className="w-100 summary-line d-flex">
+                    <h6 className="meetings-heading">Total Bets</h6>
+                    <h6 className="meetings-heading">{item?.TotalBets}</h6>
+                  </div>
+                  <div key={index} className="w-100 summary-line d-flex">
+                    <h6 className="meetings-heading">Active Agents</h6>
+                    <h6 className="meetings-heading">{item?.activeAgents}</h6>
+                  </div>
+                  <div key={index} className="w-100 summary-line d-flex">
+                    <h6 className="meetings-heading">Active Users</h6>
+                    <h6 className="meetings-heading">{item?.activeUsers}</h6>
+                  </div>
+                  <div key={index} className="w-100 summary-line d-flex">
+                    <h6 className="meetings-heading">Total Profit Loss</h6>
+                    <h6
+                      className={`${
+                        item?.totalLossOrProfit >= 0
+                          ? "clr-green meetings-heading "
+                          : "meetings-heading clr-red"
+                      }`}
+                    >
+                      {item?.totalLossOrProfit}
+                    </h6>
+                  </div>
+                </>
+              );
+            })}
         </div>
       </div>
     </div>

@@ -1,34 +1,39 @@
 import React, { useEffect, useState } from "react";
 import Table from "../home-page/Table";
-import Pagination from "react-bootstrap/Pagination";
 import "./styles.css";
 import { call } from "../../config/axios";
 import { GET_ALL_PACKAGES_APPROVED_HSITORY } from "../../config/endpoints";
+import CustomPagination from "../pagination/CustomPagination";
 
 function PackageStatement() {
+  const [summary, setSummary] = useState({});
+  const [packagesStatement, setPackagesStatement] = useState([]);
+  const creator_id = localStorage.getItem("creator_id");
+  const register_id = localStorage.getItem("register_id");
+
   const packageStatementColumns = [
     {
       field: "pkg_trans",
-      header: "Pkg Trans...",
+      header: "NAME",
     },
     {
-      field: "date_time",
-      header: "Date & Time",
+      field: "date",
+      header: "DATE",
+    },
+    {
+      field: "time",
+      header: "TIME",
     },
     {
       field: "paid_amount",
-      header: "Paid Amount",
+      header: "PAID AMOUNT",
     },
     {
       field: "sell_amount",
-      header: "Sell Amount",
+      header: "SELL AMOUNT",
     },
   ];
-  const [summary, setSummary] = useState({});
-  const [packagesStatement, setPackagesStatement] = useState([]);
 
-  const creator_id = localStorage.getItem("creator_id");
-  const register_id = localStorage.getItem("register_id");
   const getAllPackageRequests = async () => {
     await call(GET_ALL_PACKAGES_APPROVED_HSITORY, { register_id, creator_id })
       .then((res) => {
@@ -49,60 +54,74 @@ function PackageStatement() {
   useEffect(() => {
     getAllPackageRequests();
   }, []);
+  let totalPaidAmount = 0,
+    totalSellAmount = 0;
 
-  const packageStatementData = packagesStatement.map((obj, index) => {
+  const packageStatementData = packagesStatement?.map((obj) => {
+    const paidAmount =
+      obj?.register_id !== register_id ? obj?.summary.final_package_cost : 0;
+    const sellAmount =
+      obj?.register_id === register_id ? obj?.summary.final_package_cost : 0;
+    totalPaidAmount += paidAmount;
+    totalSellAmount += sellAmount;
     return {
       pkg_trans: obj?.summary.requester_name,
-      date_time: (
-        <div>
-          <div>{obj.created_date}</div>
-          <div>{obj.created_time}</div>
-        </div>
-      ),
-      paid_amount:
-        obj?.register_id !== register_id
-          ? obj?.summary.final_package_cost
-          : "--",
-      sell_amount:
-        obj?.register_id === register_id
-          ? obj?.summary.final_package_cost
-          : "--",
+      date: obj?.created_date,
+      time: obj?.created_time,
+      paid_amount: paidAmount,
+      sell_amount: sellAmount,
     };
   });
-  const [onePackageStatementData, setPackageStatementData] = useState([]);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalPages =
+    (packageStatementData && packageStatementData?.length / 5) || 0;
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
 
   return (
-    <div>
-      <h3>Package-Statement</h3>
+    <div className="p-2">
+      <h5 className="meetings-heading">Package Statement</h5>
       <Table columns={packageStatementColumns} data={packageStatementData} />
-      <div className="d-flex justify-content-between align-items-center mt-4">
-        <div className="d-flex justify-content-start font-clr-white total-count-container  py-2 px-4 rounded">
-          <span>
-            Showing <b> 1 </b> 0f <b> 200 </b> Entries....
-          </span>
+      <div className="d-flex justify-content-between align-items-center mt-2">
+        {totalPages > 1 && (
+          <div className="d-flex justify-content-start font-clr-white total-count-container  py-2 px-4 rounded">
+            <span>
+              Showing <b> {currentPage} </b> Of <b> {totalPages} </b> Entries...
+            </span>
+          </div>
+        )}
+        <div className="d-flex justify-content-end mt-2">
+          <CustomPagination
+            totalPages={totalPages}
+            currentPage={currentPage}
+            onPageChange={handlePageChange}
+          />
         </div>
       </div>
-      <div className="d-flex flex-column mt-2">
-        <div className="d-flex flex-justify-between flex-row total-count-container mt-4 py-2 rounded">
-          <div className="w-50 text-end">Total</div>
-          <div className="d-flex flex-space-between flex-row w-50">
-            <div className="clr-green w-50 text-center">
-              {summary.totalPaidAmmount || 0}
-            </div>
-            <div className="clr-green w-50 text-center">
-              {summary.totalSellAmmount || 0}
-            </div>
-          </div>
-        </div>
-        <div className="d-flex flex-justify-between flex-row total-count-container mt-4 w-100 py-2 rounded">
-          <div className="w-50 text-end">Net P/L</div>
-          <div
-            className={`clr-green w-50 text-center ${
-              summary.lossOrProfitAmmount > 0 ? "clr-red" : ""
+      <div className="d-flex total-count-container mt-2 py-2  rounded align-items-center justify-content-around">
+        <div>
+          Net PL ={" "}
+          <span
+            className={`${
+              summary.lossOrProfitAmmount >= 0 ? "clr-green" : "clr-red"
             }`}
           >
             {summary.lossOrProfitAmmount || 0}
-          </div>
+          </span>
+        </div>
+        <div>
+          Total Paid Amount ={" "}
+          <span className={`${totalPaidAmount >= 0 ? "clr-green" : "clr-red"}`}>
+            {totalPaidAmount || 0}
+          </span>
+        </div>
+        <div>
+          Total Sell Amount ={" "}
+          <span className={`${totalSellAmount >= 0 ? "clr-green" : "clr-red"}`}>
+            {totalSellAmount || 0}
+          </span>
         </div>
       </div>
     </div>

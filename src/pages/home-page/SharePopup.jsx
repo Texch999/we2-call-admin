@@ -4,10 +4,11 @@ import { useState } from "react";
 import ShareButtons from "./ShareButtons";
 
 function SharePopup({ showSharePopup, setShowSharePopup }) {
+  const register_id = localStorage?.getItem("register_id");
   const [showShareSection, setShowShareSection] = useState(false);
   const WEBSITE_URL = window.location.href;
-  const referID = "123456789";
-  const meetingID = "123456789";
+  const referID = "- -";
+  const meetingID = register_id;
   const referralData =
     "Refer ID:" +
     referID +
@@ -41,13 +42,13 @@ function SharePopup({ showSharePopup, setShowSharePopup }) {
             <center>
               <h5 className="meetings-heading">Refer ID</h5>
             </center>
+            <span className="mt-3 font-12">Master ID</span>
+            <div className="font-12 d-flex align-items-center login-input p-2 clr-white">
+              {meetingID}
+            </div>
             <span className="mt-2 font-12">Refer/ShareID</span>
             <div className="font-12 d-flex align-items-center login-input p-2 clr-white">
               {referID}
-            </div>
-            <span className="mt-3 font-12">Meeting ID</span>
-            <div className="font-12 d-flex align-items-center login-input p-2 clr-white">
-              {meetingID}
             </div>
             <span className="mt-3 font-12">Website URL</span>
             <div className="font-12 d-flex align-items-center login-input p-2 clr-white">
