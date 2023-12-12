@@ -69,20 +69,28 @@ function Settelment() {
 
   const SETTELMENT_DETAILS = settlementData?.map((item) => {
     return {
+      ...item,
       client_id: item.client_id,
       ClientName: item.client_name,
       RolePosition: item.account_role,
-      Amount: (
+      Balance: (
         <div className={item?.pending_amount > 0 ? "clr-green" : "clr-red"}>
           {item?.pending_amount ? item?.pending_amount.toFixed(2) : 0}
         </div>
       ),
       CreditDebit: (
         <div className={item?.settled_amount > 0 ? "clr-green" : "clr-red"}>
-          {item?.settled_amount ? item?.total_amount.toFixed(2) : 0}
+          {/* {item?.settled_amount ? item?.total_amount.toFixed(2) : 0} */}
+          {item?.total_amount >= 0
+            ? item?.settled_amount
+              ? -item?.settled_amount?.toFixed(2)
+              : 0
+            : item?.settled_amount
+            ? item?.settled_amount?.toFixed(2)
+            : 0}
         </div>
       ),
-      Balance: (
+      Amount: (
         <div className={item?.total_amount > 0 ? "clr-green" : "clr-red"}>
           {item?.total_amount ? item?.total_amount.toFixed(2) : 0}
         </div>
@@ -196,13 +204,13 @@ function Settelment() {
               <th colSpan={2} className="text-end medium-font">
                 Total
               </th>
-              <th className="text-center medium-font clr-green">
+              <th className={totalAmount > 0 ? "clr-green" : "clr-red"}>
                 {totalAmount}
               </th>
-              <th className="text-center medium-font clr-green">
+              <th className={setteldAmount > 0 ? "clr-green" : "clr-red"}>
                 {setteldAmount}
               </th>
-              <th className="text-center medium-font clr-green">
+              <th className={pendingAmount > 0 ? "clr-green" : "clr-red"}>
                 {pendingAmount}
               </th>
               <th className="text-center medium-font clr-green"></th>
