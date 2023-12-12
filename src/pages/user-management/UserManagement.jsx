@@ -208,9 +208,6 @@ function UserManagement() {
     return item.referral_name === userDetails?.referral_name;
   });
 
-  console.log(userDetails?.referral_name, ".......userDetails");
-  console.log(refferalData, "......refferalData");
-
   const [openDeletePopup, setOpenDeletePopup] = useState(false);
   const [openEditConfirm, setOpenEditConfirm] = useState(false);
   const [editClientName, setEditClientName] = useState();
