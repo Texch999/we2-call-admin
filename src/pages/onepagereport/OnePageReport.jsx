@@ -61,7 +61,6 @@ function OnePageReport(props) {
     );
   const totalCnetInput =
     onePageReportData &&
-    
     onePageReportData?.length > 0 &&
     onePageReportData?.reduce(
       (acc, obj) =>
@@ -126,7 +125,7 @@ function OnePageReport(props) {
       <table className="w-100 match-position-table medium-font">
         <tfoot>
           <tr className="text-center">
-            <th>TOTAL</th>
+            <th className="w-20">TOTAL</th>
             <th className={totalMfrcInput > 0 ? "clr-green" : "clr-red"}>
               {totalMfrcInput ? totalMfrcInput.toFixed(2) : 0}
             </th>
