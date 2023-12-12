@@ -33,6 +33,7 @@ function UpgradeYourPackagePopup(props) {
   const [returnPackageTrackerList, setReturnPackageTrackerList] = useState([]);
   const [transactionImg, setTransactionImg] = useState(false);
   const [discount, setDiscount] = useState("");
+  const [specialDiscount, setSpecialDiscount] = useState("");
   const [message, setMessage] = useState();
   const [isProcessing, setIsProcessing] = useState(false);
   const [selectedMethod, setSelectedMethod] = useState("");
@@ -58,6 +59,12 @@ function UpgradeYourPackagePopup(props) {
     (acc, obj) => acc + obj.cost * obj.no_of_packages,
     0
   );
+
+  const totalDiscount = packageList.reduce(
+    (acc, obj) => acc + obj.total_pKg_discount,
+    0
+  );
+
   const dispatch = useDispatch();
 
   const getAllPaymentData = async () => {
@@ -218,7 +225,8 @@ function UpgradeYourPackagePopup(props) {
     try {
       const res = await call(GET_USER_INFO, payload);
       const userProfileData = res?.data?.data?.[0];
-      setDiscount(userProfileData?.package_discount || 0);
+      console.log(userProfileData, ".........userProfileData");
+      setSpecialDiscount(userProfileData?.package_discount || 0);
     } catch (err) {
       console.log(err);
     }
@@ -332,13 +340,13 @@ function UpgradeYourPackagePopup(props) {
     }
     setReturnPackageList(updateReturnPackageList);
     setAdminPackages(updatePackages);
-  };
+  }; 
 
   useEffect(() => {
     if (selectedReturnPackageTotalCost > finalPackageCost) {
       setMessage("return packages cost will not exceed curent packages");
       return;
-    }
+    } 
   }, [selectedReturnPackageTotalCost]);
 
   useEffect(() => {
@@ -556,18 +564,14 @@ function UpgradeYourPackagePopup(props) {
                 )}
               </Dropdown>
               <div className="d-flex flex-row w-100 custom-select small-font btn-bg rounded all-none p-1 align-items-center justify-content-between p-2 mt-2">
-                <div>Discount{totalPackagesDiscount}%</div>
-                <div>
-                  {totalPackagesDiscountValue
-                    ? -parseInt(totalPackagesDiscountValue)
-                    : 0}
-                </div>
+                <div>Packages Discount</div>
+                <div>{totalDiscount ? -parseInt(totalDiscount) : 0}</div>
               </div>
               <div className="d-flex flex-row w-100 custom-select small-font btn-bg rounded all-none p-1 align-items-center justify-content-between p-2 mt-2">
-                <div>Special Discount{discount}%</div>
+                <div>Special Discount{specialDiscount}%</div>
                 <div>
-                  {discount
-                    ? -parseInt((totalPackagesCost * discount) / 100)
+                  {specialDiscount
+                    ? -parseInt((totalPackagesCost * specialDiscount) / 100)
                     : 0}
                 </div>
               </div>

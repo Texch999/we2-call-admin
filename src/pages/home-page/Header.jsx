@@ -60,7 +60,7 @@ function Header() {
   const handleShareButton = () => {
     setShowSharePopup(true);
   };
-  const [activeHead, setActiveHead] = useState(0);
+  const [activeHead, setActiveHead] = useState("");
   const [matchEntryOpen, setMatchEntryOpen] = useState(false);
   const [matchEntryType, setMatchEntryType] = useState("Match Entry");
   const [reportsOpen, setReportsOpen] = useState(false);
@@ -106,22 +106,6 @@ function Header() {
       name: "Call Reports",
       path: "/call-reports",
     },
-    // /call-reports
-    // {
-    //   icon: <BiPhoneCall className="mr-10 d-flex" />,
-    //   name: "Call History",
-    //   path: "/call-history",
-    // },
-    // {
-    //   icon: <FaRegHandshake className="mr-10 d-flex" />,
-    //   name: "Call Settlement",
-    //   path: "/call-settlement",
-    // },
-    // {
-    //   icon: <FaRegAddressBook className="mr-10 d-flex" />,
-    //   name: "Call Statement",
-    //   path: "/call-statement",
-    // },
     {
       icon: <TbReportSearch className="mr-10 d-flex" />,
       name: "Match  Statement",
@@ -150,7 +134,6 @@ function Header() {
       name: "Add Payment Gateway",
       onClick: "onClick",
     },
-    // /payment-gateway-list
     {
       icon: <FaRegHandshake className="mr-10 d-flex" />,
       name: "Payment Gateway List",
@@ -161,26 +144,11 @@ function Header() {
       name: "Privacy Policy",
       path: "/privacy-policy",
     },
-    // {
-    //   icon: <MdOutlinePrivacyTip className="mr-10 d-flex" />,
-    //   name: "Admin One Page Report",
-    //   path: "/admin-one-page-report",
-    // },
-    // {
-    //   icon: <MdOutlinePrivacyTip className="mr-10 d-flex" />,
-    //   name: "Admin Share Comm Settlement",
-    //   path: "/admin-share-comm-settlement",
-    // },
     {
       icon: <MdOutlinePrivacyTip className="mr-10 d-flex" />,
       name: "Call Management",
       path: "/call-management",
     },
-    // {
-    //   icon: <MdOutlinePrivacyTip className="mr-10 d-flex" />,
-    //   name: "Super Admin Call Management",
-    //   path: "/super-admin-call-management",
-    // },
     {
       icon: <MdOutlinePrivacyTip className="mr-10 d-flex" />,
       name: "Share Risk live mathces",
@@ -279,48 +247,35 @@ function Header() {
     {
       icon: <AiFillEdit className="mr-10" />,
       name: "Edit profile",
-      // onClick: "onClick",
     },
     {
       icon: <MdLockReset className="mr-10" />,
       name: "Reset Password",
-      // path: "/privacy-policy",
     },
     {
       icon: <AiOutlineLogout className="mr-10" />,
       name: "Logout",
-      // path: "/admin-one-page-report",
     },
   ];
 
+  useEffect(() => {
+    switch (history.location.pathname) {
+      case "/":
+        setActiveHead(0);
+        break;
+      case "/chats":
+        setActiveHead(1);
+        break;
+      case "/tours-tournaments":
+        setActiveHead(2);
+        break;
+      default:
+        setActiveHead();
+    }
+  }, []);
   // useEffect(() => {
-  //   switch (history.location.pathname) {
-  //     case "/":
-  //       setActiveHead(0);
-  //       break;
-  //     case "/chats":
-  //       setActiveHead(1);
-  //       break;
-
-  //     case "/tours-tournaments":
-  //       setActiveHead(2);
-  //       break;
-
-  //     case "/match-entry":
-  //       setActiveHead(3);
-  //       break;
-
-  //     case "/phub":
-  //       setActiveHead(4);
-  //       break;
-
-  //     case "/horny":
-  //       setActiveHead(5);
-
-  //       break;
-
-  //     default:
-  //       setActiveHead(0);
+  //   if (ReportsEntryDropdown.find(history.location.pathname)) {
+  //     setActiveHead(3);
   //   }
   // }, []);
 

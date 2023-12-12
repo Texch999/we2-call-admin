@@ -318,12 +318,11 @@ function SportsManagement() {
   useEffect(() => {
     getAllMatches();
     getScheduleMatches();
-    setActiveHead(0);
-  }, [status]);
+  }, []);
 
   useEffect(() => {
     getScheduleMatches();
-  }, [status]);
+  }, []);
 
   return (
     <div className="p-3">
@@ -471,7 +470,7 @@ function SportsManagement() {
               <input
                 className="sport-management-input d-flex p-1 w-100 sport-management-select meetings-heading"
                 name={item.name}
-                value={item?.overs || ""}
+                defaultValue={item?.overs || ""}
                 // disabled
                 onChange={(e) => handleOversChange(e)}
               ></input>
@@ -527,7 +526,7 @@ function SportsManagement() {
             })}
           </div>
           <div className="mt-2">
-            <Table data={scheduleTable || []} columns={scheduledColumns} />
+            <Table data={scheduleDate || []} columns={scheduledColumns} />
           </div>
           <MatchSubmitPopup
             header={"You Are Successfully Created Your Match"}

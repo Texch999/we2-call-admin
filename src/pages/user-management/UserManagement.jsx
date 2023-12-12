@@ -89,19 +89,22 @@ function UserManagement() {
       !userDetails?.referral_comm,
       !userDetails?.deposit_type,
       !userDetails?.location,
-      !userDetails?.client_risk_limit)
+      !userDetails?.client_risk_limit,
+      !userDetails?.match_race_comm,
+      !userDetails?.client_share,
+      !userDetails?.fancy_comm)
     ) {
       return setError("Please Enter All Field");
     }
     let userDeatailsPayload = {
-      // existing_user_id: clientId[0].register_id,
+      existing_user_id: clientId[0]?.register_id,
       register_id,
       account_role,
       client_type: userDetails?.client_type,
       client_name: userDetails?.client_name,
       referral_name: userDetails?.referral_name,
       client_risk_limit: userDetails?.client_risk_limit,
-      // referal_id: referalId[0].refferal_id,
+      referal_id: rId[0]?.refferal_id,
       referral_comm: userDetails?.referral_comm,
       fancy_refferal_comm: userDetails?.fancy_refferal_comm,
       referral_share: userDetails?.referral_share,
@@ -110,9 +113,9 @@ function UserManagement() {
       ul_share: localStorage?.getItem("ul_share") || 0,
       deposit_type: userDetails?.deposit_type,
       location: userDetails?.location,
-      match_race_comm: 2,
-      client_share: 2,
-      fancy_comm: 2,
+      match_race_comm: userDetails?.match_race_comm,
+      client_share: userDetails?.client_share,
+      fancy_comm: userDetails?.fancy_comm,
     };
     await call(CREATE_OFFLINE_CLIENT, userDeatailsPayload)
       .then((res) => {
@@ -124,7 +127,7 @@ function UserManagement() {
             setUserCreationSubmitPopup(false);
           }, 1000);
           setEditStatus(false);
-          // handleReset();
+          setUserDetails([]);
         } else {
           setError(
             res?.data?.message ? res?.data?.message : `something wen't wrong`
@@ -150,7 +153,10 @@ function UserManagement() {
       !userDetails?.referral_comm,
       !userDetails?.deposit_type,
       !userDetails?.location,
-      !userDetails?.client_risk_limit)
+      !userDetails?.client_risk_limit,
+      !userDetails?.match_race_comm,
+      !userDetails?.client_share,
+      !userDetails?.fancy_comm)
     ) {
       return setError("Please Enter All Field");
     }
@@ -171,9 +177,9 @@ function UserManagement() {
       ul_share: localStorage?.getItem("ul_share") || 0,
       deposit_type: userDetails?.deposit_type,
       location: userDetails?.location,
-      match_race_comm: 2,
-      client_share: 2,
-      fancy_comm: 2,
+      match_race_comm: userDetails?.match_race_comm,
+      client_share: userDetails?.client_share,
+      fancy_comm: userDetails?.fancy_comm,
     };
 
     await call(UPDATE_OFFLINE_CLIENT, userDeatailsPayload)
@@ -186,7 +192,7 @@ function UserManagement() {
             setUserCreationSubmitPopup(false);
           }, 1000);
           setEditStatus(false);
-          // handleReset();
+          setUserDetails([]);
         } else {
           setError(
             res?.data?.message ? res?.data?.message : `something wen't wrong`
@@ -198,17 +204,14 @@ function UserManagement() {
         console.log(err);
         setError(err?.message ? err?.message : `something wen't wrong`);
       });
-
-    // setError("success ful");
   };
 
   const clientId = allClients.filter((item) => {
-    return item.first_name === userDetails?.select_client;
+    return item.first_name === userDetails?.client_name;
   });
-  console.log(clientId, "clientId");
 
-  const referalId = refferalData?.filter((item) => {
-    return item.referral_name === userDetails?.refer_name;
+  const rId = refferalData?.filter((item) => {
+    return item.referral_name === userDetails?.referral_name;
   });
 
   const [openDeletePopup, setOpenDeletePopup] = useState(false);
@@ -333,6 +336,8 @@ function UserManagement() {
     // console.log(name, value);
     setUserDetails({ ...userDetails, [e.target.name]: e.target.value });
   };
+
+  console.log(userDetails, ".......userDetails");
   const getOfflineClients = async () => {
     await call(GET_OFFLINE_CLIENTS, { register_id })
       .then((res) => {
@@ -574,38 +579,74 @@ function UserManagement() {
         </div>
       </div>
       <div className="row mt-3 meetings-heading">
-        <div className="col-7 pr-3">
-          <div className="row gutter-1rem">
-            <div className="col">
-              <div>Location</div>
-              <div className="sport-management-input d-flex ">
-                <input
-                  className="w-90 ms-2 "
-                  placeholder="Enter"
-                  onChange={(e) => handleChange(e)}
-                  name="location"
-                  value={userDetails?.location || ""}
-                ></input>
-                <GrLocation />
-              </div>
+        <div className="col-5 d-flex justify-content-between">
+          <div className="w-30">
+            <div>Location</div>
+            <div className="sport-management-input d-flex ">
+              <input
+                placeholder="Enter Location"
+                onChange={(e) => handleChange(e)}
+                name="location"
+                value={userDetails?.location || ""}
+                className="w-90"
+              />
+              <GrLocation className="me-1" />
             </div>
-            <div className="col">
-              <div>Match Risk Limit</div>
-              <div className="sport-management-input d-flex ">
-                <input
-                  className="w-90 ms-2 "
-                  placeholder="Enter"
-                  onChange={(e) => handleChange(e)}
-                  name="client_risk_limit"
-                  type="number"
-                  defaultValue={userDetails?.client_risk_limit || ""}
-                ></input>
-                {/* <AiOutlineUser /> */}
-              </div>
+          </div>
+          <div className="w-30">
+            <div>Match Risk Limit</div>
+            <div className="sport-management-input d-flex ">
+              <input
+                placeholder="Enter value"
+                onChange={(e) => handleChange(e)}
+                name="client_risk_limit"
+                defaultValue={userDetails?.client_risk_limit || ""}
+                className="w-90"
+              />
+            </div>
+          </div>
+          <div className="w-30">
+            <div>Share</div>
+            <div className="sport-management-input d-flex ">
+              <input
+                placeholder="Enter"
+                onChange={(e) => handleChange(e)}
+                name="client_share"
+                value={userDetails?.client_share || ""}
+                className="w-90"
+              />
+              <FaPercent className="me-1" />
             </div>
           </div>
         </div>
-        <div className="col-2"></div>
+        <div className="col-4 d-flex justify-content-between">
+          <div className="w-40">
+            <div>Fancy Role Comm</div>
+            <div className="sport-management-input d-flex ">
+              <input
+                placeholder="Enter"
+                onChange={(e) => handleChange(e)}
+                name="fancy_comm"
+                value={userDetails?.fancy_comm || ""}
+                className="w-90"
+              />
+              <FaPercent className="me-1" />
+            </div>
+          </div>
+          <div className="w-55">
+            <div>Mat+Fa-comm</div>
+            <div className="sport-management-input d-flex ">
+              <input
+                placeholder="Enter"
+                onChange={(e) => handleChange(e)}
+                name="match_race_comm"
+                value={userDetails?.match_race_comm || ""}
+                className="w-90"
+              />
+              <FaPercent className="me-1" />
+            </div>
+          </div>
+        </div>
         <div className="col-3 d-flex align-items-end">
           <div
             className="sport-management-input w-100 d-flex justify-content-center align-items-center bg-yellow"
