@@ -7,11 +7,8 @@ import { BiSolidCamera } from "react-icons/bi";
 import { ImAttachment } from "react-icons/im";
 import { MdMicNone } from "react-icons/md";
 import { LuUsers } from "react-icons/lu";
-import { BiLock } from "react-icons/bi";
 import { Images } from "../../images";
 import { FiSend } from "react-icons/fi";
-import { PiDotOutlineFill } from "react-icons/pi";
-import { icons } from "react-icons";
 import { open, send } from "../../utils/WebSocket";
 import {
   GET_USER_MESSAGES,
@@ -157,6 +154,7 @@ function Chats() {
 
   const addMessage = (message, msg_c = 0) => {
     let temp = { message, ts: new Date().getTime(), msg_c };
+    setSupportData((prev) => [...prev, temp]);
   };
 
   const handleInputChange = (e) => {
@@ -361,7 +359,8 @@ function Chats() {
               <ScrollableFeed>
                 {supportData?.length > 0 ? (
                   supportData.map((msg, index) => {
-                    let sender = msg.to_user_id === register_id ? true : false;
+                    let sender =
+                      msg.from_user_id === register_id ? true : false;
                     return (
                       <div key={index}>
                         {sender ? (
@@ -450,7 +449,7 @@ function Chats() {
 
                 <div
                   className="button-chat px-2 py-1 rounded mx-2"
-                  onClick={handleUploadButtonClick}
+                  //onClick={handleUploadButtonClick}
                 >
                   <label htmlFor="attachment">
                     <ImAttachment className="chat-icon" />
