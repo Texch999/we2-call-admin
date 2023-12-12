@@ -25,9 +25,7 @@ function Settelment() {
   const [error, setError] = useState("");
 
   const handlePaymentModal = (data) => {
-    console.log(data, "payment de dhana adhan");
     setClientId(data.client_id);
-    console.log(data.client_id, "data.client_id");
     setShowPaymentModal(true);
     setClientDetails(data);
   };
