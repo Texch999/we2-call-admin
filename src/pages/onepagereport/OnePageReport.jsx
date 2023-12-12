@@ -66,10 +66,9 @@ function OnePageReport(props) {
       (acc, obj) => acc + (+obj?.totalLossOrProfit || 0),
       0
     );
-  console.log(totalMfrcInput, "totalMfrcInput");
-  console.log(totalCnetInput, "totalCnetInput");
-  console.log(totalRfnetInput, "totalRfnetInput");
-  console.log(totalOnepageInput, "totalOnepageInput");
+
+
+
   return (
     <div className="mt-3">
       <table className="w-100 match-position-table medium-font">
