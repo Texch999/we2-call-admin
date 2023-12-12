@@ -155,6 +155,7 @@ function ReportPage() {
       .catch((err) => console.log(err));
   };
   console.log(onePageReportData, "onePageReportData");
+
   const ONE_PAGE_REPORT_DETAILS =
     onePageReportData?.length > 0 &&
     onePageReportData?.map((item) => {
@@ -412,6 +413,7 @@ function ReportPage() {
       {activeReport === "One Page Report" ? (
         <OnePageReport
           ONE_PAGE_REPORT_DETAILS={ONE_PAGE_REPORT_DETAILS}
+          onePageReportData={onePageReportData}
           induvisualClientData={induvisualClientData}
           induvisualClientStatus={induvisualClientStatus}
         />

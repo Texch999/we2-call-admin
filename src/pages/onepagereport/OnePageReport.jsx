@@ -11,8 +11,8 @@ import CustomPagination from "../pagination/CustomPagination";
 import ClientIndPL from "./ClientIndPL";
 
 function OnePageReport(props) {
-  const { ONE_PAGE_REPORT_DETAILS } = props;
-  console.log(ONE_PAGE_REPORT_DETAILS, "ONE_PAGE_REPORT_DETAILS");
+  const { ONE_PAGE_REPORT_DETAILS, onePageReportData } = props;
+  console.log(onePageReportData, "ONE_PAGE_REPORT_DETAILS");
 
   let register_id = localStorage?.getItem("register_id");
   let account_role = localStorage?.getItem("account_role");
@@ -44,32 +44,48 @@ function OnePageReport(props) {
     setCurrentPage(page);
     // You can add your logic here to fetch data for the selected page.
   };
+
+  //   const totalMfrcInput =
+  //   onePageReportData &&
+  //   onePageReportData?.length > 0 &&
+  //   onePageReportData?.reduce(
+  //     (acc, obj) => acc + obj?.amount + obj?.clientComission
+  //   );
+  // 0;
   const totalMfrcInput =
-    ONE_PAGE_REPORT_DETAILS &&
-    ONE_PAGE_REPORT_DETAILS?.length > 0 &&
-    ONE_PAGE_REPORT_DETAILS?.reduce((acc, obj) => acc + (+obj?.mfrc || 0), 0);
+    onePageReportData &&
+    onePageReportData?.length > 0 &&
+    onePageReportData?.reduce(
+      (acc, obj) => acc + (+obj?.amount + obj?.clientComission || 0),
+      0
+    );
   const totalCnetInput =
-    ONE_PAGE_REPORT_DETAILS &&
-    ONE_PAGE_REPORT_DETAILS?.length > 0 &&
-    ONE_PAGE_REPORT_DETAILS?.reduce(
-      (acc, obj) => acc + (+obj?.clienPL || 0),
+    onePageReportData &&
+    
+    onePageReportData?.length > 0 &&
+    onePageReportData?.reduce(
+      (acc, obj) =>
+        acc + (+obj?.amount + obj?.clientShare + obj?.clientComission || 0),
       0
     );
   const totalRfnetInput =
-    ONE_PAGE_REPORT_DETAILS &&
-    ONE_PAGE_REPORT_DETAILS?.length > 0 &&
-    ONE_PAGE_REPORT_DETAILS?.reduce((acc, obj) => acc + (+obj?.rfNet || 0), 0);
+    onePageReportData &&
+    onePageReportData?.length > 0 &&
+    onePageReportData?.reduce(
+      (acc, obj) => acc + (+obj?.referalShare + obj?.referralComission || 0),
+      0
+    );
   const totalOnepageInput =
-    ONE_PAGE_REPORT_DETAILS &&
-    ONE_PAGE_REPORT_DETAILS?.length > 0 &&
-    ONE_PAGE_REPORT_DETAILS?.reduce(
+    onePageReportData &&
+    onePageReportData?.length > 0 &&
+    onePageReportData?.reduce(
       (acc, obj) => acc + (+obj?.totalLossOrProfit || 0),
       0
     );
-  console.log(totalMfrcInput, "totalMfrcInput");
-  console.log(totalCnetInput, "totalCnetInput");
-  console.log(totalRfnetInput, "totalRfnetInput");
-  console.log(totalOnepageInput, "totalOnepageInput");
+  // console.log(totalMfrcInput, "totalMfrcInput");
+  // console.log(totalCnetInput, "totalCnetInput");
+  // console.log(totalRfnetInput, "totalRfnetInput");
+  // console.log(totalOnepageInput, "totalOnepageInput");
   return (
     <div className="mt-3">
       <table className="w-100 match-position-table medium-font">
@@ -112,16 +128,16 @@ function OnePageReport(props) {
           <tr className="text-center">
             <th>TOTAL</th>
             <th className={totalMfrcInput > 0 ? "clr-green" : "clr-red"}>
-              {totalMfrcInput}
+              {totalMfrcInput ? totalMfrcInput.toFixed(2) : 0}
             </th>
             <th className={totalCnetInput > 0 ? "clr-green" : "clr-red"}>
-              {totalCnetInput}
+              {totalCnetInput ? totalCnetInput.toFixed(2) : 0}
             </th>
             <th className={totalRfnetInput > 0 ? "clr-green" : "clr-red"}>
-              {totalRfnetInput}
+              {totalRfnetInput ? totalRfnetInput.toFixed(2) : 0}
             </th>
             <th className={totalOnepageInput > 0 ? "clr-green" : "clr-red"}>
-              {totalOnepageInput}
+              {totalOnepageInput ? totalOnepageInput.toFixed(2) : 0}
             </th>
           </tr>
         </tfoot>
