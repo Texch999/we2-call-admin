@@ -6,6 +6,8 @@ import { SET_ADMIN_OFFLINE_PAYMENT } from "../../config/endpoints";
 
 function PaymentSettelmentPopup(props) {
   const {
+    showPaymentModal,
+    setShowPaymentModal,
     paymentPopupOpen,
     setPaymentPopupOpen,
     setPaymentSuccessPopUp,
@@ -14,7 +16,14 @@ function PaymentSettelmentPopup(props) {
     selectedUser,
     totalAmount,
     pendinAmount,
+    clientDetails,
   } = props;
+  // console.log(clientDetails, "clientDetails");
+  // console.log(selectedUser, "selectedUser");
+  // console.log(role, "role");
+  // console.log(totalAmount, "totalAmount");
+  // console.log(pendinAmount, "pendinAmount");
+
   const register_id = localStorage?.getItem("register_id");
   const [paymentType, setPaymentType] = useState("");
   const [error, setError] = useState("");
@@ -27,9 +36,9 @@ function PaymentSettelmentPopup(props) {
     setIsProcessing(true);
     console.log("settlement obj", settlementObj);
     await call(SET_ADMIN_OFFLINE_PAYMENT, {
-      client_id: selectedUser?.client_id,
-      referral_name: selectedUser?.referral_name,
-      client_name: selectedUser?.client_name,
+      client_id: clientDetails?.client_id,
+      referral_name: clientDetails?.referral_name,
+      client_name: clientDetails?.client_name,
       register_id,
       payment_type: paymentType?.value,
       totalAmount: totalAmount?.toFixed(2),
@@ -52,10 +61,12 @@ function PaymentSettelmentPopup(props) {
         console.log(err);
       });
   };
+  console.log(settlementObj, "settlementObj");
+  // console.log(...settlementObj,"...settlementObj")
   // const handleCloseModal = () => {
   //   setShowPaymentModal(false);
   // };
- const onInputChange = (e) => {
+  const onInputChange = (e) => {
     setSettlementObj({
       ...settlementObj,
       [e.target.name]: Number(e.target.value),
@@ -63,7 +74,7 @@ function PaymentSettelmentPopup(props) {
   };
 
   const handlePaymentClose = () => {
-    setPaymentPopupOpen(false);
+    setShowPaymentModal(false);
   };
 
   // const [paymentSubmitPopup, setPaymentSubmitPopup] = useState(false);
@@ -80,7 +91,7 @@ function PaymentSettelmentPopup(props) {
     <div className="modal fade bd-example-modal-lg container mt-5">
       <Modal
         size="md"
-        show={paymentPopupOpen}
+        show={showPaymentModal}
         onHide={handlePaymentClose}
         centered
         className="match-share-modal payment-modal"
@@ -123,13 +134,12 @@ function PaymentSettelmentPopup(props) {
                   <div className="w-100 custom-select small-font btn-bg rounded all-none">
                     <input
                       className="w-100 custom-select small-font btn-bg rounded all-none p-2"
-                      value={selectedUser?.client_name}
+                      value={clientDetails?.client_name}
                       disabled
                     />
                   </div>
                 </div>
               </div>
-
               <Container fluid className="mt-2">
                 <Row>
                   <Col className="ps-0">
@@ -137,7 +147,7 @@ function PaymentSettelmentPopup(props) {
                       type="number"
                       placeholder="Balance"
                       className="w-100 custom-select small-font btn-bg rounded all-none p-2 small-font"
-                      value={totalAmount ? totalAmount?.toFixed(2) : 0}
+                      value={totalAmount}
                       disabled
                     ></input>
                   </Col>

@@ -25,7 +25,9 @@ function Settelment() {
   const [error, setError] = useState("");
 
   const handlePaymentModal = (data) => {
+    console.log(data, "payment de dhana adhan");
     setClientId(data.client_id);
+    console.log(data.client_id, "data.client_id");
     setShowPaymentModal(true);
     setClientDetails(data);
   };
@@ -46,7 +48,7 @@ function Settelment() {
     setCurrentPage(page);
     // You can add your logic here to fetch data for the selected page.
   };
-  const [settlementStatus, setSettlementStatus] = useState(false);
+  // const [settlementStatus, setSettlementStatus] = useState(false);
 
   const getSettlementData = async () => {
     await call(GET_OFFLINE_CLIENTS, {
