@@ -6,6 +6,8 @@ import { SET_ADMIN_OFFLINE_PAYMENT } from "../../config/endpoints";
 
 function PaymentSettelmentPopup(props) {
   const {
+    showPaymentModal,
+    setShowPaymentModal,
     paymentPopupOpen,
     setPaymentPopupOpen,
     setPaymentSuccessPopUp,
@@ -15,6 +17,12 @@ function PaymentSettelmentPopup(props) {
     totalAmount,
     pendinAmount,
   } = props;
+
+  console.log(selectedUser, "selectedUser");
+  console.log(role, "role");
+  console.log(totalAmount, "totalAmount");
+  console.log(pendinAmount, "pendinAmount");
+
   const register_id = localStorage?.getItem("register_id");
   const [paymentType, setPaymentType] = useState("");
   const [error, setError] = useState("");
@@ -55,7 +63,7 @@ function PaymentSettelmentPopup(props) {
   // const handleCloseModal = () => {
   //   setShowPaymentModal(false);
   // };
- const onInputChange = (e) => {
+  const onInputChange = (e) => {
     setSettlementObj({
       ...settlementObj,
       [e.target.name]: Number(e.target.value),
@@ -63,7 +71,7 @@ function PaymentSettelmentPopup(props) {
   };
 
   const handlePaymentClose = () => {
-    setPaymentPopupOpen(false);
+    setShowPaymentModal(false);
   };
 
   // const [paymentSubmitPopup, setPaymentSubmitPopup] = useState(false);
@@ -80,7 +88,7 @@ function PaymentSettelmentPopup(props) {
     <div className="modal fade bd-example-modal-lg container mt-5">
       <Modal
         size="md"
-        show={paymentPopupOpen}
+        show={showPaymentModal}
         onHide={handlePaymentClose}
         centered
         className="match-share-modal payment-modal"
@@ -129,7 +137,6 @@ function PaymentSettelmentPopup(props) {
                   </div>
                 </div>
               </div>
-
               <Container fluid className="mt-2">
                 <Row>
                   <Col className="ps-0">

@@ -154,8 +154,9 @@ function ReportPage() {
       })
       .catch((err) => console.log(err));
   };
+  console.log(onePageReportData, "onePageReportData");
   const ONE_PAGE_REPORT_DETAILS =
-    onePageReportData?.length>0 &&
+    onePageReportData?.length > 0 &&
     onePageReportData?.map((item) => {
       const totalAmountAfterCommission =
         parseFloat(item?.amount || 0) + parseFloat(item?.clientComission || 0);

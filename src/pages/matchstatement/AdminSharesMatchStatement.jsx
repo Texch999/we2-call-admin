@@ -272,6 +272,7 @@ const AdminSharesMatchStatement = () => {
   const [pendinAmount, setPendingAmount] = useState(0);
 
   const handlePaymentModal = (user) => {
+    console.log("click me");
     setSelectedUser(user);
     const resultAmount =
       getUlShare(user?.total_amount, user?.ul_share) +

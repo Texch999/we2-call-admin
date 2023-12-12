@@ -12,6 +12,7 @@ import ClientIndPL from "./ClientIndPL";
 
 function OnePageReport(props) {
   const { ONE_PAGE_REPORT_DETAILS } = props;
+  console.log(ONE_PAGE_REPORT_DETAILS, "ONE_PAGE_REPORT_DETAILS");
 
   let register_id = localStorage?.getItem("register_id");
   let account_role = localStorage?.getItem("account_role");
@@ -43,6 +44,32 @@ function OnePageReport(props) {
     setCurrentPage(page);
     // You can add your logic here to fetch data for the selected page.
   };
+  const totalMfrcInput =
+    ONE_PAGE_REPORT_DETAILS &&
+    ONE_PAGE_REPORT_DETAILS?.length > 0 &&
+    ONE_PAGE_REPORT_DETAILS?.reduce((acc, obj) => acc + (+obj?.mfrc || 0), 0);
+  const totalCnetInput =
+    ONE_PAGE_REPORT_DETAILS &&
+    ONE_PAGE_REPORT_DETAILS?.length > 0 &&
+    ONE_PAGE_REPORT_DETAILS?.reduce(
+      (acc, obj) => acc + (+obj?.clienPL || 0),
+      0
+    );
+  const totalRfnetInput =
+    ONE_PAGE_REPORT_DETAILS &&
+    ONE_PAGE_REPORT_DETAILS?.length > 0 &&
+    ONE_PAGE_REPORT_DETAILS?.reduce((acc, obj) => acc + (+obj?.rfNet || 0), 0);
+  const totalOnepageInput =
+    ONE_PAGE_REPORT_DETAILS &&
+    ONE_PAGE_REPORT_DETAILS?.length > 0 &&
+    ONE_PAGE_REPORT_DETAILS?.reduce(
+      (acc, obj) => acc + (+obj?.totalLossOrProfit || 0),
+      0
+    );
+  console.log(totalMfrcInput, "totalMfrcInput");
+  console.log(totalCnetInput, "totalCnetInput");
+  console.log(totalRfnetInput, "totalRfnetInput");
+  console.log(totalOnepageInput, "totalOnepageInput");
   return (
     <div className="mt-3">
       <table className="w-100 match-position-table medium-font">
@@ -74,7 +101,7 @@ function OnePageReport(props) {
                   </td>
                   <td className="w-20">{item.cnet}</td>
                   <td className="w-20"> {item.rfnet}</td>
-                  <td className="clr-green w-20">{item.totalpl}</td>
+                  <td className="w-20">{item.totalpl}</td>
                 </tr>
               </tbody>
             ))}
@@ -84,10 +111,18 @@ function OnePageReport(props) {
         <tfoot>
           <tr className="text-center">
             <th>TOTAL</th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th className="clr-green">50000000.00</th>
+            <th className={totalMfrcInput > 0 ? "clr-green" : "clr-red"}>
+              {totalMfrcInput}
+            </th>
+            <th className={totalCnetInput > 0 ? "clr-green" : "clr-red"}>
+              {totalCnetInput}
+            </th>
+            <th className={totalRfnetInput > 0 ? "clr-green" : "clr-red"}>
+              {totalRfnetInput}
+            </th>
+            <th className={totalOnepageInput > 0 ? "clr-green" : "clr-red"}>
+              {totalOnepageInput}
+            </th>
           </tr>
         </tfoot>
       </table>
