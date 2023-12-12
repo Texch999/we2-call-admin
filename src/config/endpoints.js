@@ -90,6 +90,7 @@ const SET_ADMIN_OFFLINE_PAYMENT =
 const ADD_GUESTDOCS_FOR_TOURS = "/tours/add_guestdocs_for_tour";
 const GET_ALL_USERS = "/offline-management/get_user_list";
 const TOP_WINNERS_LOOSERS = "/admin/top_winner_looser";
+const SUMMARY_DATA = "/admin/summary";
 
 // methods
 const DELETE = "DELETE";
@@ -470,5 +471,10 @@ exports.GET_ALL_USERS = {
 
 exports.TOP_WINNERS_LOOSERS = {
   url: TOP_WINNERS_LOOSERS,
+  method: GET,
+};
+
+exports.SUMMARY_DATA = {
+  url: SUMMARY_DATA,
   method: GET,
 };
