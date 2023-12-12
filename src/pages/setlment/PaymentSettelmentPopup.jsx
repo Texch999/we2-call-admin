@@ -72,11 +72,19 @@ function PaymentSettelmentPopup(props) {
       [e.target.name]: Number(e.target.value),
     });
   };
-
+  const paymentTypes = [
+    { name: "PhonePe", value: "Phonepay" },
+    { name: "G Pay", value: "G pay" },
+  ];
+  // const onPaymentType = () => {
+  //   setShowPaymentType((prev) => !prev);
+  // };
   const handlePaymentClose = () => {
     setShowPaymentModal(false);
   };
-
+  useEffect(() => {
+    setSettlementObj();
+  }, []);
   // const [paymentSubmitPopup, setPaymentSubmitPopup] = useState(false);
   // const [paymentPopup, setPaymentPopup] = useState(false);
   // const handlePaymentSubmitPopupOpen = () => {
@@ -147,7 +155,7 @@ function PaymentSettelmentPopup(props) {
                       type="number"
                       placeholder="Balance"
                       className="w-100 custom-select small-font btn-bg rounded all-none p-2 small-font"
-                      value={totalAmount}
+                      value={totalAmount ? totalAmount.toFixed(2) : 0}
                       disabled
                     ></input>
                   </Col>
