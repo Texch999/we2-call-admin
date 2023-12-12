@@ -7,8 +7,16 @@ import CustomPagination from "../pagination/CustomPagination";
 import { GET_OFFLINE_CLIENTS } from "../../config/endpoints";
 import { call } from "../../config/axios";
 import PaymentSuccessPopup from "./PaymentSuccessPopup";
-
-const AdminShareCommSettlement = ({ AdminCommSattlementStatementData }) => {
+// totalNetPl={totalNetPl}
+// totalCD={totalCD}
+// totalBalance={totalBalance}
+// getUlShare={getUlShare}
+const AdminShareCommSettlement = ({
+  AdminCommSattlementStatementData,
+  totalNetPl,
+  totalCD,
+  totalBalance,
+}) => {
   const register_id = localStorage.getItem("register_id");
   const [allUsers, setAllUsers] = useState([]);
   const [selectedUser, setSelectedUser] = useState("");
@@ -188,75 +196,48 @@ const AdminShareCommSettlement = ({ AdminCommSattlementStatementData }) => {
                 </tr>
               ))}
           </tbody>
-          {/* <tfoot>
+          <tfoot>
             <tr>
               <th colSpan={2}>TOTAL</th>
 
-              <th className=" clr-green">
-                {adminShareCommSettlementData &&
+              <th className={totalNetPl > 0 ? "clr-green" : "clr-red"}>
+                {totalNetPl ? totalNetPl.toFixed(2) : 0}
+                {/* {adminShareCommSettlementData &&
                   adminShareCommSettlementData?.length > 0 &&
                   adminShareCommSettlementData
                     .reduce(
                       (total, data) => total + parseFloat(data?.amount),
                       0
                     )
-                    .toFixed(2)}
+                    .toFixed(2)} */}
               </th>
-              <th className=" clr-green">
+              <th className={totalCD > 0 ? "clr-green" : "clr-red"}>
                 {" "}
-                {adminShareCommSettlementData &&
+                {totalCD ? totalCD.toFixed(2) : 0}
+                {/* {adminShareCommSettlementData &&
                   adminShareCommSettlementData?.length > 0 &&
                   adminShareCommSettlementData
                     ?.reduce(
                       (total, data) => total + parseFloat(data?.credit_debit),
                       0
                     )
-                    .toFixed(2)}
+                    .toFixed(2)} */}
               </th>
-              <th className=" clr-green">
-                {" "}
-                {adminShareCommSettlementData &&
+              <th className={totalBalance > 0 ? "clr-green" : "clr-red"}>
+                {totalBalance ? totalBalance.toFixed(2) : 0}
+                {/* {adminShareCommSettlementData &&
                   adminShareCommSettlementData?.length > 0 &&
                   adminShareCommSettlementData
                     ?.reduce(
                       (total, data) => total + parseFloat(data?.balance),
                       0
                     )
-                    ?.toFixed(2)}
+                    ?.toFixed(2)} */}
               </th>
               <th></th>
             </tr>
-          </tfoot> */}
+          </tfoot>
         </Table>
-
-        {/* {paymentPopupOpen && (
-          <PaymentSettelmentPopup
-            buttonOne={`Date : 27/07/23`}
-            role="Admins Name"
-            buttonTwo={`Time : 17:46:00 PM`}
-            paymentPopupOpen={paymentPopupOpen}
-            setPaymentPopupOpen={setPaymentPopupOpen}
-            selectedUser={selectedUser}
-            totalAmount={totalAmount}
-            pendinAmount={pendinAmount}
-            setPaymentSuccessPopUp={setPaymentSuccessPopUp}
-            setSuccess={setSuccess}
-          />
-        )}
-        {paymentSuccessPopUp && (
-          <PaymentSuccessPopup
-            open={paymentSuccessPopUp}
-            handleConfirm={() => {
-              setPaymentPopupOpen(false);
-              setPaymentSuccessPopUp(true);
-            }}
-            heading="Payment done succesfully"
-            handleCancel={() => {
-              setPaymentPopupOpen(false);
-              setPaymentSuccessPopUp(false);
-            }}
-          />
-        )} */}
       </div>
       <div className="d-flex justify-content-between align-items-center mt-4">
         <div className="d-flex justify-content-start font-clr-white total-count-container  py-2 px-4 rounded">
