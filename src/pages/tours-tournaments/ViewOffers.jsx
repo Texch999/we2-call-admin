@@ -41,7 +41,7 @@ function ViewOffers() {
             }
             onClick={() => handleViewOffersOpen("1")}
           >
-            View Offers
+            My Tours
           </div>
         </div>
         <div onClick={() => handleOpenMessagePopup()}>
