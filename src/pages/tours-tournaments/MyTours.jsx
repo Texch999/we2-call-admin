@@ -98,6 +98,9 @@ function MyTours(props) {
         <div className="normal-button w-40 font-14">Team Interested</div>
       </div>
       <hr className="hr-line mt-2" />
+      <div>
+        <h1>ravi</h1>
+      </div>
     </div>
   );
 }
