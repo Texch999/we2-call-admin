@@ -140,7 +140,7 @@ function MatchResultInput({
               <option value="result">Result</option>
               <option value="cancel">Cancel</option>
               <option value="draw">Draw</option>
-              <option value="abondoned">Abandoned</option>
+              <option value="abandon">Abandoned</option>
             </select>
           </div>
         </div>

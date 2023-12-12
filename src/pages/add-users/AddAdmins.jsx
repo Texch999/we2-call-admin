@@ -143,7 +143,7 @@ const AddAdmins = () => {
   };
 
   return (
-    <div className="p-4">
+    <div className="p-3">
       <div>
         <h5 className="meetings-heading">Add Users & Admins</h5>
         <div className="d-flex flex-column add-users-date">
@@ -186,8 +186,8 @@ const AddAdmins = () => {
         </div>
       </div>
       <hr />
-      <div>
-        <Table responsive="md" className="call-management-data">
+      <div className="admin-table-body-height">
+        <table className="fixed-table w-100 match-position-table text-center medium-font">
           <thead>
             <tr>
               <th className="text-center">S NO</th>
@@ -257,8 +257,7 @@ const AddAdmins = () => {
                 </tr>
               ))}
           </tbody>
-        </Table>
-
+        </table>
         {/* <tfoot>
             <tr>
               <th colSpan={6} className="text-center">
@@ -276,76 +275,76 @@ const AddAdmins = () => {
               <th></th>
             </tr>
           </tfoot> */}
-        {modalShow && (
-          <AddAdminsPopup
-            heading={`${editStatus ? "Update User" : "Add User"} `}
-            show={modalShow}
-            usersData={usersData}
-            setModalShow={setModalShow}
-            editStatus={editStatus}
-            editData={editData}
-            onhideClick={(e) => {
-              setModalShow(e);
-              setInputData({});
-              setEditStatus(false);
-            }}
-            onHide={() => setModalShow(false)}
-            setIsUserAdded={setIsUserAdded}
-            setInputData={setInputData}
-            inputData={inputData}
-            setAddSuccessPopUp={setAddSuccessPopUp}
-            setEditStatus={setEditStatus}
-          />
-        )}
-        {packageViewPopShow && (
-          <PackageViewPopUp
-            show={packageViewPopShow}
-            onHide={() => setPackageViewPopup(false)}
-          />
-        )}
-
-        {addSuccessPopUp && (
-          <AddUserSuccessPopUp
-            open={addSuccessPopUp}
-            handleConfimr={() => setAddSuccessPopUp(false)}
-            handleCancel={() => setAddSuccessPopUp()}
-            heading="Successfully Added"
-            flag={false}
-          />
-        )}
-        <ChangePassword
-          showChangePopup={showChangePopup}
-          setShowChangePopup={setShowChangePopup}
-          setChangePasswordSubmit={setChangePasswordSubmit}
-          selectedUser={selectedUser}
-          setSelectedUser={setSelectedUser}
-        />
-        <ChangePasswordSuccessPopUp
-          header={"You Are Successfully Changed your Password"}
-          state={changePasswordSubmit}
-          setState={setChangePasswordSubmit}
-        />
-        {blockStatus && (
-          <BlockUnBlockPopUp
-            open={blockStatus}
-            isProcessing={isProcessing}
-            handleConfirm={() => handleBlock()}
-            handleCancel={() => {
-              setSelectedUser("");
-              setBlockStatus(false);
-            }}
-            heading={`Are you sure you want to "${selectedUser?.first_name}" ${
-              selectedUser?.active ? "block" : "un-block"
-            }`}
-            flag={true}
-          />
-        )}
-        <AdminDetailsSharePopup
-          adminDetailsPopup={adminDetailsPopup}
-          setAdminDetailsPopup={setAdminDetailsPopup}
-          adminDetailsData={adminDetailsData}
-        />
       </div>
+      {modalShow && (
+        <AddAdminsPopup
+          heading={`${editStatus ? "Update User" : "Add User"} `}
+          show={modalShow}
+          usersData={usersData}
+          setModalShow={setModalShow}
+          editStatus={editStatus}
+          editData={editData}
+          onhideClick={(e) => {
+            setModalShow(e);
+            setInputData({});
+            setEditStatus(false);
+          }}
+          onHide={() => setModalShow(false)}
+          setIsUserAdded={setIsUserAdded}
+          setInputData={setInputData}
+          inputData={inputData}
+          setAddSuccessPopUp={setAddSuccessPopUp}
+          setEditStatus={setEditStatus}
+        />
+      )}
+      {packageViewPopShow && (
+        <PackageViewPopUp
+          show={packageViewPopShow}
+          onHide={() => setPackageViewPopup(false)}
+        />
+      )}
+
+      {addSuccessPopUp && (
+        <AddUserSuccessPopUp
+          open={addSuccessPopUp}
+          handleConfimr={() => setAddSuccessPopUp(false)}
+          handleCancel={() => setAddSuccessPopUp()}
+          heading="Successfully Added"
+          flag={false}
+        />
+      )}
+      <ChangePassword
+        showChangePopup={showChangePopup}
+        setShowChangePopup={setShowChangePopup}
+        setChangePasswordSubmit={setChangePasswordSubmit}
+        selectedUser={selectedUser}
+        setSelectedUser={setSelectedUser}
+      />
+      <ChangePasswordSuccessPopUp
+        header={"You Are Successfully Changed your Password"}
+        state={changePasswordSubmit}
+        setState={setChangePasswordSubmit}
+      />
+      {blockStatus && (
+        <BlockUnBlockPopUp
+          open={blockStatus}
+          isProcessing={isProcessing}
+          handleConfirm={() => handleBlock()}
+          handleCancel={() => {
+            setSelectedUser("");
+            setBlockStatus(false);
+          }}
+          heading={`Are you sure you want to "${selectedUser?.first_name}" ${
+            selectedUser?.active ? "block" : "un-block"
+          }`}
+          flag={true}
+        />
+      )}
+      <AdminDetailsSharePopup
+        adminDetailsPopup={adminDetailsPopup}
+        setAdminDetailsPopup={setAdminDetailsPopup}
+        adminDetailsData={adminDetailsData}
+      />
     </div>
   );
 };

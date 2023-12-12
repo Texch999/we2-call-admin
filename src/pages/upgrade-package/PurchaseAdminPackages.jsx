@@ -33,12 +33,18 @@ function PurchaseAdminPackages() {
     0
   );
 
+  console.log(packageList, ".......packageList");
+
   const handleAddAndSubtract = (selectedPack, packageType, value) => {
     const selectedNewPackages = allPackages.map((obj) => {
       if (obj?.[packageType]?.package_id === selectedPack?.package_id) {
         obj[packageType] = {
           ...obj?.[packageType],
           no_of_packages: obj?.[packageType]?.no_of_packages + value,
+          total_pKg_discount:
+            (obj?.[packageType]?.cost *
+              (value + obj?.[packageType]?.no_of_packages)) /
+            obj?.[packageType]?.discount,
         };
       }
       return obj;
@@ -96,16 +102,18 @@ function PurchaseAdminPackages() {
       return {
         ...itm,
         monthly: {
+          discount: monthly?.discount,
           cost: monthly?.package_cost,
           package_id: monthly?.package_id,
           no_of_packages: 0,
-          discount: monthly?.discount,
+          total_pKg_discount: 0,
         },
         yearly: {
+          discount: yearly?.discount,
           cost: yearly?.package_cost,
           package_id: yearly?.package_id,
           no_of_packages: 0,
-          discount: monthly?.discount,
+          total_pKg_discount: 0,
         },
       };
     });

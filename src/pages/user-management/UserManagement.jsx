@@ -94,14 +94,14 @@ function UserManagement() {
       return setError("Please Enter All Field");
     }
     let userDeatailsPayload = {
-      // existing_user_id: clientId[0].register_id,
+      existing_user_id: clientId[0]?.register_id,
       register_id,
       account_role,
       client_type: userDetails?.client_type,
       client_name: userDetails?.client_name,
       referral_name: userDetails?.referral_name,
       client_risk_limit: userDetails?.client_risk_limit,
-      // referal_id: referalId[0].refferal_id,
+      referal_id: rId[0]?.refferal_id,
       referral_comm: userDetails?.referral_comm,
       fancy_refferal_comm: userDetails?.fancy_refferal_comm,
       referral_share: userDetails?.referral_share,
@@ -124,7 +124,7 @@ function UserManagement() {
             setUserCreationSubmitPopup(false);
           }, 1000);
           setEditStatus(false);
-          // handleReset();
+          setUserDetails([]);
         } else {
           setError(
             res?.data?.message ? res?.data?.message : `something wen't wrong`
@@ -186,7 +186,7 @@ function UserManagement() {
             setUserCreationSubmitPopup(false);
           }, 1000);
           setEditStatus(false);
-          // handleReset();
+          setUserDetails([]);
         } else {
           setError(
             res?.data?.message ? res?.data?.message : `something wen't wrong`
@@ -198,18 +198,18 @@ function UserManagement() {
         console.log(err);
         setError(err?.message ? err?.message : `something wen't wrong`);
       });
-
-    // setError("success ful");
   };
 
   const clientId = allClients.filter((item) => {
-    return item.first_name === userDetails?.select_client;
+    return item.first_name === userDetails?.client_name;
   });
-  console.log(clientId, "clientId");
 
-  const referalId = refferalData?.filter((item) => {
-    return item.referral_name === userDetails?.refer_name;
+  const rId = refferalData?.filter((item) => {
+    return item.referral_name === userDetails?.referral_name;
   });
+
+  console.log(userDetails?.referral_name, ".......userDetails");
+  console.log(refferalData, "......refferalData");
 
   const [openDeletePopup, setOpenDeletePopup] = useState(false);
   const [openEditConfirm, setOpenEditConfirm] = useState(false);
@@ -333,6 +333,8 @@ function UserManagement() {
     // console.log(name, value);
     setUserDetails({ ...userDetails, [e.target.name]: e.target.value });
   };
+
+  console.log(userDetails, ".......userDetails");
   const getOfflineClients = async () => {
     await call(GET_OFFLINE_CLIENTS, { register_id })
       .then((res) => {

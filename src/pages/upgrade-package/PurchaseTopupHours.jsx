@@ -7,13 +7,14 @@ import { call } from "../../config/axios";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setSelectedPackages } from "../../redux/actions/commonActions";
+import UpgradeYourPackagePopup from "./UpgradeYourPackagePopup";
 
 function PurchaseTopupHours() {
   const adminPackageTable = "admin-package-table";
-
   const register_id = localStorage.getItem("register_id");
-
   const [adminPackages, setAdminPackages] = useState([]);
+  const [showPackagePopup, setShowPackagePopup] = useState(false);
+  const [selectPackage, setSelectPackage] = useState(false);
 
   const PACKAGES_DATA = [
     {
@@ -471,7 +472,7 @@ function PurchaseTopupHours() {
   };
 
   const getAllPackages = async () => {
-    await call(GET_ALL_PACKAGES, { package_type: true })
+    await call(GET_ALL_PACKAGES, { package_type: "hourly" })
       .then((res) => {
         if (res.data.status === 200) {
           const response = res.data.data;
@@ -501,6 +502,10 @@ function PurchaseTopupHours() {
         };
       } else return itm;
     });
+  };
+
+  const handlePayments = () => {
+    packageList.length > 0 ? setShowPackagePopup(true) : setSelectPackage(true);
   };
 
   return (
@@ -595,7 +600,7 @@ function PurchaseTopupHours() {
                   />
                   <div className="medium-font fw-semibold">
                     <div>{item.packageName}</div>
-                    <div>{item.packageAmount}</div>
+                    <div>{item.cost}</div>
                   </div>
                 </div>
                 <div className="col-sm-4 col-lg-3">
@@ -631,11 +636,18 @@ function PurchaseTopupHours() {
             <div className="p-1">Hours Selected</div>
           </div>
         </div>
-        <div className="next-div rounded-pill p-1 px-2 d-flex align-items-center justify-content-around">
+        <div
+          className="next-div rounded-pill p-1 px-2 d-flex align-items-center justify-content-around"
+          onClick={() => handlePayments()}
+        >
           <div className="h5 mb-0 fw-semibold">Next</div>
           <FaArrowRight className="h4 mb-0" />
         </div>
       </div>
+      <UpgradeYourPackagePopup
+        showPackagePopup={showPackagePopup}
+        setShowPackagePopup={setShowPackagePopup}
+      />
     </div>
   );
 }

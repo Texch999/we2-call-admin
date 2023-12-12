@@ -128,20 +128,18 @@ const AddUsers = () => {
   };
 
   return (
-    <div className="p-4">
+    <div className="p-3">
       <div>
         <h5 className="meetings-heading">Add Users</h5>
         <div className="d-flex flex-column add-users-date">
           <span>Wednesday, 2nd August, 2023</span>
           <span>12:22:34 PM</span>
         </div>
-
         <div className="mt-3 d-flex justify-content-between align-items-center">
           <div className="d-flex justify-content-center align-items-center">
             <Button className="me-2 agent-button">{account_role}</Button>
             <span className="mb-0 add-user-name">{user_name}</span>
           </div>
-
           <Form className="d-flex">
             <div className="position-relative">
               <Form.Control
@@ -153,7 +151,6 @@ const AddUsers = () => {
               />
               <FiSearch className="user-search-icon position-absolute" />
             </div>
-
             <Button
               className="add-new-meetings-button"
               onClick={() => handleAddUsers()}
@@ -164,8 +161,8 @@ const AddUsers = () => {
         </div>
       </div>
       <hr />
-      <div>
-        <Table responsive="md" className="call-management-data">
+      <div className="admin-table-body-height">
+        <table className="fixed-table w-100 match-position-table text-center medium-font">
           <thead>
             <tr>
               <th className="text-center">S NO</th>
@@ -249,7 +246,7 @@ const AddUsers = () => {
               setEditStatus={setEditStatus}
             />
           )}
-        </Table>
+        </table>
       </div>
       {addSuccessPopUp && (
         <AddUserSuccessPopUp
