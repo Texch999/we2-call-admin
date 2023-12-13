@@ -318,6 +318,9 @@ input::placeholder {
 .match-entry-position {
   left: 10%;
 }
+.tours-position {
+  left: -10%;
+}
 .report-position {
   left: 25%;
 }

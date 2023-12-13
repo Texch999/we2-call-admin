@@ -1,17 +1,14 @@
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import "./styles.css";
 import OnePagePopup from "./OnePagePopup";
 import { GiClick } from "react-icons/gi";
-import {
-  GET_ONEPAGE_REPORT,
-  GET_COMPLETED_MATCHES_BY_CLEINT,
-} from "../../config/endpoints";
+import { GET_COMPLETED_MATCHES_BY_CLEINT } from "../../config/endpoints";
 import { call } from "../../config/axios";
 import CustomPagination from "../pagination/CustomPagination";
-import ClientIndPL from "./ClientIndPL";
 
 function OnePageReport(props) {
-  const { ONE_PAGE_REPORT_DETAILS } = props;
+  const { ONE_PAGE_REPORT_DETAILS, onePageReportData } = props;
+  console.log(onePageReportData, "ONE_PAGE_REPORT_DETAILS");
 
   let register_id = localStorage?.getItem("register_id");
   let account_role = localStorage?.getItem("account_role");
@@ -41,8 +38,36 @@ function OnePageReport(props) {
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
-    // You can add your logic here to fetch data for the selected page.
   };
+  const totalMfrcInput =
+    onePageReportData &&
+    onePageReportData?.length > 0 &&
+    onePageReportData?.reduce(
+      (acc, obj) => acc + (+obj?.amount + obj?.clientComission || 0),
+      0
+    );
+  const totalCnetInput =
+    onePageReportData &&
+    onePageReportData?.length > 0 &&
+    onePageReportData?.reduce(
+      (acc, obj) =>
+        acc + (+obj?.amount + obj?.clientShare + obj?.clientComission || 0),
+      0
+    );
+  const totalRfnetInput =
+    onePageReportData &&
+    onePageReportData?.length > 0 &&
+    onePageReportData?.reduce(
+      (acc, obj) => acc + (+obj?.referalShare + obj?.referralComission || 0),
+      0
+    );
+  const totalOnepageInput =
+    onePageReportData &&
+    onePageReportData?.length > 0 &&
+    onePageReportData?.reduce(
+      (acc, obj) => acc + (+obj?.totalLossOrProfit || 0),
+      0
+    );
   return (
     <div className="mt-3">
       <table className="w-100 match-position-table medium-font">
@@ -74,7 +99,7 @@ function OnePageReport(props) {
                   </td>
                   <td className="w-20">{item.cnet}</td>
                   <td className="w-20"> {item.rfnet}</td>
-                  <td className="clr-green w-20">{item.totalpl}</td>
+                  <td className="w-20">{item.totalpl}</td>
                 </tr>
               </tbody>
             ))}
@@ -84,10 +109,18 @@ function OnePageReport(props) {
         <tfoot>
           <tr className="text-center">
             <th>TOTAL</th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th className="clr-green">50000000.00</th>
+            <th className={totalMfrcInput > 0 ? "clr-green" : "clr-red"}>
+              {totalMfrcInput ? totalMfrcInput.toFixed(2) : 0}
+            </th>
+            <th className={totalCnetInput > 0 ? "clr-green" : "clr-red"}>
+              {totalCnetInput ? totalCnetInput.toFixed(2) : 0}
+            </th>
+            <th className={totalRfnetInput > 0 ? "clr-green" : "clr-red"}>
+              {totalRfnetInput ? totalRfnetInput.toFixed(2) : 0}
+            </th>
+            <th className={totalOnepageInput > 0 ? "clr-green" : "clr-red"}>
+              {totalOnepageInput ? totalOnepageInput.toFixed(2) : 0}
+            </th>
           </tr>
         </tfoot>
       </table>

@@ -60,6 +60,8 @@ function UpgradeYourPackagePopup(props) {
     0
   );
 
+  console.log(packageList, ".....packageListMOnthly");
+
   const totalDiscount = packageList.reduce(
     (acc, obj) => acc + obj.total_pKg_discount,
     0
@@ -340,13 +342,13 @@ function UpgradeYourPackagePopup(props) {
     }
     setReturnPackageList(updateReturnPackageList);
     setAdminPackages(updatePackages);
-  }; 
+  };
 
   useEffect(() => {
     if (selectedReturnPackageTotalCost > finalPackageCost) {
       setMessage("return packages cost will not exceed curent packages");
       return;
-    } 
+    }
   }, [selectedReturnPackageTotalCost]);
 
   useEffect(() => {
