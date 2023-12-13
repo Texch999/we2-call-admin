@@ -206,7 +206,7 @@ function UserManagement() {
       });
   };
 
-  const clientId = allClients.filter((item) => {
+  const clientId = allClients?.filter((item) => {
     return item.first_name === userDetails?.client_name;
   });
 
@@ -295,7 +295,7 @@ function UserManagement() {
     existingClients &&
     existingClients?.length > 0 &&
     existingClients
-      .filter((i) => i.user_status !== "deleted")
+      ?.filter((i) => i.user_status !== "deleted")
       .map((item) => {
         return {
           client_name: item.client_name,
@@ -416,7 +416,7 @@ function UserManagement() {
               onChange={(e) => handleChange(e)}
             >
               <option className="w-90 ms-1 cursor-pointer" value="">
-                {clientSelection.filter(
+                {clientSelection?.filter(
                   (i) => i.value === userDetails?.client_type
                 )[0]?.name || "Select..."}
               </option>
@@ -445,7 +445,7 @@ function UserManagement() {
               </option>
               {allClients?.length &&
                 allClients
-                  .filter(
+                  ?.filter(
                     (obj) =>
                       existingClients &&
                       existingClients?.length > 0 &&

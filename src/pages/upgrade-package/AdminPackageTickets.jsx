@@ -8,22 +8,34 @@ import { call } from "../../config/axios";
 function AdminPackageTickets() {
   const [adminPackageTicket, setadminPackageTicket] = useState([]);
 
-  const MATCH_ENTRY_DATA = adminPackageTicket.map((obj) => ({
-    dateAndTime:<div>{obj.created_date}-{obj.created_time}</div>,
+  const packageSelectTickets = adminPackageTicket.filter(
+    (item) => item.type !== "subscription"
+  );
+
+  console.log(adminPackageTicket, ".......adminPackageTicket");
+
+  const MATCH_ENTRY_DATA = packageSelectTickets.map((obj) => ({
+    dateAndTime: (
+      <div>
+        {obj.created_date}-{obj.created_time}
+      </div>
+    ),
     nameRole: localStorage.getItem("user_name"),
     trxID: obj?.transaction_id,
     packageTRX: obj.summary.final_package_cost,
     payAmount: obj.summary.final_package_cost,
     status:
-      obj?.status === "approve" ? (
-        <div className="rounded-pill p-1 completed-btn">Completed</div>
+      obj?.status === "Approved" ? (
+        <div className="rounded-pill p-1 completed-btn">{obj?.status}</div>
       ) : obj?.status === "Reject" ? (
-        <div className="rounded-pill p-1 reject-btn">Reject</div>
+        <div className="rounded-pill p-1 reject-btn">{obj?.status}</div>
       ) : (
-        <div className="rounded-pill p-1 pending-btn">Pending</div>
+        <div className="rounded-pill p-1 pending-btn">{obj?.status}</div>
       ),
     fundStatus: obj?.reason,
   }));
+
+  console.log(MATCH_ENTRY_DATA, "......MATCH_ENTRY_DATA");
 
   const MATCH_ENTRY_HEADING = [
     {
@@ -60,7 +72,6 @@ function AdminPackageTickets() {
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
-    // You can add your logic here to fetch data for the selected page.
   };
 
   const getAdminPackageTicket = async () => {

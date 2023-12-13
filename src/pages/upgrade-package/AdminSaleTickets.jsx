@@ -17,6 +17,8 @@ function AdminSaleTickets() {
   };
   const [saleTicket, setSaleTicket] = useState([]);
 
+  console.log(saleTicket, ".....saleTicket");
+
   const ADMIN_SALE_TICKETS_HEADING = [
     {
       header: "DATE & TIME",
@@ -71,10 +73,18 @@ function AdminSaleTickets() {
   }, []);
 
   const ADMIN_SALE_TICKETS_DATA = saleTicket.map((obj) => ({
-    dateAndTime: <div>{obj.created_date}-{obj.created_time}</div>,
-    nameRole: localStorage.getItem("user_name"),
+    dateAndTime: (
+      <div>
+        {obj.created_date}-{obj.created_time}
+      </div>
+    ),
+    nameRole: (
+      <div>
+        {obj?.summary?.requester_name}-{obj?.summary?.requester_role}
+      </div>
+    ),
     trxID: obj.transaction_id,
-    packageTRX: obj.summary.final_package_cost,
+    packageTRX: obj.summary.total_package_cost,
     payAmount: obj.summary.final_package_cost,
     status:
       obj?.status === "approve" ? (

@@ -101,7 +101,7 @@ function UpgradeYourPackagePopup(props) {
   };
 
   const handlePayButton = async () => {
-    console.log("PayClick")
+    console.log("PayClick");
     await imageUpploadToBucket();
     const discountValue = parseInt((totalPackagesCost * discount) / 100);
     const finalPackageCost =
@@ -111,7 +111,7 @@ function UpgradeYourPackagePopup(props) {
       return;
     }
     const summary = {
-      total_packages_cost: totalPackagesCost,
+      total_package_cost: totalPackagesCost,
       final_package_cost: totalPackagesBill - selectedReturnPackageTotalCost,
       after_all_discount_final_package_cost: totalPackagesBill,
       transaction_img: `${ImageBaseUrl}/${"payments"}/${trxId}.png`,

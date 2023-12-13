@@ -8,6 +8,8 @@ import { useEffect } from "react";
 function YourPackageTicket() {
   const [packageTickets, setPackageTickets] = useState([]);
 
+  console.log(packageTickets, "........packageTickets");
+
   const MATCH_ENTRY_HEADING = [
     {
       header: "DATE & TIME",
@@ -59,13 +61,20 @@ function YourPackageTicket() {
       .catch((err) => console.log(err));
   };
 
-
   useEffect(() => {
     getPackageTicket();
   }, []);
 
-  const TICKETS_DATA = packageTickets.map((obj) => ({
-    dateAndTime: <div>{obj.created_date}-{obj.created_time}</div>,
+  const packageSelectTickets = packageTickets.filter(
+    (item) => item.type === "subscription"
+  );
+
+  const TICKETS_DATA = packageSelectTickets.map((obj) => ({
+    dateAndTime: (
+      <div>
+        {obj.created_date}-{obj.created_time}
+      </div>
+    ),
     nameRole: localStorage.getItem("user_name"),
     trxID: obj.transaction_id,
     packageTRX: obj.summary.final_package_cost,
