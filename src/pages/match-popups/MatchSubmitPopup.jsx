@@ -13,32 +13,35 @@ function MatchSubmitPopup(props) {
         <IoCloseSharp onClick={() => handleCancel()} />
       </Modal.Header>
       <Modal.Body>
-        {!isProcessing ? (
-          <center className="px-3">
-            <img
-              className="h-10vh"
-              src={Images.CheckedMark}
-              alt="Question_Mark"
-            />
-            {error ? (
-              <div className="clr-red small-font text-center"> {error}</div>
-            ) : (
-              <div className="fs-6 mt-3">{header}</div>
-            )}
-            <div className="row d-flex justify-content-between mt-3">
-              <div
-                className="col rounded yellow-btn p-1"
-                onClick={() => handleCancel()}
-              >
-                Go Back
+        <center className="px-3">
+          {!isProcessing ? (
+            <>
+              {" "}
+              <img
+                className="h-10vh"
+                src={Images.CheckedMark}
+                alt="Question_Mark"
+              />
+              {error ? (
+                <div className="clr-red small-font text-center"> {error}</div>
+              ) : (
+                <div className="fs-6 mt-3">{displayData}</div>
+              )}
+              <div className="row d-flex justify-content-between mt-3">
+                <div
+                  className="col rounded yellow-btn p-1"
+                  onClick={() => handleCancel()}
+                >
+                  Go Back
+                </div>
               </div>
-            </div>
-          </center>
-        ) : error ? (
-          error
-        ) : (
-          "Results Declaring..."
-        )}
+            </>
+          ) : error ? (
+            error
+          ) : (
+            "Results Declaring..."
+          )}
+        </center>
       </Modal.Body>
     </Modal>
   );
