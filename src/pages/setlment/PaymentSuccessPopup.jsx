@@ -8,6 +8,7 @@ const PaymentSuccessPopup = ({
   handleConfirm,
   handleCancel,
   heading = "",
+  setRerender,
   flag,
 }) => {
   return (

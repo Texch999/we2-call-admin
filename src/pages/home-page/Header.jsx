@@ -69,13 +69,28 @@ function Header() {
   const [moreType, setMoreType] = useState("More");
   const [activeUserDropdown, setActiveUserDropdown] = useState(false);
   const [showeditProfile, setShowEditProfile] = useState(false);
+  const [Tours, setTours] = useState("Tours");
+  const [toursOpen, setToursOpen] = useState(false);
   const headerMenu = [
     "Home",
     "Chat",
-    "Tours &Tournies",
+    Tours,
     matchEntryType,
     reportsType,
     moreType,
+  ];
+
+  const ToursDropdown = [
+    {
+      icon: <LiaFolderSolid className="mr-10 d-flex" />,
+      name: "Tours&Tournies",
+      path: "/tours-tournaments",
+    },
+    {
+      icon: <AiFillWarning className="mr-10 d-flex" />,
+      name: "Option-2",
+      path: "/all-tours",
+    },
   ];
   const MatchEntryDropdown = [
     {
@@ -180,27 +195,44 @@ function Header() {
     setActiveHead(index);
     index === 0 && navigate("/");
     index === 1 && navigate("/chats");
-    index === 2 && navigate("/tours-tournaments");
+    index === 2 && handleTours();
     index === 3 && handleMatchEntry();
     index === 4 && handleReports();
     index === 5 && handleMoreSelect();
+  };
+
+  const handleTours = () => {
+    setToursOpen((prev) => !prev);
+    setMatchEntryOpen(false);
+    setReportsOpen(false);
+    setMoreOpen(false);
   };
 
   const handleMatchEntry = () => {
     setMatchEntryOpen((prev) => !prev);
     setReportsOpen(false);
     setMoreOpen(false);
+    setToursOpen(false);
   };
   const handleReports = () => {
     setMatchEntryOpen(false);
     setReportsOpen((prev) => !prev);
     setMoreOpen(false);
+    setToursOpen(false);
   };
   const handleMoreSelect = () => {
     setMatchEntryOpen(false);
     setReportsOpen(false);
     setMoreOpen((prev) => !prev);
+    setToursOpen(false);
   };
+
+  const handleSelectTour = (item) => {
+    setTours(item.name);
+    setToursOpen(false);
+    navigate(item.path);
+  };
+
   const handleSelectMatchEntry = (v) => {
     setMatchEntryType(v.name);
     setMatchEntryOpen(false);
@@ -332,7 +364,7 @@ function Header() {
                   >
                     <div className="d-flex h-100 justify-content-between align-items-center">
                       <span className="header-font">{item}</span>
-                      {index > 2 ? (
+                      {index > 1 ? (
                         activeHead === index ? (
                           <FaChevronUp className="ml-5" />
                         ) : (
@@ -345,6 +377,22 @@ function Header() {
               );
             })}
           </div>
+          {toursOpen && (
+            <div className="head-dropdown tours-position p-2">
+              {ToursDropdown.map((item, index) => {
+                return (
+                  <div
+                    key={index}
+                    className="d-flex align-items-center mt-2 cursor-pointer"
+                    onClick={() => handleSelectTour(item)}
+                  >
+                    <span className="me-1">{item.icon}</span>
+                    {item.name}
+                  </div>
+                );
+              })}
+            </div>
+          )}
           {matchEntryOpen && (
             <div className="head-dropdown match-entry-position p-2">
               {MatchEntryDropdown.map((item, index) => {

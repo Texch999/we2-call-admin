@@ -445,6 +445,8 @@ function PurchaseTopupHours() {
           no_of_packages: obj.no_of_packages,
           package_name: obj.package_name,
           duration: obj.package_duration,
+          discount: obj.discount || 0,
+          total_pKg_discount: (obj.cost * obj.no_of_packages) / obj.discount,
         };
       });
     dispatch(setSelectedPackages(packageForRedux));
@@ -457,6 +459,7 @@ function PurchaseTopupHours() {
         : i
     );
     setAllHourspackages(updatedSelectedPackagesHourly);
+
     const packageForRedux = updatedSelectedPackagesHourly
       .filter((obj) => obj.no_of_packages > 0)
       .map((obj) => {
@@ -466,6 +469,8 @@ function PurchaseTopupHours() {
           no_of_packages: obj.no_of_packages,
           package_name: obj.package_name,
           duration: obj.duration,
+          discount: obj.discount || 0,
+          total_pKg_discount: (obj?.cost * obj?.no_of_packages) / obj.discount,
         };
       });
     dispatch(setSelectedPackages(packageForRedux));
@@ -499,6 +504,7 @@ function PurchaseTopupHours() {
           no_of_packages: responseObj.no_of_packages || 0,
           package_name: responseObj.package_name,
           duration: responseObj.package_duration,
+          discount: responseObj.discount || 0,
         };
       } else return itm;
     });
