@@ -59,7 +59,6 @@ function YourPackageTicket() {
       .catch((err) => console.log(err));
   };
 
-  console.log("--->packageTickets", packageTickets);
 
   useEffect(() => {
     getPackageTicket();

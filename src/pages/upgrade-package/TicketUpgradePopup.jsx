@@ -46,7 +46,6 @@ function TicketUpgradePopup(props) {
       })
       .catch((err) => console.log(err));
   };
-  console.log("------->saleTicket", saleTicket);
 
   useEffect(() => {
     getAllsaleTickets();
@@ -73,7 +72,6 @@ function TicketUpgradePopup(props) {
     getAllReasonrejections();
   }, []);
 
-  console.log("---->rejectionDropdown", saletickets?.user_name);
   const showTicketPackage = saleTicket.map((obj) => {});
   return (
     <div className="modal fade bd-example-modal-lg container mt-5">

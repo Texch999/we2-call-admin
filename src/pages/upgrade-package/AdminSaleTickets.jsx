@@ -65,7 +65,6 @@ function AdminSaleTickets() {
       })
       .catch((err) => console.log(err));
   };
-  console.log("------->saleTicket", saleTicket);
 
   useEffect(() => {
     getAllsaleTickets();

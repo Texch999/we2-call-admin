@@ -7,7 +7,6 @@ import { call } from "../../config/axios";
 
 function AdminPackageTickets() {
   const [adminPackageTicket, setadminPackageTicket] = useState([]);
-  console.log(adminPackageTicket, "..........adminPackageTicket");
 
   const MATCH_ENTRY_DATA = adminPackageTicket.map((obj) => ({
     dateAndTime:<div>{obj.created_date}-{obj.created_time}</div>,
@@ -71,13 +70,10 @@ function AdminPackageTickets() {
     };
     await call(GET_REQUEST_PACKAGES, payload)
       .then((res) => {
-        console.log(res, "..........res");
         setadminPackageTicket(res?.data?.data);
       })
       .catch((err) => console.log(err));
   };
-
-  console.log("--->adminPackageTicket", adminPackageTicket);
 
   useEffect(() => {
     getAdminPackageTicket();

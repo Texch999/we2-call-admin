@@ -60,12 +60,14 @@ function UpgradeYourPackagePopup(props) {
     0
   );
 
-  console.log(packageList, ".....packageListMOnthly");
-
   const totalDiscount = packageList.reduce(
     (acc, obj) => acc + obj.total_pKg_discount,
     0
   );
+
+  const totalPackagesBill =
+    totalPackagesCost -
+    (totalDiscount + (totalPackagesCost * specialDiscount) / 100);
 
   const dispatch = useDispatch();
 
@@ -99,6 +101,7 @@ function UpgradeYourPackagePopup(props) {
   };
 
   const handlePayButton = async () => {
+    console.log("PayClick")
     await imageUpploadToBucket();
     const discountValue = parseInt((totalPackagesCost * discount) / 100);
     const finalPackageCost =
@@ -109,8 +112,8 @@ function UpgradeYourPackagePopup(props) {
     }
     const summary = {
       total_packages_cost: totalPackagesCost,
-      final_package_cost: finalPackageCost - selectedReturnPackageTotalCost,
-      after_all_discount_final_package_cost: finalPackageCost,
+      final_package_cost: totalPackagesBill - selectedReturnPackageTotalCost,
+      after_all_discount_final_package_cost: totalPackagesBill,
       transaction_img: `${ImageBaseUrl}/${"payments"}/${trxId}.png`,
       ...selectedMethodInfo,
       user_discount: discount,
@@ -227,7 +230,6 @@ function UpgradeYourPackagePopup(props) {
     try {
       const res = await call(GET_USER_INFO, payload);
       const userProfileData = res?.data?.data?.[0];
-      console.log(userProfileData, ".........userProfileData");
       setSpecialDiscount(userProfileData?.package_discount || 0);
     } catch (err) {
       console.log(err);
@@ -286,11 +288,6 @@ function UpgradeYourPackagePopup(props) {
 
   const onAddandSubtractExistingPackClick = (obj, value) => {
     let updatePackages = [];
-    // if (obj.no_of_packages === 1 && value == 1) {
-    //   updatePackages = userPackageList.filter(
-    //     (itm) => itm.package_id !== obj.package_id
-    //   );
-    // } else {
     updatePackages = userPackageList.map((item) => {
       if (item.package_id === obj.package_id) {
         item.no_of_packages = item.no_of_packages;
@@ -299,7 +296,6 @@ function UpgradeYourPackagePopup(props) {
       }
       return item;
     });
-    // }
     let updateReturnPackageList = [];
     if (returnPackageList?.length) {
       const findIndex = returnPackageList.findIndex(
@@ -320,7 +316,6 @@ function UpgradeYourPackagePopup(props) {
           if (list?.package_id === obj?.package_id) {
             list.no_of_packages = list.no_of_packages + value;
             list.selected_no_of_packages = list.selected_no_of_packages + value;
-            // list.package_name = list.package_name
           }
           return list;
         });
@@ -354,15 +349,6 @@ function UpgradeYourPackagePopup(props) {
   useEffect(() => {
     returnPackagesTotalCost();
   }, [returnPackageList]);
-
-  // const presentToast = ({ message, color = "danger" }) => {
-  //   present({
-  //     message: message,
-  //     duration: 1500,
-  //     position: "middle",
-  //     color: color,
-  //   });
-  // };
 
   const totalPackagesDiscountValue = packageList.reduce(
     (acc, obj) => acc + (obj.cost * obj.no_of_packages * obj.discount) / 100,
@@ -580,7 +566,7 @@ function UpgradeYourPackagePopup(props) {
               <hr />
               <div className="d-flex justify-content-between medium-font mt-2 mb-2">
                 <div>Total</div>
-                <div>107500</div>
+                <div>{totalPackagesBill ? totalPackagesBill : "0"}</div>
               </div>
               <button
                 type="submit"
