@@ -22,27 +22,7 @@ function ViewOffers() {
     <div>
       <div className="d-flex justify-content-between align-items-center">
         <div className="w-40 d-flex justify-content-between">
-          <div
-            className={
-              viewOffers === "0"
-                ? "hilight-button font-14"
-                : "normal-button font-14"
-            }
-            // onClick={() => history.push("/tours-tournaments")}
-            onClick={() => handleViewOffersOpen("0")}
-          >
-            Tours & Tournaments
-          </div>
-          <div
-            className={
-              viewOffers === "1"
-                ? "hilight-button font-14"
-                : "normal-button font-14"
-            }
-            onClick={() => handleViewOffersOpen("1")}
-          >
-            My Tours
-          </div>
+          <div className="hilight-button font-14">Tours & Tournaments</div>
         </div>
         <div onClick={() => handleOpenMessagePopup()}>
           <img
@@ -54,8 +34,7 @@ function ViewOffers() {
         </div>
       </div>
       <hr className="hr-line mt-2" />
-      {viewOffers === "0" && <OfferDetails tourname={tourname} />}
-      {viewOffers === "1" && <MyTours tourname={tourname} />}
+      <OfferDetails tourname={tourname} />
 
       <MessagePopup
         messagePopup={messagePopup}

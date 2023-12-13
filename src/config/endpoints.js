@@ -91,12 +91,18 @@ const ADD_GUESTDOCS_FOR_TOURS = "/tours/add_guestdocs_for_tour";
 const GET_ALL_USERS = "/offline-management/get_user_list";
 const TOP_WINNERS_LOOSERS = "/admin/top_winner_looser";
 const SUMMARY_DATA = "/admin/summary";
+const GET_TOUR_PAYMENT_DOCUMENTS = "/tours/get_tour_payments_documents"
 
 // methods
 const DELETE = "DELETE";
 const POST = "POST";
 const GET = "POST";
 const PUT = "PUT";
+
+exports.GET_TOUR_PAYMENT_DOCUMENTS = {
+  method: POST,
+  url: GET_TOUR_PAYMENT_DOCUMENTS
+}
 
 exports.ADD_GUESTDOCS_FOR_TOURS = {
   method: POST,
