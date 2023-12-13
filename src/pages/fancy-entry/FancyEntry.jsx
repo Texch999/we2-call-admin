@@ -13,6 +13,7 @@ import {
   FANCY_RESULT_PROFIT_LOSS,
 } from "../../config/endpoints";
 import { call } from "../../config/axios";
+import { useSelector } from "react-redux";
 
 function FancyEntry() {
   const [allMatches, setAllMatches] = useState([]);
@@ -25,6 +26,10 @@ function FancyEntry() {
   const [profitLossData, setProfitLossData] = useState([]);
   const [status, setStatus] = useState(false);
   const [selectedMatchEntry, setSelectedMatchEntry] = useState("");
+
+  const selectedLiveMatch = useSelector(
+    (state) => state?.common?.selected_match
+  );
 
   let register_id = localStorage?.getItem("register_id");
   let creator_id = localStorage?.getItem("creator_id");
@@ -46,7 +51,7 @@ function FancyEntry() {
     };
 
     fetchMatchInfo();
-  }, [selectedMatch, afterDeclare]);
+  }, [selectedLiveMatch?.match_id, afterDeclare]);
 
   const getAllMatches = async () => {
     await call(GET_OFFLINE_ALL_MATCHES, {
@@ -59,7 +64,7 @@ function FancyEntry() {
           (i) => i.match_declared !== "Y"
         );
         setAllMatches(temp);
-        setSelectedMatch((temp && temp[0]) || "");
+        // setSelectedMatch((temp && temp[0]) || "");
       })
       .catch((err) => {
         console.log(err);
