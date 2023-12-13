@@ -25,16 +25,13 @@ function PurchaseAdminPackages() {
   const handleYear = (e) => {
     setYearly(e.target.checked);
   };
-
+  console.log(allPackages, ".......allPackages");
   const packageList =
     useSelector((State) => State.common.selected_packages) || [];
   const selectedPackages = packageList.reduce(
     (acc, obj) => acc + obj.no_of_packages,
     0
   );
-
-  console.log(packageList, ".......packageList");
-
   const handleAddAndSubtract = (selectedPack, packageType, value) => {
     const selectedNewPackages = allPackages.map((obj) => {
       if (obj?.[packageType]?.package_id === selectedPack?.package_id) {
@@ -74,7 +71,6 @@ function PurchaseAdminPackages() {
       .then((res) => {
         if (res.data.status === 200) {
           const response = res.data.data;
-          console.log(response, ".......response");
           const updateResponse = getUpdatedPackData(response);
           setAllPackages(updateResponse);
         }

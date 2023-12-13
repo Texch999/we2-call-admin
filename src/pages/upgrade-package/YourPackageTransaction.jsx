@@ -81,13 +81,11 @@ function YourPackageTransaction() {
     };
     await call(GET_REQUEST_PACKAGES, payload)
       .then((res) => {
-        console.log("-------->res", res);
         setRequestedPackages(res?.data?.data);
       })
       .catch((err) => console.log(err));
   };
 
-  console.log(requestedPackages, "----------->");
   useEffect(() => {
     getRequestedPackages();
   }, []);

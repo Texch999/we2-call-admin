@@ -14,7 +14,6 @@ function UpgradeYourPackage() {
   const [selectPackageName, setSelectPackageName] = useState();
   const [upgradeType, setUpgradeType] = useState("packages");
   const packageUserList = [localStorage.getItem("user_name")];
-  console.log("packageUserList===>", packageUserList);
 
   const [adminSubscription, setAdminSubscription] = useState(false);
   const register_id = localStorage.getItem("register_id");

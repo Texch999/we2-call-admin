@@ -61,16 +61,6 @@ function UpgradePackage() {
           </div>
           <div className="col-sm-3 col-lg-3 col-xl-3">
             <div
-              className={`fw-semibold btn-bg medium-font text-white text-center py-3 px-1 m-1 rounded ${
-                packageTransaction ? "yellow-btn" : ""
-              }`}
-              onClick={() => handlePackageTrasaction()}
-            >
-              Your Package Transaction
-            </div>
-          </div>
-          <div className="col-sm-3 col-lg-3 col-xl-3">
-            <div
               className={`fw-semibold btn-bg medium-font text-white text-center py-3 m-1 rounded ${
                 adminPackageTrasaction ? "yellow-btn" : ""
               }`}
@@ -79,13 +69,23 @@ function UpgradePackage() {
               Admin Packages/Transaction
             </div>
           </div>
+          <div className="col-sm-3 col-lg-3 col-xl-3">
+            <div
+              className={`fw-semibold btn-bg medium-font text-white text-center py-3 px-1 m-1 rounded ${
+                packageTransaction ? "yellow-btn" : ""
+              }`}
+              onClick={() => handlePackageTrasaction()}
+            >
+              Package Transaction P/L
+            </div>
+          </div>
         </div>
       </div>
       <hr className="hr-line" />
       {upgradeYourPackage && <UpgradeYourPackage />}
       {yourPackageTickets && <YourPackageTicket />}
-      {packageTransaction && <YourPackageTransaction />}
       {adminPackageTrasaction && <AdminPackageTransaction />}
+      {packageTransaction && <YourPackageTransaction />}
     </div>
   );
 }

@@ -116,8 +116,6 @@ function PurchaseTopupHours() {
     getAdminPackages();
   }, []);
 
-  console.log("--------->adminPackages", adminPackages);
-
   const PACKAGES_HOURS_DATA = [
     {
       returnPackage: (
