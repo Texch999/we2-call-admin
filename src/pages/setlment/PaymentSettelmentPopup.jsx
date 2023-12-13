@@ -153,19 +153,20 @@ function PaymentSettelmentPopup(props) {
                   <Col className="ps-0">
                     <input
                       type="number"
-                      placeholder="Balance"
+                      // placeholder="Balance"
                       className="w-100 custom-select small-font btn-bg rounded all-none p-2 small-font"
                       value={totalAmount ? totalAmount.toFixed(2) : 0}
                       disabled
                     ></input>
                   </Col>
                   <Col className="pe-0">
-                    <button className="w-100 custom-select small-font btn-bg rounded all-none p-2">
-                      {+pendinAmount -
+                    <div className="w-100 custom-select small-font btn-bg rounded all-none p-2">
+                      {/* {+pendinAmount -
                         (pendinAmount > 0
                           ? settlementObj?.settled_platform_amount || 0
-                          : -1 * (settlementObj?.settled_platform_amount || 0))}
-                    </button>
+                          : -1 * (settlementObj?.settled_platform_amount || 0))} */}
+                      PendingBal:{pendinAmount ? totalAmount : "0"}
+                    </div>
                   </Col>
                 </Row>
               </Container>

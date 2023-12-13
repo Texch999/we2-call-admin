@@ -1,14 +1,10 @@
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import "./styles.css";
 import OnePagePopup from "./OnePagePopup";
 import { GiClick } from "react-icons/gi";
-import {
-  GET_ONEPAGE_REPORT,
-  GET_COMPLETED_MATCHES_BY_CLEINT,
-} from "../../config/endpoints";
+import { GET_COMPLETED_MATCHES_BY_CLEINT } from "../../config/endpoints";
 import { call } from "../../config/axios";
 import CustomPagination from "../pagination/CustomPagination";
-import ClientIndPL from "./ClientIndPL";
 
 function OnePageReport(props) {
   const { ONE_PAGE_REPORT_DETAILS, onePageReportData } = props;
@@ -42,16 +38,7 @@ function OnePageReport(props) {
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
-    // You can add your logic here to fetch data for the selected page.
   };
-
-  //   const totalMfrcInput =
-  //   onePageReportData &&
-  //   onePageReportData?.length > 0 &&
-  //   onePageReportData?.reduce(
-  //     (acc, obj) => acc + obj?.amount + obj?.clientComission
-  //   );
-  // 0;
   const totalMfrcInput =
     onePageReportData &&
     onePageReportData?.length > 0 &&
@@ -61,7 +48,6 @@ function OnePageReport(props) {
     );
   const totalCnetInput =
     onePageReportData &&
-    
     onePageReportData?.length > 0 &&
     onePageReportData?.reduce(
       (acc, obj) =>
@@ -82,10 +68,6 @@ function OnePageReport(props) {
       (acc, obj) => acc + (+obj?.totalLossOrProfit || 0),
       0
     );
-  // console.log(totalMfrcInput, "totalMfrcInput");
-  // console.log(totalCnetInput, "totalCnetInput");
-  // console.log(totalRfnetInput, "totalRfnetInput");
-  // console.log(totalOnepageInput, "totalOnepageInput");
   return (
     <div className="mt-3">
       <table className="w-100 match-position-table medium-font">
