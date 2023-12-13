@@ -318,11 +318,11 @@ function SportsManagement() {
   useEffect(() => {
     getAllMatches();
     getScheduleMatches();
-  }, []);
+  }, [status]);
 
   useEffect(() => {
     getScheduleMatches();
-  }, []);
+  }, [status]);
 
   return (
     <div className="p-3">
