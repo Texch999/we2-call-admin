@@ -123,3 +123,38 @@
 .width-fit-content {
   width: fit-content;
 }
+.tour-button {
+  border: none 4px #2b3967;
+  border-radius: 10px;
+  padding: 20px;
+  background-color: rgba(167, 164, 164, 0.2);
+}
+.clickhere-btn {
+  padding: 0px !important;
+  color: #4859f7 !important;
+  font-weight: bolder;
+}
+.reject-button {
+  background-color: #4d2930;
+  border: none;
+  border-radius: 5px;
+  color: #ff4747;
+  padding: 0px !important;
+  width: fit-content;
+}
+.pending-button {
+  background-color: #30200c;
+  border: none;
+  border-radius: 5px;
+  color: #f99b2c;
+  padding: 0px !important;
+  width: fit-content;
+}
+.approve-button {
+  background-color: #36483f;
+  border: none;
+  border-radius: 5px;
+  color: #71dd37;
+  padding: 0px !important;
+  width: fit-content;
+}
