@@ -18,7 +18,7 @@ const AdminOnePageReport = () => {
   const [success, setSuccess] = useState(false);
   const [adminOnePageReportPopUp, setAdminOnePageReportPopUp] = useState(false);
   const [adminName, setAdminName] = useState("");
-  const [ulShare, setUlShare] = useState(0)
+  const [ulShare, setUlShare] = useState(0);
   const [role, setRole] = useState("");
   const [adminsData, setAdminsData] = useState("");
   const [adminsHeadings, setAdminsHeadings] = useState("");
@@ -46,7 +46,10 @@ const AdminOnePageReport = () => {
       (acc, obj) => acc + (+getUlShare(obj?.total_amount, obj?.ul_share) || 0),
       0
     );
-    const totalPlatForm = allUsers && allUsers?.length>0 &&  allUsers?.reduce((acc, obj) => acc + (+obj?.totalPlatformNet || 0), 0);
+  const totalPlatForm =
+    allUsers &&
+    allUsers?.length > 0 &&
+    allUsers?.reduce((acc, obj) => acc + (+obj?.totalPlatformNet || 0), 0);
 
   const adminOnePageReportData =
     allUsers &&
@@ -56,14 +59,22 @@ const AdminOnePageReport = () => {
       return {
         admin_name: user?.client_name,
         admin_role: user?.account_role,
-        profit_loss: user?.total_amount ? user?.total_amount?.toFixed(2) : 0,
-        ul_share: isAdminActive
-          ? netPL
-            ? netPL?.toFixed(2)
-            : 0
-          : user?.totalPlatformNet
-          ? user?.totalPlatformNet?.toFixed(2)
-          : 0,
+        profit_loss: (
+          <div className={user?.total_amount > 0 ? "clr-green" : "clr-red"}>
+            {user?.total_amount ? user?.total_amount?.toFixed(2) : 0}
+          </div>
+        ),
+        ul_share: (
+          <div className={netPL > 0 ? "clr-green" : "clr-red"}>
+            {isAdminActive
+              ? netPL
+                ? netPL?.toFixed(2)
+                : 0
+              : user?.totalPlatformNet
+              ? user?.totalPlatformNet?.toFixed(2)
+              : 0}
+          </div>
+        ),
       };
     });
 
@@ -105,18 +116,22 @@ const AdminOnePageReport = () => {
   //     ul_share: 200000.0,
   //   },
   // ];
-  const adminOnePageReportIndividualData = induvisualUserReport &&
-  induvisualUserReport?.length &&
-  induvisualUserReport?.map((match) => {  
-    return {
-      series_name: match?.series_name,
-      date_time: `${moment(match?.matchTimeStamp).format("DD-MM-YYYY")}  ${moment(match?.matchTimeStamp).format("mm:ss A")}`,
-      team: `${match?.team1} vs ${match?.team2}`,
-      win_team: match?.winTeam,
-      profit_loss: match?.totalAmount?.totalLossOrProfit || 0,
-      urs_profilt_loss:  (+match?.totalAmount?.totalLossOrProfit * +ulShare) / 100,
-    }
-  });
+  const adminOnePageReportIndividualData =
+    induvisualUserReport &&
+    induvisualUserReport?.length &&
+    induvisualUserReport?.map((match) => {
+      return {
+        series_name: match?.series_name,
+        date_time: `${moment(match?.matchTimeStamp).format(
+          "DD-MM-YYYY"
+        )}  ${moment(match?.matchTimeStamp).format("mm:ss A")}`,
+        team: `${match?.team1} vs ${match?.team2}`,
+        win_team: match?.winTeam,
+        profit_loss: match?.totalAmount?.totalLossOrProfit || 0,
+        urs_profilt_loss:
+          (+match?.totalAmount?.totalLossOrProfit * +ulShare) / 100,
+      };
+    });
   // [
   //   {
   //     series_name: "T20 world cup",
@@ -208,7 +223,7 @@ const AdminOnePageReport = () => {
     if (activeReport === "Admin One Page Report") {
       getUserMatches(data?.admin_name);
       setAdminName(data?.admin_name);
-      setUlShare(isNaN(+data?.ul_share) ? 0 : data?.ul_share)
+      setUlShare(isNaN(+data?.ul_share) ? 0 : data?.ul_share);
       setRole(data?.admin_role);
       setAdminOnePageReportPopUp(true);
       setAdminsData(adminOnePageReportIndividualData);
@@ -256,8 +271,8 @@ const AdminOnePageReport = () => {
   }, [success]);
 
   return (
-    <div className="p-4">
-      <h5 className="meetings-heading mb-3">Your Share In Admin Book</h5>
+    <div>
+      {/* <h5 className="meetings-heading mb-3">Your Share In Admin Book</h5>
       <div className="d-flex align-items-center justify-content-between">
         <div>
           {reports.map(({ isActive, name }, index) => (
@@ -277,7 +292,7 @@ const AdminOnePageReport = () => {
         </div>
         <Button className="all-match-button">All Match</Button>
       </div>
-      <hr />
+      <hr /> */}
 
       <div>
         <Table responsive="md" className="call-management-data">
@@ -299,7 +314,9 @@ const AdminOnePageReport = () => {
                     onClick={() => isAdminActive && handleAdminReports(data)}
                   >
                     {data?.admin_name}{" "}
-                    {isAdminActive && <GiClick className="custom-click-icon ms-1 mt-2" />}
+                    {isAdminActive && (
+                      <GiClick className="custom-click-icon ms-1 mt-2" />
+                    )}
                   </td>
                   <td>{data?.admin_role}</td>
                   {isAdminActive && <td>{data?.profit_loss}</td>}
@@ -310,13 +327,21 @@ const AdminOnePageReport = () => {
           <tfoot>
             <tr>
               <th colSpan={2}>TOTAL</th>
-              {isAdminActive && <th className="clr-green">
-                {onePageReportNetPL ? onePageReportNetPL?.toFixed(2) : 0}
-              </th>}
-              {isAdminActive && <th className="clr-green">
-                {onePageReportUlNet ? onePageReportUlNet?.toFixed(2) : 0}
-              </th>}
-              {!isAdminActive && <th className="clr-green">{totalPlatForm ? totalPlatForm?.toFixed(2) : 0}</th>}
+              {isAdminActive && (
+                <th className="clr-green">
+                  {onePageReportNetPL ? onePageReportNetPL?.toFixed(2) : 0}
+                </th>
+              )}
+              {isAdminActive && (
+                <th className="clr-green">
+                  {onePageReportUlNet ? onePageReportUlNet?.toFixed(2) : 0}
+                </th>
+              )}
+              {!isAdminActive && (
+                <th className="clr-green">
+                  {totalPlatForm ? totalPlatForm?.toFixed(2) : 0}
+                </th>
+              )}
             </tr>
           </tfoot>
           {adminOnePageReportPopUp && (
