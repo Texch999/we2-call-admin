@@ -10,6 +10,7 @@ import {
 import { MdOutlineEdit } from "react-icons/md";
 import { useEffect, useState } from "react";
 import { call } from "../../config/axios";
+import MatchSubmitPopup from "../match-popups/MatchSubmitPopup";
 
 function EditProfile(props) {
   const { close, show } = props;
@@ -122,8 +123,12 @@ function EditProfile(props) {
         const response = await call(UPDATE_PROFILE, updatedProfile);
         if (response.status === 200) {
           setIsProcessing(false);
-          console.log("Profile updated successfully.");
           setEditProfileSubmitPopup(true);
+          setTimeout(()=>{
+            setEditProfileSubmitPopup(false);
+            close();
+          },2000)
+          
         } else {
           setIsProcessing(false);
           console.error("Profile update failed:", response.data);
@@ -275,6 +280,11 @@ function EditProfile(props) {
           </Row>
         </Form>
       </Modal.Body>
+      <MatchSubmitPopup
+          header={"Profile Updated Successfully...."}
+          state={editProfileSubmitPopup}
+          setState={setEditProfileSubmitPopup}
+      />
     </Modal>
   );
 }
