@@ -20,6 +20,7 @@ function MatchResultInput({
   const [matchSubmitSuccessPopup, setMatchSubmitSuccessPopup] = useState(false);
   const [confirmDeclaration, setConfirmDeclaration] = useState(false);
   const [afterConfirm, setAfterConfirm] = useState(false);
+
   const handleMatchSubmitSuccessPopupOpen = () => {
     setMatchSubmitSuccessPopup(true);
     setMatchSubmitPopup(false);
@@ -48,8 +49,9 @@ function MatchResultInput({
       account_role,
       sport_name: matchResultInputData?.sport_name,
       series_name: matchResultInputData?.series_name,
-      team: matchResultInputData?.team,
+      teamName: matchResultInputData?.team,
       declarestatus: matchResultInputData?.declarestatus,
+      creator_id_platform: creator_id,
     })
       .then((res) => {
         setIsProcessing(false);
@@ -71,9 +73,6 @@ function MatchResultInput({
         setError(`Something Went Wrong`);
         console.log(err);
       });
-  };
-  const handleMatchDeclarePopupClose = () => {
-    setMatchSubmitPopup(false);
   };
   return (
     <div className="match-position-bg rounded-bottom p-3">
