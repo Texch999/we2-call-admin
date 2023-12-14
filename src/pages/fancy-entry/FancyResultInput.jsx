@@ -61,7 +61,6 @@ function FancyResultInput(props) {
       team: fancyResultInputData?.team,
     })
       .then((res) => {
-        console.log(res, "FANCY_RESULT");
         setIsProcessing(false);
         if (res?.data?.statusCode === 200) {
           setConfirmDeclaration(false);
@@ -127,7 +126,7 @@ function FancyResultInput(props) {
                 onChange={(e) => handleFancyResultInputDataChange(e)}
               >
                 <option value="">Select</option>
-                {(selectedInnings === "2"
+                {(selectedInnings == "2"
                   ? selectedMatch?.game_object?.second_innings_fancy_overs
                   : selectedMatch?.game_object?.first_innings_fancy_overs
                 )
@@ -179,7 +178,7 @@ function FancyResultInput(props) {
           <div
             className="cursor-pointer w-100 text-center rounded medium-font p-2 yellow-btn fw-semibold"
             onClick={() => handleFancyDeclarationPopup()}
-            disabled={isProcessing}
+            // disabled={isProcessing}
           >
             {isProcessing ? "Declaring..." : "Fancy Declaration"}
           </div>
