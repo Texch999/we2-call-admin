@@ -72,6 +72,9 @@ function TicketUpgradePopup(props) {
     getAllReasonrejections();
   }, []);
 
+  console.log(saletickets, ".......saletickets");
+  const imageUrl = saletickets?.summary?.total_packages_cost;
+
   const showTicketPackage = saleTicket.map((obj) => {});
   return (
     <div className="modal fade bd-example-modal-lg container mt-5">
@@ -112,22 +115,18 @@ function TicketUpgradePopup(props) {
                 <div className="d-flex flex-row justify-content-between w-100 my-1">
                   <div>Payment Method</div>
                   <div>UPI</div>
-                </div>{" "}
+                </div>
                 <div className="d-flex flex-row justify-content-between w-100 my-1">
                   <div>From</div>
-                  <div>
-                    {saletickets?.user_name}
-                    {saletickets?.package_requester_id}
-                  </div>
-                </div>{" "}
+                  <div>{saletickets?.summary?.requester_name}</div>
+                </div>
                 <div className="d-flex flex-row justify-content-between w-100 my-1">
                   <div>To</div>
                   <div>
-                    {" "}
                     {localStorage.getItem("user_name")}-
                     {localStorage.getItem("account_role")}
                   </div>
-                </div>{" "}
+                </div>
                 <div className="d-flex flex-row justify-content-between w-100 my-1">
                   <div>Time</div>
                   <div>
@@ -136,7 +135,7 @@ function TicketUpgradePopup(props) {
                 </div>
               </div>
               <div className="my-2 w-100 custom-select small-font btn-bg rounded all-none p-2 h-10vh overflow-hidden relative-position">
-                <img src="./assets/transaction_Image.jpeg" />
+                <img src={imageUrl} />
                 <BsArrowsFullscreen
                   className="clr-red image-enlarge-icon"
                   onClick={handleImageModal}
@@ -193,10 +192,12 @@ function TicketUpgradePopup(props) {
       <ImagePopup
         showImagePopup={showImagePopup}
         setShowImagePopup={setShowImagePopup}
+        imageUrl={saletickets?.summary?.transaction_img}
       />
       <PackageListViewPopup
         showPackageListPopup={showPackageListPopup}
         setShowPackageListPopup={setShowPackageListPopup}
+        PackagesList={saletickets?.requested_packages}
       />
       <MatchSubmitPopup
         header={"You Are Successfully Upgraded Your Package Ticket"}

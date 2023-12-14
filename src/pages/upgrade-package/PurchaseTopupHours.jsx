@@ -16,7 +16,7 @@ function PurchaseTopupHours() {
   const [showPackagePopup, setShowPackagePopup] = useState(false);
   const [selectPackage, setSelectPackage] = useState(false);
 
-  console.log(adminPackages,"........adminPackagesHoouly")
+  console.log(adminPackages, "........adminPackagesHoouly");
 
   let PACKAGES_DATA = [
     {
@@ -125,9 +125,14 @@ function PurchaseTopupHours() {
     adminPackages.forEach((obj1) => {
       if (obj?.package_name === obj1?.package_name) {
         numOfHour += obj1?.no_of_packages || 0;
+        usedHours += obj1?.used_packages || 0;
         obj = {
           ...obj,
           purchased: <div>{numOfHour}h</div>,
+          used: <div className="yellow-clr">{usedHours}h</div>,
+          available: (
+            <div className="green-color">{numOfHour - usedHours}h</div>
+          ),
         };
       }
     });

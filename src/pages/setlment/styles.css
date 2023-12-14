@@ -88,7 +88,11 @@
 }
 .payment-modal {
   --bs-modal-width: 420px !important;
+  /* --bs-modal-height: 200px !important; */
   /* background-image: url("/public/assets/close.png"); */
+}
+.min-h200 {
+  min-height: 200px;
 }
 .close-btn .btn-close {
   --bs-btn-close-bg: url("/public/assets/close.png");

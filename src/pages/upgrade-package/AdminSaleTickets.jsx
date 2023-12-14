@@ -87,14 +87,14 @@ function AdminSaleTickets() {
     packageTRX: obj.summary.total_package_cost,
     payAmount: obj.summary.final_package_cost,
     status:
-      obj?.status === "approve" ? (
-        <div className="rounded-pill p-1 completed-btn">Completed</div>
+      obj?.status === "Approved" ? (
+        <div className="rounded-pill p-1 completed-btn">{obj?.status}</div>
       ) : obj?.status === "Reject" ? (
-        <div className="rounded-pill p-1 reject-btn">Reject</div>
+        <div className="rounded-pill p-1 reject-btn">{obj?.status}</div>
       ) : (
-        <div className="rounded-pill p-1 pending-btn">Pending</div>
+        <div className="rounded-pill p-1 pending-btn">{obj?.status}</div>
       ),
-    newButton: (
+    newButton: obj?.status === "pending" && (
       <div
         className="rounded p-1 completed-btn"
         onClick={() => handleNewButton(obj)}
