@@ -46,16 +46,6 @@ function FancyResultInput(props) {
     }
     setConfirmDeclaration(true);
   };
-  console.log(fancyResultInputData, "FANCY_INPUT_DATA");
-
-  console.log(
-    +fancyResultInputData?.over,
-    +fancyResultInputData?.innings,
-    +fancyResultInputData?.runs,
-    fancyResultInputData?.team,
-    "DATAAA"
-  );
-
   const handleFancyDeclaration = async () => {
     setConfirmDeclaration(false);
     setIsProcessing(true);
