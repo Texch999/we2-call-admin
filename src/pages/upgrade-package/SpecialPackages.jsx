@@ -44,8 +44,11 @@ function SpecialPackages(props) {
     yearly === true
       ? yearlyPacks.filter((item) => item.package_name === "vip")
       : montlyPacks.filter((item) => item.package_name === "vip");
-
-
+  const silver = silverPack[0];
+  const standerd = standardPack[0];
+  const gold = goldPack[0];
+  const diamond = diamondPack[0];
+  const vip = vipPack[0];
   const PACKAGE_DETAILS = [
     {
       id: 1,
@@ -55,18 +58,18 @@ function SpecialPackages(props) {
       discountDivColor: "standard-discount-div",
       packageName: "Standard Package",
       package: standardPack[0],
-      rate: standardPack.map((item) => item.package_cost),
-      offerImage: Images.DiscountImg,
-      offerPercentage: standardPack.map((item) => item.discount + "% OFF"),
+      rate: standerd?.package_cost,
+      offerImage: Images?.DiscountImg,
+      offerPercentage: standerd?.discount + "% OFF",
       videoText: "",
       addPackageBtn: "Add Package",
-      packageImage: Images.StandardPackage,
-      packageBackGroundImage: Images.StandardPackageBG,
-      hours: standardPack.map((item) => item.package_limits.duration),
+      packageImage: Images?.StandardPackage,
+      packageBackGroundImage: Images?.StandardPackageBG,
+      hours: standardPack?.package_limits?.duration,
       usersText: (
         <div>
           <BiSolidCheckCircle /> Join call with{" "}
-          {standardPack.map((item) => item.package_limits.members)} users
+          {standardPack?.package_limits?.members} users
         </div>
       ),
       meetingsText: (
@@ -93,17 +96,17 @@ function SpecialPackages(props) {
       discountDivColor: "silver-discount-div",
       packageName: "Silver Package",
       package: silverPack[0],
-      rate: silverPack.map((item) => item.package_cost),
-      offerImage: Images.DiscountBlackImg,
-      offerPercentage: silverPack.map((item) => item.discount + "% OFF"),
+      rate: silver?.package_cost,
+      offerImage: Images?.DiscountBlackImg,
+      offerPercentage: silver?.discount + "% OFF",
       addPackageBtn: "Add Package",
-      packageImage: Images.SilverPackage,
-      packageBackGroundImage: Images.SilverPackageBG,
-      hours: silverPack.map((item) => item.package_limits.duration),
+      packageImage: Images?.SilverPackage,
+      packageBackGroundImage: Images?.SilverPackageBG,
+      hours: silver?.package_limits.duration,
       usersText: (
         <div>
-          <BiSolidCheckCircle /> Join call with{" "}
-          {silverPack.map((item) => item.package_limits.members)} users
+          <BiSolidCheckCircle /> Join call with {silver?.package_limits.members}{" "}
+          users
         </div>
       ),
       meetingsText: (
@@ -135,17 +138,17 @@ function SpecialPackages(props) {
       discountDivColor: "gold-discount-div",
       packageName: "Gold Package",
       package: goldPack[0],
-      rate: goldPack.map((item) => item.package_cost),
+      rate: gold?.package_cost,
       offerImage: Images.DiscountBlackImg,
-      offerPercentage: goldPack.map((item) => item.discount + "% OFF"),
+      offerPercentage: gold?.discount + "% OFF",
       addPackageBtn: "Add Package",
       packageImage: Images.GoldPackage,
       packageBackGroundImage: Images.GoldPackageBG,
-      hours: silverPack.map((item) => item.package_limits.duration),
+      hours: gold?.package_limits?.duration,
       usersText: (
         <div>
-          <BiSolidCheckCircle /> Join call with{" "}
-          {goldPack.map((item) => item.package_limits.members)} users
+          <BiSolidCheckCircle /> Join call with {gold?.package_limits?.members}{" "}
+          users
         </div>
       ),
       meetingsText: (
@@ -177,18 +180,17 @@ function SpecialPackages(props) {
       discountDivColor: "diamond-discount-div",
       packageName: "Diamond Package",
       rate: 20000,
-      offerImage: Images.DiscountBlackImg,
+      offerImage: Images?.DiscountBlackImg,
       offerPercentage: "10% OFF",
       addPackageBtn: "Add Package",
-      packageImage: Images.DiamondPackage,
-      packageBackGroundImage: Images.DiamondPackageBG,
+      packageImage: Images?.DiamondPackage,
+      packageBackGroundImage: Images?.DiamondPackageBG,
       package: diamondPack[0],
-      hours: diamondPack.map((item) => item.package_limits.duration),
+      hours: diamond?.package_limits?.duration,
       usersText: (
         <div>
           <BiSolidCheckCircle />
-          Join call with{" "}
-          {diamondPack.map((item) => item.package_limits.members)} users
+          Join call with {diamond?.package_limits?.members} users
         </div>
       ),
       meetingsText: (
@@ -219,18 +221,18 @@ function SpecialPackages(props) {
       upgradeBtnColor: "upgrade-white-btn",
       discountDivColor: "vip-discount-div",
       packageName: "VIP Package",
-      rate: vipPack.map((item) => item.package_cost),
+      rate: vip?.package_cost,
       offerImage: Images.DiscountImg,
       offerPercentage: "10% OFF",
       addPackageBtn: "Add Package",
       packageImage: Images.VIPPackage,
       packageBackGroundImage: Images.VIPPackageBG,
       package: vipPack[0],
-      hours: vipPack.map((item) => item.package_limits.duration),
+      hours: vip?.package_limits?.duration,
       usersText: (
         <div>
-          <BiSolidCheckCircle /> Join call with{" "}
-          {diamondPack.map((item) => item.package_limits.members)} users
+          <BiSolidCheckCircle /> Join call with {vip?.package_limits?.members}{" "}
+          users
         </div>
       ),
       meetingsText: (
