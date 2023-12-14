@@ -26,7 +26,7 @@ function MatchSubmitPopup(props) {
                 <div className="clr-red small-font text-center"> {error}</div>
               ) : (
                 <>
-                  {/* <div className="fs-6 mt-3">{header}</div> */}
+                  <div className="fs-6 mt-3">{header}</div>
                   <div className="fs-6 mt-3">{displayData}</div>
                 </>
               )}
