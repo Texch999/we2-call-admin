@@ -166,7 +166,7 @@ function MatchResultInput({
       )}
       {afterConfirm && (
         <MatchSubmitPopup
-          // header={"You Are Successfully Submited Your Match to Win IND"}
+          header={"You Are Successfully Submited Your Match to Win IND"}
           state={afterConfirm}
           setState={setAfterConfirm}
           isProcessing={isProcessing}

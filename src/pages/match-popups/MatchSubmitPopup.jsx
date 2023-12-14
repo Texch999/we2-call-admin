@@ -25,7 +25,10 @@ function MatchSubmitPopup(props) {
               {error ? (
                 <div className="clr-red small-font text-center"> {error}</div>
               ) : (
-                <div className="fs-6 mt-3">{displayData}</div>
+                <>
+                  {/* <div className="fs-6 mt-3">{header}</div> */}
+                  <div className="fs-6 mt-3">{displayData}</div>
+                </>
               )}
               <div className="row d-flex justify-content-between mt-3">
                 <div
