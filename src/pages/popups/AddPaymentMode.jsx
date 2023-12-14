@@ -163,7 +163,7 @@ function AddPaymentMode(props) {
       show={state}
       onHide={() => setState(false)}
       centered
-      className="add-user-modal mt-4"
+      className="add-user-modal mt-4 z-index"
     >
       <Modal.Header closeButton>
         <Modal.Title className="w-100 text-center">

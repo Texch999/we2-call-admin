@@ -50,7 +50,7 @@ function Table(props) {
         <thead id="home-table-head">
           <tr>
             {columns?.map((column, index) => (
-              <th key={index}>{column.header}</th>
+              <th key={index}>{column?.header}</th>
             ))}
           </tr>
         </thead>
@@ -73,7 +73,7 @@ function Table(props) {
               >
                 {columns.map((column, colIndex) => (
                   <td key={colIndex}>
-                    <div>{item[column.field]}</div>
+                    <div>{item[column?.field]}</div>
                   </td>
                 ))}
               </tr>

@@ -48,6 +48,9 @@ function UserManagement() {
   const [changePasswordPopup, setChangePasswordPopup] = useState(false);
   // const [isProcessing, setIsProcessing] = useState();
 
+  console.log(existingClients, "........existingClients");
+  console.log(allClients, "........allClients");
+
   const clientSelection = [
     { name: "Regulor", value: 0 },
     { name: "Book", value: 1 },
@@ -60,19 +63,19 @@ function UserManagement() {
       title: "UL Comm",
       name: "ul_comm",
       id: "ul_comm",
-      value: localStorage.getItem("ul_comm"),
+      value: localStorage?.getItem("ul_comm" || 0),
     },
     {
       title: "UL Share",
       name: "ul_share",
       id: "ul_share",
-      value: localStorage.getItem("ul_share"),
+      value: localStorage?.getItem("ul_share" || 0),
     },
     {
       title: "Owner Share",
       name: "owner_share",
       id: "owner_share",
-      value: localStorage.getItem("owner_share"),
+      value: localStorage?.getItem("owner_share"),
     },
   ];
   const [createUserSubmit, setCreateUserSubmit] = useState(false);
@@ -83,7 +86,7 @@ function UserManagement() {
     if (
       (!userDetails?.alias_name,
       !userDetails?.client_name,
-      !userDetails?.referral_name,
+      // !userDetails?.referral_name,
       !userDetails?.referral_share,
       !userDetails?.fancy_refferal_comm,
       !userDetails?.referral_comm,
@@ -110,7 +113,8 @@ function UserManagement() {
       referral_share: userDetails?.referral_share,
       alias_name: userDetails?.alias_name,
       master_share: localStorage?.getItem("share") || 0,
-      ul_share: localStorage?.getItem("ul_share") || 0,
+      ul_share: localStorage?.getItem("ul_share" || 0) || 0,
+      ul_share: 0,
       deposit_type: userDetails?.deposit_type,
       location: userDetails?.location,
       match_race_comm: userDetails?.match_race_comm,
@@ -147,7 +151,7 @@ function UserManagement() {
       (!userDetails?.alias_name,
       !userDetails?.client_name,
       !userDetails?.client_type,
-      !userDetails?.referral_name,
+      // !userDetails?.referral_name,
       !userDetails?.referral_share,
       !userDetails?.fancy_refferal_comm,
       !userDetails?.referral_comm,
@@ -174,7 +178,8 @@ function UserManagement() {
       referral_share: userDetails?.referral_share,
       alias_name: userDetails?.alias_name,
       master_share: localStorage?.getItem("share") || 0,
-      ul_share: localStorage?.getItem("ul_share") || 0,
+      ul_share: localStorage?.getItem("ul_share" || 0) || 0,
+      ul_share: 0,
       deposit_type: userDetails?.deposit_type,
       location: userDetails?.location,
       match_race_comm: userDetails?.match_race_comm,
@@ -456,10 +461,10 @@ function UserManagement() {
                   ?.map((item, index) => (
                     <option
                       className="w-90 ms-1 cursor-pointer"
-                      value={item.first_name}
+                      value={item.user_name}
                       key={index}
                     >
-                      {item.first_name}
+                      {item.user_name}
                     </option>
                   ))}
             </select>

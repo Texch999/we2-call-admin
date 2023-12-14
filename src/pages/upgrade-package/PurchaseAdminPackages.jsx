@@ -5,7 +5,7 @@ import { FaPlus, FaMinus, FaArrowRight } from "react-icons/fa6";
 import { PiHandbagBold } from "react-icons/pi";
 import { IoMdCloseCircleOutline } from "react-icons/io";
 import PackageAvailablePopup from "./PackageAvailablePopup";
-import { GET_ALL_PACKAGES } from "../../config/endpoints";
+import { GET_ADMIN_PACKAGES, GET_ALL_PACKAGES } from "../../config/endpoints";
 import { call } from "../../config/axios";
 import { useDispatch, useSelector } from "react-redux";
 import { setSelectedPackages } from "../../redux/actions/commonActions";
@@ -17,6 +17,7 @@ function PurchaseAdminPackages() {
   const [yearly, setYearly] = useState(false);
   const [allPackages, setAllPackages] = useState([]);
   const [selectPackage, setSelectPackage] = useState(false);
+  const [adminPackages, setAdminPackages] = useState();
   const dispatch = useDispatch();
   const handlePackageAvailable = () => {
     setPackageAvailablePopup(!packageAvailablePopup);
@@ -25,7 +26,7 @@ function PurchaseAdminPackages() {
   const handleYear = (e) => {
     setYearly(e.target.checked);
   };
-  console.log(allPackages, ".......allPackages");
+  console.log(adminPackages, ".....adminPackages");
   const packageList =
     useSelector((State) => State.common.selected_packages) || [];
   const selectedPackages = packageList.reduce(
@@ -78,6 +79,16 @@ function PurchaseAdminPackages() {
       .catch((err) => console.log(err));
   };
 
+  const getAdminPackages = async () => {
+    await call(GET_ADMIN_PACKAGES, {
+      register_id: localStorage.getItem("register_id"),
+    })
+      .then((res) => {
+        setAdminPackages(res?.data?.data?.bulk_subscriptions || []);
+      })
+      .catch((err) => console.log(err));
+  };
+
   const getUpdatedPackData = (allPackagesInfo) => {
     return SELECT_PACKAGE.map((itm) => {
       let monthly, yearly;
@@ -117,10 +128,11 @@ function PurchaseAdminPackages() {
 
   useEffect(() => {
     getAllPackages();
+    getAdminPackages();
   }, []);
 
   const adminPackageTable = "admin-package-table";
-  const PACKAGES_DATA = [
+  let PACKAGES_DATA = [
     {
       package: (
         <div className="d-flex align-items-center">
@@ -135,6 +147,7 @@ function PurchaseAdminPackages() {
       purchased: <div onClick={() => handlePackageAvailable()}>2</div>,
       used: <div className="yellow-clr">2</div>,
       available: <div className="green-color">0</div>,
+      package_name: "standard",
     },
     {
       package: (
@@ -150,6 +163,7 @@ function PurchaseAdminPackages() {
       purchased: <div>4</div>,
       used: <div className="yellow-clr">2</div>,
       available: <div className="green-color">2</div>,
+      package_name: "silver",
     },
     {
       package: (
@@ -165,6 +179,7 @@ function PurchaseAdminPackages() {
       purchased: <div>2</div>,
       used: <div className="yellow-clr">2</div>,
       available: <div className="green-color">2</div>,
+      package_name: "gold",
     },
     {
       package: (
@@ -180,6 +195,7 @@ function PurchaseAdminPackages() {
       purchased: <div>2</div>,
       used: <div className="yellow-clr">2</div>,
       available: <div className="green-color">2</div>,
+      package_name: "diamond",
     },
     {
       package: (
@@ -195,8 +211,30 @@ function PurchaseAdminPackages() {
       purchased: <div>2</div>,
       used: <div className="yellow-clr">2</div>,
       available: <div className="green-color">2</div>,
+      package_name: "vip",
     },
   ];
+
+  PACKAGES_DATA = PACKAGES_DATA?.map((obj) => {
+    let numberOfPackages = 0,
+      usedPackages = 0;
+    adminPackages?.forEach((obj1) => {
+      if (obj?.package_name === obj1?.package_name) {
+        numberOfPackages += obj1?.no_of_packages || 0;
+        usedPackages += obj1?.used_packages || 0;
+        obj = {
+          ...obj,
+          purchased: numberOfPackages,
+          used: <div className="yellow-clr">{usedPackages}</div>,
+          available: (
+            <div className="green-color">{numberOfPackages - usedPackages}</div>
+          ),
+        };
+      }
+    });
+    return obj;
+  });
+
   const PACKAGES_HEADING = [
     { header: "Packages", field: "package" },
     { header: "Purchased", field: "purchased" },
@@ -204,267 +242,267 @@ function PurchaseAdminPackages() {
     { header: "Available", field: "available" },
   ];
 
-  const PACKAGES_HOURS_DATA = [
-    {
-      returnPackage: (
-        <div className="d-flex align-items-center">
-          <img
-            className="discount-img"
-            src={Images.StandardSmallImg}
-            alt="Standard_Small"
-          />
-          <div className="px-2">Standard</div>
-        </div>
-      ),
-      value: <div>4000</div>,
-      hours: <div className="yellow-clr">15</div>,
-      available: <div className="green-color">2000</div>,
-    },
-    {
-      returnPackage: (
-        <div className="d-flex align-items-center">
-          <img
-            className="discount-img"
-            src={Images.SilverSmallImg}
-            alt="Standard_Small"
-          />
-          <div className="px-2">Silver</div>
-        </div>
-      ),
-      value: <div>4000</div>,
-      hours: <div className="yellow-clr">15</div>,
-      available: <div className="green-color">2000</div>,
-    },
-    {
-      returnPackage: (
-        <div className="d-flex align-items-center">
-          <img
-            className="discount-img"
-            src={Images.GoldSmallImg}
-            alt="Standard_Small"
-          />
-          <div className="px-2">Gold</div>
-        </div>
-      ),
-      value: <div>4000</div>,
-      hours: <div className="yellow-clr">15</div>,
-      available: <div className="green-color">2000</div>,
-    },
-    {
-      returnPackage: (
-        <div className="d-flex align-items-center">
-          <img
-            className="discount-img"
-            src={Images.DiamondSmallImg}
-            alt="Standard_Small"
-          />
-          <div className="px-2">Diamond</div>
-        </div>
-      ),
-      value: <div>4000</div>,
-      hours: <div className="yellow-clr">15</div>,
-      available: <div className="green-color">2000</div>,
-    },
-    {
-      returnPackage: (
-        <div className="d-flex align-items-center">
-          <img
-            className="discount-img"
-            src={Images.VIPSmallImg}
-            alt="Standard_Small"
-          />
-          <div className="px-2">VIP</div>
-        </div>
-      ),
-      value: <div>4000</div>,
-      hours: <div className="yellow-clr">15</div>,
-      available: <div className="green-color">2000</div>,
-    },
-  ];
-  const PACKAGES_HOURS_HEADING = [
-    { header: "Return Packages", field: "returnPackage" },
-    { header: "Value", field: "value" },
-    { header: "Hours", field: "hours" },
-    { header: "Available", field: "available" },
-  ];
+  // const PACKAGES_HOURS_DATA = [
+  //   {
+  //     returnPackage: (
+  //       <div className="d-flex align-items-center">
+  //         <img
+  //           className="discount-img"
+  //           src={Images.StandardSmallImg}
+  //           alt="Standard_Small"
+  //         />
+  //         <div className="px-2">Standard</div>
+  //       </div>
+  //     ),
+  //     value: <div>4000</div>,
+  //     hours: <div className="yellow-clr">15</div>,
+  //     available: <div className="green-color">2000</div>,
+  //   },
+  //   {
+  //     returnPackage: (
+  //       <div className="d-flex align-items-center">
+  //         <img
+  //           className="discount-img"
+  //           src={Images.SilverSmallImg}
+  //           alt="Standard_Small"
+  //         />
+  //         <div className="px-2">Silver</div>
+  //       </div>
+  //     ),
+  //     value: <div>4000</div>,
+  //     hours: <div className="yellow-clr">15</div>,
+  //     available: <div className="green-color">2000</div>,
+  //   },
+  //   {
+  //     returnPackage: (
+  //       <div className="d-flex align-items-center">
+  //         <img
+  //           className="discount-img"
+  //           src={Images.GoldSmallImg}
+  //           alt="Standard_Small"
+  //         />
+  //         <div className="px-2">Gold</div>
+  //       </div>
+  //     ),
+  //     value: <div>4000</div>,
+  //     hours: <div className="yellow-clr">15</div>,
+  //     available: <div className="green-color">2000</div>,
+  //   },
+  //   {
+  //     returnPackage: (
+  //       <div className="d-flex align-items-center">
+  //         <img
+  //           className="discount-img"
+  //           src={Images.DiamondSmallImg}
+  //           alt="Standard_Small"
+  //         />
+  //         <div className="px-2">Diamond</div>
+  //       </div>
+  //     ),
+  //     value: <div>4000</div>,
+  //     hours: <div className="yellow-clr">15</div>,
+  //     available: <div className="green-color">2000</div>,
+  //   },
+  //   {
+  //     returnPackage: (
+  //       <div className="d-flex align-items-center">
+  //         <img
+  //           className="discount-img"
+  //           src={Images.VIPSmallImg}
+  //           alt="Standard_Small"
+  //         />
+  //         <div className="px-2">VIP</div>
+  //       </div>
+  //     ),
+  //     value: <div>4000</div>,
+  //     hours: <div className="yellow-clr">15</div>,
+  //     available: <div className="green-color">2000</div>,
+  //   },
+  // ];
+  // const PACKAGES_HOURS_HEADING = [
+  //   { header: "Return Packages", field: "returnPackage" },
+  //   { header: "Value", field: "value" },
+  //   { header: "Hours", field: "hours" },
+  //   { header: "Available", field: "available" },
+  // ];
 
-  const PACKAGES_HOURS_DATA_TWO = [
-    {
-      returnPackage: (
-        <div className="d-flex align-items-center">
-          <img
-            className="discount-img"
-            src={Images.StandardSmallImg}
-            alt="Standard_Small"
-          />
-          <div className="px-2">Standard</div>
-        </div>
-      ),
-      value: <div>4000</div>,
-      hours: <div className="yellow-clr">15</div>,
-      available: <div className="green-color">2000</div>,
-      add: (
-        <div className="add-button rounded p-1 d-flex align-items-center justify-content-evenly fw-semibold">
-          <div>ADD</div>
-          <FaPlus />
-        </div>
-      ),
-    },
-    {
-      returnPackage: (
-        <div className="d-flex align-items-center">
-          <img
-            className="discount-img"
-            src={Images.SilverSmallImg}
-            alt="Standard_Small"
-          />
-          <div className="px-2">Silver</div>
-        </div>
-      ),
-      value: <div>4000</div>,
-      hours: <div className="yellow-clr">15</div>,
-      available: <div className="green-color">2000</div>,
-      add: (
-        <div className="add-button rounded p-1 d-flex align-items-center justify-content-evenly fw-semibold">
-          <div>ADD</div>
-          <FaPlus />
-        </div>
-      ),
-    },
-    {
-      returnPackage: (
-        <div className="d-flex align-items-center">
-          <img
-            className="discount-img"
-            src={Images.GoldSmallImg}
-            alt="Standard_Small"
-          />
-          <div className="px-2">Gold</div>
-        </div>
-      ),
-      value: <div>4000</div>,
-      hours: <div className="yellow-clr">15</div>,
-      available: <div className="green-color">2000</div>,
-      add: (
-        <div className="add-button rounded p-1 d-flex align-items-center justify-content-evenly fw-semibold">
-          <div>ADD</div>
-          <FaPlus />
-        </div>
-      ),
-    },
-    {
-      returnPackage: (
-        <div className="d-flex align-items-center">
-          <img
-            className="discount-img"
-            src={Images.DiamondSmallImg}
-            alt="Standard_Small"
-          />
-          <div className="px-2">Diamond</div>
-        </div>
-      ),
-      value: <div>4000</div>,
-      hours: <div className="yellow-clr">15</div>,
-      available: <div className="green-color">2000</div>,
-      add: (
-        <div className="add-button rounded p-1 d-flex align-items-center justify-content-evenly fw-semibold">
-          <div>ADD</div>
-          <FaPlus />
-        </div>
-      ),
-    },
-    {
-      returnPackage: (
-        <div className="d-flex align-items-center">
-          <img
-            className="discount-img"
-            src={Images.VIPSmallImg}
-            alt="Standard_Small"
-          />
-          <div className="px-2">VIP</div>
-        </div>
-      ),
-      value: <div>4000</div>,
-      hours: <div className="yellow-clr">15</div>,
-      available: <div className="green-color">2000</div>,
-      add: (
-        <div className="add-button rounded p-1 d-flex align-items-center justify-content-evenly fw-semibold">
-          <div>ADD</div>
-          <FaPlus />
-        </div>
-      ),
-    },
-    {
-      returnPackage: (
-        <div className="d-flex align-items-center">
-          <img
-            className="discount-img"
-            src={Images.StandardSmallImg}
-            alt="Standard_Small"
-          />
-          <div className="px-2">Standard</div>
-        </div>
-      ),
-      value: <div>4000</div>,
-      hours: <div className="yellow-clr">15</div>,
-      available: <div className="green-color">2000</div>,
-      add: (
-        <div className="add-button rounded p-1 d-flex align-items-center justify-content-evenly fw-semibold">
-          <div>ADD</div>
-          <FaPlus />
-        </div>
-      ),
-    },
-    {
-      returnPackage: (
-        <div className="d-flex align-items-center">
-          <img
-            className="discount-img"
-            src={Images.SilverSmallImg}
-            alt="Standard_Small"
-          />
-          <div className="px-2">Silver</div>
-        </div>
-      ),
-      value: <div>4000</div>,
-      hours: <div className="yellow-clr">15</div>,
-      available: <div className="green-color">2000</div>,
-      add: (
-        <div className="add-button rounded p-1 d-flex align-items-center justify-content-evenly fw-semibold">
-          <div>ADD</div>
-          <FaPlus />
-        </div>
-      ),
-    },
-    {
-      returnPackage: (
-        <div className="d-flex align-items-center">
-          <img
-            className="discount-img"
-            src={Images.GoldSmallImg}
-            alt="Standard_Small"
-          />
-          <div className="px-2">Gold</div>
-        </div>
-      ),
-      value: <div>4000</div>,
-      hours: <div className="yellow-clr">15</div>,
-      available: <div className="green-color">2000</div>,
-      add: (
-        <div className="add-button rounded p-1 d-flex align-items-center justify-content-evenly fw-semibold">
-          <div>ADD</div>
-          <FaPlus />
-        </div>
-      ),
-    },
-  ];
-  const PACKAGES_HOURS_HEADING_TWO = [
-    { header: "Return Packages", field: "returnPackage" },
-    { header: "Value", field: "value" },
-    { header: "Hours", field: "hours" },
-    { header: "Available", field: "available" },
-    { header: "", field: "add" },
-  ];
+  // const PACKAGES_HOURS_DATA_TWO = [
+  //   {
+  //     returnPackage: (
+  //       <div className="d-flex align-items-center">
+  //         <img
+  //           className="discount-img"
+  //           src={Images.StandardSmallImg}
+  //           alt="Standard_Small"
+  //         />
+  //         <div className="px-2">Standard</div>
+  //       </div>
+  //     ),
+  //     value: <div>4000</div>,
+  //     hours: <div className="yellow-clr">15</div>,
+  //     available: <div className="green-color">2000</div>,
+  //     add: (
+  //       <div className="add-button rounded p-1 d-flex align-items-center justify-content-evenly fw-semibold">
+  //         <div>ADD</div>
+  //         <FaPlus />
+  //       </div>
+  //     ),
+  //   },
+  //   {
+  //     returnPackage: (
+  //       <div className="d-flex align-items-center">
+  //         <img
+  //           className="discount-img"
+  //           src={Images.SilverSmallImg}
+  //           alt="Standard_Small"
+  //         />
+  //         <div className="px-2">Silver</div>
+  //       </div>
+  //     ),
+  //     value: <div>4000</div>,
+  //     hours: <div className="yellow-clr">15</div>,
+  //     available: <div className="green-color">2000</div>,
+  //     add: (
+  //       <div className="add-button rounded p-1 d-flex align-items-center justify-content-evenly fw-semibold">
+  //         <div>ADD</div>
+  //         <FaPlus />
+  //       </div>
+  //     ),
+  //   },
+  //   {
+  //     returnPackage: (
+  //       <div className="d-flex align-items-center">
+  //         <img
+  //           className="discount-img"
+  //           src={Images.GoldSmallImg}
+  //           alt="Standard_Small"
+  //         />
+  //         <div className="px-2">Gold</div>
+  //       </div>
+  //     ),
+  //     value: <div>4000</div>,
+  //     hours: <div className="yellow-clr">15</div>,
+  //     available: <div className="green-color">2000</div>,
+  //     add: (
+  //       <div className="add-button rounded p-1 d-flex align-items-center justify-content-evenly fw-semibold">
+  //         <div>ADD</div>
+  //         <FaPlus />
+  //       </div>
+  //     ),
+  //   },
+  //   {
+  //     returnPackage: (
+  //       <div className="d-flex align-items-center">
+  //         <img
+  //           className="discount-img"
+  //           src={Images.DiamondSmallImg}
+  //           alt="Standard_Small"
+  //         />
+  //         <div className="px-2">Diamond</div>
+  //       </div>
+  //     ),
+  //     value: <div>4000</div>,
+  //     hours: <div className="yellow-clr">15</div>,
+  //     available: <div className="green-color">2000</div>,
+  //     add: (
+  //       <div className="add-button rounded p-1 d-flex align-items-center justify-content-evenly fw-semibold">
+  //         <div>ADD</div>
+  //         <FaPlus />
+  //       </div>
+  //     ),
+  //   },
+  //   {
+  //     returnPackage: (
+  //       <div className="d-flex align-items-center">
+  //         <img
+  //           className="discount-img"
+  //           src={Images.VIPSmallImg}
+  //           alt="Standard_Small"
+  //         />
+  //         <div className="px-2">VIP</div>
+  //       </div>
+  //     ),
+  //     value: <div>4000</div>,
+  //     hours: <div className="yellow-clr">15</div>,
+  //     available: <div className="green-color">2000</div>,
+  //     add: (
+  //       <div className="add-button rounded p-1 d-flex align-items-center justify-content-evenly fw-semibold">
+  //         <div>ADD</div>
+  //         <FaPlus />
+  //       </div>
+  //     ),
+  //   },
+  //   {
+  //     returnPackage: (
+  //       <div className="d-flex align-items-center">
+  //         <img
+  //           className="discount-img"
+  //           src={Images.StandardSmallImg}
+  //           alt="Standard_Small"
+  //         />
+  //         <div className="px-2">Standard</div>
+  //       </div>
+  //     ),
+  //     value: <div>4000</div>,
+  //     hours: <div className="yellow-clr">15</div>,
+  //     available: <div className="green-color">2000</div>,
+  //     add: (
+  //       <div className="add-button rounded p-1 d-flex align-items-center justify-content-evenly fw-semibold">
+  //         <div>ADD</div>
+  //         <FaPlus />
+  //       </div>
+  //     ),
+  //   },
+  //   {
+  //     returnPackage: (
+  //       <div className="d-flex align-items-center">
+  //         <img
+  //           className="discount-img"
+  //           src={Images.SilverSmallImg}
+  //           alt="Standard_Small"
+  //         />
+  //         <div className="px-2">Silver</div>
+  //       </div>
+  //     ),
+  //     value: <div>4000</div>,
+  //     hours: <div className="yellow-clr">15</div>,
+  //     available: <div className="green-color">2000</div>,
+  //     add: (
+  //       <div className="add-button rounded p-1 d-flex align-items-center justify-content-evenly fw-semibold">
+  //         <div>ADD</div>
+  //         <FaPlus />
+  //       </div>
+  //     ),
+  //   },
+  //   {
+  //     returnPackage: (
+  //       <div className="d-flex align-items-center">
+  //         <img
+  //           className="discount-img"
+  //           src={Images.GoldSmallImg}
+  //           alt="Standard_Small"
+  //         />
+  //         <div className="px-2">Gold</div>
+  //       </div>
+  //     ),
+  //     value: <div>4000</div>,
+  //     hours: <div className="yellow-clr">15</div>,
+  //     available: <div className="green-color">2000</div>,
+  //     add: (
+  //       <div className="add-button rounded p-1 d-flex align-items-center justify-content-evenly fw-semibold">
+  //         <div>ADD</div>
+  //         <FaPlus />
+  //       </div>
+  //     ),
+  //   },
+  // ];
+  // const PACKAGES_HOURS_HEADING_TWO = [
+  //   { header: "Return Packages", field: "returnPackage" },
+  //   { header: "Value", field: "value" },
+  //   { header: "Hours", field: "hours" },
+  //   { header: "Available", field: "available" },
+  //   { header: "", field: "add" },
+  // ];
 
   const SELECT_PACKAGE = [
     {
@@ -511,25 +549,13 @@ function PurchaseAdminPackages() {
   return (
     <div>
       <div className="row mt-3">
-        <div className="col">
-          <Table
-            data={PACKAGES_DATA}
-            columns={PACKAGES_HEADING}
-            tableClassname={adminPackageTable}
-          />
-          {packageAvailablePopup && (
-            <PackageAvailablePopup
-              handlePackageAvailable={handlePackageAvailable}
-            />
-          )}
-        </div>
-        <div className="col">
+        {/* <div className="col">
           <Table
             data={PACKAGES_HOURS_DATA}
             columns={PACKAGES_HOURS_HEADING}
             tableClassname={adminPackageTable}
           />
-        </div>
+        </div> */}
       </div>
       <div className="row mt-3">
         <div className="col">
@@ -657,11 +683,18 @@ function PurchaseAdminPackages() {
           ))}
         </div>
         <div className="col mt-2">
+        
           <Table
-            data={PACKAGES_HOURS_DATA_TWO}
-            columns={PACKAGES_HOURS_HEADING_TWO}
+            data={PACKAGES_DATA}
+            columns={PACKAGES_HEADING}
             tableClassname={adminPackageTable}
           />
+          {packageAvailablePopup && (
+            <PackageAvailablePopup
+              handlePackageAvailable={handlePackageAvailable}
+            />
+          )}
+       
         </div>
       </div>
       <div className="w-95 package-cart-div rounded p-2 m-2 d-flex align-items-center justify-content-between">
