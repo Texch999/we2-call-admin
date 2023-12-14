@@ -43,7 +43,7 @@ function MeetingAndSummary() {
             {moment(meeting?.given_time_stamp).format("hh:mm:s")}
           </div>
         ),
-        user: meetingUserData.map((obj) => (
+        user: meetingUserData?.map((obj) => (
           <div>
             {obj.user_name} +<br />
             {meetingUserData.length - 1} Others
@@ -58,29 +58,6 @@ function MeetingAndSummary() {
     { header: "Event Name", field: "event" },
     { header: "User", field: "user" },
     { header: "Status", field: "status" },
-  ];
-
-  const summaryContent = [
-    {
-      users: "Active Users",
-      count: "00",
-    },
-    {
-      users: "Active Agents",
-      count: "00",
-    },
-    {
-      users: "Turn Over",
-      count: "00",
-    },
-    {
-      users: "Profit/Loss",
-      count: "00",
-    },
-    {
-      users: "Total Bets",
-      count: "00",
-    },
   ];
 
   const getAllAdmins = async () => {
