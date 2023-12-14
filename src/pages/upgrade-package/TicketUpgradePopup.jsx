@@ -80,7 +80,7 @@ function TicketUpgradePopup(props) {
         show={showTicketPackagePopup}
         onHide={handleTicketPackagePopupClose}
         centered
-        className="match-share-modal payment-modal"
+        className="match-share-modal payment-modal z-index"
       >
         <Modal.Header closeButton>
           <div className="w-100 flex-columnn relative-position">
