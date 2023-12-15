@@ -91,6 +91,8 @@ const ADD_GUESTDOCS_FOR_TOURS = "/tours/add_guestdocs_for_tour";
 const GET_ALL_USERS = "/offline-management/get_user_list";
 const TOP_WINNERS_LOOSERS = "/admin/top_winner_looser";
 const SUMMARY_DATA = "/admin/summary";
+const APPROVE_REJECT_FOR_SUBSCRIPTION = "/packages/package_approve_reject";
+const BULK_PACKAGE_APPROVE_REJECT = "/packages/bulk_package_approve_reject";
 
 // methods
 const DELETE = "DELETE";
@@ -419,6 +421,16 @@ exports.GET_REQUEST_PACKAGES = {
 };
 exports.GET_ADMIN_PACKAGE_REQUEST = {
   url: GET_ADMIN_PACKAGE_REQUEST,
+  method: POST,
+};
+
+exports.APPROVE_REJECT_FOR_SUBSCRIPTION = {
+  url: APPROVE_REJECT_FOR_SUBSCRIPTION,
+  method: POST,
+};
+
+exports.BULK_PACKAGE_APPROVE_REJECT = {
+  url: BULK_PACKAGE_APPROVE_REJECT,
   method: POST,
 };
 
