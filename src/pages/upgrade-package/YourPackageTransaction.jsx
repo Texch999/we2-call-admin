@@ -144,15 +144,15 @@ function YourPackageTransaction() {
       <div className="w-100 d-flex justify-content-end font-clr-white total-count-container  py-2 px-4 rounded">
         <div className="w-75 d-flex justify-content-between">
           <span className="d-flex">
-            totalPaidAmmount :
+            Total Paid Ammount :
             <span className="clr-red"> -{summary?.totalPaidAmmount}</span>
           </span>
           <span className="d-flex">
-            totalSellAmmount :
+            Total Sell Ammount :
             <div className="clr-green"> +{summary?.totalSellAmmount}</div>
           </span>
           <span className="d-flex">
-            lossOrProfitAmmount :
+            Loss/Profit Ammount :
             <div className={TotalPL >= 0 ? "clr-green" : "clr-red"}>
               {TotalPL}
             </div>
