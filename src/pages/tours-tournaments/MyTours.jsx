@@ -8,7 +8,9 @@ function MyTours() {
   const [upcomingTours, setUpcomingTours] = useState(true);
   const [completedTours, setCompletedTours] = useState(false);
   const [documentUploadedTours, setDocumentUploadedTours] = useState([]);
-  const [messagePopup, setMessagePopup] = useState(false)
+  const [messagePopup, setMessagePopup] = useState(false);
+  const [itemData, setItemData] = useState({});
+  // console.log(itemData,'itemData')
 
   const getApprovedUsers = async () => {
     const regId = localStorage.getItem("register_id");
@@ -20,7 +22,7 @@ function MyTours() {
       .catch((error) => console.log(error));
   };
   // console.log(documentUploadedTours, "......documentUploadedTours");
-  const upcomingApprovedTours = documentUploadedTours.filter((item) => {
+  const upcomingApprovedTours = documentUploadedTours?.filter((item) => {
     const presentTimestamp = Date.now();
     const scheduleDateObject = new Date(item.date);
     const scheduleTimestamp = scheduleDateObject.getTime();
@@ -29,7 +31,7 @@ function MyTours() {
     }
   });
   // console.log(upcomingApprovedTours, ".....upcomingApprovedTours");
-  const completedApprovedTours = documentUploadedTours.filter((item) => {
+  const completedApprovedTours = documentUploadedTours?.filter((item) => {
     const presentTimestamp = Date.now();
     const scheduleDateObject = new Date(item.date);
     const scheduleTimestamp = scheduleDateObject.getTime();
@@ -51,10 +53,11 @@ function MyTours() {
     setCompletedTours(true);
     setUpcomingTours(false);
   };
-  const handlePopupOpen = () => {
-    setMessagePopup(true)
-  }
-  
+  const handlePopupOpen = (item) => {
+    setItemData(item);
+    setMessagePopup(true);
+  };
+
   return (
     <div className="p-1">
       <div className="w-40 d-flex justify-content-between p-1 mt-2">
@@ -86,10 +89,11 @@ function MyTours() {
             Your upcoming tours will be displayed here:
           </div>
           <div className="row text-center">
-            <div className="col-1">S NO</div>
-            <div className="col-3">TOUR NAME</div>
-            <div className="col-2">TOUR STARTDATE</div>
-            <div className="col-2">TOUR STATUS</div>
+            <div className="col-1 text-center">S NO</div>
+            <div className="col-3">TOUR TITLE</div>
+            <div className="col-1">STARTDATE</div>
+            <div className="col-1">STATUS</div>
+            <div className="col-2">REJECTION REASON</div>
             <div className="col-2">PAID AMOUNT</div>
             <div className="col-2">DOCUMENTS</div>
           </div>
@@ -98,12 +102,12 @@ function MyTours() {
             upcomingApprovedTours.map((item, index) => {
               return (
                 <div style={{ padding: "10px" }}>
-                  <div className="tour-button row text-center">
+                  <div className="tour-button row">
                     {/* {item.tour_id} */}
-                    <div className="col-1">{index + 1}</div>
-                    <div className="col-3">{item.tour_name}</div>
-                    <div className="col-2">{item.date}</div>
-                    <div className="col-2 p-0 flex-center">
+                    <div className="col-1 flex-center">{index + 1}</div>
+                    <div className="col-3 flex-center">{item.tour_name}</div>
+                    <div className="col-1 flex-center">{item.date}</div>
+                    <div className="col-1 p-0 flex-center">
                       <div
                         className={
                           item?.confirm_payment_status === "Approved"
@@ -118,10 +122,26 @@ function MyTours() {
                         {item.confirm_payment_status}
                       </div>
                     </div>
-                    <div className="col-2">{item.paid_amount}</div>
-                    <div className="col-2 clickhere-btn"
-                          onClick={()=>handlePopupOpen()}
-                    >Click here</div>
+                    <div className="col-2 flex-center">
+                      {item.rejection_reason}
+                    </div>
+                    <div className="col-1 flex-center">{item.paid_amount}</div>
+                    <div
+                      className={
+                        item.confirm_payment_status ===
+                        ("Rejected" || "Pending")
+                          ? "col-2 clickhere-deactive-btn flex-center"
+                          : "col-2 clickhere-btn flex-center"
+                      }
+                      onClick={
+                        item.confirm_payment_status ===
+                        ("Rejected" || "Pending")
+                          ? null
+                          : () => handlePopupOpen(item)
+                      }
+                    >
+                      Click here
+                    </div>
                   </div>
                 </div>
               );
@@ -146,10 +166,11 @@ function MyTours() {
             Your completed tours will be displayed here:
           </div>
           <div className="row text-center">
-            <div className="col-1">S NO</div>
-            <div className="col-3">TOUR NAME</div>
-            <div className="col-2">TOUR STARTDATE</div>
-            <div className="col-2">TOUR STATUS</div>
+            <div className="col-1 text-center">S NO</div>
+            <div className="col-3">TOUR TITLE</div>
+            <div className="col-1">STARTDATE</div>
+            <div className="col-1">STATUS</div>
+            <div className="col-2">REJECTION REASON</div>
             <div className="col-2">PAID AMOUNT</div>
             <div className="col-2">DOCUMENTS</div>
           </div>
@@ -161,9 +182,9 @@ function MyTours() {
                   <div className="tour-button row text-center">
                     {/* {item.tour_id} */}
                     <div className="col-1">{index + 1}</div>
-                    <div className="col-3">{item.tour_name}</div>
-                    <div className="col-2">{item.date}</div>
-                    <div className="col-2 p-0 flex-center">
+                    <div className="col-3">{item.tour_title}</div>
+                    <div className="col-1">{item.date}</div>
+                    <div className="col-1 p-0 flex-center">
                       <div
                         className={
                           item?.confirm_payment_status === "Approved"
@@ -178,10 +199,26 @@ function MyTours() {
                         {item.confirm_payment_status}
                       </div>
                     </div>
-                    <div className="col-2">{item.paid_amount}</div>
-                    <div className="col-2 clickhere-btn"
-                          onClick={()=>handlePopupOpen()}
-                    >Click here</div>
+                    <div className="col-2 flex-center">
+                      {item.rejection_reason}
+                    </div>
+                    <div className="col-1">{item.paid_amount}</div>
+                    <div
+                      className={
+                        item.confirm_payment_status ===
+                        ("Rejected" || "Pending")
+                          ? "col-2 clickhere-deactive-btn flex-center"
+                          : "col-2 clickhere-btn flex-center"
+                      }
+                      onClick={
+                        item.confirm_payment_status ===
+                        ("Rejected" || "Pending")
+                          ? null
+                          : () => handlePopupOpen(item)
+                      }
+                    >
+                      Click here
+                    </div>
                   </div>
                 </div>
               );
@@ -200,7 +237,11 @@ function MyTours() {
           </div>
         </div>
       )}
-      <PaymentDocumentsPopup messagePopup={messagePopup} setMessagePopup={setMessagePopup}/>
+      <PaymentDocumentsPopup
+        messagePopup={messagePopup}
+        setMessagePopup={setMessagePopup}
+        itemData={itemData}
+      />
     </div>
   );
 }
