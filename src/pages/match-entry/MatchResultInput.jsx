@@ -17,13 +17,8 @@ function MatchResultInput({
   const [matchResultInputData, setMatchResultInputData] = useState({});
   const [error, setError] = useState("");
   const [isProcessing, setIsProcessing] = useState(false);
-  const [matchSubmitSuccessPopup, setMatchSubmitSuccessPopup] = useState(false);
   const [confirmDeclaration, setConfirmDeclaration] = useState(false);
   const [afterConfirm, setAfterConfirm] = useState(false);
-  const handleMatchSubmitSuccessPopupOpen = () => {
-    setMatchSubmitSuccessPopup(true);
-    setMatchSubmitPopup(false);
-  };
 
   const handleMatchResultInputDataChange = (e) => {
     setMatchResultInputData({
@@ -31,12 +26,14 @@ function MatchResultInput({
       [e.target.name]: e.target.value,
     });
   };
+
   const handleConfirmDeclaration = async () => {
     if ((!matchResultInputData?.team, !matchResultInputData?.declarestatus)) {
       return setError("Please Enter Required Fields");
     }
     setConfirmDeclaration(true);
   };
+
   const handleMatchDeclarePopupOpen = async () => {
     setConfirmDeclaration(false);
     setIsProcessing(true);
@@ -48,10 +45,12 @@ function MatchResultInput({
       account_role,
       sport_name: matchResultInputData?.sport_name,
       series_name: matchResultInputData?.series_name,
-      team: matchResultInputData?.team,
+      teamName: matchResultInputData?.team,
       declarestatus: matchResultInputData?.declarestatus,
+      creator_id_platform: creator_id,
     })
       .then((res) => {
+        console.log(res, "RESPONSE");
         setIsProcessing(false);
         if (res.data.statusCode === 200) {
           setConfirmDeclaration(false);
@@ -71,9 +70,6 @@ function MatchResultInput({
         setError(`Something Went Wrong`);
         console.log(err);
       });
-  };
-  const handleMatchDeclarePopupClose = () => {
-    setMatchSubmitPopup(false);
   };
   return (
     <div className="match-position-bg rounded-bottom p-3">
@@ -170,7 +166,7 @@ function MatchResultInput({
       )}
       {afterConfirm && (
         <MatchSubmitPopup
-          header={"You Are Successfully Submited Your Match to Win IND"}
+          // header={"You Are Successfully Submited Your Match to Win IND"}
           state={afterConfirm}
           setState={setAfterConfirm}
           isProcessing={isProcessing}

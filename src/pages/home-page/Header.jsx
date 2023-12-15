@@ -88,8 +88,8 @@ function Header() {
     },
     {
       icon: <AiFillWarning className="mr-10 d-flex" />,
-      name: "Option-2",
-      path: "/all-tours",
+      name: "My Tours",
+      path: "/my-tours",
     },
   ];
   const MatchEntryDropdown = [

@@ -1,14 +1,21 @@
 import { FaAngleLeft, FaAngleRight, FaTrophy } from "react-icons/fa6";
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
+import { setSelectedLiveMatch } from "../../redux/actions/commonActions";
 
 function MatchScroll(props) {
   const { allMatches, selectedMatch, setSelectedMatch } = props;
   const history = useHistory();
+  const dispatch = useDispatch();
   const [scrollPosition, setScrollPosition] = useState(0);
   const [matchEntry, setMatchEntry] = useState(true);
   const [fancyEntry, setFancyEntry] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
+
+  const selectedLiveMatch = useSelector(
+    (state) => state?.common?.selected_match
+  );
 
   useEffect(() => {
     if (history.location.pathname === "/fancy-entry") {
@@ -20,6 +27,7 @@ function MatchScroll(props) {
   const handleActiveIndex = (index, item) => {
     setActiveIndex(index);
     setSelectedMatch(item);
+    dispatch(setSelectedLiveMatch(item));
   };
   const navigate = (path) => {
     history.push(path);

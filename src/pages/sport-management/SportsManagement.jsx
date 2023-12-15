@@ -318,7 +318,7 @@ function SportsManagement() {
   useEffect(() => {
     getAllMatches();
     getScheduleMatches();
-  }, [status]);
+  }, []);
 
   useEffect(() => {
     getScheduleMatches();

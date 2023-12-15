@@ -35,10 +35,32 @@ function FancyResultInput(props) {
     setMatchInnings(fancyResultInputData?.innings);
   };
 
+  const handleFancyDeclarationPopup = () => {
+    if (
+      !fancyResultInputData?.innings ||
+      !fancyResultInputData?.over ||
+      !fancyResultInputData?.runs ||
+      !fancyResultInputData?.team
+    ) {
+      return setError("Please Enter Required Fields");
+    }
+    setConfirmDeclaration(true);
+  };
+  console.log(fancyResultInputData, "FANCY_INPUT_DATA");
+
+  console.log(
+    +fancyResultInputData?.over,
+    +fancyResultInputData?.innings,
+    +fancyResultInputData?.runs,
+    fancyResultInputData?.team,
+    "DATAAA"
+  );
+
   const handleFancyDeclaration = async () => {
     setConfirmDeclaration(false);
     setIsProcessing(true);
     setAfterConfirm(true);
+    setIsProcessing(true);
     setError("");
     await call(FANCY_DECLARATION, {
       registered_match_id,
@@ -49,6 +71,7 @@ function FancyResultInput(props) {
       team: fancyResultInputData?.team,
     })
       .then((res) => {
+        console.log(res, "FANCY_RESULT");
         setIsProcessing(false);
         if (res?.data?.statusCode === 200) {
           setConfirmDeclaration(false);
@@ -165,7 +188,7 @@ function FancyResultInput(props) {
         <div className="col d-flex align-items-end">
           <div
             className="cursor-pointer w-100 text-center rounded medium-font p-2 yellow-btn fw-semibold"
-            onClick={() => handleFancyDeclaration()}
+            onClick={() => handleFancyDeclarationPopup()}
             disabled={isProcessing}
           >
             {isProcessing ? "Declaring..." : "Fancy Declaration"}
