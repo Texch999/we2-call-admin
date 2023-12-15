@@ -88,10 +88,10 @@ function MyTours() {
           <div className="p-1 font-14 fw-600 title-color pb-3">
             Your upcoming tours will be displayed here:
           </div>
-          <div className="row text-center">
+          <div className="row text-center ">
             <div className="col-1 text-center">S NO</div>
-            <div className="col-3">TOUR TITLE</div>
-            <div className="col-1">STARTDATE</div>
+            <div className="col-2">TOUR TITLE</div>
+            <div className="col-2">STARTDATE</div>
             <div className="col-1">STATUS</div>
             <div className="col-2">REJECTION REASON</div>
             <div className="col-2">PAID AMOUNT</div>
@@ -101,17 +101,16 @@ function MyTours() {
             upcomingApprovedTours.length > 0 &&
             upcomingApprovedTours.map((item, index) => {
               return (
-                <div style={{ padding: "10px" }}>
+                <div style={{ padding: "10px 10px" }}>
                   <div className="tour-button row">
-                    {/* {item.tour_id} */}
-                    <div className="col-1 flex-center">{index + 1}</div>
-                    <div className="col-3 flex-center">{item.tour_name}</div>
-                    <div className="col-1 flex-center">{item.date}</div>
+                    <div className="col-1 ">{index + 1}</div>
+                    <div className="col-2 flex-center">{item.tour_name}</div>
+                    <div className="col-2 flex-center">{item.date}</div>
                     <div className="col-1 p-0 flex-center">
                       <div
                         className={
                           item?.confirm_payment_status === "Approved"
-                            ? "approve-button text-center"
+                            ? "approve-button text-center w-100"
                             : item?.confirm_payment_status === "Pending"
                             ? " pending-button text-center"
                             : item?.confirm_payment_status === "Rejected"
@@ -125,7 +124,7 @@ function MyTours() {
                     <div className="col-2 flex-center">
                       {item.rejection_reason}
                     </div>
-                    <div className="col-1 flex-center">{item.paid_amount}</div>
+                    <div className="col-2 flex-center">{item.paid_amount}</div>
                     <div
                       className={
                         item.confirm_payment_status ===
