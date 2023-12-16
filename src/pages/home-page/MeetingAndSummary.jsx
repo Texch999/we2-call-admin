@@ -9,6 +9,7 @@ import {
 } from "../../config/endpoints";
 import moment from "moment";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { Button } from "react-bootstrap";
 
 function MeetingAndSummary() {
   const history = useHistory();
@@ -50,9 +51,33 @@ function MeetingAndSummary() {
           </div>
         ),
 
-        status: <div>{meeting.recording_status}</div>,
+        status: (
+          <td className="text-center">
+            {meeting?.recording_status === "started" ? (
+              <Button className="rounded-pill meeting-status-button">
+                Started
+              </Button>
+            ) : (
+              <Button className="rounded-pill meeting-status-button">
+                Upcoming
+              </Button>
+            )}
+            {meeting?.recording_status === "upcoming" && (
+              <Button className="rounded-pill meeting-status-button">
+                Upcoming
+              </Button>
+            )}
+            {meeting?.recording_status === "join" && (
+              <Button className="rounded-pill meeting-status-button">
+                Join
+              </Button>
+            )}
+          </td>
+        ),
       };
     });
+
+  console.log(data1, ".....data1");
 
   const columns = [
     { header: "Admin", field: "admin" },
