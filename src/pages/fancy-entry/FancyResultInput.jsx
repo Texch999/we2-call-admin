@@ -11,7 +11,6 @@ function FancyResultInput(props) {
     setStatus,
     selectedMatchEntry,
     getFancyProfitLoss,
-    setSelectedMatchEntry,
     setMatchInnings,
     profitLossData = {},
   } = props;
@@ -25,7 +24,7 @@ function FancyResultInput(props) {
   const [error, setError] = useState("");
   const [afterConfirm, setAfterConfirm] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
-  let selectedInnings = fancyResultInputData?.innings;
+  let selectedInnings = setMatchInnings;
 
   const handleFancyResultInputDataChange = (e) => {
     setFancyResultInputData({
@@ -48,13 +47,13 @@ function FancyResultInput(props) {
   };
   console.log(fancyResultInputData, "FANCY_INPUT_DATA");
 
-  console.log(
-    +fancyResultInputData?.over,
-    +fancyResultInputData?.innings,
-    +fancyResultInputData?.runs,
-    fancyResultInputData?.team,
-    "DATAAA"
-  );
+  // console.log(
+  //   +fancyResultInputData?.over,
+  //   +fancyResultInputData?.innings,
+  //   +fancyResultInputData?.runs,
+  //   fancyResultInputData?.team,
+  //   "DATAAA"
+  // );
 
   const handleFancyDeclaration = async () => {
     setConfirmDeclaration(false);
@@ -66,7 +65,7 @@ function FancyResultInput(props) {
       registered_match_id,
       register_id,
       over: +fancyResultInputData?.over,
-      innings: +fancyResultInputData?.innings,
+      innings: +fancyResultInputData?.innings === "1st" ? "1" : "2",
       runs: +fancyResultInputData?.runs,
       team: fancyResultInputData?.team,
     })
@@ -94,7 +93,6 @@ function FancyResultInput(props) {
         console.log(err);
       });
   };
-
   useEffect(() => {
     setFancyResultInputData(selectedMatchEntry);
   }, [selectedMatchEntry]);
@@ -202,6 +200,8 @@ function FancyResultInput(props) {
         <FancyDeclarationPopup
           header={`Are You Sure You Want to Declare ${fancyResultInputData?.over}th Over ${fancyResultInputData?.runs} Runs Session?`}
           // amount={"+100000"}
+          winTeamHeading={fancyResultInputData?.runs}
+          overs={fancyResultInputData?.over}
           state={confirmDeclaration}
           setState={setConfirmDeclaration}
           handleSubmitPopupOpen={handleFancyDeclaration}
