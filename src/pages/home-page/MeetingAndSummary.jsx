@@ -43,12 +43,13 @@ function MeetingAndSummary() {
             {moment(meeting?.given_time_stamp).format("hh:mm:s")}
           </div>
         ),
-        user: meetingUserData.map((obj) => (
+        user: (
           <div>
-            {obj.user_name} +<br />
+            {meetingUserData[0]?.user_name} +<br />
             {meetingUserData.length - 1} Others
           </div>
-        )),
+        ),
+
         status: <div>{meeting.recording_status}</div>,
       };
     });
