@@ -71,7 +71,7 @@ function ToursListPopup(props) {
         return {
           s_no: index+1,
           tour_title: tour.tour_title,
-          location: tour.country,
+          location: tour.tour_location,
           schedule_from: tour.schedule_from,
           schedule_upto: tour.schedule_upto,
           button: <button key={index} 

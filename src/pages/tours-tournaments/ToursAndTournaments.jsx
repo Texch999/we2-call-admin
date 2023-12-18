@@ -15,13 +15,14 @@ function ToursAndTournaments() {
   const handleChatWithUsButton = () => {
     setShowChatPopup(true);
   };
+  const country_name = localStorage.getItem("country_name")
 
   const getTours = async () => {
     const payload = {
       website:"www.we2call.com"
     };
     await call(GET_TOURS, payload)
-            .then((res)=>setTours(res?.data?.data))
+            .then((res)=>setTours(res?.data?.data.filter((item)=>item.country===country_name)))
             .catch((error)=>console.log(error))
   };
   console.log(tours, "......tours");
