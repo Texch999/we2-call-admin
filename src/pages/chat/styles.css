@@ -8,14 +8,18 @@ img {
 .inbox_people {
   background: #2b2c40 none repeat scroll 0 0;
   float: left;
+  height: 81vh;
   overflow: hidden;
-  width: 30%;
+  /* width: 30%; */
 }
 .inbox_msg {
-  /* border: 1px solid #c4c4c4; */
-  clear: both;
-  overflow: hidden;
-  height: 85vh;
+  /* clear: both; */
+  /* overflow: hidden; */
+  height: 75vh;
+}
+.chat-page {
+  width: 100vw;
+  height: 81vh;
 }
 .top_spac {
   margin: 20px 0 0;
@@ -149,7 +153,8 @@ img {
 }
 .mesgs {
   float: left;
-  width: 70%;
+  width: 70%vw;
+  height: 81vh;
 }
 .sent_msg p {
   font-family: "Barlow-Regular";
@@ -216,8 +221,8 @@ img {
   height: 20px !important;
 }
 .msg_history {
-  height: 69vh;
-  /* overflow-y: auto; */
+  height: 64vh;
+  overflow-y: auto;
 }
 .msg_history::-webkit-scrollbar {
   display: none;

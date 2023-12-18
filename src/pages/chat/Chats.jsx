@@ -243,235 +243,207 @@ function Chats() {
   console.log(clientsData, "CLIENT");
 
   return (
-    <div className="container w-100">
-      <div className="messaging w-100">
-        <div className="inbox_msg">
-          <div className="inbox_people mb-4">
-            <div className="headind_srch d-flex flex-column header-bg">
-              <div className="recent_heading d-flex flex-start my-2">
-                <h3>Message</h3>
-              </div>
-              <div className="srch_bar d-flex w-100 flex-justify-center">
-                <div className="stylish-input-group  w-90">
-                  <input
-                    type="text"
-                    className="search-bar custom-search-bar rounded px-4 py-2"
-                    placeholder="Search"
-                  />
-                  <span className="input-group-addon">
-                    <button type="button">
-                      <i className="fa fa-search" aria-hidden="true"></i>
-                    </button>
-                  </span>
-                </div>
-              </div>
-              <div className="headind_srch d-flex flex-row align-items-center contacts-bg mt-3">
-                <PiClockClockwiseBold className="upload-icon mx-2" />
-                <span className="large-font mx-2">Recent</span>
-              </div>
-            </div>
-
-            <div className="inbox_chat header-bg">
-              <div>
-                <div className="chat_list">
-                  <div className="chat_people">
-                    <div className="chat_img">
-                      <img
-                        className="rounded-circle"
-                        src={Images.sachin_image}
-                        alt="sunil"
-                      />
-                    </div>
-                    <div className="chat_ib">
-                      <h5>
-                        {account_role} <span className="chat_date">Dec 25</span>
-                      </h5>
-                      <p>I will purchase it for sure...</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="headind_srch d-flex flex-row align-items-center contacts-bg">
-              <LuUsers className="upload-icon mx-2" />
-              <span className="large-font mx-2">Contacts</span>
-            </div>
-            <div className="inbox-chat-contacts header-bg">
-              {clientsData?.map((items, index) => (
-                <div
-                  key={index}
-                  onClick={() => handleUserClick(items?.register_id, index)}
-                >
-                  <div class="chat_list">
-                    <div class="chat_people">
-                      <div class="chat_img">
-                        <img
-                          className="rounded-circle"
-                          src={Images.dhawan_image}
-                          alt="sunil"
-                        />{" "}
-                      </div>
-                      <div class="chat_ib">
-                        <h5>
-                          {items?.first_name} {items?.last_name}
-                          <span class="chat_date">{items?.time}</span>
-                        </h5>
-                        <p>{items?.message} </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))}
+    <div className="d-flex chat-page row">
+      <div className="inbox_people header-bg col-3">
+        <div className="headind_srch d-flex flex-column ">
+          <div className="recent_heading d-flex flex-start my-2">
+            <h3>Message</h3>
+          </div>
+          <div className="srch_bar d-flex w-100 flex-justify-center">
+            <div className="stylish-input-group  w-90">
+              <input
+                type="text"
+                className="search-bar custom-search-bar rounded px-4 py-2"
+                placeholder="Search"
+              />
+              <span className="input-group-addon">
+                <button type="button">
+                  <i className="fa fa-search" aria-hidden="true"></i>
+                </button>
+              </span>
             </div>
           </div>
-          <div className="mesgs">
-            <div className="d-flex flex-column border-none">
-              <div className="recent_heading d-flex flex-start align-items-center justify-content-between w-100 header-bg h-8vh">
-                <div className="d-flex flex-row justify-content-between align-items-center">
-                  <div className="d-flex flex-row px-2">
-                    <img
-                      className="rounded-circle h-30px mx-2"
-                      src={Images.kohli_image}
-                      alt="kohli"
-                    />
-                  </div>
-                  <div className=" d-flex flex-column clr-white mx-2">
-                    <div className="large-font">
-                      {localStorage?.getItem("user_name")}
-                    </div>
-                    {/* <div className="small-font align-items-center">
-                      12 Members,5 Online
-                      <PiDotOutlineFill
-                        className="clr-green"
-                        style={{ fontSize: "30px" }}
-                      />
-                    </div> */}
-                    <div></div>
-                  </div>
+          <div className="headind_srch d-flex flex-row align-items-center contacts-bg mt-3">
+            <PiClockClockwiseBold className="upload-icon mx-2" />
+            <span className="large-font mx-2">Recent</span>
+          </div>
+        </div>
+
+        <div className="inbox_chat header-bg">
+          <div>
+            <div className="chat_list">
+              <div className="chat_people">
+                <div className="chat_img">
+                  <img
+                    className="rounded-circle"
+                    src={Images.sachin_image}
+                    alt="sunil"
+                  />
                 </div>
-                <div className="d-flex flex-row align-items-center justify-content-between">
-                  <IoCall className="upload-icon clr-grey mx-2" />
-                  <HiVideoCamera className="upload-icon clr-grey mx-2" />
+                <div className="chat_ib">
+                  <h5>
+                    {account_role} <span className="chat_date">Dec 25</span>
+                  </h5>
+                  <p>I will purchase it for sure...</p>
                 </div>
               </div>
             </div>
-            <div className="msg_history px-4">
-              <ScrollableFeed>
-                {supportData?.length > 0 ? (
-                  supportData.map((msg, index) => {
-                    let sender =
-                      msg.from_user_id === register_id ? true : false;
-                    return (
-                      <div key={index}>
-                        {sender ? (
-                          ""
-                        ) : (
-                          <div className="date-text mt-1 d-flex justify-content-center font-12">
-                            {moment(msg.ts).format("hh:mm a")}
-                          </div>
-                        )}
+          </div>
+        </div>
+        <div className="headind_srch d-flex flex-row align-items-center contacts-bg">
+          <LuUsers className="upload-icon mx-2" />
+          <span className="large-font mx-2">Contacts</span>
+        </div>
+        <div className="inbox-chat-contacts header-bg">
+          {clientsData?.map((items, index) => (
+            <div
+              key={index}
+              onClick={() => handleUserClick(items?.register_id, index)}
+            >
+              <div class="chat_list">
+                <div class="chat_people">
+                  <div class="chat_img">
+                    <img
+                      className="rounded-circle"
+                      src={Images.dhawan_image}
+                      alt="sunil"
+                    />{" "}
+                  </div>
+                  <div class="chat_ib">
+                    <h5>
+                      {items?.first_name} {items?.last_name}
+                      <span class="chat_date">{items?.time}</span>
+                    </h5>
+                    <p>{items?.message} </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className="mesgs col-9">
+        <div className="d-flex flex-column border-none">
+          <div className="recent_heading d-flex flex-start align-items-center justify-content-between w-100 header-bg h-8vh">
+            <div className="d-flex flex-row justify-content-between align-items-center">
+              <div className="d-flex flex-row px-2">
+                <img
+                  className="rounded-circle h-30px mx-2"
+                  src={Images.kohli_image}
+                  alt="kohli"
+                />
+              </div>
+              <div className=" d-flex flex-column clr-white mx-2">
+                <div className="large-font">
+                  {localStorage?.getItem("user_name")}
+                </div>
+                <div></div>
+              </div>
+            </div>
+            <div className="d-flex flex-row align-items-center justify-content-between">
+              <IoCall className="upload-icon clr-grey mx-2" />
+              <HiVideoCamera className="upload-icon clr-grey mx-2" />
+            </div>
+          </div>
+        </div>
+        <div className="msg_history px-4">
+          <ScrollableFeed>
+            {supportData?.length > 0 ? (
+              supportData.map((msg, index) => {
+                let sender = msg.from_user_id === register_id ? true : false;
+                return (
+                  <div key={index}>
+                    {sender ? (
+                      ""
+                    ) : (
+                      <div className="date-text mt-1 d-flex justify-content-center font-12">
+                        {moment(msg.ts).format("hh:mm a")}
+                      </div>
+                    )}
+                    <div
+                      className={`mt-2 ${
+                        sender ? "incoming_msg" : "outgoing_msg"
+                      }`}
+                    >
+                      <div className={`mt-2 ${sender ? "received_msg" : ""}`}>
                         <div
-                          className={`mt-2 ${
-                            sender ? "incoming_msg" : "outgoing_msg"
+                          key={index}
+                          className={`mt-2 message ${
+                            sender ? "received_withd_msg" : "sent_msg"
                           }`}
                         >
-                          <div
-                            className={`mt-2 ${sender ? "received_msg" : ""}`}
-                          >
-                            <div
-                              key={index}
-                              className={`mt-2 message ${
-                                sender ? "received_withd_msg" : "sent_msg"
-                              }`}
-                            >
-                              {msg?.message}
-                            </div>
-                          </div>
-                        </div>
-                        <div
-                          style={{ fontSize: "10px" }}
-                          className="d-flex justify-content-end align-items-center me-2 mt-1"
-                        >
-                          {moment(msg.ts).format("hh:mm a")}
-                          <BsCheck2All className="d-flex font-10 ms-1" />
+                          {msg?.message}
                         </div>
                       </div>
-                    );
-                  })
-                ) : (
-                  <></>
-                )}
-              </ScrollableFeed>
+                    </div>
+                    <div
+                      style={{ fontSize: "10px" }}
+                      className="d-flex justify-content-end align-items-center me-2 mt-1"
+                    >
+                      {moment(msg.ts).format("hh:mm a")}
+                      <BsCheck2All className="d-flex font-10 ms-1" />
+                    </div>
+                  </div>
+                );
+              })
+            ) : (
+              <></>
+            )}
+          </ScrollableFeed>
+        </div>
+        <div className="recent_heading d-flex flex-start align-items-center justify-content-between w-100 header-bg h-8vh">
+          <div className="type_msg w-75 mx-2 rounded">
+            <div className="input_msg_write">
+              <input
+                type="text"
+                className="write_msg px-2 py-1"
+                name="postMessage"
+                rows={1}
+                value={userInput}
+                autoFocus
+                placeholder="Write here ......"
+                onChange={(e) => {
+                  handleInputChange(e);
+                }}
+                onKeyDown={(e) => userInput && hanldeKeyDown(e)}
+              />
+              <button
+                className="msg_send_btn me-3"
+                type="button"
+                onClick={() => inputHandler()}
+              >
+                <FiSend />
+              </button>
             </div>
-            <div className="recent_heading d-flex flex-start align-items-center justify-content-between w-100 header-bg h-8vh">
-              <div className="type_msg w-75 mx-2 rounded">
-                <div className="input_msg_write">
-                  <input
-                    type="text"
-                    className="write_msg px-2 py-1"
-                    name="postMessage"
-                    rows={1}
-                    value={userInput}
-                    // className="send-text-area"
-                    autoFocus
-                    placeholder="Write here ......"
-                    onChange={(e) => {
-                      handleInputChange(e);
-                    }}
-                    onKeyDown={(e) => userInput && hanldeKeyDown(e)}
-                  />
-                  <button
-                    className="msg_send_btn me-3"
-                    type="button"
-                    onClick={() => inputHandler()}
-                  >
-                    <FiSend />
-                  </button>
-                </div>
-              </div>
-              <div className="d-flex flex-row align-items-center w-25 justify-content-around">
-                <div className="button-chat px-2 py-1 rounded mx-2">
-                  <label htmlFor="image-upload">
-                    <BiSolidCamera className="chat-icon" />
-                  </label>
-                  <input
-                    type="file"
-                    id="upload"
-                    style={{ display: "none" }}
-                    onChange={(e) => handleChange(e)}
-                    // onChange={(e) => {
-                    //   setUserInput(e?.target?.files[0]);
-                    //   // generateSignedUrl();
-                    // }}
-                    // onKeyDown={(e) => userInput && hanldeKeyDown(e)}
-                  />
-                </div>
+          </div>
+          <div className="d-flex flex-row align-items-center w-25 justify-content-around">
+            <div className="button-chat px-2 py-1 rounded mx-2">
+              <label htmlFor="image-upload">
+                <BiSolidCamera className="chat-icon" />
+              </label>
+              <input
+                type="file"
+                id="upload"
+                style={{ display: "none" }}
+                onChange={(e) => handleChange(e)}
+              />
+            </div>
 
-                <div
-                  className="button-chat px-2 py-1 rounded mx-2"
-                  //onClick={handleUploadButtonClick}
-                >
-                  <label htmlFor="attachment">
-                    <ImAttachment className="chat-icon" />
-                    <input
-                      type="file"
-                      id="upload"
-                      ref={inputFileRef}
-                      style={{ display: "none" }}
-                      onChange={(e) => handleUploadFileSelect(e)}
-                      // onChange={(e) => {
-                      //   setUserInput(e?.target?.files[0]);
-                      //   // generateSignedUrl();
-                      // }}
-                      // onKeyDown={(e) => userInput && hanldeKeyDown(e)}
-                    />
-                  </label>
-                </div>
+            <div className="button-chat px-2 py-1 rounded mx-2">
+              <label htmlFor="attachment">
+                <ImAttachment className="chat-icon" />
+                <input
+                  type="file"
+                  id="upload"
+                  ref={inputFileRef}
+                  style={{ display: "none" }}
+                  onChange={(e) => handleUploadFileSelect(e)}
+                />
+              </label>
+            </div>
 
-                <div className="button-chat px-2 py-1 rounded mx-2">
-                  <MdMicNone className="upload-icon" />
-                </div>
-              </div>
+            <div className="button-chat px-2 py-1 rounded mx-2">
+              <MdMicNone className="upload-icon" />
             </div>
           </div>
         </div>

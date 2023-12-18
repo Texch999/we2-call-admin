@@ -482,7 +482,7 @@ function UpgradeYourPackagePopup(props) {
                           </div>
                           <FaPlus
                             className="mx-1"
-                            onClick={() => onAddandSubtractClick(item, 1)}
+                            onClick={() => onAddandSubtractClick(item, +1)}
                           />
                         </div>
                       </div>
