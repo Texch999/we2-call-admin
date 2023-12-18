@@ -286,6 +286,9 @@
 .custom-button-drop .btn:hover {
   background-color: #112a5e !important;
 }
+.z-index-big {
+  z-index: 99999;
+}
 .z-index {
   z-index: 9999;
 }

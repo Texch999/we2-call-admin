@@ -63,19 +63,19 @@ function UserManagement() {
       title: "UL Comm",
       name: "ul_comm",
       id: "ul_comm",
-      value: localStorage.getItem("ul_comm"),
+      value: localStorage?.getItem("ul_comm" || 0),
     },
     {
       title: "UL Share",
       name: "ul_share",
       id: "ul_share",
-      value: localStorage.getItem("ul_share"),
+      value: localStorage?.getItem("ul_share" || 0),
     },
     {
       title: "Owner Share",
       name: "owner_share",
       id: "owner_share",
-      value: localStorage.getItem("owner_share"),
+      value: localStorage?.getItem("owner_share"),
     },
   ];
   const [createUserSubmit, setCreateUserSubmit] = useState(false);
@@ -113,7 +113,7 @@ function UserManagement() {
       referral_share: userDetails?.referral_share,
       alias_name: userDetails?.alias_name,
       master_share: localStorage?.getItem("share") || 0,
-      ul_share: localStorage?.getItem("ul_share") || 0,
+      ul_share: localStorage?.getItem("ul_share" || 0) || 0,
       ul_share: 0,
       deposit_type: userDetails?.deposit_type,
       location: userDetails?.location,
@@ -178,7 +178,7 @@ function UserManagement() {
       referral_share: userDetails?.referral_share,
       alias_name: userDetails?.alias_name,
       master_share: localStorage?.getItem("share") || 0,
-      ul_share: localStorage?.getItem("ul_share") || 0,
+      ul_share: localStorage?.getItem("ul_share" || 0) || 0,
       ul_share: 0,
       deposit_type: userDetails?.deposit_type,
       location: userDetails?.location,
@@ -454,8 +454,8 @@ function UserManagement() {
                     (obj) =>
                       existingClients &&
                       existingClients?.length > 0 &&
-                      existingClients?.some(
-                        (o) => o.existing_user_id !== obj.register_id
+                      !existingClients?.some(
+                        (o) => o.existing_user_id === obj.register_id
                       )
                   )
                   ?.map((item, index) => (

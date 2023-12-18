@@ -1,7 +1,10 @@
 import { useState } from "react";
 import Table from "../home-page/Table";
 import CustomPagination from "../pagination/CustomPagination";
-import { GET_REQUEST_PACKAGES } from "../../config/endpoints";
+import {
+  GET_ALL_PACKAGES_APPROVED_HSITORY,
+  GET_REQUEST_PACKAGES,
+} from "../../config/endpoints";
 import { call } from "../../config/axios";
 import { useEffect } from "react";
 
@@ -36,34 +39,52 @@ function YourPackageTransaction() {
   //   },
   // ];
   const [requestedPackages, setRequestedPackages] = useState([]);
+  const [summary, setSummary] = useState();
+  const [packagesStatement, setPackagesStatement] = useState();
+
+  console.log(summary, "....summary");
+
+  const register_id = localStorage.getItem("register_id");
+
+  const creator_id = localStorage.getItem("creator_id");
+
+  const getAllPackageRequests = async () => {
+    await call(GET_ALL_PACKAGES_APPROVED_HSITORY, { register_id, creator_id })
+      .then((res) => {
+        const resp = res?.data?.data?.records
+          ?.map((item) => {
+            const dateTimeString = `${item.created_date} ${item.created_time}`;
+            const timestamp = new Date(dateTimeString).getTime();
+            item.timestamp = timestamp;
+            return item;
+          })
+          ?.sort((a, b) => b.timestamp - a.timestamp);
+        setSummary(res?.data?.data?.summary);
+        setPackagesStatement(resp);
+      })
+      .catch((err) => console.log(err));
+  };
+
   const MATCH_ENTRY_HEADING = [
     {
-      header: "DATE & TIME",
-      field: "dateAndTime",
+      field: "pkg_trans",
+      header: "Name",
     },
     {
-      header: "NAME/ROLE",
-      field: "nameRole",
+      field: "date_time",
+      header: "Date & Time",
     },
     {
-      header: "TRX ID",
-      field: "trxID",
+      field: "trans_id",
+      header: "Transaction ID",
     },
     {
-      header: "PACKAGE TRX",
-      field: "packageTRX",
+      field: "paid_amount",
+      header: "Paid Amount",
     },
     {
-      header: "PAY AMOUNT",
-      field: "payAmount",
-    },
-    {
-      header: "STATUS",
-      field: "status",
-    },
-    {
-      header: "Reason",
-      field: "fundStatus",
+      field: "sell_amount",
+      header: "Sell Amount",
     },
   ];
   const [currentPage, setCurrentPage] = useState(1);
@@ -88,32 +109,56 @@ function YourPackageTransaction() {
 
   useEffect(() => {
     getRequestedPackages();
+    getAllPackageRequests();
   }, []);
 
-  const MATCH_ENTRY_DATA = requestedPackages.map((item) => ({
-    dateAndTime: (
-      <div>
-        {item.created_date}-{item.created_time}
-      </div>
-    ),
-    nameRole: localStorage.getItem("user_name"),
-    trxID: item?.transaction_id,
-    packageTRX: item?.summary.final_package_cost,
-    payAmount: item?.summary.total_packages_cost,
-    status:
-      item?.status === "approve" ? (
-        <div className="rounded-pill p-1 completed-btn">Completed</div>
-      ) : item?.status === "Reject" ? (
-        <div className="rounded-pill p-1 reject-btn">Reject</div>
-      ) : (
-        <div className="rounded-pill p-1 pending-btn">Pending</div>
+  let totalPaidAmount = 0,
+    totalSellAmount = 0;
+
+  const MATCH_ENTRY_DATA = packagesStatement?.map((obj) => {
+    const paidAmount =
+      obj?.register_id !== register_id ? obj?.summary.final_package_cost : 0;
+    const sellAmount =
+      obj?.register_id === register_id ? obj?.summary.final_package_cost : 0;
+    totalPaidAmount += paidAmount;
+    totalSellAmount += sellAmount;
+    return {
+      pkg_trans: obj?.summary.requester_name,
+      date_time: (
+        <div>
+          <div>{obj.created_date}</div>
+          <div>{obj.created_time}</div>
+        </div>
       ),
-    fundStatus: item?.reason,
-  }));
+      trans_id: obj.transaction_id,
+      paid_amount: <div className="clr-red"> -{paidAmount} </div>,
+      sell_amount: <div className="clr-green"> +{sellAmount}</div>,
+    };
+  });
+
+  const TotalPL = summary?.totalSellAmmount - summary?.totalPaidAmmount;
 
   return (
     <div className="p-3">
       <Table data={MATCH_ENTRY_DATA} columns={MATCH_ENTRY_HEADING} />
+      <div className="w-100 d-flex justify-content-end font-clr-white total-count-container  py-2 px-4 rounded">
+        <div className="w-75 d-flex justify-content-between">
+          <span className="d-flex">
+            Total Paid Ammount :
+            <span className="clr-red"> -{summary?.totalPaidAmmount}</span>
+          </span>
+          <span className="d-flex">
+            Total Sell Ammount :
+            <div className="clr-green"> +{summary?.totalSellAmmount}</div>
+          </span>
+          <span className="d-flex">
+            Loss/Profit Ammount :
+            <div className={TotalPL >= 0 ? "clr-green" : "clr-red"}>
+              {TotalPL}
+            </div>
+          </span>
+        </div>
+      </div>
       <div className="d-flex justify-content-between align-items-center mt-4">
         <div className="d-flex justify-content-start font-clr-white total-count-container  py-2 px-4 rounded">
           <span>
