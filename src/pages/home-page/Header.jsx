@@ -364,7 +364,7 @@ function Header() {
           />
         </div>
         <div className="date-div mt-2 d-flex align-items-center justify-content-center ms-1">
-          <div className="meetings-heading small-font header-font ms-2">
+          <div className="meetings-heading small-font header-font ms-1">
             {currentDateTime.toLocaleString()}
           </div>
         </div>
