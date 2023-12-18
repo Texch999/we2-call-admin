@@ -62,22 +62,22 @@ function Header() {
   };
   const [activeHead, setActiveHead] = useState("");
   const [matchEntryOpen, setMatchEntryOpen] = useState(false);
-  const [matchEntryType, setMatchEntryType] = useState("Match Entry");
+  const [matchEntryType, setMatchEntryType] = useState();
   const [reportsOpen, setReportsOpen] = useState(false);
-  const [reportsType, setReportsType] = useState("Report");
+  const [reportsType, setReportsType] = useState();
   const [moreOpen, setMoreOpen] = useState(false);
-  const [moreType, setMoreType] = useState("More");
+  const [moreType, setMoreType] = useState();
   const [activeUserDropdown, setActiveUserDropdown] = useState(false);
   const [showeditProfile, setShowEditProfile] = useState(false);
-  const [Tours, setTours] = useState("Tours");
+  const [Tours, setTours] = useState();
   const [toursOpen, setToursOpen] = useState(false);
   const headerMenu = [
     "Home",
     "Chat",
-    Tours,
-    matchEntryType,
-    reportsType,
-    moreType,
+    Tours ? Tours : "Tours",
+    matchEntryType ? matchEntryType : "Match Entry",
+    reportsType ? reportsType : "Report",
+    moreType ? moreType : "More",
   ];
 
   const ToursDropdown = [
@@ -163,11 +163,6 @@ function Header() {
       icon: <MdOutlinePrivacyTip className="mr-10 d-flex" />,
       name: "Call Management",
       path: "/call-management",
-    },
-    {
-      icon: <MdOutlinePrivacyTip className="mr-10 d-flex" />,
-      name: "Share Risk live mathces",
-      path: "/share-risk-live-matches",
     },
     {
       icon: <MdOutlinePrivacyTip className="mr-10 d-flex" />,
@@ -305,18 +300,34 @@ function Header() {
 
   useEffect(() => {
     if (ToursDropdown.some((o) => o.path === history.location.pathname)) {
+      let tours = ToursDropdown.filter(
+        (o) => o.path === history.location.pathname
+      );
+      setTours(tours[0]?.name);
       setActiveHead(2);
     }
     if (MatchEntryDropdown.some((o) => o.path === history.location.pathname)) {
       setActiveHead(3);
+      let tours = MatchEntryDropdown.filter(
+        (o) => o.path === history.location.pathname
+      );
+      setMatchEntryType(tours[0]?.name);
     }
     if (
       ReportsEntryDropdown.some((o) => o.path === history.location.pathname)
     ) {
       setActiveHead(4);
+      let tours = ReportsEntryDropdown.filter(
+        (o) => o.path === history.location.pathname
+      );
+      setReportsType(tours[0]?.name);
     }
     if (moreDropdown.some((o) => o.path === history.location.pathname)) {
       setActiveHead(5);
+      let tours = moreDropdown.filter(
+        (o) => o.path === history.location.pathname
+      );
+      setMoreType(tours[0]?.name);
     }
   }, []);
 
@@ -343,7 +354,7 @@ function Header() {
   }, []);
 
   return (
-    <div className="agent-header d-flex align-items">
+    <div className="agent-header d-flex align-items w-100">
       <div className="w-100 flex-align-center d-flex h-10vh mb-1">
         <div className="header-logo ">
           <img
@@ -353,7 +364,7 @@ function Header() {
           />
         </div>
         <div className="date-div mt-2 d-flex align-items-center justify-content-center ms-1">
-          <div className="meetings-heading medium-font header-font ms-2">
+          <div className="meetings-heading small-font header-font ms-2">
             {currentDateTime.toLocaleString()}
           </div>
         </div>
