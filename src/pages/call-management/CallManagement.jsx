@@ -98,8 +98,8 @@ const CallManagement = () => {
         value: selectedMeeting?.match_id,
         label: (
           <div className="d-flex align-items-center justify-content-between medium-font">
-            <div>{selectedMeeting.sport_name}</div>
-            <div>{selectedMeeting.match_name}</div>
+            <div>{selectedMeeting?.sport_name}</div>
+            <div>{selectedMeeting?.match_name}</div>
           </div>
         ),
       });
@@ -145,11 +145,9 @@ const CallManagement = () => {
   };
   const usersList =
     listOfUsers?.length > 0 &&
-    listOfUsers?.map((item) => ({
-      value: item?.register_id,
-      label: item?.user_name,
-    }));
-
+    listOfUsers?.map((item) => {
+      return { value: item?.register_id, label: item?.user_name };
+    });
   const handleSelectedUsers = (data) => {
     setSelectedUsers(data);
   };
@@ -230,7 +228,7 @@ const CallManagement = () => {
           time: obj?.time,
           user: meetingUserData.map((obj) => <>{obj?.user_name}</>),
           recording_status: obj?.recording_status,
-          action: <MdModeEditOutline className="d-flex" size={18} />,
+          action: "edit",
         };
       });
 
@@ -528,7 +526,7 @@ const CallManagement = () => {
                           className="text-warning rounded-circle border-0 meetings-edit-button p-2"
                           onClick={() => handleOpenEditPopup(data)}
                         >
-                          {data?.action}
+                          <MdModeEditOutline className="d-flex" size={18} />
                         </Button>
                       )}
                     </td>
