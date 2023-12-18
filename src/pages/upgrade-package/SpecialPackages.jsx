@@ -20,6 +20,8 @@ function SpecialPackages(props) {
   const yearlyPacks = allPackages.filter(
     (item) => item.package_duration === "yearly"
   );
+
+  console.log(allPackages, "........allPackages");
   const montlyPacks = allPackages.filter(
     (item) => item.package_duration === "monthly"
   );

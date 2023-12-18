@@ -298,18 +298,27 @@ function Header() {
       case "/chats":
         setActiveHead(1);
         break;
-      case "/tours-tournaments":
-        setActiveHead(2);
-        break;
       default:
         setActiveHead();
     }
   }, []);
-  // useEffect(() => {
-  //   if (ReportsEntryDropdown.find(history.location.pathname)) {
-  //     setActiveHead(3);
-  //   }
-  // }, []);
+
+  useEffect(() => {
+    if (ToursDropdown.some((o) => o.path === history.location.pathname)) {
+      setActiveHead(2);
+    }
+    if (MatchEntryDropdown.some((o) => o.path === history.location.pathname)) {
+      setActiveHead(3);
+    }
+    if (
+      ReportsEntryDropdown.some((o) => o.path === history.location.pathname)
+    ) {
+      setActiveHead(4);
+    }
+    if (moreDropdown.some((o) => o.path === history.location.pathname)) {
+      setActiveHead(5);
+    }
+  }, []);
 
   const [resetPasswordSubmit, setResetPasswordSubmit] = useState();
   const token = isLoggedIn();
