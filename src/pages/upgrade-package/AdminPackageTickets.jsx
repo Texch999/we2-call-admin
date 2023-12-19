@@ -8,18 +8,14 @@ import { call } from "../../config/axios";
 function AdminPackageTickets() {
   const [adminPackageTicket, setadminPackageTicket] = useState([]);
 
-  const packageSelectTickets = adminPackageTicket.filter(
+  const packageSelectTickets = adminPackageTicket?.filter(
     (item) => item.type !== "subscription"
   );
 
-  console.log(adminPackageTicket, ".......adminPackageTicket");
 
-  const MATCH_ENTRY_DATA = packageSelectTickets.map((obj) => ({
-    dateAndTime: (
-      <div>
-        {obj.created_date}-{obj.created_time}
-      </div>
-    ),
+  const MATCH_ENTRY_DATA = packageSelectTickets?.map((obj) => ({
+    date: obj?.created_date,
+    time: `${obj.created_time}`,
     nameRole: localStorage.getItem("user_name"),
     trxID: obj?.transaction_id,
     packageTRX: obj.summary.final_package_cost,
@@ -35,12 +31,15 @@ function AdminPackageTickets() {
     fundStatus: obj?.reason,
   }));
 
-  console.log(MATCH_ENTRY_DATA, "......MATCH_ENTRY_DATA");
 
   const MATCH_ENTRY_HEADING = [
     {
-      header: "DATE & TIME",
-      field: "dateAndTime",
+      header: "DATE",
+      field: "date",
+    },
+    {
+      header: "TIME",
+      field: "time",
     },
     {
       header: "NAME/ROLE",

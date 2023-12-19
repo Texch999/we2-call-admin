@@ -26,7 +26,6 @@ function PurchaseAdminPackages() {
   const handleYear = (e) => {
     setYearly(e.target.checked);
   };
-  console.log(adminPackages, ".....adminPackages");
   const packageList =
     useSelector((State) => State.common.selected_packages) || [];
   const selectedPackages = packageList.reduce(

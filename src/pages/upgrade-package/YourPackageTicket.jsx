@@ -8,8 +8,6 @@ import { useEffect } from "react";
 function YourPackageTicket() {
   const [packageTickets, setPackageTickets] = useState([]);
 
-  console.log(packageTickets, "........packageTickets");
-
   const MATCH_ENTRY_HEADING = [
     {
       header: "DATE & TIME",
@@ -71,9 +69,9 @@ function YourPackageTicket() {
 
   const TICKETS_DATA = packageSelectTickets.map((obj) => ({
     dateAndTime: (
-      <div>
+      <>
         {obj.created_date}-{obj.created_time}
-      </div>
+      </>
     ),
     nameRole: localStorage.getItem("user_name"),
     trxID: obj.transaction_id,
@@ -81,11 +79,11 @@ function YourPackageTicket() {
     payAmount: obj.summary.final_package_cost,
     status:
       obj?.status === "approve" ? (
-        <div className="rounded-pill p-1 completed-btn">Completed</div>
+        <span className="rounded-pill p-1 completed-btn">Completed</span>
       ) : obj?.status === "Reject" ? (
-        <div className="rounded-pill p-1 reject-btn">Reject</div>
+        <span className="rounded-pill p-1 reject-btn">Reject</span>
       ) : (
-        <div className="rounded-pill p-1 pending-btn">Pending</div>
+        <span className="rounded-pill p-1 pending-btn">Pending</span>
       ),
     fundStatus: obj?.reason,
   }));

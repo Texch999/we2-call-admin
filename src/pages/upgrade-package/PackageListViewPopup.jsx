@@ -8,7 +8,6 @@ function PackageListViewPopup(props) {
     setShowPackageListPopup(false);
   };
   const tableHeadingList = [{}];
-  console.log(PackagesList, "....PackagesList");
   const TableData = PackagesList?.map((item) => {
     return {
       packagename: item.package_name,
