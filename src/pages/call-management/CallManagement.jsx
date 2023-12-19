@@ -44,16 +44,6 @@ const CallManagement = () => {
   const [isProcessing, setIsProcessing] = useState(false);
   const [editPopup, setEditPopup] = useState(false);
 
-  useEffect(() => {
-    getAdminUsersList();
-    getAllAdminMatches();
-    getAdminPackages();
-  }, []);
-
-  useEffect(() => {
-    getAllMeetingsData();
-  }, [status]);
-
   const handleChange = (e) => {
     setMeetingInput({ ...meetingInput, [e.target.name]: e.target.value });
   };
@@ -286,6 +276,7 @@ const CallManagement = () => {
     }
     setSelectYourPackagePopup(true);
   };
+  
   const handleSubmitButton = async () => {
     if (!selectedPackages?.package_id) {
       setError("Please Select Package");
@@ -334,6 +325,16 @@ const CallManagement = () => {
         console.log(err);
       });
   };
+
+  useEffect(() => {
+    getAdminUsersList();
+    getAllAdminMatches();
+    getAdminPackages();
+  }, []);
+
+  useEffect(() => {
+    getAllMeetingsData();
+  }, [status]);
 
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = 5;
