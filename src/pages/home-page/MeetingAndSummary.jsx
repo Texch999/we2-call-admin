@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { AiOutlineDown, AiOutlineRight } from "react-icons/ai";
+import { AiOutlineRight } from "react-icons/ai";
 import Table from "./Table";
 import { call } from "../../config/axios";
 import {
@@ -14,8 +14,6 @@ import { Button } from "react-bootstrap";
 function MeetingAndSummary() {
   const history = useHistory();
   let register_id = localStorage?.getItem("register_id");
-  let creator_id = localStorage?.getItem("creator_id");
-  let account_role = localStorage?.getItem("account_role");
   const [liveMeetings, setLiveMeetings] = useState([]);
   const [allAdmins, setAllAdmins] = useState([]);
   const [summaryData, setSummaryData] = useState({});
@@ -33,7 +31,7 @@ function MeetingAndSummary() {
 
   const data2 =
     data1?.length > 0 &&
-    data1?.map((meeting, index) => {
+    data1?.map((meeting) => {
       return {
         admin: meeting?.createdBy || "",
         event: (
@@ -47,10 +45,9 @@ function MeetingAndSummary() {
         user: (
           <div>
             {meetingUserData[0]?.user_name} +<br />
-            {meetingUserData.length - 1} Others
+            {meetingUserData?.length - 1} Others
           </div>
         ),
-
         status: (
           <td className="text-center">
             {meeting?.recording_status === "started" ? (
@@ -76,8 +73,6 @@ function MeetingAndSummary() {
         ),
       };
     });
-
-  console.log(data1, ".....data1");
 
   const columns = [
     { header: "Admin", field: "admin" },
