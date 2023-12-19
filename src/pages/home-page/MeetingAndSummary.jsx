@@ -45,7 +45,7 @@ function MeetingAndSummary() {
         user: (
           <div>
             {meetingUserData[0]?.user_name} +<br />
-            {meetingUserData.length - 1} Others
+            {meetingUserData?.length - 1} Others
           </div>
         ),
         status: (

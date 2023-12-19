@@ -307,7 +307,7 @@ function Chats() {
                       className="rounded-circle"
                       src={Images.dhawan_image}
                       alt="sunil"
-                    />{" "}
+                    />
                   </div>
                   <div class="chat_ib">
                     <h5>
