@@ -5,34 +5,13 @@ import { useHistory } from "react-router";
 import { useState } from "react";
 import ToursListPopup from "./ToursListPopup";
 
-function TakeTour(props) {
-  const { tours } = props;
-  // console.log(tours,'......tours')
+function TakeTour() {
   const history = useHistory();
   const [openToursPopup, setOpenToursPopup] = useState(false);
-  const [filteredTours, setFilteredTours] = useState([]);
+  const [tourName, setTourName] = useState("")
 
-  const handleIntrestButton = (tourName) => {
-    setFilteredTours(
-      tours &&
-        tours.length > 0 &&
-        tours
-          .filter((tour) => tour.tour_name === tourName)
-          .filter((tour) => tour.status === "active")
-          .filter((tour) => {
-            const publishStartDate = new Date(tour.publish_from);
-            const publishStartTimestamp = publishStartDate.getTime();
-            const publishEndDate = new Date(tour.publish_upto);
-            const publishEndTimestamp = publishEndDate.getTime();
-            const currentTimestamp = Date.now();
-            if (
-              currentTimestamp > publishStartTimestamp &&
-              currentTimestamp < publishEndTimestamp
-            ) {
-              return tour;
-            }
-          })
-    );
+  const handleIntrestButton = (tourClicked) => {
+    setTourName(tourClicked)
     setOpenToursPopup(true);
   };
 
@@ -114,7 +93,8 @@ function TakeTour(props) {
       <ToursListPopup
         openToursPopup={openToursPopup}
         setOpenToursPopup={setOpenToursPopup}
-        toursList={filteredTours}
+        tourName={tourName}
+        setTourName={setTourName}
       />
     </div>
   );

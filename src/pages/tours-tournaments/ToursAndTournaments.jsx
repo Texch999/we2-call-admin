@@ -10,31 +10,18 @@ import { GET_TOURS } from "../../config/endpoints";
 
 function ToursAndTournaments() {
   const [showChatPopup, setShowChatPopup] = useState(false);
-  const [tours, setTours] = useState([]);
-  // const [bookTourType, setBookTourType] = useState();
+  // const [tours, setTours] = useState([]);
+  // const [status, setStatus] = useState(false);
+  const [bookTourType, setBookTourType] = useState();
   const handleChatWithUsButton = () => {
     setShowChatPopup(true);
   };
-  const country_name = localStorage.getItem("country_name")
-
-  const getTours = async () => {
-    const payload = {
-      website:"www.we2call.com"
-    };
-    await call(GET_TOURS, payload)
-            .then((res)=>setTours(res?.data?.data.filter((item)=>item.country===country_name)))
-            .catch((error)=>console.log(error))
-  };
-  console.log(tours, "......tours");
-  useEffect(() => {
-    getTours();
-  }, []);
 
   return (
     <div className="pl-1rem tours-main">
-      <TakeTour tours={tours} />
-      <Football tours={tours} />
-      <Entertainment tours={tours} />
+      <TakeTour />
+      <Football  />
+      <Entertainment />
       <div
         className="d-flex msg-container"
         onClick={() => handleChatWithUsButton()}
