@@ -139,7 +139,9 @@ const CallManagement = () => {
       event_name: selectedManagementMeeting?.series_name,
       match_name: selectedManagementMeeting?.match_name,
       date: moment(selectedManagementMeeting?.date).format("YYYY-MM-DD"),
-      time: moment(selectedManagementMeeting?.matchTimeStamp).format("hh:mm"),
+      time: moment(selectedManagementMeeting?.matchTimeStamp, [
+        "h:mm:ss A",
+      ]).format("hh:mm"),
       match_id: selectedManagementMeeting?.match_id,
     });
   };
@@ -213,13 +215,20 @@ const CallManagement = () => {
     upcomingMeetings?.length >= 0 &&
     upcomingMeetings
       ?.filter((obj) => obj.p_id == register_id)
-      ?.sort(
-        (a, b) => new Date(b.given_time_stamp) - new Date(a.given_time_stamp)
-      )
+      ?.map((item) => {
+        const dateTimeString = `${item.given_time_stamp}`;
+        const timestamp = new Date(dateTimeString).getTime();
+        item.timestamp = timestamp;
+        return item;
+      })
+      ?.sort((a, b) => b.timestamp - a.timestamp)
       ?.map((obj) => {
-        const meetingUserData = listOfUsers?.filter((item) =>
-          obj.meetingUserIds.includes(item.register_id)
-        );
+        const meetingUserData =
+          (listOfUsers.length &&
+            listOfUsers?.filter((item) =>
+              obj.meetingUserIds.includes(item.register_id)
+            )) ||
+          [];
         return {
           ...obj,
           urs: obj?.createdBy,
@@ -235,19 +244,23 @@ const CallManagement = () => {
   const ulMeetingsData =
     (upcomingMeetings?.length >= 0 &&
       upcomingMeetings
-        ?.filter((obj) => obj?.p_id !== register_id)
-        ?.sort(
-          (a, b) => new Date(b.given_time_stamp) - new Date(a.given_time_stamp)
-        )
+        ?.filter((obj) => obj.p_id !== register_id)
+        ?.map((item) => {
+          const dateTimeString = `${item.given_time_stamp}`;
+          const timestamp = new Date(dateTimeString).getTime();
+          item.timestamp = timestamp;
+          return item;
+        })
+        ?.sort((a, b) => b.timestamp - a.timestamp)
         ?.map((obj) => {
           return {
             ...obj,
             ul: obj?.createdBy,
             event_name: obj?.event_name,
-            date: obj?.date,
+            date: moment(obj?.date).format("DD-MM-YYYY"),
             time: obj?.time,
             user: localStorage.getItem("user_name"),
-            action: "JOIN",
+            action: "--",
           };
         })) ||
     [];

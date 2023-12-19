@@ -17,6 +17,7 @@ import { useSelector } from "react-redux";
 
 function FancyEntry() {
   const [allMatches, setAllMatches] = useState([]);
+  const [companyMatches, setCompanyMatches] = useState([]);
   const [selectedMatch, setSelectedMatch] = useState([]);
   const [afterDeclare, setAfterDeclare] = useState(false);
   const [matchAccountData, setMatchAccountData] = useState([]);
@@ -38,6 +39,7 @@ function FancyEntry() {
   useEffect(() => {
     const fetchData = async () => {
       await getAllMatches();
+      getCompanyMatches();
     };
 
     fetchData();
@@ -70,6 +72,24 @@ function FancyEntry() {
         console.log(err);
       });
   };
+
+  const getCompanyMatches = async () => {
+    await call(GET_OFFLINE_ALL_MATCHES, {
+      register_id: "company",
+      account_role,
+    })
+      .then((res) => {
+        let result = res?.data?.data;
+        const temp = result?.liveMatches?.filter(
+          (i) => i.match_declared !== "Y"
+        );
+        setCompanyMatches(temp);
+        setStatus((prev) => !prev);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const totalMatches = [...allMatches, ...companyMatches];
 
   const getMatchInfo = async () => {
     await call(GET_ACCOUNT_MATCHES_DATA, {
@@ -115,7 +135,7 @@ function FancyEntry() {
   return (
     <div>
       <MatchScroll
-        allMatches={allMatches}
+        allMatches={totalMatches}
         selectedMatch={selectedMatch}
         setSelectedMatch={setSelectedMatch}
       />
