@@ -79,7 +79,6 @@ const CallManagement = () => {
         return { value: item?.register_id, label: item?.user_name };
       });
       setSelectedUsers(list);
-      console.log(selectedUsers, "USERS");
       const activeMeetingIndex =
         selectedMeeting?.meeting_type == "Professional"
           ? "Professional"
@@ -96,8 +95,6 @@ const CallManagement = () => {
       setMeetingInput({ ...meetingInput, ...obj });
     }
   };
-
-  console.log(selectedMeeting, "===>SELECTED");
 
   const handlePackageSelection = (e) => {
     setSelectedPackages(e);
@@ -292,10 +289,9 @@ const CallManagement = () => {
       package_id: selectedPackages?.package_id,
       video_call_type: meetingInput?.video_call_type === 0 ? true : false,
     };
-    console.log(payload, "===>PAYLOAD");
     setIsProcessing(true);
     const url = selectedMeeting ? UPDATE_MEETING : CREATE_MEETING;
-    console.log(url, "====>URL");
+
     await call(url, payload)
       .then((res) => {
         if (res?.data?.statusCode === 200) {
@@ -323,7 +319,6 @@ const CallManagement = () => {
       })
       .catch((err) => {
         setIsProcessing(false);
-        console.error("API Error:", err);
         console.log(err);
       });
   };
