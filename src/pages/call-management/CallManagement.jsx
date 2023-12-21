@@ -79,6 +79,7 @@ const CallManagement = () => {
         return { value: item?.register_id, label: item?.user_name };
       });
       setSelectedUsers(list);
+      console.log(selectedUsers, "USERS");
       const activeMeetingIndex =
         selectedMeeting?.meeting_type == "Professional"
           ? "Professional"
@@ -88,7 +89,6 @@ const CallManagement = () => {
         value: selectedMeeting?.match_id,
         label: (
           <div className="d-flex align-items-center justify-content-between medium-font">
-            <div>{selectedMeeting?.sport_name}</div>
             <div>{selectedMeeting?.match_name}</div>
           </div>
         ),
@@ -96,6 +96,8 @@ const CallManagement = () => {
       setMeetingInput({ ...meetingInput, ...obj });
     }
   };
+
+  console.log(selectedMeeting, "===>SELECTED");
 
   const handlePackageSelection = (e) => {
     setSelectedPackages(e);
@@ -176,7 +178,6 @@ const CallManagement = () => {
     await call(GET_ALL_MEETINGS, { register_id })
       .then((res) => {
         setUpcomingMeetings(res?.data?.data);
-        setStatus((prev) => !prev);
       })
       .catch((err) => console.log(err));
   };
@@ -276,7 +277,7 @@ const CallManagement = () => {
     }
     setSelectYourPackagePopup(true);
   };
-  
+
   const handleSubmitButton = async () => {
     if (!selectedPackages?.package_id) {
       setError("Please Select Package");
@@ -291,9 +292,10 @@ const CallManagement = () => {
       package_id: selectedPackages?.package_id,
       video_call_type: meetingInput?.video_call_type === 0 ? true : false,
     };
+    console.log(payload, "===>PAYLOAD");
     setIsProcessing(true);
     const url = selectedMeeting ? UPDATE_MEETING : CREATE_MEETING;
-    delete payload?.eventName;
+    console.log(url, "====>URL");
     await call(url, payload)
       .then((res) => {
         if (res?.data?.statusCode === 200) {

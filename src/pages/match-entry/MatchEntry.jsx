@@ -50,7 +50,6 @@ function MatchEntry() {
           (i) => i.match_declared !== "Y"
         );
         setCompanyMatches(temp);
-        setStatus((prev) => !prev);
       })
       .catch((err) => console.log(err));
   };
