@@ -20,8 +20,11 @@ function MeetingAndSummary() {
 
   let meetingUserData;
   const data1 = liveMeetings?.map((obj) => {
-    meetingUserData = allAdmins?.filter((item) =>
-      obj.meetingUserIds.includes(item.register_id)
+    meetingUserData = allAdmins?.filter(
+      (item) =>
+        obj?.meetingUserIds &&
+        obj?.meetingUserIds?.length > 0 &&
+        obj?.meetingUserIds.includes(item.register_id)
     );
     return {
       ...obj,

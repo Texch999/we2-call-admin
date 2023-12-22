@@ -682,7 +682,6 @@ function PurchaseAdminPackages() {
           ))}
         </div>
         <div className="col mt-2">
-        
           <Table
             data={PACKAGES_DATA}
             columns={PACKAGES_HEADING}
@@ -693,7 +692,6 @@ function PurchaseAdminPackages() {
               handlePackageAvailable={handlePackageAvailable}
             />
           )}
-       
         </div>
       </div>
       <div className="w-95 package-cart-div rounded p-2 m-2 d-flex align-items-center justify-content-between">

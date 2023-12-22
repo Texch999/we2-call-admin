@@ -24,6 +24,16 @@ function Alert() {
     title: "Connect Devices",
     pieHole: 0.5,
     is3D: true,
+    backgroundColor: "#082051",
+    hAxis: {
+      title: "Year",
+      titleTextStyle: { color: "#fff" },
+      textStyle: { color: "#fff" }, // Set the text color for hAxis
+    }, 
+    vAxis: {
+      minValue: 0,
+      textStyle: { color: "#fff" }, // Set the text color for vAxis
+    },
   };
 
   const getMatchReports = async () => {
