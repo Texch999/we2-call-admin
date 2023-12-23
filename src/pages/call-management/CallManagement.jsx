@@ -422,21 +422,6 @@ const CallManagement = () => {
           </div>
           <div className="col-lg-2 col-md-2  col-sm-4">
             <div className="d-flex flex-column">
-              <div className="medium-font">Add Users</div>
-              <Select
-                className="w-100"
-                placeholder="User Names"
-                options={usersList}
-                value={selectedUsers}
-                onChange={handleSelectedUsers}
-                isSearchable={true}
-                closeMenuOnSelect={false}
-                isMulti={true}
-              />
-            </div>
-          </div>
-          <div className="col-lg-2 col-md-2  col-sm-4">
-            <div className="d-flex flex-column">
               <div className="medium-font">Select Call Type</div>
               <select
                 className="custom-select medium-font btn-bg  all-none p-2 rounded pb-2"
@@ -450,7 +435,22 @@ const CallManagement = () => {
               </select>
             </div>
           </div>
-          <div className="col-lg-2 col-md-2 col-sm-4 d-flex align-items-end">
+          <div className="col-lg-3 col-md-3  col-sm-6">
+            <div className="d-flex flex-column">
+              <div className="medium-font">Add Users</div>
+              <Select
+                className="w-100"
+                placeholder="User Names"
+                options={usersList}
+                value={selectedUsers}
+                onChange={handleSelectedUsers}
+                isSearchable={true}
+                closeMenuOnSelect={false}
+                isMulti={true}
+              />
+            </div>
+          </div>
+          <div className="col-lg-1 col-md-1 col-sm-2 d-flex align-items-end">
             <div
               className="cursor-pointer w-100 text-center rounded medium-font p-2 yellow-btn fw-semibold"
               onClick={() => handleOpenSelectYourPackage()}
