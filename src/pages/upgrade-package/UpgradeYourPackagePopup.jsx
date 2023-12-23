@@ -72,8 +72,6 @@ function UpgradeYourPackagePopup(props) {
     totalPackagesCost -
     (totalDiscount + (totalPackagesCost * specialDiscount) / 100);
 
-  console.log(packageList, "..........totalPackagesBill");
-
   const dispatch = useDispatch();
 
   const getAllPaymentData = async () => {
@@ -355,7 +353,6 @@ function UpgradeYourPackagePopup(props) {
     setReturnPackageList(updateReturnPackageList);
     setAdminPackages(updatePackages);
   };
-
 
   useEffect(() => {
     if (selectedReturnPackageTotalCost > finalPackageCost) {
