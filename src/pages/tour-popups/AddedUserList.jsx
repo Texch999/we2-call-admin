@@ -26,7 +26,7 @@ function AddedUserList(props) {
       setNormalTour(true);
     }
   }, []);
-
+  
   const addedUsersColumns = [
     { header: "Sno", field: "s_no" },
     { header: "SelectedPackages", field: "selectedpackages" },
@@ -34,8 +34,9 @@ function AddedUserList(props) {
     { header: "Strength", field: "strength" },
     normalTour
       ? { header: "Amount", field: "minamount" }
-      : [{ header: "Min Amount", field: "minamount" },
-      { header: "Max Amount", field: "maxamount" }]
+      :
+       { header: "Min Amount", field: "minamount" },
+      { header: "Max Amount", field: "maxamount" }
   ];
 
   const addedUsersData = [
@@ -45,9 +46,9 @@ function AddedUserList(props) {
       packagecount: packageCount.regularpack,
       strength: individualPackageMembersCount.regularpackmemberscount,
       ...(normalTour
-        ? { minamount: eachPackageTotalamount.regularpackmintotalamount }
-        : { minamount: eachPackageTotalamount.regularpacktotalamount, maxamount: eachPackageTotalamount.regularpacktotalamount }
-      )
+        ? { minamount: eachPackageTotalamount.regularpack.min }
+        : { minamount: eachPackageTotalamount.regularpack.min,
+            maxamount: eachPackageTotalamount.regularpack.max })
     },
     {
       s_no: "2",
@@ -55,8 +56,9 @@ function AddedUserList(props) {
       packagecount: packageCount.premiumpack,
       strength: individualPackageMembersCount.premiumpackmemberscount,
       ...(normalTour
-        ? { amount: eachPackageTotalamount.premiumpacktotalamount }
-        : { minamount: eachPackageTotalamount.premiumpacktotalamount, maxamount: eachPackageTotalamount.premiumpacktotalamount }
+        ? { minamount: eachPackageTotalamount.premiumpack.min }
+        : { minamount: eachPackageTotalamount.premiumpack.min, 
+            maxamount: eachPackageTotalamount.premiumpack.max }
       ),
     },
     {
@@ -65,8 +67,9 @@ function AddedUserList(props) {
       packagecount: packageCount.luxurypack,
       strength: individualPackageMembersCount.luxurypackmemberscount,
       ...(normalTour
-        ? { amount: eachPackageTotalamount.luxurypacktotalamount }
-        : { minamount: eachPackageTotalamount.luxurypacktotalamount, maxamount: eachPackageTotalamount.luxurypacktotalamount }
+        ? { minamount: eachPackageTotalamount.luxurypack.min }
+        : { minamount: eachPackageTotalamount.luxurypack.min, 
+            maxamount: eachPackageTotalamount.luxurypack.max }
       ),
     },
     {
@@ -75,8 +78,9 @@ function AddedUserList(props) {
       packagecount: packageCount.vippack,
       strength: individualPackageMembersCount.vippackmemberscount,
       ...(normalTour
-        ? { amount: eachPackageTotalamount.vippacktotalamount }
-        : { minamount: eachPackageTotalamount.vippacktotalamount, maxamount: eachPackageTotalamount.vippacktotalamount }
+        ? { minamount: eachPackageTotalamount.vippack.min }
+        : { minamount: eachPackageTotalamount.vippack.min, 
+            maxamount: eachPackageTotalamount.vippack.max }
       ),
     },
     {
@@ -85,8 +89,9 @@ function AddedUserList(props) {
       packagecount: packageCount.vvippack,
       strength: individualPackageMembersCount.vvippackmemberscount,
       ...(normalTour
-        ? { amount: eachPackageTotalamount.vvippacktotalamount }
-        : { minamount: eachPackageTotalamount.vvippacktotalamount, maxamount: eachPackageTotalamount.vvippacktotalamount }
+        ? { minamount: eachPackageTotalamount.vvippack.min }
+        : { minamount: eachPackageTotalamount.vvippack.min, 
+            maxamount: eachPackageTotalamount.vvippack.max }
       ),
     },
   ];

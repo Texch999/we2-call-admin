@@ -53,6 +53,8 @@ function YourDetailsPopup(props) {
   const luxurypack = luxurypacks.length;
   const vippack = vippacks.length;
   const vvippack = vvippacks.length;
+  console.log(regularpack,'.....regularpack')
+  // console.log(tour[0].packages.regularpack.minamount,'......tourfrommaincomponent')
   const regularpackmintotalamount =
     tour[0]?.packages.regularpack.minamount * regularpack;
   const premiumpackmintotalamount =
@@ -139,24 +141,45 @@ function YourDetailsPopup(props) {
       vippackmemberscount,
       vvippackmemberscount,
     });
-    setEachPackageTotalamount(
-      tour[0]?.tour_name !== "4.Casino Tour"
-        ? regularpackmintotalamount
-        : [regularpackmintotalamount, regularpackmaxtotalamount],
-      tour[0]?.tour_name !== "4.Casino Tour"
-        ? premiumpackmintotalamount
-        : [premiumpackmintotalamount, premiumpackmaxtotalamount],
-      tour[0]?.tour_name !== "4.Casino Tour"
-        ? luxurypackmintotalamount
-        : [luxurypackmintotalamount, luxurypackmaxtotalamount],
-      tour[0]?.tour_name !== "4.Casino Tour"
-        ? vippackmintotalamount
-        : [vippackmintotalamount, vippackmaxtotalamount],
-      tour[0]?.tour_name !== "4.Casino Tour"
-        ? vvippackmintotalamount
-        : [vvippackmintotalamount, vvippackmaxtotalamount]
-    );
+    setEachPackageTotalamount({
+        regularpack:
+          tour[0]?.tour_name !== "4.Casino Tour"
+            ? {min: regularpackmintotalamount}
+            : {
+                min: regularpackmintotalamount,
+                max: regularpackmaxtotalamount,
+              },
+        premiumpack:
+          tour[0]?.tour_name !== "4.Casino Tour"
+            ? {min: premiumpackmintotalamount}
+            : {
+                min: premiumpackmintotalamount,
+                max: premiumpackmaxtotalamount,
+              },
+        luxurypack:
+          tour[0]?.tour_name !== "4.Casino Tour"
+            ? {min: luxurypackmintotalamount}
+            : {
+                min: luxurypackmintotalamount,
+                max: luxurypackmaxtotalamount,
+              },
+        vippack:
+          tour[0]?.tour_name !== "4.Casino Tour"
+            ? {min: vippackmintotalamount}
+            : {
+                min: vippackmintotalamount,
+                max: vippackmaxtotalamount,
+              },
+        vvippack:
+          tour[0]?.tour_name !== "4.Casino Tour"
+            ? {min: vvippackmintotalamount}
+            : {
+                min: vvippackmintotalamount,
+                max: vvippackmaxtotalamount,
+              },
+      });
   };
+  console.log(eachPackageTotalamount,'......eachpackagetotalamount')
 
   useEffect(() => {
     packagesDetailsinuseState();
