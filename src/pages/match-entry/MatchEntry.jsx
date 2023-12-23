@@ -54,7 +54,7 @@ function MatchEntry() {
       .catch((err) => console.log(err));
   };
 
-  const totalMatches = [...allMatches, ...companyMatches];
+  // const totalMatches = [...allMatches, ...companyMatches];
 
   const getMatchPositionData = async (ID) => {
     await call(GET_MATCH_POSITION_DATA, {
@@ -109,7 +109,7 @@ function MatchEntry() {
   return (
     <div>
       <MatchScroll
-        allMatches={totalMatches}
+        allMatches={allMatches}
         selectedMatch={selectedMatch}
         setSelectedMatch={setSelectedMatch}
       />

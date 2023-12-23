@@ -89,7 +89,7 @@ function FancyEntry() {
       .catch((err) => console.log(err));
   };
 
-  const totalMatches = [...allMatches, ...companyMatches];
+  // const totalMatches = [...allMatches, ...companyMatches];
 
   const getMatchInfo = async () => {
     await call(GET_ACCOUNT_MATCHES_DATA, {
@@ -135,7 +135,7 @@ function FancyEntry() {
   return (
     <div>
       <MatchScroll
-        allMatches={totalMatches}
+        allMatches={allMatches}
         selectedMatch={selectedMatch}
         setSelectedMatch={setSelectedMatch}
       />

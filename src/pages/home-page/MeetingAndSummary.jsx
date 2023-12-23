@@ -19,26 +19,18 @@ function MeetingAndSummary() {
   const [summaryData, setSummaryData] = useState({});
 
   let meetingUserData;
-  const data1 =
-    liveMeetings?.length > 0 &&
-    liveMeetings?.map((obj) => {
-      meetingUserData =
-        allAdmins &&
-        allAdmins?.length > 0 &&
-        allAdmins?.filter(
-          (item) =>
-            obj?.meetingUserIds &&
-            obj?.meetingUserIds?.length > 0 &&
-            obj?.meetingUserIds?.includes(item?.register_id)
-        );
-      return {
-        ...obj,
-        meetingUserData:
-          meetingUserData &&
-          meetingUserData?.length > 0 &&
-          meetingUserData?.map((obj) => obj?.user_name),
-      };
-    });
+  const data1 = liveMeetings?.map((obj) => {
+    meetingUserData = allAdmins?.filter(
+      (item) =>
+        obj?.meetingUserIds &&
+        obj?.meetingUserIds?.length > 0 &&
+        obj?.meetingUserIds.includes(item.register_id)
+    );
+    return {
+      ...obj,
+      meetingUserData: meetingUserData?.map((obj) => obj.user_name),
+    };
+  });
 
   const data2 =
     data1?.length > 0 &&

@@ -30,8 +30,8 @@ function Table(props) {
                 }
                 key={rowIndex}
               >
-                {columns.map((column, colIndex) => (
-                  <td key={colIndex}>
+                {columns?.map((column, colIndex) => (
+                  <td key={colIndex}> 
                     <div>{item[column?.field]}</div>
                   </td>
                 ))}
