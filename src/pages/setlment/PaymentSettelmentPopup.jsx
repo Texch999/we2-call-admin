@@ -19,8 +19,6 @@ function PaymentSettelmentPopup(props) {
     clientDetails,
   } = props;
 
-  console.log(clientDetails, ".......clientDetails");
-
   const register_id = localStorage?.getItem("register_id");
   const [paymentType, setPaymentType] = useState("");
   const [error, setError] = useState("");
@@ -31,7 +29,6 @@ function PaymentSettelmentPopup(props) {
 
   const onSubmitBtnClick = async () => {
     setIsProcessing(true);
-    console.log("settlement obj", settlementObj);
     await call(SET_ADMIN_OFFLINE_PAYMENT, {
       client_id: clientDetails?.client_id,
       client_name: clientDetails?.client_name,
@@ -60,13 +57,7 @@ function PaymentSettelmentPopup(props) {
         console.log(err);
       });
   };
-  console.log(settlementObj, "settlementObj");
-  // console.log(...settlementObj,"...settlementObj")
-  // const handleCloseModal = () => {
-  //   setShowPaymentModal(false);
-  // };
 
-  console.log(settlementObj, "....settlementObj");
   const onInputChange = (e) => {
     setSettlementObj({
       ...settlementObj,

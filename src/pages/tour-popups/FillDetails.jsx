@@ -10,7 +10,7 @@ import { useRef, useState } from "react";
 import { AiTwotoneSave } from "react-icons/ai";
 import { call } from "../../config/axios";
 import { GENERATE_SIGNED_URL } from "../../config/endpoints";
-import { ImageBaseUrl } from '../../images/index'
+import { ImageBaseUrl } from "../../images/index";
 
 function FillDetails(props) {
   const { handlePaymentDetails, tour } = props;
@@ -30,8 +30,6 @@ function FillDetails(props) {
   const [imagefiles, setImagefiles] = useState({});
   const [arrey, setArrey] = useState([]);
   let NUMBER_OF_MEMBERS = arrey;
-  // console.log(tour,'.....tour from filldetails')
-
   const handleMembersOpen = () => {
     setMembersOpen(!membersOpen);
   };
@@ -74,19 +72,28 @@ function FillDetails(props) {
     setPackageOptionsOpen(false);
     {
       let arr = [];
-      for (let i = 0; i < item.value; i++) {
+      if (tour[0]?.tour_name !== "4.Casino Tour") {
         arr.push({
-          username: item.name + "username" + (i + 1),
-          userdob: item.name + "userdob" + (i + 1),
-          usergender: item.name + "usergender" + (i + 1),
-          useridproof: item.name + "useridproof" + (i + 1),
-          userimageinfo: item.name + "userimage" + (i + 1),
+          username: item.name + "username" + 1,
+          userdob: item.name + "userdob" + 1,
+          usergender: item.name + "usergender" + 1,
+          useridproof: item.name + "useridproof" + 1,
+          userimageinfo: item.name + "userimage" + 1,
         });
+      } else {
+        for (let i = 0; i < item.value; i++) {
+          arr.push({
+            username: item.name + "username" + (i + 1),
+            userdob: item.name + "userdob" + (i + 1),
+            usergender: item.name + "usergender" + (i + 1),
+            useridproof: item.name + "useridproof" + (i + 1),
+            userimageinfo: item.name + "userimage" + (i + 1),
+          });
+        }
       }
       setArrey(arr);
     }
   };
-  // console.log(NUMBER_OF_MEMBERS, "....numberof members");
 
   const handleAddMore = () => {
     let arr = [];
@@ -155,33 +162,30 @@ function FillDetails(props) {
     const imageuploadingurl = await generatesignedurl(imageId);
     imageuploadingurl &&
       imagefile &&
-        (await fetch(imageuploadingurl, {
-          method: "PUT",
-          body: imagefile,
-          headers: {
-            "Content-Type": "image/jpeg",
-            "cache-control": "public, max-age=0",
-          },
+      (await fetch(imageuploadingurl, {
+        method: "PUT",
+        body: imagefile,
+        headers: {
+          "Content-Type": "image/jpeg",
+          "cache-control": "public, max-age=0",
+        },
+      })
+        .then((res) => {
+          if (res.status === 200) {
+            setInputData({
+              ...inputData,
+              [e.target.name]: `${ImageBaseUrl}/tours_user_docs/${imageId}.png`,
+            });
+            setImagefiles({
+              ...imagefiles,
+              [e.target.name]: imagefile.name,
+            });
+          }
         })
-          .then((res) => {
-            if(res.status===200){
-              setInputData({
-                ...inputData,
-                [e.target.name]:`${ImageBaseUrl}/tours_user_docs/${imageId}.png`
-              })
-              setImagefiles({
-                ...imagefiles,
-                [e.target.name]: imagefile.name
-              })
-            };
-          })
-          .catch((err) => {
-            console.log("err: ", err);
-          }));
-    
+        .catch((err) => {
+          console.log("err: ", err);
+        }));
   };
-
-  
 
   const generatesignedurl = async (imageId) => {
     const payload = {
@@ -198,8 +202,6 @@ function FillDetails(props) {
       return "";
     }
   };
-  // console.log(inputData,'......inputdataafterimageupload')
-  // console.log(imagefiles,'......imagefiles')
   return (
     <div className="p-3">
       <div className="w-100 d-flex justify-content-between mt-2">

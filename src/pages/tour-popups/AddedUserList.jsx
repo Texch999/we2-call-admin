@@ -6,25 +6,35 @@ import Table from "../home-page/Table";
 import { useEffect, useState } from "react";
 
 function AddedUserList(props) {
-  const { handleFillDetails, 
-          handleAddedUserList,
-          packageCount,
-          packMembers,
-          individualPackageMembersCount,
-          eachPackageTotalamount } = props;
+  const {
+    handleFillDetails,
+    handleAddedUserList,
+    packageCount,
+    packMembers,
+    individualPackageMembersCount,
+    eachPackageTotalamount,
+    tour,
+  } = props;
   // const [packageCount, setPackageCount] = useState({});
   // const [packMembers, setPackMembers] = useState({});
   // const [individualPackageMembersCount, setIndividualPackageMembersCount] = useState({})
   // const [eachPackageTotalamount, setEachPackageTotalamount] = useState({})
-  // console.log(usersDetails,'....usersdetails')
-  
-  
+  const [normalTour, setNormalTour] = useState(false);
+  useEffect(() => {
+    if (tour[0]?.tour_name !== "4.Casino Tour") {
+      setNormalTour(true);
+    }
+  }, []);
+
   const addedUsersColumns = [
     { header: "Sno", field: "s_no" },
     { header: "SelectedPackages", field: "selectedpackages" },
     { header: "PackageCount", field: "packagecount" },
     { header: "Strength", field: "strength" },
-    { header: "Amount", field: "amount" },
+    normalTour
+      ? { header: "Amount", field: "minamount" }
+      : [{ header: "Min Amount", field: "minamount" },
+      { header: "Max Amount", field: "maxamount" }]
   ];
 
   const addedUsersData = [
@@ -33,35 +43,50 @@ function AddedUserList(props) {
       selectedpackages: "Regular Pack",
       packagecount: packageCount.regularpack,
       strength: individualPackageMembersCount.regularpackmemberscount,
-      amount: eachPackageTotalamount.regularpacktotalamount,
+      ...(normalTour
+        ? { minamount: eachPackageTotalamount.regularpackmintotalamount }
+        : { minamount: eachPackageTotalamount.regularpacktotalamount, maxamount: eachPackageTotalamount.regularpacktotalamount }
+      )
     },
     {
       s_no: "2",
       selectedpackages: "Premium Pack",
       packagecount: packageCount.premiumpack,
       strength: individualPackageMembersCount.premiumpackmemberscount,
-      amount: eachPackageTotalamount.premiumpacktotalamount,
+      ...(normalTour
+        ? { amount: eachPackageTotalamount.premiumpacktotalamount }
+        : { minamount: eachPackageTotalamount.premiumpacktotalamount, maxamount: eachPackageTotalamount.premiumpacktotalamount }
+      ),
     },
     {
       s_no: "3",
       selectedpackages: "Luxury Pack",
       packagecount: packageCount.luxurypack,
       strength: individualPackageMembersCount.luxurypackmemberscount,
-      amount: eachPackageTotalamount.luxurypacktotalamount,
+      ...(normalTour
+        ? { amount: eachPackageTotalamount.luxurypacktotalamount }
+        : { minamount: eachPackageTotalamount.luxurypacktotalamount, maxamount: eachPackageTotalamount.luxurypacktotalamount }
+      ),
     },
     {
       s_no: "4",
       selectedpackages: "Vip Pack",
       packagecount: packageCount.vippack,
       strength: individualPackageMembersCount.vippackmemberscount,
-      amount: eachPackageTotalamount.vippacktotalamount,
+      ...(normalTour
+        ? { amount: eachPackageTotalamount.vippacktotalamount }
+        : { minamount: eachPackageTotalamount.vippacktotalamount, maxamount: eachPackageTotalamount.vippacktotalamount }
+      ),
     },
     {
       s_no: "5",
       selectedpackages: "Vvip Pack",
       packagecount: packageCount.vvippack,
       strength: individualPackageMembersCount.vvippackmemberscount,
-      amount: eachPackageTotalamount.vvippacktotalamount,
+      ...(normalTour
+        ? { amount: eachPackageTotalamount.vvippacktotalamount }
+        : { minamount: eachPackageTotalamount.vvippacktotalamount, maxamount: eachPackageTotalamount.vvippacktotalamount }
+      ),
     },
   ];
 
@@ -92,13 +117,13 @@ function AddedUserList(props) {
           <div className="col-12">
             <div className="d-flex justify-content-between font-10 package-amount-text p-2 mt-2">
               <div>Total Amount to Pay</div>
-              <div className="yellow-clr">{
-                eachPackageTotalamount.regularpacktotalamount +
-                eachPackageTotalamount.premiumpacktotalamount +
-                eachPackageTotalamount.luxurypacktotalamount +
-                eachPackageTotalamount.vippacktotalamount +
-                eachPackageTotalamount.vvippacktotalamount
-              }</div>
+              <div className="yellow-clr">
+                {eachPackageTotalamount.regularpacktotalamount +
+                  eachPackageTotalamount.premiumpacktotalamount +
+                  eachPackageTotalamount.luxurypacktotalamount +
+                  eachPackageTotalamount.vippacktotalamount +
+                  eachPackageTotalamount.vvippacktotalamount}
+              </div>
             </div>
           </div>
         </div>
@@ -107,7 +132,10 @@ function AddedUserList(props) {
         <div className="login-btn mt-2 w-45" onClick={handleFillDetails}>
           + Buy More
         </div>
-        <div className="login-btn mt-2 w-45" onClick={()=>handleAddedUserList()}>
+        <div
+          className="login-btn mt-2 w-45"
+          onClick={() => handleAddedUserList()}
+        >
           Proceed Pay
         </div>
       </div>

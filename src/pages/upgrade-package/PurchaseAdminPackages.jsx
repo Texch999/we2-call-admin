@@ -23,7 +23,6 @@ function PurchaseAdminPackages() {
     setPackageAvailablePopup(!packageAvailablePopup);
   };
 
-  console.log(allPackages, "........allPackages");
   const handleYear = (e) => {
     setYearly(e.target.checked);
   };

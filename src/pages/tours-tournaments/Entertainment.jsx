@@ -5,33 +5,19 @@ import ToursListPopup from "./ToursListPopup";
 import { useHistory } from "react-router";
 import { useState } from "react";
 
-function Entertainment(props) {
-  const { tours } = props
+function Entertainment() {
   const history = useHistory();
-  const [openToursPopup, setOpenToursPopup] = useState(false)
-  const [filteredTours, setFilteredTours] = useState([])
-  const handleIntrestButton = (tourName) => {
-    setFilteredTours(tours && tours.length>0 && tours
-      .filter((tour)=>tour.tour_name===tourName)
-      .filter((tour)=>tour.status==="active")
-      .filter((tour)=>{
-        const publishStartDate = new Date(tour.publish_from)
-        const publishStartTimestamp = publishStartDate.getTime()
-        const publishEndDate = new Date(tour.publish_upto)
-        const publishEndTimestamp = publishEndDate.getTime()
-        const currentTimestamp = Date.now()
-        if(currentTimestamp>publishStartTimestamp&&currentTimestamp<publishEndTimestamp){
-          return tour
-        }
-      })
-    )
+  const [openToursPopup, setOpenToursPopup] = useState(false);
+  const [tourName, setTourName] = useState("");
+
+  const handleIntrestButton = (tourClicked) => {
+    setTourName(tourClicked);
     setOpenToursPopup(true);
   };
 
-  const handleBooking = () =>{
+  const handleBooking = () => {
     // state===false?"":
-  }
-
+  };
 
   return (
     <div className="row  p-3 tour-cricket">
@@ -55,8 +41,11 @@ function Entertainment(props) {
               <h4 className="large-font meetings-heading">
                 Play and get a chance to join with tour
               </h4>
-              <div className="w-60 intrested meetings-heading"
-                    onClick={()=>{handleIntrestButton("5.Entertainment Tour")}}
+              <div
+                className="w-60 intrested meetings-heading"
+                onClick={() => {
+                  handleIntrestButton("5.Entertainment Tour");
+                }}
               >
                 I’m Interested
               </div>
@@ -75,9 +64,11 @@ function Entertainment(props) {
           <img className="banner" src={Images.Emojis}></img>
         </div>
       </div>
-      <ToursListPopup openToursPopup={openToursPopup} 
-                      setOpenToursPopup={setOpenToursPopup}
-                      toursList={filteredTours}                
+      <ToursListPopup
+        openToursPopup={openToursPopup}
+        setOpenToursPopup={setOpenToursPopup}
+        tourName={tourName}
+        setTourName={setTourName}
       />
     </div>
   );

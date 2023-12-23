@@ -141,7 +141,6 @@ const AdminSharesMatchStatement = () => {
       })
       .catch((err) => console.log(err));
   };
-  // console.log("clientsData", clientsData);
 
   useEffect(() => {
     getAdminShare();
@@ -209,10 +208,6 @@ const AdminSharesMatchStatement = () => {
   const getAllUsers = async () => {
     await call(GET_OFFLINE_CLIENTS, { register_id })
       .then((res) => {
-        // console.log(res.data);
-        // let results = res?.data?.data?.filter(
-        //   (item) => item.user_status !== "deleted"
-        // );
         let results = res?.data?.data;
         setAllUsers(results);
       })
@@ -272,7 +267,6 @@ const AdminSharesMatchStatement = () => {
   const [pendinAmount, setPendingAmount] = useState(0);
 
   const handlePaymentModal = (user) => {
-    console.log("click me");
     setSelectedUser(user);
     const resultAmount =
       getUlShare(user?.total_amount, user?.ul_share) +
@@ -294,7 +288,6 @@ const AdminSharesMatchStatement = () => {
     allUsers &&
     allUsers?.length > 0 &&
     allUsers?.map((user) => {
-      // console.log("user testing...", user?.pending_settlement_platform_amount);
       const netPL =
         getUlShare(user?.total_amount, user?.ul_share) +
         (+user?.totalPlatformNet || 0);
@@ -341,7 +334,6 @@ const AdminSharesMatchStatement = () => {
         ),
       };
     });
-  // console.log(AdminCommSattlementStatementData,"Sangram ............AdminCommSattlementStatementData")
   return (
     <div className="p-4">
       <div className="mb-3">

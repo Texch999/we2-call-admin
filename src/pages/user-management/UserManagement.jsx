@@ -48,9 +48,6 @@ function UserManagement() {
   const [changePasswordPopup, setChangePasswordPopup] = useState(false);
   // const [isProcessing, setIsProcessing] = useState();
 
-  console.log(existingClients, "........existingClients");
-  console.log(allClients, "........allClients");
-
   const clientSelection = [
     { name: "Regulor", value: 0 },
     { name: "Book", value: 1 },
@@ -261,7 +258,6 @@ function UserManagement() {
 
   const handleBlockUnblockUser = async (item) => {
     setClientID(item);
-    console.log(clientID, "CLIENT");
     await call(ACTIVE_INACTIVE_USERS, {
       register_id,
       client_id: clientID,

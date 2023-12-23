@@ -39,11 +39,10 @@ function Login(props) {
             creator_id,
             account_role,
             user_name,
+            country_name,
             ul_share,
             share,
           } = res.data.data;
-
-          console.log(res.data.data, ".........res.data.data");
 
           setLocalStorageItems({
             email,
@@ -53,6 +52,7 @@ function Login(props) {
             register_id,
             creator_id,
             account_role,
+            country_name,
             user_name,
             ul_share,
             share,
