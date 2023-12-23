@@ -20,10 +20,12 @@ import SelectYourPackagePopup from "./SelectYourPackagePopup";
 import CallEditPopup from "./CallEditPopup";
 import MatchSubmitPopup from "./../match-popups/MatchSubmitPopup";
 import MeetingEditPopup from "./MeetingEditPopup";
+import { useHistory } from "react-router";
 
 const CallManagement = () => {
   const register_id = localStorage.getItem("register_id");
   const account_role = localStorage.getItem("account_role");
+  const history = useHistory();
   const [status, setStatus] = useState(false);
   const [upcomingMeetings, setUpcomingMeetings] = useState([]);
   const [listOfUsers, setListOfUsers] = useState([]);
@@ -43,6 +45,7 @@ const CallManagement = () => {
   const [selectYourPackagePopup, setSelectYourPackagePopup] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
   const [editPopup, setEditPopup] = useState(false);
+  const packageLimits = adminSubscription?.package_limits;
 
   const handleChange = (e) => {
     setMeetingInput({ ...meetingInput, [e.target.name]: e.target.value });
@@ -231,7 +234,7 @@ const CallManagement = () => {
             meetingUserData?.length > 0 &&
             meetingUserData?.map((obj) => <>{obj?.user_name}</>),
           recording_status: obj?.recording_status,
-          action: "edit",
+          action: "--",
         };
       });
 
@@ -326,6 +329,30 @@ const CallManagement = () => {
         setIsProcessing(false);
         console.log(err);
       });
+  };
+
+  const handleOpenJoinPopup = (data, isNotCreated) => {
+    if (isNotCreated) {
+      history.push(`/meeting/${data?.meeting_id}`);
+      localStorage.setItem("isAdminMeeting", false);
+      return;
+    }
+    if (parseInt(packageLimits?.duration) < 0) {
+      setError({ message: "Insuffient package hrs, Please upgarde hrs!" });
+      return;
+    }
+    if (packageLimits?.members < data.meetingUserIds?.length) {
+      setError({ message: "Users Limit exceeded, Please Update" });
+      return;
+    }
+    if (!packageLimits) {
+      history.push(`/meeting/${data?.meeting_id}`);
+      localStorage.setItem("isAdminMeeting", true);
+    } else {
+      setError({
+        message: "you don't have any subscription, Please upgarde !",
+      });
+    }
   };
 
   useEffect(() => {
@@ -477,7 +504,7 @@ const CallManagement = () => {
                 <th className="text-center">EVENT NAME</th>
                 <th className="text-center">START DATE & TIME</th>
                 <th className="text-center">USERS</th>
-                <th className="text-center">STATUS</th>
+                <th className="text-center">ACTION</th>
                 <th className="text-center">EDIT</th>
               </tr>
             </thead>
@@ -516,25 +543,12 @@ const CallManagement = () => {
                       </Dropdown>
                     </td>
                     <td className="text-center">
-                      {data?.recording_status === "started" ? (
-                        <Button className="rounded-pill meeting-status-button">
-                          Started
-                        </Button>
-                      ) : (
-                        <Button className="rounded-pill meeting-status-button">
-                          Upcoming
-                        </Button>
-                      )}
-                      {data?.recording_status === "upcoming" && (
-                        <Button className="rounded-pill meeting-status-button">
-                          Upcoming
-                        </Button>
-                      )}
-                      {data?.recording_status === "join" && (
-                        <Button className="rounded-pill meeting-status-button">
-                          Join
-                        </Button>
-                      )}
+                      <Button
+                        className="rounded-pill meeting-status-button"
+                        onClick={() => handleOpenJoinPopup(data)}
+                      >
+                        JOIN
+                      </Button>
                     </td>
                     <td className="text-center">
                       {register_id == data?.p_id && (
