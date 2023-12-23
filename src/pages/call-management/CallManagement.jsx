@@ -44,16 +44,6 @@ const CallManagement = () => {
   const [isProcessing, setIsProcessing] = useState(false);
   const [editPopup, setEditPopup] = useState(false);
 
-  useEffect(() => {
-    getAdminUsersList();
-    getAllAdminMatches();
-    getAdminPackages();
-  }, []);
-
-  useEffect(() => {
-    getAllMeetingsData();
-  }, [status]);
-
   const handleChange = (e) => {
     setMeetingInput({ ...meetingInput, [e.target.name]: e.target.value });
   };
@@ -81,9 +71,11 @@ const CallManagement = () => {
         video_call_type: selectedMeeting?.video_call_type === true ? 1 : 0,
       };
       const list = (
-        listOfUsers.length > 0 &&
-        listOfUsers?.filter((item) =>
-          selectedMeeting?.meetingUserIds.includes(item.register_id)
+        listOfUsers?.length &&
+        listOfUsers?.filter(
+          (item) =>
+            selectedMeeting?.meetingUserIds.includes &&
+            selectedMeeting?.meetingUserIds.includes(item.register_id)
         )
       )?.map((item) => {
         return { value: item?.register_id, label: item?.user_name };
@@ -98,7 +90,6 @@ const CallManagement = () => {
         value: selectedMeeting?.match_id,
         label: (
           <div className="d-flex align-items-center justify-content-between medium-font">
-            <div>{selectedMeeting?.sport_name}</div>
             <div>{selectedMeeting?.match_name}</div>
           </div>
         ),
@@ -186,7 +177,6 @@ const CallManagement = () => {
     await call(GET_ALL_MEETINGS, { register_id })
       .then((res) => {
         setUpcomingMeetings(res?.data?.data);
-        setStatus((prev) => !prev);
       })
       .catch((err) => console.log(err));
   };
@@ -225,8 +215,10 @@ const CallManagement = () => {
       ?.map((obj) => {
         const meetingUserData =
           (listOfUsers.length &&
-            listOfUsers?.filter((item) =>
-              obj?.meetingUserIds.includes(item.register_id)
+            listOfUsers?.filter(
+              (item) =>
+                obj?.meetingUserIds.includes &&
+                obj?.meetingUserIds.includes(item.register_id)
             )) ||
           [];
         return {
@@ -235,7 +227,9 @@ const CallManagement = () => {
           event_name: obj?.event_name,
           date: obj?.date,
           time: obj?.time,
-          user: meetingUserData.map((obj) => <>{obj?.user_name}</>),
+          user:
+            meetingUserData?.length > 0 &&
+            meetingUserData?.map((obj) => <>{obj?.user_name}</>),
           recording_status: obj?.recording_status,
           action: "edit",
         };
@@ -286,6 +280,7 @@ const CallManagement = () => {
     }
     setSelectYourPackagePopup(true);
   };
+
   const handleSubmitButton = async () => {
     if (!selectedPackages?.package_id) {
       setError("Please Select Package");
@@ -302,7 +297,6 @@ const CallManagement = () => {
     };
     setIsProcessing(true);
     const url = selectedMeeting ? UPDATE_MEETING : CREATE_MEETING;
-    delete payload?.eventName;
     await call(url, payload)
       .then((res) => {
         if (res?.data?.statusCode === 200) {
@@ -330,10 +324,19 @@ const CallManagement = () => {
       })
       .catch((err) => {
         setIsProcessing(false);
-        console.error("API Error:", err);
         console.log(err);
       });
   };
+
+  useEffect(() => {
+    getAdminUsersList();
+    getAllAdminMatches();
+    getAdminPackages();
+  }, []);
+
+  useEffect(() => {
+    getAllMeetingsData();
+  }, [status]);
 
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = 5;
@@ -419,21 +422,6 @@ const CallManagement = () => {
           </div>
           <div className="col-lg-2 col-md-2  col-sm-4">
             <div className="d-flex flex-column">
-              <div className="medium-font">Add Users</div>
-              <Select
-                className="w-100"
-                placeholder="User Names"
-                options={usersList}
-                value={selectedUsers}
-                onChange={handleSelectedUsers}
-                isSearchable={true}
-                closeMenuOnSelect={false}
-                isMulti={true}
-              />
-            </div>
-          </div>
-          <div className="col-lg-2 col-md-2  col-sm-4">
-            <div className="d-flex flex-column">
               <div className="medium-font">Select Call Type</div>
               <select
                 className="custom-select medium-font btn-bg  all-none p-2 rounded pb-2"
@@ -447,7 +435,22 @@ const CallManagement = () => {
               </select>
             </div>
           </div>
-          <div className="col-lg-2 col-md-2 col-sm-4 d-flex align-items-end">
+          <div className="col-lg-3 col-md-3  col-sm-6">
+            <div className="d-flex flex-column">
+              <div className="medium-font">Add Users</div>
+              <Select
+                className="w-100"
+                placeholder="User Names"
+                options={usersList}
+                value={selectedUsers}
+                onChange={handleSelectedUsers}
+                isSearchable={true}
+                closeMenuOnSelect={false}
+                isMulti={true}
+              />
+            </div>
+          </div>
+          <div className="col-lg-1 col-md-1 col-sm-2 d-flex align-items-end">
             <div
               className="cursor-pointer w-100 text-center rounded medium-font p-2 yellow-btn fw-semibold"
               onClick={() => handleOpenSelectYourPackage()}
@@ -503,11 +506,12 @@ const CallManagement = () => {
                           </Button>
                         </Dropdown.Toggle>
                         <Dropdown.Menu className="meeting-user-list">
-                          {data?.user?.map((userObj) => (
-                            <Dropdown.Item href="#action1">
-                              {userObj}
-                            </Dropdown.Item>
-                          ))}
+                          {data?.user?.length > 0 &&
+                            data?.user?.map((userObj) => (
+                              <Dropdown.Item href="#action1">
+                                {userObj}
+                              </Dropdown.Item>
+                            ))}
                         </Dropdown.Menu>
                       </Dropdown>
                     </td>

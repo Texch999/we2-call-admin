@@ -93,7 +93,8 @@ const TOP_WINNERS_LOOSERS = "/admin/top_winner_looser";
 const SUMMARY_DATA = "/admin/summary";
 const APPROVE_REJECT_FOR_SUBSCRIPTION = "/packages/package_approve_reject";
 const BULK_PACKAGE_APPROVE_REJECT = "/packages/bulk_package_approve_reject";
-const GET_TOUR_PAYMENT_DOCUMENTS = "/tours/get_tour_payments_documents"
+const GET_TOUR_PAYMENT_DOCUMENTS = "/tours/get_tour_payments_documents";
+const GET_INTERESTED = "/tours/get_interested";
 
 // methods
 const DELETE = "DELETE";
@@ -101,10 +102,15 @@ const POST = "POST";
 const GET = "POST";
 const PUT = "PUT";
 
+exports.GET_INTERESTED = {
+  method: POST,
+  url: GET_INTERESTED
+}
+
 exports.GET_TOUR_PAYMENT_DOCUMENTS = {
   method: POST,
-  url: GET_TOUR_PAYMENT_DOCUMENTS
-}
+  url: GET_TOUR_PAYMENT_DOCUMENTS,
+};
 
 exports.ADD_GUESTDOCS_FOR_TOURS = {
   method: POST,

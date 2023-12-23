@@ -53,12 +53,14 @@ function FancyResultInput(props) {
     setIsProcessing(true);
     setError("");
     await call(FANCY_DECLARATION, {
-      registered_match_id,
+      registered_match_id: registered_match_id,
       register_id,
+      account_role,
       over: +fancyResultInputData?.over,
       innings: +fancyResultInputData?.innings,
       runs: +fancyResultInputData?.runs,
       team: fancyResultInputData?.team,
+      creator_id_platform: creator_id,
     })
       .then((res) => {
         setIsProcessing(false);

@@ -104,7 +104,7 @@ function MyTours() {
                 <div style={{ padding: "10px 10px" }}>
                   <div className="tour-button row">
                     <div className="col-1 ">{index + 1}</div>
-                    <div className="col-2 flex-center">{item.tour_name}</div>
+                    <div className="col-2 flex-center">{item.tour_title}</div>
                     <div className="col-2 flex-center">{item.date}</div>
                     <div className="col-1 p-0 flex-center">
                       <div
