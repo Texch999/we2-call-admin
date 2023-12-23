@@ -71,7 +71,8 @@ const CallManagement = () => {
         video_call_type: selectedMeeting?.video_call_type === true ? 1 : 0,
       };
       const list = (
-        listOfUsers.length &&
+        listOfUsers &&
+        listOfUsers?.length > 0 &&
         listOfUsers?.filter((item) =>
           selectedMeeting?.meetingUserIds?.includes(item.register_id)
         )
@@ -212,7 +213,8 @@ const CallManagement = () => {
       ?.sort((a, b) => b.timestamp - a.timestamp)
       ?.map((obj) => {
         const meetingUserData =
-          (listOfUsers.length &&
+          (listOfUsers &&
+            listOfUsers?.length > 0 &&
             listOfUsers?.filter((item) =>
               obj.meetingUserIds.includes(item.register_id)
             )) ||
@@ -223,7 +225,7 @@ const CallManagement = () => {
           event_name: obj?.event_name,
           date: obj?.date,
           time: obj?.time,
-          user: meetingUserData.map((obj) => <>{obj?.user_name}</>),
+          user: meetingUserData?.map((obj) => <>{obj?.user_name}</>),
           recording_status: obj?.recording_status,
           action: "edit",
         };
