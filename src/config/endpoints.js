@@ -109,8 +109,8 @@ exports.GET_INTERESTED = {
 
 exports.GET_TOUR_PAYMENT_DOCUMENTS = {
   method: POST,
-  url: GET_TOUR_PAYMENT_DOCUMENTS
-}
+  url: GET_TOUR_PAYMENT_DOCUMENTS,
+};
 
 exports.ADD_GUESTDOCS_FOR_TOURS = {
   method: POST,

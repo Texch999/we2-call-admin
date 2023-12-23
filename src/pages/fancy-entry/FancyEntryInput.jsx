@@ -106,7 +106,7 @@ function FancyEntryInput({
           setFancySubmitPopup(true);
           setTimeout(() => {
             setFancySubmitPopup(false);
-          }, 1000);
+          }, 2000);
           resetFields();
           getRiskRunningData();
           getFancyProfitLoss();
@@ -147,7 +147,7 @@ function FancyEntryInput({
       innings: +fancyEntryInputData?.innings,
       rate: 1,
       over: +fancyEntryInputData?.over,
-      team: +fancyEntryInputData?.team,
+      team: fancyEntryInputData?.team,
       amount: +fancyEntryInputData?.amount,
       runs: +fancyEntryInputData?.runs,
       yN: fancyEntryInputData?.yN,
@@ -185,7 +185,6 @@ function FancyEntryInput({
       label: selectedMatchEntry?.client_name,
       value: selectedMatchEntry?.client_id,
     });
-    // setOver(selectedMatchEntry?.over);
     setFancyInputEntryData(selectedMatchEntry);
   }, [selectedMatchEntry]);
 
@@ -343,7 +342,6 @@ function FancyEntryInput({
                 : handleFancyEntryUpdate()
             }
             disabled={!selectedMatch?.match_id || isProcessing}
-            // onClick={() => hs()}
           >
             {isProcessing
               ? "Processing..."

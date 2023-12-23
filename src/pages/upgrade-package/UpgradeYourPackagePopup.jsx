@@ -11,6 +11,7 @@ import { IoClose } from "react-icons/io5";
 import {
   CREATE_PACKAGE_SUBSCRIPTION,
   GENERATE_SIGNED_URL,
+  GET_ADMIN_PACKAGES,
   GET_ALL_PAYMENT_GATEWAYS,
   GET_USER_INFO,
 } from "../../config/endpoints";
@@ -40,6 +41,8 @@ function UpgradeYourPackagePopup(props) {
   const [selectedReturnPackageTotalCost, setSelectedReturnPackageTotalCost] =
     useState(0);
 
+  console.log(userPackageList, "......userPackageList");
+
   const handlePackagePopupClose = () => {
     setShowPackagePopup(false);
     setSelectedMethodInfo("");
@@ -68,6 +71,8 @@ function UpgradeYourPackagePopup(props) {
   const totalPackagesBill =
     totalPackagesCost -
     (totalDiscount + (totalPackagesCost * specialDiscount) / 100);
+
+  console.log(packageList, "..........totalPackagesBill");
 
   const dispatch = useDispatch();
 
@@ -286,6 +291,18 @@ function UpgradeYourPackagePopup(props) {
     }
   };
 
+  const getAdminPackages = async () => {
+    await call(GET_ADMIN_PACKAGES, { register_id })
+      .then((res) => {
+        const adminPackages = res?.data?.data?.bulk_subscriptions?.filter(
+          (obj) =>
+            obj.duration !== "hourly" || obj.package_duration !== "hourly"
+        );
+        setAdminPackages(adminPackages || []);
+      })
+      .catch((err) => console.log(err));
+  };
+
   const onAddandSubtractExistingPackClick = (obj, value) => {
     let updatePackages = [];
     updatePackages = userPackageList.map((item) => {
@@ -338,6 +355,7 @@ function UpgradeYourPackagePopup(props) {
     setReturnPackageList(updateReturnPackageList);
     setAdminPackages(updatePackages);
   };
+
 
   useEffect(() => {
     if (selectedReturnPackageTotalCost > finalPackageCost) {
@@ -414,6 +432,7 @@ function UpgradeYourPackagePopup(props) {
 
   useEffect(() => {
     getProfile();
+    getAdminPackages();
   }, []);
 
   useEffect(() => {

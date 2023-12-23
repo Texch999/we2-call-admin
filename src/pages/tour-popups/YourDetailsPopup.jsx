@@ -169,9 +169,9 @@ function YourDetailsPopup(props) {
     setBookingComplete(false);
   };
   const handlePaymentDetails = (inputData) => {
+    setFillDetails(false);
     setAddedUsersList(true);
     setPaymentDetails(false);
-    setFillDetails(false);
     setBookingComplete(false);
     setusersDetails([...usersDetails, inputData]);
   };
@@ -211,7 +211,7 @@ function YourDetailsPopup(props) {
       user_name: user_name,
       website: "www.we2call.com",
     };
-    console.log(payload, "......payload");
+    // console.log(payload,'......payload')
     await call(ADD_GUESTDOCS_FOR_TOURS, payload)
       .then((res) => {
         if (res?.data?.status === 200) {
@@ -238,7 +238,7 @@ function YourDetailsPopup(props) {
             tour={tour}
           />
         )}
-        {addedUsersList && (
+        {addedUsersList === true && (
           <AddedUserList
             tour={tour}
             handleFillDetails={handleFillDetails}
@@ -260,7 +260,9 @@ function YourDetailsPopup(props) {
             usersDetails={usersDetails}
           />
         )}
-        {bookingComplete && <BookingCompleteMsg handleCancel={handleCancel} />}
+        {bookingComplete === true && (
+          <BookingCompleteMsg handleCancel={handleCancel} />
+        )}
       </div>
     </Modal>
   );

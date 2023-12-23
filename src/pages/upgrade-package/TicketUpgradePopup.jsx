@@ -42,7 +42,6 @@ function TicketUpgradePopup(props) {
   };
   // const [saleTicket, setSaleTicket] = useState([]);
   const [reasonRejection, setReasonRejection] = useState();
-  console.log(reasonRejection, ".....reasonRejection");
 
   // const getAllsaleTickets = async () => {
   //   const payload = {
@@ -77,7 +76,6 @@ function TicketUpgradePopup(props) {
     getAllReasonrejections();
   }, []);
 
-  console.log(saletickets, ".......saletickets");
   const imageUrl = saletickets?.summary?.transaction_img;
 
   return (
@@ -158,8 +156,8 @@ function TicketUpgradePopup(props) {
                 className="my-2 d-flex flex-row w-100 custom-select small-font btn-bg rounded all-none p-2 align-items-center justify-content-between "
               >
                 <option value="select">selecte...</option>
-                {rejectionDropdown?.map((obj) => (
-                  <option value={obj.reason} selected>
+                {rejectionDropdown?.map((obj,i) => (
+                  <option key={i} value={obj.reason} selected>
                     {obj.reason}
                   </option>
                 ))}
