@@ -513,7 +513,7 @@ function Header() {
       </div>
       <div className="d-flex w-100">
         <Marquee className="d-flex marqu-tag meetings-heading ">
-          {notifications?.map((obj,index) => (
+          {notifications?.map((obj, index) => (
             <div key={index}>
               {obj?.status === true &&
                 obj?.notification_type === "web-pushnotification" && (
@@ -547,7 +547,11 @@ function Header() {
         state={resetPasswordSubmit}
         setState={setResetPasswordSubmit}
       />
-      <AddPaymentMode state={modalShow} setState={setModalShow} />
+      <AddPaymentMode
+        state={modalShow}
+        setState={setModalShow}
+        Heading={"Add Payment Gateway"}
+      />
       <SharePopup
         showSharePopup={showSharePopup}
         setShowSharePopup={setShowSharePopup}

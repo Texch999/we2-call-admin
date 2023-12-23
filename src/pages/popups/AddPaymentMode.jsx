@@ -13,7 +13,7 @@ import MatchSubmitPopup from "../match-popups/MatchSubmitPopup";
 
 function AddPaymentMode(props) {
   const ImageBaseUrl = "https://we2-call-images.s3.us-east-2.amazonaws.com";
-  const { state, setState, selectedGateway } = props;
+  const { state, setState, selectedGateway, Heading } = props;
   const status = props.status;
   const register_id = localStorage?.getItem("register_id");
   const [openTQPopup, setOpenTQPopup] = useState(false);
@@ -115,6 +115,12 @@ function AddPaymentMode(props) {
         const res = await call(url, payload);
         if (res.status) {
           setOpenTQPopup(true);
+          setTimeout(() => {
+            setOpenTQPopup(false);
+          }, 1000);
+          setTimeout(() => {
+            setState(false);
+          }, 2000);
           props.apiResponse(!status);
         }
       }
@@ -165,13 +171,17 @@ function AddPaymentMode(props) {
       centered
       className="add-user-modal mt-4 z-index"
     >
-      <Modal.Header closeButton>
+      {/* <Modal.Header closeButton>
         <Modal.Title className="w-100 text-center">
           Add Payment Mode
         </Modal.Title>
+      </Modal.Header> */}
+      <Modal.Header closeButton>
+        <Modal.Title className="w-100 text-center">{Heading}</Modal.Title>
+        {console.log("Heading====>", Heading)}
       </Modal.Header>
       <Modal.Body>
-        <div className="text-center me-4">Add Your Payment Details</div>
+        {/* <div className="text-center me-4">{Heading}</div> */}
         <Form className="add-user-modal-form-details">
           <Form.Group className="mb-2">
             <Form.Label>Select Type*</Form.Label>
@@ -277,12 +287,16 @@ function AddPaymentMode(props) {
             className="w-100 add-user-button mt-2"
             onClick={handleOpenTqPopup}
           >
-            Submit
+            {selectedGateway ? "Update" : "Create"}
           </Button>
         </Form>
       </Modal.Body>
       <MatchSubmitPopup
-        header={"You Have Successfully Submitted Your Payment Details"}
+        header={
+          openTQPopup
+            ? "You Have Successfully Submitted Your Payment Details"
+            : "You Have Successfully Updated Your Payment Details"
+        }
         state={openTQPopup}
         setState={setOpenTQPopup}
       />
