@@ -529,7 +529,7 @@ function SportsManagement() {
             <Table data={scheduleDate || []} columns={scheduledColumns} />
           </div>
           <MatchSubmitPopup
-            header={"You Are Successfully Created Your Match"}
+            displayData={"You Are Successfully Created Your Match"}
             state={createMacthSubmit}
             setState={setCreateMacthSubmit}
           />

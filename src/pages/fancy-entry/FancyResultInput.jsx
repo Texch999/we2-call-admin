@@ -45,16 +45,6 @@ function FancyResultInput(props) {
     }
     setConfirmDeclaration(true);
   };
-  console.log(fancyResultInputData, "FANCY_INPUT_DATA");
-
-  // console.log(
-  //   +fancyResultInputData?.over,
-  //   +fancyResultInputData?.innings,
-  //   +fancyResultInputData?.runs,
-  //   fancyResultInputData?.team,
-  //   "DATAAA"
-  // );
-
   const handleFancyDeclaration = async () => {
     setConfirmDeclaration(false);
     setIsProcessing(true);
@@ -62,15 +52,16 @@ function FancyResultInput(props) {
     setIsProcessing(true);
     setError("");
     await call(FANCY_DECLARATION, {
-      registered_match_id,
+      registered_match_id: registered_match_id,
       register_id,
+      account_role,
       over: +fancyResultInputData?.over,
       innings: +fancyResultInputData?.innings === "1st" ? "1" : "2",
       runs: +fancyResultInputData?.runs,
       team: fancyResultInputData?.team,
+      creator_id_platform: creator_id,
     })
       .then((res) => {
-        console.log(res, "FANCY_RESULT");
         setIsProcessing(false);
         if (res?.data?.statusCode === 200) {
           setConfirmDeclaration(false);
@@ -135,7 +126,7 @@ function FancyResultInput(props) {
                 onChange={(e) => handleFancyResultInputDataChange(e)}
               >
                 <option value="">Select</option>
-                {(selectedInnings === "2"
+                {(selectedInnings == "2"
                   ? selectedMatch?.game_object?.second_innings_fancy_overs
                   : selectedMatch?.game_object?.first_innings_fancy_overs
                 )
@@ -187,7 +178,7 @@ function FancyResultInput(props) {
           <div
             className="cursor-pointer w-100 text-center rounded medium-font p-2 yellow-btn fw-semibold"
             onClick={() => handleFancyDeclarationPopup()}
-            disabled={isProcessing}
+            // disabled={isProcessing}
           >
             {isProcessing ? "Declaring..." : "Fancy Declaration"}
           </div>

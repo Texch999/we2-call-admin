@@ -3,48 +3,57 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import React from "react";
 
 function PackageListViewPopup(props) {
-  const { showPackageListPopup, setShowPackageListPopup } = props;
+  const { showPackageListPopup, setShowPackageListPopup, PackagesList } = props;
   const handleClosePackageList = () => {
     setShowPackageListPopup(false);
   };
   const tableHeadingList = [{}];
-  const TableData = [
-    {
-      packagename: "Standard",
-      purchase: "2",
-      price: "4000",
-      returnpkg: "2",
-      returnhrs: "400",
-    },
-    {
-      packagename: "Silver",
-      purchase: "5",
-      price: "10000",
-      returnpkg: "2",
-      returnhrs: "1000",
-    },
-    {
-      packagename: "Gold",
-      purchase: "10",
-      price: "15000",
-      returnpkg: "4",
-      returnhrs: "1500",
-    },
-    {
-      packagename: "Diamond",
-      purchase: "20",
-      price: "20000",
-      returnpkg: "8",
-      returnhrs: "2000",
-    },
-    {
-      packagename: "VIP",
-      purchase: "25",
-      price: "20000",
-      returnpkg: "10",
-      returnhrs: "2000",
-    },
-  ];
+  const TableData = PackagesList?.map((item) => {
+    return {
+      packagename: item.package_name,
+      purchase: item?.no_of_packages,
+      price: item?.package_cost,
+      returnpkg: item?.return_packages || 0,
+      returnhrs: item?.return_hrs || 0,
+    };
+  });
+  // const TableData = [
+  //   {
+  //     packagename: "Standard",
+  //     purchase: "2",
+  //     price: "4000",
+  //     returnpkg: "2",
+  //     returnhrs: "400",
+  //   },
+  //   {
+  //     packagename: "Silver",
+  //     purchase: "5",
+  //     price: "10000",
+  //     returnpkg: "2",
+  //     returnhrs: "1000",
+  //   },
+  //   {
+  //     packagename: "Gold",
+  //     purchase: "10",
+  //     price: "15000",
+  //     returnpkg: "4",
+  //     returnhrs: "1500",
+  //   },
+  //   {
+  //     packagename: "Diamond",
+  //     purchase: "20",
+  //     price: "20000",
+  //     returnpkg: "8",
+  //     returnhrs: "2000",
+  //   },
+  //   {
+  //     packagename: "VIP",
+  //     purchase: "25",
+  //     price: "20000",
+  //     returnpkg: "10",
+  //     returnhrs: "2000",
+  //   },
+  // ];
   return (
     <div className="yellow-border">
       <Modal
@@ -52,7 +61,7 @@ function PackageListViewPopup(props) {
         show={showPackageListPopup}
         onHide={handleClosePackageList}
         centered
-        className="match-share-modal payment-modal"
+        className="match-share-modal payment-modal z-index-big"
       >
         <Modal.Header closeButton>
           <div className="p-4 yllow-border">
@@ -66,7 +75,7 @@ function PackageListViewPopup(props) {
                   <th>Return Hrs</th>
                 </tr>
               </thead>
-              {TableData.map((item, index) => {
+              {TableData?.map((item, index) => {
                 return (
                   <tbody>
                     <tr className="text-center">

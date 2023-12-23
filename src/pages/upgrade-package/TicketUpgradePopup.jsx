@@ -12,8 +12,14 @@ import MatchSubmitPopup from "../match-popups/MatchSubmitPopup";
 import { BsArrowsFullscreen } from "react-icons/bs";
 import ImagePopup from "./ImagePopup";
 function TicketUpgradePopup(props) {
-  const { showTicketPackagePopup, setTicketShowPackagePopup, saletickets } =
-    props;
+  const {
+    showTicketPackagePopup,
+    setTicketShowPackagePopup,
+    saletickets,
+    handleSuccessfullPopup,
+    isProcessing,
+    status,
+  } = props;
   const [showPackageListPopup, setShowPackageListPopup] = useState(false);
   const handleShowPackageList = () => {
     setShowPackageListPopup((prev) => !prev);
@@ -34,28 +40,26 @@ function TicketUpgradePopup(props) {
   const handleImageModalClose = () => {
     setShowImagePopup(false);
   };
-  const [saleTicket, setSaleTicket] = useState([]);
+  // const [saleTicket, setSaleTicket] = useState([]);
+  const [reasonRejection, setReasonRejection] = useState();
 
-  const getAllsaleTickets = async () => {
-    const payload = {
-      register_id: localStorage.getItem("register_id"),
-    };
-    await call(GET_ADMIN_PACKAGE_REQUEST, payload)
-      .then((res) => {
-        setSaleTicket(res?.data?.data);
-      })
-      .catch((err) => console.log(err));
-  };
+  // const getAllsaleTickets = async () => {
+  //   const payload = {
+  //     register_id: localStorage.getItem("register_id"),
+  //   };
+  //   await call(GET_ADMIN_PACKAGE_REQUEST, payload)
+  //     .then((res) => {
+  //       setSaleTicket(res?.data?.data);
+  //     })
+  //     .catch((err) => console.log(err));
+  // };
 
-  useEffect(() => {
-    getAllsaleTickets();
-  }, []);
+  // useEffect(() => {
+  //   getAllsaleTickets();
+  // }, []);
 
   const handelChange = (e) => {
-    setSaleTicket({
-      ...saleTicket,
-      [e.target.name]: e.target.value,
-    });
+    setReasonRejection(e.target.value);
   };
 
   const [rejectionDropdown, setRejectionDropdown] = useState([]);
@@ -72,7 +76,8 @@ function TicketUpgradePopup(props) {
     getAllReasonrejections();
   }, []);
 
-  const showTicketPackage = saleTicket.map((obj) => {});
+  const imageUrl = saletickets?.summary?.transaction_img;
+
   return (
     <div className="modal fade bd-example-modal-lg container mt-5">
       <Modal
@@ -112,22 +117,18 @@ function TicketUpgradePopup(props) {
                 <div className="d-flex flex-row justify-content-between w-100 my-1">
                   <div>Payment Method</div>
                   <div>UPI</div>
-                </div>{" "}
+                </div>
                 <div className="d-flex flex-row justify-content-between w-100 my-1">
                   <div>From</div>
-                  <div>
-                    {saletickets?.user_name}
-                    {saletickets?.package_requester_id}
-                  </div>
-                </div>{" "}
+                  <div>{saletickets?.summary?.requester_name}</div>
+                </div>
                 <div className="d-flex flex-row justify-content-between w-100 my-1">
                   <div>To</div>
                   <div>
-                    {" "}
                     {localStorage.getItem("user_name")}-
                     {localStorage.getItem("account_role")}
                   </div>
-                </div>{" "}
+                </div>
                 <div className="d-flex flex-row justify-content-between w-100 my-1">
                   <div>Time</div>
                   <div>
@@ -136,7 +137,7 @@ function TicketUpgradePopup(props) {
                 </div>
               </div>
               <div className="my-2 w-100 custom-select small-font btn-bg rounded all-none p-2 h-10vh overflow-hidden relative-position">
-                <img src="./assets/transaction_Image.jpeg" />
+                <img src={imageUrl} />
                 <BsArrowsFullscreen
                   className="clr-red image-enlarge-icon"
                   onClick={handleImageModal}
@@ -151,41 +152,63 @@ function TicketUpgradePopup(props) {
               <select
                 name="reason"
                 id="reason"
-                value={saleTicket?.reason || ""}
                 onChange={(e) => handelChange(e)}
                 className="my-2 d-flex flex-row w-100 custom-select small-font btn-bg rounded all-none p-2 align-items-center justify-content-between "
               >
                 <option value="select">selecte...</option>
-                {rejectionDropdown?.map((obj) => (
-                  <option value={obj.reason} selected>
+                {rejectionDropdown?.map((obj,i) => (
+                  <option key={i} value={obj.reason} selected>
                     {obj.reason}
                   </option>
                 ))}
               </select>
-              <textarea className="my-2 d-flex flex-row w-100 custom-select small-font btn-bg rounded all-none p-2 align-items-center justify-content-between ">
-                Specify Other
-              </textarea>
+              <textarea
+                className="my-2 d-flex flex-row w-100 custom-select small-font btn-bg rounded all-none p-2 align-items-center justify-content-between "
+                onChange={(e) => handelChange(e)}
+                placeholder="Specify Other.."
+              ></textarea>
               <hr />
               <div className="d-flex justify-content-between medium-font mt-2 mb-2">
                 <div>Total</div>
                 <div>{saletickets?.summary?.total_packages_cost}</div>
               </div>
-              <div className="w-100 d-flex flex-row">
-                <button
-                  type="submit"
-                  className="submit-button mt-2 small-font p-2 rounded all-none w-50 mb-2 mx-2"
-                  onClick={() => handleSuccessUpgradeTicket()}
-                >
-                  Accept
-                </button>{" "}
-                <button
-                  type="submit"
-                  className="deactivate-button mt-2 small-font p-2 rounded all-none w-50 mb-2 mx-2 clr-white"
-                  onClick={() => handleTicketPackagePopupClose()}
-                >
-                  Reject
-                </button>
-              </div>
+              {saletickets?.status === "pending" ? (
+                <div className="w-100 d-flex flex-row">
+                  <button
+                    type="submit"
+                    className="submit-button mt-2 small-font p-2 rounded all-none w-50 mb-2 mx-2"
+                    onClick={() =>
+                      handleSuccessfullPopup(
+                        saletickets?.transaction_id,
+                        saletickets?.type,
+                        "Approved"
+                      )
+                    }
+                  >
+                    {isProcessing === true && status === "Approved"
+                      ? "Processing"
+                      : "Accept"}
+                  </button>
+                  <button
+                    type="submit"
+                    className="deactivate-button mt-2 small-font p-2 rounded all-none w-50 mb-2 mx-2 clr-white"
+                    onClick={() =>
+                      handleSuccessfullPopup(
+                        saletickets?.transaction_id,
+                        saletickets?.type,
+                        "Reject",
+                        reasonRejection
+                      )
+                    }
+                  >
+                    Reject
+                  </button>
+                </div>
+              ) : (
+                <div className="deactivate-button clr-white w-100 justify-content-center d-flex p-2">
+                  TIcket {saletickets?.status}
+                </div>
+              )}
             </div>
           </div>
         </Modal.Header>
@@ -193,10 +216,12 @@ function TicketUpgradePopup(props) {
       <ImagePopup
         showImagePopup={showImagePopup}
         setShowImagePopup={setShowImagePopup}
+        imageUrl={saletickets?.summary?.transaction_img}
       />
       <PackageListViewPopup
         showPackageListPopup={showPackageListPopup}
         setShowPackageListPopup={setShowPackageListPopup}
+        PackagesList={saletickets?.requested_packages}
       />
       <MatchSubmitPopup
         header={"You Are Successfully Upgraded Your Package Ticket"}

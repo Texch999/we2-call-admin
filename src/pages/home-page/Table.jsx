@@ -1,47 +1,6 @@
 function Table(props) {
   const { data, columns, tableClassname, editButtons, recordStatus } = props;
 
-  if (!data?.length) {
-    // return (
-    //   <div className="table-body-height">
-    //     <table
-    //       className={`fixed-table w-100 match-position-table text-center medium-font ${tableClassname}`}
-    //     >
-    //       <thead id="home-table-head">
-    //         <tr>
-    //           {columns?.map((column, index) => (
-    //             <th key={index}>{column.header}</th>
-    //           ))}
-    //         </tr>
-    //       </thead>
-    //       <tbody>
-    //         {data?.length > 0 ? (
-    //           data?.map((item, rowIndex) => (
-    //             <tr
-    //               key={rowIndex}
-    //               className={
-    //                 item?.recordStatus === "updated"
-    //                   ? "match-entry-edit-color"
-    //                   : ""
-    //               }
-    //             >
-    //               {columns?.map((column, colIndex) => (
-    //                 <td key={colIndex}>
-    //                   <div>{item[column?.field]}</div>
-    //                 </td>
-    //               ))}
-    //             </tr>
-    //           ))
-    //         ) : (
-    //           <tr className="no-data-found">
-    //             <div>NO DATA</div>
-    //           </tr>
-    //         )}
-    //       </tbody>
-    //     </table>
-    //   </div>
-    // );
-  }
   return (
     <div className="table-body-height">
       <table
@@ -71,8 +30,8 @@ function Table(props) {
                 }
                 key={rowIndex}
               >
-                {columns.map((column, colIndex) => (
-                  <td key={colIndex}>
+                {columns?.map((column, colIndex) => (
+                  <td key={colIndex}> 
                     <div>{item[column?.field]}</div>
                   </td>
                 ))}

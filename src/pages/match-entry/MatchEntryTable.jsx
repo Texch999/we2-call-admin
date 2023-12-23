@@ -68,7 +68,7 @@ function MatchEntryTable(props) {
 
   useEffect(() => {
     getMatchEntryDetails();
-  }, [matchAccountData?.registered_match_id, status]);
+  }, [matchAccountData?.registered_match_id]);
 
   const MATCH_ENTRY_DATA =
     data?.length >= 0 &&

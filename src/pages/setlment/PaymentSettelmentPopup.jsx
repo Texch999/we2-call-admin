@@ -18,11 +18,8 @@ function PaymentSettelmentPopup(props) {
     pendinAmount,
     clientDetails,
   } = props;
-  // console.log(clientDetails, "clientDetails");
-  // console.log(selectedUser, "selectedUser");
-  // console.log(role, "role");
-  // console.log(totalAmount, "totalAmount");
-  // console.log(pendinAmount, "pendinAmount");
+
+  console.log(clientDetails, ".......clientDetails");
 
   const register_id = localStorage?.getItem("register_id");
   const [paymentType, setPaymentType] = useState("");
@@ -37,12 +34,14 @@ function PaymentSettelmentPopup(props) {
     console.log("settlement obj", settlementObj);
     await call(SET_ADMIN_OFFLINE_PAYMENT, {
       client_id: clientDetails?.client_id,
-      referral_name: clientDetails?.referral_name,
       client_name: clientDetails?.client_name,
-      register_id,
-      payment_type: paymentType?.value,
-      totalAmount: totalAmount?.toFixed(2),
-      ...settlementObj,
+      register_id: register_id,
+      payment_type: settlementObj?.payment_type,
+      settled_platform_amount: settlementObj?.settled_platform_amount,
+      totalAmount: Number(clientDetails?.total_amount),
+      referral_name: clientDetails?.referral_name,
+      settledDate: new Date().toLocaleDateString(),
+      settledTime: new Date().toLocaleTimeString("en-US"),
     })
       ?.then((res) => {
         setIsProcessing(false);
@@ -66,10 +65,12 @@ function PaymentSettelmentPopup(props) {
   // const handleCloseModal = () => {
   //   setShowPaymentModal(false);
   // };
+
+  console.log(settlementObj, "....settlementObj");
   const onInputChange = (e) => {
     setSettlementObj({
       ...settlementObj,
-      [e.target.name]: Number(e.target.value),
+      [e.target.name]: e.target.value,
     });
   };
   const paymentTypes = [
@@ -82,6 +83,9 @@ function PaymentSettelmentPopup(props) {
   const handlePaymentClose = () => {
     setShowPaymentModal(false);
   };
+
+  let pendingBalance =
+    clientDetails?.total_amount - settlementObj?.settled_platform_amount;
   useEffect(() => {
     setSettlementObj();
   }, []);
@@ -96,13 +100,13 @@ function PaymentSettelmentPopup(props) {
   //   setPaymentSubmitPopup(false);
   // };
   return (
-    <div className="modal fade bd-example-modal-lg container mt-5">
+    <div className="modal fade bd-example-modal-lg container mt-5 z-index">
       <Modal
         size="md"
         show={showPaymentModal}
         onHide={handlePaymentClose}
         centered
-        className="match-share-modal payment-modal"
+        className="match-share-modal payment-modal z-index"
       >
         <Modal.Header closeButton>
           <div className="w-100 flex-columnn relative-position">
@@ -155,7 +159,7 @@ function PaymentSettelmentPopup(props) {
                       type="number"
                       // placeholder="Balance"
                       className="w-100 custom-select small-font btn-bg rounded all-none p-2 small-font"
-                      value={totalAmount ? totalAmount.toFixed(2) : 0}
+                      value={clientDetails?.total_amount}
                       disabled
                     ></input>
                   </Col>
@@ -165,7 +169,7 @@ function PaymentSettelmentPopup(props) {
                         (pendinAmount > 0
                           ? settlementObj?.settled_platform_amount || 0
                           : -1 * (settlementObj?.settled_platform_amount || 0))} */}
-                      PendingBal:{pendinAmount ? totalAmount : "0"}
+                      Bal:{pendingBalance || clientDetails?.total_amount}
                     </div>
                   </Col>
                 </Row>
@@ -184,7 +188,6 @@ function PaymentSettelmentPopup(props) {
                     onChange={(e) => onInputChange(e)}
                     name="payment_type"
                   >
-                    {/* <option selected>{settlementObj?.payment_type}</option> */}
                     <option value="gpay">Google Pay</option>
                     <option value="ppay">Phone Pe</option>
                     <option value="paytm">Paytm</option>

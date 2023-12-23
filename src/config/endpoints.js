@@ -91,7 +91,9 @@ const ADD_GUESTDOCS_FOR_TOURS = "/tours/add_guestdocs_for_tour";
 const GET_ALL_USERS = "/offline-management/get_user_list";
 const TOP_WINNERS_LOOSERS = "/admin/top_winner_looser";
 const SUMMARY_DATA = "/admin/summary";
-const GET_TOUR_PAYMENT_DOCUMENTS = "/tours/get_tour_payments_documents"
+const APPROVE_REJECT_FOR_SUBSCRIPTION = "/packages/package_approve_reject";
+const BULK_PACKAGE_APPROVE_REJECT = "/packages/bulk_package_approve_reject";
+const GET_TOUR_PAYMENT_DOCUMENTS = "/tours/get_tour_payments_documents";
 
 // methods
 const DELETE = "DELETE";
@@ -101,8 +103,8 @@ const PUT = "PUT";
 
 exports.GET_TOUR_PAYMENT_DOCUMENTS = {
   method: POST,
-  url: GET_TOUR_PAYMENT_DOCUMENTS
-}
+  url: GET_TOUR_PAYMENT_DOCUMENTS,
+};
 
 exports.ADD_GUESTDOCS_FOR_TOURS = {
   method: POST,
@@ -425,6 +427,16 @@ exports.GET_REQUEST_PACKAGES = {
 };
 exports.GET_ADMIN_PACKAGE_REQUEST = {
   url: GET_ADMIN_PACKAGE_REQUEST,
+  method: POST,
+};
+
+exports.APPROVE_REJECT_FOR_SUBSCRIPTION = {
+  url: APPROVE_REJECT_FOR_SUBSCRIPTION,
+  method: POST,
+};
+
+exports.BULK_PACKAGE_APPROVE_REJECT = {
+  url: BULK_PACKAGE_APPROVE_REJECT,
   method: POST,
 };
 

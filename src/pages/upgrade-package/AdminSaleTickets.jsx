@@ -3,7 +3,11 @@ import { BsFillEyeFill } from "react-icons/bs";
 import CustomPagination from "../pagination/CustomPagination";
 import { useState } from "react";
 import UpgradeYourPackagePopup from "./UpgradeYourPackagePopup";
-import { GET_ADMIN_PACKAGE_REQUEST } from "../../config/endpoints";
+import {
+  GET_ADMIN_PACKAGE_REQUEST,
+  APPROVE_REJECT_FOR_SUBSCRIPTION,
+  BULK_PACKAGE_APPROVE_REJECT,
+} from "../../config/endpoints";
 import { call } from "../../config/axios";
 import { useEffect } from "react";
 import TicketUpgradePopup from "./TicketUpgradePopup";
@@ -16,8 +20,9 @@ function AdminSaleTickets() {
     setSaletickets(data);
   };
   const [saleTicket, setSaleTicket] = useState([]);
-
-  console.log(saleTicket, ".....saleTicket");
+  const [isProcessing, setIsProcessing] = useState();
+  const [status, setStatus] = useState();
+  const [error, setError] = useState();
 
   const ADMIN_SALE_TICKETS_HEADING = [
     {
@@ -54,7 +59,6 @@ function AdminSaleTickets() {
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
-    // You can add your logic here to fetch data for the selected page.
   };
 
   const getAllsaleTickets = async () => {
@@ -63,14 +67,67 @@ function AdminSaleTickets() {
     };
     await call(GET_ADMIN_PACKAGE_REQUEST, payload)
       .then((res) => {
-        setSaleTicket(res?.data?.data);
+        const resp = res?.data?.data
+          .map((item) => {
+            const dateTimeString = `${item.created_date} ${item.created_time}`;
+            const timestamp = new Date(dateTimeString).getTime();
+            item.timestamp = timestamp;
+            return item;
+          })
+          ?.sort((a, b) => b.timestamp - a.timestamp);
+        setSaleTicket(resp);
       })
       .catch((err) => console.log(err));
+  };
+
+  const handleSuccessfullPopup = async (
+    transaction_id,
+    type,
+    status,
+    reason
+  ) => {
+    if (status === "Reject" && !reason) {
+      alert("Please select The Reject Reason");
+      return;
+    }
+    const url = type
+      ? APPROVE_REJECT_FOR_SUBSCRIPTION
+      : BULK_PACKAGE_APPROVE_REJECT;
+    setIsProcessing(true);
+    setStatus(status);
+    await call(url, {
+      register_id: localStorage.getItem("register_id"),
+      transaction_id,
+      status,
+      reason,
+    })
+      .then((res) => {
+        if (res.status === 200) {
+          setIsProcessing(false);
+          setStatus("");
+          setTicketShowPackagePopup(false);
+          if (res.data.status == 403) {
+            alert(res.data.message);
+            return;
+          } else {
+            reason && setTicketShowPackagePopup(false);
+            if (status === "Approved") setStatus("");
+            getAllsaleTickets();
+          }
+        }
+      })
+      .catch((err) => {
+        setIsProcessing(false);
+        setStatus("");
+        console.log(err);
+      });
   };
 
   useEffect(() => {
     getAllsaleTickets();
   }, []);
+
+  console.log(saleTicket, ".......saleTicket");
 
   const ADMIN_SALE_TICKETS_DATA = saleTicket.map((obj) => ({
     dateAndTime: (
@@ -87,21 +144,26 @@ function AdminSaleTickets() {
     packageTRX: obj.summary.total_package_cost,
     payAmount: obj.summary.final_package_cost,
     status:
-      obj?.status === "approve" ? (
-        <div className="rounded-pill p-1 completed-btn">Completed</div>
+      obj?.status === "Approved" ? (
+        <div className="rounded-pill p-1 completed-btn">{obj?.status}</div>
       ) : obj?.status === "Reject" ? (
-        <div className="rounded-pill p-1 reject-btn">Reject</div>
+        <div className="rounded-pill p-1 reject-btn">{obj?.status}</div>
       ) : (
-        <div className="rounded-pill p-1 pending-btn">Pending</div>
+        <div className="rounded-pill p-1 pending-btn">{obj?.status}</div>
       ),
-    newButton: (
-      <div
-        className="rounded p-1 completed-btn"
-        onClick={() => handleNewButton(obj)}
-      >
-        NEW
-      </div>
-    ),
+    newButton:
+      obj?.status === "pending" ? (
+        <div
+          className="rounded p-1 completed-btn"
+          onClick={() => handleNewButton(obj)}
+        >
+          NEW
+        </div>
+      ) : (
+        <div className="rounded p-1 " onClick={() => handleNewButton(obj)}>
+          Click_here
+        </div>
+      ),
   }));
 
   return (
@@ -125,9 +187,12 @@ function AdminSaleTickets() {
         </div>
       </div>
       <TicketUpgradePopup
+        isProcessing={isProcessing}
         saletickets={saletickets}
         showTicketPackagePopup={showTicketPackagePopup}
         setTicketShowPackagePopup={setTicketShowPackagePopup}
+        handleSuccessfullPopup={handleSuccessfullPopup}
+        status={status}
       />
     </div>
   );

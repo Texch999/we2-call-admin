@@ -134,6 +134,11 @@
   color: #4859f7 !important;
   font-weight: bolder;
 }
+.clickhere-deactive-btn {
+  padding: 0px !important;
+  color: #8b8b8b !important;
+  font-weight: bolder;
+}
 .reject-button {
   background-color: #4d2930;
   border: none;

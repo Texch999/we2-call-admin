@@ -23,10 +23,10 @@ function PurchaseAdminPackages() {
     setPackageAvailablePopup(!packageAvailablePopup);
   };
 
+  console.log(allPackages, "........allPackages");
   const handleYear = (e) => {
     setYearly(e.target.checked);
   };
-  console.log(adminPackages, ".....adminPackages");
   const packageList =
     useSelector((State) => State.common.selected_packages) || [];
   const selectedPackages = packageList.reduce(
@@ -683,7 +683,6 @@ function PurchaseAdminPackages() {
           ))}
         </div>
         <div className="col mt-2">
-        
           <Table
             data={PACKAGES_DATA}
             columns={PACKAGES_HEADING}
@@ -694,7 +693,6 @@ function PurchaseAdminPackages() {
               handlePackageAvailable={handlePackageAvailable}
             />
           )}
-       
         </div>
       </div>
       <div className="w-95 package-cart-div rounded p-2 m-2 d-flex align-items-center justify-content-between">

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { AiOutlineDown, AiOutlineRight } from "react-icons/ai";
+import { AiOutlineRight } from "react-icons/ai";
 import Table from "./Table";
 import { call } from "../../config/axios";
 import {
@@ -9,20 +9,22 @@ import {
 } from "../../config/endpoints";
 import moment from "moment";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { Button } from "react-bootstrap";
 
 function MeetingAndSummary() {
   const history = useHistory();
   let register_id = localStorage?.getItem("register_id");
-  let creator_id = localStorage?.getItem("creator_id");
-  let account_role = localStorage?.getItem("account_role");
   const [liveMeetings, setLiveMeetings] = useState([]);
   const [allAdmins, setAllAdmins] = useState([]);
   const [summaryData, setSummaryData] = useState({});
 
   let meetingUserData;
   const data1 = liveMeetings?.map((obj) => {
-    meetingUserData = allAdmins?.filter((item) =>
-      obj.meetingUserIds.includes(item.register_id)
+    meetingUserData = allAdmins?.filter(
+      (item) =>
+        obj?.meetingUserIds &&
+        obj?.meetingUserIds?.length > 0 &&
+        obj?.meetingUserIds.includes(item.register_id)
     );
     return {
       ...obj,
@@ -32,7 +34,7 @@ function MeetingAndSummary() {
 
   const data2 =
     data1?.length > 0 &&
-    data1?.map((meeting, index) => {
+    data1?.map((meeting) => {
       return {
         admin: meeting?.createdBy || "",
         event: (
@@ -43,13 +45,35 @@ function MeetingAndSummary() {
             {moment(meeting?.given_time_stamp).format("hh:mm:s")}
           </div>
         ),
-        user: meetingUserData?.map((obj) => (
+        user: (
           <div>
-            {obj.user_name} +<br />
-            {meetingUserData.length - 1} Others
+            {meetingUserData[0]?.user_name} +<br />
+            {meetingUserData?.length - 1} Others
           </div>
-        )),
-        status: <div>{meeting.recording_status}</div>,
+        ),
+        status: (
+          <td className="text-center">
+            {meeting?.recording_status === "started" ? (
+              <Button className="rounded-pill meeting-status-button">
+                Started
+              </Button>
+            ) : (
+              <Button className="rounded-pill meeting-status-button">
+                Upcoming
+              </Button>
+            )}
+            {meeting?.recording_status === "upcoming" && (
+              <Button className="rounded-pill meeting-status-button">
+                Upcoming
+              </Button>
+            )}
+            {meeting?.recording_status === "join" && (
+              <Button className="rounded-pill meeting-status-button">
+                Join
+              </Button>
+            )}
+          </td>
+        ),
       };
     });
 

@@ -269,7 +269,7 @@ function MatchEntryInput({
           >
             {isProcessing
               ? "Processing..."
-              : Object.keys(selectedMatchEntry).length === 0
+              : Object.keys(selectedMatchEntry)?.length === 0
               ? "Submit"
               : "Update"}
           </div>
