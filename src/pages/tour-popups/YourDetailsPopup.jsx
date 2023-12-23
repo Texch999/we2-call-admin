@@ -149,9 +149,9 @@ function YourDetailsPopup(props) {
     setBookingComplete(false);
   };
   const handlePaymentDetails = (inputData) => {
+    setFillDetails(false);
     setAddedUsersList(true);
     setPaymentDetails(false);
-    setFillDetails(false);
     setBookingComplete(false);
     setusersDetails([...usersDetails, inputData]);
   };
@@ -212,13 +212,13 @@ function YourDetailsPopup(props) {
     >
       <Modal.Header closeButton></Modal.Header>
       <div className="p-3">
-        {fillDetails && (
+        {fillDetails === true && (
           <FillDetails
             handlePaymentDetails={handlePaymentDetails}
             tour={tour}
           />
         )}
-        {addedUsersList && (
+        {addedUsersList === true && (
           <AddedUserList
             handleFillDetails={handleFillDetails}
             handleAddedUserList={handleAddedUserList}
@@ -229,7 +229,7 @@ function YourDetailsPopup(props) {
           />
         )}
 
-        {paymentDetails && (
+        {paymentDetails === true && (
           <PaymentDetails
             handleBookingComplete={handleBookingComplete}
             eachPackageTotalamount={eachPackageTotalamount}
@@ -239,7 +239,9 @@ function YourDetailsPopup(props) {
             usersDetails={usersDetails}
           />
         )}
-        {bookingComplete && <BookingCompleteMsg handleCancel={handleCancel} />}
+        {bookingComplete === true && (
+          <BookingCompleteMsg handleCancel={handleCancel} />
+        )}
       </div>
     </Modal>
   );
