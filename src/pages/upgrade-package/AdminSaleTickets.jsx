@@ -127,8 +127,6 @@ function AdminSaleTickets() {
     getAllsaleTickets();
   }, []);
 
-  console.log(saleTicket, ".......saleTicket");
-
   const ADMIN_SALE_TICKETS_DATA = saleTicket.map((obj) => ({
     dateAndTime: (
       <div>

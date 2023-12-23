@@ -48,13 +48,12 @@ function AdminPaymentPopup({
   const onInputChange = (e) => {
     setSettlementObj({
       ...settlementObj,
-      [e.target.name]: (e.target.value),
+      [e.target.name]: e.target.value,
     });
   };
 
   const onSubmitBtnClick = async () => {
     setIsProcessing(true);
-    console.log("settlement obj", settlementObj);
     await call(SET_ADMIN_OFFLINE_PAYMENT, {
       client_id: selectedUser?.client_id,
       referral_name: selectedUser?.referral_name,

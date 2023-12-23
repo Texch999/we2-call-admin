@@ -36,7 +36,6 @@ function YourIntrested(props) {
   useEffect(() => {
     gettingSelectedTourMembers();
   }, []);
-  // console.log(selectedMembers,'.....selectedmembers')
   const tourdetailsAddedMembers =
     selectedMembers &&
     selectedMembers.length > 0 &&
@@ -53,7 +52,6 @@ function YourIntrested(props) {
           return item;
         }
       });
-  // console.log(tourdetailsAddedMembers,'....tourdetailsaddedmembers')
 
   return (
     <div>

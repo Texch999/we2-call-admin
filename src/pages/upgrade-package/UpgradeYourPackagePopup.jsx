@@ -41,8 +41,6 @@ function UpgradeYourPackagePopup(props) {
   const [selectedReturnPackageTotalCost, setSelectedReturnPackageTotalCost] =
     useState(0);
 
-  console.log(userPackageList, "......userPackageList");
-
   const handlePackagePopupClose = () => {
     setShowPackagePopup(false);
     setSelectedMethodInfo("");
@@ -71,8 +69,6 @@ function UpgradeYourPackagePopup(props) {
   const totalPackagesBill =
     totalPackagesCost -
     (totalDiscount + (totalPackagesCost * specialDiscount) / 100);
-
-  console.log(packageList, "..........totalPackagesBill");
 
   const dispatch = useDispatch();
 
@@ -355,7 +351,6 @@ function UpgradeYourPackagePopup(props) {
     setReturnPackageList(updateReturnPackageList);
     setAdminPackages(updatePackages);
   };
-
 
   useEffect(() => {
     if (selectedReturnPackageTotalCost > finalPackageCost) {

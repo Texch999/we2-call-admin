@@ -18,10 +18,7 @@ function OnePagePopup(props) {
   const [mfrcInputs, setMfrcInputs] = useState(true);
   const [ulsharereportInputs, setUlShareReportInputs] = useState(false);
   const [referalNetInputs, setReferalNetInputs] = useState(false);
-  console.log(
-    showOnepageReportData,
-    "................showOnepageReportData............"
-  );
+
   const induvisualClientData =
     showOnepageReportData &&
     showOnepageReportData?.length > 0 &&
@@ -192,7 +189,6 @@ function OnePagePopup(props) {
     setReferalNetInputs(true);
   };
 
-  // console.log(selectedClientData, "...........selectedClientData");
   return (
     <div className="modal fade bd-example-modal-lg container mt-5">
       <Modal

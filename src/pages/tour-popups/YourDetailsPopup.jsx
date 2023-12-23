@@ -37,7 +37,6 @@ function YourDetailsPopup(props) {
       return item;
     }
   });
-  // console.log(luxurypacks,'......luxury')
   const vippacks = usersDetails.filter((item) => {
     if (/^vip/i.test(Object.keys(item)[0])) {
       return item;
@@ -116,7 +115,6 @@ function YourDetailsPopup(props) {
   const luxurypackmemberscount = luxurypackmembers.length;
   const vippackmemberscount = vippackmembers.length;
   const vvippackmemberscount = vvippackmembers.length;
-  // console.log(packageCount,'.......usersdetailsfrommaincomponent')
   const packagesDetailsinuseState = () => {
     setPackageCount({
       regularpack,
@@ -183,8 +181,6 @@ function YourDetailsPopup(props) {
   };
 
   const handleBookingComplete = async (paymentdetails) => {
-    // console.log(paymentdetails,'........paymentdetails')
-
     setPaymentDetails(false);
     setFillDetails(false);
     addingAllData(paymentdetails);
@@ -195,7 +191,6 @@ function YourDetailsPopup(props) {
     setFillDetails(true);
     window.location.reload(true);
   };
-  // console.log(packageCount, "........packagecount");
   const addingAllData = async (paymentdetails) => {
     const register_id = localStorage.getItem("register_id");
     const account_role = localStorage.getItem("account_role");
@@ -211,7 +206,6 @@ function YourDetailsPopup(props) {
       user_name: user_name,
       website: "www.we2call.com",
     };
-    // console.log(payload,'......payload')
     await call(ADD_GUESTDOCS_FOR_TOURS, payload)
       .then((res) => {
         if (res?.data?.status === 200) {

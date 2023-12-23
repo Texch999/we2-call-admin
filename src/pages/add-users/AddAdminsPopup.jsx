@@ -23,8 +23,6 @@ function AddAdminsPopup(props) {
     show,
   } = props;
 
-  // console.log("input data", inputData)
-
   const register_id = localStorage?.getItem("register_id");
   const creator_id = localStorage?.getItem("creator_id");
   const account_role = localStorage?.getItem("account_role");
@@ -98,7 +96,6 @@ function AddAdminsPopup(props) {
   };
 
   const handleSubmitUserCreation = async () => {
-    // console.log("inputData", inputData)
     if (
       !(
         inputData?.first_name &&

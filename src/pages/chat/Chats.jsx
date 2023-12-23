@@ -173,7 +173,6 @@ function Chats() {
       to_user_id: localStorage?.getItem("register_id"),
     })
       .then(async (res) => {
-        console.log("support data", res.data.data);
         setSupportData(res?.data?.data);
       })
       .catch((err) => {
@@ -239,8 +238,6 @@ function Chats() {
   const handleUploadButtonClick = () => {
     inputFileRef.current.click();
   };
-
-  console.log(clientsData, "CLIENT");
 
   return (
     <div className="d-flex chat-page row">

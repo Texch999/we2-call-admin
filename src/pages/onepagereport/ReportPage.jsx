@@ -154,7 +154,6 @@ function ReportPage() {
       })
       .catch((err) => console.log(err));
   };
-  console.log(onePageReportData, "onePageReportData");
 
   const ONE_PAGE_REPORT_DETAILS =
     onePageReportData?.length > 0 &&
@@ -331,7 +330,6 @@ function ReportPage() {
     setClientName(client_name);
     setClientId(client_id);
     setNetPLInduvisualClient(netPL);
-    // console.log("client....", client_name, client_id);
   };
   const individualClientNameData = (
     <div>

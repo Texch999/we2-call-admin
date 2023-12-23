@@ -2,86 +2,88 @@ import { FaCheck, FaChevronDown, FaRegUser } from "react-icons/fa6";
 import { BiSolidCloudUpload } from "react-icons/bi";
 import { MdOutlinePayment } from "react-icons/md";
 import { AiTwotoneSave } from "react-icons/ai";
-import { GET_TOUR_PAYMENT_GATEWAY,GENERATE_SIGNED_URL } from "../../config/endpoints";
+import {
+  GET_TOUR_PAYMENT_GATEWAY,
+  GENERATE_SIGNED_URL,
+} from "../../config/endpoints";
 import { call } from "../../config/axios";
 import { useEffect, useState } from "react";
 import { ImageBaseUrl } from "../../images";
 
 function PaymentDetails(props) {
-  const { handleBookingComplete,
-          eachPackageTotalamount,
-          individualPackageMembersCount,
-          packMembers,
-          packageCount,
-          usersDetails } = props;
-  const [allPayments, setAllPayments] = useState([])
-  const [dropdownOption, setDropdownOption] = useState('')
-  const [paymentdetails, setPaymentdetails] = useState({})
-  const [imagefiles, setImagefiles] = useState({})
-  
-  // console.log(eachPackageTotalamount,'.....eachPackageTotalamount')
-  // console.log(individualPackageMembersCount,'.....individualPackageMembersCount')
-  // console.log(packMembers,'.....packMembers')
-  // console.log(packageCount,'.....packageCount')
-  // console.log(usersDetails,'.........userdetailsfrompaymentcomponent')
-  // console.log(imagefiles,'........imagefiles')
-  // console.log(paymentdetails,'.......paymentdetails')
+  const {
+    handleBookingComplete,
+    eachPackageTotalamount,
+    individualPackageMembersCount,
+    packMembers,
+    packageCount,
+    usersDetails,
+  } = props;
+  const [allPayments, setAllPayments] = useState([]);
+  const [dropdownOption, setDropdownOption] = useState("");
+  const [paymentdetails, setPaymentdetails] = useState({});
+  const [imagefiles, setImagefiles] = useState({});
 
   const getCompanyAllowedPayments = async () => {
     const payload = {};
-    const country = 'India'
+    const country = "India";
     await call(GET_TOUR_PAYMENT_GATEWAY, payload)
-      .then((res) => setAllPayments(
-        res?.data?.data?.filter((item)=>{
-          return item.status === "active"
-        }).filter((item)=>{
-          return item.website === "www.we2call.com"
-        }).filter((item)=>{
-          return item.country === country;
-      })))
+      .then((res) =>
+        setAllPayments(
+          res?.data?.data
+            ?.filter((item) => {
+              return item.status === "active";
+            })
+            .filter((item) => {
+              return item.website === "www.we2call.com";
+            })
+            .filter((item) => {
+              return item.country === country;
+            })
+        )
+      )
       .catch((error) => console.log(error));
   };
-
-  // console.log(allPayments,'.....allpayments')
 
   useEffect(() => {
     getCompanyAllowedPayments();
   }, []);
 
-  const uniquePaymentDropdown = [...new Set(allPayments.map((item)=>(item.paymentGateway)))]
-  const filteredPayments = allPayments.filter((item)=>{
-    return item.paymentGateway === dropdownOption
-  })
-  const handlepaymentscreenshot = async(e)=>{
+  const uniquePaymentDropdown = [
+    ...new Set(allPayments.map((item) => item.paymentGateway)),
+  ];
+  const filteredPayments = allPayments.filter((item) => {
+    return item.paymentGateway === dropdownOption;
+  });
+  const handlepaymentscreenshot = async (e) => {
     const imagefile = e.target.files[0];
     const imageId = Date.now();
-    // console.log(imagefile,'......imgfile')
     const imageuploadingurl = await generatesignedurl(imageId);
     imageuploadingurl &&
       imagefile &&
-        (await fetch(imageuploadingurl, {
-          method: "PUT",
-          body: imagefile,
-          headers: {
-            "Content-Type": "image/jpeg",
-            "cache-control": "public, max-age=0",
-          },
+      (await fetch(imageuploadingurl, {
+        method: "PUT",
+        body: imagefile,
+        headers: {
+          "Content-Type": "image/jpeg",
+          "cache-control": "public, max-age=0",
+        },
+      })
+        .then((res) => {
+          if (res.status === 200) {
+            setPaymentdetails({
+              ...paymentdetails,
+              [e.target
+                .name]: `${ImageBaseUrl}/tours_payment_docs/${imageId}.png`,
+            });
+            setImagefiles({
+              [e.target.name]: imagefile.name,
+            });
+          }
         })
-          .then((res) => {
-            if(res.status===200){
-              setPaymentdetails({
-                ...paymentdetails,
-                [e.target.name]:`${ImageBaseUrl}/tours_payment_docs/${imageId}.png`
-              })
-              setImagefiles({
-                [e.target.name]: imagefile.name
-              })
-            };
-          })
-          .catch((err) => {
-            console.log("err: ", err);
-          }));
-    
+        .catch((err) => {
+          console.log("err: ", err);
+        }));
   };
   const generatesignedurl = async (imageId) => {
     const payload = {
@@ -98,26 +100,26 @@ function PaymentDetails(props) {
       return "";
     }
   };
-  const handlepaymentdetails = (e,item)=>{
-    if(e.target.name==='neftclicked'){
-    setPaymentdetails({
-      ...paymentdetails,
-      name: item?.accountHolderName,
-      accountNo: item?.accountNumber,
-      bank:item?.bankName,
-      ifscCode: item?.ifscCode,
-      paymentmode: dropdownOption
-    })
-    }else{
+  const handlepaymentdetails = (e, item) => {
+    if (e.target.name === "neftclicked") {
+      setPaymentdetails({
+        ...paymentdetails,
+        name: item?.accountHolderName,
+        accountNo: item?.accountNumber,
+        bank: item?.bankName,
+        ifscCode: item?.ifscCode,
+        paymentmode: dropdownOption,
+      });
+    } else {
       setPaymentdetails({
         ...paymentdetails,
         name: item?.upiName,
         upiId: item?.upiId,
-        mobileNumber:item?.mobileNumber,
-        paymentmode: dropdownOption
-      })
+        mobileNumber: item?.mobileNumber,
+        paymentmode: dropdownOption,
+      });
     }
-  }
+  };
 
   return (
     <div>
@@ -244,15 +246,19 @@ function PaymentDetails(props) {
       <div className="font-10 mt-1">Payment Mode*</div>
       <div className="row">
         <div className="col-12" span={24}>
-          <select className="d-flex justify-content-between p-1 font-10 neft-div w-100 all-none"
-                  name="dropdownoption"
-                  value={dropdownOption}
-                  onChange={(e)=>setDropdownOption(e.target.value)}
+          <select
+            className="d-flex justify-content-between p-1 font-10 neft-div w-100 all-none"
+            name="dropdownoption"
+            value={dropdownOption}
+            onChange={(e) => setDropdownOption(e.target.value)}
           >
-            <option value={'All'} selected>Select Payment Mode</option>
-            {uniquePaymentDropdown.map((item)=>(
-              <option className="d-flex justify-content-between p-1 font-10 neft-div w-50 all-none" 
-                      value={item}
+            <option value={"All"} selected>
+              Select Payment Mode
+            </option>
+            {uniquePaymentDropdown.map((item) => (
+              <option
+                className="d-flex justify-content-between p-1 font-10 neft-div w-50 all-none"
+                value={item}
               >
                 {item}
               </option>
@@ -260,7 +266,7 @@ function PaymentDetails(props) {
             {/* <option>NEFT/RTGS</option>
             <option>NEFT/RTGS</option>
             <option>NEFT/RTGS</option> */}
-            
+
             {/* <div>
               <FaChevronDown />
             </div> */}
@@ -268,32 +274,35 @@ function PaymentDetails(props) {
         </div>
       </div>
       <div className="members-conatainer">
-        {filteredPayments.map((item)=>{
-          return(
+        {filteredPayments.map((item) => {
+          return (
             <div className="row">
               <div className="col-12">
                 <div className=" p-2 font-10 neft-div mt-1">
-                  {dropdownOption==='neft'? (
+                  {dropdownOption === "neft" ? (
                     <div>
                       <div className="d-flex justify-content-between">
                         <div>Name: {item?.accountHolderName}</div>
-                        <input type="checkbox" className="yellow-clr"
-                                name="neftclicked"
-                          onClick={(e)=>handlepaymentdetails(e,item)}
+                        <input
+                          type="checkbox"
+                          className="yellow-clr"
+                          name="neftclicked"
+                          onClick={(e) => handlepaymentdetails(e, item)}
                         ></input>
                       </div>
                       <div>A/C No: {item?.accountNumber}</div>
                       <div>Bank: {item?.bankName}</div>
                       <div>IFSC Code: {item?.ifscCode}</div>
                     </div>
-                  )
-                  :(
+                  ) : (
                     <div>
                       <div className="d-flex justify-content-between">
                         <div>Name: {item?.upiName}</div>
-                        <input type="checkbox" className="yellow-clr"
-                                name="upiclicked"
-                                onClick={(e)=>handlepaymentdetails(e,item)}
+                        <input
+                          type="checkbox"
+                          className="yellow-clr"
+                          name="upiclicked"
+                          onClick={(e) => handlepaymentdetails(e, item)}
                         ></input>
                       </div>
                       <div>UPI Id: {item?.upiId}</div>
@@ -303,29 +312,33 @@ function PaymentDetails(props) {
                 </div>
               </div>
             </div>
-          )
+          );
         })}
       </div>
       <div className="row">
         <div className="col-12">
-          <label  className="d-flex justify-content-between neft-div mt-2 p-2"
-                htmlFor='paymentscreenshot'
+          <label
+            className="d-flex justify-content-between neft-div mt-2 p-2"
+            htmlFor="paymentscreenshot"
           >
             <div className="font-10">
               {imagefiles.paymentscreenshot || "Upload Screenshot"}
-              <input  type="file" 
-                      className="display-none"
-                      name="paymentscreenshot"
-                      id="paymentscreenshot"
-                      onChange={(e)=>handlepaymentscreenshot(e)} 
-
+              <input
+                type="file"
+                className="display-none"
+                name="paymentscreenshot"
+                id="paymentscreenshot"
+                onChange={(e) => handlepaymentscreenshot(e)}
               />
             </div>
             <BiSolidCloudUpload className="type-file font-25" />
           </label>
         </div>
       </div>
-      <div className="login-btn mt-2" onClick={() => handleBookingComplete(paymentdetails)}>
+      <div
+        className="login-btn mt-2"
+        onClick={() => handleBookingComplete(paymentdetails)}
+      >
         Pay
       </div>
     </div>

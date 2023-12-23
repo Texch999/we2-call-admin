@@ -50,7 +50,6 @@ function MatchResultInput({
       creator_id_platform: creator_id,
     })
       .then((res) => {
-        console.log(res, "RESPONSE");
         setIsProcessing(false);
         if (res.data.statusCode === 200) {
           setConfirmDeclaration(false);

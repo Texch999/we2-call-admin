@@ -10,7 +10,6 @@ function MyTours() {
   const [documentUploadedTours, setDocumentUploadedTours] = useState([]);
   const [messagePopup, setMessagePopup] = useState(false);
   const [itemData, setItemData] = useState({});
-  // console.log(itemData,'itemData')
 
   const getApprovedUsers = async () => {
     const regId = localStorage.getItem("register_id");
@@ -21,7 +20,6 @@ function MyTours() {
       .then((res) => setDocumentUploadedTours(res?.data?.data?.Items))
       .catch((error) => console.log(error));
   };
-  // console.log(documentUploadedTours, "......documentUploadedTours");
   const upcomingApprovedTours = documentUploadedTours?.filter((item) => {
     const presentTimestamp = Date.now();
     const scheduleDateObject = new Date(item.date);
@@ -30,7 +28,6 @@ function MyTours() {
       return item;
     }
   });
-  // console.log(upcomingApprovedTours, ".....upcomingApprovedTours");
   const completedApprovedTours = documentUploadedTours?.filter((item) => {
     const presentTimestamp = Date.now();
     const scheduleDateObject = new Date(item.date);
@@ -39,7 +36,6 @@ function MyTours() {
       return item;
     }
   });
-  // console.log(completedApprovedTours, ".....completedApprovedTours");
 
   useEffect(() => {
     getApprovedUsers();

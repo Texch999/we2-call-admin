@@ -19,7 +19,6 @@ function AddedUserList(props) {
   // const [packMembers, setPackMembers] = useState({});
   // const [individualPackageMembersCount, setIndividualPackageMembersCount] = useState({})
   // const [eachPackageTotalamount, setEachPackageTotalamount] = useState({})
-  // console.log(usersDetails,'....usersdetails')
   const [normalTour, setNormalTour] = useState(false);
   useEffect(() => {
     if (tour[0]?.tour_name !== "4.Casino Tour") {

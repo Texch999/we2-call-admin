@@ -10,7 +10,6 @@ function AdminComissionReport(props) {
       ulnetpl: item.ul_platform_comm,
     };
   });
-  console.log(ADMIN_COMM_REPORT__DETAILS, "ADMIN_COMM_REPORT__DETAILS");
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = 5;
 

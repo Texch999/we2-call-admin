@@ -19,8 +19,8 @@ function OfferDetails(props) {
     setTeamIntrested(true);
     setYourIntrested(false);
   };
-  
-  const gettingSpecificTournameFromParams=()=>{
+
+  const gettingSpecificTournameFromParams = () => {
     switch (tourname) {
       case "1.Take Part in Our Tour":
         setDynamicTourDetails({
@@ -71,13 +71,12 @@ function OfferDetails(props) {
         setDynamicTourDetails({});
         break;
     }
-  }
+  };
 
   useEffect(() => {
     gettingSpecificTournameFromParams();
   }, []);
 
-  // console.log(dynamicTourDetails, "......dynamicTourDetails");
   return (
     <div className="p-1">
       {/* <NoOffer /> */}

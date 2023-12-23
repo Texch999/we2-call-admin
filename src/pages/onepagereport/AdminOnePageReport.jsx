@@ -165,7 +165,6 @@ const AdminOnePageReport = () => {
   const getAllUsers = async () => {
     await call(GET_OFFLINE_CLIENTS, { register_id })
       .then((res) => {
-        // console.log(res.data);
         let results = res?.data?.data?.filter(
           (item) => item.user_status !== "deleted"
         );
@@ -176,7 +175,6 @@ const AdminOnePageReport = () => {
   const getUserMatches = async (username) => {
     await call(GET_LIVE_MATCH_RISK_POSITION, { user_name: username })
       .then((res) => {
-        // console.log(res,"GET_LIVE_MATCH_RISK....");
         setInduvisualUserReport(res?.data?.data);
       })
       .catch((err) => console.log(err));

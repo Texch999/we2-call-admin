@@ -33,8 +33,6 @@ function FancyFirstInnings({ winTeam, matchDetails, selectedClientID }) {
       0
     );
 
-  // console.log(userFancyFirstInnings, "userFancyFirstInnings");
-
   const Fancy_First_DETAILS = [
     {
       Sno: "5",

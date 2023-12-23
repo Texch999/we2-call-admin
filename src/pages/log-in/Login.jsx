@@ -44,8 +44,6 @@ function Login(props) {
             share,
           } = res.data.data;
 
-          console.log(res.data.data, ".........res.data.data");
-
           setLocalStorageItems({
             email,
             token: password + new Date(),

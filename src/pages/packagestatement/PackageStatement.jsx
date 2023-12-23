@@ -55,7 +55,8 @@ function PackageStatement() {
     getAllPackageRequests();
   }, []);
   let totalPaidAmount = 0,
-    totalSellAmount = 0;
+    totalSellAmount = 0,
+    totalNetPl = 0;
 
   const packageStatementData = packagesStatement?.map((obj) => {
     const paidAmount =
@@ -64,6 +65,7 @@ function PackageStatement() {
       obj?.register_id === register_id ? obj?.summary.final_package_cost : 0;
     totalPaidAmount += paidAmount;
     totalSellAmount += sellAmount;
+    totalNetPl = sellAmount - paidAmount;
     return {
       pkg_trans: obj?.summary.requester_name,
       date: obj?.created_date,
@@ -102,13 +104,9 @@ function PackageStatement() {
       </div>
       <div className="d-flex total-count-container mt-2 py-2  rounded align-items-center justify-content-around">
         <div>
-          Net PL ={" "}
-          <span
-            className={`${
-              summary.lossOrProfitAmmount >= 0 ? "clr-green" : "clr-red"
-            }`}
-          >
-            {summary.lossOrProfitAmmount || 0}
+          Total Net PL =
+          <span className={`${totalNetPl >= 0 ? "clr-green" : "clr-red"}`}>
+            {totalNetPl || 0}
           </span>
         </div>
         <div>
