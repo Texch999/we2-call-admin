@@ -214,18 +214,20 @@ const CallManagement = () => {
       ?.map((obj) => {
         const meetingUserData =
           (listOfUsers &&
-            listOfUsers?.length > 0 &&
-            listOfUsers?.filter((item) =>
-              obj.meetingUserIds.includes(item.register_id)
-            )) ||
-          [];
+          listOfUsers?.length &&
+          listOfUsers?.filter((item) =>
+            obj.meetingUserIds.includes(item.register_id)
+          )) ||
+          []
         return {
           ...obj,
           urs: obj?.createdBy,
           event_name: obj?.event_name,
           date: obj?.date,
           time: obj?.time,
-          user: meetingUserData?.map((obj) => <>{obj?.user_name}</>),
+          user:
+            meetingUserData?.length > 0 &&
+            meetingUserData?.map((obj) => <>{obj?.user_name}</>),
           recording_status: obj?.recording_status,
           action: "edit",
         };
@@ -503,11 +505,12 @@ const CallManagement = () => {
                           </Button>
                         </Dropdown.Toggle>
                         <Dropdown.Menu className="meeting-user-list">
-                          {data?.user?.map((userObj) => (
-                            <Dropdown.Item href="#action1">
-                              {userObj}
-                            </Dropdown.Item>
-                          ))}
+                          {data?.user?.length > 0 &&
+                            data?.user?.map((userObj) => (
+                              <Dropdown.Item href="#action1">
+                                {userObj}
+                              </Dropdown.Item>
+                            ))}
                         </Dropdown.Menu>
                       </Dropdown>
                     </td>
