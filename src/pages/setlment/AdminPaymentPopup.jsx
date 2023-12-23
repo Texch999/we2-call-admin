@@ -48,7 +48,7 @@ function AdminPaymentPopup({
   const onInputChange = (e) => {
     setSettlementObj({
       ...settlementObj,
-      [e.target.name]: Number(e.target.value),
+      [e.target.name]: (e.target.value),
     });
   };
 
@@ -90,7 +90,7 @@ function AdminPaymentPopup({
         show={showAdminPaymentModal}
         onHide={handleAdminPaymentClose}
         centered
-        className="match-share-modal payment-modal"
+        className="match-share-modal payment-modal z-index"
       >
         <Modal.Header closeButton>
           <div className="w-100 flex-columnn relative-position">

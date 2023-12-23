@@ -399,7 +399,7 @@ function Header() {
           </div>
           {toursOpen && (
             <div className="head-dropdown tours-position p-2">
-              {ToursDropdown.map((item, index) => {
+              {ToursDropdown?.map((item, index) => {
                 return (
                   <div
                     key={index}
@@ -415,7 +415,7 @@ function Header() {
           )}
           {matchEntryOpen && (
             <div className="head-dropdown match-entry-position p-2">
-              {MatchEntryDropdown.map((item, index) => {
+              {MatchEntryDropdown?.map((item, index) => {
                 return (
                   <div
                     key={index}
@@ -431,7 +431,7 @@ function Header() {
           )}
           {reportsOpen && (
             <div className="head-dropdown report-position p-2">
-              {ReportsEntryDropdown.map((item, index) => {
+              {ReportsEntryDropdown?.map((item, index) => {
                 return (
                   <div
                     key={index}
@@ -449,7 +449,7 @@ function Header() {
           )}
           {moreOpen && (
             <div className="head-dropdown p-2 more-position w-200px">
-              {moreDropdown.map((item, index) => {
+              {moreDropdown?.map((item, index) => {
                 return (
                   <div
                     key={index}
@@ -492,7 +492,7 @@ function Header() {
             </div>
             {activeUserDropdown && (
               <div className="head-dropdown setting-position p-2">
-                {settingsDropdown.map((item, index) => {
+                {settingsDropdown?.map((item, index) => {
                   return (
                     <div
                       key={index}
@@ -513,8 +513,8 @@ function Header() {
       </div>
       <div className="d-flex w-100">
         <Marquee className="d-flex marqu-tag meetings-heading ">
-          {notifications?.map((obj) => (
-            <div>
+          {notifications?.map((obj,index) => (
+            <div key={index}>
               {obj?.status === true &&
                 obj?.notification_type === "web-pushnotification" && (
                   <li className="ml-3rem">{obj?.description} </li>

@@ -16,7 +16,6 @@ function PurchaseTopupHours() {
   const [showPackagePopup, setShowPackagePopup] = useState(false);
   const [selectPackage, setSelectPackage] = useState(false);
 
-  console.log(adminPackages, "........adminPackagesHoouly");
 
   let PACKAGES_DATA = [
     {

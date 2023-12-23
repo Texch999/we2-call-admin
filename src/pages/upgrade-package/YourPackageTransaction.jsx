@@ -42,8 +42,6 @@ function YourPackageTransaction() {
   const [summary, setSummary] = useState();
   const [packagesStatement, setPackagesStatement] = useState();
 
-  console.log(summary, "....summary");
-
   const register_id = localStorage.getItem("register_id");
 
   const creator_id = localStorage.getItem("creator_id");

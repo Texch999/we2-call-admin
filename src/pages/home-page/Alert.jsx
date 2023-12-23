@@ -3,33 +3,11 @@ import { AiOutlineRight } from "react-icons/ai";
 import { Chart } from "react-google-charts";
 import { GET_UPDATED_MATCHES_DATA } from "../../config/endpoints";
 import { call } from "../../config/axios";
-import AlertsTable from "./AlertsTable";
+import Table from "./Table";
 
 function Alert() {
-  let register_id = localStorage?.getItem("register_id");
-
+  const register_id = localStorage?.getItem("register_id");
   const [allData, setAllData] = useState([]);
-
-  const data1 = [
-    {
-      admin: "UL",
-      event: "Newzelend vs South Africa Oneday 23-06-2023, 12:52:00 PM",
-      user: "Sri-Agent",
-      status: "Join",
-    },
-    {
-      admin: "UL",
-      event: "Newzelend vs South Africa Oneday 23-06-2023, 12:52:00 PM",
-      user: "Sri-Agent",
-      status: "Join",
-    },
-    {
-      admin: "UL",
-      event: "Newzelend vs South Africa Oneday 23-06-2023, 12:52:00 PM",
-      user: "Sri-Agent",
-      status: "Not-Started",
-    },
-  ];
 
   const columns = [
     { header: "Users", field: "client_name" },
@@ -46,6 +24,16 @@ function Alert() {
     title: "Connect Devices",
     pieHole: 0.5,
     is3D: true,
+    backgroundColor: "#082051",
+    hAxis: {
+      title: "Year",
+      titleTextStyle: { color: "#fff" },
+      textStyle: { color: "#fff" }, // Set the text color for hAxis
+    }, 
+    vAxis: {
+      minValue: 0,
+      textStyle: { color: "#fff" }, // Set the text color for vAxis
+    },
   };
 
   const getMatchReports = async () => {
@@ -75,7 +63,7 @@ function Alert() {
               <AiOutlineRight />
             </div>
           </div>
-          <AlertsTable data={allData} columns={columns} />
+          <Table data={allData} columns={columns} />
         </div>
       </div>
       <div className="col-6 p-2">

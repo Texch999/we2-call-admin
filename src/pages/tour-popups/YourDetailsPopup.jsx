@@ -6,8 +6,8 @@ import BookingCompleteMsg from "./BookingCompleteMsg";
 import { Modal } from "react-bootstrap";
 import AddedUserList from "./AddedUserList";
 import { GET_TOUR_BY_ID } from "../../config/endpoints";
-import { call } from "../../config/axios"
-import { ADD_GUESTDOCS_FOR_TOURS } from "../../config/endpoints"
+import { call } from "../../config/axios";
+import { ADD_GUESTDOCS_FOR_TOURS } from "../../config/endpoints";
 
 function YourDetailsPopup(props) {
   const { yourDetailsPopup, setYourDetailsPopup, tour } = props;
@@ -18,125 +18,149 @@ function YourDetailsPopup(props) {
   const [usersDetails, setusersDetails] = useState([]);
   const [packageCount, setPackageCount] = useState({});
   const [packMembers, setPackMembers] = useState({});
-  const [individualPackageMembersCount, setIndividualPackageMembersCount] = useState({});
+  const [individualPackageMembersCount, setIndividualPackageMembersCount] =
+    useState({});
   const [eachPackageTotalamount, setEachPackageTotalamount] = useState({});
-  
-  const regularpacks = usersDetails.filter((item)=>{
-        if(Object.keys(item)[0]?.includes('regular')){
-          return item
-        }
-      })
-  const premiumpacks = usersDetails.filter((item)=>{
-        if(Object.keys(item)[0]?.includes('premium')){
-          return item
-        }
-      })
-  const luxurypacks = usersDetails.filter((item)=>{
-        if(Object.keys(item)[0]?.includes('luxury')){
-          return item
-        }
-      })
+
+  const regularpacks = usersDetails.filter((item) => {
+    if (Object.keys(item)[0]?.includes("regular")) {
+      return item;
+    }
+  });
+  const premiumpacks = usersDetails.filter((item) => {
+    if (Object.keys(item)[0]?.includes("premium")) {
+      return item;
+    }
+  });
+  const luxurypacks = usersDetails.filter((item) => {
+    if (Object.keys(item)[0]?.includes("luxury")) {
+      return item;
+    }
+  });
   // console.log(luxurypacks,'......luxury')
-  const vippacks = usersDetails.filter((item)=>{
-          if(/^vip/i.test(Object.keys(item)[0])){
-            return item
-          }
-      })
-  const vvippacks = usersDetails.filter((item)=>{
-        if(/^vvip/i.test(Object.keys(item)[0])){
-          return item
-        }
-      })
-  const regularpack = regularpacks.length
-  const premiumpack = premiumpacks.length
-  const luxurypack = luxurypacks.length
-  const vippack = vippacks.length
-  const vvippack = vvippacks.length
-  const regularpacktotalamount = ((tour[0]?.packages.regularpack.minamount)*(regularpack));
-  const premiumpacktotalamount = ((tour[0]?.packages.premiumpack.minamount)*(premiumpack));
-  const luxurypacktotalamount = ((tour[0]?.packages.luxurypack.minamount)*(luxurypack));
-  const vippacktotalamount = ((tour[0]?.packages.vippack.minamount)*(vippack));
-  const vvippacktotalamount = ((tour[0]?.packages.vvippack.minamount)*(vvippack));
-  const regularpackmembers = []
-  const premiumpackmembers = []
-  const luxurypackmembers = []
-  const vippackmembers = []
-  const vvippackmembers = []
-  for (let i of regularpacks){
-    for (let j in i){
-      if(j.includes('username')){
-        regularpackmembers.push(i[j])
+  const vippacks = usersDetails.filter((item) => {
+    if (/^vip/i.test(Object.keys(item)[0])) {
+      return item;
+    }
+  });
+  const vvippacks = usersDetails.filter((item) => {
+    if (/^vvip/i.test(Object.keys(item)[0])) {
+      return item;
+    }
+  });
+  const regularpack = regularpacks.length;
+  const premiumpack = premiumpacks.length;
+  const luxurypack = luxurypacks.length;
+  const vippack = vippacks.length;
+  const vvippack = vvippacks.length;
+  const regularpackmintotalamount =
+    tour[0]?.packages.regularpack.minamount * regularpack;
+  const premiumpackmintotalamount =
+    tour[0]?.packages.premiumpack.minamount * premiumpack;
+  const luxurypackmintotalamount =
+    tour[0]?.packages.luxurypack.minamount * luxurypack;
+  const vippackmintotalamount = tour[0]?.packages.vippack.minamount * vippack;
+  const vvippackmintotalamount =
+    tour[0]?.packages.vvippack.minamount * vvippack;
+  const regularpackmaxtotalamount =
+    tour[0]?.packages.regularpack.maxamount * regularpack;
+  const premiumpackmaxtotalamount =
+    tour[0]?.packages.premiumpack.maxamount * premiumpack;
+  const luxurypackmaxtotalamount =
+    tour[0]?.packages.luxurypack.maxamount * luxurypack;
+  const vippackmaxtotalamount = tour[0]?.packages.vippack.maxamount * vippack;
+  const vvippackmaxtotalamount =
+    tour[0]?.packages.vvippack.maxamount * vvippack;
+  const regularpackmembers = [];
+  const premiumpackmembers = [];
+  const luxurypackmembers = [];
+  const vippackmembers = [];
+  const vvippackmembers = [];
+  for (let i of regularpacks) {
+    for (let j in i) {
+      if (j.includes("username")) {
+        regularpackmembers.push(i[j]);
       }
     }
   }
-  for (let i of premiumpacks){
-    for (let j in i){
-      if(j.includes('username')){
-        premiumpackmembers.push(i[j])
+  for (let i of premiumpacks) {
+    for (let j in i) {
+      if (j.includes("username")) {
+        premiumpackmembers.push(i[j]);
       }
     }
   }
-  for (let i of luxurypacks){
-    for (let j in i){
-      if(j.includes('username')){
-        luxurypackmembers.push(i[j])
+  for (let i of luxurypacks) {
+    for (let j in i) {
+      if (j.includes("username")) {
+        luxurypackmembers.push(i[j]);
       }
     }
   }
-  for (let i of vippacks){
-    for (let j in i){
-      if(j.includes('username')){
-        vippackmembers.push(i[j])
+  for (let i of vippacks) {
+    for (let j in i) {
+      if (j.includes("username")) {
+        vippackmembers.push(i[j]);
       }
     }
   }
-  for (let i of vvippacks){
-    for (let j in i){
-      if(j.includes('username')){
-        vvippackmembers.push(i[j])
+  for (let i of vvippacks) {
+    for (let j in i) {
+      if (j.includes("username")) {
+        vvippackmembers.push(i[j]);
       }
     }
   }
-  const regularpackmemberscount = regularpackmembers.length
-  const premiumpackmemberscount = premiumpackmembers.length
-  const luxurypackmemberscount = luxurypackmembers.length
-  const vippackmemberscount = vippackmembers.length
-  const vvippackmemberscount = vvippackmembers.length
+  const regularpackmemberscount = regularpackmembers.length;
+  const premiumpackmemberscount = premiumpackmembers.length;
+  const luxurypackmemberscount = luxurypackmembers.length;
+  const vippackmemberscount = vippackmembers.length;
+  const vvippackmemberscount = vvippackmembers.length;
   // console.log(packageCount,'.......usersdetailsfrommaincomponent')
-  const packagesDetailsinuseState = ()=>{
+  const packagesDetailsinuseState = () => {
     setPackageCount({
       regularpack,
       premiumpack,
       luxurypack,
       vippack,
-      vvippack
-      })
+      vvippack,
+    });
     setPackMembers({
       regularpackmembers,
       premiumpackmembers,
       luxurypackmembers,
       vippackmembers,
-      vvippackmembers
-    })
+      vvippackmembers,
+    });
     setIndividualPackageMembersCount({
       regularpackmemberscount,
       premiumpackmemberscount,
       luxurypackmemberscount,
       vippackmemberscount,
-      vvippackmemberscount
-    })
-    setEachPackageTotalamount({
-      regularpacktotalamount,
-      premiumpacktotalamount,
-      luxurypacktotalamount,
-      vippacktotalamount,
-      vvippacktotalamount
-    })
-  }
-  
-  useEffect(()=>{
-    packagesDetailsinuseState()
-  },[usersDetails])
+      vvippackmemberscount,
+    });
+    setEachPackageTotalamount(
+      tour[0]?.tour_name !== "4.Casino Tour"
+        ? regularpackmintotalamount
+        : [regularpackmintotalamount, regularpackmaxtotalamount],
+      tour[0]?.tour_name !== "4.Casino Tour"
+        ? premiumpackmintotalamount
+        : [premiumpackmintotalamount, premiumpackmaxtotalamount],
+      tour[0]?.tour_name !== "4.Casino Tour"
+        ? luxurypackmintotalamount
+        : [luxurypackmintotalamount, luxurypackmaxtotalamount],
+      tour[0]?.tour_name !== "4.Casino Tour"
+        ? vippackmintotalamount
+        : [vippackmintotalamount, vippackmaxtotalamount],
+      tour[0]?.tour_name !== "4.Casino Tour"
+        ? vvippackmintotalamount
+        : [vvippackmintotalamount, vvippackmaxtotalamount]
+    );
+  };
+
+  useEffect(() => {
+    packagesDetailsinuseState();
+  }, [usersDetails]);
 
   const handleFillDetails = () => {
     setFillDetails(true);
@@ -145,11 +169,11 @@ function YourDetailsPopup(props) {
     setBookingComplete(false);
   };
   const handlePaymentDetails = (inputData) => {
+    setFillDetails(false);
     setAddedUsersList(true);
     setPaymentDetails(false);
-    setFillDetails(false);
     setBookingComplete(false);
-    setusersDetails([...usersDetails,inputData])
+    setusersDetails([...usersDetails, inputData]);
   };
   const handleAddedUserList = () => {
     setAddedUsersList(false);
@@ -158,9 +182,9 @@ function YourDetailsPopup(props) {
     setBookingComplete(false);
   };
 
-  const handleBookingComplete = async(paymentdetails) => {
+  const handleBookingComplete = async (paymentdetails) => {
     // console.log(paymentdetails,'........paymentdetails')
-    
+
     setPaymentDetails(false);
     setFillDetails(false);
     addingAllData(paymentdetails);
@@ -169,12 +193,13 @@ function YourDetailsPopup(props) {
     setYourDetailsPopup(false);
     setBookingComplete(false);
     setFillDetails(true);
+    window.location.reload(true);
   };
-  console.log(packageCount,'........packagecount')
-  const addingAllData = async(paymentdetails) => {
-    const register_id = localStorage.getItem("register_id")
-    const account_role = localStorage.getItem("account_role")
-    const user_name = localStorage.getItem("user_name")
+  // console.log(packageCount, "........packagecount");
+  const addingAllData = async (paymentdetails) => {
+    const register_id = localStorage.getItem("register_id");
+    const account_role = localStorage.getItem("account_role");
+    const user_name = localStorage.getItem("user_name");
     const payload = {
       paymentDetails: paymentdetails,
       usersDetails: usersDetails,
@@ -184,17 +209,17 @@ function YourDetailsPopup(props) {
       register_id: register_id,
       account_role: account_role,
       user_name: user_name,
-      website: "www.we2call.com"
-    }
+      website: "www.we2call.com",
+    };
     // console.log(payload,'......payload')
     await call(ADD_GUESTDOCS_FOR_TOURS, payload)
-            .then((res)=>{
-              if(res?.data?.status===200){
-                setBookingComplete(true);
-                setusersDetails([]);
-              }
-            })
-            .catch((error)=>console.log(error))
+      .then((res) => {
+        if (res?.data?.status === 200) {
+          setBookingComplete(true);
+          setusersDetails([]);
+        }
+      })
+      .catch((error) => console.log(error));
   };
 
   return (
@@ -203,14 +228,19 @@ function YourDetailsPopup(props) {
       className="add-user-modal z-index"
       footer={null}
       centered
-      onCancel={() => handleCancel()}
+      onHide={() => handleCancel()}
     >
+      <Modal.Header closeButton></Modal.Header>
       <div className="p-3">
         {fillDetails && (
-          <FillDetails handlePaymentDetails={handlePaymentDetails} tour={tour} />
+          <FillDetails
+            handlePaymentDetails={handlePaymentDetails}
+            tour={tour}
+          />
         )}
-        {addedUsersList && (
+        {addedUsersList === true && (
           <AddedUserList
+            tour={tour}
             handleFillDetails={handleFillDetails}
             handleAddedUserList={handleAddedUserList}
             packageCount={packageCount}
@@ -221,15 +251,18 @@ function YourDetailsPopup(props) {
         )}
 
         {paymentDetails && (
-          <PaymentDetails handleBookingComplete={handleBookingComplete}
-                          eachPackageTotalamount={eachPackageTotalamount}
-                          individualPackageMembersCount={individualPackageMembersCount}
-                          packMembers={packMembers}
-                          packageCount={packageCount}
-                          usersDetails={usersDetails}
+          <PaymentDetails
+            handleBookingComplete={handleBookingComplete}
+            eachPackageTotalamount={eachPackageTotalamount}
+            individualPackageMembersCount={individualPackageMembersCount}
+            packMembers={packMembers}
+            packageCount={packageCount}
+            usersDetails={usersDetails}
           />
         )}
-        {bookingComplete && <BookingCompleteMsg handleCancel={handleCancel} />}
+        {bookingComplete === true && (
+          <BookingCompleteMsg handleCancel={handleCancel} />
+        )}
       </div>
     </Modal>
   );
