@@ -71,9 +71,11 @@ const CallManagement = () => {
         video_call_type: selectedMeeting?.video_call_type === true ? 1 : 0,
       };
       const list = (
-        listOfUsers.length > 0 &&
-        listOfUsers?.filter((item) =>
-          selectedMeeting?.meetingUserIds.includes(item.register_id)
+        listOfUsers?.length &&
+        listOfUsers?.filter(
+          (item) =>
+            selectedMeeting?.meetingUserIds.includes &&
+            selectedMeeting?.meetingUserIds.includes(item.register_id)
         )
       )?.map((item) => {
         return { value: item?.register_id, label: item?.user_name };
@@ -213,8 +215,10 @@ const CallManagement = () => {
       ?.map((obj) => {
         const meetingUserData =
           (listOfUsers.length &&
-            listOfUsers?.filter((item) =>
-              obj?.meetingUserIds.includes(item.register_id)
+            listOfUsers?.filter(
+              (item) =>
+                obj?.meetingUserIds.includes &&
+                obj?.meetingUserIds.includes(item.register_id)
             )) ||
           [];
         return {
@@ -293,7 +297,6 @@ const CallManagement = () => {
     };
     setIsProcessing(true);
     const url = selectedMeeting ? UPDATE_MEETING : CREATE_MEETING;
-
     await call(url, payload)
       .then((res) => {
         if (res?.data?.statusCode === 200) {
