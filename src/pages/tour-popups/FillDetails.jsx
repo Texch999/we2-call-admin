@@ -74,19 +74,29 @@ function FillDetails(props) {
     setPackageOptionsOpen(false);
     {
       let arr = [];
-      for (let i = 0; i < item.value; i++) {
+      if(tour[0]?.tour_name!=="4.Casino Tour"){
         arr.push({
-          username: item.name + "username" + (i + 1),
-          userdob: item.name + "userdob" + (i + 1),
-          usergender: item.name + "usergender" + (i + 1),
-          useridproof: item.name + "useridproof" + (i + 1),
-          userimageinfo: item.name + "userimage" + (i + 1),
+          username: item.name + "username" + 1,
+          userdob: item.name + "userdob" + 1,
+          usergender: item.name + "usergender" + 1,
+          useridproof: item.name + "useridproof" + 1,
+          userimageinfo: item.name + "userimage" + 1,
         });
+      }else{
+        for (let i = 0; i < item.value; i++) {
+          arr.push({
+            username: item.name + "username" + (i + 1),
+            userdob: item.name + "userdob" + (i + 1),
+            usergender: item.name + "usergender" + (i + 1),
+            useridproof: item.name + "useridproof" + (i + 1),
+            userimageinfo: item.name + "userimage" + (i + 1),
+          });
+        }
       }
       setArrey(arr);
     }
   };
-  // console.log(NUMBER_OF_MEMBERS, "....numberof members");
+  console.log(NUMBER_OF_MEMBERS, "....numberof members");
 
   const handleAddMore = () => {
     let arr = [];
