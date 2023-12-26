@@ -212,7 +212,11 @@ function YourDetailsPopup(props) {
     setYourDetailsPopup(false);
     setBookingComplete(false);
     setFillDetails(true);
-    window.location.reload(true);
+    setusersDetails([]);
+    setPackageCount({});
+    setPackMembers({});
+    setIndividualPackageMembersCount({});
+    setEachPackageTotalamount({});
   };
   const addingAllData = async (paymentdetails) => {
     const register_id = localStorage.getItem("register_id");

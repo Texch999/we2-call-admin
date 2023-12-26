@@ -35,7 +35,7 @@ function AddedUserList(props) {
       ? { header: "Amount", field: "minamount" }
       :
        { header: "Min Amount", field: "minamount" },
-      { header: "Max Amount", field: "maxamount" }
+    normalTour ? null : { header: "Max Amount", field: "maxamount" }
   ];
 
   const addedUsersData = [
@@ -122,12 +122,22 @@ function AddedUserList(props) {
           <div className="col-12">
             <div className="d-flex justify-content-between font-10 package-amount-text p-2 mt-2">
               <div>Total Amount to Pay</div>
-              <div className="yellow-clr">
-                {eachPackageTotalamount.regularpacktotalamount +
-                  eachPackageTotalamount.premiumpacktotalamount +
-                  eachPackageTotalamount.luxurypacktotalamount +
-                  eachPackageTotalamount.vippacktotalamount +
-                  eachPackageTotalamount.vvippacktotalamount}
+              <div className="yellow-clr pe-2">
+                {normalTour===true?
+                  (eachPackageTotalamount.regularpack.min +
+                  eachPackageTotalamount.premiumpack.min +
+                  eachPackageTotalamount.luxurypack.min +
+                  eachPackageTotalamount.vippack.min +
+                  eachPackageTotalamount.vvippack.min) :
+                  (`${eachPackageTotalamount.regularpack.min +
+                    eachPackageTotalamount.premiumpack.min +
+                    eachPackageTotalamount.luxurypack.min +
+                    eachPackageTotalamount.vippack.min +
+                    eachPackageTotalamount.vvippack.min} - ${eachPackageTotalamount.regularpack.max +
+                      eachPackageTotalamount.premiumpack.max +
+                      eachPackageTotalamount.luxurypack.max +
+                      eachPackageTotalamount.vippack.max +
+                      eachPackageTotalamount.vvippack.max}`)}
               </div>
             </div>
           </div>
