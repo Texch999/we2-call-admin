@@ -81,13 +81,9 @@ function OnePageReport(props) {
       (acc, obj) => acc + (+obj?.totalLossOrProfit || 0),
       0
     );
-  // console.log(totalMfrcInput, "totalMfrcInput");
-  // console.log(totalCnetInput, "totalCnetInput");
-  // console.log(totalRfnetInput, "totalRfnetInput");
-  // console.log(totalOnepageInput, "totalOnepageInput");
   return (
     <div className="mt-3">
-      <table className="w-100 match-position-table medium-font">
+      <table className="w-100 fixed-table match-position-table medium-font">
         <thead>
           <tr className="text-center">
             <th className="w-20">CLIENT NAME</th>
@@ -120,9 +116,26 @@ function OnePageReport(props) {
                 </tr>
               </tbody>
             ))}
+              <tfoot>
+          <tr className="text-center">
+            <th className="w-20">TOTAL</th>
+            <th className={totalMfrcInput > 0 ? "clr-green" : "clr-red"}>
+              {totalMfrcInput ? totalMfrcInput.toFixed(2) : 0}
+            </th>
+            <th className={totalCnetInput > 0 ? "clr-green" : "clr-red"}>
+              {totalCnetInput ? totalCnetInput.toFixed(2) : 0}
+            </th>
+            <th className={totalRfnetInput > 0 ? "clr-green" : "clr-red"}>
+              {totalRfnetInput ? totalRfnetInput.toFixed(2) : 0}
+            </th>
+            <th className={totalOnepageInput > 0 ? "clr-green" : "clr-red"}>
+              {totalOnepageInput ? totalOnepageInput.toFixed(2) : 0}
+            </th>
+          </tr>
+        </tfoot>
         </table>
       </div>
-      <table className="w-100 match-position-table medium-font">
+      {/* <table className="w-100 match-position-table medium-font">
         <tfoot>
           <tr className="text-center">
             <th className="w-20">TOTAL</th>
@@ -140,7 +153,7 @@ function OnePageReport(props) {
             </th>
           </tr>
         </tfoot>
-      </table>
+      </table> */}
       <div className="d-flex justify-content-between align-items-center mt-4">
         <div className="d-flex justify-content-start font-clr-white total-count-container  py-2 px-4 rounded">
           <span>

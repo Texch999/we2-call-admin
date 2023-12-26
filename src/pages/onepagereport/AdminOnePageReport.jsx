@@ -260,7 +260,6 @@ const AdminOnePageReport = () => {
   const getUserMatches = async (username) => {
     await call(GET_LIVE_MATCH_RISK_POSITION, { user_name: username })
       .then((res) => {
-        // console.log(res,"GET_LIVE_MATCH_RISK....");
         setInduvisualUserReport(res?.data?.data);
       })
       .catch((err) => console.log(err));

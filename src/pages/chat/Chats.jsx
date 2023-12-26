@@ -107,36 +107,6 @@ function Chats() {
     setFile([file, e.target.files[0]]);
   };
 
-  // const inputFileRef = useRef(null);
-  // const handleChange = (e) => {
-  //   const file = e.target.files[0];
-  //   console.log("file====>", file);
-  //   setProfileImage(file);
-  //   generateSignedUrl();
-  // };
-
-  // const handleUserInput = () => {
-  //   if (userInput.trim() !== "") {
-  //     setMessages((prevMessages) => [
-  //       ...prevMessages,
-  //       {
-  //         content: reply,
-  //         sender: "computer",
-  //         img: Images.ViratImage02,
-  //       },
-  //     ]);
-  //     const reply = generateReply(userInput);
-  //     setMessages((prevMessages) => [
-  //       ...prevMessages,
-
-  //       { content: userInput, sender: "user", img: Images.DhoniImage02 },
-  //     ]);
-  //     setUserInput("");
-  //   }
-  // };
-  // const generateReply = (message) => {
-  //   return message;
-  // };
   const [currentTime, setCurrentTime] = useState(
     new Date().toLocaleTimeString()
   );
@@ -182,27 +152,6 @@ function Chats() {
         console.log(err);
       });
   };
-
-  // const generateSignedUrl = async () => {
-  //   setuploadImage(true);
-  //   const posetNewId = new Date().getTime();
-  //   await call(GENERATE_SIGNED_URL, {
-  //     register_id: `${posetNewId}`,
-  //     event_type: "chat_profile_image",
-  //     folder_name: "chat-images",
-  //   })
-  //     .then(async (res) => {
-  //       setuploadImage(false);
-  //       let url = res?.data?.data?.result?.signed_url;
-  //       setSignedUrl(url);
-  //       setImageId(posetNewId);
-  //     })
-  //     .catch((err) => {
-  //       setuploadImage(false);
-  //       console.log("generating signed url error", err);
-  //     });
-  // };
-
   const onMessageRecieve = (event) => {
     if (!event.data) {
       return;
@@ -241,8 +190,6 @@ function Chats() {
   const handleUploadButtonClick = () => {
     inputFileRef.current.click();
   };
-
-  console.log(clientsData, "CLIENT");
 
   return (
     <div className="container w-100">
