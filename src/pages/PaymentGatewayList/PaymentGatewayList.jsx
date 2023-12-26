@@ -159,6 +159,7 @@ function PaymentGatewayList() {
         </table>
       </div>
       <AddPaymentModePopup
+        Heading={`${selectedGateway ? "Update" : "Add"} Payment Gateways`}
         state={paymentGatewayPopup}
         setState={setPaymentGatewayPopup}
         selectedGateway={selectedGateway}

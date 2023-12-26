@@ -39,11 +39,11 @@ function AddAdminsPopup(props) {
   };
   let packageList = [
     { label: "Trial", value: "Trial" },
-    { label: "Standard", value: "Standard" },
-    { label: "Silver", value: "Silver" },
-    { label: "Gold", value: "Gold" },
-    { label: "Diamond", value: "Diamond" },
-    { label: "VIP", value: "VIP" },
+    // { label: "Standard", value: "Standard" },
+    // { label: "Silver", value: "Silver" },
+    // { label: "Gold", value: "Gold" },
+    // { label: "Diamond", value: "Diamond" },
+    // { label: "VIP", value: "VIP" },
   ];
 
   let userRoles = [
@@ -151,6 +151,7 @@ function AddAdminsPopup(props) {
   useEffect(() => {
     setInputData(props.adminsData);
   }, []);
+
 
   return (
     <Modal
@@ -302,7 +303,7 @@ function AddAdminsPopup(props) {
                       autoFocus
                       aria-describedby="sharePercentage"
                       name="share"
-                      defaultValue={100 - +inputData?.ul_share || 100}
+                      value={100 - +inputData?.ul_share || 100}
                       onChange={(e) => handleInputChnage(e)}
                     />
                   </InputGroup>

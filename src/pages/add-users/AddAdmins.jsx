@@ -146,9 +146,10 @@ const AddAdmins = () => {
     <div className="p-3">
       <div>
         <h5 className="meetings-heading">Add Users & Admins</h5>
-        <div className="d-flex flex-column add-users-date">
-          <span>{new Date().toLocaleString()}</span>
-        </div>
+        {/* <div className="d-flex flex-column add-users-date">
+          <span>Wednesday, 2nd August, 2023</span>
+          <span>12:22:34 PM</span>
+        </div> */}
 
         <div className="mt-3 d-flex justify-content-between align-items-center">
           <div className="d-flex justify-content-center align-items-center">
