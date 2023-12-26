@@ -28,7 +28,7 @@ function ULShareIndPlData(props) {
   return (
     <div className="mt-3">
       {/* <h6 className="Platform-Comm-PL-">UL Share P/L :</h6> */}
-      <table className="w-100 match-position-table medium-font">
+      {/* <table className="w-100 match-position-table medium-font">
         <thead>
           <tr className="text-center">
             <th className="w-20">DATE</th>
@@ -38,9 +38,18 @@ function ULShareIndPlData(props) {
             <th className="w-20">UL SHARE P/L</th>
           </tr>
         </thead>
-      </table>
-      <div className="referal-table-scroll-content">
+      </table> */}
+      <div className="fixed-table">
         <table className="w-100 match-position-table medium-font">
+          <thead>
+            <tr className="text-center">
+              <th className="w-20">DATE</th>
+              <th className="w-20">MATCH NAME</th>
+              <th className="w-20">WIN TEAM</th>
+              <th className="w-20">Urs Net P/L</th>
+              <th className="w-20">UL SHARE P/L</th>
+            </tr>
+          </thead>
           {PAGE_REPORT_DETAILS?.map((item, index) => (
             <tbody key={index}>
               <tr className="text-center">
@@ -52,23 +61,19 @@ function ULShareIndPlData(props) {
               </tr>
             </tbody>
           ))}
+          <tfoot>
+            <tr className="text-center">
+              <th colSpan="3">TOTAL</th>
+              <th className={totalUrsNet > 0 ? "clr-green" : "clr-red"}>
+                {totalUrsNet ? totalUrsNet?.toFixed(2) : 0}
+              </th>
+              <th className={totalUlShareNet > 0 ? "clr-green" : "clr-red"}>
+                {totalUlShareNet ? totalUlShareNet?.toFixed(2) : 0}
+              </th>
+            </tr>
+          </tfoot>
         </table>
       </div>
-      <table className="w-100 match-position-table medium-font">
-        <tfoot>
-          <tr className="text-center">
-            <th></th>
-            <th></th>
-            <th colSpan={3}>TOTAL</th>
-            <th className={totalUrsNet > 0 ? "clr-green" : "clr-red"}>
-              {totalUrsNet ? totalUrsNet?.toFixed(2) : 0}
-            </th>
-            <th className={totalUlShareNet > 0 ? "clr-green" : "clr-red"}>
-              {totalUlShareNet ? totalUlShareNet?.toFixed(2) : 0}
-            </th>
-          </tr>
-        </tfoot>
-      </table>
     </div>
   );
 }
