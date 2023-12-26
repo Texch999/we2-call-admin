@@ -95,11 +95,11 @@ function FillDetails(props) {
     }
   };
 
-  const handleAddMore = () => {
-    let arr = [];
-    arr.push(...arrey, {});
-    setArrey(arr);
-  };
+  // const handleAddMore = () => {
+  //   let arr = [];
+  //   arr.push(...arrey, {});
+  //   setArrey(arr);
+  // };
   const packageSelectOptions = [
     {
       label: (

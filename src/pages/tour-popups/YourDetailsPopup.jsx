@@ -52,7 +52,7 @@ function YourDetailsPopup(props) {
   const luxurypack = luxurypacks.length;
   const vippack = vippacks.length;
   const vvippack = vvippacks.length;
-  console.log(regularpack,'.....regularpack')
+  // console.log(regularpack,'.....regularpack')
   // console.log(tour[0].packages.regularpack.minamount,'......tourfrommaincomponent')
   const regularpackmintotalamount =
     tour[0]?.packages.regularpack.minamount * regularpack;
@@ -177,7 +177,7 @@ function YourDetailsPopup(props) {
               },
       });
   };
-  console.log(eachPackageTotalamount,'......eachpackagetotalamount')
+  // console.log(eachPackageTotalamount,'......eachpackagetotalamount')
 
   useEffect(() => {
     packagesDetailsinuseState();
