@@ -95,6 +95,8 @@ const APPROVE_REJECT_FOR_SUBSCRIPTION = "/packages/package_approve_reject";
 const BULK_PACKAGE_APPROVE_REJECT = "/packages/bulk_package_approve_reject";
 const GET_TOUR_PAYMENT_DOCUMENTS = "/tours/get_tour_payments_documents";
 const GET_INTERESTED = "/tours/get_interested";
+const GET_LIVE_MEETING = "/meetings/get_live_meeting";
+const SIGNAL_RECORDING = "/group_call/signal_recording";
 
 // methods
 const DELETE = "DELETE";
@@ -104,8 +106,8 @@ const PUT = "PUT";
 
 exports.GET_INTERESTED = {
   method: POST,
-  url: GET_INTERESTED
-}
+  url: GET_INTERESTED,
+};
 
 exports.GET_TOUR_PAYMENT_DOCUMENTS = {
   method: POST,
@@ -501,4 +503,15 @@ exports.TOP_WINNERS_LOOSERS = {
 exports.SUMMARY_DATA = {
   url: SUMMARY_DATA,
   method: GET,
+};
+
+exports.GET_LIVE_MEETING = {
+  url: GET_LIVE_MEETING,
+  method: POST,
+};
+
+exports.SIGNAL_RECORDING = {
+  url: SIGNAL_RECORDING,
+  method: POST,
+  flag: true,
 };

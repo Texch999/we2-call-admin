@@ -31,6 +31,7 @@ import PackageStatement from "../pages/packagestatement/PackageStatement";
 import CallReports from "../pages/calling/CallReports";
 import PaymentGatewayList from "../pages/PaymentGatewayList/PaymentGatewayList";
 import StatementPopup from "../pages/matchstatement/StatementPopup";
+import GroupCall from "../components/GroupCall";
 
 export const AgentRoutes = [
   {
@@ -162,4 +163,5 @@ export const AgentRoutes = [
     component: StatementPopup,
     path: "/statement-popup/:id/:match/:date/:winTeam",
   },
+  { path: "/meeting/:id", component: GroupCall },
 ];

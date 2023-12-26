@@ -12,6 +12,8 @@ const PrivateRoutes = () => {
     return <Redirect to="/" />;
   }
 
+  console.log(allowedRoutes, "allowedRoutes");
+
   return (
     <div>
       {allowedRoutes?.map(({ component, path }) => (

@@ -3,9 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@awesome-cordova-plugins/android-permissions": "^6.4.0",
+    "@awesome-cordova-plugins/local-notifications": "^6.6.0",
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^12.6.3",
+    "@zegocloud/zego-uikit-prebuilt": "^1.8.15",
     "axios": "^1.5.0",
     "bootstrap": "^5.3.1",
     "import": "0.0.6",
