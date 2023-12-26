@@ -37,7 +37,7 @@ function AdminPackageTransaction() {
       <div>
         {activeIndex === 0 && <PurchaseAdminPackages />}
         {activeIndex === 1 && <PurchaseTopupHours />}
-        {activeIndex === 2 && <AdminPackageTickets />} 
+        {activeIndex === 2 && <AdminPackageTickets />}
         {activeIndex === 3 && <AdminSaleTickets />}
       </div>
     </div>

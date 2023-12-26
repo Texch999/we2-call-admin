@@ -136,6 +136,8 @@ function YourPackageTransaction() {
 
   const TotalPL = summary?.totalSellAmmount - summary?.totalPaidAmmount;
 
+  console.log(summary, ".......summary");
+
   return (
     <div className="p-3">
       <Table data={MATCH_ENTRY_DATA} columns={MATCH_ENTRY_HEADING} />

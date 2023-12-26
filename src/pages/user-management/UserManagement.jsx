@@ -72,7 +72,7 @@ function UserManagement() {
       title: "Owner Share",
       name: "owner_share",
       id: "owner_share",
-      value: localStorage?.getItem("owner_share"),
+      value: localStorage?.getItem("share"),
     },
   ];
   const [createUserSubmit, setCreateUserSubmit] = useState(false);
@@ -260,7 +260,7 @@ function UserManagement() {
     setClientID(item);
     await call(ACTIVE_INACTIVE_USERS, {
       register_id,
-      client_id: clientID,
+      client_id: item,
       active: `${status}`,
     })
       .then((res) => {
@@ -327,6 +327,8 @@ function UserManagement() {
           ),
         };
       });
+
+  console.log(existingClients, ".......existingClients");
 
   const handleChangePassword = (item) => {
     setShowChangePopup(true);
