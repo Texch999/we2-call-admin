@@ -71,7 +71,7 @@ const CallManagement = () => {
         ...selectedMeeting,
         date: moment(selectedMeeting.date).format("YYYY-MM-DD"),
         time: moment(selectedMeeting.time, ["h:mm:ss A"]).format("HH:mm"),
-        video_call_type: selectedMeeting?.video_call_type === true ? 1 : 0,
+        video_call_type: selectedMeeting?.video_call_type == true ? 1 : 0,
       };
       const list = (
         listOfUsers?.length &&
@@ -239,7 +239,7 @@ const CallManagement = () => {
           action: "--",
         };
       });
-
+  console.log(meetingInput, "===>upcomingMeetings");
   const ulMeetingsData =
     (upcomingMeetings?.length >= 0 &&
       upcomingMeetings
@@ -299,7 +299,7 @@ const CallManagement = () => {
       isvideo_enable: "yes",
       meeting_type: meetingType,
       package_id: selectedPackages?.package_id,
-      video_call_type: meetingInput?.video_call_type === 0 ? true : false,
+      video_call_type: meetingInput?.video_call_type == 1 ? true : false,
     };
     setIsProcessing(true);
     console.log(payload, "PAYLOAD");

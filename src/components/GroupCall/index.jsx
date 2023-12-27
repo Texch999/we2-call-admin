@@ -1,10 +1,8 @@
-// import { AndroidPermissions } from "@awesome-cordova-plugins/android-permissions";
 import { ZegoUIKitPrebuilt } from "@zegocloud/zego-uikit-prebuilt";
 import moment from "moment";
 import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
-// import VideoCall from "./videocall/VideoCall";
 import { call } from "../../config/axios";
 import {
   GET_ALL_CLIENTS,
@@ -13,15 +11,10 @@ import {
   UPDATE_MEETING,
   UPDATE_PROFILE,
 } from "../../config/endpoints";
-// import CallMeetings from "../../pages/video-call-matchposition/CallMeetings";
 import { Images } from "../../images";
 import { setLoading } from "../../redux/actions";
-import {
-  setMeetingStartStatus,
-  // setMinimize,
-} from "../../redux/actions/dataActions";
-// import VideoCallMatchPosition from "./videocall/VideoCallMatchPosition";
-// import MatchPosition from "../../pages/video-call-matchposition/MatchPosition";
+import { setMeetingStartStatus } from "../../redux/actions/dataActions";
+import "./videocall/Styles.css";
 class GroupCall extends React.Component {
   constructor(props) {
     super(props);
@@ -585,7 +578,7 @@ class GroupCall extends React.Component {
       callUserId,
       userName
     );
-    let userSettings = true || this.state?.liveMeeting?.video_call_type;
+    let userSettings = this.state?.liveMeeting?.video_call_type;
     this.zp = ZegoUIKitPrebuilt.create(kitToken);
     this.zp.joinRoom({
       container: this.appDiv,
@@ -840,6 +833,7 @@ class GroupCall extends React.Component {
     console.log(window?.location.pathname, "PATHNAME");
     const butttonClick = document.getElementsByTagName("button");
     const { liveMeeting, meetingStarted } = this.state;
+    console.log(liveMeeting, "===>LIVE");
     return (
       <div className={`background`}>
         <div className="background-none"></div>
