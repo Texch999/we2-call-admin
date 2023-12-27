@@ -25,11 +25,12 @@ function Alert() {
     pieHole: 0.5,
     is3D: true,
     backgroundColor: "#082051",
+    color: "#fff",
     hAxis: {
       title: "Year",
       titleTextStyle: { color: "#fff" },
       textStyle: { color: "#fff" }, // Set the text color for hAxis
-    }, 
+    },
     vAxis: {
       minValue: 0,
       textStyle: { color: "#fff" }, // Set the text color for vAxis
