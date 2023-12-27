@@ -16,7 +16,6 @@ function CallHistory() {
   const [selectedStartDate, setSelectedStartDate] = useState(null);
   const [selectedEndDate, setSelectedEndDate] = useState(null);
   const [activeButton, setActiveButton] = useState([]);
-  // console.log(selectedStartDate, "...........selectedStartDate");
   const handleStatusButton = (e) => {
     setActiveButton(e);
   };
@@ -40,10 +39,6 @@ function CallHistory() {
       });
   };
 
-  // const handleChange = (e, name) => {
-  //   setSelectedStartDate(e);
-  //   console.log(name.target, "......event");
-  // };
 
   const [dateObject, setDateObject] = useState({});
 
@@ -54,7 +49,6 @@ function CallHistory() {
     });
   };
 
-  // console.log(dateObject, "........dateObject");
 
   useEffect(() => {
     getCallHistoryData();

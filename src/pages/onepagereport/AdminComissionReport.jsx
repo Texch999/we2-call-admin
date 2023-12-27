@@ -10,13 +10,10 @@ function AdminComissionReport(props) {
       ulnetpl: item.ul_platform_comm,
     };
   });
-  console.log(ADMIN_COMM_REPORT__DETAILS, "ADMIN_COMM_REPORT__DETAILS");
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = 5;
-
   const handlePageChange = (page) => {
     setCurrentPage(page);
-    // You can add your logic here to fetch data for the selected page.
   };
   return (
     <div>
@@ -34,21 +31,16 @@ function AdminComissionReport(props) {
               <th scope="col" className="text-center">
                 ROLE
               </th>
-              {/* <th scope="col" className="text-center">
-                ADMIN NET P/L
-              </th> */}
               <th scope="col" className="text-center">
                 U/L PLATFORM COMM
               </th>
             </tr>
           </thead>
-
           {ADMIN_COMM_REPORT__DETAILS?.map((item, index) => (
             <tbody key={index} className="small-font">
               <tr>
                 <td className="text-center ">{item?.adminname}</td>
                 <td className="text-center">{item?.role}</td>
-                {/* <td className="text-center clr-green">{item?.adminpl}</td> */}
                 <td className="text-center clr-green"> {item?.ulnetpl}</td>
               </tr>
             </tbody>

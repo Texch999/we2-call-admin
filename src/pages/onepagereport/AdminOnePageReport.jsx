@@ -56,16 +56,63 @@ const AdminOnePageReport = () => {
       return {
         admin_name: user?.client_name,
         admin_role: user?.account_role,
-        profit_loss: user?.total_amount ? user?.total_amount?.toFixed(2) : 0,
-        ul_share: isAdminActive
-          ? netPL
-            ? netPL?.toFixed(2)
-            : 0
-          : user?.totalPlatformNet
-          ? user?.totalPlatformNet?.toFixed(2)
-          : 0,
+        profit_loss: (
+          <div className={user?.total_amount > 0 ? "clr-green" : "clr-red"}>
+            {user?.total_amount ? user?.total_amount?.toFixed(2) : 0}
+          </div>
+        ),
+        ul_share: (
+          <div className={netPL > 0 ? "clr-green" : "clr-red"}>
+            {isAdminActive
+              ? netPL
+                ? netPL?.toFixed(2)
+                : 0
+              : user?.totalPlatformNet
+              ? user?.totalPlatformNet?.toFixed(2)
+              : 0}
+          </div>
+        ),
       };
     });
+
+  //   [
+  //   {
+  //     admin_name: "Animesh",
+  //     admin_role: "Agent",
+  //     profit_loss: 500000.0,
+  //     ul_share: 200000.0,
+  //   },
+  //   {
+  //     admin_name: "Sri8647",
+  //     admin_role: "Master",
+  //     profit_loss: 500000.0,
+  //     ul_share: 200000.0,
+  //   },
+  //   {
+  //     admin_name: "Ganesh",
+  //     admin_role: "Super Master",
+  //     profit_loss: 500000.0,
+  //     ul_share: 200000.0,
+  //   },
+  //   {
+  //     admin_name: "Lokesh",
+  //     admin_role: "Super Admin",
+  //     profit_loss: 500000.0,
+  //     ul_share: 200000.0,
+  //   },
+  //   {
+  //     admin_name: "Lokesh",
+  //     admin_role: "Super Admin",
+  //     profit_loss: 500000.0,
+  //     ul_share: 200000.0,
+  //   },
+  //   {
+  //     admin_name: "Dona456",
+  //     admin_role: "Super Master",
+  //     profit_loss: 500000.0,
+  //     ul_share: 200000.0,
+  //   },
+  // ];
   const adminOnePageReportIndividualData =
     induvisualUserReport &&
     induvisualUserReport?.length &&
@@ -176,7 +223,6 @@ const AdminOnePageReport = () => {
   const getUserMatches = async (username) => {
     await call(GET_LIVE_MATCH_RISK_POSITION, { user_name: username })
       .then((res) => {
-        // console.log(res,"GET_LIVE_MATCH_RISK....");
         setInduvisualUserReport(res?.data?.data);
       })
       .catch((err) => console.log(err));
@@ -187,9 +233,28 @@ const AdminOnePageReport = () => {
   }, [success]);
 
   return (
-    <div className="p-4">
-      <h5 className="meetings-heading mb-3">Your Share In Admin Book</h5>
-      <hr />
+    <div>
+      {/* <h5 className="meetings-heading mb-3">Your Share In Admin Book</h5>
+      <div className="d-flex align-items-center justify-content-between">
+        <div>
+          {reports.map(({ isActive, name }, index) => (
+            <Button
+              key={index}
+              className={`me-2 admin-reports-button ${
+                name === activeReport ? "active-report-button" : ""
+              }`}
+              onClick={() => {
+                handleReport(name);
+                setIsAdminActive(isActive);
+              }}
+            >
+              {name}
+            </Button>
+          ))}
+        </div>
+        <Button className="all-match-button">All Match</Button>
+      </div>
+      <hr /> */}
 
       <div>
         <Table responsive="md" className="call-management-data">

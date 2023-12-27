@@ -26,23 +26,23 @@ const AdminShareCommSettlement = ({
   const [paymentSuccessPopUp, setPaymentSuccessPopUp] = useState(false);
   const [success, setSuccess] = useState(false);
 
-  const adminShareSummaryData = [
-    {
-      title: "Account Summary Client/Referal",
-      balance_title: "Total Amount",
-      amount: 1000000.0,
-    },
-    {
-      title: "Admins Share Summary",
-      balance_title: "Total Settled Bal C/D",
-      amount: 1000000.0,
-    },
-    {
-      title: "UL/Platform Comm Summary",
-      balance_title: "Total Balance",
-      amount: 1000000.0,
-    },
-  ];
+  // const adminShareSummaryData = [
+  //   {
+  //     title: "Account Summary Client/Referal",
+  //     balance_title: "Total Amount",
+  //     amount: 1000000.0,
+  //   },
+  //   {
+  //     title: "Admins Share Summary",
+  //     balance_title: "Total Settled Bal C/D",
+  //     amount: 1000000.0,
+  //   },
+  //   {
+  //     title: "UL/Platform Comm Summary",
+  //     balance_title: "Total Balance",
+  //     amount: 1000000.0,
+  //   },
+  // ];
   // const adminShareSummaryData = AdminCommSattlementStatementData.map(
   //   (item, index) => {
   //     return
@@ -65,48 +65,6 @@ const AdminShareCommSettlement = ({
     const netAmount = (+netPl || 0 * +ulShare || 0) / 100;
     return netAmount;
   };
-
-  // const adminShareCommSettlementData =
-  //   allUsers &&
-  //   allUsers?.length > 0 &&
-  //   allUsers?.map((user) => {
-  //     const netPL = getUlShare(user?.total_amount, user?.ul_share);
-  //     return {
-  //       amount: netPL ? netPL?.toFixed(2) : 0,
-  //       credit_debit: user?.settled_platform_amount || 0,
-  //       balance:
-  //         user?.pending_settlement_platform_amount ||
-  //         user?.pending_settlement_platform_amount == 0
-  //           ? user?.pending_settlement_platform_amount
-  //             ? user?.pending_settlement_platform_amount?.toFixed(2)
-  //             : 0
-  //           : netPL
-  //           ? netPL?.toFixed(2)
-  //           : 0,
-  //       admin_name: user?.client_name,
-  //       role: user?.account_role,
-  //       userDetails: user,
-  //     };
-  //   });
-  // const handlePaymentModal = (user) => {
-  //   setSelectedUser(user);
-  //   const resultAmount =
-  //     getUlShare(user?.total_amount, user?.ul_share) +
-  //     (+user?.totalPlatformNet || 0);
-  //   const pendinAmount =
-  //     user?.pending_settlement_platform_amount ||
-  //     user?.pending_settlement_platform_amount == 0
-  //       ? user?.pending_settlement_platform_amount
-  //         ? user?.pending_settlement_platform_amount?.toFixed(2)
-  //         : 0
-  //       : resultAmount
-  //       ? resultAmount?.toFixed(2)
-  //       : 0;
-  //   setTotalAmount(resultAmount);
-  //   setPendingAmount(pendinAmount);
-  //   setPaymentPopupOpen(true);
-  // };
-
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = 5;
 
@@ -137,7 +95,7 @@ const AdminShareCommSettlement = ({
         <h5 className="meetings-heading mb-3">Admins Share/Comm Settlement</h5>
       </div>
 
-      <div className="d-flex mb-2">
+      {/* <div className="d-flex mb-2">
         {adminShareSummaryData.map((item, index) => {
           return (
             <div
@@ -155,7 +113,7 @@ const AdminShareCommSettlement = ({
             </div>
           );
         })}
-      </div>
+      </div> */}
       <hr />
       <div>
         <Table responsive="md" className="call-management-data">
@@ -199,40 +157,15 @@ const AdminShareCommSettlement = ({
           <tfoot>
             <tr>
               <th colSpan={2}>TOTAL</th>
-
               <th className={totalNetPl > 0 ? "clr-green" : "clr-red"}>
                 {totalNetPl ? totalNetPl.toFixed(2) : 0}
-                {/* {adminShareCommSettlementData &&
-                  adminShareCommSettlementData?.length > 0 &&
-                  adminShareCommSettlementData
-                    .reduce(
-                      (total, data) => total + parseFloat(data?.amount),
-                      0
-                    )
-                    .toFixed(2)} */}
               </th>
               <th className={totalCD > 0 ? "clr-green" : "clr-red"}>
                 {" "}
                 {totalCD ? totalCD.toFixed(2) : 0}
-                {/* {adminShareCommSettlementData &&
-                  adminShareCommSettlementData?.length > 0 &&
-                  adminShareCommSettlementData
-                    ?.reduce(
-                      (total, data) => total + parseFloat(data?.credit_debit),
-                      0
-                    )
-                    .toFixed(2)} */}
               </th>
               <th className={totalBalance > 0 ? "clr-green" : "clr-red"}>
                 {totalBalance ? totalBalance.toFixed(2) : 0}
-                {/* {adminShareCommSettlementData &&
-                  adminShareCommSettlementData?.length > 0 &&
-                  adminShareCommSettlementData
-                    ?.reduce(
-                      (total, data) => total + parseFloat(data?.balance),
-                      0
-                    )
-                    ?.toFixed(2)} */}
               </th>
               <th></th>
             </tr>

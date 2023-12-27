@@ -100,7 +100,6 @@ function IndiviudalPLReport(props) {
         acc + (+obj?.individualReportPlatformComm?.props?.children || 0),
       0
     );
-  console.log(clientData, "clientData");
   return (
     <div>
       <hr />
