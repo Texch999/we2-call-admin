@@ -1,0 +1,29 @@
+.h-80vh {
+  height: 80vh;
+}
+.border-none {
+  border: none !important;
+}
+.bg-blue {
+  background: #082051;
+  color: #ffffff;
+  font-weight: 600;
+}
+.red-bg {
+  background-color: #fc3738;
+}
+.green-bg {
+  background-color: #03ac63;
+}
+.font-1rem {
+  font-size: 1rem;
+}
+.border-top-bottom {
+  border-top: 1px solid #082051;
+  border-bottom: 1px solid #082051;
+}
+.user-list-height {
+  max-height: 20vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}

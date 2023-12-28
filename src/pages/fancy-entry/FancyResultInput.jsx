@@ -56,7 +56,7 @@ function FancyResultInput(props) {
       register_id,
       account_role,
       over: +fancyResultInputData?.over,
-      innings: +fancyResultInputData?.innings === "1st" ? "1" : "2",
+      innings: +fancyResultInputData?.innings,
       runs: +fancyResultInputData?.runs,
       team: fancyResultInputData?.team,
       creator_id_platform: creator_id,

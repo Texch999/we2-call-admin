@@ -15,6 +15,7 @@ import { Images } from "../../images";
 import { setLoading } from "../../redux/actions";
 import { setMeetingStartStatus } from "../../redux/actions/dataActions";
 import "./Styles.css";
+import Calling from "../video-call/Calling";
 class GroupCall extends React.Component {
   constructor(props) {
     super(props);
@@ -837,7 +838,7 @@ class GroupCall extends React.Component {
     return (
       <div className={`background`}>
         <div className="background-none"></div>
-        <div className="group-call-container">
+        <div className="group-call-container d-flex px-2">
           {/* {meetingStarted ? (
             this.state.isAdminCreated ? (
               <CallMeetings
@@ -854,7 +855,8 @@ class GroupCall extends React.Component {
               )
             )
           ) : null} */}
-          <div id="group-call"></div>
+          <Calling />
+          <div id="group-call" className="w-75"></div>
         </div>
       </div>
     );
