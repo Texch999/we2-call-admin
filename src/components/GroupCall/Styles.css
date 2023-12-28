@@ -62,7 +62,6 @@
   display: flex;
   width: 100%;
   gap: 5px;
-  /* justify-content: space-between; */
 }
 
 .date-match-container .marquee,
@@ -119,7 +118,6 @@
 #fancy-header {
   overflow-x: scroll;
   width: 17vw;
-  /* padding-left: 22vh; */
 }
 
 #fancy-header::-webkit-scrollbar {
@@ -603,26 +601,6 @@
 .bowler-table .ant-table-wrapper {
   background: #1d2637;
 }
-
-/* h1,
-h2 {
-  font-family: Lato;
-}
-body{
-  margin: 0;
-}
-#app {
-  width: 100vw;
-  height: 100vh;
-} */
-/* @font-face {
-	font-family: Helvet;
-	src: url(../../../Helvetica.otf);
-  } */
-body {
-  font-family: Helvet;
-}
-
 .group-call-main-container {
   overflow-x: hidden;
 }
@@ -689,15 +667,10 @@ body {
   height: 10vh;
 }
 .meeting-started {
-  background-image: url(../videocall/Assets/video_call_bg.jpg);
+  background-image: url(./Assets/video_call_bg.jpg);
 }
 .pre-join-meeting {
-  /* background-image: url(../videocall/Assets/pre_join_video_call.jpg); */
-  /* background-repeat: no-repeat; */
-  /* background-size: cover; */
-  /* padding-top: 46%; */
   max-height: 80vh !important;
-  /* background-position: 0 12%; */
 }
 .w-95 {
   width: 95%;
@@ -710,7 +683,6 @@ body {
 .user-card-container {
   position: relative;
   padding: 30px 60px;
-  /* box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.4); */
   color: #999;
   overflow: hidden;
 }
@@ -801,7 +773,7 @@ body {
   left: 40%;
   border-radius: 50%;
   background-color: green !important;
-  background-image: url(../../video-call-position/assents/micOffIcon.png);
+  background-image: url(../video-call/assets/micOffIcon.png);
   background-size: 32%;
 }
 
@@ -812,7 +784,7 @@ body {
 }
 
 #r_audio_video_div #r_video_call_on {
-  background-image: url(../../video-call-position/assents/videoIcon.png);
+  background-image: url(../video-call/assets/videoIcon.png);
   background-size: 25px;
   height: 45px;
   width: 45px;
@@ -825,7 +797,7 @@ body {
   left: 40%;
   border-radius: 50%;
   background-color: #f95174;
-  background-image: url(../../video-call-position/assents/micOffIcon.png);
+  background-image: url(../video-call/assets/micOffIcon.png);
   background-size: 32px !important;
 }
 
@@ -839,12 +811,12 @@ body {
   background-size: 25px;
   height: 45px;
   width: 45px;
-  background-image: url(../../video-call-position/assents/videoOffIcon.png);
+  background-image: url(../video-call/assets/videoOffIcon.png);
 }
 
 .pre-join-meeting > div > div #audio_call_on {
   background-color: green;
-  background-image: url(../../video-call-position/assents/micIcon.png);
+  background-image: url(../video-call/assets/micIcon.png);
   background-size: 17px !important;
   border-radius: 16px;
   /* border-radius: 47px; */
@@ -864,7 +836,7 @@ body {
   width: 60px;
   height: 60px;
   border: none;
-  background-image: url(../../video-call-position/assents/videoOffIcon.png) !important;
+  background-image: url(../video-call/assets/videoOffIcon.png) !important;
 }
 
 .pre-join-meeting > div > div #video_call_off {
@@ -955,18 +927,11 @@ body {
   border-radius: 20px;
   padding: 20px;
   margin: auto;
-  /* box-shadow: 0 0 20px;
-  background-color: var(--custom-bs-bgclr) !important;
-  border: 2px solid var(--custom-bs-border) !important;
-  box-shadow: -5px -5px 15px 0 var(--custom-bs-clrone),
-    5px 5px 15px 0 var(--custom-bs-clrtwo),
-    inset 0px 2px 5px 0 var(--custom-bs-clrthree),
-    inset 1px 2px 50px 0 var(--custom-bs-clrfour) !important; */
 }
 .video-call-div > div > div #video_call_on,
 .pre-join-meeting > div > div #video_call_on {
   background-color: green;
-  background-image: url(../../video-call-position/assents/videoIcon.png);
+  background-image: url(../video-call/assets/videoIcon.png);
   width: 60px;
   height: 60px;
   background-size: 28px;
@@ -979,15 +944,11 @@ body {
 
 .pre-join-meeting > div > div #audio_call_off {
   background-color: red;
-  background-image: url(../../video-call-position/assents/micOffIcon.png);
+  background-image: url(../video-call/assets/micOffIcon.png);
   background-size: 25px !important;
   width: 50px;
   height: 50px;
   border-radius: 16px;
-  /* box-shadow: -20px -15px 27px 0 var(--dark-slate-blue-66),
-    13.6px 21px 27px 0 rgba(2, 4, 21, 0.32),
-    inset 0px 3px 4px 0 rgba(8, 12, 39, 0.55);
-  border: solid 3px var(--dark-slate-blue); */
   width: 60px;
   height: 60px;
   border-style: none;

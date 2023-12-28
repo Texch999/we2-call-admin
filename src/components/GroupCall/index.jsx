@@ -14,7 +14,7 @@ import {
 import { Images } from "../../images";
 import { setLoading } from "../../redux/actions";
 import { setMeetingStartStatus } from "../../redux/actions/dataActions";
-import "./videocall/Styles.css";
+import "./Styles.css";
 class GroupCall extends React.Component {
   constructor(props) {
     super(props);
