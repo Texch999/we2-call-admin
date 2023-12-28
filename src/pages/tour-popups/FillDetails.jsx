@@ -30,6 +30,8 @@ function FillDetails(props) {
   const [imagefiles, setImagefiles] = useState({});
   const [arrey, setArrey] = useState([]);
   let NUMBER_OF_MEMBERS = arrey;
+  console.log(NUMBER_OF_MEMBERS,'......numberofmembers')
+  console.log(inputData,'......inputdata')
   const handleMembersOpen = () => {
     setMembersOpen(!membersOpen);
   };
@@ -70,6 +72,7 @@ function FillDetails(props) {
     setPackageType(item.value);
     setSelectedPackage(item.label);
     setPackageOptionsOpen(false);
+
     {
       let arr = [];
       if (tour[0]?.tour_name !== "4.Casino Tour") {
@@ -79,6 +82,9 @@ function FillDetails(props) {
           usergender: item.name + "usergender" + 1,
           useridproof: item.name + "useridproof" + 1,
           userimageinfo: item.name + "userimage" + 1,
+          usertravelinfo: item.name + "usertravelbooking" + 1,
+          userhotelinfo: item.name + "userhotelbooking" + 1,
+          usertourguidanceinfo: item.name + "usertourguidance" + 1
         });
       } else {
         for (let i = 0; i < item.value; i++) {
@@ -88,6 +94,9 @@ function FillDetails(props) {
             usergender: item.name + "usergender" + (i + 1),
             useridproof: item.name + "useridproof" + (i + 1),
             userimageinfo: item.name + "userimage" + (i + 1),
+            usertravelinfo: item.name + "usertravelbooking" + (i + 1),
+            userhotelinfo: item.name + "userhotelbooking" + (i + 1),
+            usertourguidanceinfo: item.name + "usertourguidance" + (i + 1)
           });
         }
       }
@@ -152,8 +161,15 @@ function FillDetails(props) {
       value: tour[0]?.packages?.vvippack?.allowedpersons,
     },
   ];
-  const handleInputsChange = (e) => {
-    setInputData({ ...inputData, [e.target.name]: e.target.value });
+  const handleInputsChange = (e, item) => {
+    setInputData({
+      ...inputData,
+      [item.usertravelinfo]: false,
+      [item.userhotelinfo]: false,
+      [item.usertourguidanceinfo]: false,
+      [e.target.name]: e.target.value
+    })
+    // setInputData({ ...inputData, [e.target.name]: e.target.value });
   };
 
   const handleUploadchange = async (e, index) => {
@@ -299,7 +315,9 @@ function FillDetails(props) {
                 ""
               )}
             </div>
-
+            {/* {setInputData(item.usertravelinfo=false)}
+            {setInputData(item.userhotelinfo=false)}
+            {setInputData(item.usertourguidanceinfo=false)} */}
             <div className="row">
               <div className="col-6">
                 <div className="font-10 mt-1">Name</div>
@@ -310,7 +328,7 @@ function FillDetails(props) {
                     type="text"
                     name={item.username}
                     value={inputData[item.username]}
-                    onChange={(e) => handleInputsChange(e)}
+                    onChange={(e) => handleInputsChange(e, item)}
                   />
                 </div>
               </div>
@@ -323,7 +341,7 @@ function FillDetails(props) {
                     placeholder="Date"
                     name={item.userdob}
                     value={inputData[item.userdob]}
-                    onChange={(e) => handleInputsChange(e)}
+                    onChange={(e) => handleInputsChange(e, item)}
                   />
                 </div>
               </div>
@@ -332,7 +350,7 @@ function FillDetails(props) {
                 <select
                   className="by-id-btn d-flex justify-content-between p-1 mt-1 all-none w-100 "
                   name={item.usergender}
-                  onChange={(e) => handleInputsChange(e)}
+                  onChange={(e) => handleInputsChange(e, item)}
                 >
                   <option selected>Select gender</option>
                   <option value={"male"}>Male</option>
@@ -346,7 +364,7 @@ function FillDetails(props) {
                 <select
                   className="by-id-btn d-flex justify-content-between p-1 mt-1 all-none w-100 me-2"
                   name={item.useridproof}
-                  onChange={(e) => handleInputsChange(e)}
+                  onChange={(e) => handleInputsChange(e, item)}
                 >
                   <option selected>Select proof</option>
                   <option value={"aadharcard"}>Adhaar Card</option>
@@ -379,9 +397,6 @@ function FillDetails(props) {
         ))}
         <div className="row d-flex justify-content-end"></div>
       </div>
-      {/* <div className="login-btn mt-2" onClick={() => handlePaymentDetails()}>
-        Submit
-      </div> */}
       <div
         className="login-btn mt-2"
         onClick={() => handlePaymentDetails(inputData)}
