@@ -95,6 +95,7 @@ const APPROVE_REJECT_FOR_SUBSCRIPTION = "/packages/package_approve_reject";
 const BULK_PACKAGE_APPROVE_REJECT = "/packages/bulk_package_approve_reject";
 const GET_TOUR_PAYMENT_DOCUMENTS = "/tours/get_tour_payments_documents";
 const GET_INTERESTED = "/tours/get_interested";
+const GET_ADMIN_PACKAGES_TRACKER_INFO = "/packages/get_package_tracker_list";
 
 // methods
 const DELETE = "DELETE";
@@ -104,8 +105,8 @@ const PUT = "PUT";
 
 exports.GET_INTERESTED = {
   method: POST,
-  url: GET_INTERESTED
-}
+  url: GET_INTERESTED,
+};
 
 exports.GET_TOUR_PAYMENT_DOCUMENTS = {
   method: POST,
@@ -501,4 +502,9 @@ exports.TOP_WINNERS_LOOSERS = {
 exports.SUMMARY_DATA = {
   url: SUMMARY_DATA,
   method: GET,
+};
+
+exports.GET_ADMIN_PACKAGES_TRACKER_INFO = {
+  url: GET_ADMIN_PACKAGES_TRACKER_INFO,
+  method: POST,
 };

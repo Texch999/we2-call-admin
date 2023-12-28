@@ -18,6 +18,7 @@ function PurchaseAdminPackages() {
   const [allPackages, setAllPackages] = useState([]);
   const [selectPackage, setSelectPackage] = useState(false);
   const [adminPackages, setAdminPackages] = useState();
+  // const [openReturnOptions, setOpenReturnOptions] = useState(false);
   const dispatch = useDispatch();
   const handlePackageAvailable = () => {
     setPackageAvailablePopup(!packageAvailablePopup);
@@ -41,8 +42,9 @@ function PurchaseAdminPackages() {
           no_of_packages: obj?.[packageType]?.no_of_packages + value,
           total_pKg_discount:
             (obj?.[packageType]?.cost *
-              (value + obj?.[packageType]?.no_of_packages)) /
-            obj?.[packageType]?.discount,
+              (value + obj?.[packageType]?.no_of_packages) *
+              obj?.[packageType]?.discount) /
+            100,
         };
       }
       return obj;
@@ -543,7 +545,12 @@ function PurchaseAdminPackages() {
   ];
 
   const handlePayments = () => {
-    packageList.length > 0 ? setShowPackagePopup(true) : setSelectPackage(true);
+    if (packageList.length > 0) {
+      setSelectPackage(false);
+      setShowPackagePopup(true);
+    } else {
+      alert("Please Select Packages");
+    }
   };
 
   return (
@@ -640,10 +647,17 @@ function PurchaseAdminPackages() {
                     src={item.packageImg}
                     alt="Standard_Img"
                   />
-                  <div className="medium-font fw-semibold">
+                  <div className="medium-font fw-semibold ">
                     <div>{item.packageName}</div>
                     <div>
                       {yearly === true ? item.yearly?.cost : item.monthly?.cost}
+                      <span className="ms-2 yellow-clr">
+                        (discount-
+                        {yearly === true
+                          ? item.yearly?.discount
+                          : item.monthly?.discount}
+                        %)
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -713,6 +727,7 @@ function PurchaseAdminPackages() {
         </div>
       </div>
       <UpgradeYourPackagePopup
+        selectPackage={selectPackage}
         showPackagePopup={showPackagePopup}
         setShowPackagePopup={setShowPackagePopup}
       />
