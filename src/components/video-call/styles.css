@@ -68,3 +68,12 @@
   color: #000;
   background: #ffffff;
 }
+.six-cir-mar {
+  margin-top: -46px;
+}
+.six-circle {
+  width: 49px;
+  height: 49px;
+  border: 5px solid #00143d;
+  background-image: linear-gradient(to top, #0992f3, #08baf9);
+}

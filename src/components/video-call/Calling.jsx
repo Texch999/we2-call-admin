@@ -3,7 +3,9 @@ import ScoreBoard from "./ScoreBoard";
 import UserList from "./UserList";
 import "./styles.css";
 
-function Calling() {
+function Calling(props) {
+  const { isAdminCreated, meetingId, liveMeeting } = props;
+  console.log(props, "===>PROPS");
   const [activeIndex, setActiveIndex] = useState(1);
   const buttons = ["Join Users", "Score Board"];
   const handleButton = (index) => {
