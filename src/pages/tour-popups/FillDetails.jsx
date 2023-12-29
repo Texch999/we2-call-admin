@@ -30,8 +30,8 @@ function FillDetails(props) {
   const [imagefiles, setImagefiles] = useState({});
   const [arrey, setArrey] = useState([]);
   let NUMBER_OF_MEMBERS = arrey;
-  console.log(NUMBER_OF_MEMBERS,'......numberofmembers')
-  console.log(inputData,'......inputdata')
+  console.log(NUMBER_OF_MEMBERS, "......numberofmembers");
+  console.log(inputData, "......inputdata");
   const handleMembersOpen = () => {
     setMembersOpen(!membersOpen);
   };
@@ -77,6 +77,7 @@ function FillDetails(props) {
       let arr = [];
       if (tour[0]?.tour_name !== "4.Casino Tour") {
         arr.push({
+          userid: item.name + "userid" + 1,
           username: item.name + "username" + 1,
           userdob: item.name + "userdob" + 1,
           usergender: item.name + "usergender" + 1,
@@ -84,11 +85,12 @@ function FillDetails(props) {
           userimageinfo: item.name + "userimage" + 1,
           usertravelinfo: item.name + "usertravelbooking" + 1,
           userhotelinfo: item.name + "userhotelbooking" + 1,
-          usertourguidanceinfo: item.name + "usertourguidance" + 1
+          usertourguidanceinfo: item.name + "usertourguidance" + 1,
         });
       } else {
         for (let i = 0; i < item.value; i++) {
           arr.push({
+            userid: item.name + "userid" + (i + 1),
             username: item.name + "username" + (i + 1),
             userdob: item.name + "userdob" + (i + 1),
             usergender: item.name + "usergender" + (i + 1),
@@ -96,7 +98,8 @@ function FillDetails(props) {
             userimageinfo: item.name + "userimage" + (i + 1),
             usertravelinfo: item.name + "usertravelbooking" + (i + 1),
             userhotelinfo: item.name + "userhotelbooking" + (i + 1),
-            usertourguidanceinfo: item.name + "usertourguidance" + (i + 1)
+            usertourguidanceinfo: item.name + "usertourguidance" + (i + 1),
+            // uni_number: item.name + "uni_id" + (i + 1),
           });
         }
       }
@@ -104,11 +107,6 @@ function FillDetails(props) {
     }
   };
 
-  // const handleAddMore = () => {
-  //   let arr = [];
-  //   arr.push(...arrey, {});
-  //   setArrey(arr);
-  // };
   const packageSelectOptions = [
     {
       label: (
@@ -162,14 +160,16 @@ function FillDetails(props) {
     },
   ];
   const handleInputsChange = (e, item) => {
-    setInputData({
-      ...inputData,
-      [item.usertravelinfo]: false,
-      [item.userhotelinfo]: false,
-      [item.usertourguidanceinfo]: false,
-      [e.target.name]: e.target.value
-    })
-    // setInputData({ ...inputData, [e.target.name]: e.target.value });
+    item
+      ? setInputData({
+          ...inputData,
+          [item.userid]: `userid-${Date.now()}`,
+          [item.usertravelinfo]: false,
+          [item.userhotelinfo]: false,
+          [item.usertourguidanceinfo]: false,
+          [e.target.name]: e.target.value,
+        })
+      : setInputData({ ...inputData, [e.target.name]: e.target.value });
   };
 
   const handleUploadchange = async (e, index) => {
@@ -201,6 +201,11 @@ function FillDetails(props) {
         .catch((err) => {
           console.log("err: ", err);
         }));
+  };
+
+  const handleSaveClick = (item) => {
+    handlePaymentDetails(inputData);
+    console.log(inputData, "......clickingsavebutton");
   };
 
   const generatesignedurl = async (imageId) => {
@@ -328,7 +333,7 @@ function FillDetails(props) {
                     type="text"
                     name={item.username}
                     value={inputData[item.username]}
-                    onChange={(e) => handleInputsChange(e, item)}
+                    onChange={(e) => handleInputsChange(e)}
                   />
                 </div>
               </div>
@@ -341,7 +346,7 @@ function FillDetails(props) {
                     placeholder="Date"
                     name={item.userdob}
                     value={inputData[item.userdob]}
-                    onChange={(e) => handleInputsChange(e, item)}
+                    onChange={(e) => handleInputsChange(e)}
                   />
                 </div>
               </div>
@@ -364,13 +369,14 @@ function FillDetails(props) {
                 <select
                   className="by-id-btn d-flex justify-content-between p-1 mt-1 all-none w-100 me-2"
                   name={item.useridproof}
-                  onChange={(e) => handleInputsChange(e, item)}
+                  onChange={(e) => handleInputsChange(e)}
                 >
                   <option selected>Select proof</option>
                   <option value={"aadharcard"}>Adhaar Card</option>
                   <option value={"pancard"}>PAN Card</option>
                 </select>
               </div>
+              {/* <input></input> */}
               <div className="col-6">
                 <div className="font-10 mt-1">Upload Screenshot</div>
                 <label
@@ -399,7 +405,7 @@ function FillDetails(props) {
       </div>
       <div
         className="login-btn mt-2"
-        onClick={() => handlePaymentDetails(inputData)}
+        // onClick={() => handleSaveClick(item, activeIndex)}
       >
         Save
       </div>
