@@ -8,6 +8,15 @@ function UserList() {
   const register_id = localStorage.getItem("register_id");
   const account_role = localStorage.getItem("account_role");
   const [listOfUsers, setListOfUsers] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filteredUsers, setFilteredUsers] = useState();
+
+  const handleSearch = (searchTerm) => {
+    const filtered = listOfUsers?.filter((data) =>
+      data?.user_name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setFilteredUsers(filtered);
+  };
 
   const getAdminUsersList = async () => {
     await call(GET_ALL_CLIENTS, { register_id, account_role })
@@ -21,7 +30,8 @@ function UserList() {
 
   useEffect(() => {
     getAdminUsersList();
-  }, []);
+    handleSearch(searchTerm);
+  }, [searchTerm]);
 
   return (
     <div>
@@ -30,10 +40,13 @@ function UserList() {
         <input
           className="w-100 font-14 rounded p-2 bg-blue border-none mt-1 all-none"
           placeholder="Search..."
+          type="text"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
         />
         <div className="user-list-height mt-1">
-          {listOfUsers?.length > 0 &&
-            listOfUsers?.map((data, index) => (
+          {filteredUsers?.length > 0 &&
+            filteredUsers?.map((data, index) => (
               <div
                 key={index}
                 className="d-flex align-items-center justify-content-between font-14 border-top-bottom py-1"

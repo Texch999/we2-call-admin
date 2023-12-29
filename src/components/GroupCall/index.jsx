@@ -16,6 +16,7 @@ import { setLoading } from "../../redux/actions";
 import { setMeetingStartStatus } from "../../redux/actions/dataActions";
 import "./Styles.css";
 import Calling from "../video-call/Calling";
+import MatchPosition from "../video-call/MatchPosition";
 class GroupCall extends React.Component {
   constructor(props) {
     super(props);
@@ -531,7 +532,6 @@ class GroupCall extends React.Component {
   async callTokenApi(paramsObj, flag) {
     // setLoading(true);
     paramsObj["userType"] = "admin";
-    console.log(paramsObj, "PARAMS_OBJ");
     return await call(SIGNAL_RECORDING, paramsObj)
       .then((res) => {
         return res.data;
@@ -718,7 +718,6 @@ class GroupCall extends React.Component {
     })
       .then((res) => {
         let result = res?.data?.data;
-        console.log(res?.data?.data, "===>RESULT");
         this.setState({ allUserListToJoin: result });
         // this.setState({
         //   tags: result?.map((tag) => tag.UserName || tag?.userName),
@@ -831,17 +830,15 @@ class GroupCall extends React.Component {
       });
   };
   render() {
-    console.log(window?.location.pathname, "PATHNAME");
     const butttonClick = document.getElementsByTagName("button");
     const { liveMeeting, meetingStarted } = this.state;
-    console.log(liveMeeting, "===>LIVE");
     return (
       <div className={`background`}>
         <div className="background-none"></div>
         <div className="group-call-container d-flex px-2">
           {/* {meetingStarted ? (
             this.state.isAdminCreated ? (
-              <CallMeetings
+              <Calling
                 isAdminCreated={this.state.isAdminCreated}
                 meetingId={this.props.match.params.id}
                 liveMeeting={this.state.liveMeeting}
@@ -855,7 +852,16 @@ class GroupCall extends React.Component {
               )
             )
           ) : null} */}
-          <Calling />
+          {/* <Calling
+            isAdminCreated={this.state.isAdminCreated}
+            meetingId={this.props.match.params.id}
+            liveMeeting={this.state.liveMeeting}
+          /> */}
+          <MatchPosition
+            matchId={liveMeeting?.matchId}
+            liveMeeting={liveMeeting}
+          />
+
           <div id="group-call" className="w-75"></div>
         </div>
       </div>

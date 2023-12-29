@@ -1,4 +1,3 @@
-import React from "react";
 import { Images } from "./../../images/index";
 
 function ScoreBoard() {
@@ -106,6 +105,46 @@ function ScoreBoard() {
           <span>No</span>
           <span>Balls</span>
           <span>50</span>
+        </div>
+        <div className="flex-center six-cir-mar">
+          <div className="flex-column flex-center six-circle rounded-circle">
+            <div>06</div>
+            <div>Over</div>
+          </div>
+        </div>
+      </div>
+      <div className="bg-blue rounded font-12 mt-1">
+        <div className="w-100 p-1 d-flex">
+          <div className="col-4">Batsmen</div>
+          <div className="col-8 d-flex align-items-center justify-content-between">
+            <div>R</div>
+            <div>B</div>
+            <div>4s</div>
+            <div>6s</div>
+            <div>SR</div>
+          </div>
+        </div>
+        <hr className="sb-line" />
+        <div className="w-100 p-1 d-flex">
+          <div className="col-4">Rohith</div>
+          <div className="col-8 d-flex align-items-center justify-content-between">
+            <div>100</div>
+            <div>50</div>
+            <div>10</div>
+            <div>10</div>
+            <div>200</div>
+          </div>
+        </div>
+        <hr className="sb-line" />
+        <div className="w-100 p-1 d-flex">
+          <div className="col-4">Virat</div>
+          <div className="col-8 d-flex align-items-center justify-content-between">
+            <div>50</div>
+            <div>40</div>
+            <div>10</div>
+            <div>0</div>
+            <div>120</div>
+          </div>
         </div>
       </div>
     </div>
