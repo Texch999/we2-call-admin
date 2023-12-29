@@ -20,6 +20,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setSelectedPackages } from "../../redux/actions/commonActions";
 import { ImageBaseUrl } from "../../images";
+
 function UpgradeYourPackagePopup(props) {
   const { showPackagePopup, setShowPackagePopup, selectPackage } = props;
   const [allPaymentGateway, setAllPaymentGateway] = useState();
@@ -41,6 +42,7 @@ function UpgradeYourPackagePopup(props) {
   const [selectedMethod, setSelectedMethod] = useState("");
   const [selectedReturnPackageTotalCost, setSelectedReturnPackageTotalCost] =
     useState(0);
+
 
   const handlePackagePopupClose = () => {
     setShowPackagePopup(false);
@@ -111,7 +113,7 @@ function UpgradeYourPackagePopup(props) {
     const finalPackageCost =
       totalPackagesCost - discountValue - totalPackagesDiscountValue;
     if (selectedReturnPackageTotalCost > finalPackageCost) {
-      setMessage("return packages cost will not exceed curent packages");
+      alert("return packages cost will not exceed curent packages");
       return;
     }
     const summary = {
@@ -160,39 +162,6 @@ function UpgradeYourPackagePopup(props) {
   };
 
   const finalPackageCost = totalPackagesCost;
-
-  const packages = [
-    { package: "Standard", number: "5" },
-    { package: "Silver", number: "5" },
-    { package: "Gold", number: "5" },
-    { package: "Diamond", number: "5" },
-    { package: "VIP", number: "5" },
-  ];
-  const packagesHours = [
-    { package: "Standard", hours: "5h" },
-    { package: "Silver", hours: "5h" },
-    { package: "Gold", hours: "5h" },
-    { package: "Diamond", hours: "5h" },
-    { package: "VIP", hours: "5h" },
-  ];
-  const packageReturn = [
-    {
-      header: "Standard value",
-      data: "10000",
-      headerone: "Availbale Days",
-      dataone: "20",
-      headertwo: "Now Value ",
-      datatwo: "6666.66",
-    },
-    {
-      header: "Standard value",
-      data: "10000",
-      headerone: "Availbale Days",
-      dataone: "20",
-      headertwo: "Now Value ",
-      datatwo: "6666.66",
-    },
-  ];
 
   const packagesType = [
     {
@@ -254,8 +223,9 @@ function UpgradeYourPackagePopup(props) {
 
   const onAddandSubtractExistingPackClick = (obj, value) => {
     let updatePackages = [];
+    console.log(obj, ".......totalPackagesBill");
     if (selectedReturnPackageTotalCost > totalPackagesBill) {
-      alert("return packages cost will not exceed curent packages");
+      alert(" curent packages");
       return;
     }
     updatePackages = userPackageList.map((item) => {
@@ -563,11 +533,10 @@ function UpgradeYourPackagePopup(props) {
                           <div className="add-button rounded-pill p-1 small-font d-flex align-items-center justify-content-evenly">
                             <FaMinus
                               className="mx-1"
-                              onClick={() =>
+                              onClick={() => () =>
                                 item.selected_no_of_packages
                                   ? onAddandSubtractExistingPackClick(item, -1)
-                                  : null
-                              }
+                                  : null}
                             />
                             <div className="fw-semibold">
                               {item.selected_no_of_packages || 0}
