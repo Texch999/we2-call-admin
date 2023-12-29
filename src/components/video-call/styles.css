@@ -1,8 +1,19 @@
 .h-80vh {
   height: 80vh;
 }
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .border-none {
   border: none !important;
+}
+.blue-bg {
+  background: #082051;
+}
+.runs-bg {
+  background: #1d3975;
 }
 .bg-blue {
   background: #082051;
@@ -26,4 +37,34 @@
   max-height: 20vh;
   overflow-y: scroll;
   overflow-x: hidden;
+}
+.light-blue-bg {
+  background-color: #132e67;
+}
+.sb-line {
+  margin: 0px;
+  height: 1px;
+  background-color: #132e67;
+}
+.team-img {
+  background: #ffffff;
+  border-radius: 50%;
+  height: 35px;
+  width: 35px;
+  padding: 0.25rem;
+}
+.six-font {
+  -webkit-text-stroke: 2px #00143d;
+  font-family: Bangers;
+  font-size: 25px;
+  font-weight: normal;
+  color: #fce419;
+}
+.six-num {
+  font-family: "Barlow-SemiBold";
+  font-size: 30px;
+  font-weight: bold;
+  font-stretch: normal;
+  color: #000;
+  background: #ffffff;
 }
