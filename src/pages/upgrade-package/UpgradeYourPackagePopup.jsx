@@ -43,7 +43,6 @@ function UpgradeYourPackagePopup(props) {
   const [selectedReturnPackageTotalCost, setSelectedReturnPackageTotalCost] =
     useState(0);
 
-
   const handlePackagePopupClose = () => {
     setShowPackagePopup(false);
     setSelectedMethodInfo("");

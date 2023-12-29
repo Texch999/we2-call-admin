@@ -42,7 +42,6 @@ function IndiviudalPLReport(props) {
       client_id: clientId || refClientId,
     })
       .then((res) => {
-        // console.log("res?.data?.data",[...res?.data?.data?.topLosers, ...res?.data?.data?.topWinners])
         setIndivisualMatchReportData([
           ...res?.data?.data?.topLosers,
           ...res?.data?.data?.topWinners,

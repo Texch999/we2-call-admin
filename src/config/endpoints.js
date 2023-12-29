@@ -96,6 +96,8 @@ const BULK_PACKAGE_APPROVE_REJECT = "/packages/bulk_package_approve_reject";
 const GET_TOUR_PAYMENT_DOCUMENTS = "/tours/get_tour_payments_documents";
 const GET_INTERESTED = "/tours/get_interested";
 const GET_ADMIN_PACKAGES_TRACKER_INFO = "/packages/get_package_tracker_list";
+const GET_LIVE_MEETING = "/meetings/get_live_meeting";
+const SIGNAL_RECORDING = "/group_call/signal_recording";
 
 // methods
 const DELETE = "DELETE";
@@ -507,4 +509,14 @@ exports.SUMMARY_DATA = {
 exports.GET_ADMIN_PACKAGES_TRACKER_INFO = {
   url: GET_ADMIN_PACKAGES_TRACKER_INFO,
   method: POST,
+};
+exports.GET_LIVE_MEETING = {
+  url: GET_LIVE_MEETING,
+  method: POST,
+};
+
+exports.SIGNAL_RECORDING = {
+  url: SIGNAL_RECORDING,
+  method: POST,
+  flag: true,
 };

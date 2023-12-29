@@ -76,7 +76,6 @@ const AdminShareCommSettlement = ({
   const getAllUsers = async () => {
     await call(GET_OFFLINE_CLIENTS, { register_id })
       .then((res) => {
-        // console.log(res.data);
         let results = res?.data?.data?.filter(
           (item) => item.user_status !== "deleted"
         );

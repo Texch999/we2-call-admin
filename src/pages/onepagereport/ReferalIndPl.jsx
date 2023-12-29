@@ -42,11 +42,6 @@ function ReferalIndPl(props) {
       client_id: item.client_id,
     })
       .then((res) => {
-        // console.log("res?.data?.data",[...res?.data?.data?.topLosers, ...res?.data?.data?.topWinners])
-        // setIndivisualMatchReportData([
-        //   ...res?.data?.data?.data,
-        //   // ...res?.data?.data?.topWinners,
-        // ]);
         setIndivisualMatchReportData([
           ...res?.data?.data?.topLosers,
           ...res?.data?.data?.topWinners,
@@ -126,22 +121,6 @@ function ReferalIndPl(props) {
       (acc, obj) => acc + (+obj?.referalShare + obj?.referralComission || 0),
       0
     );
-  console.log(totalReferalPl, "totalReferalPl...............");
-  console.log(
-    individualReportReferralData,
-    "individualReportReferralData..............."
-  );
-
-  console.log(
-    totalInduvisualReportClientReferalData,
-    "totalInduvisualReportClientReferalData..............."
-  );
-  console.log(clientsDataForRefferal, "clientsDataForRefferal...............");
-  console.log(totalReferalPlMatch, "totalReferalPlMatch...............");
-  console.log(
-    indivisualMatchReportData,
-    "indivisualMatchReportData..............."
-  );
 
   return (
     <div className="mt-3">

@@ -7,16 +7,18 @@ function SelectYourPackagePopup(props) {
     selectYourPackagePopup,
     setSelectYourPackagePopup,
     adminSubscription,
+    handleSubmitButton = () => {},
   } = props;
 
   const handleCancel = () => {
     setSelectYourPackagePopup(false);
   };
-  const handleSubmitButton = () => {
-    props.handleSubmitButton();
+  const handleSubmitButtonTwo = () => {
+    console.log("UPDATE");
+    handleSubmitButton();
     setSelectYourPackagePopup(false);
   };
-  
+
   return (
     <Modal
       className="select-your-package z-index"
@@ -77,7 +79,7 @@ function SelectYourPackagePopup(props) {
           )}
           <button
             className="w-100 login-button mt-3 medium-font py-2"
-            onClick={() => handleSubmitButton()}
+            onClick={() => handleSubmitButtonTwo()}
           >
             Submit
           </button>

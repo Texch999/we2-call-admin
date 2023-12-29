@@ -119,9 +119,6 @@ function Settelment() {
           setError(res?.data?.message);
         } else {
           console.log(res);
-          // setShowPaymentSettlementModal(false)
-          // openSuccessfullPaymentModal()
-          // props.setSettlementStatus((prev)=>!prev)
         }
       })
       .catch((err) => {

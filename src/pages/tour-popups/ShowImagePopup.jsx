@@ -4,7 +4,6 @@ import { Col, Container, Modal, Row } from "react-bootstrap";
 
 function ShowImagePopup(props) {
   const { showScreenshotImg, setShowScreenshotImg, imageurl } = props;
-//   console.log(imageurl,'......imageurl')
   const handlePopupClose = () => {
     setShowScreenshotImg(false);
   };
@@ -18,7 +17,7 @@ function ShowImagePopup(props) {
         className="match-share-modal payment-modal"
       >
         <Modal.Header closeButton>
-            <img src={imageurl} />
+          <img src={imageurl} />
           {/* <img src={process.env.PUBLIC_URL + "./assets/dog_imge.jpg"} /> */}
         </Modal.Header>
       </Modal>

@@ -54,7 +54,7 @@ function MatchEntry() {
       .catch((err) => console.log(err));
   };
 
-  const totalMatches = [...allMatches, ...companyMatches];
+  // const totalMatches = [...allMatches, ...companyMatches];
 
   const getMatchPositionData = async (ID) => {
     await call(GET_MATCH_POSITION_DATA, {
@@ -63,6 +63,7 @@ function MatchEntry() {
     })
       .then((res) => {
         setMatchPositionData(res?.data?.data);
+        // setStatus((prev) => !prev);
       })
       .catch((err) => console.log(err));
   };
@@ -95,7 +96,7 @@ function MatchEntry() {
       getCompanyMatches();
     };
     fetchData();
-  }, []);
+  }, [afterDeclare]);
 
   useEffect(() => {
     const fetchMatchInfo = async () => {

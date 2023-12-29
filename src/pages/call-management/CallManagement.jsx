@@ -20,10 +20,12 @@ import SelectYourPackagePopup from "./SelectYourPackagePopup";
 import CallEditPopup from "./CallEditPopup";
 import MatchSubmitPopup from "./../match-popups/MatchSubmitPopup";
 import MeetingEditPopup from "./MeetingEditPopup";
+import { useHistory } from "react-router";
 
 const CallManagement = () => {
   const register_id = localStorage.getItem("register_id");
   const account_role = localStorage.getItem("account_role");
+  const history = useHistory();
   const [status, setStatus] = useState(false);
   const [upcomingMeetings, setUpcomingMeetings] = useState([]);
   const [listOfUsers, setListOfUsers] = useState([]);
@@ -43,6 +45,7 @@ const CallManagement = () => {
   const [selectYourPackagePopup, setSelectYourPackagePopup] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
   const [editPopup, setEditPopup] = useState(false);
+  const packageLimits = adminSubscription?.package_limits;
 
   const handleChange = (e) => {
     setMeetingInput({ ...meetingInput, [e.target.name]: e.target.value });
@@ -68,7 +71,7 @@ const CallManagement = () => {
         ...selectedMeeting,
         date: moment(selectedMeeting.date).format("YYYY-MM-DD"),
         time: moment(selectedMeeting.time, ["h:mm:ss A"]).format("HH:mm"),
-        video_call_type: selectedMeeting?.video_call_type === true ? 1 : 0,
+        video_call_type: selectedMeeting?.video_call_type == true ? 1 : 0,
       };
       const list = (
         listOfUsers?.length &&
@@ -81,6 +84,7 @@ const CallManagement = () => {
         return { value: item?.register_id, label: item?.user_name };
       });
       setSelectedUsers(list);
+      console.log(list, "USER LIST");
       const activeMeetingIndex =
         selectedMeeting?.meeting_type == "Professional"
           ? "Professional"
@@ -94,6 +98,7 @@ const CallManagement = () => {
           </div>
         ),
       });
+
       setMeetingInput({ ...meetingInput, ...obj });
     }
   };
@@ -229,12 +234,12 @@ const CallManagement = () => {
           time: obj?.time,
           user:
             meetingUserData?.length > 0 &&
-            meetingUserData?.map((obj) => <>{obj?.user_name}</>),
+            meetingUserData?.map((obj) => obj?.user_name),
           recording_status: obj?.recording_status,
-          action: "edit",
+          action: "--",
         };
       });
-
+  console.log(meetingInput, "===>upcomingMeetings");
   const ulMeetingsData =
     (upcomingMeetings?.length >= 0 &&
       upcomingMeetings
@@ -282,6 +287,7 @@ const CallManagement = () => {
   };
 
   const handleSubmitButton = async () => {
+    console.log("UPDATE TWO");
     if (!selectedPackages?.package_id) {
       setError("Please Select Package");
       return;
@@ -293,9 +299,10 @@ const CallManagement = () => {
       isvideo_enable: "yes",
       meeting_type: meetingType,
       package_id: selectedPackages?.package_id,
-      video_call_type: meetingInput?.video_call_type === 0 ? true : false,
+      video_call_type: meetingInput?.video_call_type == 1 ? true : false,
     };
     setIsProcessing(true);
+    console.log(payload, "PAYLOAD");
     const url = selectedMeeting ? UPDATE_MEETING : CREATE_MEETING;
     await call(url, payload)
       .then((res) => {
@@ -328,6 +335,30 @@ const CallManagement = () => {
       });
   };
 
+  const handleOpenJoinPopup = (data, isNotCreated) => {
+    if (isNotCreated) {
+      history.push(`/meeting/${data?.meeting_id}`);
+      localStorage.setItem("isAdminMeeting", false);
+      return;
+    }
+    if (parseInt(packageLimits?.duration) < 0) {
+      setError({ message: "Insuffient package hrs, Please upgarde hrs!" });
+      return;
+    }
+    if (packageLimits?.members < data.meetingUserIds?.length) {
+      setError({ message: "Users Limit exceeded, Please Update" });
+      return;
+    }
+    if (!packageLimits) {
+      history.push(`/meeting/${data?.meeting_id}`);
+      localStorage.setItem("isAdminMeeting", true);
+    } else {
+      setError({
+        message: "you don't have any subscription, Please upgarde !",
+      });
+    }
+  };
+
   useEffect(() => {
     getAdminUsersList();
     getAllAdminMatches();
@@ -343,7 +374,7 @@ const CallManagement = () => {
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
-
+  console.log(meetingInput, "MEETING_INPUT");
   return (
     <div className="px-3 py-2">
       <div className="d-flex align-items-center justify-content-between">
@@ -477,7 +508,7 @@ const CallManagement = () => {
                 <th className="text-center">EVENT NAME</th>
                 <th className="text-center">START DATE & TIME</th>
                 <th className="text-center">USERS</th>
-                <th className="text-center">STATUS</th>
+                <th className="text-center">ACTION</th>
                 <th className="text-center">EDIT</th>
               </tr>
             </thead>
@@ -516,25 +547,12 @@ const CallManagement = () => {
                       </Dropdown>
                     </td>
                     <td className="text-center">
-                      {data?.recording_status === "started" ? (
-                        <Button className="rounded-pill meeting-status-button">
-                          Started
-                        </Button>
-                      ) : (
-                        <Button className="rounded-pill meeting-status-button">
-                          Upcoming
-                        </Button>
-                      )}
-                      {data?.recording_status === "upcoming" && (
-                        <Button className="rounded-pill meeting-status-button">
-                          Upcoming
-                        </Button>
-                      )}
-                      {data?.recording_status === "join" && (
-                        <Button className="rounded-pill meeting-status-button">
-                          Join
-                        </Button>
-                      )}
+                      <Button
+                        className="rounded-pill meeting-status-button"
+                        onClick={() => handleOpenJoinPopup(data)}
+                      >
+                        JOIN
+                      </Button>
                     </td>
                     <td className="text-center">
                       {register_id == data?.p_id && (

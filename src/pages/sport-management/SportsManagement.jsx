@@ -246,19 +246,19 @@ function SportsManagement() {
       .catch((err) => console.log(err));
   };
 
-  const getScheduleMatches = async () => {
-    await call(GET_ALL_MATCHES, {
-      register_id: "company",
-      account_role: "company",
-    })
-      .then((res) => {
-        let result = res?.data?.data;
-        setLiveMatchesData(result?.liveMatches);
-        setTodayMatchesData(result?.todaysMatches);
-        setUpcomingMatchesData(result?.upCommingMatches);
-      })
-      .catch((err) => console.log(err));
-  };
+  // const getScheduleMatches = async () => {
+  //   await call(GET_ALL_MATCHES, {
+  //     register_id: "company",
+  //     account_role: "company",
+  //   })
+  //     .then((res) => {
+  //       let result = res?.data?.data;
+  //       setLiveMatchesData(result?.liveMatches);
+  //       setTodayMatchesData(result?.todaysMatches);
+  //       setUpcomingMatchesData(result?.upCommingMatches);
+  //     })
+  //     .catch((err) => console.log(err));
+  // };
 
   const columns = [
     { header: "Series Name", field: "seriesName" },
@@ -317,12 +317,12 @@ function SportsManagement() {
 
   useEffect(() => {
     getAllMatches();
-    getScheduleMatches();
+   // getScheduleMatches();
   }, []);
 
-  useEffect(() => {
-    getScheduleMatches();
-  }, [status]);
+  // useEffect(() => {
+  //  // getScheduleMatches();
+  // }, [status]);
 
   return (
     <div className="p-3">

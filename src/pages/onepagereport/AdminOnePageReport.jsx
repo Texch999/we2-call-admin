@@ -74,45 +74,6 @@ const AdminOnePageReport = () => {
         ),
       };
     });
-
-  //   [
-  //   {
-  //     admin_name: "Animesh",
-  //     admin_role: "Agent",
-  //     profit_loss: 500000.0,
-  //     ul_share: 200000.0,
-  //   },
-  //   {
-  //     admin_name: "Sri8647",
-  //     admin_role: "Master",
-  //     profit_loss: 500000.0,
-  //     ul_share: 200000.0,
-  //   },
-  //   {
-  //     admin_name: "Ganesh",
-  //     admin_role: "Super Master",
-  //     profit_loss: 500000.0,
-  //     ul_share: 200000.0,
-  //   },
-  //   {
-  //     admin_name: "Lokesh",
-  //     admin_role: "Super Admin",
-  //     profit_loss: 500000.0,
-  //     ul_share: 200000.0,
-  //   },
-  //   {
-  //     admin_name: "Lokesh",
-  //     admin_role: "Super Admin",
-  //     profit_loss: 500000.0,
-  //     ul_share: 200000.0,
-  //   },
-  //   {
-  //     admin_name: "Dona456",
-  //     admin_role: "Super Master",
-  //     profit_loss: 500000.0,
-  //     ul_share: 200000.0,
-  //   },
-  // ];
   const adminOnePageReportIndividualData =
     induvisualUserReport &&
     induvisualUserReport?.length &&
@@ -212,7 +173,6 @@ const AdminOnePageReport = () => {
   const getAllUsers = async () => {
     await call(GET_OFFLINE_CLIENTS, { register_id })
       .then((res) => {
-        // console.log(res.data);
         let results = res?.data?.data?.filter(
           (item) => item.user_status !== "deleted"
         );
@@ -233,28 +193,9 @@ const AdminOnePageReport = () => {
   }, [success]);
 
   return (
-    <div>
-      {/* <h5 className="meetings-heading mb-3">Your Share In Admin Book</h5>
-      <div className="d-flex align-items-center justify-content-between">
-        <div>
-          {reports.map(({ isActive, name }, index) => (
-            <Button
-              key={index}
-              className={`me-2 admin-reports-button ${
-                name === activeReport ? "active-report-button" : ""
-              }`}
-              onClick={() => {
-                handleReport(name);
-                setIsAdminActive(isActive);
-              }}
-            >
-              {name}
-            </Button>
-          ))}
-        </div>
-        <Button className="all-match-button">All Match</Button>
-      </div>
-      <hr /> */}
+    <div className="p-4">
+      <h5 className="meetings-heading mb-3">Your Share In Admin Book</h5>
+      <hr />
 
       <div>
         <Table responsive="md" className="call-management-data">

@@ -24,7 +24,6 @@ function CallHistory() {
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
-    // You can add your logic here to fetch data for the selected page.
   };
 
   const getCallHistoryData = async () => {
@@ -39,7 +38,6 @@ function CallHistory() {
       });
   };
 
-
   const [dateObject, setDateObject] = useState({});
 
   const handleChange = (e) => {
@@ -48,7 +46,6 @@ function CallHistory() {
       [e.target.name]: e.target.value,
     });
   };
-
 
   useEffect(() => {
     getCallHistoryData();
@@ -157,7 +154,7 @@ function CallHistory() {
                   <div
                     className={`p-1 w-100 ${
                       item?.status === "started" ? "clr-green" : "clr-red"
-                    }`}  
+                    }`}
                   >
                     {item?.status}
                   </div>

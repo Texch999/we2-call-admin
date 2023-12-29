@@ -23,7 +23,6 @@ function AddAdminsPopup(props) {
     show,
   } = props;
 
-
   const register_id = localStorage?.getItem("register_id");
   const creator_id = localStorage?.getItem("creator_id");
   const account_role = localStorage?.getItem("account_role");
@@ -40,11 +39,11 @@ function AddAdminsPopup(props) {
   };
   let packageList = [
     { label: "Trial", value: "Trial" },
-    { label: "Standard", value: "Standard" },
-    { label: "Silver", value: "Silver" },
-    { label: "Gold", value: "Gold" },
-    { label: "Diamond", value: "Diamond" },
-    { label: "VIP", value: "VIP" },
+    // { label: "Standard", value: "Standard" },
+    // { label: "Silver", value: "Silver" },
+    // { label: "Gold", value: "Gold" },
+    // { label: "Diamond", value: "Diamond" },
+    // { label: "VIP", value: "VIP" },
   ];
 
   let userRoles = [
@@ -303,7 +302,7 @@ function AddAdminsPopup(props) {
                       autoFocus
                       aria-describedby="sharePercentage"
                       name="share"
-                      defaultValue={100 - +inputData?.ul_share || 100}
+                      value={100 - +inputData?.ul_share || 100}
                       onChange={(e) => handleInputChnage(e)}
                     />
                   </InputGroup>

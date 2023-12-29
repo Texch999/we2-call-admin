@@ -11,7 +11,7 @@ import {
 import { MdOutlineEdit } from "react-icons/md";
 import { call } from "../../config/axios";
 import { GET_TOURS, GET_INTERESTED } from "../../config/endpoints";
-import { ADD_INTERESTED } from "../../config/endpoints"
+import { ADD_INTERESTED } from "../../config/endpoints";
 
 function ToursListPopup(props) {
   const { openToursPopup, setOpenToursPopup, tourName, setTourName } = props;
@@ -55,7 +55,7 @@ function ToursListPopup(props) {
     return () => {
       setTours([]);
     };
-  }, [openToursPopup])
+  }, [openToursPopup]);
 
   const country_name = localStorage.getItem("country_name");
   const toursList =
@@ -78,7 +78,6 @@ function ToursListPopup(props) {
           return tour;
         }
       });
-  // console.log(toursList, ".....toursList");
   const TableHeads =
     toursList && toursList.length > 0
       ? [

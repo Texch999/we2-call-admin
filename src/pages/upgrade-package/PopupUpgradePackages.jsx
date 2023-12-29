@@ -283,12 +283,6 @@ function PopupUpgradePackages(props) {
                       })}
                   </div>
                 )}
-                {console.log(
-                  allPaymentGateway.filter(
-                    (item) => item.pg_upi === paymentType
-                  ),
-                  "paymentType"
-                )}
                 {paymentType !== "neft" && (
                   <div className="payment-scroll">
                     {allPaymentGateway
