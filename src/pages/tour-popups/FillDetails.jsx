@@ -31,7 +31,6 @@ function FillDetails(props) {
   const [arrey, setArrey] = useState([]);
   let NUMBER_OF_MEMBERS = arrey;
   console.log(NUMBER_OF_MEMBERS, "......numberofmembers");
-  console.log(inputData, "......inputdata");
   const handleMembersOpen = () => {
     setMembersOpen(!membersOpen);
   };
@@ -171,6 +170,7 @@ function FillDetails(props) {
         })
       : setInputData({ ...inputData, [e.target.name]: e.target.value });
   };
+  console.log(inputData,'......inputdata')
 
   const handleUploadchange = async (e, index) => {
     const imagefile = e.target.files[0];
@@ -201,11 +201,6 @@ function FillDetails(props) {
         .catch((err) => {
           console.log("err: ", err);
         }));
-  };
-
-  const handleSaveClick = (item) => {
-    handlePaymentDetails(inputData);
-    console.log(inputData, "......clickingsavebutton");
   };
 
   const generatesignedurl = async (imageId) => {
@@ -405,7 +400,7 @@ function FillDetails(props) {
       </div>
       <div
         className="login-btn mt-2"
-        // onClick={() => handleSaveClick(item, activeIndex)}
+        onClick={() => handlePaymentDetails(inputData)}
       >
         Save
       </div>
