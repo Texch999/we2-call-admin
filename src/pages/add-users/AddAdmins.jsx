@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Table, Form } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./style.css";
@@ -16,6 +16,7 @@ import BlockUnBlockPopUp from "./BlockUnBlockPopUp";
 import ChangePasswordSuccessPopUp from "./ChangePasswordSuccessPopUp";
 import { TfiSharethis } from "react-icons/tfi";
 import AdminDetailsSharePopup from "./AdminDetailsSharePopup";
+import { FaGreaterThan } from "react-icons/fa6";
 
 const AddAdmins = () => {
   const register_id = localStorage?.getItem("register_id");
@@ -39,6 +40,8 @@ const AddAdmins = () => {
   const [blockStatus, setBlockStatus] = useState(false);
   const [selectedUser, setSelectedUser] = useState("");
   const [isProcessing, setIsProcessing] = useState(false);
+  const [belowUsers, setBelowUsers] = useState([]);
+  console.log(belowUsers, "belowUsers");
 
   const allUsersData =
     usersData?.length > 0 &&
@@ -131,9 +134,12 @@ const AddAdmins = () => {
 
   const filteredUsersData = getFilteredUsers();
 
+  console.log("filteredUsersData====>", filteredUsersData);
+
   useEffect(() => {
     getAllClients();
   }, [isUserAdded]);
+
 
   const [adminDetailsPopup, setAdminDetailsPopup] = useState(false);
   const [adminDetailsData, setAdminDetailsData] = useState();
@@ -141,7 +147,29 @@ const AddAdmins = () => {
     setAdminDetailsPopup(true);
     setAdminDetailsData(data);
   };
-
+  const handleAdminClick = async (data) => {
+    // setBelowUsers({...belowUsers}, data);
+    const hierarchyData={
+        account_role:data.account_role,
+        user_name:data.user_name
+    }
+    setBelowUsers((belowUsers)=>[...belowUsers,hierarchyData])
+    const payload = {
+      register_id: data.register_id,
+      account_role: data.account_role,
+    };
+    await call(GET_ALL_CLIENTS, payload)
+      .then((res) => {
+        const results =
+          res?.data &&
+          res?.data?.data?.length > 0 &&
+          res?.data?.data?.filter((i) => i.account_role !== "client");
+        console.log("results===>", results);
+        setUsersData(results);
+      })
+      .catch((err) => console.log(err));
+  };
+  console.log(belowUsers,'....belowusers')
   return (
     <div className="p-3">
       <div>
@@ -153,16 +181,23 @@ const AddAdmins = () => {
 
         <div className="mt-3 d-flex justify-content-between align-items-center">
           <div className="d-flex justify-content-center align-items-center">
-            <Button
+            {/* <Button
               className="agent-button sm-button"
               onClick={() => setPackageViewPopup(true)}
             >
               SM <GiClick className="custom-click-icon ms-1 mt-2" />
             </Button>
             <span className="mb-0 ms-2 me-2 add-user-name">Srinivas</span>
-            <MdArrowForwardIos />
+            <MdArrowForwardIos /> */}
             <Button className="ms-2 agent-button">{account_role}</Button>
             <span className="mb-0 ms-2 me-2 add-user-name">{user_name}</span>
+            {belowUsers?.map((hierarchyData, index) => (
+            <React.Fragment key={index}>
+                <FaGreaterThan />
+                <Button className="ms-2 agent-button">{hierarchyData.account_role}</Button>
+                <span className="mb-0 ms-2 me-2 add-user-name">{hierarchyData.user_name}</span>
+              </React.Fragment>
+            ))}
           </div>
 
           <Form className="d-flex">
@@ -207,8 +242,9 @@ const AddAdmins = () => {
               filteredUsersData?.length > 0 &&
               filteredUsersData?.map((data, index) => (
                 <tr key={index}>
+                  {/* {console.log(data,'....data')} */}
                   <td className="text-center">{data?.s_no}</td>
-                  <td className="text-center">
+                  <td className="text-center" onClick={() => handleAdminClick(data)}>
                     {data?.user_name}{" "}
                     <Button className="ms-1 border-0 status-button"></Button>
                   </td>
@@ -220,40 +256,43 @@ const AddAdmins = () => {
                   {/* <td className="text-center">{data?.package}</td> */}
                   {/* <td className="text-center">{data?.user}</td> */}
                   {/* <td className="text-center">{data?.profit_loss}</td> */}
-                  <td className="text-center">
-                    <Button
-                      className="text-center rounded meeting-status-button EDIT-button me-2"
-                      onClick={() => {
-                        setShowChangePopup(true);
-                        setSelectedUser(data);
-                      }}
-                    >
-                      CP
-                    </Button>
-                    <Button
-                      className="text-center rounded meeting-status-button EDIT-button me-2"
-                      onClick={() => handleEditButton(data)}
-                    >
-                      EDIT
-                    </Button>
-                    <Button
-                      className={`text-center rounded meeting-status-button EDIT-button me-2 ${
-                        data?.active ? "clr-blue" : "clr-red"
-                      }`}
-                      onClick={() => {
-                        setBlockStatus(true);
-                        setSelectedUser(data);
-                      }}
-                    >
-                      {data?.active ? "UB" : "B"}
-                    </Button>
-                    <Button
-                      className="text-center rounded meeting-status-button EDIT-button me-2"
-                      onClick={() => handleAdminDetailsSharePopup(data)}
-                    >
-                      <TfiSharethis />
-                    </Button>
-                  </td>
+                  {/* {console.log(register_id,'........registerid')} */}
+                  {register_id === data?.creator_id ? (
+                    <td className="text-center">
+                      <Button
+                        className="text-center rounded meeting-status-button EDIT-button me-2"
+                        onClick={() => {
+                          setShowChangePopup(true);
+                          setSelectedUser(data);
+                        }}
+                      >
+                        CP
+                      </Button>
+                      <Button
+                        className="text-center rounded meeting-status-button EDIT-button me-2"
+                        onClick={() => handleEditButton(data)}
+                      >
+                        EDIT
+                      </Button>
+                      <Button
+                        className={`text-center rounded meeting-status-button EDIT-button me-2 ${
+                          data?.active ? "clr-blue" : "clr-red"
+                        }`}
+                        onClick={() => {
+                          setBlockStatus(true);
+                          setSelectedUser(data);
+                        }}
+                      >
+                        {data?.active ? "UB" : "B"}
+                      </Button>
+                      <Button
+                        className="text-center rounded meeting-status-button EDIT-button me-2"
+                        onClick={() => handleAdminDetailsSharePopup(data)}
+                      >
+                        <TfiSharethis />
+                      </Button>
+                    </td>
+                  ) : null}
                 </tr>
               ))}
           </tbody>

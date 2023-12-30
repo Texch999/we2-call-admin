@@ -7,7 +7,7 @@ import { call } from "../../config/axios";
 function PaymentGatewayList() {
   const [paymentGatewayPopup, setPaymentGatewayPopup] = useState(false);
   const [allPaymentGateway, setAllPaymentGateway] = useState([]);
-  const [selectedGateway, setSelectedGateway] = useState({});
+  const [selectedGateway, setSelectedGateway] = useState({}); 
   const [status, setStatus] = useState(false);
 
   const handleOpenPaymentGateway = (argument) => {
