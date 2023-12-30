@@ -5,8 +5,7 @@ import "./styles.css";
 
 function Calling(props) {
   const { isAdminCreated, meetingId, liveMeeting } = props;
-  console.log(props, "===>PROPS");
-  const [activeIndex, setActiveIndex] = useState(1);
+  const [activeIndex, setActiveIndex] = useState(0);
   const buttons = ["Join Users", "Score Board"];
   const handleButton = (index) => {
     setActiveIndex(index);
@@ -28,13 +27,25 @@ function Calling(props) {
               </button>
             ))}
         </div>
-        <div className="d-flex align-items-center justify-content-between font-14 mt-2">
-          <div className="rounded-pill py-1 px-3 bg-blue">28-12-2024</div>
-          <div className="rounded-pill py-1 px-3 bg-blue">T20</div>
-          <div className="rounded-pill py-1 px-3 bg-blue">IND vs AUS</div>
+        <div className="font-14 mt-2">
+          <div className="rounded-pill py-1 px-3 bg-blue">
+            Date : {liveMeeting?.date}
+          </div>
+          <div className="rounded-pill py-1 px-3 bg-blue mt-1">
+            {liveMeeting?.event_name}
+          </div>
+          <div className="rounded-pill py-1 px-3 bg-blue mt-1">
+            {liveMeeting?.match_name}
+          </div>
         </div>
       </div>
-      {activeIndex === 0 && <UserList />}
+      {activeIndex === 0 && (
+        <UserList
+          isAdminCreated={isAdminCreated}
+          meetingId={meetingId}
+          liveMeeting={liveMeeting}
+        />
+      )}
       {activeIndex === 1 && <ScoreBoard />}
     </div>
   );

@@ -852,15 +852,17 @@ class GroupCall extends React.Component {
               )
             )
           ) : null} */}
-          {/* <Calling
+
+          <Calling
             isAdminCreated={this.state.isAdminCreated}
             meetingId={this.props.match.params.id}
             liveMeeting={this.state.liveMeeting}
-          /> */}
-          <MatchPosition
-            matchId={liveMeeting?.matchId}
-            liveMeeting={liveMeeting}
           />
+
+          {/* <MatchPosition
+            matchId={liveMeeting?.match_id}
+            liveMeeting={liveMeeting}
+          /> */}
 
           <div id="group-call" className="w-75"></div>
         </div>

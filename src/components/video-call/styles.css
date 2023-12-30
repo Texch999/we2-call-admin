@@ -26,6 +26,9 @@
 .green-bg {
   background-color: #03ac63;
 }
+.mic-bg {
+  background-color: #5681fe;
+}
 .font-1rem {
   font-size: 1rem;
 }
@@ -34,7 +37,7 @@
   border-bottom: 1px solid #082051;
 }
 .user-list-height {
-  max-height: 20vh;
+  max-height: 16vh;
   overflow-y: scroll;
   overflow-x: hidden;
 }
@@ -45,6 +48,7 @@
   margin: 0px;
   height: 1px;
   background-color: #132e67;
+  opacity: 0.1;
 }
 .team-img {
   background: #ffffff;
@@ -76,4 +80,7 @@
   height: 49px;
   border: 5px solid #00143d;
   background-image: linear-gradient(to top, #0992f3, #08baf9);
+}
+.fit-content {
+  width: fit-content;
 }
