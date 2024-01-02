@@ -2,20 +2,22 @@ import { Images } from "./../../images/index";
 
 function ScoreBoard() {
   return (
-    <div className="w-100 active-chat-bg rounded p-1 mt-1 font-12">
+    <div className="w-100 active-chat-bg rounded p-1 mt-1 font-12 sb-scroll">
       <div className="w-100 d-flex align-items-center justify-content-between font-12">
         <div className="flex-column">
           <div className="bg-yellow rounded px-1">Live</div>
           <div className="bg-blue rounded px-1">Info</div>
         </div>
-        <div className="d-flex bg-blue rounded p-1">
-          <div className="px-1">Over 10</div>
-          <div className="px-1 mx-1 runs-bg rounded-circle">6</div>
-          <div className="px-1 mx-1 runs-bg rounded-circle">5</div>
-          <div className="px-1 mx-1 runs-bg rounded-circle">4</div>
-          <div className="px-1 mx-1 runs-bg rounded-circle">3</div>
-          <div className="px-1 mx-1 runs-bg rounded-circle">2</div>
-          <div className="px-1 mx-1 runs-bg rounded-circle">1</div>
+        <div className="d-flex align-items-center bg-blue rounded p-1">
+          <div>Over 10</div>
+          <div className="balls-div d-flex align-items-center">
+            <div className="single-ball mx-1 runs-bg rounded-circle">6</div>
+            <div className="single-ball mx-1 runs-bg rounded-circle">5</div>
+            <div className="single-ball mx-1 runs-bg rounded-circle">4</div>
+            <div className="single-ball mx-1 runs-bg rounded-circle">3</div>
+            <div className="single-ball mx-1 runs-bg rounded-circle">2</div>
+            <div className="single-ball mx-1 runs-bg rounded-circle">1</div>
+          </div>
         </div>
       </div>
       <div className="bg-blue rounded font-12 mt-1">
