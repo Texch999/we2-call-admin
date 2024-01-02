@@ -90,6 +90,30 @@ function UserList(props) {
     liveMeetings?.meetingUserIds?.includes(itm.id)
   );
 
+  const [insideUsersTerm, setInsideUsersTerm] = useState("");
+  const [filteredInsideUsers, setFilteredInsideUsers] = useState([]);
+  const handleInsideFilterUsers = (insideUsersTerm) => {
+    const insideFilter = meetingInSideUsers?.filter((item) =>
+      item?.name?.toLowerCase().includes(insideUsersTerm.toLowerCase())
+    );
+    setFilteredInsideUsers(insideFilter);
+  };
+  useEffect(() => {
+    handleInsideFilterUsers(insideUsersTerm);
+  }, [insideUsersTerm, filteredInsideUsers]);
+
+  const [outsideUsersTerm, setOutsideUsersTerm] = useState("");
+  const [filteredOutsideUsers, setFilteredOutsideUsers] = useState([]);
+  const handleOutsideFilterUsers = (outsideUsersTerm) => {
+    const outSideFilter = meetingOutSideUsers?.filter((item) =>
+      item?.name?.toLowerCase().includes(outsideUsersTerm.toLowerCase())
+    );
+    setFilteredOutsideUsers(outSideFilter);
+  };
+  useEffect(() => {
+    handleOutsideFilterUsers(outsideUsersTerm);
+  }, [outsideUsersTerm, filteredOutsideUsers]);
+
   return (
     <div>
       <div className="rounded mt-2 font-14 w-100 num-btn-bg p-2">
@@ -98,10 +122,12 @@ function UserList(props) {
           className="w-100 font-14 rounded p-2 bg-blue border-none mt-1 all-none"
           placeholder="Search..."
           type="text"
+          value={insideUsersTerm}
+          onChange={(e) => setInsideUsersTerm(e.target.value)}
         />
         <div className="user-list-height mt-1">
-          {meetingInSideUsers?.length > 0 &&
-            meetingInSideUsers?.map((item, index) => (
+          {filteredInsideUsers?.length > 0 &&
+            filteredInsideUsers?.map((item, index) => (
               <div
                 key={index}
                 className="d-flex align-items-center justify-content-between font-14 border-top-bottom py-1"
@@ -134,10 +160,13 @@ function UserList(props) {
         <input
           className="w-100 font-14 rounded p-2 bg-blue border-none mt-1 all-none"
           placeholder="Search..."
+          type="text"
+          value={outsideUsersTerm}
+          onChange={(e) => setOutsideUsersTerm(e.target.value)}
         />
         <div className="user-list-height mt-1">
-          {meetingOutSideUsers?.length > 0 &&
-            meetingOutSideUsers?.map((item, index) => (
+          {filteredOutsideUsers?.length > 0 &&
+            filteredOutsideUsers?.map((item, index) => (
               <div
                 key={index}
                 className="d-flex align-items-center justify-content-between font-14 border-top-bottom py-1"

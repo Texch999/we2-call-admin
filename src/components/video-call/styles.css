@@ -18,7 +18,7 @@
 .bg-blue {
   background: #082051;
   color: #ffffff;
-  font-weight: 600;
+  /* font-weight: 600; */
 }
 .red-bg {
   background-color: #fc3738;
@@ -83,4 +83,32 @@
 }
 .fit-content {
   width: fit-content;
+}
+.sb-scroll {
+  max-height: 60vh;
+  overflow-y: scroll;
+}
+.single-ball {
+  height: 20px;
+  width: 20px;
+  text-align: center;
+}
+.balls-div {
+  display: flex;
+  width: 150px;
+  overflow-x: scroll;
+  overflow-y: hidden;
+}
+
+/* Video Call */
+
+/* .Xfk1RtGH65gHx0iQ5uPA .GBqD5akUB0siCNWbAPQr {
+  border: 2px solid #0993f3 !important;
+} */
+.Xfk1RtGH65gHx0iQ5uPA {
+  border: 3px solid #0993f3 !important;
+  border-radius: 20px !important;
+}
+.ji5jASszKFf2CGCmbxEh {
+  border-top: 1px solid #4e5b7a;
 }

@@ -835,8 +835,8 @@ class GroupCall extends React.Component {
     return (
       <div className={`background`}>
         <div className="background-none"></div>
-        <div className="group-call-container d-flex px-2">
-          {/* {meetingStarted ? (
+        <div className="group-call-container flex-center px-2">
+          {meetingStarted ? (
             this.state.isAdminCreated ? (
               <Calling
                 isAdminCreated={this.state.isAdminCreated}
@@ -851,13 +851,13 @@ class GroupCall extends React.Component {
                 />
               )
             )
-          ) : null} */}
+          ) : null}
 
-          <Calling
+          {/* <Calling
             isAdminCreated={this.state.isAdminCreated}
             meetingId={this.props.match.params.id}
             liveMeeting={this.state.liveMeeting}
-          />
+          /> */}
 
           {/* <MatchPosition
             matchId={liveMeeting?.match_id}

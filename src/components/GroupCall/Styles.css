@@ -660,15 +660,17 @@
 
 #group-call {
   margin: auto;
-  height: 80vh;
-  background-size: cover;
+  /* height: 80vh; */
+  /* background-size: cover; */
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
 }
 .meeting-header {
   height: 10vh;
 }
-.meeting-started {
+/* .meeting-started {
   background-image: url(./Assets/video_call_bg.jpg);
-}
+} */
 .pre-join-meeting {
   max-height: 80vh !important;
 }
@@ -755,7 +757,8 @@ body {
 }
 
 .meeting-started > div > div {
-  background: transparent !important;
+  background: #1e2130 !important;
+  /* background: transparent !important; */
 }
 
 .meeting-started > div > div > div > div > input {

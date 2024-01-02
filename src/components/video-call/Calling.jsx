@@ -31,9 +31,9 @@ function Calling(props) {
           <div className="rounded-pill py-1 px-3 bg-blue">
             Date : {liveMeeting?.date}
           </div>
-          <div className="rounded-pill py-1 px-3 bg-blue mt-1">
+          {/* <div className="rounded-pill py-1 px-3 bg-blue mt-1">
             {liveMeeting?.event_name}
-          </div>
+          </div> */}
           <div className="rounded-pill py-1 px-3 bg-blue mt-1">
             {liveMeeting?.match_name}
           </div>
