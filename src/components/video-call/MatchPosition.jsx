@@ -99,8 +99,6 @@ function MatchPosition(props) {
     }
   }, [matchRegisterData?.registered_match_id]);
 
-  console.log(data, "===>DATA");
-
   return (
     <div className="w-25 header-bg h-80vh rounded p-1 font-14">
       <div className="num-btn-bg rounded p-2">
