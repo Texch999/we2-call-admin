@@ -178,7 +178,6 @@ function AddPaymentMode(props) {
       </Modal.Header> */}
       <Modal.Header closeButton>
         <Modal.Title className="w-100 text-center">{Heading}</Modal.Title>
-        {console.log("Heading====>", Heading)}
       </Modal.Header>
       <Modal.Body>
         {/* <div className="text-center me-4">{Heading}</div> */}

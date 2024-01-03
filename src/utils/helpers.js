@@ -69,3 +69,4 @@ export const getAllowedRoutes = (appRole) => {
 //   else if (role === "2") return "Sub admin";
 // };
 
+export const numberColor = (value) => (+value < 0 ? "clr-red" : "clr-green");

@@ -228,7 +228,7 @@ const ShareRiskLiveMatches = () => {
                   <td className="text-center">{data?.matchMode}</td>
                   <td className="text-center clr-yellow cursor-pointer">
                     {data?.match}{" "}
-                    <GiClick className="custom-click-icon ms-1 mt-2" />
+                    {/* <GiClick className="custom-click-icon ms-1 mt-2" /> */}
                   </td>
                   <td className="text-center">{data?.venue}</td>
 

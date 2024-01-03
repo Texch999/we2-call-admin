@@ -71,7 +71,7 @@ const CallManagement = () => {
         ...selectedMeeting,
         date: moment(selectedMeeting.date).format("YYYY-MM-DD"),
         time: moment(selectedMeeting.time, ["h:mm:ss A"]).format("HH:mm"),
-        video_call_type: selectedMeeting?.video_call_type === true ? 1 : 0,
+        video_call_type: selectedMeeting?.video_call_type == true ? 1 : 0,
       };
       const list = (
         listOfUsers?.length &&
@@ -84,6 +84,7 @@ const CallManagement = () => {
         return { value: item?.register_id, label: item?.user_name };
       });
       setSelectedUsers(list);
+      console.log(list, "USER LIST");
       const activeMeetingIndex =
         selectedMeeting?.meeting_type == "Professional"
           ? "Professional"
@@ -97,6 +98,7 @@ const CallManagement = () => {
           </div>
         ),
       });
+
       setMeetingInput({ ...meetingInput, ...obj });
     }
   };
@@ -232,12 +234,12 @@ const CallManagement = () => {
           time: obj?.time,
           user:
             meetingUserData?.length > 0 &&
-            meetingUserData?.map((obj) => <>{obj?.user_name}</>),
+            meetingUserData?.map((obj) => obj?.user_name),
           recording_status: obj?.recording_status,
           action: "--",
         };
       });
-
+  console.log(meetingInput, "===>upcomingMeetings");
   const ulMeetingsData =
     (upcomingMeetings?.length >= 0 &&
       upcomingMeetings
@@ -285,6 +287,7 @@ const CallManagement = () => {
   };
 
   const handleSubmitButton = async () => {
+    console.log("UPDATE TWO");
     if (!selectedPackages?.package_id) {
       setError("Please Select Package");
       return;
@@ -296,9 +299,10 @@ const CallManagement = () => {
       isvideo_enable: "yes",
       meeting_type: meetingType,
       package_id: selectedPackages?.package_id,
-      video_call_type: meetingInput?.video_call_type === 0 ? true : false,
+      video_call_type: meetingInput?.video_call_type == 1 ? true : false,
     };
     setIsProcessing(true);
+    console.log(payload, "PAYLOAD");
     const url = selectedMeeting ? UPDATE_MEETING : CREATE_MEETING;
     await call(url, payload)
       .then((res) => {
@@ -370,7 +374,7 @@ const CallManagement = () => {
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
-
+  console.log(meetingInput, "MEETING_INPUT");
   return (
     <div className="px-3 py-2">
       <div className="d-flex align-items-center justify-content-between">

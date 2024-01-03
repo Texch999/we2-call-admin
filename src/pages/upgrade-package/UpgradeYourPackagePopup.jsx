@@ -1,4 +1,4 @@
-import { Col, Container, Form, Modal, Row } from "react-bootstrap";
+import { Col, Container, Form, Modal, ModalHeader, Row } from "react-bootstrap";
 import { Button, Table, Dropdown } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useRef, useState } from "react";
@@ -12,6 +12,7 @@ import {
   CREATE_PACKAGE_SUBSCRIPTION,
   GENERATE_SIGNED_URL,
   GET_ADMIN_PACKAGES,
+  GET_ADMIN_PACKAGES_TRACKER_INFO,
   GET_ALL_PAYMENT_GATEWAYS,
   GET_USER_INFO,
 } from "../../config/endpoints";
@@ -19,8 +20,9 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setSelectedPackages } from "../../redux/actions/commonActions";
 import { ImageBaseUrl } from "../../images";
+
 function UpgradeYourPackagePopup(props) {
-  const { showPackagePopup, setShowPackagePopup } = props;
+  const { showPackagePopup, setShowPackagePopup, selectPackage } = props;
   const [allPaymentGateway, setAllPaymentGateway] = useState();
   const [checked, setChecked] = useState();
   const [selectedMethodInfo, setSelectedMethodInfo] = useState("");
@@ -66,6 +68,8 @@ function UpgradeYourPackagePopup(props) {
     0
   );
 
+  console.log(packageList, ".........packageList");
+
   const totalPackagesBill =
     totalPackagesCost -
     (totalDiscount + (totalPackagesCost * specialDiscount) / 100);
@@ -108,7 +112,7 @@ function UpgradeYourPackagePopup(props) {
     const finalPackageCost =
       totalPackagesCost - discountValue - totalPackagesDiscountValue;
     if (selectedReturnPackageTotalCost > finalPackageCost) {
-      setMessage("return packages cost will not exceed curent packages");
+      alert("return packages cost will not exceed curent packages");
       return;
     }
     const summary = {
@@ -158,39 +162,6 @@ function UpgradeYourPackagePopup(props) {
 
   const finalPackageCost = totalPackagesCost;
 
-  const packages = [
-    { package: "Standard", number: "5" },
-    { package: "Silver", number: "5" },
-    { package: "Gold", number: "5" },
-    { package: "Diamond", number: "5" },
-    { package: "VIP", number: "5" },
-  ];
-  const packagesHours = [
-    { package: "Standard", hours: "5h" },
-    { package: "Silver", hours: "5h" },
-    { package: "Gold", hours: "5h" },
-    { package: "Diamond", hours: "5h" },
-    { package: "VIP", hours: "5h" },
-  ];
-  const packageReturn = [
-    {
-      header: "Standard value",
-      data: "10000",
-      headerone: "Availbale Days",
-      dataone: "20",
-      headertwo: "Now Value ",
-      datatwo: "6666.66",
-    },
-    {
-      header: "Standard value",
-      data: "10000",
-      headerone: "Availbale Days",
-      dataone: "20",
-      headertwo: "Now Value ",
-      datatwo: "6666.66",
-    },
-  ];
-
   const packagesType = [
     {
       value: "neft",
@@ -237,7 +208,75 @@ function UpgradeYourPackagePopup(props) {
     }
   };
 
-  const returnPackagesTotalCost = (input) => {
+  const getAdminPackages = async () => {
+    await call(GET_ADMIN_PACKAGES, { register_id })
+      .then((res) => {
+        const adminPackages = res?.data?.data?.bulk_subscriptions?.filter(
+          (obj) =>
+            obj.duration !== "hourly" || obj.package_duration !== "hourly"
+        );
+        setAdminPackages(adminPackages || []);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const onAddandSubtractExistingPackClick = (obj, value) => {
+    let updatePackages = [];
+    console.log(obj, ".......totalPackagesBill");
+    if (selectedReturnPackageTotalCost > totalPackagesBill) {
+      alert(" curent packages");
+      return;
+    }
+    updatePackages = userPackageList.map((item) => {
+      if (item.package_id === obj.package_id) {
+        item.no_of_packages = item.no_of_packages;
+        item.selected_no_of_packages =
+          (item.selected_no_of_packages || 0) + value;
+      }
+      return item;
+    });
+
+    let updateReturnPackageList = [];
+    if (returnPackageList?.length) {
+      const findIndex = returnPackageList.findIndex(
+        (list) => list?.package_id === obj?.package_id
+      );
+      if (findIndex < 0) {
+        const newArr = [
+          {
+            cost: obj?.package_cost,
+            package_id: obj?.package_id,
+            no_of_packages: value,
+            selected_no_of_packages: value,
+          },
+        ];
+        updateReturnPackageList = [...returnPackageList, ...newArr];
+      } else {
+        updateReturnPackageList = returnPackageList.map((list) => {
+          if (list?.package_id === obj?.package_id) {
+            list.no_of_packages = list.no_of_packages + value;
+            list.selected_no_of_packages = list.selected_no_of_packages + value;
+          }
+          return list;
+        });
+      }
+    } else {
+      updateReturnPackageList = [
+        {
+          ...obj,
+          cost: obj?.package_cost,
+          package_id: obj?.package_id,
+          no_of_packages: value,
+          selected_no_of_packages: value,
+        },
+      ];
+    }
+    setReturnPackageList(updateReturnPackageList);
+    setAdminPackages(updatePackages);
+    returnPackagesTotalCost(updateReturnPackageList);
+  };
+
+  const returnPackagesTotalCost = (returnPackageList) => {
     if (returnPackageList?.length && returnPackageTrackerList?.length) {
       const returnPackageTrackerList1 = returnPackageTrackerList;
       const returnPackTrackList = returnPackageList.map((returnPackObj) => {
@@ -287,74 +326,26 @@ function UpgradeYourPackagePopup(props) {
     }
   };
 
-  const getAdminPackages = async () => {
-    await call(GET_ADMIN_PACKAGES, { register_id })
+  const getAdminTrackerPackages = async () => {
+    await call(GET_ADMIN_PACKAGES_TRACKER_INFO, { register_id })
       .then((res) => {
-        const adminPackages = res?.data?.data?.bulk_subscriptions?.filter(
-          (obj) =>
-            obj.duration !== "hourly" || obj.package_duration !== "hourly"
-        );
-        setAdminPackages(adminPackages || []);
+        const adminTrackerPackages = res?.data?.data
+          ?.map((item) => {
+            const dateTimeString = `${item.created_date} ${item.created_time}`;
+            const timestamp = new Date(dateTimeString).getTime();
+            item.timestamp = timestamp;
+            item.matched_no_return_pack = item.no_of_packages;
+            return item;
+          })
+          ?.sort((a, b) => b.timestamp - a.timestamp);
+        setReturnPackageTrackerList(adminTrackerPackages || []);
       })
       .catch((err) => console.log(err));
   };
 
-  const onAddandSubtractExistingPackClick = (obj, value) => {
-    let updatePackages = [];
-    updatePackages = userPackageList.map((item) => {
-      if (item.package_id === obj.package_id) {
-        item.no_of_packages = item.no_of_packages;
-        item.selected_no_of_packages =
-          (item.selected_no_of_packages || 0) + value;
-      }
-      return item;
-    });
-    let updateReturnPackageList = [];
-    if (returnPackageList?.length) {
-      const findIndex = returnPackageList.findIndex(
-        (list) => list?.package_id === obj?.package_id
-      );
-      if (findIndex < 0) {
-        const newArr = [
-          {
-            cost: obj?.package_cost,
-            package_id: obj?.package_id,
-            no_of_packages: value,
-            selected_no_of_packages: value,
-          },
-        ];
-        updateReturnPackageList = [...returnPackageList, ...newArr];
-      } else {
-        updateReturnPackageList = returnPackageList.map((list) => {
-          if (list?.package_id === obj?.package_id) {
-            list.no_of_packages = list.no_of_packages + value;
-            list.selected_no_of_packages = list.selected_no_of_packages + value;
-          }
-          return list;
-        });
-      }
-    } else {
-      updateReturnPackageList = [
-        {
-          ...obj,
-          cost: obj?.package_cost,
-          package_id: obj?.package_id,
-          no_of_packages: value,
-          selected_no_of_packages: value,
-        },
-      ];
-    }
-    if (selectedReturnPackageTotalCost > finalPackageCost) {
-      setMessage("return packages cost will not exceed curent packages");
-      return;
-    }
-    setReturnPackageList(updateReturnPackageList);
-    setAdminPackages(updatePackages);
-  };
-
   useEffect(() => {
     if (selectedReturnPackageTotalCost > finalPackageCost) {
-      setMessage("return packages cost will not exceed curent packages");
+      alert("return packages cost will not exceed curent packages");
       return;
     }
   }, [selectedReturnPackageTotalCost]);
@@ -428,11 +419,10 @@ function UpgradeYourPackagePopup(props) {
   useEffect(() => {
     getProfile();
     getAdminPackages();
-  }, []);
-
-  useEffect(() => {
+    getAdminTrackerPackages();
     getAllPaymentData();
   }, []);
+
   const fileInputRef = useRef(null);
 
   return (
@@ -442,8 +432,10 @@ function UpgradeYourPackagePopup(props) {
         show={showPackagePopup}
         centered
         className="match-share-modal payment-modal z-index"
+        onHide={() => handlePackagePopupClose()}
       >
-        <div onClick={handlePackagePopupClose}>close</div>
+        {/* <div onClick={handlePackagePopupClose}>close</div> */}
+        <Modal.Header closeButton></Modal.Header>
         <Modal.Body>
           <div className="w-100 flex-columnn relative-position">
             <div className="text-center large-font mt-3 mb-2">
@@ -458,10 +450,6 @@ function UpgradeYourPackagePopup(props) {
               </div>
             </div>
             <div className="w-100 p-4">
-              {/* <div className="d-flex flex-row w-100 custom-select small-font btn-bg rounded all-none p-1 align-items-center justify-content-between p-2">
-                <div>Total Packages Price</div>
-                <div>{totalPackagesCost}</div>
-              </div> */}
               <Dropdown
                 size="lg"
                 className="user-dropdown-toggle custom-button-drop small-font mt-2"
@@ -508,63 +496,68 @@ function UpgradeYourPackagePopup(props) {
                   </div>
                 )}
               </Dropdown>
-              <Dropdown
-                size="lg"
-                className="user-dropdown-toggle custom-button-drop small-font mt-2"
-              >
-                <div className="d-flex flex-row w-100 custom-select small-font btn-bg rounded all-none p-1 align-items-center justify-content-between p-2">
-                  <div onClick={() => handleOpenReturnOptions()}>
-                    <div>Return existed Packages</div>
-                  </div>
+              {selectPackage === false && (
+                <Dropdown
+                  size="lg"
+                  className="user-dropdown-toggle custom-button-drop small-font mt-2"
+                >
+                  <div className="d-flex flex-row w-100 custom-select small-font btn-bg rounded all-none p-1 align-items-center justify-content-between p-2">
+                    <div onClick={() => handleOpenReturnOptions()}>
+                      <div>Return existed Packages</div>
+                    </div>
 
-                  <span style={{ float: "right" }}>
-                    {selectedReturnPackageTotalCost}
-                  </span>
-                </div>
-                {openReturnOptions === true && (
-                  <div className="custom-menu-item px-1 z-index">
-                    {userPackageList?.map((item, index) => (
-                      <div
-                        key={index}
-                        className="rounded my-1 d-flex flex-row justify-content-between"
-                      >
-                        <div>
-                          <span>{item.package_name}</span>
-                          <span className="clr-yellow mx-1">
-                            {item.duration}
-                          </span>
-                        </div>
-                        <div className="add-button rounded-pill p-1 small-font d-flex align-items-center justify-content-evenly">
-                          <FaMinus
-                            className="mx-1"
-                            onClick={() =>
-                              item.selected_no_of_packages >=
-                              item.no_of_packages
-                                ? null
-                                : onAddandSubtractExistingPackClick(item, -1)
-                            }
-                          />
-                          <div className="fw-semibold">
-                            {item.selected_no_of_packages || 0}
-                          </div>
-                          <FaPlus
-                            className="mx-1"
-                            onClick={() =>
-                              item?.selected_no_of_packages <= 0
-                                ? null
-                                : onAddandSubtractExistingPackClick(item, 1)
-                            }
-                          />
-                        </div>
-                      </div>
-                    ))}
-                    <Dropdown.Item className="rounded my-2 d-flex flex-row justify-content-between">
-                      <div>Total Amount</div>
-                      <div>{totalPackagesCost}</div>
-                    </Dropdown.Item>
+                    <span style={{ float: "right" }}>
+                      -
+                      {selectedReturnPackageTotalCost
+                        ? selectedReturnPackageTotalCost
+                        : "-"}
+                    </span>
                   </div>
-                )}
-              </Dropdown>
+                  {openReturnOptions === true && (
+                    <div className="custom-menu-item px-1 z-index">
+                      {userPackageList?.map((item, index) => (
+                        <div
+                          key={index}
+                          className="rounded my-1 d-flex flex-row justify-content-between"
+                        >
+                          <div>
+                            <span>{item.package_name}</span>
+                            <span className="clr-yellow mx-1">
+                              {item.duration}
+                            </span>
+                            <span className="add-button rounded-pill p-1">
+                              {item.no_of_packages}
+                            </span>
+                          </div>
+                          <div className="add-button rounded-pill p-1 small-font d-flex align-items-center justify-content-evenly">
+                            <FaMinus
+                              className="mx-1"
+                              onClick={() => () =>
+                                item.selected_no_of_packages
+                                  ? onAddandSubtractExistingPackClick(item, -1)
+                                  : null}
+                            />
+                            <div className="fw-semibold">
+                              {item.selected_no_of_packages || 0}
+                            </div>
+                            <FaPlus
+                              className="mx-1"
+                              onClick={() =>
+                                item?.selected_no_of_packages < -1 ||
+                                item.selected_no_of_packages ===
+                                  item.no_of_packages
+                                  ? null
+                                  : onAddandSubtractExistingPackClick(item, +1)
+                              }
+                            />
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </Dropdown>
+              )}
+
               <div className="d-flex flex-row w-100 custom-select small-font btn-bg rounded all-none p-1 align-items-center justify-content-between p-2 mt-2">
                 <div>Packages Discount</div>
                 <div>{totalDiscount ? -parseInt(totalDiscount) : 0}</div>
@@ -580,7 +573,11 @@ function UpgradeYourPackagePopup(props) {
               <hr />
               <div className="d-flex justify-content-between medium-font mt-2 mb-2">
                 <div>Total</div>
-                <div>{totalPackagesBill ? totalPackagesBill : "0"}</div>
+                <div>
+                  {totalPackagesBill
+                    ? totalPackagesBill - selectedReturnPackageTotalCost
+                    : "0"}
+                </div>
               </div>
               <button
                 type="submit"

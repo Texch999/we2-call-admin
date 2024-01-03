@@ -141,7 +141,6 @@ const AdminSharesMatchStatement = () => {
       })
       .catch((err) => console.log(err));
   };
-
   useEffect(() => {
     getAdminShare();
     getAllClientsData();

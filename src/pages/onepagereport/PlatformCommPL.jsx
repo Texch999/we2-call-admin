@@ -30,7 +30,7 @@ function PlatformCommPL(props) {
   return (
     <div className="mt-3">
       {/* <h6 className="Platform-Comm-PL-">Platform Comm:</h6> */}
-      <table className="w-100 match-position-table medium-font">
+      {/* <table className="w-100 fixed-teble match-position-table medium-font">
         <thead>
           <tr className="text-center">
             <th className="w-20">DATE</th>
@@ -40,9 +40,18 @@ function PlatformCommPL(props) {
             <th className="w-20">Platform Comm</th>
           </tr>
         </thead>
-      </table>
-      <div className="referal-table-scroll-content">
+      </table> */}
+      <div className="fixed-table">
         <table className="w-100 match-position-table medium-font">
+          <thead>
+            <tr className="text-center">
+              <th className="w-20">DATE</th>
+              <th className="w-20">MATCH NAME</th>
+              <th className="w-20">WIN TEAM</th>
+              <th className="w-20">Urs Net P/L</th>
+              <th className="w-20">Platform Comm</th>
+            </tr>
+          </thead>
           {PAGE_REPORT_DETAILS?.map((item, index) => (
             <tbody key={index}>
               <tr className="text-center">
@@ -54,21 +63,19 @@ function PlatformCommPL(props) {
               </tr>
             </tbody>
           ))}
+          <tfoot>
+            <tr className="text-center">
+              <th colSpan="3">TOTAL</th>
+              <th className={totalUrsPlPlatform > 0 ? "clr-green" : "clr-red"}>
+                {totalUrsPlPlatform ? totalUrsPlPlatform?.toFixed(2) : 0}
+              </th>
+              <th className={totalPlatform > 0 ? "clr-green" : "clr-red"}>
+                {totalPlatform ? totalPlatform?.toFixed(2) : 0}
+              </th>
+            </tr>
+          </tfoot>
         </table>
       </div>
-      <table className="w-100 match-position-table medium-font">
-        <tfoot>
-          <tr className="text-center">
-            <th colSpan={10}>TOTAL</th>
-            <th className={totalUrsPlPlatform > 0 ? "clr-green" : "clr-red"}>
-              {totalUrsPlPlatform ? totalUrsPlPlatform?.toFixed(2) : 0}
-            </th>
-            <th className={totalPlatform > 0 ? "clr-green" : "clr-red"}>
-              {totalPlatform ? totalPlatform?.toFixed(2) : 0}
-            </th>
-          </tr>
-        </tfoot>
-      </table>
     </div>
   );
 }

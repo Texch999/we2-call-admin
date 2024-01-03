@@ -12,6 +12,7 @@ function AdminPackageTickets() {
     (item) => item.type !== "subscription"
   );
 
+  console.log(packageSelectTickets, ".........packageSelectTickets");
 
   const MATCH_ENTRY_DATA = packageSelectTickets?.map((obj) => ({
     date: obj?.created_date,
@@ -30,7 +31,6 @@ function AdminPackageTickets() {
       ),
     fundStatus: obj?.reason,
   }));
-
 
   const MATCH_ENTRY_HEADING = [
     {

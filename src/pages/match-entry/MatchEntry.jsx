@@ -63,6 +63,7 @@ function MatchEntry() {
     })
       .then((res) => {
         setMatchPositionData(res?.data?.data);
+        // setStatus((prev) => !prev);
       })
       .catch((err) => console.log(err));
   };
@@ -95,7 +96,7 @@ function MatchEntry() {
       getCompanyMatches();
     };
     fetchData();
-  }, []);
+  }, [afterDeclare]);
 
   useEffect(() => {
     const fetchMatchInfo = async () => {

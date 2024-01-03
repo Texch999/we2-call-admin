@@ -152,7 +152,6 @@ function AddAdminsPopup(props) {
     setInputData(props.adminsData);
   }, []);
 
-
   return (
     <Modal
       show={show}

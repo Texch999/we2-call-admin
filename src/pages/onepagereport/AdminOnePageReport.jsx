@@ -56,14 +56,22 @@ const AdminOnePageReport = () => {
       return {
         admin_name: user?.client_name,
         admin_role: user?.account_role,
-        profit_loss: user?.total_amount ? user?.total_amount?.toFixed(2) : 0,
-        ul_share: isAdminActive
-          ? netPL
-            ? netPL?.toFixed(2)
-            : 0
-          : user?.totalPlatformNet
-          ? user?.totalPlatformNet?.toFixed(2)
-          : 0,
+        profit_loss: (
+          <div className={user?.total_amount > 0 ? "clr-green" : "clr-red"}>
+            {user?.total_amount ? user?.total_amount?.toFixed(2) : 0}
+          </div>
+        ),
+        ul_share: (
+          <div className={netPL > 0 ? "clr-green" : "clr-red"}>
+            {isAdminActive
+              ? netPL
+                ? netPL?.toFixed(2)
+                : 0
+              : user?.totalPlatformNet
+              ? user?.totalPlatformNet?.toFixed(2)
+              : 0}
+          </div>
+        ),
       };
     });
   const adminOnePageReportIndividualData =

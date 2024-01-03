@@ -532,7 +532,12 @@ function PurchaseTopupHours() {
   };
 
   const handlePayments = () => {
-    packageList.length > 0 ? setShowPackagePopup(true) : setSelectPackage(true);
+    if (packageList.length > 0) {
+      setShowPackagePopup(true);
+      setSelectPackage(true);
+    } else {
+      alert("Please Select Hours");
+    }
   };
 
   return (
@@ -672,6 +677,7 @@ function PurchaseTopupHours() {
         </div>
       </div>
       <UpgradeYourPackagePopup
+        selectPackage={selectPackage}
         showPackagePopup={showPackagePopup}
         setShowPackagePopup={setShowPackagePopup}
       />
