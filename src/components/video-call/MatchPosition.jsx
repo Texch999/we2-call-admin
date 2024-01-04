@@ -17,6 +17,8 @@ function MatchPosition(props) {
   const [profitLossData, setProfitLossData] = useState([]);
   const [matchRegisterData, setMatchRegisterData] = useState([]);
 
+  console.log(data, "===>DATA");
+
   const getMatchEntryDetails = async () => {
     await call(GET_MATCH_ENTRY_DETAILS, {
       registered_match_id: matchRegisterData?.registered_match_id,
