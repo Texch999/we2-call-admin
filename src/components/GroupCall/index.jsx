@@ -591,7 +591,7 @@ class GroupCall extends React.Component {
       InvitationTypeVideoCall: true,
       showOnlyAudioUser: false,
       showNonVideoUser: true,
-      showScreenSharingButton: false,
+      showScreenSharingButton: true,
       showLayoutButton: false,
       showRoomDetailsButton: false,
       showPinButton: false,

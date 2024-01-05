@@ -359,6 +359,10 @@ const CallManagement = () => {
     }
   };
 
+  const handleJoinMeeting = (data) => {
+    history.push(`/meeting/${data?.meeting_id}`);
+  };
+
   useEffect(() => {
     getAdminUsersList();
     getAllAdminMatches();
@@ -374,7 +378,7 @@ const CallManagement = () => {
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
-  console.log(meetingInput, "MEETING_INPUT");
+
   return (
     <div className="px-3 py-2">
       <div className="d-flex align-items-center justify-content-between">
@@ -597,7 +601,6 @@ const CallManagement = () => {
                 <th className="text-center">START DATE & TIME</th>
                 <th className="text-center">USER</th>
                 <th className="text-center">STATUS</th>
-                <th className="text-center"></th>
               </tr>
             </thead>
             <tbody>
@@ -611,8 +614,11 @@ const CallManagement = () => {
                     </td>
                     <td className="text-center">{data?.user}</td>
                     <td className="text-center" colSpan={2}>
-                      <Button className="rounded-pill meeting-status-button">
-                        {data?.action}
+                      <Button
+                        className="rounded-pill meeting-status-button"
+                        onClick={() => handleJoinMeeting(data)}
+                      >
+                        JOIN
                       </Button>
                     </td>
                   </tr>
