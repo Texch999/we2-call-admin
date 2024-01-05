@@ -422,10 +422,7 @@ exports.RISK_RUNNING_SESSION = {
   method: GET,
 };
 
-exports.FANCY_RESULT_PROFIT_LOSS = {
-  url: FANCY_RESULT_PROFIT_LOSS,
-  method: POST,
-};
+ 
 exports.UPDATE_PAYMENT_GATEWAY = {
   url: UPDATE_PAYMENT_GATEWAY,
   method: POST,

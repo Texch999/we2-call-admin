@@ -335,6 +335,10 @@ const CallManagement = () => {
       });
   };
 
+  const handleCallJoin = (data) => {
+    history.push(`/meeting/${data?.meeting_id}`);
+  };
+
   const handleOpenJoinPopup = (data, isNotCreated) => {
     if (isNotCreated) {
       history.push(`/meeting/${data?.meeting_id}`);
@@ -597,7 +601,6 @@ const CallManagement = () => {
                 <th className="text-center">START DATE & TIME</th>
                 <th className="text-center">USER</th>
                 <th className="text-center">STATUS</th>
-                <th className="text-center"></th>
               </tr>
             </thead>
             <tbody>
@@ -611,8 +614,11 @@ const CallManagement = () => {
                     </td>
                     <td className="text-center">{data?.user}</td>
                     <td className="text-center" colSpan={2}>
-                      <Button className="rounded-pill meeting-status-button">
-                        {data?.action}
+                      <Button
+                        className="rounded-pill meeting-status-button"
+                        onClick={() => handleCallJoin(data)}
+                      >
+                        JOIN
                       </Button>
                     </td>
                   </tr>
