@@ -2,6 +2,7 @@ import { useState } from "react";
 import ScoreBoard from "./ScoreBoard";
 import UserList from "./UserList";
 import "./styles.css";
+import moment from "moment";
 
 function Calling(props) {
   const { isAdminCreated, meetingId, liveMeeting } = props;
@@ -10,6 +11,7 @@ function Calling(props) {
   const handleButton = (index) => {
     setActiveIndex(index);
   };
+  
   return (
     <div className="w-25 header-bg h-80vh rounded p-1">
       <div className="w-100 num-btn-bg rounded p-2">
@@ -27,13 +29,13 @@ function Calling(props) {
               </button>
             ))}
         </div>
-        <div className="font-14 mt-2">
-          <div className="rounded-pill py-1 px-3 bg-blue">
-            Date : {liveMeeting?.date}
+        <div className="d-flex flex-wrap font-14">
+          <div className="rounded-pill py-1 px-3 bg-blue mt-1">
+            Date : {moment(liveMeeting?.given_time_stamp).format("DD-MM-YYYY")}
           </div>
-          {/* <div className="rounded-pill py-1 px-3 bg-blue mt-1">
+          <div className="rounded-pill py-1 px-3 bg-blue mt-1">
             {liveMeeting?.event_name}
-          </div> */}
+          </div>
           <div className="rounded-pill py-1 px-3 bg-blue mt-1">
             {liveMeeting?.match_name}
           </div>

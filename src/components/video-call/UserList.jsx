@@ -100,7 +100,7 @@ function UserList(props) {
   };
   useEffect(() => {
     handleInsideFilterUsers(insideUsersTerm);
-  }, [insideUsersTerm, filteredInsideUsers]);
+  }, [insideUsersTerm]);
 
   const [outsideUsersTerm, setOutsideUsersTerm] = useState("");
   const [filteredOutsideUsers, setFilteredOutsideUsers] = useState([]);
@@ -112,7 +112,7 @@ function UserList(props) {
   };
   useEffect(() => {
     handleOutsideFilterUsers(outsideUsersTerm);
-  }, [outsideUsersTerm, filteredOutsideUsers]);
+  }, [outsideUsersTerm]);
 
   return (
     <div>
@@ -173,7 +173,7 @@ function UserList(props) {
               >
                 <div>{item?.name}</div>
                 <div
-                  className="green-bg p-1 px-2 rounded cursor-pointer"
+                  className="green-bg p-1 px-2 mx-1 rounded cursor-pointer"
                   onClick={() => addUserInMeeting(item.id)}
                 >
                   <FaPlus className="font-1rem" />
