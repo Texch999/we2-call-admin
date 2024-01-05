@@ -41,8 +41,8 @@ function MeetingAndSummary() {
           <div>
             {meeting?.event_name}
             <br />
-            {moment(meeting?.given_time_stamp).format("DD-MM-YYY")} -{" "}
-            {moment(meeting?.given_time_stamp).format("hh:mm:s")}
+            {moment(meeting?.given_time_stamp).format("DD-MM-YYYY")}    / {" "}
+            {moment(meeting?.given_time_stamp).format("hh:mm A")}
           </div>
         ),
         user: (

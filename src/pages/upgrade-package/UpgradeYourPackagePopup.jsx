@@ -220,9 +220,13 @@ function UpgradeYourPackagePopup(props) {
       .catch((err) => console.log(err));
   };
 
+  const [numReturn, setNumReturn] = useState(1);
+
   const onAddandSubtractExistingPackClick = (obj, value) => {
     let updatePackages = [];
     console.log(obj, ".......totalPackagesBill");
+    console.log(selectedReturnPackageTotalCost, "............whenaddpackages");
+    setNumReturn(numReturn + value);
     if (selectedReturnPackageTotalCost > totalPackagesBill) {
       alert(" curent packages");
       return;
