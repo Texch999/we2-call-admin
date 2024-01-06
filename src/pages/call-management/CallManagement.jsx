@@ -353,7 +353,7 @@ const CallManagement = () => {
       setError({ message: "Users Limit exceeded, Please Update" });
       return;
     }
-    if (!packageLimits) {
+    if (packageLimits) {
       history.push(`/meeting/${data?.meeting_id}`);
       localStorage.setItem("isAdminMeeting", true);
     } else {
@@ -378,7 +378,7 @@ const CallManagement = () => {
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
-  console.log(meetingInput, "MEETING_INPUT");
+
   return (
     <div className="px-3 py-2">
       <div className="d-flex align-items-center justify-content-between">
@@ -616,7 +616,7 @@ const CallManagement = () => {
                     <td className="text-center" colSpan={2}>
                       <Button
                         className="rounded-pill meeting-status-button"
-                        onClick={() => handleCallJoin(data)}
+                        onClick={() => handleOpenJoinPopup(data, true)}
                       >
                         JOIN
                       </Button>
