@@ -55,7 +55,7 @@ function ScoreBoard() {
         </div>
       </div>
       <div className="bg-blue rounded font-12 mt-1 py-1">
-        <div className="bg-yellow w-50">Match Of The Day</div>
+        <div className="bg-yellow match-of-the-day">Match Of The Day</div>
         <div className="p-1 w-100 d-flex align-items-center justify-content-between">
           <div className="team-img flex-center">
             <img src={Images.cskIcon} alt="" />

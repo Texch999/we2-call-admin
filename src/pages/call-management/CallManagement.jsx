@@ -349,7 +349,7 @@ const CallManagement = () => {
       setError({ message: "Users Limit exceeded, Please Update" });
       return;
     }
-    if (!packageLimits) {
+    if (packageLimits) {
       history.push(`/meeting/${data?.meeting_id}`);
       localStorage.setItem("isAdminMeeting", true);
     } else {
@@ -357,10 +357,6 @@ const CallManagement = () => {
         message: "you don't have any subscription, Please upgarde !",
       });
     }
-  };
-
-  const handleJoinMeeting = (data) => {
-    history.push(`/meeting/${data?.meeting_id}`);
   };
 
   useEffect(() => {
@@ -616,7 +612,7 @@ const CallManagement = () => {
                     <td className="text-center" colSpan={2}>
                       <Button
                         className="rounded-pill meeting-status-button"
-                        onClick={() => handleJoinMeeting(data)}
+                        onClick={() => handleOpenJoinPopup(data, true)}
                       >
                         JOIN
                       </Button>

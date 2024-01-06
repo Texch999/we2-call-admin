@@ -99,6 +99,13 @@
   overflow-x: scroll;
   overflow-y: hidden;
 }
+.match-of-the-day {
+  width: 40%;
+  border-radius: 0px 10px 10px 0px;
+}
+.fw-600 {
+  font-weight: 600;
+}
 
 /* Video Call */
 
