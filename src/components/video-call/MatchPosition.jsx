@@ -111,16 +111,37 @@ function MatchPosition(props) {
         <div>{userName} - Match Position</div>
       </div>
       <div className="num-btn-bg rounded mt-1">
-        <div className="fw-600 d-flex align-items-center justify-content-around p-1">
-          <div className="flex-column flex-center">
-            <div>IND</div>
-            <div>200000</div>
-          </div>
-          <div className="flex-column flex-center">
-            <div>PAK</div>
-            <div>200000</div>
-          </div>
-        </div>
+        {matchPositionData?.length > 0 &&
+          matchPositionData
+            ?.filter((item) => item?.client_name === userName)
+            ?.map((item) => (
+              <div className="fw-600 d-flex align-items-center justify-content-around p-1">
+                <div className="flex-column flex-center">
+                  <div>{matchRegisterData?.team1}</div>
+                  <div
+                    className={`${
+                      +item?.teamObj[matchRegisterData?.team1] > 0
+                        ? "green-clr"
+                        : "red-clr"
+                    }`}
+                  >
+                    {item?.teamObj[matchRegisterData?.team1]}
+                  </div>
+                </div>
+                <div className="flex-column flex-center">
+                  <div>{matchRegisterData?.team2}</div>
+                  <div
+                    className={`${
+                      +item?.teamObj[matchRegisterData?.team2] > 0
+                        ? "green-clr"
+                        : "red-clr"
+                    }`}
+                  >
+                    {item?.teamObj[matchRegisterData?.team2]}
+                  </div>
+                </div>
+              </div>
+            ))}
         <hr className="sb-line" />
         <div className="w-100 fw-600 d-flex p-1">
           <div className="col flex-center">S.NO</div>
