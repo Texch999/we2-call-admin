@@ -125,6 +125,14 @@ function MatchEntry() {
           team2={selectedMatch?.team2}
           matchPositionData={matchPositionData}
         />
+        {selectedMatch?.game_object?.match_type === "testMatch" && (
+          <MatchPositionTable
+            team1="draw"
+            team2="draw"
+            matchPositionData={matchPositionData}
+            teamName="Draw"
+          />
+        )}
       </div>
       <MatchEntries
         setStatus={setStatus}

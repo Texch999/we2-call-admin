@@ -118,6 +118,9 @@ function MatchResultInput({
               <option value={selectedMatch?.team2}>
                 {selectedMatch?.team2}
               </option>
+              {selectedMatch?.game_object?.match_type === "testMatch" && (
+                <option value="DRAW">DRAW</option>
+              )}
             </select>
           </div>
         </div>

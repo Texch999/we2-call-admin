@@ -9,19 +9,11 @@ function MatchShareModal(props) {
     mergedDataArray?.length > 0 &&
     mergedDataArray?.map((client) => ({
       header: client?.client,
-      // clintShare:
-      //   client?.resultTeam > 0
-      //     ? client?.clientShare?.toFixed(2) || 0
-      //     : -client?.clientShare?.toFixed(2) || 0,
-      clintShare:
-        (client?.resultTeam > 0
-          ? parseFloat(client?.rfShare)?.toFixed(2) || 0
-          : -parseFloat(client?.rfShare)?.toFixed(2) || 0) || 0,
-      rfShare:
-        (client?.resultTeam > 0
-          ? client?.ULShare?.toFixed(2) || 0
-          : -client?.ULShare?.toFixed(2) || 0) || 0,
+      clintShare: client?.clintShare ? client?.clintShare?.toFixed(2) : 0,
+      rfShare: client?.rfShare ? client?.rfShare?.toFixed(2) : 0,
     }));
+
+  console.log(mergedDataArray, "===>mergedDataArray");
 
   const MATCH_POSITION_HEADER_DATA = [
     { header: "Client Name", field: "header" },

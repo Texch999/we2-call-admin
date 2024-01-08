@@ -4,7 +4,7 @@ import { useState } from "react";
 import MatchShareModal from "../match-popups/MatchShareModal";
 import MatchCommModal from "../match-popups/MatchCommModal";
 function MatchPositionTable(props) {
-  const { matchPositionData, team1, team2, win } = props;
+  const { matchPositionData, team1, team2, win, teamName } = props;
   const [matchShareModal, setMatchShareModal] = useState(false);
   const [matchCommModal, setMatchCommModal] = useState(false);
   const handleOpenMatchShareModal = () => {
@@ -27,7 +27,9 @@ function MatchPositionTable(props) {
       .map(
         ({ client_name, teamObj, amount, team, ClientDetails, pe }, index) => {
           let resultTeam =
-            team1 === win
+            team1 === "draw"
+              ? parseFloat(teamObj["draw"])
+              : team1 === win
               ? parseFloat(teamObj[win])
               : parseFloat(teamObj[team1]);
           return {
@@ -143,7 +145,12 @@ function MatchPositionTable(props) {
       <div className="row d-flex align-items-center match-position-bg p-2 rounded m-1">
         <div className="col-sm-4 col-lg-6">
           <div className="medium-font">
-            Match Position - <span className="yellow-clr">{team1}</span>
+            Match Position -{" "}
+            {teamName === "Draw" ? (
+              <span className="yellow-clr">DRAW</span>
+            ) : (
+              <span className="yellow-clr">{win ? team1 : team2}</span>
+            )}
           </div>
         </div>
         <div className="col">
