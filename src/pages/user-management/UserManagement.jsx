@@ -460,7 +460,7 @@ function UserManagement() {
                       value={item.user_name}
                       key={index}
                     >
-                      {item.user_name}
+                      {item.user_name} - {item.account_role}
                     </option>
                   ))}
             </select>

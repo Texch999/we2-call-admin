@@ -27,7 +27,14 @@ function MatchEntryInput({
   const [selectedOptions, setSelectedOptions] = useState();
 
   const optionList = existingUsers?.map((item) => {
-    return { value: item?.client_id, label: item?.client_name };
+    return {
+      value: item?.client_id,
+      label: (
+        <div>
+          {item?.client_name} - {item?.account_role}
+        </div>
+      ),
+    };
   });
   const handleSelect = (data) => {
     setSelectedOptions(data);

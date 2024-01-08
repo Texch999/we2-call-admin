@@ -132,7 +132,11 @@ function Statement(props) {
     existingUsers.map((item) => {
       return {
         clientID: item.client_id,
-        clientName: item.client_name,
+        clientName: (
+          <div>
+            {item?.client_name}-{item?.account_role}
+          </div>
+        ),
       };
     });
   const matchOptions =
@@ -238,7 +242,7 @@ function Statement(props) {
                 clientOptions?.map((item, index) => {
                   return (
                     <option key={index} value={item.clientName}>
-                      {item.clientName}{" "}
+                      {item?.clientName}{" "}
                     </option>
                   );
                 })}
