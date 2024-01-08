@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useHistory } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { setSelectedLiveMatch } from "../../redux/actions/commonActions";
+import { Redirect } from "react-router";
 
 function MatchScroll(props) {
   const { allMatches, selectedMatch, setSelectedMatch } = props;
@@ -16,6 +17,8 @@ function MatchScroll(props) {
   const selectedLiveMatch = useSelector(
     (state) => state?.common?.selected_match
   );
+
+  console.log(selectedLiveMatch, "===>selectedLiveMatch");
 
   useEffect(() => {
     if (history.location.pathname === "/fancy-entry") {
@@ -58,6 +61,7 @@ function MatchScroll(props) {
     });
     setScrollPosition(scrollPosition + 100);
   };
+
   return (
     <div>
       <div className="container-fluid px-3 pb-3">
@@ -111,16 +115,19 @@ function MatchScroll(props) {
                     Match Entry
                   </div>
                 </div>
-                <div className="col">
-                  <div
-                    className={`cursor-pointer fw-semibold btn-bg medium-font text-white text-center p-3 m-1 rounded ${
-                      fancyEntry ? "yellow-btn" : ""
-                    }`}
-                    onClick={() => handleFancyEntry()}
-                  >
-                    Fancy Entry
+                {selectedLiveMatch?.game_object?.match_type ===
+                "testMatch" ? null : (
+                  <div className="col">
+                    <div
+                      className={`cursor-pointer fw-semibold btn-bg medium-font text-white text-center p-3 m-1 rounded ${
+                        fancyEntry ? "yellow-btn" : ""
+                      }`}
+                      onClick={() => handleFancyEntry()}
+                    >
+                      Fancy Entry
+                    </div>
                   </div>
-                </div>
+                )}
               </div>
             </div>
             <div className="col-8 d-flex align-items-center justify-content-end">

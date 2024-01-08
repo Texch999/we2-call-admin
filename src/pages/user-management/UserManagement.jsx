@@ -288,9 +288,6 @@ function UserManagement() {
         console.log(res);
       });
   };
-  console.log(existingClients, "EEEEE");
-
-  // console.log(userDetails, "userDetails..");
 
   const exsitedUsers =
     existingClients &&
@@ -328,19 +325,15 @@ function UserManagement() {
         };
       });
 
-  console.log(existingClients, ".......existingClients");
-
   const handleChangePassword = (item) => {
     setShowChangePopup(true);
     setRegisterID(item);
   };
 
   const handleChange = (e) => {
-    // console.log(name, value);
     setUserDetails({ ...userDetails, [e.target.name]: e.target.value });
   };
 
-  console.log(userDetails, ".......userDetails");
   const getOfflineClients = async () => {
     await call(GET_OFFLINE_CLIENTS, { register_id })
       .then((res) => {
@@ -366,20 +359,14 @@ function UserManagement() {
   const getRefferalData = async () => {
     await call(GET_REFFERAL_DATA, { register_id })
       .then((res) => {
-        // console.log(res.data);
         setRefferalData(res?.data?.data);
       })
       .catch((err) => console.log(err));
   };
 
-  // const clientSelect =
-  //   clientSelection.filter((i) => i.value === userDetails?.client_type)[0]
-  //     ?.name || "Select...";
-
   useEffect(() => {
     getAllClients();
     getRefferalData();
-    // getClientDetails();
   }, []);
 
   useEffect(() => {

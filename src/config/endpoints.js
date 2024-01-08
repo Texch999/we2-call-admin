@@ -422,7 +422,6 @@ exports.RISK_RUNNING_SESSION = {
   method: GET,
 };
 
- 
 exports.UPDATE_PAYMENT_GATEWAY = {
   url: UPDATE_PAYMENT_GATEWAY,
   method: POST,
@@ -516,4 +515,9 @@ exports.SIGNAL_RECORDING = {
   url: SIGNAL_RECORDING,
   method: POST,
   flag: true,
+};
+
+exports.FANCY_RESULT_PROFIT_LOSS = {
+  url: FANCY_RESULT_PROFIT_LOSS,
+  method: POST,
 };

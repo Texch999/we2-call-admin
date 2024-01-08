@@ -14,8 +14,11 @@ import {
 } from "../../config/endpoints";
 import { call } from "../../config/axios";
 import { useSelector } from "react-redux";
+import { useHistory } from "react-router";
+import { Redirect } from "react-router";
 
 function FancyEntry() {
+  const history = useHistory();
   const [allMatches, setAllMatches] = useState([]);
   const [companyMatches, setCompanyMatches] = useState([]);
   const [selectedMatch, setSelectedMatch] = useState([]);
@@ -31,6 +34,8 @@ function FancyEntry() {
   const selectedLiveMatch = useSelector(
     (state) => state?.common?.selected_match
   );
+
+  console.log(selectedLiveMatch, "===>selectedLiveMatch");
 
   let register_id = localStorage?.getItem("register_id");
   let creator_id = localStorage?.getItem("creator_id");

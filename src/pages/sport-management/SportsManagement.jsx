@@ -28,7 +28,7 @@ function SportsManagement() {
     { name: "T10", first: [1, 4, 5], second: [2, 3] },
     { name: "T20", first: [1, 4, 5], second: [2, 3] },
     { name: "ODI", first: [1, 4, 5, 6, 9], second: [2] },
-    { name: "TEST", first: [], second: [] },
+    { name: "testMatch", first: [], second: [] },
   ];
 
   const selectOvers = matchType.filter((i) => i.name === matchData?.macth_type);
@@ -246,20 +246,6 @@ function SportsManagement() {
       .catch((err) => console.log(err));
   };
 
-  // const getScheduleMatches = async () => {
-  //   await call(GET_ALL_MATCHES, {
-  //     register_id: "company",
-  //     account_role: "company",
-  //   })
-  //     .then((res) => {
-  //       let result = res?.data?.data;
-  //       setLiveMatchesData(result?.liveMatches);
-  //       setTodayMatchesData(result?.todaysMatches);
-  //       setUpcomingMatchesData(result?.upCommingMatches);
-  //     })
-  //     .catch((err) => console.log(err));
-  // };
-
   const columns = [
     { header: "Series Name", field: "seriesName" },
     { header: "Team", field: "team" },
@@ -317,7 +303,7 @@ function SportsManagement() {
 
   useEffect(() => {
     getAllMatches();
-   // getScheduleMatches();
+    // getScheduleMatches();
   }, []);
 
   // useEffect(() => {
@@ -459,7 +445,7 @@ function SportsManagement() {
               <option value="T10">T10</option>
               <option value="T20">T20</option>
               <option value="ODI">ODI</option>
-              <option value="TEST">TEST</option>
+              <option value="testMatch">TEST-MATCH</option>
             </select>
           </div>
         </div>
